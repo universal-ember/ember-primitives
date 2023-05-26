@@ -75,7 +75,7 @@ jobs:
     name: '${{ matrix.typescript-scenario }}'
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    needs: [tests]
+    needs: [test]
     continue-on-error: true
     strategy:
       fail-fast: true

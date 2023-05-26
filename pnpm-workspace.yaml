@@ -1,0 +1,3 @@
+packages:
+  - 'radix-ember-primitives'
+  - 'test-app'

@@ -3,7 +3,7 @@
 ## Installation
 
 * `git clone <repository-url>`
-* `cd radix-ember-primitives`
+* `cd ember-primatives`
 * `pnpm install`
 
 ## Linting
@@ -13,7 +13,7 @@
 
 ## Building the addon
 
-* `cd radix-ember-primitives`
+* `cd ember-primatives`
 * `pnpm build`
 
 ## Running tests

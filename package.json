@@ -1,17 +1,17 @@
 {
-  "name": "radix-ember-primitives",
+  "name": "ember-primatives",
   "version": "0.0.0",
   "private": true,
   "repository": "",
   "license": "MIT",
   "author": "",
   "scripts": {
-    "build": "pnpm --filter radix-ember-primitives build",
+    "build": "pnpm --filter ember-primatives build",
     "lint": "pnpm --filter '*' lint",
     "lint:fix": "pnpm --filter '*' lint:fix",
     "prepare": "pnpm build",
     "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
-    "start:addon": "pnpm --filter radix-ember-primitives start --no-watch.clearScreen",
+    "start:addon": "pnpm --filter ember-primatives start --no-watch.clearScreen",
     "start:test-app": "pnpm --filter test-app start",
     "test": "pnpm --filter '*' test"
   },

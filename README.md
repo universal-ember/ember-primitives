@@ -1,4 +1,4 @@
-radix-ember-primitives
+ember-primitives
 ==============================================================================
 
 [Short description of the addon.]
@@ -15,7 +15,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install radix-ember-primitives
+ember install ember-primatives
 ```
 
 

@@ -3,7 +3,6 @@
 
 import 'ember-source/types';
 import 'ember-source/types/preview';
-
 import '@glint/environment-ember-loose';
 
 declare module '@glint/environment-ember-loose/registry' {

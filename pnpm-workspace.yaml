@@ -1,4 +1,4 @@
 packages:
-  - 'ember-primatives'
+  - 'ember-primitives'
   - 'test-app'
   - 'dev'

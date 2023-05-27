@@ -15,7 +15,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install ember-primatives
+ember install ember-primitives
 ```
 
 

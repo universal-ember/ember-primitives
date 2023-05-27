@@ -7,22 +7,39 @@
   "author": "",
   "scripts": {
     "release": "changeset publish",
-    "build": "pnpm --filter ember-primatives build",
-    "lint": "pnpm --filter '*' lint",
-    "lint:fix": "pnpm --filter '*' lint:fix",
-    "prepare": "pnpm build",
-    "start": "concurrently 'npm:start:*' --restart-after 5000 --prefix-colors cyan,white,yellow",
-    "start:addon": "pnpm --filter ember-primatives start --no-watch.clearScreen",
-    "start:test-app": "pnpm --filter test-app start",
-    "test": "pnpm --filter '*' test"
+    "build": "turbo run build --output-logs errors-only",
+    "test": "turbo run test --output-logs errors-only",
+    "lint:fix": "turbo run _:lint:fix --output-logs errors-only",
+    "lint": "turbo run _:lint --output-logs errors-only"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.1",
+    "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^7.2.1",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "turbo": "^1.9.9"
+  },
+  "engines": {
+    "node": ">= 18.*",
+    "yarn": "use pnpm",
+    "npm": "use pnpm"
+  },
+  "volta": {
+    "node": "18.16.0",
+    "pnpm": "8.5.1"
   },
   "pnpm": {
-    "overrides": {
-      "@types/eslint": "^7.0.0"
+    "patchedDependencies": {
+      "@changesets/assemble-release-plan@5.2.3": "patches/@changesets__assemble-release-plan@5.2.3.patch"
+    },
+    "peerDependencyRules": {
+      "allowAny": [
+        "typescript",
+        "ember-source"
+      ],
+      "ignoreMissing": [
+        "webpack"
+      ]
     }
   }
 }

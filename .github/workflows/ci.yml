@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: wyvox/action@add-turborepo
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
 
   lint:
     name: Lint
@@ -24,6 +27,8 @@ jobs:
     needs: [setup]
     steps:
       - uses: wyvox/action@add-turborepo
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm lint
 
 
@@ -34,6 +39,8 @@ jobs:
 
     steps:
       - uses: wyvox/action@add-turborepo
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm test
 
   floating:
@@ -44,6 +51,7 @@ jobs:
     steps:
       - uses: wyvox/action@add-turborepo
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
       - run: pnpm test
 
@@ -67,6 +75,8 @@ jobs:
 
     steps:
       - uses: wyvox/action@add-turborepo
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
         working-directory: test-app
@@ -89,6 +99,8 @@ jobs:
 
     steps:
       - uses: wyvox/action@add-turborepo
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: 'Change TS to ${{ matrix.typescript-scenario }}'
         run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
         working-directory: ./test-app

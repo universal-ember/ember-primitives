@@ -7,6 +7,8 @@ dist/
 node_modules/
 
 # misc
+.turbo/
+.eslintcache
 /.env*
 /.pnp*
 /.pnpm-debug.log

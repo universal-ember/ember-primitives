@@ -1,3 +1,4 @@
 packages:
   - 'ember-primatives'
   - 'test-app'
+  - 'dev'

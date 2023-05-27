@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["test-app", "@nullvoxpopuli/dev"]
+  "ignore": ["docs-app", "test-app", "@nullvoxpopuli/dev"]
 }

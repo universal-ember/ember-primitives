@@ -12,8 +12,11 @@ export default {
   output: addon.output(),
 
   plugins: [
-    addon.publicEntrypoints(['components/**/*.js', 'index.js', 'template-registry.js']),
-    addon.appReexports(['components/**/*.js']),
+    addon.publicEntrypoints(['**/*.js']),
+    addon.appReexports([
+      'components/**/*.js',
+      'helpers/**/*.js',
+    ]),
     addon.dependencies(),
     typescript({
       transpiler: 'babel',

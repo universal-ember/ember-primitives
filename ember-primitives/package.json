@@ -13,7 +13,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup --config",
+    "build": "rollup --config ./rollup.config.mjs",
     "lint": "pnpm -w exec lint",
     "lint:fix": "pnpm -w exec lint fix",
     "lint:js": "pnpm -w exec lint js",
@@ -71,7 +71,10 @@
     "version": 2,
     "type": "addon",
     "main": "addon-main.cjs",
-    "app-js": {}
+    "app-js": {
+      "./components/switch.js": "./dist/_app_/components/switch.js",
+      "./helpers/service.js": "./dist/_app_/helpers/service.js"
+    }
   },
   "exports": {
     ".": "./dist/index.js",

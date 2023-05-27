@@ -1,7 +1,12 @@
 import { execa } from 'execa';
 
 async function pending(command) {
-  let { stdout } = await execa('pnpm', ['turbo', 'run', command, '--dry-run=json']);
+  let { stdout } = await execa('pnpm', [
+    'turbo',
+    'run',
+    command,
+    '--dry-run=json',
+  ]);
 
   let json = JSON.parse(stdout);
   let tasks = json.tasks;
@@ -15,7 +20,6 @@ async function pending(command) {
   }
 
   return result;
-
 }
 
 /**

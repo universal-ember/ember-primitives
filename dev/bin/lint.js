@@ -4,7 +4,7 @@ import path from 'node:path';
 
 import chalk from 'chalk';
 import { packageJson, project } from 'ember-apply';
-import { execa,execaCommand } from 'execa';
+import { execa, execaCommand } from 'execa';
 
 const [, , command] = process.argv;
 // process.cwd() is whatever pnpm decides to do
@@ -60,11 +60,18 @@ async function run() {
 }
 
 function turbo(cmd) {
-  let args = ['turbo', '--color', '--no-update-notifier', '--output-logs', 'errors-only', cmd];
+  let args = [
+    'turbo',
+    '--color',
+    '--no-update-notifier',
+    '--output-logs',
+    'errors-only',
+    cmd,
+  ];
 
   console.info(chalk.blueBright('Running:\n', args.join(' ')));
 
-  return execa('pnpm', args, { stdio: 'inherit', env: { FORCE_COLOR: '1' }});
+  return execa('pnpm', args, { stdio: 'inherit', env: { FORCE_COLOR: '1' } });
 }
 
 async function dumpErrorLog(e) {
@@ -81,7 +88,14 @@ async function dumpErrorLog(e) {
     const filePath = path.join(tmpDir, randomName);
 
     const content =
-      `\n` + new Date() + '\n' + e.message + '\n\n' + '====================================================' + '\n\n' + e.stack;
+      `\n` +
+      new Date() +
+      '\n' +
+      e.message +
+      '\n\n' +
+      '====================================================' +
+      '\n\n' +
+      e.stack;
 
     await fs.writeFile(filePath, content);
 

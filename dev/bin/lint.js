@@ -1,7 +1,10 @@
+import fs from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 
+import chalk from 'chalk';
 import { packageJson, project } from 'ember-apply';
-import { execaCommand } from 'execa';
+import { execa,execaCommand } from 'execa';
 
 const [, , command] = process.argv;
 // process.cwd() is whatever pnpm decides to do
@@ -19,29 +22,77 @@ const root = await project.gitRoot();
 const manifest = await packageJson.read(cwd);
 const relative = path.relative(root, cwd);
 
-console.debug(`${manifest.name} :: within ${relative}`);
+if (process.env['DEBUG']) {
+  console.debug(`${manifest.name} :: within ${relative}`);
+}
 
 async function run() {
   switch (command) {
     case 'prettier:fix':
       return execaCommand(
-        `pnpm prettier -w . --cache --cache-strategy content`,
-        { cwd }
+        `pnpm prettier -w . ` + `--cache --cache-strategy content`,
+        { cwd, stdio: 'inherit' }
       );
     case 'prettier':
       return execaCommand(`pnpm prettier -c .`, { cwd });
     case 'js:fix':
       return execaCommand(
-        `pnpm eslint . --fix --cache --cache-strategy content`,
-        { cwd }
+        `pnpm eslint . ` + `--fix --cache --cache-strategy content`,
+        { cwd, stdio: 'inherit' }
       );
     case 'js':
-      return execaCommand(`pnpm eslint .`, { cwd });
+      return execaCommand(`pnpm eslint .`, { cwd, stdio: 'inherit' });
+    case 'hbs:fix':
+      return execaCommand(
+        `pnpm ember-template-lint . --fix --no-error-on-unmatched-pattern`,
+        { cwd, stdio: 'inherit' }
+      );
+    case 'hbs':
+      return execaCommand(
+        `pnpm ember-template-lint . --no-error-on-unmatched-pattern`,
+        { cwd, stdio: 'inherit' }
+      );
     case 'fix':
-      return execaCommand(`pnpm turbo _:lint:fix`);
+      return turbo('_:lint:fix');
     default:
-      return execaCommand(`pnpm turbo _:lint`);
+      return turbo('_:lint');
   }
 }
 
-await run();
+function turbo(cmd) {
+  let args = ['turbo', '--color', '--no-update-notifier', '--output-logs', 'errors-only', cmd];
+
+  console.info(chalk.blueBright('Running:\n', args.join(' ')));
+
+  return execa('pnpm', args, { stdio: 'inherit', env: { FORCE_COLOR: '1' }});
+}
+
+async function dumpErrorLog(e) {
+  function generateRandomName() {
+    const timestamp = new Date().getTime();
+    const random = Math.floor(Math.random() * 1000);
+
+    return `file_${timestamp}_${random}.log`;
+  }
+
+  try {
+    const randomName = await generateRandomName();
+    const tmpDir = os.tmpdir();
+    const filePath = path.join(tmpDir, randomName);
+
+    const content =
+      `\n` + new Date() + '\n' + e.message + '\n\n' + '====================================================' + '\n\n' + e.stack;
+
+    await fs.writeFile(filePath, content);
+
+    console.error(chalk.red('Error log at ', filePath));
+  } catch (err) {
+    console.error(chalk.red('Error creating file:', err));
+  }
+}
+
+try {
+  await run();
+} catch (e) {
+  await dumpErrorLog(e);
+}

@@ -1,0 +1,6 @@
+[aria-label="::missing::"] {
+  border: red;
+}
+label [aria-label="::missing::"] {
+  border: unset;
+}

@@ -11,6 +11,11 @@ concurrency:
    group: ci-${{ github.head_ref || github.ref }}
    cancel-in-progress: true
 
+env:
+  TURBO_API: http://127.0.0.1:9080
+  TURBO_TOKEN: this-is-not-a-secret
+  TURBO_TEAM: myself
+
 jobs:
   setup:
     name: 'Setup'

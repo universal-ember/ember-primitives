@@ -26,6 +26,9 @@
   },
   "dependencies": {
     "@types/unist": "^2.0.6",
+    "@types/hast": "^2.3.4",
+    "@types/mdast": "^3.0.11",
+    "assert": "^2.0.0",
     "ember-modifier": "^4.1.0",
     "ember-primitives": "workspace:*",
     "ember-repl": "^2.0.63",

@@ -42,6 +42,8 @@ module.exports = function (defaults) {
           },
           fallback: {
             path: require.resolve('path-browserify'),
+            assert: require.resolve("assert"),
+            fs: 'empty',
           },
         },
         node: {
@@ -75,8 +77,6 @@ const createManifest = createUnplugin((options) => {
         cwd: path.join(process.cwd(), src),
         expandDirectories: true,
       });
-
-      console.log({ paths });
 
       paths = paths.filter(
         (path) => !exclude.some((pattern) => path.match(pattern))

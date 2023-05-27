@@ -72,6 +72,7 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
+      "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
       "./helpers/service.js": "./dist/_app_/helpers/service.js"
     }

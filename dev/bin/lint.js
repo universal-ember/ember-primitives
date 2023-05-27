@@ -109,4 +109,5 @@ try {
   await run();
 } catch (e) {
   await dumpErrorLog(e);
+  process.exit(1);
 }

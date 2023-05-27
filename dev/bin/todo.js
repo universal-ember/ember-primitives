@@ -7,7 +7,7 @@ import { execa } from 'execa';
 async function pending(command) {
   let { stdout } = await execa('pnpm', ['turbo', 'run', command, '--dry-run']);
 
-  let [_, info] = stdout.split('Tasks to Run');
+  let [, info] = stdout.split('Tasks to Run');
   let lines = info.split('\n').filter(Boolean);
 
   let groups = [];

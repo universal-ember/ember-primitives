@@ -25,7 +25,7 @@ export default {
     }),
     addon.hbs(),
     glimmerTemplateTag(),
-    // addon.keepAssets(['**/*.css']),
+    addon.keepAssets(['**/*.css']),
     addon.clean(),
     copy({
       targets: [

@@ -195,7 +195,6 @@ const markdownCompiler = unified()
     demo: {
       classList: ['glimdown-render'],
     },
-    copyComponent: '<Limber::CopyMenu />',
   })
   // .use(() => (tree) => visit(tree, (node) => console.log('i', node)))
   // remark rehype is needed to convert markdown to HTML

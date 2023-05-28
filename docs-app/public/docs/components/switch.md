@@ -28,7 +28,7 @@ import { Shadowed, Switch } from 'ember-primitives';
 
 ### Bootstrap
 
-```gjs live preview
+```gjs 
 import { Shadowed, Switch } from 'ember-primitives';
 
 <template>
@@ -48,7 +48,7 @@ import { Shadowed, Switch } from 'ember-primitives';
 
 ### Elastic UI
 
-```gjs live preview
+```gjs 
 import { Shadowed, Switch } from 'ember-primitives';
 
 <template>
@@ -68,7 +68,7 @@ import { Shadowed, Switch } from 'ember-primitives';
 
 ### Dark/Light Theme Toggle 
 
-```gjs live preview
+```gjs 
 import { Shadowed, Switch } from 'ember-primitives';
 
 <template>

@@ -14,9 +14,9 @@ export async function compileTopLevelComponent(
     onCompileStart,
   }: {
     format: Format;
-    onSuccess: (component: ComponentLike) => Promise<unknown>;
-    onError: (error: string) => Promise<unknown>;
-    onCompileStart: () => Promise<unknown>;
+    onSuccess: (component: ComponentLike) => Promise<unknown> | unknown;
+    onError: (error: string) => Promise<unknown> | unknown;
+    onCompileStart: () => Promise<unknown> | unknown;
   }
 ) {
   let id = nameFor(text);

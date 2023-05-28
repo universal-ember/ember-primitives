@@ -4,3 +4,13 @@
 label [aria-label="::missing::"] {
   border: unset;
 }
+
+a[href="##missing##"] {
+  border: red;
+}
+a[href="##missing##"]:after {
+  content: 'empty href';
+  color: red;
+}
+
+

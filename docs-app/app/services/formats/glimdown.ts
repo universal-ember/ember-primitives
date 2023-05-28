@@ -13,6 +13,7 @@ export async function compileAll(js: { code: string }[]) {
 
   let modules = await Promise.all(
     js.map(async ({ code }) => {
+      console.log({ code, ENSURE });
       return await compileJS(code, ENSURE);
     })
   );

@@ -8,6 +8,7 @@ export async function compile(gjsInput: string): Promise<CompilationResult> {
     let { ENSURE } = await import('./ensure');
     let { component, ...rest } = await compileJS(gjsInput, ENSURE);
 
+
     return { ...rest, rootComponent: component };
   } catch (error) {
     return { error: error as Error };

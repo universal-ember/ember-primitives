@@ -21,7 +21,9 @@ export async function compileAll(js: { code: string }[]) {
   return modules;
 }
 
-export async function compile(glimdownInput: string): Promise<CompilationResult> {
+export async function compile(
+  glimdownInput: string
+): Promise<CompilationResult> {
   let rootTemplate: string;
   let liveCode: ExtractedCode[];
   let scope: CompileResult[] = [];

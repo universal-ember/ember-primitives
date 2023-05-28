@@ -1,17 +1,17 @@
-[aria-label="::missing::"] {
+[aria-label='::missing::'] {
   border: red;
 }
-label [aria-label="::missing::"] {
+label [aria-label='::missing::'] {
   border: unset;
 }
 
-a[href="##missing##"] {
+a[href='##missing##'] {
   position: relative;
   border: 1px solid black;
   padding: 0.125rem 0.25rem;
   border-radius: 0.125rem;
 }
-a[href="##missing##"]:after {
+a[href='##missing##']:after {
   content: 'empty href';
   color: red;
   position: absolute;
@@ -26,18 +26,18 @@ a[href="##missing##"]:after {
 }
 
 @media (prefers-color-scheme: light) {
-  a[href="##missing##"] {
+  a[href='##missing##'] {
     border-color: black;
   }
-  a[href="##missing##"]:after {
+  a[href='##missing##']:after {
     background: white;
     border: 1px solid black;
     color: darkred;
   }
-  .theme-dark a[href="##missing##"] {
+  .theme-dark a[href='##missing##'] {
     border-color: red;
   }
-  .theme-dark a[href="##missing##"] {
+  .theme-dark a[href='##missing##'] {
     background: #222;
     border: 1px solid red;
     color: red;
@@ -45,19 +45,19 @@ a[href="##missing##"]:after {
 }
 
 @media (prefers-color-scheme: dark) {
-  .theme-light a[href="##missing##"] {
+  .theme-light a[href='##missing##'] {
     border-color: black;
   }
-  .theme-light a[href="##missing##"] {
+  .theme-light a[href='##missing##'] {
     background: white;
     border: 1px solid black;
     color: darkred;
   }
 
-  a[href="##missing##"] {
+  a[href='##missing##'] {
     border-color: red;
   }
-  a[href="##missing##"]:after {
+  a[href='##missing##']:after {
     background: #222;
     border: 1px solid red;
     color: red;

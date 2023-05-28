@@ -87,7 +87,8 @@ function liveCodeExtraction(options: Options = {}) {
       return false;
     }
 
-    if (!(ALLOWED_LANGUAGES as unknown as string[]).includes(lang)) return false;
+    if (!(ALLOWED_LANGUAGES as unknown as string[]).includes(lang))
+      return false;
 
     return true;
   }
@@ -214,7 +215,10 @@ const markdownCompiler = unified()
         return 'skip';
       }
 
-      if (node.type === 'element' || ('tagName' in node && node.tagName === 'code')) {
+      if (
+        node.type === 'element' ||
+        ('tagName' in node && node.tagName === 'code')
+      ) {
         if (properties?.[GLIMDOWN_RENDER]) {
           node.type = 'glimmer_raw';
 
@@ -258,7 +262,9 @@ const markdownCompiler = unified()
     allowDangerousHtml: true,
   });
 
-export async function parseMarkdown(input: string): Promise<LiveCodeExtraction> {
+export async function parseMarkdown(
+  input: string
+): Promise<LiveCodeExtraction> {
   let processed = await markdownCompiler.process(input);
   let liveCode = (processed.data as LiveData).liveCode || [];
   let templateOnly = processed.toString();

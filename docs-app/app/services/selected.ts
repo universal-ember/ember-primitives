@@ -1,4 +1,3 @@
-
 import Service, { service } from '@ember/service';
 
 import { use } from 'ember-resources';
@@ -25,7 +24,6 @@ export default class Selected extends Service {
   @use proseFile = RemoteData<string>(() => `/docs${this.path}`);
   // @use proseCompiled = MarkdownToHTML(() => this.proseFile.value);
   @use proseCompiled = MarkdownToComponent(() => this.proseFile.value);
-
 
   /*********************************************************************
    * This is a pattern to help reduce flashes of content during

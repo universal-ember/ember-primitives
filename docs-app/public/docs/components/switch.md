@@ -2,7 +2,7 @@
 
 The Switch component is a user interface element used for toggling between two states, such as on/off or true/false. It consists of a track and a handle that can be interacted with to change the state. The Switch is commonly used in forms, settings screens, and preference panels to control features or settings.
 
-## Examples 
+## Examples
 
 `<Switch />` can be used in any design system.
 
@@ -14,7 +14,7 @@ import { Shadowed, Switch } from 'ember-primitives';
 <template>
   <Shadowed @omitStyles={{true}}>
     <Switch class="spectrum-switch">
-      Toggle on or off  
+      Toggle on or off
     </Switch>
 
     <style>
@@ -28,13 +28,13 @@ import { Shadowed, Switch } from 'ember-primitives';
 
 ### Bootstrap
 
-```gjs 
+```gjs
 import { Shadowed, Switch } from 'ember-primitives';
 
 <template>
   <Shadowed @omitStyles={{true}}>
     <Switch class="bootstrap-switch">
-      Toggle on or off  
+      Toggle on or off
     </Switch>
 
     <style>
@@ -48,13 +48,13 @@ import { Shadowed, Switch } from 'ember-primitives';
 
 ### Elastic UI
 
-```gjs 
+```gjs
 import { Shadowed, Switch } from 'ember-primitives';
 
 <template>
   <Shadowed @omitStyles={{true}}>
     <Switch class="elastic-switch">
-      Toggle on or off  
+      Toggle on or off
     </Switch>
 
     <style>
@@ -66,15 +66,15 @@ import { Shadowed, Switch } from 'ember-primitives';
 </template>
 ```
 
-### Dark/Light Theme Toggle 
+### Dark/Light Theme Toggle
 
-```gjs 
+```gjs
 import { Shadowed, Switch } from 'ember-primitives';
 
 <template>
   <Shadowed @omitStyles={{true}}>
     <Switch class="theme-switch">
-      Toggle on or off  
+      Toggle on or off
     </Switch>
 
     <style>

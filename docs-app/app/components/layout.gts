@@ -36,7 +36,7 @@ const toggleTheme = () => {
 
       {{(removeAppShell)}}
 
-      <button {{on 'click' toggleTheme}}> Toggle </button>
+      <button type="button" {{on 'click' toggleTheme}}> Toggle </button>
 
       <main id="layout">
         <Nav />

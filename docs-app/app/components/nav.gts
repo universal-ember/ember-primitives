@@ -19,7 +19,11 @@ const titleize = (str: string) => {
     .join(' ');
 };
 
-export class Selection extends Component {
+const asComponent = (str: string) => {
+  return `<${str.split('.')[0]} />`;
+}
+
+export class Nav extends Component {
   @service declare docs: DocsService;
   @service declare router: RouterService;
 
@@ -44,14 +48,14 @@ export class Selection extends Component {
   <template>
     <nav>
       <ul>
-      {{#each-in this.docs.grouped as |group tutorials|}}
+      {{#each-in this.docs.grouped as |group pages|}}
       <li>
         {{titleize group}}
           <ul>
-          {{#each tutorials as |tutorial|}}
+          {{#each pages as |page|}}
             <li>
-              <a href={{tutorial.path}}>
-                {{titleize tutorial.name}}
+              <a href={{page.path}}>
+                {{asComponent (titleize page.name)}}
               </a>
             </li>
           {{/each}}

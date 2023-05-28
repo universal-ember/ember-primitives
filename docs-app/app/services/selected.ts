@@ -21,7 +21,7 @@ export default class Selected extends Service {
    * be cancelled if it was still pending.
    *******************************************************************/
 
-  @use proseFile = RemoteData<string>(() => `/docs${this.path}`);
+  @use proseFile = RemoteData<string>(() => `/docs${this.path}.md`);
   // @use proseCompiled = MarkdownToHTML(() => this.proseFile.value);
   @use proseCompiled = MarkdownToComponent(() => this.proseFile.value);
 
@@ -57,8 +57,9 @@ export default class Selected extends Service {
 
   get path(): string | undefined {
     let [path] = this.router.currentURL.split('?');
+    let result = path && path !== '/' ? path : this.#manifest?.first.path;
 
-    return path && path !== '/' ? path : this.#manifest?.first.path;
+    return result?.replace(/\.md$/, '');
   }
 
   get page(): Page | undefined {
@@ -72,7 +73,7 @@ export default class Selected extends Service {
   }
 
   #findByPath = (path: string) => {
-    return this.docs.flatList.find((page) => page.path === path);
+    return this.docs.flatList.find((page) => page.path === `${path}.md`);
   };
 }
 

@@ -1,4 +1,7 @@
+// I reject this lint
+/* eslint-disable ember/routes-segments-snake-case */
 import EmberRouter from '@ember/routing/router';
+
 import config from 'docs-app/config/environment';
 
 export default class Router extends EmberRouter {
@@ -7,5 +10,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('page', { path: '/*path' });
+  this.route('page', { path: '/:path' }, function () {
+    this.route('sub-page', { path: '/:subPath' });
+  });
 });

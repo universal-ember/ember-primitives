@@ -1,10 +1,9 @@
 import Component from '@glimmer/component';
-import { assert } from '@ember/debug';
 import { service } from '@ember/service';
+
 import { Link } from 'ember-primitives';
 
 import type { TOC } from '@ember/component/template-only';
-import type RouterService from '@ember/routing/router-service';
 import type DocsService from 'docs-app/services/docs';
 
 /**
@@ -28,8 +27,10 @@ const asComponent = (str: string) => {
 const isComponents = (str: string) => str === 'components';
 const isLoneIndex = (pages) => pages.length === 1 && pages[0].name === 'index.md';
 
+const unExct = (str: string) => str.replace(/\.md$/, '');
+
 const NameLink: TOC<{ Args: {  href: string; name: string } }> = <template>
-  <Link href={{@href}}>
+  <Link href={{unExct @href}}>
     {{#if (isComponents @name)}}
       {{asComponent (titleize @name)}}
     {{else}}
@@ -40,7 +41,6 @@ const NameLink: TOC<{ Args: {  href: string; name: string } }> = <template>
 
 export class Nav extends Component {
   @service declare docs: DocsService;
-  @service declare router: RouterService;
 
   get humanSelected() {
     let path = this.docs.selected?.path;
@@ -49,12 +49,6 @@ export class Nav extends Component {
 
     return path.split('/').filter(Boolean).map(titleize).join(' / ');
   }
-
-  handleChange = (event: Event) => {
-    assert(`Target must be select element`, event.target instanceof HTMLSelectElement);
-
-    this.router.transitionTo(event.target.value);
-  };
 
   isSelected = ({ path }: { path: string }) => {
     return this.docs.selected?.path === path;

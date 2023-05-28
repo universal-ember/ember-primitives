@@ -42,7 +42,9 @@ export class Link extends Component<Signature> {
 
     assert('[BUG]', event.target instanceof HTMLAnchorElement);
 
-    this.router.transitionTo(event.target.href);
+    let path = new URL(event.target.href).pathname;
+
+    this.router.transitionTo(path);
   }
 }
 

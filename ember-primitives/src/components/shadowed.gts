@@ -3,11 +3,16 @@ import { cell}  from 'ember-resources';
 
 import type { TOC } from '@ember/component/template-only';
 
-type UpdateFn = ReturnType<typeof cell>['set'];
+const Shadow = () => {
+  let shadow = cell<ShadowRoot>();
 
-const attachShadow = modifier((element: Element, [setShadow]: [UpdateFn]) => {
-  setShadow(element.attachShadow({ mode: 'open' }));
-});
+  return {
+    get root() { return shadow.current;},
+    attach: modifier((element: Element) => {
+      shadow.set(element.attachShadow({ mode: 'open' }));
+    })
+  };
+}
 
 // index.html has the production-fingerprinted references to these links
 // Ideally, we'd have some pre-processor scan everything for references to
@@ -39,12 +44,12 @@ export const Shadowed: TOC<{
   };
   Blocks: { default: [] };
 }> = <template>
-  {{#let (cell) as |shadow|}}
+  {{#let (Shadow) as |shadow|}}
     {{!-- TODO: We need a way in ember to render in to a shadow dom without an effect --}}
-    <div data-shadow {{attachShadow shadow.set}} ...attributes></div>
+    <div data-shadow {{shadow.attach}} ...attributes></div>
 
-    {{#if shadow.value}}
-      {{#in-element shadow.value}}
+    {{#if shadow.root}}
+      {{#in-element shadow.root}}
 
         {{#if @includeStyles}}
           <Styles />

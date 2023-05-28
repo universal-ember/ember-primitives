@@ -1,4 +1,10 @@
 #layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: min-content 1fr;
+  gap: 1rem;
+}
+
+.glimdown-render {
+  border: 1px solid gray;
+  padding: 1rem;
 }

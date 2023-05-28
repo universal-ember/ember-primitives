@@ -9,79 +9,48 @@ The Switch component is a user interface element used for toggling between two s
 ### Adobe Spectrum
 
 ```gjs live preview
-import { Shadowed, Switch } from 'ember-primitives';
+import { Switch } from 'ember-primitives';
 
 <template>
-  <Shadowed @omitStyles={{true}}>
-    <Switch class="spectrum-switch">
-      Toggle on or off
-    </Switch>
+  <Switch class="spectrum-switch">
+    Toggle on or off
+  </Switch>
 
-    <style>
-      .spectrum-switch {
+  <style>
+    .spectrum-switch {
 
-      }
-    </style>
-  </Shadowed>
+    }
+  </style>
 </template>
 ```
 
 ### Bootstrap
 
-```gjs
-import { Shadowed, Switch } from 'ember-primitives';
+```gjs live preview
+import { Switch } from 'ember-primitives';
 
 <template>
-  <Shadowed @omitStyles={{true}}>
-    <Switch class="bootstrap-switch">
-      Toggle on or off
-    </Switch>
-
-    <style>
-      .bootstrap-switch {
-
-      }
-    </style>
-  </Shadowed>
-</template>
-```
-
-### Elastic UI
-
-```gjs
-import { Shadowed, Switch } from 'ember-primitives';
-
-<template>
-  <Shadowed @omitStyles={{true}}>
-    <Switch class="elastic-switch">
-      Toggle on or off
-    </Switch>
-
-    <style>
-      .elastic-switch {
-
-      }
-    </style>
-  </Shadowed>
+  <Switch class="bootstrap-switch">
+    Toggle on or off
+  </Switch>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </template>
 ```
 
 ### Dark/Light Theme Toggle
 
 ```gjs
-import { Shadowed, Switch } from 'ember-primitives';
+import { Switch } from 'ember-primitives';
 
 <template>
-  <Shadowed @omitStyles={{true}}>
-    <Switch class="theme-switch">
-      Toggle on or off
-    </Switch>
+  <Switch class="theme-switch">
+    Toggle on or off
+  </Switch>
 
-    <style>
-      .theme-switch {
+  <style>
+    .theme-switch {
 
-      }
-    </style>
-  </Shadowed>
+    }
+  </style>
 </template>
 ```

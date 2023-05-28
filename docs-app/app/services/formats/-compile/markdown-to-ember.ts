@@ -36,6 +36,7 @@ interface Options {
     classList?: string[];
   };
   copyComponent?: string;
+  shadowComponent?: string;
 }
 
 const GLIMDOWN_PREVIEW = Symbol('__GLIMDOWN_PREVIEW__');
@@ -143,6 +144,11 @@ function liveCodeExtraction(options: Options = {}) {
       let code = value.trim();
       let name = nameFor(code);
       let invocation = invocationOf(name);
+
+      if (options.shadowComponent) {
+        invocation = `<${options.shadowComponent}>${invocation}</${options.shadowComponent}>`;
+      }
+
       let invokeNode = {
         type: 'html',
         data: {
@@ -196,6 +202,7 @@ const markdownCompiler = unified()
     demo: {
       classList: ['glimdown-render'],
     },
+    shadowComponent: 'Shadowed'
   })
   // .use(() => (tree) => visit(tree, (node) => console.log('i', node)))
   // remark rehype is needed to convert markdown to HTML

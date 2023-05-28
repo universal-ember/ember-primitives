@@ -4,6 +4,8 @@ import { service } from 'ember-primitives';
 
 import type { TOC } from '@ember/component/template-only';
 
+import { highlight } from './highlight';
+
 const resetScroll = modifier((element, [prose]) => {
   prose;
   element.scrollTo(0, 0);
@@ -17,7 +19,7 @@ export const Prose: TOC<{ Element: HTMLDivElement }> = <template>
       {{resetScroll docs.selected.prose}}
     >
 
-      <div data-prose class='prose p-4'>
+      <div data-prose class='prose p-4' {{highlight docs.selected.prose}}>
         {{#if docs.selected.prose}}
           <docs.selected.prose />
         {{/if}}

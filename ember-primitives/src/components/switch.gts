@@ -19,11 +19,11 @@ const Checkbox: TOC<{ Element: HTMLInputElement; Args: { checked?: boolean } }> 
 export const Switch: TOC<Signature> = <template>
   {{#if (has-block)}}
     <label>
-      <span></span>
+      <span>{{yield}}</span>
       <Checkbox ...attributes />
     </label>
   {{else}}
-      <span></span>
+    <span>{{yield}}</span>
     <Checkbox ...attributes />
   {{/if}}
 </template>

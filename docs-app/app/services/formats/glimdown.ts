@@ -13,7 +13,6 @@ export async function compileAll(js: { code: string }[]) {
 
   let modules = await Promise.all(
     js.map(async ({ code }) => {
-      console.log({ code, ENSURE });
       return await compileJS(code, ENSURE);
     })
   );
@@ -104,14 +103,16 @@ export async function compile(
    * Step 4: Compile the Ember Template
    */
   try {
+    const { ENSURE } = await import('./ensure');
     let localScope = scope.reduce((accum, { component, name }) => {
       accum[invocationName(name)] = component;
 
       return accum;
     }, {} as Record<string, unknown>);
+    console.log({ rootTemplate, localScope, ENSURE });
 
     let { component, error } = compileHBS(rootTemplate, {
-      scope: { ...localScope },
+      scope: { ...localScope, ...ENSURE['ember-primitives'] },
     });
 
     return { rootTemplate, rootComponent: component, error };

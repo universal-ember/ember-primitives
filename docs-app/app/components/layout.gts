@@ -1,9 +1,33 @@
+import { on } from '@ember/modifier';
 import { service } from 'ember-primitives';
 
 import { Prose } from './prose';
+import { Nav } from './nav';
 
 function removeAppShell() {
   document.querySelector('#initial-loader')?.remove();
+}
+
+const toggleTheme = () => {
+  let docStyle = document.documentElement.style;
+
+  let current = docStyle.colorScheme;
+  let prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+
+  if (!current) {
+    if (prefersDark) {
+      docStyle.setProperty('color-scheme', 'light');
+      return
+    }
+
+    return docStyle.setProperty('color-scheme', 'dark');
+  }
+
+  if (current === 'dark') {
+    return docStyle.setProperty('color-scheme', 'light');
+  }
+
+  return docStyle.setProperty('color-scheme', 'dark');
 }
 
 <template>
@@ -12,16 +36,13 @@ function removeAppShell() {
 
       {{(removeAppShell)}}
 
-      <main
-        class='grid w-full md:grid-cols-[minmax(min-content,_50%)_1fr] lg:grid-cols-[640px_1fr] h-[100dvh] max-h-[100dvh]'
-        data-container
-      >
-        <section
-          class='transition-transform md:translate-x-0 z-10 border-r border-r-[#ccc] drop-shadow flex flex-col justify-between bg-[#eee] text-black max-h-[100dvh] max-w-[100dvw]'
-          data-words
-        >
-          <div class='grid grid-rows-[min-content_1fr]'>
-            <Prose class='max-h-[calc(100dvh-94px)]' />
+      <button {{on 'click' toggleTheme}}> Toggle </button>
+
+      <main id="layout">
+        <Nav />
+        <section>
+          <div>
+            <Prose />
           </div>
         </section>
       </main>

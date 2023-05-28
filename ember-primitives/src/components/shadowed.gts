@@ -3,7 +3,7 @@ import { cell}  from 'ember-resources';
 
 import type { TOC } from '@ember/component/template-only';
 
-type UpdateFn = ReturnType<typeof cell>['update'];
+type UpdateFn = ReturnType<typeof cell>['set'];
 
 const attachShadow = modifier((element: Element, [setShadow]: [UpdateFn]) => {
   setShadow(element.attachShadow({ mode: 'open' }));
@@ -41,7 +41,7 @@ export const Shadowed: TOC<{
 }> = <template>
   {{#let (cell) as |shadow|}}
     {{!-- TODO: We need a way in ember to render in to a shadow dom without an effect --}}
-    <div data-shadow {{attachShadow shadow.update}} ...attributes></div>
+    <div data-shadow {{attachShadow shadow.set}} ...attributes></div>
 
     {{#if shadow.value}}
       {{#in-element shadow.value}}

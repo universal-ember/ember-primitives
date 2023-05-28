@@ -1,7 +1,7 @@
 import './components/violations.css';
 
-export * from './helpers';
-
 export { ExternalLink } from './components/external-link';
-export { Switch } from './components/switch';
+export { Link } from './components/link';
 export { Shadowed } from './components/shadowed';
+export { Switch } from './components/switch';
+export * from './helpers';

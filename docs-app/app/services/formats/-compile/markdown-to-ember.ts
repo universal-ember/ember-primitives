@@ -202,7 +202,7 @@ const markdownCompiler = unified()
     demo: {
       classList: ['glimdown-render'],
     },
-    shadowComponent: 'Shadowed'
+    shadowComponent: 'Shadowed',
   })
   // .use(() => (tree) => visit(tree, (node) => console.log('i', node)))
   // remark rehype is needed to convert markdown to HTML

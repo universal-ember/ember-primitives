@@ -47,7 +47,9 @@ export async function getHighlighter(): Promise<HLJSApi> {
 
 export const highlight = modifier((element: HTMLElement, [_]: unknown[]) => {
   if (!_) {
-    console.warn(`No argument was passed to {{highlight-code-blocks}}. Updates won't be detected`);
+    console.warn(
+      `No argument was passed to {{highlight-code-blocks}}. Updates won't be detected`
+    );
   }
 
   (async () => {

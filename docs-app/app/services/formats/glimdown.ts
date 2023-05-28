@@ -109,7 +109,6 @@ export async function compile(
 
       return accum;
     }, {} as Record<string, unknown>);
-    console.log({ rootTemplate, localScope, ENSURE });
 
     let { component, error } = compileHBS(rootTemplate, {
       scope: { ...localScope, ...ENSURE['ember-primitives'] },

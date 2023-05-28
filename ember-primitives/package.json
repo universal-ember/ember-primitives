@@ -1,6 +1,7 @@
 {
   "name": "ember-primitives",
   "version": "0.0.0",
+  "sideEffects": false,
   "description": "The default blueprint for Embroider v2 addons.",
   "keywords": [
     "ember-addon"

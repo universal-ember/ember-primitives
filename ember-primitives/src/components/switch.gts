@@ -1,6 +1,8 @@
-import { hash, uniqueId } from '@ember/helper';
+// NOTE: https://github.com/emberjs/ember.js/issues/20165
+import { hash } from '@ember/helper';
 
-import { Div as Wrapper, Label } from './typed-elements'
+import { uniqueId } from '../utils';
+import { Label } from './typed-elements'
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
@@ -14,27 +16,36 @@ interface Signature {
   };
   Blocks: {
     default?: [{
-      Root: typeof Wrapper,
       Control: WithBoundArgs<typeof Checkbox, 'checked' | 'id'>,
       Label: typeof Label,
     }]
   };
 }
 
-const Checkbox: TOC<{ Element: HTMLInputElement; Args: { id: string; checked?: boolean } }> = <template>
-  <input id={{@id}}  type='checkbox' role="switch" checked={{@checked}} ...attributes />
+const Checkbox: TOC<{
+  Element: HTMLInputElement;
+  Args: { id: string; checked?: boolean }
+}> = <template>
+  <input
+    id={{@id}}
+    type='checkbox'
+    role="switch"
+    checked={{@checked}}
+    ...attributes
+  />
 </template>;
 
 export const Switch: TOC<Signature> = <template>
+  <div ...attributes>
   {{! @glint-nocheck }}
   {{#let (uniqueId) as |id|}}
     {{yield
       (hash
-       Root=(component Wrapper)
        Control=(component Checkbox checked=@checked id=id)
        Label=(component Label for=id)
      )}}
    {{/let}}
+   </div>
 </template>
 
 export default Switch;

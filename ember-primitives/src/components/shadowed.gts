@@ -1,5 +1,5 @@
 import { modifier } from 'ember-modifier';
-import { cell}  from 'ember-resources';
+import { cell }  from 'ember-resources';
 
 import type { TOC } from '@ember/component/template-only';
 
@@ -7,7 +7,7 @@ const Shadow = () => {
   let shadow = cell<ShadowRoot>();
 
   return {
-    get root() { return shadow.current;},
+    get root() { return shadow.current; },
     attach: modifier((element: Element) => {
       shadow.set(element.attachShadow({ mode: 'open' }));
     })
@@ -46,7 +46,7 @@ export const Shadowed: TOC<{
 }> = <template>
   {{#let (Shadow) as |shadow|}}
     {{!-- TODO: We need a way in ember to render in to a shadow dom without an effect --}}
-    <div data-shadow {{shadow.attach}} ...attributes></div>
+    <div {{shadow.attach}} ...attributes></div>
 
     {{#if shadow.root}}
       {{#in-element shadow.root}}

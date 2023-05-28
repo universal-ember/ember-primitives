@@ -28,8 +28,7 @@
     "prepack": "rollup --config"
   },
   "dependencies": {
-    "@embroider/addon-shim": "^1.8.5",
-    "ember-modifier": "^4.1.0"
+    "@embroider/addon-shim": "^1.8.5"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
@@ -51,6 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
     "concurrently": "^8.0.1",
+    "ember-modifier": "^4.1.0",
     "ember-resources": "^6.1.0",
     "ember-source": "~5.0.0",
     "ember-template-imports": "^3.4.2",
@@ -103,6 +103,7 @@
   "peerDependencies": {
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
+    "ember-modifier": "^4.1.0",
     "ember-resources": "^6.1.0",
     "ember-source": "~4.12.0"
   }

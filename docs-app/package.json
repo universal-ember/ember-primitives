@@ -43,6 +43,11 @@
     "unist-util-visit": "^4.1.2",
     "vfile": "^5.3.7"
   },
+  "dependenciesMeta": {
+    "ember-primitives": {
+      "injected": true
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/eslint-parser": "^7.21.8",

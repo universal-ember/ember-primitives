@@ -1,10 +1,9 @@
 import Service, { service } from '@ember/service';
 
+import { Compiled } from 'ember-repl';
 import { use } from 'ember-resources';
 import { keepLatest } from 'ember-resources/util/keep-latest';
 import { RemoteData } from 'ember-resources/util/remote-data';
-
-import { MarkdownToComponent } from './markdown';
 
 import type DocsService from './docs';
 import type { Page } from './types';
@@ -23,7 +22,7 @@ export default class Selected extends Service {
 
   @use proseFile = RemoteData<string>(() => `/docs${this.path}.md`);
   // @use proseCompiled = MarkdownToHTML(() => this.proseFile.value);
-  @use proseCompiled = MarkdownToComponent(() => this.proseFile.value);
+  @use proseCompiled = Compiled(() => this.proseFile.value, 'glimdown');
 
   /*********************************************************************
    * This is a pattern to help reduce flashes of content during

@@ -25,9 +25,6 @@
     "test:ember": "ember test"
   },
   "dependencies": {
-    "@types/hast": "^2.3.4",
-    "@types/mdast": "^3.0.11",
-    "@types/unist": "^2.0.6",
     "assert": "^2.0.0",
     "ember-modifier": "^4.1.0",
     "ember-primitives": "workspace:*",
@@ -35,15 +32,7 @@
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.0.1",
-    "mdast": "^3.0.0",
-    "path-browserify": "^1.0.1",
-    "rehype-raw": "^6.1.1",
-    "rehype-stringify": "^9.0.3",
-    "remark-parse": "^10.0.2",
-    "remark-rehype": "^10.1.0",
-    "unified": "^10.1.2",
-    "unist-util-visit": "^4.1.2",
-    "vfile": "^5.3.7"
+    "path-browserify": "^1.0.1"
   },
   "dependenciesMeta": {
     "ember-primitives": {

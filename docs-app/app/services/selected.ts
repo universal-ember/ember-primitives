@@ -1,13 +1,67 @@
 import Service, { service } from '@ember/service';
 
-import { Compiled } from 'ember-repl';
-import { use } from 'ember-resources';
+import * as emberPrimitives from 'ember-primitives';
+import { Shadowed } from 'ember-primitives';
+// import { Compiled } from 'ember-repl';
+import { compile } from 'ember-repl';
+import { cell, resource, resourceFactory, use } from 'ember-resources';
 import { keepLatest } from 'ember-resources/util/keep-latest';
 import { RemoteData } from 'ember-resources/util/remote-data';
 
 import type DocsService from './docs';
 import type { Page } from './types';
 import type RouterService from '@ember/routing/router-service';
+import type { ComponentLike } from '@glint/template';
+
+type Format = 'glimdown' | 'gjs' | 'hbs';
+type Input = string | undefined | null;
+interface Options {
+  format: Format;
+  importMap: Record<string, Record<string, unknown>>;
+}
+
+// TODO: upstream these tweaks to ember-repl
+const Compiled = resourceFactory(
+  (markdownText: Input | (() => Input), options: Options) => {
+    return resource(() => {
+      let { format = 'glimdown', importMap } = options ?? {};
+
+      let input =
+        typeof markdownText === 'function' ? markdownText() : markdownText;
+      let ready = cell(false);
+      let error = cell();
+      let result = cell<ComponentLike>();
+
+      if (input) {
+        compile(input, {
+          format,
+          importMap,
+          topLevelScope: {
+            Shadowed,
+          },
+          ShadowComponent: 'Shadowed',
+          onSuccess: async (component) => {
+            result.current = component;
+            ready.set(true);
+            error.set(null);
+          },
+          onError: async (e) => {
+            error.set(e);
+          },
+          onCompileStart: async () => {
+            ready.set(false);
+          },
+        });
+      }
+
+      return () => ({
+        isReady: ready.current,
+        error: error.current,
+        component: result.current,
+      });
+    });
+  }
+);
 
 export default class Selected extends Service {
   @service declare router: RouterService;
@@ -22,7 +76,12 @@ export default class Selected extends Service {
 
   @use proseFile = RemoteData<string>(() => `/docs${this.path}.md`);
   // @use proseCompiled = MarkdownToHTML(() => this.proseFile.value);
-  @use proseCompiled = Compiled(() => this.proseFile.value, 'glimdown');
+  @use proseCompiled = Compiled(() => this.proseFile.value, {
+    format: 'glimdown',
+    importMap: {
+      'ember-primitives': emberPrimitives,
+    },
+  });
 
   /*********************************************************************
    * This is a pattern to help reduce flashes of content during
@@ -33,8 +92,8 @@ export default class Selected extends Service {
    ********************************************************************/
 
   @use prose = keepLatest({
-    value: () => this.proseCompiled.html,
-    when: () => !this.proseCompiled.ready,
+    value: () => this.proseCompiled.component,
+    when: () => !this.proseCompiled.isReady,
   });
 
   /**
@@ -42,12 +101,14 @@ export default class Selected extends Service {
    * rendering without extra flashes.
    */
   get isReady() {
-    // Instead of inlining these, we want to access
-    // these values without short-circuiting so that
-    // the requests run in parallel.
-    let prose = this.prose;
+    return this.proseCompiled.isReady;
+  }
 
-    return prose;
+  get hasError() {
+    return this.proseCompiled.error;
+  }
+  get error() {
+    return String(this.proseCompiled.error);
   }
 
   get hasProse() {

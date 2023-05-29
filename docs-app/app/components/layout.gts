@@ -8,8 +8,8 @@ function removeAppShell() {
 }
 
 <template>
-  {{#let (service 'selected') as |tutorial|}}
-    {{#if tutorial.isReady}}
+  {{#let (service 'selected') as |page|}}
+    {{#if page.prose}}
 
       {{(removeAppShell)}}
 
@@ -21,6 +21,9 @@ function removeAppShell() {
           </div>
         </section>
       </main>
+    {{else if page.hasError}}
+      <h1>Oops!</h1>
+      {{page.error}}
     {{/if}}
   {{/let}}
 </template>

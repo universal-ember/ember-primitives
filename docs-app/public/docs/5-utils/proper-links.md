@@ -1,5 +1,12 @@
-// I reject this lint
-/* eslint-disable ember/routes-segments-snake-case */
+# Proper Links
+
+Enables usage of plain `<a>` tags.
+
+## Setup 
+
+import `properLinks` and apply it to your Router.
+
+```js 
 import EmberRouter from '@ember/routing/router';
 
 import config from 'docs-app/config/environment';
@@ -12,7 +19,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('page', { path: '/:path' }, function () {
-    this.route('sub-page', { path: '/:subPath' });
-  });
+  // ...
 });
+
+```

@@ -36,8 +36,8 @@ CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKG
 import { Switch } from 'ember-primitives';
 import { on } from '@ember/modifier';
 
-const toggleTheme = () =>
-  document.querySelector('div').classList.toggle("dark");
+const toggleTheme = (e) =>
+  e.target.closest('div').classList.toggle("dark");
 
 <template>
   <Switch as |s|>
@@ -66,9 +66,9 @@ const toggleTheme = () =>
       transition: background 0.2s linear;
     }
 
-    div.dark {background-color: #292c35;} /* #9b59b6 */
+    div.dark {background-color: #292c35;}
+    div.dark label { background-color: #9b59b6; }
 
-    div.dark h1, body.dark .support a {color: #fff;}
 
     input[type='checkbox'][role='switch'] {
       opacity: 0;

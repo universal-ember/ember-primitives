@@ -33,6 +33,7 @@ jobs:
           todos=$(pnpm -w exec ci-todo)
           echo $todos | jq
           echo "pend=$todos" >> $GITHUB_OUTPUT
+      - run:  echo ${{ github.event.number }} > ./pr-number.txt
 
   # debug_pending_tasks:
   #   runs-on: ubuntu-latest

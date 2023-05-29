@@ -1,10 +1,9 @@
 import { modifier } from 'ember-modifier';
-
 import { service } from 'ember-primitives';
 
-import type { TOC } from '@ember/component/template-only';
-
 import { highlight } from './highlight';
+
+import type { TOC } from '@ember/component/template-only';
 
 const resetScroll = modifier((element, [prose]) => {
   prose;

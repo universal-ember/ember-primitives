@@ -6,7 +6,6 @@ The Switch component is a user interface element used for toggling between two s
 
 `<Switch />` can be used in any design system.
 
-
 <details open><summary><h3>Bootstrap</h3></summary>
 
 See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
@@ -37,7 +36,7 @@ CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKG
 import { Switch } from 'ember-primitives';
 import { on } from '@ember/modifier';
 
-const toggleTheme = () => 
+const toggleTheme = () =>
   document.querySelector('div').classList.toggle("dark");
 
 <template>
@@ -115,4 +114,4 @@ const toggleTheme = () =>
 
 </details>
 
-## Configuration 
+## Configuration

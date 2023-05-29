@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -109,5 +110,6 @@ try {
   await run();
 } catch (e) {
   await dumpErrorLog(e);
+  // eslint-disable-next-line n/no-process-exit
   process.exit(1);
 }

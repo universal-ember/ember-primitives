@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -20,7 +21,10 @@ nav > ul {
   top: 1rem;
   z-index: 10;
 }
-nav ul { list-style: none; line-height: 1.5rem; }
+nav ul {
+  list-style: none;
+  line-height: 1.5rem;
+}
 
 /* @media only screen and (min-width: 900px)  { */
 /* } */
@@ -29,8 +33,14 @@ nav ul { list-style: none; line-height: 1.5rem; }
   padding-right: 1rem;
 }
 
-h2, h3, h4 { display: inline-block; }
-ul { padding-left: 1rem; }
+h2,
+h3,
+h4 {
+  display: inline-block;
+}
+ul {
+  padding-left: 1rem;
+}
 
 pre {
   max-width: 100%;
@@ -38,8 +48,10 @@ pre {
   overflow-y: auto;
 }
 
-pre > code { max-width: 100%; }
-pre, code {
-    white-space: pre-wrap;
+pre > code {
+  max-width: 100%;
 }
-
+pre,
+code {
+  white-space: pre-wrap;
+}

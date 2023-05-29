@@ -1,11 +1,11 @@
 # Get Started
 
-With `ember-primitives` you only ship as much JS to your users as you need. Import whatever you want. 
+With `ember-primitives` you only ship as much JS to your users as you need. Import whatever you want.
 
-## Install 
+## Install
 
-```bash 
-pnpm add ember-primitives 
+```bash
+pnpm add ember-primitives
 ```
 
 ## Compatibility
@@ -24,7 +24,7 @@ pnpm add ember-primitives
 - [Bootstrap](https://getbootstrap.com/)
 - [Bulma](https://bulma.io/)
 - [water.css](https://watercss.kognise.dev/)
-- and more! 
+- and more!
   (everything is supported)
 
 ### Design System Compatibility
@@ -40,6 +40,5 @@ pnpm add ember-primitives
 - [Toucan, by CrowdStrike](https://github.com/CrowdStrike/tailwind-toucan-base/)
 - [Spectrum, by Adobe](https://opensource.adobe.com/spectrum-css/)
 - [Vanilla, by Canonical](https://vanillaframework.io/)
-- and more! 
+- and more!
   (if your design system has standalone CSS, then it is compatible!)
-

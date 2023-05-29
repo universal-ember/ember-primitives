@@ -1,13 +1,15 @@
 import { assert } from '@ember/debug';
 
-import { compileTopLevelComponent } from './create-top-level-component';
 import { cell, resource, resourceFactory } from 'ember-resources';
 import rehypeRaw from 'rehype-raw';
-import type { ComponentLike } from '@glint/template';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import { unified } from 'unified';
+
+import { compileTopLevelComponent } from './create-top-level-component';
+
+import type { ComponentLike } from '@glint/template';
 
 const compiler = unified()
   .use(remarkParse)
@@ -67,7 +69,9 @@ export const MarkdownToComponent = resourceFactory(
           onError: (error) => {
             console.error(error);
           },
-          onCompileStart: () => {},
+          onCompileStart: () => {
+            /* not used */
+          },
         });
       }
 

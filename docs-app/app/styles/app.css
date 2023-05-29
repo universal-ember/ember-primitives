@@ -10,10 +10,17 @@ html, body {
 #layout {
   display: grid;
   grid-template-columns: min-content 1fr;
-  gap: 1rem;
+  gap: 2rem;
   max-width: 700px;
   margin: 0 auto;
 }
+
+nav > ul {
+  position: sticky;
+  top: 1rem;
+  z-index: 10;
+}
+nav ul { list-style: none; line-height: 1.5rem; }
 
 /* @media only screen and (min-width: 900px)  { */
 /* } */
@@ -22,21 +29,17 @@ html, body {
   padding-right: 1rem;
 }
 
-.glimdown-render {
-  border: 1px solid gray;
-  padding: 0;
-  margin: 0;
-}
-
 h2, h3, h4 { display: inline-block; }
 ul { padding-left: 1rem; }
 
 pre {
+  max-width: 100%;
   max-height: 300px;
   overflow-y: auto;
 }
-pre {
-   display: flex;
-   /* white-space: normal; */
-   word-break: break-word;
+
+pre > code { max-width: 100%; }
+pre, code {
+    white-space: pre-wrap;
 }
+

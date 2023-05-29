@@ -8,7 +8,7 @@ Violations that can be caught via CSS are highlighted in the UI so that the deve
 
 For example, an `<ExternalLink />` missing an href
 
-```gjs live
+```gjs live no-shadow
 import { ExternalLink } from 'ember-primitives';
 
 <template>

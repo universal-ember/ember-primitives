@@ -145,8 +145,12 @@ function liveCodeExtraction(options: Options = {}) {
       let name = nameFor(code);
       let invocation = invocationOf(name);
 
-      if (options.shadowComponent) {
-        invocation = `<${options.shadowComponent}>${invocation}</${options.shadowComponent}>`;
+      let shadow = options.shadowComponent;
+
+      let wrapInShadow = shadow && !meta?.includes('no-shadow');
+
+      if (wrapInShadow) {
+        invocation = `<${shadow}>${invocation}</${shadow}>`;
       }
 
       let invokeNode = {
@@ -165,19 +169,23 @@ function liveCodeExtraction(options: Options = {}) {
         code,
       });
 
-      if (meta === 'live preview below') {
+      let live = isLive(meta);
+      let preview = isPreview(meta);
+      let below = isBelow(meta);
+
+      if (live && preview && below) {
         flatReplaceAt(parent.children, index, [wrapper, invokeNode]);
 
         return 'skip';
       }
 
-      if (meta === 'live preview') {
+      if (live && preview) {
         flatReplaceAt(parent.children, index, [invokeNode, wrapper]);
 
         return 'skip';
       }
 
-      if (meta === 'live') {
+      if (live) {
         parent.children[index] = invokeNode;
 
         return 'skip';
@@ -188,6 +196,18 @@ function liveCodeExtraction(options: Options = {}) {
       return;
     });
   };
+}
+
+function isLive(meta: string) {
+  return meta.includes('live');
+}
+
+function isPreview(meta: string) {
+  return meta.includes('preview');
+}
+
+function isBelow(meta: string) {
+  return meta.includes('below');
 }
 
 const markdownCompiler = unified()

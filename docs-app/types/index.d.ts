@@ -7,6 +7,8 @@ import type { HelperLike } from '@glint/template';
 
 declare module '@ember/template-compilation';
 
+import type Layout from 'docs-app/components/layout';
+
 declare module '@glint/environment-ember-loose/registry' {
   // Remove this once entries have been added! 👇
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -17,5 +19,7 @@ declare module '@glint/environment-ember-loose/registry' {
       Args: { Positional: [string] };
       Return: string;
     }>;
+
+    Layout: typeof Layout;
   }
 }

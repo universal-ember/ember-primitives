@@ -26,7 +26,7 @@ const asComponent = (str: string) => {
 }
 
 const isComponents = (str: string) => str === 'components';
-const isLoneIndex = (pages: Page[]) => pages.length === 1 && pages[0].name === 'index.md' || pages[0].name === 'intro.md';
+const isLoneIndex = (pages: Page[]) => pages.length === 1 && pages[0]?.name === 'index.md' || pages[0]?.name === 'intro.md';
 
 const unExct = (str: string) => str.replace(/\.md$/, '');
 

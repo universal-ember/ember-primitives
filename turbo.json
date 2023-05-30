@@ -61,7 +61,7 @@
     },
     "test": {
       "outputs": [],
-      "dependsOn": ["^build"]
+      "dependsOn": ["_syncPnpm", "^build"]
     },
     // Apps will have test:ember and test:browserstack
     // They are separate so that they can cache independently

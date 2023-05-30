@@ -90,7 +90,7 @@
     "lint:hbs": { "outputs": [] },
     "lint:prettier": { "outputs": [] },
     "lint:types": { "outputs": [], "dependsOn": ["_syncPnpm", "^build"] },
-    "lint:package": { "outputs": [], "dependsOn": ["^build"] },
+    "lint:package": { "outputs": [], "dependsOn": ["build"] },
 
     "_:lint:fix": {
       "cache": false,

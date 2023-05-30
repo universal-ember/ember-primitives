@@ -1,4 +1,5 @@
 packages:
   - 'ember-primitives'
   - 'test-app'
+  - 'docs-app'
   - 'dev'

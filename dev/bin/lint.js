@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
@@ -34,7 +35,7 @@ async function run() {
         { cwd, stdio: 'inherit' }
       );
     case 'prettier':
-      return execaCommand(`pnpm prettier -c .`, { cwd });
+      return execaCommand(`pnpm prettier -c .`, { cwd, stdio: 'inherit' });
     case 'js:fix':
       return execaCommand(
         `pnpm eslint . ` + `--fix --cache --cache-strategy content`,
@@ -109,5 +110,6 @@ try {
   await run();
 } catch (e) {
   await dumpErrorLog(e);
+  // eslint-disable-next-line n/no-process-exit
   process.exit(1);
 }

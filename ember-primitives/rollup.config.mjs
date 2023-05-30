@@ -12,8 +12,8 @@ export default {
   output: addon.output(),
 
   plugins: [
-    addon.publicEntrypoints(['components/**/*.js', 'index.js', 'template-registry.js']),
-    addon.appReexports(['components/**/*.js']),
+    addon.publicEntrypoints(['**/*.js']),
+    addon.appReexports(['components/**/*.js', 'helpers/**/*.js', 'proper-links.js']),
     addon.dependencies(),
     typescript({
       transpiler: 'babel',
@@ -22,7 +22,7 @@ export default {
     }),
     addon.hbs(),
     glimmerTemplateTag(),
-    // addon.keepAssets(['**/*.css']),
+    addon.keepAssets(['**/*.css']),
     addon.clean(),
     copy({
       targets: [

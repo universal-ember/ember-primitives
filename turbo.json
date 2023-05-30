@@ -53,7 +53,7 @@
     /////////////////////////////////////////////////
     "build": {
       "outputs": ["dist/**"],
-      "dependsOn": ["_syncPnpm", "^build"]
+      "dependsOn": ["_syncPnpm"]
     },
     "_syncPnpm": {
       "dependsOn": ["^build"],
@@ -61,7 +61,7 @@
     },
     "test": {
       "outputs": [],
-      "dependsOn": ["_syncPnpm", "^build"]
+      "dependsOn": ["_syncPnpm"]
     },
     // Apps will have test:ember and test:browserstack
     // They are separate so that they can cache independently

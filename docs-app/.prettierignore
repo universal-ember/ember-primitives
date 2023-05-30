@@ -1,3 +1,4 @@
+*.md
 # unconventional js
 /blueprints/*/files/
 /vendor/

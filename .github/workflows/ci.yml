@@ -52,6 +52,8 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
+      - run: pnpm i -f
       - run: pnpm lint
 
 
@@ -64,6 +66,8 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
+      - run: pnpm i -f
       - run: pnpm test --filter test-app
 
   floating:
@@ -76,6 +80,8 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
+      - run: pnpm build
+      - run: pnpm i -f
       - run: pnpm test --filter test-app
 
   try-scenarios:
@@ -100,6 +106,8 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
+      - run: pnpm i -f
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
         working-directory: test-app
@@ -125,6 +133,8 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
+      - run: pnpm i -f
       - name: 'Change TS to ${{ matrix.typescript-scenario }}'
         run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
         working-directory: ./test-app
@@ -151,6 +161,8 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm build
+      - run: pnpm i -f
       - run: pnpm lint:types --filter docs-app
 
   # https://github.com/changesets/action
@@ -180,16 +192,16 @@ jobs:
 
   DeployProduction:
     name: "Deploy: Production"
-    if: github.ref == 'refs/heads/main' 
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: [setup]
-    strategy: 
+    strategy:
       matrix:
-        app: 
+        app:
         - { path: "./docs-app/dist", cloudflareName: "ember-primitives", name: "docs" }
 
-          
+
     permissions:
       contents: read
       deployments: write

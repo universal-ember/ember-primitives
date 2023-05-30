@@ -13,12 +13,12 @@ interface Signature<Key extends keyof Registry> {
 }
 
 export default class GetService<Key extends keyof Registry> extends Helper<Signature<Key>> {
-  compute([name]: [Key]): Registry[Key] & Service {
+  compute(positional: [Key]): Registry[Key] & Service {
     let owner = getOwner(this);
 
     assert(`Could not get owner.`, owner);
 
-    return owner.lookup(`service:${name}`);
+    return owner.lookup(`service:${positional[0]}`);
   }
 }
 

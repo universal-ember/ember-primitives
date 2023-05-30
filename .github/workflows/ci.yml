@@ -26,7 +26,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
+      - run: pnpm build --force
       # Determine which of the next jobs need to run
       - id: set-pending
         run: |

@@ -22,7 +22,8 @@
     "lint:types": "glint",
     "start": "ember serve",
     "test": "ember test",
-    "test:ember": "ember test"
+    "test:ember": "ember test",
+    "_syncPnpm": "pnpm sync-dependencies-meta-injected"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
@@ -74,6 +75,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-qunit": "^7.3.4",
     "loader.js": "^4.7.0",
+    "pnpm-sync-dependencies-meta-injected": "^0.0.5",
     "prettier": "^2.8.7",
     "qunit": "^2.19.4",
     "qunit-dom": "^2.0.0",

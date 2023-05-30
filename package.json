@@ -1,5 +1,4 @@
 {
-  "name": "ember-primitives",
   "version": "0.0.0",
   "private": true,
   "repository": "",
@@ -26,7 +25,7 @@
   },
   "volta": {
     "node": "18.16.0",
-    "pnpm": "8.5.1"
+    "pnpm": "8.6.0"
   },
   "pnpm": {
     "patchedDependencies": {

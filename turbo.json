@@ -40,8 +40,10 @@
       "cache": false
     },
     "start": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "dependsOn": ["_syncPnpm", "^build"],
+      "outputs": [],
+      "cache": false,
+      "persistent": true
     },
 
     /////////////////////////////////////////////////
@@ -53,11 +55,15 @@
     /////////////////////////////////////////////////
     "build": {
       "outputs": ["dist/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["_syncPnpm", "^build"]
+    },
+    "_syncPnpm": {
+      "dependsOn": ["^build"],
+      "cache": false
     },
     "test": {
       "outputs": [],
-      "dependsOn": ["^build"]
+      "dependsOn": ["_syncPnpm", "^build"]
     },
     // Apps will have test:ember and test:browserstack
     // They are separate so that they can cache independently
@@ -85,8 +91,8 @@
     "lint:js": { "outputs": [] },
     "lint:hbs": { "outputs": [] },
     "lint:prettier": { "outputs": [] },
-    "lint:types": { "outputs": [], "dependsOn": ["^build"] },
-    "lint:package": { "outputs": [], "dependsOn": ["^build"] },
+    "lint:types": { "outputs": [], "dependsOn": ["_syncPnpm", "^build"] },
+    "lint:package": { "outputs": [], "dependsOn": ["build"] },
 
     "_:lint:fix": {
       "cache": false,

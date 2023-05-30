@@ -52,8 +52,6 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm lint
 
 
@@ -66,9 +64,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm i -f
-      - run: pnpm test --filter test-app
+      - run: pnpm turbo test --filter test-app
 
   floating:
     name: "Floating Dependencies"
@@ -80,9 +76,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
-      - run: pnpm build
-      - run: pnpm i -f
-      - run: pnpm test --filter test-app
+      - run: pnpm turbo test --filter test-app
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -106,8 +100,6 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm i -f
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
         working-directory: test-app
@@ -133,8 +125,6 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm i -f
       - name: 'Change TS to ${{ matrix.typescript-scenario }}'
         run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
         working-directory: ./test-app
@@ -142,7 +132,7 @@ jobs:
         run: pnpm turbo --filter 'test-app' lint:types
 
   docs-tests:
-    name: 'Docs Tests'
+    name: "Docs' Tests"
     if: ${{ fromJSON(needs.setup.outputs.pending).tests.docs-app }}
     runs-on: ubuntu-latest
     needs: [setup]
@@ -153,7 +143,7 @@ jobs:
       - run: pnpm test --filter docs-app
 
   docs-types:
-    name: 'Docs Tests'
+    name: "Docs' Types"
     if: ${{ fromJSON(needs.setup.outputs.pending).tests.docs-app }}
     runs-on: ubuntu-latest
     needs: [setup]
@@ -161,8 +151,6 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm lint:types --filter docs-app
 
   # https://github.com/changesets/action
@@ -211,7 +199,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm ember build -prod
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}

@@ -132,7 +132,7 @@ jobs:
         run: pnpm turbo --filter 'test-app' lint:types
 
   docs-tests:
-    name: 'Docs Tests'
+    name: "Docs' Tests"
     if: ${{ fromJSON(needs.setup.outputs.pending).tests.docs-app }}
     runs-on: ubuntu-latest
     needs: [setup]
@@ -143,7 +143,7 @@ jobs:
       - run: pnpm test --filter docs-app
 
   docs-types:
-    name: 'Docs Tests'
+    name: "Docs' Types"
     if: ${{ fromJSON(needs.setup.outputs.pending).tests.docs-app }}
     runs-on: ubuntu-latest
     needs: [setup]

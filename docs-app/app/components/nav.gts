@@ -5,6 +5,7 @@ import { Link } from 'ember-primitives';
 
 import type { TOC } from '@ember/component/template-only';
 import type DocsService from 'docs-app/services/docs';
+import type { Page } from 'docs-app/services/types';
 
 /**
  * Converts 1-2-hyphenated-thing
@@ -25,12 +26,12 @@ const asComponent = (str: string) => {
 }
 
 const isComponents = (str: string) => str === 'components';
-const isLoneIndex = (pages) => pages.length === 1 && pages[0].name === 'index.md' || pages[0].name === 'intro.md';
+const isLoneIndex = (pages: Page[]) => pages.length === 1 && pages[0].name === 'index.md' || pages[0].name === 'intro.md';
 
 const unExct = (str: string) => str.replace(/\.md$/, '');
 
 const NameLink: TOC<{ Args: {  href: string; name: string } }> = <template>
-  <Link href={{unExct @href}}>
+  <Link @href={{unExct @href}}>
     {{#if (isComponents @name)}}
       {{asComponent (titleize @name)}}
     {{else}}

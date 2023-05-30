@@ -149,6 +149,9 @@ importers:
       '@tsconfig/ember':
         specifier: ^2.0.0
         version: 2.0.0
+      '@types/babel__standalone':
+        specifier: ^7.1.4
+        version: 7.1.4
       '@types/qunit':
         specifier: ^2.19.5
         version: 2.19.5
@@ -4122,6 +4125,14 @@ packages:
 
   /@types/babel__code-frame@7.0.3:
     resolution: {integrity: sha512-2TN6oiwtNjOezilFVl77zwdNPwQWaDBBCCWWxyo1ctiO3vAtd7H/aB/CBJdw9+kqq3+latD0SXoedIuHySSZWw==}
+    dev: true
+
+  /@types/babel__standalone@7.1.4:
+    resolution: {integrity: sha512-HijIDmcNl3Wmo0guqjYkQvMzyRCM6zMCkYcdG8f+2X7mPBNa9ikSeaQlWs2Yg18KN1klOJzyupX5BPOf+7ahaw==}
+    dependencies:
+      '@babel/core': 7.22.1(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@types/body-parser@1.19.2:
@@ -9124,7 +9135,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.22.1(supports-color@8.1.1)
-      '@babel/eslint-parser': 7.21.8(@babel/core@7.21.8)(eslint@8.41.0)
+      '@babel/eslint-parser': 7.21.8(@babel/core@7.22.1)(eslint@8.41.0)
       '@babel/plugin-proposal-decorators': 7.21.0(@babel/core@7.22.1)
       '@ember-data/rfc395-data': 0.0.4
       ember-rfc176-data: 0.3.18

@@ -24,11 +24,11 @@ import type RouterService from '@ember/routing/router-service';
 export class Link extends Component<Signature> {
   <template>
     {{#if (isExternal @href)}}
-      <ExternalLink ...attributes>
+      <ExternalLink href={{@href}} ...attributes>
         {{yield}}
       </ExternalLink>
     {{else}}
-      <a href='##missing##' {{on "click" this.handleClick}} ...attributes>
+      <a href={{if @href @href '##missing##'}} {{on "click" this.handleClick}} ...attributes>
         {{yield}}
       </a>
     {{/if}}

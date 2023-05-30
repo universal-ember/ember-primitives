@@ -40,8 +40,10 @@
       "cache": false
     },
     "start": {
-      "dependsOn": ["^build"],
-      "cache": false
+      "dependsOn": ["_syncPnpm", "^build"],
+      "outputs": [],
+      "cache": false,
+      "persistent": true
     },
 
     /////////////////////////////////////////////////
@@ -53,7 +55,7 @@
     /////////////////////////////////////////////////
     "build": {
       "outputs": ["dist/**"],
-      "dependsOn": ["_syncPnpm"]
+      "dependsOn": ["_syncPnpm", "^build"]
     },
     "_syncPnpm": {
       "dependsOn": ["^build"],
@@ -61,7 +63,7 @@
     },
     "test": {
       "outputs": [],
-      "dependsOn": ["_syncPnpm"]
+      "dependsOn": ["_syncPnpm", "^build"]
     },
     // Apps will have test:ember and test:browserstack
     // They are separate so that they can cache independently

@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.22.3",
-    "@embroider/addon-shim": "^1.8.5"
+    "@embroider/addon-shim": "^1.8.5",
+    "@embroider/macros": "^1.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
@@ -83,6 +84,7 @@
     "app-js": {
       "./components/external-link.js": "./dist/_app_/components/external-link.js",
       "./components/link.js": "./dist/_app_/components/link.js",
+      "./components/portal-targets.js": "./dist/_app_/components/portal-targets.js",
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
       "./components/typed-elements.js": "./dist/_app_/components/typed-elements.js",

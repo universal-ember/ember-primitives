@@ -1,4 +1,8 @@
-import './components/violations.css';
+import { importSync, isDevelopingApp,macroCondition } from '@embroider/macros';
+
+if (macroCondition(isDevelopingApp())) {
+  importSync('./components/violations.css');
+}
 
 export { ExternalLink } from './components/external-link';
 export { Link } from './components/link';

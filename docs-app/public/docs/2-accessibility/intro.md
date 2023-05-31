@@ -31,3 +31,5 @@ import { Switch } from 'ember-primitives';
   </Switch>
 </template>
 ```
+
+This only happens during development, and in production, the CSS that applies these warnings is not included (the development version of this docs site is deployed, instead of the production build).

@@ -40,7 +40,7 @@ label [aria-label='::missing::'] {
   display: flex;
   border-radius: 0.125rem;
   transform: translate(0.5rem, 1rem);
-  right: 0;
+  left: 0;
   bottom: 0;
   width: max-content;
   z-index: 10000000000000000;

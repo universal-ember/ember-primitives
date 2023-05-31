@@ -103,12 +103,12 @@ jobs:
       contents: read
       deployments: write
     outputs:
-      tutorialUrl: ${{ steps.deploy.outputs.url }}
+      docsUrl: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/download-artifact@v3
         name: deploy-prep-dist
       - id: deploy
-        uses: cloudflare/pages-action@v1.4.1
+        uses: cloudflare/pages-action@v1.5.0
         with:
           branch: ${{ github.event.workflow_run.head_branch }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -131,6 +131,6 @@ jobs:
           message: |+
             | Project   | Preview URL |
             | -------   | ----------- |
-            | Docs    | ${{ needs.DeployPreview_Limber.outputs.limberUrl }}   |
+            | Docs    | ${{ needs.DeployPreview_Docs.outputs.docsUrl }}   |
 
             [Logs](https://github.com/universal-ember/ember-primitives/actions/runs/${{ github.run_id }})

@@ -5,14 +5,32 @@ label [aria-label='::missing::'] {
   border: unset;
 }
 
-a[href='##missing##'] {
+:is(
+  /**
+   * ExternalLink
+   */
+  a[href='##missing##'],
+  /**
+   * Switch
+   */
+  div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
+) {
   position: relative;
   border: 1px solid black;
   padding: 0.125rem 0.25rem;
   border-radius: 0.125rem;
+  min-width: 10px;
 }
-a[href='##missing##']:after {
-  content: 'empty href';
+:is(
+  /**
+   * ExternalLink
+   */
+  a[href='##missing##'],
+  /**
+   * Switch
+   */
+  div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
+):after {
   color: red;
   position: absolute;
   font-size: 0.75rem;
@@ -21,15 +39,32 @@ a[href='##missing##']:after {
   padding: 0.125rem 0.25rem;
   display: flex;
   border-radius: 0.125rem;
-  right: -0.5rem;
-  bottom: -1rem;
+  transform: translate(0.5rem, 1rem);
+  left: 0;
+  bottom: 0;
+  width: max-content;
+  z-index: 10000000000000000;
+}
+
+a[href='##missing##']:after {
+  content: 'empty href';
+}
+
+div[data-prim-switch]:not(:has(label)):has(input[role='switch']) input[role='switch']:after {
+  content: 'missing label';
 }
 
 @media (prefers-color-scheme: light) {
-  a[href='##missing##'] {
+  :is(
+      a[href='##missing##'],
+      div[data-prim-switch]:has(input[role='switch']):not(:has(label)) input[role='switch']
+    ) {
     border-color: black;
   }
-  a[href='##missing##']:after {
+  :is(
+      a[href='##missing##'],
+      div[data-prim-switch]:not(:has(label)):has(input[role='switch']) input[role='switch']
+    ):after {
     background: white;
     border: 1px solid black;
     color: darkred;
@@ -54,10 +89,16 @@ a[href='##missing##']:after {
     color: darkred;
   }
 
-  a[href='##missing##'] {
+  :is(
+      a[href='##missing##'],
+      div[data-prim-switch]:has(input[role='switch']):not(:has(label)) input[role='switch']
+    ) {
     border-color: red;
   }
-  a[href='##missing##']:after {
+  :is(
+      a[href='##missing##'],
+      div[data-prim-switch]:not(:has(label)):has(input[role='switch']) input[role='switch']
+    ):after {
     background: #222;
     border: 1px solid red;
     color: red;

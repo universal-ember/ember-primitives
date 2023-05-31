@@ -11,6 +11,7 @@
     "test": "tests"
   },
   "scripts": {
+    "build": "pnpm ember build --environment=development",
     "lint": "pnpm -w exec lint",
     "lint:fix": "pnpm -w exec lint fix",
     "lint:js": "pnpm -w exec lint js",
@@ -20,7 +21,7 @@
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
-    "start": "ember serve",
+    "start": "concurrently 'ember serve' 'pnpm _syncPnpm --watch' --names 'docs serve,docs sync deps'",
     "test": "ember test",
     "test:ember": "ember test",
     "_syncPnpm": "pnpm sync-dependencies-meta-injected"
@@ -95,7 +96,7 @@
     "eslint-plugin-qunit": "^7.3.4",
     "globby": "^13.1.4",
     "loader.js": "^4.7.0",
-    "pnpm-sync-dependencies-meta-injected": "^0.0.5",
+    "pnpm-sync-dependencies-meta-injected": "^0.0.6",
     "prettier": "^2.8.1",
     "qunit": "^2.19.3",
     "qunit-dom": "^2.0.0",

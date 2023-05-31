@@ -17,3 +17,19 @@ import { ExternalLink } from 'ember-primitives';
   </ExternalLink>
 </template>
 ```
+
+<br>
+
+Another example, a `<Switch />` without a label:
+
+```gjs live no-shadow
+import { Switch } from 'ember-primitives';
+
+<template>
+  <Switch style="display: inline-block" as |s|>
+    <s.Control />
+  </Switch>
+</template>
+```
+
+This only happens during development, and in production, the CSS that applies these warnings is not included (the development version of this docs site is deployed, instead of the production build).

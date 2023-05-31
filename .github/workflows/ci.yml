@@ -199,7 +199,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm ember build -prod
+      - run: pnpm ember build
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}
         uses: cloudflare/pages-action@v1.4.1

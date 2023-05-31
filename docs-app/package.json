@@ -21,6 +21,7 @@
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
     "start": "ember serve",
+    "start": "concurrently 'ember serve' 'pnpm _syncPnpm --watch' --names 'docs serve,docs sync deps'",
     "test": "ember test",
     "test:ember": "ember test",
     "_syncPnpm": "pnpm sync-dependencies-meta-injected"

@@ -36,7 +36,7 @@ const Checkbox: TOC<{
 </template>;
 
 export const Switch: TOC<Signature> = <template>
-  <div ...attributes>
+  <div ...attributes data-prim-switch>
   {{! @glint-nocheck }}
   {{#let (uniqueId) as |id|}}
     {{yield

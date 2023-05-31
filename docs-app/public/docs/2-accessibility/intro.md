@@ -17,3 +17,17 @@ import { ExternalLink } from 'ember-primitives';
   </ExternalLink>
 </template>
 ```
+
+<br>
+
+Another example, a `<Switch />` without a label:
+
+```gjs live no-shadow
+import { Switch } from 'ember-primitives';
+
+<template>
+  <Switch style="display: inline-block; min-width: 100px;" as |s|>
+    <s.Control />
+  </Switch>
+</template>
+```

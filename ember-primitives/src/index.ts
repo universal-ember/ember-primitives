@@ -1,4 +1,4 @@
-import { importSync, isDevelopingApp,macroCondition } from '@embroider/macros';
+import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 
 if (macroCondition(isDevelopingApp())) {
   importSync('./components/violations.css');

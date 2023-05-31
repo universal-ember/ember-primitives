@@ -131,6 +131,6 @@ jobs:
           message: |+
             | Project   | Preview URL |
             | -------   | ----------- |
-            | Docs    | ${{ needs.DeployPreview_Limber.outputs.limberUrl }}   |
+            | Docs    | ${{ needs.DeployPreview_Docs.outputs.deploy }}   |
 
             [Logs](https://github.com/universal-ember/ember-primitives/actions/runs/${{ github.run_id }})

@@ -103,7 +103,7 @@ jobs:
       contents: read
       deployments: write
     outputs:
-      tutorialUrl: ${{ steps.deploy.outputs.url }}
+      docsUrl: ${{ steps.deploy.outputs.url }}
     steps:
       - uses: actions/download-artifact@v3
         name: deploy-prep-dist
@@ -131,6 +131,6 @@ jobs:
           message: |+
             | Project   | Preview URL |
             | -------   | ----------- |
-            | Docs    | ${{ needs.DeployPreview_Docs.outputs.deploy }}   |
+            | Docs    | ${{ needs.DeployPreview_Docs.outputs.docsUrl }}   |
 
             [Logs](https://github.com/universal-ember/ember-primitives/actions/runs/${{ github.run_id }})

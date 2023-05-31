@@ -5,22 +5,21 @@ label [aria-label='::missing::'] {
   border: unset;
 }
 
-:is(
-  /**
-   * ExternalLink
-   */
-  a[href='##missing##'],
-  /**
-   * Switch
-   */
-  div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
-) {
+/**
+ * ExternalLink
+ */
+a[href='##missing##'],
+/**
+ * Switch
+ */
+div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"] {
   position: relative;
   border: 1px solid black;
   padding: 0.125rem 0.25rem;
   border-radius: 0.125rem;
   min-width: 10px;
 }
+
 :is(
   /**
    * ExternalLink
@@ -69,26 +68,9 @@ div[data-prim-switch]:not(:has(label)):has(input[role='switch']) input[role='swi
     border: 1px solid black;
     color: darkred;
   }
-  .theme-dark a[href='##missing##'] {
-    border-color: red;
-  }
-  .theme-dark a[href='##missing##'] {
-    background: #222;
-    border: 1px solid red;
-    color: red;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
-  .theme-light a[href='##missing##'] {
-    border-color: black;
-  }
-  .theme-light a[href='##missing##'] {
-    background: white;
-    border: 1px solid black;
-    color: darkred;
-  }
-
   :is(
       a[href='##missing##'],
       div[data-prim-switch]:has(input[role='switch']):not(:has(label)) input[role='switch']

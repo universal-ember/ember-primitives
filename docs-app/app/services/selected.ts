@@ -20,6 +20,19 @@ interface Options {
   importMap: Record<string, Record<string, unknown>>;
 }
 
+
+/**
+  * Populate a cache of all the documents.
+  *
+  * Network can be slow, and compilation is fast.
+  * So after we get the requested page, let's get
+* everything else
+  */
+const fillCache = (path: string) => {
+  fetch(`/docs/${path}`)
+};
+
+
 // TODO: upstream these tweaks to ember-repl
 const Compiled = resourceFactory(
   (markdownText: Input | (() => Input), options: Options) => {

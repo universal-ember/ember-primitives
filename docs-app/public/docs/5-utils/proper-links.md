@@ -27,7 +27,6 @@ Router.map(function () {
 ## Example
 
 ```gjs live preview 
-
 <template>
   <nav style="display: flex; gap: 0.5rem">
     <a href="/">Home</a> 

@@ -26,7 +26,7 @@ Another example, a `<Switch />` without a label:
 import { Switch } from 'ember-primitives';
 
 <template>
-  <Switch style="display: inline-block; min-width: 100px;" as |s|>
+  <Switch style="display: inline-block" as |s|>
     <s.Control />
   </Switch>
 </template>

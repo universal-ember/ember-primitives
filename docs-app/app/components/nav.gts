@@ -58,14 +58,14 @@ export class Nav extends Component {
   <template>
     <nav>
       <ul>
-      {{#each-in this.docs.grouped as |group pages|}}
-        <li>
-          {{#if (isLoneIndex pages)}}
-            {{#each pages as |page|}}
-              <NameLink @name={{group}} @href={{page.path}} />
-            {{/each}}
-          {{else}}
-            {{titleize group}}
+        {{#each-in this.docs.grouped as |group pages|}}
+          <li>
+            {{#if (isLoneIndex pages)}}
+              {{#each pages as |page|}}
+                <NameLink @name={{group}} @href={{page.path}} />
+              {{/each}}
+            {{else}}
+              <h2>{{titleize group}}</h2>
               <ul>
                 {{#each pages as |page|}}
                   <li>

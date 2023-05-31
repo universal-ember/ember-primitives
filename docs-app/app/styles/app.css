@@ -39,6 +39,11 @@ nav ul li a {
   white-space: nowrap;
 }
 
+nav h2 {
+  margin-bottom: 0.25rem;
+  font-size: 1.125rem;
+}
+
 .edit-page {
   font-size: 0.8rem;
   display: flex;
@@ -60,6 +65,8 @@ nav ul li a {
 .glimdown-snippet > pre {
   border: 1px solid gray;
 }
+
+
 
 h2,
 h3,

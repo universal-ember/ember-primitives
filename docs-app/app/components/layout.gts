@@ -1,5 +1,5 @@
 
-import { service } from 'ember-primitives';
+import { ExternalLink,service } from 'ember-primitives';
 import { colorScheme } from 'ember-primitives/color-scheme';
 
 import { Nav } from './nav';
@@ -12,6 +12,12 @@ function removeAppShell() {
 function isDark() {
   return colorScheme.current === 'dark';
 }
+
+const ReportingAnIssue = <template>
+  <ExternalLink href="https://github.com/universal-ember/ember-primitives/issues/new">
+    reporting an issue
+  </ExternalLink>
+</template>;
 
 <template>
   {{#let (service 'selected') as |page|}}
@@ -36,6 +42,10 @@ function isDark() {
     {{else if page.hasError}}
       <h1>Oops!</h1>
       {{page.error}}
+
+      <br />
+      <br />
+      If you have a GitHub account (and the time), <ReportingAnIssue /> would be most helpful! 🎉
     {{/if}}
   {{/let}}
 </template>

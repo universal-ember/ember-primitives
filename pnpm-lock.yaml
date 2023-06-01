@@ -4,7 +4,7 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
-packageExtensionsChecksum: e2e4e540d538d84592ca2a765069aa9e
+packageExtensionsChecksum: 89f1ddeb468cf96fa5eae56caf0dc39e
 
 patchedDependencies:
   '@changesets/assemble-release-plan@5.2.3':

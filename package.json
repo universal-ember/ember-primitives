@@ -45,7 +45,8 @@
       },
       "ember-headless-form": {
         "dependencies": {
-          "ember-cached-decorator-polyfill": "*"
+          "ember-cached-decorator-polyfill": "*",
+          "ember-async-data": "^1.0.1"
         }
       }
     },

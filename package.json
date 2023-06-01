@@ -33,7 +33,15 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@changesets/assemble-release-plan@5.2.3": "patches/@changesets__assemble-release-plan@5.2.3.patch"
+      "@changesets/assemble-release-plan@5.2.3": "patches/@changesets__assemble-release-plan@5.2.3.patch",
+      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch"
+    },
+    "packageExtensions": {
+      "ember-headless-form": {
+        "dependencies": {
+          "ember-cached-decorator-polyfill": "*"
+        }
+      }
     },
     "peerDependencyRules": {
       "allowAny": [

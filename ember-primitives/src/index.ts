@@ -1,7 +1,7 @@
 import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 
 if (macroCondition(isDevelopingApp())) {
- importSync('./components/violations.css');
+  importSync('./components/violations.css');
 }
 
 export { ExternalLink } from './components/external-link';

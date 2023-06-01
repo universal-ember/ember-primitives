@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index b1176bbb5cfa15205abc78e30a5923765bec6360..ffc838890551fa7a523bee62d130fda7c20cee75 100644
+--- a/package.json
++++ b/package.json
+@@ -17,6 +17,7 @@
+     "@embroider/addon-shim": "^1.0.0",
+     "@embroider/util": "^1.10.0",
+     "ember-async-data": "^0.7.0",
++    "ember-cached-decorator-polyfill": "*",
+     "ember-modifier": "^4.1.0",
+     "tracked-built-ins": "^3.1.0"
+   },

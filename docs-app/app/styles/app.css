@@ -56,32 +56,32 @@ cite {
   font-size: 0.8rem;
 }
 blockquote {
-	font-weight: 100;
-	font-size: 1.2rem;
-	line-height: 1.4;
-	position: relative;
-	padding: .5rem;
+  font-weight: 100;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  position: relative;
+  padding: 0.5rem;
 }
 
 blockquote:before,
 blockquote:after {
-	position: absolute;
-	color: #f1efe6;
-	font-size: 8rem;
-	width: 4rem;
-	height: 4rem;
+  position: absolute;
+  color: #f1efe6;
+  font-size: 8rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 blockquote:before {
-	content: '“';
-	left: -4rem;
-	top: -2rem;
+  content: "“";
+  left: -4rem;
+  top: -2rem;
 }
 
 blockquote:after {
-	content: '”';
-	right: -3rem;
-	bottom: 1rem;
+  content: "”";
+  right: -3rem;
+  bottom: 1rem;
 }
 
 .edit-page {
@@ -105,8 +105,6 @@ blockquote:after {
 .glimdown-snippet > pre {
   border: 1px solid gray;
 }
-
-
 
 h2,
 h3,

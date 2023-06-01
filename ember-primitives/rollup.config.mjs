@@ -13,7 +13,12 @@ export default {
 
   plugins: [
     addon.publicEntrypoints(['**/*.js']),
-    addon.appReexports(['components/**/*.js', 'helpers/**/*.js', 'proper-links.js']),
+    addon.appReexports([
+      'components/**/*.js',
+      'helpers/**/*.js',
+      'proper-links.js',
+      'color-scheme.js',
+    ]),
     addon.dependencies(),
     typescript({
       transpiler: 'babel',

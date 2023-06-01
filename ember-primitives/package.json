@@ -1,7 +1,7 @@
 {
   "name": "ember-primitives",
   "version": "0.0.0",
-  "description": "The default blueprint for Embroider v2 addons.",
+  "description": "Making apps easier to build",
   "keywords": [
     "ember-addon"
   ],
@@ -82,6 +82,7 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
+      "./color-scheme.js": "./dist/_app_/color-scheme.js",
       "./components/external-link.js": "./dist/_app_/components/external-link.js",
       "./components/link.js": "./dist/_app_/components/link.js",
       "./components/popover.js": "./dist/_app_/components/popover.js",

@@ -3,6 +3,7 @@ import Service, { service } from '@ember/service';
 import * as emberHeadlessForm from 'ember-headless-form';
 import * as emberPrimitives from 'ember-primitives';
 import { Shadowed } from 'ember-primitives';
+import * as colorScheme from 'ember-primitives/color-scheme';
 // import { Compiled } from 'ember-repl';
 import { compile } from 'ember-repl';
 import * as emberResources from 'ember-resources';
@@ -93,6 +94,7 @@ export default class Selected extends Service {
     format: 'glimdown',
     importMap: {
       'ember-primitives': emberPrimitives,
+      'ember-primitives/color-scheme': colorScheme,
       'ember-headless-form': emberHeadlessForm,
       'ember-resources': emberResources,
     },

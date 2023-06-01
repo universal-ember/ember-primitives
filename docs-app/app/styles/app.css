@@ -97,6 +97,11 @@ blockquote:after {
 
 .glimdown-snippet > pre {
   border: 1px solid gray;
+  width: 100%;
+  display: grid;
+}
+.glimdown-snippet > pre > code {
+  display: contents;
 }
 
 h2,
@@ -117,8 +122,4 @@ pre {
 pre > code {
   max-width: 100%;
   line-height: 1rem;
-}
-pre,
-code {
-  white-space: pre-wrap;
 }

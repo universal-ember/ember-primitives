@@ -84,6 +84,7 @@
     "app-js": {
       "./components/external-link.js": "./dist/_app_/components/external-link.js",
       "./components/link.js": "./dist/_app_/components/link.js",
+      "./components/popover.js": "./dist/_app_/components/popover.js",
       "./components/portal-targets.js": "./dist/_app_/components/portal-targets.js",
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",

@@ -5,7 +5,7 @@ import { getOwner } from '@ember/owner';
 import type EmberRouter from '@ember/routing/router';
 import type RouterService from '@ember/routing/router-service';
 
-type RouterType = abstract new () => EmberRouter;
+type RouterType = typeof EmberRouter;
 
 interface Options {
   ignore?: string[];
@@ -13,8 +13,14 @@ interface Options {
 
 export function properLinks(options: Options): (klass: RouterType) => RouterType;
 export function properLinks(klass: RouterType): RouterType;
+/**
+ * @internal
+ */
+export function properLinks(options: Options, klass: RouterType): RouterType;
 
-export function properLinks(...args: [Options] | [RouterType] | [Options, RouterType]): RouterType {
+export function properLinks(
+  ...args: [Options] | [RouterType] | [Options, RouterType]
+): RouterType | ((klass: RouterType) => RouterType) {
   let options: Options = {};
   let klass: RouterType;
 
@@ -23,7 +29,8 @@ export function properLinks(...args: [Options] | [RouterType] | [Options, Router
     klass = args[1] as RouterType;
   } else if (args.length === 1) {
     if (typeof args[0] === 'object') {
-      return (klass: RouterType) => properLinks(args[0], klass);
+      // TODO: how to get first arg type correct?
+      return (klass: RouterType) => properLinks(args[0] as any, klass);
     } else {
       klass = args[0];
     }

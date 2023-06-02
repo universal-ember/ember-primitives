@@ -53,6 +53,12 @@
     //
     /////////////////////////////////////////////////
     /////////////////////////////////////////////////
+    // development
+    "build:dev": {
+      "outputs": ["dist/**"],
+      "dependsOn": ["_syncPnpm", "^build"]
+    },
+    // production
     "build": {
       "outputs": ["dist/**"],
       "dependsOn": ["_syncPnpm", "^build"]

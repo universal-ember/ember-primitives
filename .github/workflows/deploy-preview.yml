@@ -67,7 +67,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: NullVoxPopuli/action-setup-pnpm@v2
-      - run: pnpm turbo build
+      - run: pnpm turbo build:dev
       - uses: actions/upload-artifact@v3
         with:
           name: deploy-prep-dist

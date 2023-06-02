@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+overrides:
+  ember-async-data: ^1.0.1
+
 packageExtensionsChecksum: 89f1ddeb468cf96fa5eae56caf0dc39e
 
 patchedDependencies:
@@ -7356,16 +7359,6 @@ packages:
       - supports-color
     dev: false
 
-  /ember-async-data@0.7.1:
-    resolution: {integrity: sha512-6lkqqGeouSiNIlt9qnMs9pd8ONAHXruerlWWjPGnixe4NLHbyXLQfBJCGBPTf8kPFRGVuFMkPQdjIadChDtj3A==}
-    engines: {node: 14.* || 16.* || >= 18}
-    dependencies:
-      '@ember/test-waiters': 3.0.2
-      '@embroider/addon-shim': 1.8.5
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /ember-async-data@1.0.1(ember-source@5.0.0):
     resolution: {integrity: sha512-R9nBxCZ9WDPMJpuGBODs8wV1PHXUbkSbrzVmL34R4aOWbx237yLBllJghQOwfJs1+D72wdzgxg/+J3DY43xz3g==}
     peerDependencies:
@@ -7965,7 +7958,7 @@ packages:
       '@embroider/util': 1.11.0(@glint/environment-ember-loose@1.0.2)(@glint/template@1.0.2)(ember-source@5.0.0)
       '@glimmer/component': 1.1.2(@babel/core@7.22.1)
       '@glimmer/tracking': 1.1.2
-      ember-async-data: 0.7.1
+      ember-async-data: 1.0.1(ember-source@5.0.0)
       ember-cached-decorator-polyfill: 1.0.1(@babel/core@7.22.1)(@glint/template@1.0.2)(ember-source@5.0.0)
       ember-modifier: 4.1.0(ember-source@5.0.0)
       ember-source: 5.0.0(@babel/core@7.22.1)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.85.0)

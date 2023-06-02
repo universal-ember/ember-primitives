@@ -33,7 +33,18 @@
   },
   "pnpm": {
     "overrides": {
-      "ember-async-data": "^1.0.1"
+      "ember-async-data": "^1.0.1",
+      "@embroider/addon-dev": "3.1.1-unstable.d120477",
+      "@embroider/addon-shim": "1.8.6-unstable.d120477",
+      "@embroider/core": "3.0.1-unstable.d120477",
+      "@embroider/compat": "3.0.1-unstable.d120477",
+      "@embroider/macros": "1.11.1-unstable.d120477",
+      "@embroider/hbs-loader": "3.0.1-unstable.d120477",
+      "@embroider/router": "2.1.1-unstable.d120477",
+      "@embroider/shared-internals": "2.1.1-unstable.d120477",
+      "@embroider/test-setup": "3.0.2-unstable.d120477",
+      "@embroider/util": "1.11.1-unstable.d120477",
+      "@embroider/webpack": "3.0.1-unstable.d120477"
     },
     "patchedDependencies": {
       "@changesets/assemble-release-plan@5.2.3": "patches/@changesets__assemble-release-plan@5.2.3.patch",

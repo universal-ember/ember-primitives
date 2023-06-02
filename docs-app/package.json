@@ -11,7 +11,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "pnpm ember build --environment=development",
+    "build:dev": "pnpm ember build --environment=development",
     "lint": "pnpm -w exec lint",
     "lint:fix": "pnpm -w exec lint fix",
     "lint:js": "pnpm -w exec lint js",

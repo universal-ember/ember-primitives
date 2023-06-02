@@ -22,7 +22,7 @@ export function properLinks(
   ...args: [Options] | [RouterType] | [Options, RouterType]
 ): RouterType | ((klass: RouterType) => RouterType) {
   let options: Options = {};
-  let klass: RouterType;
+  let klass: undefined | RouterType = undefined;
 
   if (args.length === 2) {
     options = args[0] as Options;
@@ -37,6 +37,8 @@ export function properLinks(
   }
 
   let ignore = options.ignore || [];
+
+  assert(`klass was not defined. possibile incorrect arity given to properLinks`, klass);
 
   return class extends klass {
     constructor(...args: object[]) {

@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { assert } from '@ember/debug';
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
@@ -17,7 +18,9 @@ import type RouterService from '@ember/routing/router-service';
     Args: {
       href: string;
     };
-    Blocks: { default: []}
+    Blocks: { default: [{
+      isExternal: boolean;
+    }]}
   }
 
 
@@ -25,11 +28,11 @@ export class Link extends Component<Signature> {
   <template>
     {{#if (isExternal @href)}}
       <ExternalLink href={{@href}} ...attributes>
-        {{yield}}
+        {{yield (hash isExternal=true)}}
       </ExternalLink>
     {{else}}
       <a href={{if @href @href '##missing##'}} {{on "click" this.handleClick}} ...attributes>
-        {{yield}}
+        {{yield (hash isExternal=false)}}
       </a>
     {{/if}}
 

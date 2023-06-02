@@ -2,7 +2,10 @@ import Application from '@ember/application';
 
 import config from 'docs-app/config/environment';
 import loadInitializers from 'ember-load-initializers';
+import { sync } from 'ember-primitives/color-scheme';
 import Resolver from 'ember-resolver';
+
+sync();
 
 // @babel/traverse (from babel-plugin-ember-template-imports)
 // accesses process.....

@@ -1,9 +1,12 @@
 import Service, { service } from '@ember/service';
 
+import * as emberHeadlessForm from 'ember-headless-form';
 import * as emberPrimitives from 'ember-primitives';
 import { Shadowed } from 'ember-primitives';
+import * as colorScheme from 'ember-primitives/color-scheme';
 // import { Compiled } from 'ember-repl';
 import { compile } from 'ember-repl';
+import * as emberResources from 'ember-resources';
 import { cell, resource, resourceFactory, use } from 'ember-resources';
 import { keepLatest } from 'ember-resources/util/keep-latest';
 import { RemoteData } from 'ember-resources/util/remote-data';
@@ -19,6 +22,17 @@ interface Options {
   format: Format;
   importMap: Record<string, Record<string, unknown>>;
 }
+
+/**
+ * Populate a cache of all the documents.
+ *
+ * Network can be slow, and compilation is fast.
+ * So after we get the requested page, let's get
+ * everything else
+ */
+// const fillCache = (path: string) => {
+//   fetch(`/docs/${path}`)
+// };
 
 // TODO: upstream these tweaks to ember-repl
 const Compiled = resourceFactory(
@@ -80,6 +94,9 @@ export default class Selected extends Service {
     format: 'glimdown',
     importMap: {
       'ember-primitives': emberPrimitives,
+      'ember-primitives/color-scheme': colorScheme,
+      'ember-headless-form': emberHeadlessForm,
+      'ember-resources': emberResources,
     },
   });
 

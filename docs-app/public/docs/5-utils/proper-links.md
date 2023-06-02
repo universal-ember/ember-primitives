@@ -1,6 +1,7 @@
 # Proper Links
 
 Enables usage of plain `<a>` tags.
+You no longer need to use a component to have single-app-app navigation 🎉.
 
 ## Setup
 
@@ -21,4 +22,17 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   // ...
 });
+```
+
+## Example
+
+```gjs live preview 
+<template>
+  <nav style="display: flex; gap: 0.5rem">
+    <a href="/">Home</a> 
+    <a href="/3-components/link">Link docs</a> 
+    <a href="/3-components/external-link">ExternalLink docs</a> 
+    <a href="https://developer.mozilla.org">MDN ➚</a> 
+  </nav>
+</template>
 ```

@@ -5,7 +5,41 @@ import { getOwner } from '@ember/owner';
 import type EmberRouter from '@ember/routing/router';
 import type RouterService from '@ember/routing/router-service';
 
-export function properLinks(klass: typeof EmberRouter) {
+type RouterType = typeof EmberRouter;
+
+interface Options {
+  ignore?: string[];
+}
+
+export function properLinks(options: Options): (klass: RouterType) => RouterType;
+export function properLinks(klass: RouterType): RouterType;
+/**
+ * @internal
+ */
+export function properLinks(options: Options, klass: RouterType): RouterType;
+
+export function properLinks(
+  ...args: [Options] | [RouterType] | [Options, RouterType]
+): RouterType | ((klass: RouterType) => RouterType) {
+  let options: Options = {};
+  let klass: undefined | RouterType = undefined;
+
+  if (args.length === 2) {
+    options = args[0] as Options;
+    klass = args[1] as RouterType;
+  } else if (args.length === 1) {
+    if (typeof args[0] === 'object') {
+      // TODO: how to get first arg type correct?
+      return (klass: RouterType) => properLinks(args[0] as any, klass);
+    } else {
+      klass = args[0];
+    }
+  }
+
+  let ignore = options.ignore || [];
+
+  assert(`klass was not defined. possibile incorrect arity given to properLinks`, klass);
+
   return class extends klass {
     constructor(...args: object[]) {
       super(...args);
@@ -25,7 +59,7 @@ export function properLinks(klass: typeof EmberRouter) {
 
         let routerService = owner.lookup('service:router');
 
-        handle(routerService, interactive, event);
+        handle(routerService, interactive, ignore, event);
 
         return false;
       };
@@ -51,7 +85,7 @@ function isLink(event: Event) {
   }
 }
 
-function handle(router: RouterService, element: HTMLAnchorElement, event: Event) {
+function handle(router: RouterService, element: HTMLAnchorElement, ignore: string[], event: Event) {
   /**
    * The href includes the protocol/host/etc
    * In order to not have the page look like a full page refresh,
@@ -64,6 +98,13 @@ function handle(router: RouterService, element: HTMLAnchorElement, event: Event)
    *
    */
   if (location.origin !== url.origin) return;
+
+  /**
+   * We can optionally declare some paths as ignored,
+   * or "let the browser do its default thing,
+   * because there is other server-based routing to worry about"
+   */
+  if (ignore.includes(url.pathname)) return;
 
   let routeInfo = router.recognize(url.pathname);
 

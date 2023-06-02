@@ -5,7 +5,8 @@
   "version": "0.0.0",
   "bin": {
     "lint": "./bin/lint.js",
-    "ci-todo": "./bin/todo.js"
+    "ci-todo": "./bin/todo.js",
+    "unstable": "./bin/use-unstable-embroider.js"
   },
   "dependencies": {
     "chalk": "^5.2.0",

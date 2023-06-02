@@ -44,7 +44,7 @@ module.exports = function (defaults) {
           fallback: {
             path: require.resolve('path-browserify'),
             assert: require.resolve('assert'),
-            fs: 'empty',
+            fs: false,
           },
         },
         node: {

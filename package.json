@@ -34,6 +34,7 @@
   "pnpm": {
     "overrides": {
       "ember-async-data": "^1.0.1",
+      "ember-cli-babel": "^7.26.11",
       "@embroider/addon-dev": "3.1.1-unstable.d120477",
       "@embroider/addon-shim": "1.8.6-unstable.d120477",
       "@embroider/core": "3.0.1-unstable.d120477",

@@ -1,4 +1,4 @@
-# Get Started
+# ember-primitives
 
 With `ember-primitives` you only ship as much JS to your users as you need. Import whatever you want.
 

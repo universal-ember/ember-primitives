@@ -2,6 +2,7 @@
 import { ExternalLink,service } from 'ember-primitives';
 import { colorScheme } from 'ember-primitives/color-scheme';
 
+import { Footer } from './footer';
 import { Nav } from './nav';
 import { Prose } from './prose';
 
@@ -34,11 +35,10 @@ const ReportingAnIssue = <template>
       <main id="layout">
         <Nav />
         <section>
-          <div>
-            <Prose />
-          </div>
+          <Prose />
         </section>
       </main>
+      <Footer />
     {{else if page.hasError}}
       <h1>Oops!</h1>
       {{page.error}}

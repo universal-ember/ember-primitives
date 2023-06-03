@@ -6,6 +6,7 @@ import { Link } from 'ember-primitives';
 import type { TOC } from '@ember/component/template-only';
 import type DocsService from 'docs-app/services/docs';
 import type { Page } from 'docs-app/services/types';
+import type UI from 'docs-app/services/ui';
 
 /**
  * Converts 1-2-hyphenated-thing
@@ -42,6 +43,7 @@ const NameLink: TOC<{ Args: {  href: string; name: string } }> = <template>
 
 export class Nav extends Component {
   @service declare docs: DocsService;
+  @service declare ui: UI;
 
   get humanSelected() {
     let path = this.docs.selected?.path;
@@ -56,7 +58,7 @@ export class Nav extends Component {
   };
 
   <template>
-    <nav>
+    <nav class={{if this.ui.isNavOpen "open"}}>
       <ul>
         {{#each-in this.docs.grouped as |group pages|}}
           <li>

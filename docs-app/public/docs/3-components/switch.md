@@ -57,6 +57,7 @@ const toggleTheme = (e) =>
     div {
       padding: 1rem;
       font-family: "Montserrat", sans-serif;
+      background-color: #eee;
       display: flex;
       justify-content: center;
       align-items: center;

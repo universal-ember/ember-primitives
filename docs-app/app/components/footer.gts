@@ -1,6 +1,7 @@
 import { on } from '@ember/modifier';
+import { get } from '@ember/object';
 
-import { ExternalLink, Link,Switch } from 'ember-primitives';
+import { ExternalLink, Link, service, Switch } from 'ember-primitives';
 import { colorScheme } from 'ember-primitives/color-scheme';
 
 export const Footer = <template>
@@ -10,12 +11,21 @@ export const Footer = <template>
         <Link @href="/">ember-primitives</Link>
       </span>
       <span class="right">
+        <ToggleNav />
         <ExternalLink href="/tests">Tests ➚</ExternalLink>
         <ExternalLink href="https://github.com/universal-ember/ember-primitives">GitHub ➚</ExternalLink>
         <ThemeToggle />
       </span>
     </div>
   </footer>
+</template>;
+
+const ToggleNav = <template>
+  <button
+    id="nav-toggle" aria-label="Toggle navigation" type="button" {{on 'click' (get (service 'ui') 'toggleNav')}}
+  >
+    Toggle Nav
+  </button>
 </template>;
 
 function toggleTheme() {

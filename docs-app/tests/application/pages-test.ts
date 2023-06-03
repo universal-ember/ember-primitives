@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
 import { colorScheme } from 'ember-primitives/color-scheme';
+import { remoteData } from 'ember-resources/util/remote-data';
 
 import { a11yAudit } from 'ember-a11y-testing/test-support';
 
@@ -28,33 +29,25 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
   }
 }
 
+// eslint-disable-next-line qunit/no-async-module-callbacks
 module('Application | Pages', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('Visit each page in the nav', async function (assert) {
-    await visit('/');
-    await waitUntil(() => findAll('nav a').length !== 0);
+  for (let page of window.__pages__) {
+    test(`${page.path}`, async function (assert) {
+      assert.expect(3);
 
-    let links = findAll('nav a');
+      let path = page.path.replace('.md', '');
 
-    // the a11y page deliberately has violations on it
-    links = links.filter((link) => !link.href.includes('accessibility'));
-
-    assert.expect(links.length * 3);
-
-    for (let link of links) {
-      if (!('href' in link)) continue;
-
-      let url = new URL(link.href);
-
-      await visit(url.pathname);
-      await checkA11y(assert, link.href, 'default');
+      await visit(path);
+      await waitUntil(() => findAll('nav a').length !== 0);
+      await checkA11y(assert, path, 'default');
 
       colorScheme.update('dark');
-      await checkA11y(assert, link.href, 'dark');
+      await checkA11y(assert, path, 'dark');
 
       colorScheme.update('light');
-      await checkA11y(assert, link.href, 'light');
-    }
-  });
+      await checkA11y(assert, path, 'light');
+    });
+  }
 });

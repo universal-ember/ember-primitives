@@ -10,4 +10,11 @@ setApplication(Application.create(config.APP));
 
 setup(QUnit.assert);
 
-start();
+(async function loadManifest() {
+  let response = await fetch('/docs/manifest.json');
+  let json = await response.json();
+  let pages = json.list.flat();
+
+  window.__pages__ = pages;
+  start();
+})();

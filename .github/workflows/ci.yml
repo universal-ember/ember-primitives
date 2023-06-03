@@ -153,30 +153,6 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm lint:types --filter docs-app
 
-  # https://github.com/changesets/action
-  release:
-    name: Release
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    needs: [typecheck, try-scenarios]
-    permissions:
-      contents: write
-      packages: write
-      pull-requests: write
-    steps:
-      - uses: wyvox/action@v1
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm release
-          title: "Release Preview"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-
 
   DeployProduction:
     name: "Deploy: Production"

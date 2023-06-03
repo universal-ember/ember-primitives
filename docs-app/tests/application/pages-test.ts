@@ -6,7 +6,7 @@ import { colorScheme } from 'ember-primitives/color-scheme';
 
 import { a11yAudit } from 'ember-a11y-testing/test-support';
 
-const pages = (window as any).__pages__;
+const pages: { path: string }[] = (window as any).__pages__;
 
 /**
  * a11yAudit halts tests, this gets around that

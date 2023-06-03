@@ -15,6 +15,10 @@ setup(QUnit.assert);
   let json = await response.json();
   let pages = json.list.flat();
 
-  window.__pages__ = pages;
+  // The accessibility page deliberately
+  // has violations for demonstration
+  window.__pages__ = pages.filter(
+    (page) => !page.path.includes('accessibility')
+  );
   start();
 })();

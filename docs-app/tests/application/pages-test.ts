@@ -29,7 +29,6 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
   }
 }
 
-// eslint-disable-next-line qunit/no-async-module-callbacks
 module('Application | Pages', function (hooks) {
   setupApplicationTest(hooks);
 

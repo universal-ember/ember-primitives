@@ -1,13 +1,20 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "tsconfig": "../ember-primitives/tsconfig.json",
+  "tsconfig": "../ember-primitives/tsconfig.typedoc.json",
   "cleanOutputDir": true,
   "compilerOptions": {
     "noEmitOnError": false
   },
-  "entryPoints": ["../ember-primitives/src"],
-  "entryPointStrategy": "expand",
-  "out": "dist",
+  "includes": [
+    "../ember-primitives/dist/index.d.ts",
+    "../ember-primitives/dist/helpers.d.ts",
+    "../ember-primitives/dist/utils.d.ts",
+    "../ember-primitives/dist/proper-links.d.ts",
+    "../ember-primitives/dist/color-scheme.d.ts",
+    "../ember-primitives/dist/**/*.d.ts"
+  ],
+  "entryPoints": ["../ember-primitives/dist/*"],
+  "entryPointStrategy": "resolve",
   "emit": "none",
   "json": "./docs.json",
   "pretty": true,

@@ -9,20 +9,23 @@ import { ExternalLink } from './external-link';
 import type RouterService from '@ember/routing/router-service';
 
 /**
-  * TODO: make template-only component,
-* and use class-based modifier?
-  */
+ * TODO: make template-only component,
+ * and use class-based modifier?
+ */
 
-  interface Signature {
-    Element: HTMLAnchorElement;
-    Args: {
-      href: string;
-    };
-    Blocks: { default: [{
-      isExternal: boolean;
-    }]}
-  }
-
+export interface Signature {
+  Element: HTMLAnchorElement;
+  Args: {
+    href: string;
+  };
+  Blocks: {
+    default: [
+      {
+        isExternal: boolean;
+      }
+    ];
+  };
+}
 
 export class Link extends Component<Signature> {
   <template>
@@ -31,11 +34,10 @@ export class Link extends Component<Signature> {
         {{yield (hash isExternal=true)}}
       </ExternalLink>
     {{else}}
-      <a href={{if @href @href '##missing##'}} {{on "click" this.handleClick}} ...attributes>
+      <a href={{if @href @href '##missing##'}} {{on 'click' this.handleClick}} ...attributes>
         {{yield (hash isExternal=false)}}
       </a>
     {{/if}}
-
   </template>
 
   @service declare router: RouterService;
@@ -48,9 +50,8 @@ export class Link extends Component<Signature> {
     let path = new URL(event.target.href).pathname;
 
     this.router.transitionTo(path);
-  }
+  };
 }
-
 
 function isExternal(href: string) {
   if (!href) return false;
@@ -59,4 +60,3 @@ function isExternal(href: string) {
 
   return location.origin !== new URL(href).origin;
 }
-

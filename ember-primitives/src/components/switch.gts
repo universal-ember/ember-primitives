@@ -7,7 +7,7 @@ import { Label } from './typed-elements';
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
-interface Signature {
+export interface Signature {
   Element: HTMLInputElement;
   Args: {
     checked?: boolean;

@@ -3,13 +3,14 @@
   "private": true,
   "scripts": {
     "debug": "npx html-pages ./dist --no-cache",
-    "build": "typedoc --options ./typedoc.config.json --json ./docs.json",
-    "start": "typedoc --options ./typedoc.config.json --json ./docs.json --watch"
+    "build": "typedoc --options ./typedoc.config.json --json ./docs.json ../ember-primitives/dist/*",
+    "start": "typedoc --options ./typedoc.config.json --json ./docs.json --watch ../ember-primitives/dist/*"
   },
   "dependencies": {
     "ember-primitives": "workspace:*"
   },
   "devDependencies": {
+    "@tsconfig/ember": "^2.0.0",
     "typedoc": "^0.24.7",
     "typescript": "^5.1.3"
   }

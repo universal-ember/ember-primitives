@@ -206,6 +206,9 @@ importers:
       concurrently:
         specifier: ^8.1.0
         version: 8.1.0
+      ember-a11y-testing:
+        specifier: ^5.2.1
+        version: 5.2.1(@babel/core@7.22.1)(@ember/test-helpers@2.9.3)(@glint/template@1.0.2)(qunit@2.19.4)(webpack@5.85.0)
       ember-auto-import:
         specifier: ^2.5.0
         version: 2.6.3(@glint/template@1.0.2)(webpack@5.85.0)
@@ -3432,6 +3435,18 @@ packages:
       rollup: 3.21.0
     dev: true
 
+  /@scalvert/ember-setup-middleware-reporter@0.1.1:
+    resolution: {integrity: sha512-C5DHU6YlKaISB5utGQ+jpsMB57ZtY0uZ8UkD29j855BjqG6eJ98lhA2h/BoJbyPw89RKLP1EEXroy9+5JPoyVw==}
+    engines: {node: 12.* || >= 14}
+    dependencies:
+      '@types/fs-extra': 9.0.13
+      body-parser: 1.20.1
+      errorhandler: 1.5.1
+      fs-extra: 10.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@sigstore/protobuf-specs@0.1.0:
     resolution: {integrity: sha512-a31EnjuIDSX8IXBUib3cYLDRlPMU36AWX4xS8ysLaNu4ZzUesDiPt83pgrW2X1YLMe5L2HbDyaKK5BrL4cNKaQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -3649,6 +3664,12 @@ packages:
 
   /@types/fs-extra@8.1.2:
     resolution: {integrity: sha512-SvSrYXfWSc7R4eqnOzbQF4TZmfpNSM9FrSWLU3EUnWBuyZqNBOrv1B1JA3byUDPUl9z4Ab3jeZG2eDdySlgNMg==}
+    dependencies:
+      '@types/node': 20.2.5
+    dev: true
+
+  /@types/fs-extra@9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
     dependencies:
       '@types/node': 20.2.5
     dev: true
@@ -4548,6 +4569,11 @@ packages:
   /available-typed-arrays@1.0.5:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
+
+  /axe-core@4.7.2:
+    resolution: {integrity: sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==}
+    engines: {node: '>=4'}
+    dev: true
 
   /babel-code-frame@6.26.0:
     resolution: {integrity: sha512-XqYMR2dfdGMW+hd0IUZ2PwK+fGeFkOxZJ0wY+JaQAHzt1Zx8LcvpiZD2NiGkEG8qx0CfkAOr5xt76d1e8vG90g==}
@@ -7342,6 +7368,37 @@ packages:
   /electron-to-chromium@1.4.417:
     resolution: {integrity: sha512-8rY8HdCxuSVY8wku3i/eDac4g1b4cSbruzocenrqBlzqruAZYHjQCHIjC66dLR9DXhEHTojsC4EjhZ8KmzwXqA==}
 
+  /ember-a11y-testing@5.2.1(@babel/core@7.22.1)(@ember/test-helpers@2.9.3)(@glint/template@1.0.2)(qunit@2.19.4)(webpack@5.85.0):
+    resolution: {integrity: sha512-gYIqSwCw43hRxQtwauln0hChRHyelkVTtmWVYgyvkX0+YKJXz2x+IGmC1MkO62SHOjz4A9wXyNSH13jwOIbJ9A==}
+    engines: {node: 12.* || 14.* || >= 16}
+    peerDependencies:
+      '@ember/test-helpers': ^2.0.0
+      qunit: '>= 2'
+    peerDependenciesMeta:
+      qunit:
+        optional: true
+    dependencies:
+      '@ember/test-helpers': 2.9.3(@babel/core@7.22.1)(@glint/environment-ember-loose@1.0.2)(@glint/template@1.0.2)(ember-source@5.0.0)
+      '@ember/test-waiters': 3.0.2
+      '@scalvert/ember-setup-middleware-reporter': 0.1.1
+      axe-core: 4.7.2
+      body-parser: 1.20.1
+      broccoli-persistent-filter: 3.1.3
+      ember-auto-import: 2.6.3(@glint/template@1.0.2)(webpack@5.85.0)
+      ember-cli-babel: 7.26.11
+      ember-cli-typescript: 4.2.1
+      ember-cli-version-checker: 5.1.2
+      ember-destroyable-polyfill: 2.0.3(@babel/core@7.22.1)
+      fs-extra: 10.1.0
+      qunit: 2.19.4
+      validate-peer-dependencies: 2.2.0
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@glint/template'
+      - supports-color
+      - webpack
+    dev: true
+
   /ember-apply@2.6.5:
     resolution: {integrity: sha512-jWTwUwOfl1DLRr7SUsXOyVtrrRJVfBolgyV61HS3GdEqQOfw/UcOrQPpnMKHtPD8zgUufsbIe3G+7F2AtTdXbQ==}
     engines: {node: '>=16.0.0'}
@@ -8448,6 +8505,14 @@ packages:
     resolution: {integrity: sha512-fo9HBvWnx3NGUKMvMwB/CBCMMrfEJgbDTVDEkPygA3Bdd3lM1OyCd+rbQ8BwnpF6GdVeOLDNmyL4N5Bg80ZvdA==}
     dependencies:
       string-template: 0.2.1
+    dev: true
+
+  /errorhandler@1.5.1:
+    resolution: {integrity: sha512-rcOwbfvP1WTViVoUjcfZicVzjhjTuhSMntHh6mW3IrEiyE6mJyXvsToJUJGlGlw/2xU9P5whlWNGlIDVeCiT4A==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      accepts: 1.3.8
+      escape-html: 1.0.3
     dev: true
 
   /es-abstract@1.21.2:

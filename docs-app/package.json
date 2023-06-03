@@ -70,6 +70,7 @@
     "@typescript-eslint/parser": "^5.59.8",
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^8.1.0",
+    "ember-a11y-testing": "^5.2.1",
     "ember-auto-import": "^2.5.0",
     "ember-cached-decorator-polyfill": "^1.0.1",
     "ember-cli": "~4.12.1",

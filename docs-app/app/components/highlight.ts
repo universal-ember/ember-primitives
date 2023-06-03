@@ -64,6 +64,10 @@ export const highlight = modifier((element: HTMLElement, [_]: unknown[]) => {
       let hljs = await getHighlighter();
 
       hljs.highlightElement(element as HTMLElement);
+
+      // scrollable elements must be focusable
+      element.closest('pre')?.setAttribute('tabindex', '0');
+      element.setAttribute('tabindex', '0');
     }
   })();
 });

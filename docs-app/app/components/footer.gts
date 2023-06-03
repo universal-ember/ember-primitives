@@ -53,8 +53,13 @@ const Moon = <template>
 
 const ThemeToggle = <template>
   <Switch id="site-theme-toggle" as |s|>
-    <s.Control checked={{(isDark)}} {{on 'change' toggleTheme}} />
+    <s.Control
+      name="color-scheme"
+      checked={{(isDark)}}
+      {{on 'change' toggleTheme}}
+    />
     <s.Label>
+      <span class="sr-only">Toggle between light and dark mode</span>
       <Moon />
       <Sun />
       <span class="ball"></span>
@@ -71,6 +76,15 @@ const ThemeToggle = <template>
       text-align: center;
       margin: 0;
       transition: background 0.2s linear;
+    }
+
+    .sr-only {
+      width: 0px;
+      max-width: 0px;
+      height: 0px;
+      max-height: 0px;
+      overflow: hidden;
+      margin-left: -0.5rem;
     }
 
     #site-theme-toggle input[type='checkbox'][role='switch'] {

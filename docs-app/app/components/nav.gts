@@ -58,7 +58,13 @@ export class Nav extends Component {
   };
 
   <template>
-    <nav class={{if this.ui.isNavOpen "open"}}>
+    {{!--
+      This nav needs an aria-label to get around
+      "Ensure landmarks are unique"
+      because some demos render navs, and it's important that those
+      demos are as simple as possible.
+    --}}
+    <nav aria-label="Main Navigation" class={{if this.ui.isNavOpen "open"}}>
       <ul>
         {{#each-in this.docs.grouped as |group pages|}}
           <li>

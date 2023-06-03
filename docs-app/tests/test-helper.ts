@@ -10,6 +10,11 @@ setApplication(Application.create(config.APP));
 
 setup(QUnit.assert);
 
+QUnit.config.urlConfig.push({
+  id: 'debugA11yAudit',
+  label: 'Log a11y violations',
+});
+
 (async function loadManifest() {
   let response = await fetch('/docs/manifest.json');
   let json = await response.json();
@@ -17,7 +22,7 @@ setup(QUnit.assert);
 
   // The accessibility page deliberately
   // has violations for demonstration
-  window.__pages__ = pages.filter(
+  (window as any).__pages__ = pages.filter(
     (page) => !page.path.includes('accessibility')
   );
   start();

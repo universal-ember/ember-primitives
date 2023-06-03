@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
+import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
 import { Link } from 'ember-primitives';
+import { isLink } from 'ember-primitives/proper-links';
 
 import type { TOC } from '@ember/component/template-only';
 import type DocsService from 'docs-app/services/docs';
@@ -57,6 +59,12 @@ export class Nav extends Component {
     return this.docs.selected?.path === path;
   };
 
+  closeNav = (event: Event) => {
+    if (!isLink(event)) return;
+
+    this.ui.isNavOpen = false;
+  };
+
   <template>
     {{!--
       This nav needs an aria-label to get around
@@ -64,7 +72,16 @@ export class Nav extends Component {
       because some demos render navs, and it's important that those
       demos are as simple as possible.
     --}}
-    <nav aria-label="Main Navigation" class={{if this.ui.isNavOpen "open"}}>
+    <nav
+      aria-label="Main Navigation"
+      class={{if this.ui.isNavOpen "open"}}
+      {{!-- nav isn't actually made in to an interactive element,
+        it's an event delegation handler.
+        The links themselves remain the actual interactive elements.
+      --}}
+      {{!-- template-lint-disable no-invalid-interactive --}}
+      {{on 'click' this.closeNav}}
+    >
       <ul>
         {{#each-in this.docs.grouped as |group pages|}}
           <li>

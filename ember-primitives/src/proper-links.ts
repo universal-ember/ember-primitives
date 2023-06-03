@@ -71,7 +71,7 @@ export function properLinks(
   };
 }
 
-function isLink(event: Event) {
+export function isLink(event: Event) {
   /**
    * Using composed path in case the link is removed from the DOM
    * before the event handler evaluates

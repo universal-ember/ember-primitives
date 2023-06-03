@@ -52,13 +52,44 @@ module.exports = function (defaults) {
           __filename: true,
           __dirname: true,
         },
-        plugins: [createManifest.webpack({ src: 'public/docs', dest: 'docs' })],
+        plugins: [
+          createManifest.webpack({ src: 'public/docs', dest: 'docs' })
+          copyFile.webpack({ src: '../docs-api/docs.json', dest: 'api-docs.json' })
+        ],
       },
     },
   });
 };
 
 const { createUnplugin } = require('unplugin');
+
+const copyFile = createUnplugin((options) => {
+  let { src, dest } = options ?? {};
+
+  return {
+    name: 'copy',
+    async buildStart() {
+      const path = await import('node:path');
+      const fs = await import('fs/promises');
+
+      let source = path.resolve(src);
+      let name = source.split('/').reverse()[0];
+      let file = await fs.readFile(source);
+      let content = await file.toString();
+
+      dest ??= name;
+
+      await this.emitFile({
+        type: 'asset',
+        fileName: dest,
+        source: content,
+      });
+    },
+    watchChange(id) {
+      console.debug('watchChange', id);
+    },
+  }
+});
 
 const createManifest = createUnplugin((options) => {
   let { src, dest, name, include, exclude } = options ?? {};

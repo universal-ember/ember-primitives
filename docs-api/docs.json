@@ -1,0 +1,182 @@
+{
+	"id": 0,
+	"name": "ember-primitives",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 2,
+			"name": "Link",
+			"variant": "reference",
+			"kind": 8388608,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 8,
+					"character": 9,
+					"url": "https://github.com/universal-ember/radix-ember-primitives/blob/cd89959/ember-primitives/src/index.ts#L8"
+				}
+			],
+			"target": 1
+		},
+		{
+			"id": 3,
+			"name": "Popover",
+			"variant": "reference",
+			"kind": 8388608,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 9,
+					"character": 9,
+					"url": "https://github.com/universal-ember/radix-ember-primitives/blob/cd89959/ember-primitives/src/index.ts#L9"
+				}
+			],
+			"target": 1
+		},
+		{
+			"id": 4,
+			"name": "Shadowed",
+			"variant": "reference",
+			"kind": 8388608,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 10,
+					"character": 9,
+					"url": "https://github.com/universal-ember/radix-ember-primitives/blob/cd89959/ember-primitives/src/index.ts#L10"
+				}
+			],
+			"target": 1
+		},
+		{
+			"id": 5,
+			"name": "Switch",
+			"variant": "reference",
+			"kind": 8388608,
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "index.ts",
+					"line": 11,
+					"character": 9,
+					"url": "https://github.com/universal-ember/radix-ember-primitives/blob/cd89959/ember-primitives/src/index.ts#L11"
+				}
+			],
+			"target": 1
+		},
+		{
+			"id": 1,
+			"name": "ExternalLink",
+			"variant": "declaration",
+			"kind": 1024,
+			"flags": {},
+			"type": {
+				"type": "intrinsic",
+				"name": "any"
+			}
+		},
+		{
+			"id": 6,
+			"name": "service",
+			"variant": "declaration",
+			"kind": 32,
+			"flags": {
+				"isConst": true
+			},
+			"sources": [
+				{
+					"fileName": "helpers/service.ts",
+					"line": 25,
+					"character": 13,
+					"url": "https://github.com/universal-ember/radix-ember-primitives/blob/cd89959/ember-primitives/src/helpers/service.ts#L25"
+				}
+			],
+			"type": {
+				"type": "query",
+				"queryType": {
+					"type": "reference",
+					"target": {
+						"sourceFileName": "../ember-primitives/src/helpers/service.ts",
+						"qualifiedName": "default"
+					},
+					"name": "default",
+					"package": "ember-primitives"
+				}
+			},
+			"defaultValue": "GetService"
+		}
+	],
+	"groups": [
+		{
+			"title": "References",
+			"children": [
+				2,
+				3,
+				4,
+				5
+			]
+		},
+		{
+			"title": "Properties",
+			"children": [
+				1
+			]
+		},
+		{
+			"title": "Variables",
+			"children": [
+				6
+			]
+		}
+	],
+	"packageName": "ember-primitives",
+	"readme": [
+		{
+			"kind": "text",
+			"text": "ember-primitives\n==============================================================================\n\n[Short description of the addon.]\n\n\nCompatibility\n------------------------------------------------------------------------------\n\n* Ember.js v3.28 or above\n* Embroider or ember-auto-import v2\n\n\nInstallation\n------------------------------------------------------------------------------\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```\nember install ember-primitives\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n\nUsage\n------------------------------------------------------------------------------\n\n[Longer description of how to use the addon in apps.]\n\n\nContributing\n------------------------------------------------------------------------------\n\nSee the [Contributing](CONTRIBUTING.md) guide for details.\n\n\nLicense\n------------------------------------------------------------------------------\n\nThis project is licensed under the [MIT License](LICENSE.md)."
+		}
+	],
+	"symbolIdMap": {
+		"0": {
+			"sourceFileName": "../ember-primitives/src/index.ts",
+			"qualifiedName": ""
+		},
+		"1": {
+			"sourceFileName": "\u0000",
+			"qualifiedName": "unknown"
+		},
+		"2": {
+			"sourceFileName": "../ember-primitives/src/index.ts",
+			"qualifiedName": "Link"
+		},
+		"3": {
+			"sourceFileName": "../ember-primitives/src/index.ts",
+			"qualifiedName": "Popover"
+		},
+		"4": {
+			"sourceFileName": "../ember-primitives/src/index.ts",
+			"qualifiedName": "Shadowed"
+		},
+		"5": {
+			"sourceFileName": "../ember-primitives/src/index.ts",
+			"qualifiedName": "Switch"
+		},
+		"6": {
+			"sourceFileName": "../ember-primitives/src/helpers/service.ts",
+			"qualifiedName": "service"
+		}
+	}
+}

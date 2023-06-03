@@ -36,7 +36,8 @@
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.0.1",
-    "path-browserify": "^1.0.1"
+    "path-browserify": "^1.0.1",
+    "docs-api": "workspace:*"
   },
   "dependenciesMeta": {
     "ember-primitives": {

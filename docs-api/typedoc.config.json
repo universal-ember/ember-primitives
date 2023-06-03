@@ -1,0 +1,23 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "tsconfig": "../ember-primitives/tsconfig.json",
+  "cleanOutputDir": true,
+  "compilerOptions": {
+    "noEmitOnError": false
+  },
+  "entryPoints": ["../ember-primitives/src"],
+  "entryPointStrategy": "resolve",
+  "exclude": [],
+  "out": "dist",
+  "emit": "none",
+  "json": "./docs.json",
+  "pretty": true,
+  "skipErrorChecking": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "searchInComments": true,
+  "disableSources": false,
+  "categorizeByGroup": false,
+  "plugin": []
+}

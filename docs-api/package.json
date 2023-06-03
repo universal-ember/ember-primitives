@@ -1,0 +1,16 @@
+{
+  "name": "docs-api",
+  "private": true,
+  "scripts": {
+    "debug": "npx html-pages ./dist --no-cache",
+    "build": "typedoc --options ./typedoc.config.json --json ./docs.json",
+    "start": "typedoc --options ./typedoc.config.json --json ./docs.json --watch"
+  },
+  "dependencies": {
+    "ember-primitives": "workspace:*"
+  },
+  "devDependencies": {
+    "typedoc": "^0.24.7",
+    "typescript": "^5.1.3"
+  }
+}

@@ -26,3 +26,12 @@ import { Link } from 'ember-primitives';
   <Link @href="/">Home</Link>
 </template>
 ```
+
+
+```gjs live no-shadow
+import { APIDocs } from 'docs-app/docs-support';
+
+<template>
+  <APIDocs @module="components/link" @name="Signature" />
+</template>
+```

@@ -1,29 +1,14 @@
 import Service, { service } from '@ember/service';
 
-import * as docsSupport from 'docs-app/docs-support';
-import * as emberHeadlessForm from 'ember-headless-form';
-import * as emberPrimitives from 'ember-primitives';
-import { Shadowed } from 'ember-primitives';
-import * as colorScheme from 'ember-primitives/color-scheme';
+import { Compiled, defaultOptions } from 'docs-app/markdown';
 // import { Compiled } from 'ember-repl';
-import { compile } from 'ember-repl';
-import * as emberResources from 'ember-resources';
-import { cell, resource, resourceFactory, use } from 'ember-resources';
+import { use } from 'ember-resources';
 import { keepLatest } from 'ember-resources/util/keep-latest';
-import * as remoteData from 'ember-resources/util/remote-data';
 import { RemoteData } from 'ember-resources/util/remote-data';
 
 import type DocsService from './docs';
 import type { Page } from './types';
 import type RouterService from '@ember/routing/router-service';
-import type { ComponentLike } from '@glint/template';
-
-type Format = 'glimdown' | 'gjs' | 'hbs';
-type Input = string | undefined | null;
-interface Options {
-  format: Format;
-  importMap: Record<string, Record<string, unknown>>;
-}
 
 /**
  * Populate a cache of all the documents.
@@ -35,49 +20,6 @@ interface Options {
 // const fillCache = (path: string) => {
 //   fetch(`/docs/${path}`)
 // };
-
-// TODO: upstream these tweaks to ember-repl
-const Compiled = resourceFactory(
-  (markdownText: Input | (() => Input), options: Options) => {
-    return resource(() => {
-      let { format = 'glimdown', importMap } = options ?? {};
-
-      let input =
-        typeof markdownText === 'function' ? markdownText() : markdownText;
-      let ready = cell(false);
-      let error = cell();
-      let result = cell<ComponentLike>();
-
-      if (input) {
-        compile(input, {
-          format,
-          importMap,
-          topLevelScope: {
-            Shadowed,
-          },
-          ShadowComponent: 'Shadowed',
-          onSuccess: async (component) => {
-            result.current = component;
-            ready.set(true);
-            error.set(null);
-          },
-          onError: async (e) => {
-            error.set(e);
-          },
-          onCompileStart: async () => {
-            ready.set(false);
-          },
-        });
-      }
-
-      return () => ({
-        isReady: ready.current,
-        error: error.current,
-        component: result.current,
-      });
-    });
-  }
-);
 
 export default class Selected extends Service {
   @service declare router: RouterService;
@@ -92,17 +34,7 @@ export default class Selected extends Service {
 
   @use proseFile = RemoteData<string>(() => `/docs${this.path}.md`);
   // @use proseCompiled = MarkdownToHTML(() => this.proseFile.value);
-  @use proseCompiled = Compiled(() => this.proseFile.value, {
-    format: 'glimdown',
-    importMap: {
-      'ember-primitives': emberPrimitives,
-      'ember-primitives/color-scheme': colorScheme,
-      'ember-headless-form': emberHeadlessForm,
-      'ember-resources': emberResources,
-      'ember-resources/util/remote-data': remoteData,
-      'docs-app/docs-support': docsSupport,
-    },
-  });
+  @use proseCompiled = Compiled(() => this.proseFile.value, defaultOptions);
 
   /*********************************************************************
    * This is a pattern to help reduce flashes of content during

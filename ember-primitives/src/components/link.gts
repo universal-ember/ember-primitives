@@ -1,3 +1,9 @@
+/**
+ * TODO: make template-only component,
+ * and use class-based modifier?
+ *
+ * This would require that modifiers could run pre-render
+ */
 import Component from '@glimmer/component';
 import { assert } from '@ember/debug';
 import { hash } from '@ember/helper';
@@ -8,25 +14,50 @@ import { ExternalLink } from './external-link';
 
 import type RouterService from '@ember/routing/router-service';
 
-/**
- * TODO: make template-only component,
- * and use class-based modifier?
- */
-
 export interface Signature {
   Element: HTMLAnchorElement;
   Args: {
+    /**
+     * the `href` string value to set on the anchor element.
+     */
     href: string;
   };
   Blocks: {
     default: [
       {
+        /**
+         * Indicates if the passed `href` is pointing to an external site.
+         * Useful if you want your links to have additional context for when
+         * a user is about to leave your site.
+         *
+         * For example:
+         *
+         * ```gjs live preview
+         * import { Link } from 'ember-primitives';
+         *
+         * <template>
+         *   <Link @href="https://developer.mozilla.org" as |a|>
+         *     MDN
+         *
+         *     {{#if a.isExternal}}
+         *       ➚
+         *     {{/if}}
+         *   </Link>
+         * </template>
+         * ```
+         */
         isExternal: boolean;
       }
     ];
   };
 }
 
+/**
+ * A light wrapper around the [Anchor element][mdn-a], which will appropriately make your link an external link if the passed `@href` is not on the same domain.
+ *
+ *
+ * [mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+ */
 export class Link extends Component<Signature> {
   <template>
     {{#if (isExternal @href)}}

@@ -3,5 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./"
   },
-  "include": ["dist/**/*"]
+  "typedocOptions": {
+    "entryPoints": ["dist/*.d.ts"],
+  }
+  "include": ["dist/*.d.ts", "dist/**/*.d.ts"]
 }

@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "debug": "npx html-pages ./dist --no-cache",
-    "build": "typedoc --options ./typedoc.config.json --json ./docs.json ../ember-primitives/dist/*",
-    "start": "typedoc --options ./typedoc.config.json --json ./docs.json --watch ../ember-primitives/dist/*"
+    "build": "typedoc --options ./typedoc.config.json --json ./docs.json ",
+    "start": "pnpm build --watch"
   },
   "dependencies": {
     "ember-primitives": "workspace:*"

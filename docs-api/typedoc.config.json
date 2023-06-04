@@ -5,22 +5,14 @@
   "compilerOptions": {
     "noEmitOnError": false
   },
-  "includes": [
-    "../ember-primitives/dist/index.d.ts",
-    "../ember-primitives/dist/helpers.d.ts",
-    "../ember-primitives/dist/utils.d.ts",
-    "../ember-primitives/dist/proper-links.d.ts",
-    "../ember-primitives/dist/color-scheme.d.ts",
-    "../ember-primitives/dist/**/*.d.ts"
+  "exclude": [
+    "../ember-primitives/dist/_app_/",
+    "../ember-primitives/dist/**/*.js",
+    "../ember-primitives/dist/**/*.js.map",
+    "../ember-primitives/dist/**/*.d.ts.map"
   ],
-  "entryPoints": ["../ember-primitives/dist/*"],
-  "entryPointStrategy": "resolve",
-  "emit": "none",
   "json": "./docs.json",
   "pretty": true,
   "skipErrorChecking": true,
-  "excludePrivate": true,
-  "searchInComments": true,
-  "disableSources": false,
   "plugin": []
 }

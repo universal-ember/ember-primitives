@@ -1623,7 +1623,7 @@
 							"sources": [
 								{
 									"fileName": "ember-primitives/dist/components/link.d.ts",
-									"line": 54,
+									"line": 59,
 									"character": 4
 								}
 							],
@@ -1638,7 +1638,7 @@
 									"sources": [
 										{
 											"fileName": "ember-primitives/dist/components/link.d.ts",
-											"line": 54,
+											"line": 59,
 											"character": 17
 										}
 									],
@@ -1652,7 +1652,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/link.d.ts",
-													"line": 54,
+													"line": 59,
 													"character": 17
 												}
 											],
@@ -1744,7 +1744,7 @@
 							"sources": [
 								{
 									"fileName": "ember-primitives/dist/components/link.d.ts",
-									"line": 53,
+									"line": 58,
 									"character": 4
 								}
 							],
@@ -1958,7 +1958,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/link.d.ts",
-							"line": 52,
+							"line": 57,
 							"character": 14
 						}
 					],
@@ -2133,14 +2133,14 @@
 																			},
 																			{
 																				"kind": "code",
-																				"text": "```gjs live preview\nimport { Link } from 'ember-primitives';\n\n<template>\n  <Link @href=\"https://developer.mozilla.org\" as |a|>\n    MDN\n\n    {{#if a.isExternal}}\n      ➚\n    {{/if}}\n  </Link>\n</template>\n```"
+																				"text": "```gjs live preview\nimport { Link } from 'ember-primitives';\n\nconst MyLink = <template>\n  <Link @href={{@href}} as |a|>\n    {{yield}}\n    {{#if a.isExternal}}\n      ➚\n    {{/if}}\n  </Link>\n</template>;\n\n<template>\n  <MyLink @href=\"https://developer.mozilla.org\">MDN</MyLink>\n  &nbsp;&nbsp;\n  <MyLink @href=\"/\">Home</MyLink>\n </template>\n```"
 																			}
 																		]
 																	},
 																	"sources": [
 																		{
 																			"fileName": "ember-primitives/dist/components/link.d.ts",
-																			"line": 41,
+																			"line": 46,
 																			"character": 16
 																		}
 																	],

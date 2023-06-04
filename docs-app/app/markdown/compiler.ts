@@ -1,8 +1,6 @@
-// import { Shadowed } from 'ember-primitives';
+import { Shadowed } from 'ember-primitives';
 import { compile } from 'ember-repl';
 import { cell, resource, resourceFactory } from 'ember-resources';
-
-import { Wrapper } from './shadow-highlight';
 
 import type { ComponentLike } from '@glint/template';
 
@@ -30,7 +28,7 @@ export const Compiled = resourceFactory(
           format,
           importMap,
           topLevelScope: {
-            Shadowed: Wrapper,
+            Shadowed,
           },
           ShadowComponent: 'Shadowed',
           onSuccess: async (component) => {

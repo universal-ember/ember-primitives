@@ -35,15 +35,19 @@ export interface Signature {
          * ```gjs live preview
          * import { Link } from 'ember-primitives';
          *
-         * <template>
-         *   <Link @href="https://developer.mozilla.org" as |a|>
-         *     MDN
-         *
+         * const MyLink = <template>
+         *   <Link @href={{@href}} as |a|>
+         *     {{yield}}
          *     {{#if a.isExternal}}
          *       ➚
          *     {{/if}}
          *   </Link>
-         * </template>
+         * </template>;
+         *
+         * <template>
+         *   <MyLink @href="https://developer.mozilla.org">MDN</MyLink> &nbsp;&nbsp;
+         *   <MyLink @href="/">Home</MyLink>
+         *  </template>
          * ```
          */
         isExternal: boolean;

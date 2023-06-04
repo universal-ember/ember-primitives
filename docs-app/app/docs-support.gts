@@ -48,6 +48,27 @@ export const APIDocs: TOC<{
   {{/let}}
 </template>;
 
+export const CommentQuery = <template>
+  {{#let (RemoteData '/api-docs.json') as |request|}}
+    {{#if request.isLoading}}
+      Loading api docs...
+    {{/if}}
+
+    {{#if request.value}}
+      <Styles />
+      <section {{highlight request.value}}>
+        {{#let (infoFor request.value @module @name) as |info|}}
+          {{#if info.comment.summary}}
+            <RenderedComment @text={{info.comment.summary}} />
+          {{else}}
+            Query does not have a comment
+          {{/if}}
+        {{/let}}
+      </section>
+    {{/if}}
+  {{/let}}
+</template>;
+
 function isGlimmerComponent(info: DeclarationReference) {
   let extended = info?.extendedTypes?.[0]
 
@@ -77,7 +98,9 @@ const not = x => !x;
 const RenderedComment: TOC<{}> = <template>
   {{#let (Compiled (join (text @text)) defaultOptions) as |compiled|}}
     {{#if compiled.isReady}}
-      <compiled.component />
+      <div {{highlight}}>
+        <compiled.component />
+      </div>
     {{/if}}
   {{/let}}
 </template>;

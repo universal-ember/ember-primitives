@@ -53,8 +53,11 @@ module.exports = function (defaults) {
           __dirname: true,
         },
         plugins: [
-          createManifest.webpack({ src: 'public/docs', dest: 'docs' })
-          copyFile.webpack({ src: '../docs-api/docs.json', dest: 'api-docs.json' })
+          createManifest.webpack({ src: 'public/docs', dest: 'docs' }),
+          copyFile.webpack({
+            src: '../docs-api/docs.json',
+            dest: 'api-docs.json',
+          }),
         ],
       },
     },
@@ -88,7 +91,7 @@ const copyFile = createUnplugin((options) => {
     watchChange(id) {
       console.debug('watchChange', id);
     },
-  }
+  };
 });
 
 const createManifest = createUnplugin((options) => {

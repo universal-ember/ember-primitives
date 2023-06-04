@@ -35,3 +35,11 @@ import { Shadowed } from 'ember-primitives';
   </Shadowed>
 </template>
 ```
+
+```gjs live 
+import { APIDocs } from 'docs-app/docs-support';
+
+<template>
+  <APIDocs @module="index" @name="Shadowed" />
+</template>
+```

@@ -318,6 +318,9 @@ importers:
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
+      typedoc:
+        specifier: ^0.24.7
+        version: 0.24.7(typescript@5.1.3)
       typescript:
         specifier: ^5.1.3
         version: 5.1.3

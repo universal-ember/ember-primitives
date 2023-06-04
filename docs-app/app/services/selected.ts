@@ -1,5 +1,6 @@
 import Service, { service } from '@ember/service';
 
+import * as docsSupport from 'docs-app/docs-support';
 import * as emberHeadlessForm from 'ember-headless-form';
 import * as emberPrimitives from 'ember-primitives';
 import { Shadowed } from 'ember-primitives';
@@ -9,6 +10,7 @@ import { compile } from 'ember-repl';
 import * as emberResources from 'ember-resources';
 import { cell, resource, resourceFactory, use } from 'ember-resources';
 import { keepLatest } from 'ember-resources/util/keep-latest';
+import * as remoteData from 'ember-resources/util/remote-data';
 import { RemoteData } from 'ember-resources/util/remote-data';
 
 import type DocsService from './docs';
@@ -97,6 +99,8 @@ export default class Selected extends Service {
       'ember-primitives/color-scheme': colorScheme,
       'ember-headless-form': emberHeadlessForm,
       'ember-resources': emberResources,
+      'ember-resources/util/remote-data': remoteData,
+      'docs-app/docs-support': docsSupport,
     },
   });
 

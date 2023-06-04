@@ -36,7 +36,7 @@ const Styles = <template>
  */
 export const Shadowed: TOC<{
   /**
-   * She shadow dom attaches to a div element.
+   * The shadow dom attaches to a div element.
    * You may specify any attribute, and it'll be applied to this host element.
    */
   Element: HTMLDivElement;

@@ -23,6 +23,7 @@ export const APIDocs: TOC<{
     {{/if}}
 
     {{#if request.value}}
+      <Styles />
       <Declaration @info={{infoFor request.value @module @name}} />
     {{/if}}
   {{/let}}
@@ -31,6 +32,7 @@ export const APIDocs: TOC<{
 const join = (lines: string[]) => lines.join('\n');
 const text = (lines: { text: string }[]) => lines.map(line => line.text);
 const isIgnored = (name: string) => ['__type', 'TOC', 'TemplateOnlyComponent'].includes(name);
+const isConst = (x) => x.flags.isConst;
 const not = x => !x;
 
 const Declaration: TOC<{
@@ -40,23 +42,31 @@ const Declaration: TOC<{
 }> = <template>
   {{#if @info}}
     {{#if (not (isIgnored @info.name))}}
-      <h3>{{@info.name}}</h3><br />
+      <h3 class="typedoc-declaration-name">{{@info.name}}</h3>
     {{/if}}
 
-    {{#if @info.comment.summary}}
-      {{join (text @info.comment.summary)}}
+    {{#if (isConst @info)}}
+      {{#if @info.comment.summary}}
+        {{join (text @info.comment.summary)}}
+      {{/if}}
     {{/if}}
 
     {{#if @info.type}}
       <Type @info={{@info.type}} />
     {{/if}}
 
-
     <ul>
       {{#each @info.children as |child|}}
         <li><Declaration @info={{child}} /></li>
       {{/each}}
     </ul>
+
+    {{#if (not (isConst @info))}}
+      {{#if @info.comment.summary}}
+        {{join (text @info.comment.summary)}}
+      {{/if}}
+    {{/if}}
+
   {{/if}}
 </template>;
 
@@ -69,9 +79,11 @@ const isReflection = (x: { type: string }) => x.type === 'reflection';
 const isIntrinsic = (x: { type: string }) => x.type === 'intrinsic';
 
 const Reference: TOC<{ info: ReferenceType }> = <template>
-  <h3>{{@info.name}}</h3>
+  {{#if (not (isIgnored @info.name))}}
+    <pre class="typedoc-reference">{{@info.name}}</pre>
+  {{/if}}
   {{#each @info.typeArguments as |typeArg|}}
-    <Type @info={{typeArg}} />
+     <Type @info={{typeArg}} />
   {{/each}}
 </template>;
 
@@ -93,8 +105,20 @@ const Type: TOC<{ Args: { info: SomeType }}> = <template>
 
 const Styles = <template>
   <style>
+    .typedoc-reference,
     .typedoc-intrinsic {
-      border: 1px solid #ccc;
+      border: 1px solid #222;
+      background: #eee;
+      display: inline-block;
+      padding: 0.125rem 0.25rem;
+      font-style: italic;
+      font-family: monospace;
+      margin: 0;
+    }
+    .typedoc-declaration-name {
+      margin: 0;
+      display: inline-block;
+      line-height: 1.5rem;
     }
 
   </style>

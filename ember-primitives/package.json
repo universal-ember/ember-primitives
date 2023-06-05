@@ -5,7 +5,8 @@
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": "https://github.com/universal-ember/ember-primitives",
+  "type": "module",
   "license": "MIT",
   "author": "nullvoxpopuli",
   "files": [
@@ -21,9 +22,11 @@
     "lint:hbs": "pnpm -w exec lint hbs",
     "lint:hbs:fix": "pnpm -w exec lint hbs:fix",
     "lint:package": "pnpm publint",
+    "lint:published-types": "attw *.tgz || exit 0",
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
+    "pack": "pnpm pack",
     "start": "rollup --config --watch",
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'",
     "prepack": "rollup --config"
@@ -34,6 +37,7 @@
     "@embroider/macros": "1.11.1-unstable.d120477"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.0.3",
     "@babel/core": "^7.17.0",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
@@ -100,7 +104,7 @@
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"
     },
-    "./addon-main.js": "./addon-main.cjs"
+    "./addon-main": "./addon-main.cjs"
   },
   "typesVersions": {
     "*": {

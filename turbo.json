@@ -58,6 +58,10 @@
       "outputs": ["dist/**"],
       "dependsOn": ["_syncPnpm", "^build"]
     },
+    "pack": {
+      "outputs": ["*.tgz"],
+      "dependsOn": ["build"]
+    },
     // production
     "build": {
       "outputs": ["dist/**"],
@@ -101,7 +105,8 @@
         "lint:hbs",
         "lint:prettier",
         "lint:types",
-        "lint:package"
+        "lint:package",
+        "lint:published-types"
       ]
     },
     "lint:js": { "outputs": [] },
@@ -109,6 +114,7 @@
     "lint:prettier": { "outputs": [] },
     "lint:types": { "outputs": [], "dependsOn": ["_syncPnpm", "^build"] },
     "lint:package": { "outputs": [], "dependsOn": ["build"] },
+    "lint:published-types": { "outputs": [], "dependsOn": ["pack"] },
 
     "_:lint:fix": {
       "cache": false,

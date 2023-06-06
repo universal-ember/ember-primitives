@@ -32,7 +32,13 @@ const Styles = <template>
 </template>;
 
 /**
- * Render content in a shadow dom, attached to a div
+ * Render content in a shadow dom, attached to a div.
+ *
+ * Uses the [shadow DOM][mdn-shadow-dom] API.
+ *
+ * [mdn-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
+ *
+ * This is useful when you want to render content that escapes your app's styles.
  */
 export const Shadowed: TOC<{
   /**

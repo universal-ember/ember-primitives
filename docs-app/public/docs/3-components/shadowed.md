@@ -7,6 +7,15 @@ The `<Shadowed />` component renders content using the [shadow DOM][mdn-shadow-d
 
 This is useful when you want to render content that escapes your app's styles. 
 
+
+```gjs live no-shadow
+import { CommentQuery } from 'docs-app/docs-support';
+
+<template>
+  <CommentQuery @module="components/shadowed" @name="Shadowed" />
+</template>
+```
+
 ## Example
 
 Almost all demos within these docs are rendered within a `<Shadowed />` wrapper.
@@ -37,9 +46,9 @@ import { Shadowed } from 'ember-primitives';
 ```
 
 ```gjs live 
-import { APIDocs } from 'docs-app/docs-support';
+import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <APIDocs @module="index" @name="Shadowed" />
+  <ComponentSignature @module="components/shadowed" @name="Shadowed" />
 </template>
 ```

@@ -1,28 +1,9 @@
 ember-primitives
 ==============================================================================
 
-[Short description of the addon.]
+Primitives for building UI faster.
 
-
-Compatibility
-------------------------------------------------------------------------------
-
-* Ember.js v3.28 or above
-* Embroider or ember-auto-import v2
-
-
-Installation
-------------------------------------------------------------------------------
-
-```
-ember install ember-primitives
-```
-
-
-Usage
-------------------------------------------------------------------------------
-
-[Longer description of how to use the addon in apps.]
+Docs: ember-primitives.pages.dev/
 
 
 Contributing

@@ -29,9 +29,9 @@ import { Link } from 'ember-primitives';
 
 
 ```gjs live no-shadow
-import { APIDocs } from 'docs-app/docs-support';
+import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <APIDocs @module="components/link" @name="Signature" />
+  <ComponentSignature @module="components/link" @name="Signature" />
 </template>
 ```

@@ -1,0 +1,38 @@
+.typedoc-reference,
+.typedoc-intrinsic {
+  border: 1px solid #222;
+  background: #eee;
+  display: inline-block;
+  padding: 0.125rem 0.25rem;
+  font-style: italic;
+  font-family: monospace;
+  margin: 0;
+}
+.typedoc-declaration-name {
+  margin: 0;
+  display: inline-block;
+  line-height: 1.5rem;
+}
+
+.typedoc-component-arg,
+.typedoc-component-element {
+  display: flex;
+  gap: 0.25rem;
+  align-items: baseline;
+}
+.typedoc-component-arg > .typedoc-name,
+.typedoc-component-element > .typedoc-name {
+  display: inline-block;
+  margin: 0;
+  line-height: 1.5rem;
+}
+
+.typedoc-component-arg > .typedoc-name,
+.typedoc-component-block > .typedoc-name {
+  font-size: 1.2rem;
+}
+.typedoc-declaration-children {
+  list-style: none;
+  padding: 0;
+  padding-left: 0.5rem;
+}

@@ -4,6 +4,12 @@ import { findChildDeclaration,Load } from '../utils';
 
 import type { TOC } from '@ember/component/template-only';
 
+/**
+  * Variants supported:
+  * - explicit export interface Signature
+   - TODO:
+      - inline const: TOC<{}>
+  */
 export const ComponentSignature: TOC<{ Args: { module: string; name: string; }}> = <template>
   <Load @module={{@module}} @name={{@name}} as |info|>
     <Element @info={{findChildDeclaration info "Element"}} />

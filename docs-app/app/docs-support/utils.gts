@@ -35,6 +35,10 @@ export const Query: TOC<{
   {{/let}}
 </template>;
 
+function isDeclarationReflection(info: unknown): info is DeclarationReflection {
+  return true;
+}
+
 export const Load: TOC<{
   Args: { module: string; name: string; },
   Blocks: { default: [DeclarationReflection] }
@@ -46,9 +50,11 @@ export const Load: TOC<{
 
     {{#if request.value}}
       <section {{highlight request.value}}>
-        <Query @info={{request.value}} @module={{@module}} @name={{@name}} as |type|>
-          {{yield type}}
-        </Query>
+        {{#if (isDeclarationReflection request.value)}}
+          <Query @info={{request.value}} @module={{@module}} @name={{@name}} as |type|>
+            {{yield type}}
+          </Query>
+        {{/if}}
       </section>
     {{/if}}
   {{/let}}

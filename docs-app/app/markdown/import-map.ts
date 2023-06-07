@@ -4,7 +4,10 @@ import * as emberPrimitives from 'ember-primitives';
 import * as colorScheme from 'ember-primitives/color-scheme';
 import * as emberResources from 'ember-resources';
 import * as remoteData from 'ember-resources/util/remote-data';
-export const defaultOptions = {
+
+import type { Options } from './compiler';
+
+export const defaultOptions: Options = {
   format: 'glimdown',
   importMap: {
     'ember-primitives': emberPrimitives,

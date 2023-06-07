@@ -6,7 +6,7 @@ import type { ComponentLike } from '@glint/template';
 
 type Input = string | undefined | null;
 type Format = 'glimdown' | 'gjs' | 'hbs';
-interface Options {
+export interface Options {
   format: Format;
   importMap: Record<string, Record<string, unknown>>;
 }

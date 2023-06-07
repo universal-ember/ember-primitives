@@ -4,7 +4,7 @@ import { Compiled, defaultOptions } from 'docs-app/markdown';
 import { Load } from './utils'
 
 import type { TOC } from '@ember/component/template-only';
-import type { DeclarationReference,DeclarationReflection,ReferenceType, SomeType } from 'typedoc';
+import type { DeclarationReference,DeclarationReflection,ReferenceType, TupleType } from 'typedoc';
 
 /**
   * Assumptions:
@@ -40,7 +40,7 @@ const join = (lines: string[]) => lines.join('\n');
 const text = (lines: { text: string }[]) => lines.map(line => line.text);
 
 export function isGlimmerComponent(info: DeclarationReference) {
-  let extended = info?.extendedTypes?.[0]
+  let extended = ( info as any)?.extendedTypes?.[0]
 
   if (!extended) return false;
 
@@ -69,8 +69,8 @@ export const Comment: TOC<{
 
 
 const isIgnored = (name: string) => ['__type', 'TOC', 'TemplateOnlyComponent'].includes(name);
-const isConst = (x) => x.flags.isConst;
-const not = x => !x;
+const isConst = (x: { flags: { isConst: boolean }}) => x.flags.isConst;
+const not = (x: unknown) => !x;
 
 const Declaration: TOC<{
   Args: {
@@ -87,6 +87,7 @@ const Declaration: TOC<{
     {{/if}}
 
     {{#if @info.type}}
+      {{! @glint-expect-error }}
       <Type @info={{@info.type}} />
     {{/if}}
 
@@ -129,28 +130,37 @@ const Reference: TOC<{ info: ReferenceType }> = <template>
     <pre class="typedoc-reference">{{@info.name}}</pre>
   {{/if}}
   {{#each @info.typeArguments as |typeArg|}}
+    {{! @glint-expect-error }}
      <Type @info={{typeArg}} />
   {{/each}}
 </template>;
 
-const Intrinsic: TOC<{}> = <template>
+const Intrinsic: TOC<{ info: { name: string }}> = <template>
   <span class="typedoc-intrinsic">{{@info.name}}</span>
 </template>;
 
-const Tuple: TOC<{ Args: { info: SomeType }}> = <template>
+const Tuple: TOC<{ Args: { info: TupleType }}> = <template>
   {{#each @info.elements as |element|}}
+    {{! @glint-expect-error }}
     <Type @info={{element}} />
   {{/each}}
 </template>;
 
-export const Type: TOC<{ Args: { info: SomeType }}> = <template>
+export const Type: TOC<{ Args: { info: DeclarationReflection }}> = <template>
+    {{! @glint-expect-error }}
   {{#if (isReference @info)}}
+    {{! @glint-expect-error }}
     <Reference @info={{@info}} />
+    {{! @glint-expect-error }}
   {{else if (isReflection @info)}}
+    {{! @glint-expect-error }}
     <Reflection @info={{@info}} />
+    {{! @glint-expect-error }}
   {{else if (isIntrinsic @info)}}
     <Intrinsic @info={{@info}} />
+    {{! @glint-expect-error }}
   {{else if (isTuple @info)}}
+    {{! @glint-expect-error }}
     <Tuple @info={{@info}} />
   {{else}}
     {{! template-lint-disable no-log }}

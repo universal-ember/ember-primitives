@@ -19,7 +19,7 @@ export const APIDocs: TOC<{
     name: string;
   }
 }> = <template>
-  <Load @module="{{module}}" @name="{{name}}" as |info|>
+  <Load @module="{{@module}}" @name="{{name}}" as |info|>
     <Declaration @info={{info}} />
   </Load>
 </template>;
@@ -116,13 +116,13 @@ const isReflection = (x: { type: string }) => x.type === 'reflection';
 const isIntrinsic = (x: { type: string }) => x.type === 'intrinsic';
 const isTuple = (x: { type: string }) => x.type === 'tuple';
 
-function typeArg(info: DeclarationReference) {
-  let extended = info?.extendedTypes?.[0]
+// function typeArg(info: DeclarationReference) {
+//   let extended = info?.extendedTypes?.[0]
 
-  if (!extended) return false;
+//   if (!extended) return false;
 
-  return extended.typeArguments[0]
-}
+//   return extended.typeArguments[0]
+// }
 
 const Reference: TOC<{ info: ReferenceType }> = <template>
   {{#if (not (isIgnored @info.name))}}

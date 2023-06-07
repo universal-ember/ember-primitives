@@ -62,7 +62,6 @@ const Blocks: TOC<{ Args: { info: any}}> = <template>
         <pre class="typedoc-name">&lt;:{{child.name}}&gt;</pre>
         <span class="typedoc-category">Properties</span>
         <div>
-          {{log child.type}}
           <Type @info={{child.type}} />
           <Comment @info={{child}} />
         </div>

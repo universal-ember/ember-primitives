@@ -56,7 +56,12 @@ export const Shadowed: TOC<{
      */
     includeStyles?: boolean;
   };
-  Blocks: { default: [] };
+  Blocks: {
+    /**
+     * Content to be placed within the ShadowDOM
+     */
+    default: [];
+  };
 }> = <template>
   {{#let (Shadow) as |shadow|}}
     {{! TODO: We need a way in ember to render in to a shadow dom without an effect }}

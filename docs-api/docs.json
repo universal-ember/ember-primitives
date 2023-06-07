@@ -1623,7 +1623,7 @@
 							"sources": [
 								{
 									"fileName": "ember-primitives/dist/components/link.d.ts",
-									"line": 59,
+									"line": 58,
 									"character": 4
 								}
 							],
@@ -1638,7 +1638,7 @@
 									"sources": [
 										{
 											"fileName": "ember-primitives/dist/components/link.d.ts",
-											"line": 59,
+											"line": 58,
 											"character": 17
 										}
 									],
@@ -1652,7 +1652,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/link.d.ts",
-													"line": 59,
+													"line": 58,
 													"character": 17
 												}
 											],
@@ -1744,7 +1744,7 @@
 							"sources": [
 								{
 									"fileName": "ember-primitives/dist/components/link.d.ts",
-									"line": 58,
+									"line": 57,
 									"character": 4
 								}
 							],
@@ -1958,7 +1958,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/link.d.ts",
-							"line": 57,
+							"line": 56,
 							"character": 14
 						}
 					],
@@ -2133,14 +2133,14 @@
 																			},
 																			{
 																				"kind": "code",
-																				"text": "```gjs live preview\nimport { Link } from 'ember-primitives';\n\nconst MyLink = <template>\n  <Link @href={{@href}} as |a|>\n    {{yield}}\n    {{#if a.isExternal}}\n      ➚\n    {{/if}}\n  </Link>\n</template>;\n\n<template>\n  <MyLink @href=\"https://developer.mozilla.org\">MDN</MyLink>\n  &nbsp;&nbsp;\n  <MyLink @href=\"/\">Home</MyLink>\n </template>\n```"
+																				"text": "```gjs live preview\nimport { Link } from 'ember-primitives';\n\nconst MyLink = <template>\n  <Link @href={{@href}} as |a|>\n    {{yield}}\n    {{#if a.isExternal}}\n      ➚\n    {{/if}}\n  </Link>\n</template>;\n\n<template>\n  <MyLink @href=\"https://developer.mozilla.org\">MDN</MyLink> &nbsp;&nbsp;\n  <MyLink @href=\"/\">Home</MyLink>\n </template>\n```"
 																			}
 																		]
 																	},
 																	"sources": [
 																		{
 																			"fileName": "ember-primitives/dist/components/link.d.ts",
-																			"line": 46,
+																			"line": 45,
 																			"character": 16
 																		}
 																	],
@@ -2406,7 +2406,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-							"line": 25,
+							"line": 34,
 							"character": 21
 						}
 					],
@@ -2424,14 +2424,14 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Render content in a shadow dom, attached to a div"
+								"text": "Render content in a shadow dom, attached to a div.\n\nUses the [shadow DOM][mdn-shadow-dom] API.\n\n[mdn-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM\n\nThis is useful when you want to render content that escapes your app's styles."
 							}
 						]
 					},
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-							"line": 5,
+							"line": 11,
 							"character": 14
 						}
 					],
@@ -2460,7 +2460,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-													"line": 11,
+													"line": 17,
 													"character": 4
 												}
 											],
@@ -2509,7 +2509,7 @@
 															"sources": [
 																{
 																	"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-																	"line": 19,
+																	"line": 25,
 																	"character": 8
 																}
 															],
@@ -2530,7 +2530,7 @@
 													"sources": [
 														{
 															"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-															"line": 11,
+															"line": 17,
 															"character": 10
 														}
 													]
@@ -2546,7 +2546,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-													"line": 21,
+													"line": 27,
 													"character": 4
 												}
 											],
@@ -2565,10 +2565,18 @@
 															"variant": "declaration",
 															"kind": 1024,
 															"flags": {},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Content to be placed within the ShadowDOM"
+																	}
+																]
+															},
 															"sources": [
 																{
 																	"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-																	"line": 22,
+																	"line": 31,
 																	"character": 8
 																}
 															],
@@ -2588,7 +2596,7 @@
 													"sources": [
 														{
 															"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-															"line": 21,
+															"line": 27,
 															"character": 12
 														}
 													]
@@ -2612,7 +2620,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-													"line": 10,
+													"line": 16,
 													"character": 4
 												}
 											],
@@ -2640,7 +2648,7 @@
 									"sources": [
 										{
 											"fileName": "ember-primitives/dist/components/shadowed.d.ts",
-											"line": 5,
+											"line": 11,
 											"character": 28
 										}
 									]
@@ -2682,7 +2690,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 165,
+					"id": 164,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -2690,7 +2698,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/switch.d.ts",
-							"line": 28,
+							"line": 64,
 							"character": 19
 						}
 					],
@@ -2733,10 +2741,26 @@
 											"flags": {
 												"isOptional": true
 											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "The initial checked value of the Switch.\nThis value is reactive, so if the value that\n"
+													},
+													{
+														"kind": "code",
+														"text": "`@checked`"
+													},
+													{
+														"kind": "text",
+														"text": " is set to updates, the state of the Switch will also update."
+													}
+												]
+											},
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/switch.d.ts",
-													"line": 7,
+													"line": 12,
 													"character": 8
 												}
 											],
@@ -2747,26 +2771,6 @@
 										},
 										{
 											"id": 147,
-											"name": "disabled",
-											"variant": "declaration",
-											"kind": 1024,
-											"flags": {
-												"isOptional": true
-											},
-											"sources": [
-												{
-													"fileName": "ember-primitives/dist/components/switch.d.ts",
-													"line": 8,
-													"character": 8
-												}
-											],
-											"type": {
-												"type": "intrinsic",
-												"name": "boolean"
-											}
-										},
-										{
-											"id": 148,
 											"name": "onChange",
 											"variant": "declaration",
 											"kind": 1024,
@@ -2776,14 +2780,14 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/switch.d.ts",
-													"line": 9,
+													"line": 16,
 													"character": 8
 												}
 											],
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 149,
+													"id": 148,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
@@ -2791,27 +2795,35 @@
 													"sources": [
 														{
 															"fileName": "ember-primitives/dist/components/switch.d.ts",
-															"line": 9,
+															"line": 16,
 															"character": 19
 														}
 													],
 													"signatures": [
 														{
-															"id": 150,
+															"id": 149,
 															"name": "__type",
 															"variant": "signature",
 															"kind": 4096,
 															"flags": {},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Callback when the Switch state is toggled"
+																	}
+																]
+															},
 															"sources": [
 																{
 																	"fileName": "ember-primitives/dist/components/switch.d.ts",
-																	"line": 9,
+																	"line": 16,
 																	"character": 19
 																}
 															],
 															"parameters": [
 																{
-																	"id": 151,
+																	"id": 150,
 																	"name": "checked",
 																	"variant": "param",
 																	"kind": 32768,
@@ -2822,7 +2834,7 @@
 																	}
 																},
 																{
-																	"id": 152,
+																	"id": 151,
 																	"name": "event",
 																	"variant": "param",
 																	"kind": 32768,
@@ -2853,8 +2865,7 @@
 											"title": "Properties",
 											"children": [
 												146,
-												147,
-												148
+												147
 											]
 										}
 									],
@@ -2869,7 +2880,7 @@
 							}
 						},
 						{
-							"id": 153,
+							"id": 152,
 							"name": "Blocks",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2877,21 +2888,21 @@
 							"sources": [
 								{
 									"fileName": "ember-primitives/dist/components/switch.d.ts",
-									"line": 11,
+									"line": 18,
 									"character": 4
 								}
 							],
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 154,
+									"id": 153,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 155,
+											"id": 154,
 											"name": "default",
 											"variant": "declaration",
 											"kind": 1024,
@@ -2901,7 +2912,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/switch.d.ts",
-													"line": 12,
+													"line": 19,
 													"character": 8
 												}
 											],
@@ -2911,22 +2922,50 @@
 													{
 														"type": "reflection",
 														"declaration": {
-															"id": 156,
+															"id": 155,
 															"name": "__type",
 															"variant": "declaration",
 															"kind": 65536,
 															"flags": {},
 															"children": [
 																{
-																	"id": 157,
+																	"id": 156,
 																	"name": "Control",
 																	"variant": "declaration",
 																	"kind": 1024,
 																	"flags": {},
+																	"comment": {
+																		"summary": [
+																			{
+																				"kind": "text",
+																				"text": "The Switch Element.\nIt has a pre-wired "
+																			},
+																			{
+																				"kind": "code",
+																				"text": "`id`"
+																			},
+																			{
+																				"kind": "text",
+																				"text": " so that the relevan Label is\nappropriately associated via the "
+																			},
+																			{
+																				"kind": "code",
+																				"text": "`for`"
+																			},
+																			{
+																				"kind": "text",
+																				"text": " property of the Label.\n\n"
+																			},
+																			{
+																				"kind": "code",
+																				"text": "```gjs\nimport { Switch } from 'ember-primitives';\n\n<template>\n  <Switch as |s|>\n    <s.Control />\n  </Switch>\n</template>\n```"
+																			}
+																		]
+																	},
 																	"sources": [
 																		{
 																			"fileName": "ember-primitives/dist/components/switch.d.ts",
-																			"line": 14,
+																			"line": 36,
 																			"character": 16
 																		}
 																	],
@@ -2940,7 +2979,7 @@
 																			{
 																				"type": "reflection",
 																				"declaration": {
-																					"id": 158,
+																					"id": 157,
 																					"name": "__type",
 																					"variant": "declaration",
 																					"kind": 65536,
@@ -2954,7 +2993,7 @@
 																					],
 																					"signatures": [
 																						{
-																							"id": 159,
+																							"id": 158,
 																							"name": "__type",
 																							"variant": "signature",
 																							"kind": 4096,
@@ -2968,7 +3007,7 @@
 																							],
 																							"parameters": [
 																								{
-																									"id": 160,
+																									"id": 159,
 																									"name": "args",
 																									"variant": "param",
 																									"kind": 32768,
@@ -2998,15 +3037,43 @@
 																	}
 																},
 																{
-																	"id": 161,
+																	"id": 160,
 																	"name": "Label",
 																	"variant": "declaration",
 																	"kind": 1024,
 																	"flags": {},
+																	"comment": {
+																		"summary": [
+																			{
+																				"kind": "text",
+																				"text": "The Switch element requires a label, and this label already has\nthe association to the Control by setting the "
+																			},
+																			{
+																				"kind": "code",
+																				"text": "`for`"
+																			},
+																			{
+																				"kind": "text",
+																				"text": " attribute to the "
+																			},
+																			{
+																				"kind": "code",
+																				"text": "`id`"
+																			},
+																			{
+																				"kind": "text",
+																				"text": " of the Control\n\n"
+																			},
+																			{
+																				"kind": "code",
+																				"text": "```gjs\nimport { Switch } from 'ember-primitives';\n\n<template>\n  <Switch as |s|>\n    <s.Label />\n  </Switch>\n</template>\n```"
+																			}
+																		]
+																	},
 																	"sources": [
 																		{
 																			"fileName": "ember-primitives/dist/components/switch.d.ts",
-																			"line": 15,
+																			"line": 51,
 																			"character": 16
 																		}
 																	],
@@ -3020,7 +3087,7 @@
 																			{
 																				"type": "reflection",
 																				"declaration": {
-																					"id": 162,
+																					"id": 161,
 																					"name": "__type",
 																					"variant": "declaration",
 																					"kind": 65536,
@@ -3034,7 +3101,7 @@
 																					],
 																					"signatures": [
 																						{
-																							"id": 163,
+																							"id": 162,
 																							"name": "__type",
 																							"variant": "signature",
 																							"kind": 4096,
@@ -3048,7 +3115,7 @@
 																							],
 																							"parameters": [
 																								{
-																									"id": 164,
+																									"id": 163,
 																									"name": "args",
 																									"variant": "param",
 																									"kind": 32768,
@@ -3082,15 +3149,15 @@
 																{
 																	"title": "Properties",
 																	"children": [
-																		157,
-																		161
+																		156,
+																		160
 																	]
 																}
 															],
 															"sources": [
 																{
 																	"fileName": "ember-primitives/dist/components/switch.d.ts",
-																	"line": 13,
+																	"line": 20,
 																	"character": 12
 																}
 															]
@@ -3104,14 +3171,14 @@
 										{
 											"title": "Properties",
 											"children": [
-												155
+												154
 											]
 										}
 									],
 									"sources": [
 										{
 											"fileName": "ember-primitives/dist/components/switch.d.ts",
-											"line": 11,
+											"line": 18,
 											"character": 12
 										}
 									]
@@ -3147,7 +3214,7 @@
 							"title": "Properties",
 							"children": [
 								144,
-								153,
+								152,
 								143
 							]
 						}
@@ -3171,7 +3238,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/switch.d.ts",
-							"line": 27,
+							"line": 63,
 							"character": 14
 						}
 					],
@@ -3198,7 +3265,7 @@
 				{
 					"title": "References",
 					"children": [
-						165
+						164
 					]
 				},
 				{
@@ -3223,14 +3290,14 @@
 			]
 		},
 		{
-			"id": 166,
+			"id": 165,
 			"name": "components/typed-elements",
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
 			"children": [
 				{
-					"id": 167,
+					"id": 166,
 					"name": "Div",
 					"variant": "declaration",
 					"kind": 32,
@@ -3254,14 +3321,14 @@
 							{
 								"type": "reflection",
 								"declaration": {
-									"id": 168,
+									"id": 167,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 170,
+											"id": 169,
 											"name": "Blocks",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3276,14 +3343,14 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 171,
+													"id": 170,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"children": [
 														{
-															"id": 172,
+															"id": 171,
 															"name": "default",
 															"variant": "declaration",
 															"kind": 1024,
@@ -3304,7 +3371,7 @@
 														{
 															"title": "Properties",
 															"children": [
-																172
+																171
 															]
 														}
 													],
@@ -3319,7 +3386,7 @@
 											}
 										},
 										{
-											"id": 169,
+											"id": 168,
 											"name": "Element",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3346,8 +3413,8 @@
 										{
 											"title": "Properties",
 											"children": [
-												170,
-												169
+												169,
+												168
 											]
 										}
 									],
@@ -3366,7 +3433,7 @@
 					}
 				},
 				{
-					"id": 173,
+					"id": 172,
 					"name": "Label",
 					"variant": "declaration",
 					"kind": 32,
@@ -3390,14 +3457,14 @@
 							{
 								"type": "reflection",
 								"declaration": {
-									"id": 174,
+									"id": 173,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 176,
+											"id": 175,
 											"name": "Args",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3412,14 +3479,14 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 177,
+													"id": 176,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"children": [
 														{
-															"id": 178,
+															"id": 177,
 															"name": "for",
 															"variant": "declaration",
 															"kind": 1024,
@@ -3441,7 +3508,7 @@
 														{
 															"title": "Properties",
 															"children": [
-																178
+																177
 															]
 														}
 													],
@@ -3456,7 +3523,7 @@
 											}
 										},
 										{
-											"id": 179,
+											"id": 178,
 											"name": "Blocks",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3471,14 +3538,14 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 180,
+													"id": 179,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"children": [
 														{
-															"id": 181,
+															"id": 180,
 															"name": "default",
 															"variant": "declaration",
 															"kind": 1024,
@@ -3499,7 +3566,7 @@
 														{
 															"title": "Properties",
 															"children": [
-																181
+																180
 															]
 														}
 													],
@@ -3514,7 +3581,7 @@
 											}
 										},
 										{
-											"id": 175,
+											"id": 174,
 											"name": "Element",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3541,9 +3608,9 @@
 										{
 											"title": "Properties",
 											"children": [
-												176,
-												179,
-												175
+												175,
+												178,
+												174
 											]
 										}
 									],
@@ -3566,8 +3633,8 @@
 				{
 					"title": "Variables",
 					"children": [
-						167,
-						173
+						166,
+						172
 					]
 				}
 			],
@@ -3587,7 +3654,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 182,
+					"id": 181,
 					"name": "service",
 					"variant": "declaration",
 					"kind": 32,
@@ -3619,7 +3686,7 @@
 				{
 					"title": "Variables",
 					"children": [
-						182
+						181
 					]
 				}
 			],
@@ -3639,7 +3706,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 183,
+					"id": 182,
 					"name": "ExternalLink",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3654,7 +3721,7 @@
 					"target": 79
 				},
 				{
-					"id": 184,
+					"id": 183,
 					"name": "Link",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3669,7 +3736,7 @@
 					"target": 97
 				},
 				{
-					"id": 185,
+					"id": 184,
 					"name": "Popover",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3684,7 +3751,7 @@
 					"target": 124
 				},
 				{
-					"id": 186,
+					"id": 185,
 					"name": "Shadowed",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3699,7 +3766,7 @@
 					"target": 130
 				},
 				{
-					"id": 187,
+					"id": 186,
 					"name": "Switch",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3714,7 +3781,7 @@
 					"target": 141
 				},
 				{
-					"id": 188,
+					"id": 187,
 					"name": "service",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3726,19 +3793,19 @@
 							"character": 9
 						}
 					],
-					"target": 182
+					"target": 181
 				}
 			],
 			"groups": [
 				{
 					"title": "References",
 					"children": [
+						182,
 						183,
 						184,
 						185,
 						186,
-						187,
-						188
+						187
 					]
 				}
 			],
@@ -4221,7 +4288,7 @@
 				126,
 				129,
 				140,
-				166,
+				165,
 				53,
 				54,
 				55,
@@ -4234,15 +4301,7 @@
 	"readme": [
 		{
 			"kind": "text",
-			"text": "ember-primitives\n==============================================================================\n\n[Short description of the addon.]\n\n\nCompatibility\n------------------------------------------------------------------------------\n\n* Ember.js v3.28 or above\n* Embroider or ember-auto-import v2\n\n\nInstallation\n------------------------------------------------------------------------------\n\n"
-		},
-		{
-			"kind": "code",
-			"text": "```\nember install ember-primitives\n```"
-		},
-		{
-			"kind": "text",
-			"text": "\n\n\nUsage\n------------------------------------------------------------------------------\n\n[Longer description of how to use the addon in apps.]\n\n\nContributing\n------------------------------------------------------------------------------\n\nSee the [Contributing](CONTRIBUTING.md) guide for details.\n\n\nLicense\n------------------------------------------------------------------------------\n\nThis project is licensed under the [MIT License](LICENSE.md)."
+			"text": "ember-primitives\n==============================================================================\n\nPrimitives for building UI faster.\n\nDocs: ember-primitives.pages.dev/\n\n\nContributing\n------------------------------------------------------------------------------\n\nSee the [Contributing](CONTRIBUTING.md) guide for details.\n\n\nLicense\n------------------------------------------------------------------------------\n\nThis project is licensed under the [MIT License](LICENSE.md)."
 		}
 	],
 	"symbolIdMap": {
@@ -4832,11 +4891,11 @@
 		},
 		"147": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.disabled"
+			"qualifiedName": "__type.onChange"
 		},
 		"148": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.onChange"
+			"qualifiedName": "__type"
 		},
 		"149": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
@@ -4844,35 +4903,35 @@
 		},
 		"150": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "checked"
 		},
 		"151": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "checked"
+			"qualifiedName": "event"
 		},
 		"152": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "event"
+			"qualifiedName": "Signature.Blocks"
 		},
 		"153": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "Signature.Blocks"
+			"qualifiedName": "__type"
 		},
 		"154": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.default"
 		},
 		"155": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.default"
+			"qualifiedName": "__type"
 		},
 		"156": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.Control"
 		},
 		"157": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.Control"
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "__type"
 		},
 		"158": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
@@ -4880,15 +4939,15 @@
 		},
 		"159": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "__type"
-		},
-		"160": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
 			"qualifiedName": "args"
 		},
-		"161": {
+		"160": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
 			"qualifiedName": "__type.Label"
+		},
+		"161": {
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "__type"
 		},
 		"162": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
@@ -4896,105 +4955,101 @@
 		},
 		"163": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "__type"
-		},
-		"164": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
 			"qualifiedName": "args"
 		},
-		"165": {
+		"164": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
 			"qualifiedName": "default"
 		},
-		"166": {
+		"165": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
 			"qualifiedName": ""
 		},
-		"167": {
+		"166": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
 			"qualifiedName": "Div"
 		},
-		"168": {
+		"167": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
 			"qualifiedName": "__type"
+		},
+		"168": {
+			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
+			"qualifiedName": "__type.Element"
 		},
 		"169": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.Element"
+			"qualifiedName": "__type.Blocks"
 		},
 		"170": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.Blocks"
+			"qualifiedName": "__type"
 		},
 		"171": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.default"
 		},
 		"172": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.default"
+			"qualifiedName": "Label"
 		},
 		"173": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "Label"
+			"qualifiedName": "__type"
 		},
 		"174": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.Element"
 		},
 		"175": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.Element"
+			"qualifiedName": "__type.Args"
 		},
 		"176": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.Args"
+			"qualifiedName": "__type"
 		},
 		"177": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.for"
 		},
 		"178": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.for"
+			"qualifiedName": "__type.Blocks"
 		},
 		"179": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type.Blocks"
+			"qualifiedName": "__type"
 		},
 		"180": {
 			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
-			"qualifiedName": "__type"
-		},
-		"181": {
-			"sourceFileName": "../ember-primitives/dist/components/typed-elements.d.ts",
 			"qualifiedName": "__type.default"
 		},
-		"182": {
+		"181": {
 			"sourceFileName": "../ember-primitives/dist/helpers/service.d.ts",
 			"qualifiedName": "service"
 		},
-		"183": {
+		"182": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "ExternalLink"
 		},
-		"184": {
+		"183": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Link"
 		},
-		"185": {
+		"184": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Popover"
 		},
-		"186": {
+		"185": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Shadowed"
 		},
-		"187": {
+		"186": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Switch"
 		},
-		"188": {
+		"187": {
 			"sourceFileName": "../ember-primitives/dist/helpers.d.ts",
 			"qualifiedName": "service"
 		}

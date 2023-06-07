@@ -4,7 +4,7 @@ import { Compiled, defaultOptions } from 'docs-app/markdown';
 import { Load } from './utils'
 
 import type { TOC } from '@ember/component/template-only';
-import type { DeclarationReference,DeclarationReflection,ReferenceType,ReflectionGroup, SomeType } from 'typedoc';
+import type { DeclarationReference,DeclarationReflection,ReferenceType, SomeType } from 'typedoc';
 
 /**
   * Assumptions:
@@ -24,9 +24,14 @@ export const APIDocs: TOC<{
   </Load>
 </template>;
 
-export const CommentQuery = <template>
-  <Load @module="{{module}}" @name="{{name}}" as |info|>
-    <Comment @text={{info}} />
+export const CommentQuery: TOC<{
+  Args: {
+    module: string;
+    name: string;
+  },
+}> = <template>
+  <Load @module={{@module}} @name={{@name}} as |info|>
+    <Comment @info={{info}} />
   </Load>
 </template>;
 
@@ -42,11 +47,15 @@ export function isGlimmerComponent(info: DeclarationReference) {
   return extended.name === 'default' && extended.package === '@glimmer/component';
 }
 
-export const Comment: TOC<{ info: {
-  comment?: {
-    summary?: { text: string }[]
+export const Comment: TOC<{
+  Args: {
+    info: {
+      comment?: {
+        summary?: { text: string }[]
+      }
+    }
   }
-} }> = <template>
+}> = <template>
   {{#if @info.comment.summary}}
     {{#let (Compiled (join (text @info.comment.summary)) defaultOptions) as |compiled|}}
       {{#if compiled.isReady}}
@@ -144,7 +153,8 @@ export const Type: TOC<{ Args: { info: SomeType }}> = <template>
   {{else if (isTuple @info)}}
     <Tuple @info={{@info}} />
   {{else}}
-    {{log 'x' @info}}
+    {{! template-lint-disable no-log }}
+    {{log "Unknown Type" @info}}
   {{/if}}
 </template>;
 

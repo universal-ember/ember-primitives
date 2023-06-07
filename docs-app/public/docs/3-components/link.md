@@ -27,6 +27,7 @@ import { Link } from 'ember-primitives';
 </template>
 ```
 
+## Configuration
 
 ```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';

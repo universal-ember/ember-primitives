@@ -93,7 +93,6 @@
       "./components/portal-targets.js": "./dist/_app_/components/portal-targets.js",
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
-      "./components/typed-elements.js": "./dist/_app_/components/typed-elements.js",
       "./helpers/service.js": "./dist/_app_/helpers/service.js"
     }
   },

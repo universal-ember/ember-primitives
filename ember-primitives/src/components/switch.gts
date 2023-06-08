@@ -2,7 +2,7 @@
 import { hash } from '@ember/helper';
 
 import { uniqueId } from '../utils';
-import { Label } from './typed-elements';
+import { Label } from './-private/typed-elements';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';

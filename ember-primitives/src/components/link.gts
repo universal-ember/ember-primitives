@@ -88,6 +88,8 @@ export class Link extends Component<Signature> {
   };
 }
 
+export default Link;
+
 function isExternal(href: string) {
   if (!href) return false;
   if (href.startsWith('#')) return false;

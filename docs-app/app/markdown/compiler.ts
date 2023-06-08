@@ -12,44 +12,41 @@ export interface Options {
 }
 
 // TODO: upstream these tweaks to ember-repl
-export const Compiled = resourceFactory(
-  (markdownText: Input | (() => Input), options: Options) => {
-    return resource(() => {
-      let { format = 'glimdown', importMap } = options ?? {};
+export const Compiled = resourceFactory((markdownText: Input | (() => Input), options: Options) => {
+  return resource(() => {
+    let { format = 'glimdown', importMap } = options ?? {};
 
-      let input =
-        typeof markdownText === 'function' ? markdownText() : markdownText;
-      let ready = cell(false);
-      let error = cell();
-      let result = cell<ComponentLike>();
+    let input = typeof markdownText === 'function' ? markdownText() : markdownText;
+    let ready = cell(false);
+    let error = cell();
+    let result = cell<ComponentLike>();
 
-      if (input) {
-        compile(input, {
-          format,
-          importMap,
-          topLevelScope: {
-            Shadowed,
-          },
-          ShadowComponent: 'Shadowed',
-          onSuccess: async (component) => {
-            result.current = component;
-            ready.set(true);
-            error.set(null);
-          },
-          onError: async (e) => {
-            error.set(e);
-          },
-          onCompileStart: async () => {
-            ready.set(false);
-          },
-        });
-      }
-
-      return () => ({
-        isReady: ready.current,
-        error: error.current,
-        component: result.current,
+    if (input) {
+      compile(input, {
+        format,
+        importMap,
+        topLevelScope: {
+          Shadowed,
+        },
+        ShadowComponent: 'Shadowed',
+        onSuccess: async (component) => {
+          result.current = component;
+          ready.set(true);
+          error.set(null);
+        },
+        onError: async (e) => {
+          error.set(e);
+        },
+        onCompileStart: async () => {
+          ready.set(false);
+        },
       });
+    }
+
+    return () => ({
+      isReady: ready.current,
+      error: error.current,
+      component: result.current,
     });
-  }
-);
+  });
+});

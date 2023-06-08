@@ -113,9 +113,7 @@ const createManifest = createUnplugin((options) => {
         expandDirectories: true,
       });
 
-      paths = paths.filter(
-        (path) => !exclude.some((pattern) => path.match(pattern))
-      );
+      paths = paths.filter((path) => !exclude.some((pattern) => path.match(pattern)));
 
       await this.emitFile({
         type: 'asset',

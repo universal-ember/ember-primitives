@@ -24,10 +24,7 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
         },
       },
     });
-    assert.ok(
-      true,
-      `no a11y errors found for ${path} using the ${theme} theme`
-    );
+    assert.ok(true, `no a11y errors found for ${path} using the ${theme} theme`);
   } catch (e) {
     let errorText = '';
 
@@ -37,10 +34,7 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
       }
     }
 
-    let message =
-      `no a11y errors found for ${path} using the ${theme} theme` +
-      `\n\n` +
-      errorText;
+    let message = `no a11y errors found for ${path} using the ${theme} theme` + `\n\n` + errorText;
 
     if (window.location.search.includes('debugA11yAudit')) {
       console.error(errorText);

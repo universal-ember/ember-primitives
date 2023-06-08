@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/ember/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./"
+  },
+  "typedocOptions": {
+    "entryPoints": ["dist/*.d.ts", "dist/components/**.d.ts"]
+  },
+  "include": ["dist/*.d.ts", "dist/**/*.d.ts"]
+}

@@ -136,3 +136,11 @@ const Moon = <template>
 </details>
 
 ## Configuration
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="components/switch" @name="Signature" />
+</template>
+```

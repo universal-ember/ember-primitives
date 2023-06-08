@@ -5,9 +5,9 @@ import { getOwner } from '@ember/owner';
 import type EmberRouter from '@ember/routing/router';
 import type RouterService from '@ember/routing/router-service';
 
-type RouterType = typeof EmberRouter;
+export type RouterType = typeof EmberRouter;
 
-interface Options {
+export interface Options {
   ignore?: string[];
 }
 

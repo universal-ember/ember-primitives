@@ -16,29 +16,32 @@ import type UI from 'docs-app/services/ui';
  *   Hyphenated Thing
  */
 const titleize = (str: string) => {
-  return str
-    .split('-')
-    .filter((text) => !text.match(/^[\d]+$/))
-    .map((text) => `${text[0]?.toLocaleUpperCase()}${text.slice(1, text.length)}`)
-    .join(' ')
-    .split('.')[0] || '';
+  return (
+    str
+      .split('-')
+      .filter((text) => !text.match(/^[\d]+$/))
+      .map((text) => `${text[0]?.toLocaleUpperCase()}${text.slice(1, text.length)}`)
+      .join(' ')
+      .split('.')[0] || ''
+  );
 };
 
 const asComponent = (str: string) => {
   return `<${str.split('.')[0]?.replaceAll(' ', '')} />`;
-}
+};
 
 const isComponents = (str: string) => str === 'components';
-const isLoneIndex = (pages: Page[]) => pages.length === 1 && pages[0]?.name === 'index.md' || pages[0]?.name === 'intro.md';
+const isLoneIndex = (pages: Page[]) =>
+  (pages.length === 1 && pages[0]?.name === 'index.md') || pages[0]?.name === 'intro.md';
 
 const unExct = (str: string) => str.replace(/\.md$/, '');
 
-const NameLink: TOC<{ Args: {  href: string; name: string } }> = <template>
+const NameLink: TOC<{ Args: { href: string; name: string } }> = <template>
   <Link @href={{unExct @href}}>
     {{#if (isComponents @name)}}
       {{asComponent (titleize @name)}}
     {{else}}
-      {{ (titleize @name)}}
+      {{(titleize @name)}}
     {{/if}}
   </Link>
 </template>;
@@ -66,20 +69,20 @@ export class Nav extends Component {
   };
 
   <template>
-    {{!--
+    {{!
       This nav needs an aria-label to get around
       "Ensure landmarks are unique"
       because some demos render navs, and it's important that those
       demos are as simple as possible.
-    --}}
+    }}
     <nav
-      aria-label="Main Navigation"
-      class={{if this.ui.isNavOpen "open"}}
-      {{!-- nav isn't actually made in to an interactive element,
+      aria-label='Main Navigation'
+      class={{if this.ui.isNavOpen 'open'}}
+      {{! nav isn't actually made in to an interactive element,
         it's an event delegation handler.
         The links themselves remain the actual interactive elements.
-      --}}
-      {{!-- template-lint-disable no-invalid-interactive --}}
+      }}
+      {{! template-lint-disable no-invalid-interactive }}
       {{on 'click' this.closeNav}}
     >
       <ul>

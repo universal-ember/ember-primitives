@@ -1,11 +1,12 @@
 # Shadowed
 
-The `<Shadowed />` component renders content using the [shadow DOM][mdn-shadow-dom].
+```gjs live no-shadow
+import { CommentQuery } from 'docs-app/docs-support';
 
-
-[mdn-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
-
-This is useful when you want to render content that escapes your app's styles. 
+<template>
+  <CommentQuery @module="components/shadowed" @name="Shadowed" />
+</template>
+```
 
 ## Example
 
@@ -33,5 +34,15 @@ import { Shadowed } from 'ember-primitives';
       This element is not affected by global sytles
     </p>
   </Shadowed>
+</template>
+```
+
+## Configuration
+
+```gjs live 
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="components/shadowed" @name="Shadowed" />
 </template>
 ```

@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
+    "docs-api": "workspace:*",
     "ember-headless-form": "^1.0.0-beta.3",
     "ember-modifier": "^4.1.0",
     "ember-primitives": "workspace:*",
@@ -99,8 +100,10 @@
     "loader.js": "^4.7.0",
     "pnpm-sync-dependencies-meta-injected": "^0.0.6",
     "prettier": "^2.8.1",
+    "prettier-plugin-ember-template-tag": "^0.3.2",
     "qunit": "^2.19.3",
     "qunit-dom": "^2.0.0",
+    "typedoc": "^0.24.7",
     "typescript": "^5.1.3",
     "unplugin": "^1.3.1",
     "webpack": "^5.85.0"

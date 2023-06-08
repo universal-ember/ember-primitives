@@ -3,3 +3,4 @@
 # will also appear in published NPM packages.
 /README.md
 /LICENSE.md
+*.tgz

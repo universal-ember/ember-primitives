@@ -5,7 +5,7 @@ import { getOwner } from '@ember/owner';
 import type { Registry } from '@ember/service';
 import type Service from '@ember/service';
 
-interface Signature<Key extends keyof Registry> {
+export interface Signature<Key extends keyof Registry> {
   Args: {
     Positional: [Key];
   };

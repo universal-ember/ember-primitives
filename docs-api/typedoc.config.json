@@ -1,0 +1,18 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "tsconfig": "../ember-primitives/tsconfig.typedoc.json",
+  "cleanOutputDir": true,
+  "compilerOptions": {
+    "noEmitOnError": false
+  },
+  "exclude": [
+    "../ember-primitives/dist/_app_/",
+    "../ember-primitives/dist/**/*.js",
+    "../ember-primitives/dist/**/*.js.map",
+    "../ember-primitives/dist/**/*.d.ts.map"
+  ],
+  "json": "./docs.json",
+  "pretty": true,
+  "skipErrorChecking": true,
+  "plugin": []
+}

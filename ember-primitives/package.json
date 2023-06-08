@@ -6,7 +6,6 @@
     "ember-addon"
   ],
   "repository": "https://github.com/universal-ember/ember-primitives",
-  "type": "module",
   "license": "MIT",
   "author": "nullvoxpopuli",
   "files": [

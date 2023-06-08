@@ -87,7 +87,6 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
-      "./color-scheme.js": "./dist/_app_/color-scheme.js",
       "./components/external-link.js": "./dist/_app_/components/external-link.js",
       "./components/link.js": "./dist/_app_/components/link.js",
       "./components/popover.js": "./dist/_app_/components/popover.js",
@@ -95,8 +94,7 @@
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
       "./components/typed-elements.js": "./dist/_app_/components/typed-elements.js",
-      "./helpers/service.js": "./dist/_app_/helpers/service.js",
-      "./proper-links.js": "./dist/_app_/proper-links.js"
+      "./helpers/service.js": "./dist/_app_/helpers/service.js"
     }
   },
   "exports": {

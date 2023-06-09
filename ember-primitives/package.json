@@ -2,6 +2,7 @@
   "name": "ember-primitives",
   "version": "0.0.2",
   "description": "Making apps easier to build",
+  "type": "module",
   "keywords": [
     "ember-addon"
   ],
@@ -96,12 +97,15 @@
     }
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "default": "./dist/*.js"
     },
-    "./addon-main": "./addon-main.cjs"
+    "./addon-main.cjs": "./addon-main.cjs"
   },
   "typesVersions": {
     "*": {

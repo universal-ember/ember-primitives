@@ -135,7 +135,44 @@ const Moon = <template>
 
 </details>
 
-## Configuration
+## Features 
+
+* Full keyboard navigation 
+* Can be controlled or uncontrolled
+
+## Installation 
+
+```bash 
+pnpm add ember-primitives
+```
+
+## Anatomy
+
+
+```js 
+import { Switch } from 'ember-primitives';
+```
+
+or for non-tree-shaking environments:
+```js 
+import { Switch } from 'ember-primitives/components/switch';
+```
+
+
+```gjs 
+import { Switch } from 'ember-primitives';
+
+<template>
+  <Switch as |s|>
+    <s.Control class="form-check-input" />
+    <s.Label class="form-check-label">
+      Toggle on or off
+    </s.Label>
+  </Switch>
+</template>
+```
+
+## API Reference
 
 ```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';
@@ -144,3 +181,39 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="components/switch" @name="Signature" />
 </template>
 ```
+
+### Data Attributes
+
+None needed. From the root element, you may use the `:has` selector, to change the state of the container.
+
+```gjs live
+<template>
+  <style>
+    .my-switch:has([checked]) {
+      /* styles for the root element when checked */
+      font-style: underline;
+    }
+  </style>
+
+  <Switch class="my-switch" as |s|>
+    <s.Control class="form-check-input" />
+    <s.Label class="form-check-label">
+      Toggle on or off
+    </s.Label>
+  </Switch>
+</template>
+```
+
+
+## Accessibility 
+
+Adheres to the `switch` [role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/switch)
+
+### Keyboard Interactions 
+
+| key | description |
+| --- | ----------- |
+| <kbd>Space</kbd> | Toggles the component's state |
+| <kbd>Enter</kbd> | Toggles the component's state |
+
+In addition, a label is required so that users know what the switch is for.

@@ -37,6 +37,7 @@ module.exports = function (defaults) {
     implicitModulesStrategy: 'packageNames',
     packagerOptions: {
       webpackConfig: {
+        devtool: process.env.CI ? 'source-map' : 'eval',
         resolve: {
           alias: {
             path: 'path-browserify',

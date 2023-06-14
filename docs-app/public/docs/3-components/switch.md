@@ -184,14 +184,17 @@ import { ComponentSignature } from 'docs-app/docs-support';
 
 ### Data Attributes
 
-None needed. From the root element, you may use the `:has` selector, to change the state of the container.
+No custom data attributes are needed. From the root element, you may use the `:has` selector, to change the state of the container.
 
-```gjs live
+```gjs live preview
+import { Switch } from 'ember-primitives';
+
 <template>
   <style>
-    .my-switch:has([checked]) {
+    .my-switch:has(:checked) {
       /* styles for the root element when checked */
-      font-style: underline;
+      font-style: italic;
+      font-weight: bold;
     }
   </style>
 
@@ -211,9 +214,9 @@ Adheres to the `switch` [role requirements](https://www.w3.org/WAI/ARIA/apg/patt
 
 ### Keyboard Interactions 
 
-| key | description |
-| --- | ----------- |
-| <kbd>Space</kbd> | Toggles the component's state |
-| <kbd>Enter</kbd> | Toggles the component's state |
+| key | description |  
+| --- | ----------- |  
+| <kbd>Space</kbd> | Toggles the component's state |  
+| <kbd>Enter</kbd> | Toggles the component's state |  
 
 In addition, a label is required so that users know what the switch is for.

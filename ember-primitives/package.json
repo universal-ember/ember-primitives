@@ -33,7 +33,7 @@
   "dependencies": {
     "@babel/runtime": "^7.22.3",
     "@embroider/addon-shim": "1.8.6-unstable.d120477",
-    "@embroider/macros": "1.11.1-unstable.d120477"
+    "@embroider/macros": "1.11.1"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.0.3",

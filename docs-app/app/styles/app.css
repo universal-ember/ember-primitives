@@ -236,3 +236,37 @@ pre > code {
   max-width: 100%;
   line-height: 1rem;
 }
+
+thead th,
+tfoot th {
+  font-style: bold;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table td {
+  border-top: 1px solid #dcdcdc;
+}
+td,
+th {
+  border-right: 1px solid #dcdcdc;
+  padding: 8px 12px;
+}
+
+kbd {
+  font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+  background-color: #fff;
+  border: 1px solid rgba(63, 63, 63, 0.25);
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(63, 63, 63, 0.25);
+  color: #333;
+  display: inline-block;
+  font-size: 0.8em;
+  margin: 0 0.1em;
+  padding: 0.1em 0.6em;
+  white-space: nowrap;
+}

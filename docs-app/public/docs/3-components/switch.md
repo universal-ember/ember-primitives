@@ -215,7 +215,7 @@ Adheres to the `switch` [role requirements](https://www.w3.org/WAI/ARIA/apg/patt
 ### Keyboard Interactions 
 
 | key | description |  
-| --- | ----------- |  
+| :---: | :----------- |  
 | <kbd>Space</kbd> | Toggles the component's state |  
 | <kbd>Enter</kbd> | Toggles the component's state |  
 

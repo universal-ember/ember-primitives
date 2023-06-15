@@ -2,11 +2,11 @@
 
 The Switch component is a user interface element used for toggling between two states, such as on/off or true/false. It consists of a track and a handle that can be interacted with to change the state. The Switch is commonly used in forms, settings screens, and preference panels to control features or settings.
 
-## Examples
-
 `<Switch />` can be used in any design system.
 
-<details open><summary><h3>Bootstrap</h3></summary>
+## Examples
+
+<details><summary><h3>Bootstrap</h3></summary>
 
 See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
 
@@ -28,7 +28,7 @@ import { Switch } from 'ember-primitives';
 
 </details>
 
-<details open><summary><h3>Dark/Light Theme Toggle</h3></summary>
+<details><summary><h3>Dark/Light Theme Toggle</h3></summary>
 
 CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKGN?editors=1100)
 

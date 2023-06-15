@@ -67,6 +67,9 @@ const Checkbox: TOC<{
   <input id={{@id}} type='checkbox' role='switch' checked={{@checked}} ...attributes />
 </template>;
 
+/**
+ * @public
+ */
 export const Switch: TOC<Signature> = <template>
   <div ...attributes data-prim-switch>
     {{! @glint-nocheck }}

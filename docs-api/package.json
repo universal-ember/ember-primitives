@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "debug": "npx html-pages ./dist --no-cache",
-    "build": "typedoc --options ./typedoc.config.json --json ./docs.json ",
+    "build": "typedoc --options ./typedoc.config.json --json ./docs.json --plugin @zamiell/typedoc-plugin-not-exported --includeTag external ",
     "start": "pnpm build --watch"
   },
   "dependencies": {
@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@tsconfig/ember": "^2.0.0",
+    "@zamiell/typedoc-plugin-not-exported": "^0.2.0",
     "typedoc": "^0.24.7",
     "typescript": "^5.1.3"
   }

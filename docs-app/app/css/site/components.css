@@ -1,0 +1,10 @@
+.edit-page {
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: flex-end;
+  text-decoration: none;
+}
+.edit-page:after {
+  content: '➚';
+  padding-left: 0.25rem;
+}

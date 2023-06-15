@@ -2719,7 +2719,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/switch.d.ts",
-							"line": 64,
+							"line": 67,
 							"character": 19
 						}
 					],
@@ -3254,12 +3254,13 @@
 					"variant": "declaration",
 					"kind": 32,
 					"flags": {
+						"isPublic": true,
 						"isConst": true
 					},
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/switch.d.ts",
-							"line": 63,
+							"line": 66,
 							"character": 14
 						}
 					],
@@ -3651,17 +3652,12 @@
 						{
 							"fileName": "ember-primitives/dist/proper-links.d.ts",
 							"line": 6,
-							"character": 17
+							"character": 0
 						},
 						{
 							"fileName": "ember-primitives/dist/proper-links.d.ts",
 							"line": 7,
-							"character": 17
-						},
-						{
-							"fileName": "ember-primitives/dist/proper-links.d.ts",
-							"line": 11,
-							"character": 17
+							"character": 0
 						}
 					],
 					"signatures": [
@@ -3757,58 +3753,6 @@
 							"parameters": [
 								{
 									"id": 66,
-									"name": "klass",
-									"variant": "param",
-									"kind": 32768,
-									"flags": {},
-									"type": {
-										"type": "intrinsic",
-										"name": "any"
-									}
-								}
-							],
-							"type": {
-								"type": "reference",
-								"target": 56,
-								"name": "RouterType",
-								"package": "ember-primitives"
-							}
-						},
-						{
-							"id": 67,
-							"name": "properLinks",
-							"variant": "signature",
-							"kind": 4096,
-							"flags": {},
-							"comment": {
-								"summary": [],
-								"modifierTags": [
-									"@internal"
-								]
-							},
-							"sources": [
-								{
-									"fileName": "ember-primitives/dist/proper-links.d.ts",
-									"line": 11,
-									"character": 0
-								}
-							],
-							"parameters": [
-								{
-									"id": 68,
-									"name": "options",
-									"variant": "param",
-									"kind": 32768,
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"target": 57,
-										"name": "Options",
-										"package": "ember-primitives"
-									}
-								},
-								{
-									"id": 69,
 									"name": "klass",
 									"variant": "param",
 									"kind": 32768,
@@ -4244,18 +4188,6 @@
 			"qualifiedName": "properLinks"
 		},
 		"66": {
-			"sourceFileName": "../ember-primitives/dist/proper-links.d.ts",
-			"qualifiedName": "klass"
-		},
-		"67": {
-			"sourceFileName": "../ember-primitives/dist/proper-links.d.ts",
-			"qualifiedName": "properLinks"
-		},
-		"68": {
-			"sourceFileName": "../ember-primitives/dist/proper-links.d.ts",
-			"qualifiedName": "options"
-		},
-		"69": {
 			"sourceFileName": "../ember-primitives/dist/proper-links.d.ts",
 			"qualifiedName": "klass"
 		},

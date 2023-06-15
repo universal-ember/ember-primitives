@@ -1,0 +1,26 @@
+:root {
+  /**
+   * Only one breakpoint, because this site
+   * is mostly prose, and we don't want too much variation.
+   */
+  --breakpoint: 800px;
+
+  /**
+   * z-index managed here at a glance
+   * so that to learn what the z-indexes are (for debugging),
+   * you don't need to read all of the CSS
+   */
+  --alt-z-nav: 9;
+  --z-footer: 10;
+  /* on smaller screens the nav is above the footer */
+  --z-nav: 20;
+}
+
+@import './raw/elements.css';
+
+@import './site/layout.css';
+@import './site/footer.css';
+@import './site/nav.css';
+@import './site/utils.css';
+@import './site/rendering.css';
+@import './site/components.css';

@@ -1,3 +1,5 @@
+import './css/styles.css';
+
 import Application from '@ember/application';
 
 import config from 'docs-app/config/environment';

@@ -25,7 +25,13 @@ module.exports = function (defaults) {
 
   const { Webpack } = require('@embroider/webpack');
 
-  return require('@embroider/compat').compatBuild(app, Webpack, {
+  let optimizeForProduction = process.env.CI ? 'production' : 'development';
+
+  class _Webpack extends Webpack {
+    variants = super.variants.map((v) => (v.optimizeForProduction = optimizeForProduction));
+  }
+
+  return require('@embroider/compat').compatBuild(app, _Webpack, {
     extraPublicTrees: [],
     staticAddonTrees: true,
     staticAddonTestSupportTrees: true,

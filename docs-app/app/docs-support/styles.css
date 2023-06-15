@@ -1,9 +1,7 @@
 .typedoc-reference,
 .typedoc-intrinsic {
   border: 1px solid #222;
-  background: #eee;
   display: inline-block;
-  padding: 0rem 0.2rem;
   font-style: italic;
   font-family: monospace;
   margin: 0;

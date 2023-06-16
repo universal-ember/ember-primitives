@@ -37,6 +37,7 @@ const Args: TOC<{ Args: { info: any } }> = <template>
       <span class='typedoc-component-arg'>
         <span class='typedoc-component-arg-info'>
           <pre class='typedoc-name'>@{{child.name}}</pre>
+          {{log child}}
           <Type @info={{child.type}} />
         </span>
         <Comment @info={{child}} />
@@ -71,7 +72,7 @@ const Blocks: TOC<{ Args: { info: any } }> = <template>
       <span class='typedoc-component-block'>
         <pre class='typedoc-name'>&lt;:{{child.name}}&gt;</pre>
         <span class='typedoc-category'>Properties</span>
-        <div>
+        <div class='typedoc-property'>
           <Type @info={{child.type}} />
           <Comment @info={{child}} />
         </div>

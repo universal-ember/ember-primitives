@@ -30,15 +30,19 @@
   justify-content: space-between;
   padding: 0 1rem;
 }
+
+.typedoc-property,
 .typedoc-component-arg {
   padding: 0 1rem;
 }
+
 .typedoc-component-element > .typedoc-name {
   display: inline-block;
   margin: 0;
   line-height: 1.5rem;
 }
 
+.typedoc-named-tuple,
 .typedoc-component-arg-info {
   display: flex;
   gap: 0.25rem;

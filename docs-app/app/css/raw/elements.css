@@ -45,6 +45,10 @@ h1,
 h2 {
   line-height: 1.35rem;
 }
+h2 {
+  margin-top: 3rem;
+}
+
 h1:after,
 h2:after {
   content: '';

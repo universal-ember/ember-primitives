@@ -86,7 +86,12 @@ import { ComponentSignature } from 'docs-app/docs-support';
 </template>
 ```
 
-### Data Attributes
+### State Attributes
+
+| key | description |  
+| :---: | :----------- |  
+| aria-pressed | "true" or "false", depending on the state of the toggle button |  
+
 
 ## Accessibility
 

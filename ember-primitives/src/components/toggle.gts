@@ -3,6 +3,8 @@ import { on } from '@ember/modifier';
 
 import { cell } from 'ember-resources';
 
+import { toggleWithFallback } from './-private/utils';
+
 import type { TOC } from '@ember/component/template-only';
 
 export interface Signature {
@@ -33,20 +35,12 @@ export interface Signature {
   };
 }
 
-function toggle(uncontrolledToggle: () => void, controlledToggle?: () => void) {
-  if (controlledToggle) {
-    return controlledToggle();
-  }
-
-  uncontrolledToggle();
-}
-
 export const Toggle: TOC<Signature> = <template>
   {{#let (cell @pressed) as |pressed|}}
     <button
       type='button'
       aria-pressed='{{pressed.current}}'
-      {{on 'click' (fn toggle pressed.toggle @onChange)}}
+      {{on 'click' (fn toggleWithFallback pressed.toggle @onChange)}}
       ...attributes
     >
       {{yield pressed.current}}

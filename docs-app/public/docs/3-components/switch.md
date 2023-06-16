@@ -182,7 +182,12 @@ import { ComponentSignature } from 'docs-app/docs-support';
 </template>
 ```
 
-### Data Attributes
+### State Attributes
+
+| key | description |  
+| :---: | :----------- |  
+| checked | attribute will be present when the underlying input is checked |  
+| data-state | attribute will be "on" or "off", depending on the state of the toggle button |  
 
 No custom data attributes are needed. From the root element, you may use the `:has` selector, to change the state of the container.
 
@@ -191,9 +196,11 @@ import { Switch } from 'ember-primitives';
 
 <template>
   <style>
+    /* styles for the root element when checked */
     .my-switch:has(:checked) {
-      /* styles for the root element when checked */
       font-style: italic;
+    }
+    .my-switch:has([data-state=on]) {
       font-weight: bold;
     }
   </style>

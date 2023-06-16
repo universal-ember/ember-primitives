@@ -95,11 +95,9 @@ import { ComponentSignature } from 'docs-app/docs-support';
 
 ## Accessibility
 
-
-### Keyboard Interactions
-
 Uses [`aria-pressed`](https://www.w3.org/TR/wai-aria-1.2/#aria-pressed) but with only two possible states.
 
+### Keyboard Interactions
 
 | key | description |  
 | :---: | :----------- |  

@@ -2719,7 +2719,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/switch.d.ts",
-							"line": 67,
+							"line": 69,
 							"character": 19
 						}
 					],
@@ -3260,7 +3260,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/switch.d.ts",
-							"line": 66,
+							"line": 68,
 							"character": 14
 						}
 					],

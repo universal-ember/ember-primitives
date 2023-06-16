@@ -61,12 +61,14 @@ const mdnElement = (typeName: string) => {
 
 const Element: TOC<{ Args: { info: any } }> = <template>
   {{#if @info}}
-    <span class='typedoc-component-element'>
-      <span class='typedoc-name'>{{@info.name}}</span>
-      <ExternalLink href={{mdnElement @info.type.name}} class='typedoc-type-link'>
-        {{@info.type.name}}
-        ➚
-      </ExternalLink>
+    <span class='typedoc__component-signature__element'>
+      <span class='typedoc__component-signature__element-type'>
+        <span class='typedoc__name'>{{@info.name}}</span>
+        <ExternalLink href={{mdnElement @info.type.name}} class='typedoc__type-link'>
+          {{@info.type.name}}
+          ➚
+        </ExternalLink>
+      </span>
       <Comment @info={{@info}} />
     </span>
   {{/if}}
@@ -76,9 +78,9 @@ const Blocks: TOC<{ Args: { info: any } }> = <template>
   {{#if @info}}
     <h3 class='typedoc-heading'>Blocks</h3>
     {{#each @info.type.declaration.children as |child|}}
-      <span class='typedoc-component-block'>
-        <pre class='typedoc-name'>&lt;:{{child.name}}&gt;</pre>
-        <span class='typedoc-category'>Properties</span>
+      <span class='typedoc__component-signature__block'>
+        <pre class='typedoc__name'>&lt;:{{child.name}}&gt;</pre>
+        {{! <span class='typedoc-category'>Properties </span> }}
         <div class='typedoc-property'>
           <Type @info={{child.type}} />
           <Comment @info={{child}} />

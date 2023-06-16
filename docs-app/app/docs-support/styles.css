@@ -1,4 +1,4 @@
-.typedoc-type-link,
+.typedoc__type-link,
 .typedoc-reference,
 .typedoc-intrinsic {
   border: 1px solid #222;
@@ -7,9 +7,10 @@
   font-family: monospace;
   margin: 0;
   font-size: 0.75rem;
+  padding: 0 0.5rem;
 }
 
-.typedoc-type-link {
+.typedoc__type-link {
   padding: 0 0.5rem;
 }
 
@@ -23,14 +24,6 @@
   display: block;
 }
 
-.typedoc-component-element {
-  display: flex;
-  gap: 0.25rem;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 0 1rem;
-}
-
 .typedoc-property,
 .typedoc-component-arg {
   padding: 0 1rem;
@@ -38,12 +31,6 @@
 
 .typedoc-declaration-signatures {
   list-style: none;
-}
-
-.typedoc-component-element > .typedoc-name {
-  display: inline-block;
-  margin: 0;
-  line-height: 1.5rem;
 }
 
 .typedoc-named-tuple,
@@ -60,22 +47,49 @@
   font-weight: bold;
 }
 
+.typedoc-declaration-children {
+  list-style: none;
+  padding: 0 0.5rem;
+}
+
+/**
+ *
+ * Component Signatures
+ *
+ */
+.typedoc__component-signature__element,
+.typedoc__component-signature__block {
+  display: block;
+  padding: 0 1rem;
+}
+.typedoc__component-signature__element-type {
+  display: flex;
+  gap: 0.25rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.typedoc__component-signature__element-type > .typedoc__name {
+  display: inline-block;
+  margin: 0;
+  line-height: 1.5rem;
+}
+
+.typedoc__component-signature__block .typedoc-declaration-name + .typedoc-reference {
+  margin-bottom: -0.25rem;
+}
+
 .typedoc-component-arg {
   margin-bottom: 0.5rem;
   display: grid;
   gap: 0.25rem;
 }
 .typedoc-component-arg > .typedoc-name,
-.typedoc-component-block > .typedoc-name {
+.typedoc__component-signature__block > .typedoc__name {
   font-size: 1.2rem;
 }
 
 .typedoc-component-arg .typedoc-rendered-comment p {
   margin-top: 0;
   margin-bottom: 0.25rem;
-}
-
-.typedoc-declaration-children {
-  list-style: none;
-  padding: 0 0.5rem;
 }

@@ -1,3 +1,4 @@
+.typedoc-type-link,
 .typedoc-reference,
 .typedoc-intrinsic {
   border: 1px solid #222;
@@ -7,6 +8,11 @@
   margin: 0;
   font-size: 0.75rem;
 }
+
+.typedoc-type-link {
+  padding: 0 0.5rem;
+}
+
 .typedoc-declaration-name {
   margin: 0;
   display: inline-block;

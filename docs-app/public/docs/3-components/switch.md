@@ -1,6 +1,6 @@
 # Switch
 
-The Switch component is a user interface element used for toggling between two states, such as on/off or true/false. It consists of a track and a handle that can be interacted with to change the state. The Switch is commonly used in forms, settings screens, and preference panels to control features or settings.
+The Switch component is a user interface element used for toggling between two states. It consists of a track and a handle that can be interacted with to change the state. The Switch is commonly used in forms, settings screens, and preference panels to control features or settings.
 
 `<Switch />` can be used in any design system.
 

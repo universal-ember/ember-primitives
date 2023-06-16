@@ -28,7 +28,7 @@ module.exports = function (defaults) {
   let optimizeForProduction = process.env.CI ? 'production' : 'development';
 
   class _Webpack extends Webpack {
-    variants = super.variants.map((v) => (v.optimizeForProduction = optimizeForProduction));
+    variants = [{ name: 'deployed-dev-build', runtime: 'browser', optimizeForProduction }];
   }
 
   return require('@embroider/compat').compatBuild(app, _Webpack, {

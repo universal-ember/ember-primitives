@@ -3327,7 +3327,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/toggle.d.ts",
-							"line": 23,
+							"line": 30,
 							"character": 19
 						}
 					],
@@ -3507,7 +3507,18 @@
 												}
 											],
 											"type": {
-												"type": "tuple"
+												"type": "tuple",
+												"elements": [
+													{
+														"type": "namedTupleMember",
+														"name": "pressed",
+														"isOptional": false,
+														"element": {
+															"type": "intrinsic",
+															"name": "boolean"
+														}
+													}
+												]
 											}
 										}
 									],
@@ -3582,7 +3593,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/toggle.d.ts",
-							"line": 22,
+							"line": 29,
 							"character": 14
 						}
 					],
@@ -3769,6 +3780,21 @@
 				},
 				{
 					"id": 186,
+					"name": "Toggle",
+					"variant": "reference",
+					"kind": 8388608,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "ember-primitives/dist/index.d.ts",
+							"line": 6,
+							"character": 9
+						}
+					],
+					"target": 167
+				},
+				{
+					"id": 187,
 					"name": "service",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3792,7 +3818,8 @@
 						183,
 						184,
 						185,
-						186
+						186,
+						187
 					]
 				}
 			],
@@ -4964,6 +4991,10 @@
 			"qualifiedName": "Switch"
 		},
 		"186": {
+			"sourceFileName": "../ember-primitives/dist/index.d.ts",
+			"qualifiedName": "Toggle"
+		},
+		"187": {
 			"sourceFileName": "../ember-primitives/dist/helpers.d.ts",
 			"qualifiedName": "service"
 		}

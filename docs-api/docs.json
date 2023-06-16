@@ -3317,6 +3317,314 @@
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
+			"children": [
+				{
+					"id": 179,
+					"name": "default",
+					"variant": "reference",
+					"kind": 8388608,
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "ember-primitives/dist/components/toggle.d.ts",
+							"line": 23,
+							"character": 19
+						}
+					],
+					"target": 167
+				},
+				{
+					"id": 168,
+					"name": "Signature",
+					"variant": "declaration",
+					"kind": 256,
+					"flags": {},
+					"children": [
+						{
+							"id": 170,
+							"name": "Args",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "ember-primitives/dist/components/toggle.d.ts",
+									"line": 4,
+									"character": 4
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 171,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 173,
+											"name": "onChange",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/toggle.d.ts",
+													"line": 16,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 174,
+													"name": "__type",
+													"variant": "declaration",
+													"kind": 65536,
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "ember-primitives/dist/components/toggle.d.ts",
+															"line": 16,
+															"character": 19
+														}
+													],
+													"signatures": [
+														{
+															"id": 175,
+															"name": "__type",
+															"variant": "signature",
+															"kind": 4096,
+															"flags": {},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Callback for when the toggle's state is changed.\n\nCan be used to control the state of the component."
+																	}
+																]
+															},
+															"sources": [
+																{
+																	"fileName": "ember-primitives/dist/components/toggle.d.ts",
+																	"line": 16,
+																	"character": 19
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "void"
+															}
+														}
+													]
+												}
+											}
+										},
+										{
+											"id": 172,
+											"name": "pressed",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "The pressed-state of the toggle.\n\nCan be used to control the state of the component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/toggle.d.ts",
+													"line": 10,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "boolean"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												173,
+												172
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "ember-primitives/dist/components/toggle.d.ts",
+											"line": 4,
+											"character": 10
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 176,
+							"name": "Blocks",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "ember-primitives/dist/components/toggle.d.ts",
+									"line": 18,
+									"character": 4
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 177,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 178,
+											"name": "default",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/toggle.d.ts",
+													"line": 19,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "tuple"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												178
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "ember-primitives/dist/components/toggle.d.ts",
+											"line": 18,
+											"character": 12
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 169,
+							"name": "Element",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "ember-primitives/dist/components/toggle.d.ts",
+									"line": 3,
+									"character": 4
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "../node_modules/.pnpm/typescript@5.1.3/node_modules/typescript/lib/lib.dom.d.ts",
+									"qualifiedName": "HTMLButtonElement"
+								},
+								"name": "HTMLButtonElement",
+								"package": "typescript"
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								170,
+								176,
+								169
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "ember-primitives/dist/components/toggle.d.ts",
+							"line": 2,
+							"character": 10
+						}
+					]
+				},
+				{
+					"id": 167,
+					"name": "Toggle",
+					"variant": "declaration",
+					"kind": 32,
+					"flags": {
+						"isConst": true
+					},
+					"sources": [
+						{
+							"fileName": "ember-primitives/dist/components/toggle.d.ts",
+							"line": 22,
+							"character": 14
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": {
+							"sourceFileName": "\u0000",
+							"qualifiedName": "unknown"
+						},
+						"typeArguments": [
+							{
+								"type": "reference",
+								"target": 168,
+								"name": "Signature",
+								"package": "ember-primitives"
+							}
+						],
+						"name": "TOC",
+						"qualifiedName": "unknown"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "References",
+					"children": [
+						179
+					]
+				},
+				{
+					"title": "Interfaces",
+					"children": [
+						168
+					]
+				},
+				{
+					"title": "Variables",
+					"children": [
+						167
+					]
+				}
+			],
 			"sources": [
 				{
 					"fileName": "ember-primitives/dist/components/toggle.d.ts",
@@ -3333,7 +3641,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 167,
+					"id": 180,
 					"name": "service",
 					"variant": "declaration",
 					"kind": 32,
@@ -3365,7 +3673,7 @@
 				{
 					"title": "Variables",
 					"children": [
-						167
+						180
 					]
 				}
 			],
@@ -3385,7 +3693,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 168,
+					"id": 181,
 					"name": "ExternalLink",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3400,7 +3708,7 @@
 					"target": 79
 				},
 				{
-					"id": 169,
+					"id": 182,
 					"name": "Link",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3415,7 +3723,7 @@
 					"target": 87
 				},
 				{
-					"id": 170,
+					"id": 183,
 					"name": "Popover",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3430,7 +3738,7 @@
 					"target": 125
 				},
 				{
-					"id": 171,
+					"id": 184,
 					"name": "Shadowed",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3445,7 +3753,7 @@
 					"target": 131
 				},
 				{
-					"id": 172,
+					"id": 185,
 					"name": "Switch",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3460,7 +3768,7 @@
 					"target": 142
 				},
 				{
-					"id": 173,
+					"id": 186,
 					"name": "service",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3472,19 +3780,19 @@
 							"character": 9
 						}
 					],
-					"target": 167
+					"target": 180
 				}
 			],
 			"groups": [
 				{
 					"title": "References",
 					"children": [
-						168,
-						169,
-						170,
-						171,
-						172,
-						173
+						181,
+						182,
+						183,
+						184,
+						185,
+						186
 					]
 				}
 			],
@@ -4580,30 +4888,82 @@
 			"qualifiedName": ""
 		},
 		"167": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Toggle"
+		},
+		"168": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature"
+		},
+		"169": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature.Element"
+		},
+		"170": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature.Args"
+		},
+		"171": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"172": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type.pressed"
+		},
+		"173": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type.onChange"
+		},
+		"174": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"175": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"176": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature.Blocks"
+		},
+		"177": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"178": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type.default"
+		},
+		"179": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "default"
+		},
+		"180": {
 			"sourceFileName": "../ember-primitives/dist/helpers/service.d.ts",
 			"qualifiedName": "service"
 		},
-		"168": {
+		"181": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "ExternalLink"
 		},
-		"169": {
+		"182": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Link"
 		},
-		"170": {
+		"183": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Popover"
 		},
-		"171": {
+		"184": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Shadowed"
 		},
-		"172": {
+		"185": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Switch"
 		},
-		"173": {
+		"186": {
 			"sourceFileName": "../ember-primitives/dist/helpers.d.ts",
 			"qualifiedName": "service"
 		}

@@ -28,7 +28,7 @@ import { Switch } from 'ember-primitives';
 
 </details>
 
-<details><summary><h3>Dark/Light Theme Toggle</h3></summary>
+<details><summary><h3>Dark/Light Theme Switch</h3></summary>
 
 CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKGN?editors=1100)
 

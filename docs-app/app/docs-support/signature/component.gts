@@ -1,6 +1,6 @@
 import { ExternalLink } from 'ember-primitives';
 
-import { Comment, Type } from '../renderer';
+import { Comment, isIntrinsic, Type } from '../renderer';
 import { findChildDeclaration, Load } from '../utils';
 
 import type { TOC } from '@ember/component/template-only';
@@ -20,6 +20,8 @@ function getSignature(info: DeclarationReflection) {
   return info;
 }
 
+const not = (x: unknown) => !x;
+
 export const ComponentSignature: TOC<{ Args: { module: string; name: string } }> = <template>
   <Load @module={{@module}} @name={{@name}} as |declaration|>
     {{#let (getSignature declaration) as |info|}}
@@ -37,10 +39,15 @@ const Args: TOC<{ Args: { info: any } }> = <template>
       <span class='typedoc-component-arg'>
         <span class='typedoc-component-arg-info'>
           <pre class='typedoc-name'>@{{child.name}}</pre>
-          {{log child}}
-          <Type @info={{child.type}} />
+          {{#if (isIntrinsic child.type)}}
+            <Type @info={{child.type}} />
+          {{/if}}
         </span>
-        <Comment @info={{child}} />
+        {{#if (not (isIntrinsic child.type))}}
+          <Type @info={{child.type}} />
+        {{else}}
+          <Comment @info={{child}} />
+        {{/if}}
       </span>
     {{/each}}
   {{/if}}

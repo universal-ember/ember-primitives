@@ -36,6 +36,10 @@
   padding: 0 1rem;
 }
 
+.typedoc-declaration-signatures {
+  list-style: none;
+}
+
 .typedoc-component-element > .typedoc-name {
   display: inline-block;
   margin: 0;

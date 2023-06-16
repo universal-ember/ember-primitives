@@ -127,7 +127,9 @@ const Reflection: TOC<{ info: { declaration: DeclarationReflection } }> = <templ
 
 const isReference = (x: { type: string }) => x.type === 'reference';
 const isReflection = (x: { type: string }) => x.type === 'reflection';
-const isIntrinsic = (x: { type: string }) => x.type === 'intrinsic';
+
+export const isIntrinsic = (x: { type: string }) => x.type === 'intrinsic';
+
 const isTuple = (x: { type: string }) => x.type === 'tuple';
 const isNamedTuple = (x: SomeType | undefined): x is NamedTupleMember =>
   x?.type === 'namedTupleMember';

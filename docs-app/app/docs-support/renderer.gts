@@ -107,6 +107,7 @@ const Declaration: TOC<{
       {{#if @info.signatures}}
         <ul class='typedoc-declaration-signatures'>
           {{#each @info.signatures as |child|}}
+            {{! @glint-expect-error }}
             <li><Type @info={{child}} /></li>
           {{/each}}
         </ul>
@@ -135,6 +136,8 @@ const isNamedTuple = (x: SomeType | undefined): x is NamedTupleMember =>
   x?.type === 'namedTupleMember';
 const isVoidIntrinsic = (x: unknown | undefined) => {
   if (!x) return false;
+  if (typeof x !== 'object') return false;
+  if (x === null) return false;
   if (!('type' in x)) return false;
 
   if (typeof x.type === 'object' && x.type !== null) {
@@ -168,6 +171,7 @@ const Intrinsic: TOC<{ info: { name: string } }> = <template>
 </template>;
 
 const VoidIntrinsic: TOC<{ info: { name: string } }> = <template>
+  {{! @glint-expect-error }}
   <Declaration @info={{@info}} />
 </template>;
 
@@ -192,6 +196,7 @@ export const Type: TOC<{ Args: { info: SomeType } }> = <template>
     {{! @glint-expect-error }}
     <Reflection @info={{@info}} />
   {{else if (isIntrinsic @info)}}
+    {{! @glint-expect-error }}
     <Intrinsic @info={{@info}} />
   {{else if (isTuple @info)}}
     {{! @glint-expect-error }}
@@ -199,6 +204,7 @@ export const Type: TOC<{ Args: { info: SomeType } }> = <template>
   {{else if (isNamedTuple @info)}}
     <NamedTuple @info={{@info}} />
   {{else if (isVoidIntrinsic @info)}}
+    {{! @glint-expect-error }}
     <VoidIntrinsic @info={{@info}} />
   {{else}}
     {{! template-lint-disable no-log }}

@@ -1,6 +1,6 @@
 # ExternalLink
 
-The `<ExternalLink />` component is a light wrapper around the [Anchor element][mdn-a], which will alawys make your link an external link.
+The `<ExternalLink />` component is a light wrapper around the [Anchor element][mdn-a], which will always make your link an external link.
 
 
 [mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a

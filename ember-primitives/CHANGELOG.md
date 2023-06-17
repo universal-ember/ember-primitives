@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.0.3
+
+### Patch Changes
+
+- 5f505a7: Add Toggle component, see: https://ember-primitives.pages.dev/3-components/toggle
+
 ## 0.0.2
 
 ### Patch Changes

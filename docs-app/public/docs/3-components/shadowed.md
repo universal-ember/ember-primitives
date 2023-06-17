@@ -37,9 +37,9 @@ import { Shadowed } from 'ember-primitives';
 </template>
 ```
 
-## Configuration
+## API Reference
 
-```gjs live 
+```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>

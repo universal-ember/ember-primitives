@@ -25,7 +25,13 @@ module.exports = function (defaults) {
 
   const { Webpack } = require('@embroider/webpack');
 
-  return require('@embroider/compat').compatBuild(app, Webpack, {
+  let optimizeForProduction = process.env.CI ? 'production' : 'development';
+
+  class _Webpack extends Webpack {
+    variants = [{ name: 'deployed-dev-build', runtime: 'browser', optimizeForProduction }];
+  }
+
+  return require('@embroider/compat').compatBuild(app, _Webpack, {
     extraPublicTrees: [],
     staticAddonTrees: true,
     staticAddonTestSupportTrees: true,
@@ -37,6 +43,7 @@ module.exports = function (defaults) {
     implicitModulesStrategy: 'packageNames',
     packagerOptions: {
       webpackConfig: {
+        devtool: process.env.CI ? 'source-map' : 'eval',
         resolve: {
           alias: {
             path: 'path-browserify',

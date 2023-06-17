@@ -1,8 +1,11 @@
-// NOTE: https://github.com/emberjs/ember.js/issues/20165
-import { hash } from '@ember/helper';
+import { fn, hash } from '@ember/helper';
+import { on } from '@ember/modifier';
+
+import { cell } from 'ember-resources';
 
 import { uniqueId } from '../utils';
 import { Label } from './-private/typed-elements';
+import { toggleWithFallback } from './-private/utils';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
@@ -39,7 +42,7 @@ export interface Signature {
          * </template>
          * ```
          */
-        Control: WithBoundArgs<typeof Checkbox, 'checked' | 'id'>;
+        Control: WithBoundArgs<typeof Checkbox, 'checked' | 'id' | 'onChange'>;
         /**
          * The Switch element requires a label, and this label already has
          * the association to the Control by setting the `for` attribute to the `id` of the Control
@@ -60,19 +63,37 @@ export interface Signature {
   };
 }
 
-const Checkbox: TOC<{
+interface ControlSignature {
   Element: HTMLInputElement;
-  Args: { id: string; checked?: boolean };
-}> = <template>
-  <input id={{@id}} type='checkbox' role='switch' checked={{@checked}} ...attributes />
+  Args: { id: string; checked?: boolean; onChange: () => void };
+}
+
+const Checkbox: TOC<ControlSignature> = <template>
+  {{#let (cell @checked) as |checked|}}
+    <input
+      id={{@id}}
+      type='checkbox'
+      role='switch'
+      checked={{checked.current}}
+      data-state={{if checked.current 'on' 'off'}}
+      {{on 'click' (fn toggleWithFallback checked.toggle @onChange)}}
+      ...attributes
+    />
+  {{/let}}
 </template>;
 
+/**
+ * @public
+ */
 export const Switch: TOC<Signature> = <template>
   <div ...attributes data-prim-switch>
     {{! @glint-nocheck }}
     {{#let (uniqueId) as |id|}}
       {{yield
-        (hash Control=(component Checkbox checked=@checked id=id) Label=(component Label for=id))
+        (hash
+          Control=(component Checkbox checked=@checked id=id onChange=@onChange)
+          Label=(component Label for=id)
+        )
       }}
     {{/let}}
   </div>

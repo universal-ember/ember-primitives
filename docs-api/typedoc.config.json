@@ -11,8 +11,10 @@
     "../ember-primitives/dist/**/*.js.map",
     "../ember-primitives/dist/**/*.d.ts.map"
   ],
+  "out": "./dist",
   "json": "./docs.json",
   "pretty": true,
+  "excludeInternal": true,
   "skipErrorChecking": true,
-  "plugin": []
+  "plugin": ["@zamiell/typedoc-plugin-not-exported"]
 }

@@ -33,7 +33,7 @@
   "dependencies": {
     "@babel/runtime": "^7.22.3",
     "@embroider/addon-shim": "1.8.6-unstable.d120477",
-    "@embroider/macros": "1.11.1-unstable.d120477"
+    "@embroider/macros": "1.11.1"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.0.3",
@@ -92,6 +92,7 @@
       "./components/portal-targets.js": "./dist/_app_/components/portal-targets.js",
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
+      "./components/toggle.js": "./dist/_app_/components/toggle.js",
       "./helpers/service.js": "./dist/_app_/helpers/service.js"
     }
   },

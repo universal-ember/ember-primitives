@@ -7,7 +7,7 @@
   "scripts": {
     "release": "changeset publish",
     "build": "turbo run build --output-logs errors-only",
-    "start": "pnpm build; concurrently 'npm:_start:*' --prefix ' '",
+    "start": "pnpm build; concurrently 'npm:_start:*' --prefix ' ' --restart-after 5000 --restart-tries -1",
     "_start:docs": "pnpm --filter docs-app start",
     "_start:tests": "pnpm --filter test-app start",
     "_start:package": "pnpm --filter 'ember-primitives' start --no-watch.clearScreen",
@@ -21,7 +21,7 @@
     "concurrently": "^8.1.0",
     "prettier": "^2.5.1",
     "prettier-plugin-ember-template-tag": "^0.3.2",
-    "turbo": "^1.10.1"
+    "turbo": "^1.10.3"
   },
   "engines": {
     "node": ">= 18.*",

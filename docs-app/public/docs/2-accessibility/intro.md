@@ -2,6 +2,9 @@
 
 WIP
 
+All components strive for compliance with the [WAI-ARIA](https://www.w3.org/TR/wai-aria/) specification, which is a set of guidelines for accessibility, following [the recommended patterns](https://www.w3.org/WAI/ARIA/apg/patterns/).
+
+
 ## Automatic Accountability
 
 Violations that can be caught via CSS are highlighted in the UI so that the developer knows exactly what to fix.

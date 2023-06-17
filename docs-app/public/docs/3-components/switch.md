@@ -1,12 +1,12 @@
 # Switch
 
-The Switch component is a user interface element used for toggling between two states, such as on/off or true/false. It consists of a track and a handle that can be interacted with to change the state. The Switch is commonly used in forms, settings screens, and preference panels to control features or settings.
-
-## Examples
+The Switch component is a user interface element used for toggling between two states. It consists of a track and a handle that can be interacted with to change the state. The Switch is commonly used in forms, settings screens, and preference panels to control features or settings.
 
 `<Switch />` can be used in any design system.
 
-<details open><summary><h3>Bootstrap</h3></summary>
+## Examples
+
+<details><summary><h3>Bootstrap</h3></summary>
 
 See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
 
@@ -28,7 +28,7 @@ import { Switch } from 'ember-primitives';
 
 </details>
 
-<details open><summary><h3>Dark/Light Theme Toggle</h3></summary>
+<details><summary><h3>Dark/Light Theme Switch</h3></summary>
 
 CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKGN?editors=1100)
 
@@ -135,7 +135,44 @@ const Moon = <template>
 
 </details>
 
-## Configuration
+## Features 
+
+* Full keyboard navigation 
+* Can be controlled or uncontrolled
+
+## Installation 
+
+```bash 
+pnpm add ember-primitives
+```
+
+## Anatomy
+
+
+```js 
+import { Switch } from 'ember-primitives';
+```
+
+or for non-tree-shaking environments:
+```js 
+import { Switch } from 'ember-primitives/components/switch';
+```
+
+
+```gjs 
+import { Switch } from 'ember-primitives';
+
+<template>
+  <Switch as |s|>
+    <s.Control class="form-check-input" />
+    <s.Label class="form-check-label">
+      Toggle on or off
+    </s.Label>
+  </Switch>
+</template>
+```
+
+## API Reference
 
 ```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';
@@ -144,3 +181,49 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="components/switch" @name="Signature" />
 </template>
 ```
+
+### State Attributes
+
+| key | description |  
+| :---: | :----------- |  
+| checked | attribute will be present when the underlying input is checked |  
+| data-state | attribute will be "on" or "off", depending on the state of the toggle button |  
+
+No custom data attributes are needed. From the root element, you may use the `:has` selector, to change the state of the container.
+
+```gjs live preview
+import { Switch } from 'ember-primitives';
+
+<template>
+  <style>
+    /* styles for the root element when checked */
+    .my-switch:has(:checked) {
+      font-style: italic;
+    }
+    .my-switch:has([data-state=on]) {
+      font-weight: bold;
+    }
+  </style>
+
+  <Switch class="my-switch" as |s|>
+    <s.Control class="form-check-input" />
+    <s.Label class="form-check-label">
+      Toggle on or off
+    </s.Label>
+  </Switch>
+</template>
+```
+
+
+## Accessibility 
+
+Adheres to the `switch` [role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/switch)
+
+### Keyboard Interactions 
+
+| key | description |  
+| :---: | :----------- |  
+| <kbd>Space</kbd> | Toggles the component's state |  
+| <kbd>Enter</kbd> | Toggles the component's state |  
+
+In addition, a label is required so that users know what the switch is for.

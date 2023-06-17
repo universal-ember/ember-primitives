@@ -17,6 +17,7 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 [docs-floating]: https://floating-ui.com/
 [docs-popper]: https://popper.js.org/
 
+<div class="featured-demo">
 
 ```gjs live preview
 import { PortalTargets, Popover } from 'ember-primitives';
@@ -56,3 +57,4 @@ import { PortalTargets, Popover } from 'ember-primitives';
 </template>
 ```
 
+</div>

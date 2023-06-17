@@ -1,0 +1,7 @@
+.featured-demo .glimdown-render {
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid;
+  padding: 5rem;
+  box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.3);
+}

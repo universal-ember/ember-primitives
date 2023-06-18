@@ -1,6 +1,6 @@
 /** eslint-disable @typescript-eslint/ban-ts-comment */
 import { assert as debugAssert } from '@ember/debug';
-import { find, render, setupOnerror } from '@ember/test-helpers';
+import { find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 

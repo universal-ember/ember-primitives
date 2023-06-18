@@ -5,4 +5,5 @@
   padding: 5rem;
   box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.3);
   background: conic-gradient(at -20% 15%, red 0%, transparent 28%, #1e90ff 72%);
+  max-height: 300px;
 }

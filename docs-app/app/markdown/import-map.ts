@@ -9,6 +9,8 @@ import * as remoteData from 'ember-resources/util/remote-data';
 // ember-velcro
 import * as emberVelcro from 'ember-velcro';
 import * as velcro from 'ember-velcro/modifiers/velcro';
+// other
+import * as loremIpsum from 'lorem-ipsum';
 
 import type { Options } from './compiler';
 
@@ -23,5 +25,6 @@ export const defaultOptions: Options = {
     'ember-resources': emberResources,
     'ember-resources/util/remote-data': remoteData,
     'docs-app/docs-support': docsSupport,
+    'lorem-ipsum': loremIpsum,
   },
 };

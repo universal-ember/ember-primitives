@@ -29,7 +29,7 @@ export interface Signature {
       {
         /**
          * The Switch Element.
-         * It has a pre-wired `id` so that the relevan Label is
+         * It has a pre-wired `id` so that the relevant Label is
          * appropriately associated via the `for` property of the Label.
          *
          * ```gjs

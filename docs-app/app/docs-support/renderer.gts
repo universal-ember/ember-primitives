@@ -5,12 +5,17 @@ import { Load } from './utils';
 
 import type { TOC } from '@ember/component/template-only';
 import type {
+  ArrayType,
   DeclarationReference,
   DeclarationReflection,
+  LiteralType,
   NamedTupleMember,
   ReferenceType,
+  SignatureReflection,
   SomeType,
   TupleType,
+  UnionType,
+  UnknownType,
 } from 'typedoc';
 
 /**
@@ -149,6 +154,51 @@ const isVoidIntrinsic = (x: unknown | undefined) => {
   return false;
 };
 
+const isArray = (x: SomeType | undefined): x is ArrayType => {
+  if (!x) return false;
+  if (typeof x !== 'object') return false;
+  if (x === null) return false;
+  if (!('type' in x)) return false;
+
+  return x.type === 'array';
+};
+
+const isFn = (x: SomeType | undefined): x is SignatureReflection => {
+  if (!x) return false;
+  if (typeof x !== 'object') return false;
+  if (x === null) return false;
+  if (!('name' in x)) return false;
+  if (!('variant' in x)) return false;
+
+  return x.variant === 'signature';
+};
+
+const isUnknownType = (x: SomeType | undefined): x is UnknownType => {
+  if (!x) return false;
+  if (typeof x !== 'object') return false;
+  if (x === null) return false;
+  if (!('type' in x)) return false;
+
+  return x.type === 'unknown';
+};
+
+const isUnion = (x: SomeType | undefined): x is UnionType => {
+  if (!x) return false;
+  if (typeof x !== 'object') return false;
+  if (x === null) return false;
+  if (!('type' in x)) return false;
+
+  return x.type === 'union';
+};
+const isLiteral = (x: SomeType | undefined): x is UnionType => {
+  if (!x) return false;
+  if (typeof x !== 'object') return false;
+  if (x === null) return false;
+  if (!('type' in x)) return false;
+
+  return x.type === 'literal';
+};
+
 // function typeArg(info: DeclarationReference) {
 //   let extended = info?.extendedTypes?.[0]
 
@@ -158,12 +208,22 @@ const isVoidIntrinsic = (x: unknown | undefined) => {
 // }
 
 const Reference: TOC<{ info: ReferenceType }> = <template>
-  {{#if (not (isIgnored @info.name))}}
-    <pre class='typedoc-reference'>{{@info.name}}</pre>
-  {{/if}}
-  {{#each @info.typeArguments as |typeArg|}}
-    <Type @info={{typeArg}} />
-  {{/each}}
+  <div class='typedoc__reference'>
+    {{#if (not (isIgnored @info.name))}}
+      <div class='typedoc__reference__name'>{{@info.name}}</div>
+    {{/if}}
+    {{#if @info.typeArguments.length}}
+      <div class='typedoc__reference__typeArguments'>
+        &lt;
+        {{#each @info.typeArguments as |typeArg|}}
+          <div class='typedoc__reference__typeArgument'>
+            <Type @info={{typeArg}} />
+          </div>
+        {{/each}}
+        &gt;
+      </div>
+    {{/if}}
+  </div>
 </template>;
 
 const Intrinsic: TOC<{ info: { name: string } }> = <template>
@@ -188,6 +248,65 @@ const NamedTuple: TOC<{ Args: { info: NamedTupleMember } }> = <template>
   </div>
 </template>;
 
+const Array: TOC<{ Args: { info: ArrayType } }> = <template>
+  <div class='typedoc__array'>
+    <div class='typedoc__array__indicator'>Array of</div>
+    <Type @info={{@info.elementType}} />
+  </div>
+</template>;
+
+const Function: TOC<{ Args: { info: SignatureReflection } }> = <template>
+  <div class='typedoc__function'>
+    (
+    <div class='typedoc_function_parameters'>
+      {{#each @info.parameters as |param|}}
+        <div class='typedoc__function__parameter'>
+          <div class='typedoc__function__parameter__name'>{{param.name}}</div>:
+          <div class='typedoc__function__parameter__type'>
+            <Type @info={{param.type}} /><br />
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    ) =>
+    <Type @info={{@info.type}} />
+  </div>
+</template>;
+
+const Unknown: TOC<{ Args: { info: any } }> = <template>
+  <div class='typedoc__unknown'>
+    {{@info.name}}
+  </div>
+</template>;
+
+const Union: TOC<{ Args: { info: UnionType } }> = <template>
+  <div class='typedoc__union'>
+    {{#each @info.types as |type|}}
+      <div class='typedoc__union__type'>
+        <Type @info={{type}} />
+      </div>
+    {{/each}}
+  </div>
+</template>;
+
+const literalAsString = (x: LiteralType['value']) => {
+  if (typeof x === 'string') {
+    return `"${x}"`;
+  }
+
+  if (typeof x === 'number' || typeof x === 'boolean' || x === null) {
+    return `${x}`;
+  }
+
+  return x.toString();
+};
+
+const Literal: TOC<{ Args: { info: LiteralType } }> = <template>
+  <div class='typedoc__literal'>
+    {{literalAsString @info.value}}
+  </div>
+</template>;
+
 export const Type: TOC<{ Args: { info: SomeType } }> = <template>
   {{#if (isReference @info)}}
     {{! @glint-expect-error }}
@@ -206,6 +325,16 @@ export const Type: TOC<{ Args: { info: SomeType } }> = <template>
   {{else if (isVoidIntrinsic @info)}}
     {{! @glint-expect-error }}
     <VoidIntrinsic @info={{@info}} />
+  {{else if (isArray @info)}}
+    <Array @info={{@info}} />
+  {{else if (isFn @info)}}
+    <Function @info={{@info}} />
+  {{else if (isUnion @info)}}
+    <Union @info={{@info}} />
+  {{else if (isLiteral @info)}}
+    <Literal @info={{@info}} />
+  {{else if (isUnknownType @info)}}
+    <Unknown @info={{@info}} />
   {{else}}
     {{! template-lint-disable no-log }}
     {{log 'Unknown Type' @info}}

@@ -1,4 +1,4 @@
-# Popover (wip)
+# Popover
 
 Popovers are built with [ember-velcro][gh-e-velcro], which is an ergonomic wrapper around [Floating UI][docs-floating], the successor to older (and more clunky) [Popper.JS][docs-popper]. 
 
@@ -11,29 +11,36 @@ The goal of a popover is to provide additional behavioral functionality to make 
 
 The `<Popover>` component uses portals in a way that totally solves layering issues. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
-One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM) -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
+One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
 [gh-e-velcro]: https://github.com/CrowdStrike/ember-velcro
 [docs-floating]: https://floating-ui.com/
 [docs-popper]: https://popper.js.org/
+[docs-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
 
 <div class="featured-demo">
 
 ```gjs live preview
 import { PortalTargets, Popover } from 'ember-primitives';
+import { hash } from '@ember/helper';
+import { loremIpsum } from 'lorem-ipsum';
 
 <template>
   <PortalTargets />
 
-  <Popover as |p|>
-    <div class="hook" {{p.hook}}>
-      the hook / anchor of the popover.
-      This demo looks best in light mode<br>
-    </div>
-    <p.Content class="floatybit">
-      The floaty bit here
-    </p.Content>
-  </Popover>
+  <div class="scroll-content">
+    <Popover @placement="top" as |p|>
+      <div class="hook" {{p.hook}}>
+        the hook / anchor of the popover.
+        <br> it sticks the boundary of this element.
+      </div>
+      <p.Content class="floatybit">
+        The floaty bit here
+      </p.Content>
+    </Popover>
+
+    {{loremIpsum (hash count=4 units="paragraphs")}}
+  </div>
 
   <style>
     .floatybit {
@@ -47,13 +54,43 @@ import { PortalTargets, Popover } from 'ember-primitives';
       padding: 5px;
       border-radius: 4px;
       font-size: 90%;
-      border: 1px solid;
+      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
     }
     .hook {
-      padding: 1rem;
+      padding: 0.5rem;
+      border: 1px solid;
+      display: inline-block;
+    }
+    .scroll-content {
+      max-height: 150px;
+      overflow-y: auto;
+      border: 1px solid;
+      padding: 0.5rem;
     }
   </style>
 </template>
 ```
 
 </div>
+
+
+## API Reference
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="components/popover" @name="Signature" />
+</template>
+```
+
+## Accessibility
+
+The `Content` of a popover is focusable, so that keyboard (and screenreader) users can interact with the Popover content. Generally this is great for modals, but also extends to things like tooltips, so that folks can copy the content out.
+
+Since a `Popover` isn't an explicit design pattern provided by W3, but instead, `Popover` is a low level primitive that could be used to build the W3 examples of
+- [Modal Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/)
+- [Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)
+- [Date Picker Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-datepicker/)
+- [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
+- and more

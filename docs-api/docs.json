@@ -2283,7 +2283,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 136,
+					"id": 150,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -2291,7 +2291,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/popover.d.ts",
-							"line": 31,
+							"line": 79,
 							"character": 20
 						}
 					],
@@ -2306,7 +2306,7 @@
 					"children": [
 						{
 							"id": 127,
-							"name": "Blocks",
+							"name": "Args",
 							"variant": "declaration",
 							"kind": 1024,
 							"flags": {},
@@ -2328,6 +2328,553 @@
 									"children": [
 										{
 											"id": 129,
+											"name": "flipOptions",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "See the Floating UI's [flip docs](https://floating-ui.com/docs/flip) for possible values.\n\nThis argument is forwarded to "
+													},
+													{
+														"kind": "code",
+														"text": "`ember-velcro`"
+													},
+													{
+														"kind": "text",
+														"text": "'s "
+													},
+													{
+														"kind": "code",
+														"text": "`<Velcro>`"
+													},
+													{
+														"kind": "text",
+														"text": " component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/popover.d.ts",
+													"line": 11,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 130,
+											"name": "middleware",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Array of one or more objects to add to Floating UI's list of [middleware](https://floating-ui.com/docs/middleware)\n\nThis argument is forwarded to "
+													},
+													{
+														"kind": "code",
+														"text": "`ember-velcro`"
+													},
+													{
+														"kind": "text",
+														"text": "'s "
+													},
+													{
+														"kind": "code",
+														"text": "`<Velcro>`"
+													},
+													{
+														"kind": "text",
+														"text": " component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/popover.d.ts",
+													"line": 17,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "array",
+												"elementType": {
+													"type": "reflection",
+													"declaration": {
+														"id": 131,
+														"name": "__type",
+														"variant": "declaration",
+														"kind": 65536,
+														"flags": {},
+														"children": [
+															{
+																"id": 132,
+																"name": "name",
+																"variant": "declaration",
+																"kind": 1024,
+																"flags": {
+																	"isExternal": true
+																},
+																"sources": [
+																	{
+																		"fileName": "node_modules/.pnpm/@floating-ui+core@1.2.6/node_modules/@floating-ui/core/src/types.d.ts",
+																		"line": 97,
+																		"character": 4
+																	}
+																],
+																"type": {
+																	"type": "intrinsic",
+																	"name": "string"
+																}
+															},
+															{
+																"id": 133,
+																"name": "options",
+																"variant": "declaration",
+																"kind": 1024,
+																"flags": {
+																	"isExternal": true,
+																	"isOptional": true
+																},
+																"sources": [
+																	{
+																		"fileName": "node_modules/.pnpm/@floating-ui+core@1.2.6/node_modules/@floating-ui/core/src/types.d.ts",
+																		"line": 98,
+																		"character": 4
+																	}
+																],
+																"type": {
+																	"type": "intrinsic",
+																	"name": "any"
+																}
+															},
+															{
+																"id": 134,
+																"name": "fn",
+																"variant": "declaration",
+																"kind": 2048,
+																"flags": {
+																	"isExternal": true
+																},
+																"sources": [
+																	{
+																		"fileName": "node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+																		"line": 82,
+																		"character": 4
+																	}
+																],
+																"signatures": [
+																	{
+																		"id": 135,
+																		"name": "fn",
+																		"variant": "signature",
+																		"kind": 4096,
+																		"flags": {
+																			"isExternal": true
+																		},
+																		"sources": [
+																			{
+																				"fileName": "node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+																				"line": 82,
+																				"character": 4
+																			}
+																		],
+																		"parameters": [
+																			{
+																				"id": 136,
+																				"name": "state",
+																				"variant": "param",
+																				"kind": 32768,
+																				"flags": {
+																					"isExternal": true
+																				},
+																				"type": {
+																					"type": "unknown",
+																					"name": "{ x: number; y: number; initialPlacement: Placement; placement: Placement; strategy: Strategy; middlewareData: MiddlewareData; rects: ElementRects; platform: Platform; elements: Elements; }"
+																				}
+																			}
+																		],
+																		"type": {
+																			"type": "reference",
+																			"target": {
+																				"sourceFileName": "../node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+																				"qualifiedName": "Promisable"
+																			},
+																			"typeArguments": [
+																				{
+																					"type": "reference",
+																					"target": {
+																						"sourceFileName": "../node_modules/.pnpm/@floating-ui+core@1.2.6/node_modules/@floating-ui/core/src/types.d.ts",
+																						"qualifiedName": "MiddlewareReturn"
+																					},
+																					"name": "MiddlewareReturn",
+																					"package": "@floating-ui/core"
+																				}
+																			],
+																			"name": "Promisable",
+																			"package": "@floating-ui/dom"
+																		}
+																	}
+																]
+															}
+														],
+														"groups": [
+															{
+																"title": "Properties",
+																"children": [
+																	132,
+																	133
+																]
+															},
+															{
+																"title": "Methods",
+																"children": [
+																	134
+																]
+															}
+														],
+														"sources": [
+															{
+																"fileName": "node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+																"line": 2,
+																"character": 19
+															}
+														]
+													}
+												}
+											}
+										},
+										{
+											"id": 137,
+											"name": "offsetOptions",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "See the Floating UI's [offset docs](https://floating-ui.com/docs/offset) for possible values.\n\nThis argument is forwarded to "
+													},
+													{
+														"kind": "code",
+														"text": "`ember-velcro`"
+													},
+													{
+														"kind": "text",
+														"text": "'s "
+													},
+													{
+														"kind": "code",
+														"text": "`<Velcro>`"
+													},
+													{
+														"kind": "text",
+														"text": " component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/popover.d.ts",
+													"line": 23,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 138,
+											"name": "placement",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "One of the possible ["
+													},
+													{
+														"kind": "code",
+														"text": "`placements`"
+													},
+													{
+														"kind": "text",
+														"text": "](https://floating-ui.com/docs/computeposition#placement). The default is 'bottom'.\n\nPossible values are\n- top\n- bottom\n- right\n- left\n\nAnd may optionally have "
+													},
+													{
+														"kind": "code",
+														"text": "`-start`"
+													},
+													{
+														"kind": "text",
+														"text": " or "
+													},
+													{
+														"kind": "code",
+														"text": "`-end`"
+													},
+													{
+														"kind": "text",
+														"text": " added to adjust position along the side.\n\nThis argument is forwarded to "
+													},
+													{
+														"kind": "code",
+														"text": "`ember-velcro`"
+													},
+													{
+														"kind": "text",
+														"text": "'s "
+													},
+													{
+														"kind": "code",
+														"text": "`<Velcro>`"
+													},
+													{
+														"kind": "text",
+														"text": " component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/popover.d.ts",
+													"line": 37,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "union",
+												"types": [
+													{
+														"type": "literal",
+														"value": "top"
+													},
+													{
+														"type": "literal",
+														"value": "right"
+													},
+													{
+														"type": "literal",
+														"value": "bottom"
+													},
+													{
+														"type": "literal",
+														"value": "left"
+													},
+													{
+														"type": "literal",
+														"value": "top-start"
+													},
+													{
+														"type": "literal",
+														"value": "top-end"
+													},
+													{
+														"type": "literal",
+														"value": "right-start"
+													},
+													{
+														"type": "literal",
+														"value": "right-end"
+													},
+													{
+														"type": "literal",
+														"value": "bottom-start"
+													},
+													{
+														"type": "literal",
+														"value": "bottom-end"
+													},
+													{
+														"type": "literal",
+														"value": "left-start"
+													},
+													{
+														"type": "literal",
+														"value": "left-end"
+													}
+												]
+											}
+										},
+										{
+											"id": 139,
+											"name": "shiftOptions",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "See the Floating UI's [shift docs](https://floating-ui.com/docs/shift) for possible values.\n\nThis argument is forwarded to "
+													},
+													{
+														"kind": "code",
+														"text": "`ember-velcro`"
+													},
+													{
+														"kind": "text",
+														"text": "'s "
+													},
+													{
+														"kind": "code",
+														"text": "`<Velcro>`"
+													},
+													{
+														"kind": "text",
+														"text": " component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/popover.d.ts",
+													"line": 43,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "any"
+											}
+										},
+										{
+											"id": 140,
+											"name": "strategy",
+											"variant": "declaration",
+											"kind": 1024,
+											"flags": {
+												"isOptional": true
+											},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "CSS position property, either "
+													},
+													{
+														"kind": "code",
+														"text": "`fixed`"
+													},
+													{
+														"kind": "text",
+														"text": " or "
+													},
+													{
+														"kind": "code",
+														"text": "`absolute`"
+													},
+													{
+														"kind": "text",
+														"text": ".\n\nPros and cons of each strategy are explained on [Floating UI's Docs](https://floating-ui.com/docs/computePosition#strategy)\n\nThis argument is forwarded to "
+													},
+													{
+														"kind": "code",
+														"text": "`ember-velcro`"
+													},
+													{
+														"kind": "text",
+														"text": "'s "
+													},
+													{
+														"kind": "code",
+														"text": "`<Velcro>`"
+													},
+													{
+														"kind": "text",
+														"text": " component."
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "ember-primitives/dist/components/popover.d.ts",
+													"line": 51,
+													"character": 8
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": {
+													"sourceFileName": "../node_modules/.pnpm/@floating-ui+core@1.2.6/node_modules/@floating-ui/core/src/types.d.ts",
+													"qualifiedName": "Strategy"
+												},
+												"name": "Strategy",
+												"package": "@floating-ui/core"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												129,
+												130,
+												137,
+												138,
+												139,
+												140
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "ember-primitives/dist/components/popover.d.ts",
+											"line": 5,
+											"character": 10
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 141,
+							"name": "Blocks",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "ember-primitives/dist/components/popover.d.ts",
+									"line": 53,
+									"character": 4
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 142,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {},
+									"children": [
+										{
+											"id": 143,
 											"name": "default",
 											"variant": "declaration",
 											"kind": 1024,
@@ -2335,7 +2882,7 @@
 											"sources": [
 												{
 													"fileName": "ember-primitives/dist/components/popover.d.ts",
-													"line": 6,
+													"line": 54,
 													"character": 8
 												}
 											],
@@ -2345,14 +2892,14 @@
 													{
 														"type": "reflection",
 														"declaration": {
-															"id": 130,
+															"id": 144,
 															"name": "__type",
 															"variant": "declaration",
 															"kind": 65536,
 															"flags": {},
 															"children": [
 																{
-																	"id": 132,
+																	"id": 146,
 																	"name": "Content",
 																	"variant": "declaration",
 																	"kind": 1024,
@@ -2360,7 +2907,7 @@
 																	"sources": [
 																		{
 																			"fileName": "ember-primitives/dist/components/popover.d.ts",
-																			"line": 9,
+																			"line": 57,
 																			"character": 16
 																		}
 																	],
@@ -2374,7 +2921,7 @@
 																			{
 																				"type": "reflection",
 																				"declaration": {
-																					"id": 133,
+																					"id": 147,
 																					"name": "__type",
 																					"variant": "declaration",
 																					"kind": 65536,
@@ -2388,7 +2935,7 @@
 																					],
 																					"signatures": [
 																						{
-																							"id": 134,
+																							"id": 148,
 																							"name": "__type",
 																							"variant": "signature",
 																							"kind": 4096,
@@ -2402,7 +2949,7 @@
 																							],
 																							"parameters": [
 																								{
-																									"id": 135,
+																									"id": 149,
 																									"name": "args",
 																									"variant": "param",
 																									"kind": 32768,
@@ -2432,7 +2979,7 @@
 																	}
 																},
 																{
-																	"id": 131,
+																	"id": 145,
 																	"name": "hook",
 																	"variant": "declaration",
 																	"kind": 1024,
@@ -2440,7 +2987,7 @@
 																	"sources": [
 																		{
 																			"fileName": "ember-primitives/dist/components/popover.d.ts",
-																			"line": 8,
+																			"line": 56,
 																			"character": 16
 																		}
 																	],
@@ -2470,15 +3017,15 @@
 																{
 																	"title": "Properties",
 																	"children": [
-																		132,
-																		131
+																		146,
+																		145
 																	]
 																}
 															],
 															"sources": [
 																{
 																	"fileName": "ember-primitives/dist/components/popover.d.ts",
-																	"line": 7,
+																	"line": 55,
 																	"character": 12
 																}
 															]
@@ -2492,14 +3039,14 @@
 										{
 											"title": "Properties",
 											"children": [
-												129
+												143
 											]
 										}
 									],
 									"sources": [
 										{
 											"fileName": "ember-primitives/dist/components/popover.d.ts",
-											"line": 5,
+											"line": 53,
 											"character": 12
 										}
 									]
@@ -2511,7 +3058,8 @@
 						{
 							"title": "Properties",
 							"children": [
-								127
+								127,
+								141
 							]
 						}
 					],
@@ -2534,7 +3082,7 @@
 					"sources": [
 						{
 							"fileName": "ember-primitives/dist/components/popover.d.ts",
-							"line": 30,
+							"line": 78,
 							"character": 14
 						}
 					],
@@ -2561,7 +3109,7 @@
 				{
 					"title": "References",
 					"children": [
-						136
+						150
 					]
 				},
 				{
@@ -2586,14 +3134,14 @@
 			]
 		},
 		{
-			"id": 154,
+			"id": 168,
 			"name": "components/portal",
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
 			"children": [
 				{
-					"id": 164,
+					"id": 178,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -2605,17 +3153,17 @@
 							"character": 19
 						}
 					],
-					"target": 155
+					"target": 169
 				},
 				{
-					"id": 156,
+					"id": 170,
 					"name": "Signature",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 157,
+							"id": 171,
 							"name": "Args",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2630,14 +3178,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 158,
+									"id": 172,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 159,
+											"id": 173,
 											"name": "to",
 											"variant": "declaration",
 											"kind": 1024,
@@ -2690,7 +3238,7 @@
 															{
 																"type": "reflection",
 																"declaration": {
-																	"id": 160,
+																	"id": 174,
 																	"name": "__type",
 																	"variant": "declaration",
 																	"kind": 65536,
@@ -2707,7 +3255,7 @@
 										{
 											"title": "Properties",
 											"children": [
-												159
+												173
 											]
 										}
 									],
@@ -2722,7 +3270,7 @@
 							}
 						},
 						{
-							"id": 161,
+							"id": 175,
 							"name": "Blocks",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2737,14 +3285,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 162,
+									"id": 176,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 163,
+											"id": 177,
 											"name": "default",
 											"variant": "declaration",
 											"kind": 1024,
@@ -2773,7 +3321,7 @@
 										{
 											"title": "Properties",
 											"children": [
-												163
+												177
 											]
 										}
 									],
@@ -2792,8 +3340,8 @@
 						{
 							"title": "Properties",
 							"children": [
-								157,
-								161
+								171,
+								175
 							]
 						}
 					],
@@ -2806,7 +3354,7 @@
 					]
 				},
 				{
-					"id": 155,
+					"id": 169,
 					"name": "Portal",
 					"variant": "declaration",
 					"kind": 32,
@@ -2829,7 +3377,7 @@
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 156,
+								"target": 170,
 								"name": "Signature",
 								"package": "ember-primitives"
 							}
@@ -2843,19 +3391,19 @@
 				{
 					"title": "References",
 					"children": [
-						164
+						178
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
-						156
+						170
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						155
+						169
 					]
 				}
 			],
@@ -2868,14 +3416,14 @@
 			]
 		},
 		{
-			"id": 137,
+			"id": 151,
 			"name": "components/portal-targets",
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
 			"children": [
 				{
-					"id": 153,
+					"id": 167,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -2887,17 +3435,17 @@
 							"character": 26
 						}
 					],
-					"target": 138
+					"target": 152
 				},
 				{
-					"id": 148,
+					"id": 162,
 					"name": "Signature",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 149,
+							"id": 163,
 							"name": "Args",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2912,7 +3460,7 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 150,
+									"id": 164,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
@@ -2921,7 +3469,7 @@
 							}
 						},
 						{
-							"id": 151,
+							"id": 165,
 							"name": "Blocks",
 							"variant": "declaration",
 							"kind": 1024,
@@ -2936,7 +3484,7 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 152,
+									"id": 166,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
@@ -2949,8 +3497,8 @@
 						{
 							"title": "Properties",
 							"children": [
-								149,
-								151
+								163,
+								165
 							]
 						}
 					],
@@ -2963,7 +3511,7 @@
 					]
 				},
 				{
-					"id": 138,
+					"id": 152,
 					"name": "PortalTargets",
 					"variant": "declaration",
 					"kind": 32,
@@ -2986,7 +3534,7 @@
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 148,
+								"target": 162,
 								"name": "Signature",
 								"package": "ember-primitives"
 							}
@@ -2996,7 +3544,7 @@
 					}
 				},
 				{
-					"id": 139,
+					"id": 153,
 					"name": "TARGETS",
 					"variant": "declaration",
 					"kind": 32,
@@ -3020,14 +3568,14 @@
 							{
 								"type": "reflection",
 								"declaration": {
-									"id": 140,
+									"id": 154,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 143,
+											"id": 157,
 											"name": "modal",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3045,7 +3593,7 @@
 											}
 										},
 										{
-											"id": 141,
+											"id": 155,
 											"name": "popover",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3063,7 +3611,7 @@
 											}
 										},
 										{
-											"id": 142,
+											"id": 156,
 											"name": "tooltip",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3085,9 +3633,9 @@
 										{
 											"title": "Properties",
 											"children": [
-												143,
-												141,
-												142
+												157,
+												155,
+												156
 											]
 										}
 									],
@@ -3106,7 +3654,7 @@
 					}
 				},
 				{
-					"id": 144,
+					"id": 158,
 					"name": "findNearestTarget",
 					"variant": "declaration",
 					"kind": 64,
@@ -3120,7 +3668,7 @@
 					],
 					"signatures": [
 						{
-							"id": 145,
+							"id": 159,
 							"name": "findNearestTarget",
 							"variant": "signature",
 							"kind": 4096,
@@ -3134,7 +3682,7 @@
 							],
 							"parameters": [
 								{
-									"id": 146,
+									"id": 160,
 									"name": "origin",
 									"variant": "param",
 									"kind": 32768,
@@ -3150,7 +3698,7 @@
 									}
 								},
 								{
-									"id": 147,
+									"id": 161,
 									"name": "name",
 									"variant": "param",
 									"kind": 32768,
@@ -3178,26 +3726,26 @@
 				{
 					"title": "References",
 					"children": [
-						153
+						167
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
-						148
+						162
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						138,
-						139
+						152,
+						153
 					]
 				},
 				{
 					"title": "Functions",
 					"children": [
-						144
+						158
 					]
 				}
 			],
@@ -3210,14 +3758,14 @@
 			]
 		},
 		{
-			"id": 165,
+			"id": 179,
 			"name": "components/shadowed",
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
 			"children": [
 				{
-					"id": 175,
+					"id": 189,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3229,10 +3777,10 @@
 							"character": 21
 						}
 					],
-					"target": 166
+					"target": 180
 				},
 				{
-					"id": 166,
+					"id": 180,
 					"name": "Shadowed",
 					"variant": "declaration",
 					"kind": 32,
@@ -3264,14 +3812,14 @@
 							{
 								"type": "reflection",
 								"declaration": {
-									"id": 167,
+									"id": 181,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 169,
+											"id": 183,
 											"name": "Args",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3286,14 +3834,14 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 170,
+													"id": 184,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"children": [
 														{
-															"id": 171,
+															"id": 185,
 															"name": "includeStyles",
 															"variant": "declaration",
 															"kind": 1024,
@@ -3342,7 +3890,7 @@
 														{
 															"title": "Properties",
 															"children": [
-																171
+																185
 															]
 														}
 													],
@@ -3357,7 +3905,7 @@
 											}
 										},
 										{
-											"id": 172,
+											"id": 186,
 											"name": "Blocks",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3372,14 +3920,14 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 173,
+													"id": 187,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"children": [
 														{
-															"id": 174,
+															"id": 188,
 															"name": "default",
 															"variant": "declaration",
 															"kind": 1024,
@@ -3408,7 +3956,7 @@
 														{
 															"title": "Properties",
 															"children": [
-																174
+																188
 															]
 														}
 													],
@@ -3423,7 +3971,7 @@
 											}
 										},
 										{
-											"id": 168,
+											"id": 182,
 											"name": "Element",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3458,9 +4006,9 @@
 										{
 											"title": "Properties",
 											"children": [
-												169,
-												172,
-												168
+												183,
+												186,
+												182
 											]
 										}
 									],
@@ -3483,13 +4031,13 @@
 				{
 					"title": "References",
 					"children": [
-						175
+						189
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						166
+						180
 					]
 				}
 			],
@@ -3502,14 +4050,14 @@
 			]
 		},
 		{
-			"id": 176,
+			"id": 190,
 			"name": "components/switch",
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
 			"children": [
 				{
-					"id": 200,
+					"id": 214,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -3521,17 +4069,17 @@
 							"character": 19
 						}
 					],
-					"target": 177
+					"target": 191
 				},
 				{
-					"id": 178,
+					"id": 192,
 					"name": "Signature",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 180,
+							"id": 194,
 							"name": "Args",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3546,14 +4094,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 181,
+									"id": 195,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 182,
+											"id": 196,
 											"name": "checked",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3589,7 +4137,7 @@
 											}
 										},
 										{
-											"id": 183,
+											"id": 197,
 											"name": "onChange",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3606,7 +4154,7 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 184,
+													"id": 198,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
@@ -3620,7 +4168,7 @@
 													],
 													"signatures": [
 														{
-															"id": 185,
+															"id": 199,
 															"name": "__type",
 															"variant": "signature",
 															"kind": 4096,
@@ -3642,7 +4190,7 @@
 															],
 															"parameters": [
 																{
-																	"id": 186,
+																	"id": 200,
 																	"name": "checked",
 																	"variant": "param",
 																	"kind": 32768,
@@ -3653,7 +4201,7 @@
 																	}
 																},
 																{
-																	"id": 187,
+																	"id": 201,
 																	"name": "event",
 																	"variant": "param",
 																	"kind": 32768,
@@ -3683,8 +4231,8 @@
 										{
 											"title": "Properties",
 											"children": [
-												182,
-												183
+												196,
+												197
 											]
 										}
 									],
@@ -3699,7 +4247,7 @@
 							}
 						},
 						{
-							"id": 188,
+							"id": 202,
 							"name": "Blocks",
 							"variant": "declaration",
 							"kind": 1024,
@@ -3714,14 +4262,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 189,
+									"id": 203,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 190,
+											"id": 204,
 											"name": "default",
 											"variant": "declaration",
 											"kind": 1024,
@@ -3741,14 +4289,14 @@
 													{
 														"type": "reflection",
 														"declaration": {
-															"id": 191,
+															"id": 205,
 															"name": "__type",
 															"variant": "declaration",
 															"kind": 65536,
 															"flags": {},
 															"children": [
 																{
-																	"id": 192,
+																	"id": 206,
 																	"name": "Control",
 																	"variant": "declaration",
 																	"kind": 1024,
@@ -3765,7 +4313,7 @@
 																			},
 																			{
 																				"kind": "text",
-																				"text": " so that the relevan Label is\nappropriately associated via the "
+																				"text": " so that the relevant Label is\nappropriately associated via the "
 																			},
 																			{
 																				"kind": "code",
@@ -3798,7 +4346,7 @@
 																			{
 																				"type": "reflection",
 																				"declaration": {
-																					"id": 193,
+																					"id": 207,
 																					"name": "__type",
 																					"variant": "declaration",
 																					"kind": 65536,
@@ -3812,7 +4360,7 @@
 																					],
 																					"signatures": [
 																						{
-																							"id": 194,
+																							"id": 208,
 																							"name": "__type",
 																							"variant": "signature",
 																							"kind": 4096,
@@ -3826,7 +4374,7 @@
 																							],
 																							"parameters": [
 																								{
-																									"id": 195,
+																									"id": 209,
 																									"name": "args",
 																									"variant": "param",
 																									"kind": 32768,
@@ -3856,7 +4404,7 @@
 																	}
 																},
 																{
-																	"id": 196,
+																	"id": 210,
 																	"name": "Label",
 																	"variant": "declaration",
 																	"kind": 1024,
@@ -3906,7 +4454,7 @@
 																			{
 																				"type": "reflection",
 																				"declaration": {
-																					"id": 197,
+																					"id": 211,
 																					"name": "__type",
 																					"variant": "declaration",
 																					"kind": 65536,
@@ -3920,7 +4468,7 @@
 																					],
 																					"signatures": [
 																						{
-																							"id": 198,
+																							"id": 212,
 																							"name": "__type",
 																							"variant": "signature",
 																							"kind": 4096,
@@ -3934,7 +4482,7 @@
 																							],
 																							"parameters": [
 																								{
-																									"id": 199,
+																									"id": 213,
 																									"name": "args",
 																									"variant": "param",
 																									"kind": 32768,
@@ -3968,8 +4516,8 @@
 																{
 																	"title": "Properties",
 																	"children": [
-																		192,
-																		196
+																		206,
+																		210
 																	]
 																}
 															],
@@ -3990,7 +4538,7 @@
 										{
 											"title": "Properties",
 											"children": [
-												190
+												204
 											]
 										}
 									],
@@ -4005,7 +4553,7 @@
 							}
 						},
 						{
-							"id": 179,
+							"id": 193,
 							"name": "Element",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4032,9 +4580,9 @@
 						{
 							"title": "Properties",
 							"children": [
-								180,
-								188,
-								179
+								194,
+								202,
+								193
 							]
 						}
 					],
@@ -4047,7 +4595,7 @@
 					]
 				},
 				{
-					"id": 177,
+					"id": 191,
 					"name": "Switch",
 					"variant": "declaration",
 					"kind": 32,
@@ -4071,7 +4619,7 @@
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 178,
+								"target": 192,
 								"name": "Signature",
 								"package": "ember-primitives"
 							}
@@ -4085,19 +4633,19 @@
 				{
 					"title": "References",
 					"children": [
-						200
+						214
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
-						178
+						192
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						177
+						191
 					]
 				}
 			],
@@ -4110,14 +4658,14 @@
 			]
 		},
 		{
-			"id": 201,
+			"id": 215,
 			"name": "components/toggle",
 			"variant": "declaration",
 			"kind": 2,
 			"flags": {},
 			"children": [
 				{
-					"id": 214,
+					"id": 228,
 					"name": "default",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4129,17 +4677,17 @@
 							"character": 19
 						}
 					],
-					"target": 202
+					"target": 216
 				},
 				{
-					"id": 203,
+					"id": 217,
 					"name": "Signature",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 205,
+							"id": 219,
 							"name": "Args",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4154,14 +4702,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 206,
+									"id": 220,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 208,
+											"id": 222,
 											"name": "onChange",
 											"variant": "declaration",
 											"kind": 1024,
@@ -4178,7 +4726,7 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 209,
+													"id": 223,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
@@ -4192,7 +4740,7 @@
 													],
 													"signatures": [
 														{
-															"id": 210,
+															"id": 224,
 															"name": "__type",
 															"variant": "signature",
 															"kind": 4096,
@@ -4222,7 +4770,7 @@
 											}
 										},
 										{
-											"id": 207,
+											"id": 221,
 											"name": "pressed",
 											"variant": "declaration",
 											"kind": 1024,
@@ -4254,8 +4802,8 @@
 										{
 											"title": "Properties",
 											"children": [
-												208,
-												207
+												222,
+												221
 											]
 										}
 									],
@@ -4270,7 +4818,7 @@
 							}
 						},
 						{
-							"id": 211,
+							"id": 225,
 							"name": "Blocks",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4285,14 +4833,14 @@
 							"type": {
 								"type": "reflection",
 								"declaration": {
-									"id": 212,
+									"id": 226,
 									"name": "__type",
 									"variant": "declaration",
 									"kind": 65536,
 									"flags": {},
 									"children": [
 										{
-											"id": 213,
+											"id": 227,
 											"name": "default",
 											"variant": "declaration",
 											"kind": 1024,
@@ -4324,7 +4872,7 @@
 										{
 											"title": "Properties",
 											"children": [
-												213
+												227
 											]
 										}
 									],
@@ -4339,7 +4887,7 @@
 							}
 						},
 						{
-							"id": 204,
+							"id": 218,
 							"name": "Element",
 							"variant": "declaration",
 							"kind": 1024,
@@ -4366,9 +4914,9 @@
 						{
 							"title": "Properties",
 							"children": [
-								205,
-								211,
-								204
+								219,
+								225,
+								218
 							]
 						}
 					],
@@ -4381,7 +4929,7 @@
 					]
 				},
 				{
-					"id": 202,
+					"id": 216,
 					"name": "Toggle",
 					"variant": "declaration",
 					"kind": 32,
@@ -4404,7 +4952,7 @@
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 203,
+								"target": 217,
 								"name": "Signature",
 								"package": "ember-primitives"
 							}
@@ -4418,19 +4966,19 @@
 				{
 					"title": "References",
 					"children": [
-						214
+						228
 					]
 				},
 				{
 					"title": "Interfaces",
 					"children": [
-						203
+						217
 					]
 				},
 				{
 					"title": "Variables",
 					"children": [
-						202
+						216
 					]
 				}
 			],
@@ -4450,7 +4998,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 215,
+					"id": 229,
 					"name": "service",
 					"variant": "declaration",
 					"kind": 32,
@@ -4482,7 +5030,7 @@
 				{
 					"title": "Variables",
 					"children": [
-						215
+						229
 					]
 				}
 			],
@@ -4502,7 +5050,7 @@
 			"flags": {},
 			"children": [
 				{
-					"id": 216,
+					"id": 230,
 					"name": "ExternalLink",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4517,7 +5065,7 @@
 					"target": 79
 				},
 				{
-					"id": 217,
+					"id": 231,
 					"name": "Link",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4532,7 +5080,7 @@
 					"target": 87
 				},
 				{
-					"id": 221,
+					"id": 235,
 					"name": "PORTALS",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4544,10 +5092,10 @@
 							"character": 35
 						}
 					],
-					"target": 139
+					"target": 153
 				},
 				{
-					"id": 218,
+					"id": 232,
 					"name": "Popover",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4562,7 +5110,7 @@
 					"target": 125
 				},
 				{
-					"id": 219,
+					"id": 233,
 					"name": "Portal",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4574,10 +5122,10 @@
 							"character": 9
 						}
 					],
-					"target": 155
+					"target": 169
 				},
 				{
-					"id": 220,
+					"id": 234,
 					"name": "PortalTargets",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4589,10 +5137,10 @@
 							"character": 9
 						}
 					],
-					"target": 138
+					"target": 152
 				},
 				{
-					"id": 222,
+					"id": 236,
 					"name": "Shadowed",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4604,10 +5152,10 @@
 							"character": 9
 						}
 					],
-					"target": 166
+					"target": 180
 				},
 				{
-					"id": 223,
+					"id": 237,
 					"name": "Switch",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4619,10 +5167,10 @@
 							"character": 9
 						}
 					],
-					"target": 177
+					"target": 191
 				},
 				{
-					"id": 224,
+					"id": 238,
 					"name": "Toggle",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4634,10 +5182,10 @@
 							"character": 9
 						}
 					],
-					"target": 202
+					"target": 216
 				},
 				{
-					"id": 225,
+					"id": 239,
 					"name": "service",
 					"variant": "reference",
 					"kind": 8388608,
@@ -4649,23 +5197,23 @@
 							"character": 9
 						}
 					],
-					"target": 215
+					"target": 229
 				}
 			],
 			"groups": [
 				{
 					"title": "References",
 					"children": [
-						216,
-						217,
-						221,
-						218,
-						219,
-						220,
-						222,
-						223,
-						224,
-						225
+						230,
+						231,
+						235,
+						232,
+						233,
+						234,
+						236,
+						237,
+						238,
+						239
 					]
 				}
 			],
@@ -5088,11 +5636,11 @@
 				78,
 				86,
 				124,
-				154,
-				137,
-				165,
-				176,
-				201,
+				168,
+				151,
+				179,
+				190,
+				215,
 				53,
 				54,
 				55,
@@ -5603,7 +6151,7 @@
 		},
 		"127": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
-			"qualifiedName": "Signature.Blocks"
+			"qualifiedName": "Signature.Args"
 		},
 		"128": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
@@ -5611,389 +6159,445 @@
 		},
 		"129": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
-			"qualifiedName": "__type.default"
+			"qualifiedName": "__type.flipOptions"
 		},
 		"130": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.middleware"
 		},
 		"131": {
+			"sourceFileName": "../node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+			"qualifiedName": "__type"
+		},
+		"132": {
+			"sourceFileName": "../node_modules/.pnpm/@floating-ui+core@1.2.6/node_modules/@floating-ui/core/src/types.d.ts",
+			"qualifiedName": "name"
+		},
+		"133": {
+			"sourceFileName": "../node_modules/.pnpm/@floating-ui+core@1.2.6/node_modules/@floating-ui/core/src/types.d.ts",
+			"qualifiedName": "options"
+		},
+		"134": {
+			"sourceFileName": "../node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+			"qualifiedName": "fn"
+		},
+		"135": {
+			"sourceFileName": "../node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+			"qualifiedName": "fn"
+		},
+		"136": {
+			"sourceFileName": "../node_modules/.pnpm/@floating-ui+dom@1.2.9/node_modules/@floating-ui/dom/src/types.d.ts",
+			"qualifiedName": "state"
+		},
+		"137": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type.offsetOptions"
+		},
+		"138": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type.placement"
+		},
+		"139": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type.shiftOptions"
+		},
+		"140": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type.strategy"
+		},
+		"141": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "Signature.Blocks"
+		},
+		"142": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type"
+		},
+		"143": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type.default"
+		},
+		"144": {
+			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
+			"qualifiedName": "__type"
+		},
+		"145": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
 			"qualifiedName": "__type.hook"
 		},
-		"132": {
+		"146": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
 			"qualifiedName": "__type.Content"
 		},
-		"133": {
+		"147": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
 			"qualifiedName": "__type"
 		},
-		"134": {
+		"148": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
 			"qualifiedName": "__type"
 		},
-		"135": {
+		"149": {
 			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
 			"qualifiedName": "args"
 		},
-		"136": {
+		"150": {
 			"sourceFileName": "../ember-primitives/dist/components/popover.d.ts",
 			"qualifiedName": "default"
 		},
-		"137": {
+		"151": {
 			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
 			"qualifiedName": ""
 		},
-		"138": {
+		"152": {
 			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
 			"qualifiedName": "PortalTargets"
-		},
-		"139": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "TARGETS"
-		},
-		"140": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "__type"
-		},
-		"141": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "__type.popover"
-		},
-		"142": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "__type.tooltip"
-		},
-		"143": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "__type.modal"
-		},
-		"144": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "findNearestTarget"
-		},
-		"145": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "findNearestTarget"
-		},
-		"146": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "origin"
-		},
-		"147": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "name"
-		},
-		"148": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "Signature"
-		},
-		"149": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "Signature.Args"
-		},
-		"150": {
-			"sourceFileName": "\u0000",
-			"qualifiedName": "__type"
-		},
-		"151": {
-			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "Signature.Blocks"
-		},
-		"152": {
-			"sourceFileName": "\u0000",
-			"qualifiedName": "__type"
 		},
 		"153": {
 			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
-			"qualifiedName": "default"
+			"qualifiedName": "TARGETS"
 		},
 		"154": {
-			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
-			"qualifiedName": ""
-		},
-		"155": {
-			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
-			"qualifiedName": "Portal"
-		},
-		"156": {
-			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
-			"qualifiedName": "Signature"
-		},
-		"157": {
-			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
-			"qualifiedName": "Signature.Args"
-		},
-		"158": {
-			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
 			"qualifiedName": "__type"
 		},
+		"155": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "__type.popover"
+		},
+		"156": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "__type.tooltip"
+		},
+		"157": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "__type.modal"
+		},
+		"158": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "findNearestTarget"
+		},
 		"159": {
-			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
-			"qualifiedName": "__type.to"
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "findNearestTarget"
 		},
 		"160": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "origin"
+		},
+		"161": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "name"
+		},
+		"162": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "Signature"
+		},
+		"163": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "Signature.Args"
+		},
+		"164": {
 			"sourceFileName": "\u0000",
 			"qualifiedName": "__type"
 		},
-		"161": {
+		"165": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "Signature.Blocks"
+		},
+		"166": {
+			"sourceFileName": "\u0000",
+			"qualifiedName": "__type"
+		},
+		"167": {
+			"sourceFileName": "../ember-primitives/dist/components/portal-targets.d.ts",
+			"qualifiedName": "default"
+		},
+		"168": {
+			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"qualifiedName": ""
+		},
+		"169": {
+			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"qualifiedName": "Portal"
+		},
+		"170": {
+			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"qualifiedName": "Signature"
+		},
+		"171": {
+			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"qualifiedName": "Signature.Args"
+		},
+		"172": {
+			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"qualifiedName": "__type"
+		},
+		"173": {
+			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
+			"qualifiedName": "__type.to"
+		},
+		"174": {
+			"sourceFileName": "\u0000",
+			"qualifiedName": "__type"
+		},
+		"175": {
 			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
 			"qualifiedName": "Signature.Blocks"
 		},
-		"162": {
+		"176": {
 			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
 			"qualifiedName": "__type"
 		},
-		"163": {
+		"177": {
 			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
 			"qualifiedName": "__type.default"
 		},
-		"164": {
+		"178": {
 			"sourceFileName": "../ember-primitives/dist/components/portal.d.ts",
 			"qualifiedName": "default"
 		},
-		"165": {
+		"179": {
 			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
 			"qualifiedName": ""
 		},
-		"166": {
+		"180": {
 			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
 			"qualifiedName": "Shadowed"
 		},
-		"167": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type"
-		},
-		"168": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type.Element"
-		},
-		"169": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type.Args"
-		},
-		"170": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type"
-		},
-		"171": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type.includeStyles"
-		},
-		"172": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type.Blocks"
-		},
-		"173": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type"
-		},
-		"174": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "__type.default"
-		},
-		"175": {
-			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
-			"qualifiedName": "default"
-		},
-		"176": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": ""
-		},
-		"177": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "Switch"
-		},
-		"178": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "Signature"
-		},
-		"179": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "Signature.Element"
-		},
-		"180": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "Signature.Args"
-		},
 		"181": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
 			"qualifiedName": "__type"
 		},
 		"182": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.checked"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "__type.Element"
 		},
 		"183": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.onChange"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "__type.Args"
 		},
 		"184": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
 			"qualifiedName": "__type"
 		},
 		"185": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "__type.includeStyles"
 		},
 		"186": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "checked"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "__type.Blocks"
 		},
 		"187": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "event"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "__type"
 		},
 		"188": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "Signature.Blocks"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "__type.default"
 		},
 		"189": {
-			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type"
+			"sourceFileName": "../ember-primitives/dist/components/shadowed.d.ts",
+			"qualifiedName": "default"
 		},
 		"190": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.default"
+			"qualifiedName": ""
 		},
 		"191": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "Switch"
 		},
 		"192": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.Control"
+			"qualifiedName": "Signature"
 		},
 		"193": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "__type"
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "Signature.Element"
 		},
 		"194": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "__type"
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "Signature.Args"
 		},
 		"195": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "args"
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type"
 		},
 		"196": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "__type.Label"
+			"qualifiedName": "__type.checked"
 		},
 		"197": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "__type"
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type.onChange"
 		},
 		"198": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
 			"qualifiedName": "__type"
 		},
 		"199": {
-			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
-			"qualifiedName": "args"
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type"
 		},
 		"200": {
 			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
-			"qualifiedName": "default"
+			"qualifiedName": "checked"
 		},
 		"201": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": ""
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "event"
 		},
 		"202": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "Toggle"
-		},
-		"203": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "Signature"
-		},
-		"204": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "Signature.Element"
-		},
-		"205": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "Signature.Args"
-		},
-		"206": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "__type"
-		},
-		"207": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "__type.pressed"
-		},
-		"208": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "__type.onChange"
-		},
-		"209": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "__type"
-		},
-		"210": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "__type"
-		},
-		"211": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
 			"qualifiedName": "Signature.Blocks"
 		},
+		"203": {
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type"
+		},
+		"204": {
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type.default"
+		},
+		"205": {
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type"
+		},
+		"206": {
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type.Control"
+		},
+		"207": {
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"208": {
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "__type"
+		},
+		"209": {
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "args"
+		},
+		"210": {
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
+			"qualifiedName": "__type.Label"
+		},
+		"211": {
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "__type"
+		},
 		"212": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
 			"qualifiedName": "__type"
 		},
 		"213": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
-			"qualifiedName": "__type.default"
+			"sourceFileName": "../node_modules/.pnpm/@glint+template@1.0.2/node_modules/@glint/template/-private/index.d.ts",
+			"qualifiedName": "args"
 		},
 		"214": {
-			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"sourceFileName": "../ember-primitives/dist/components/switch.d.ts",
 			"qualifiedName": "default"
 		},
 		"215": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": ""
+		},
+		"216": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Toggle"
+		},
+		"217": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature"
+		},
+		"218": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature.Element"
+		},
+		"219": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature.Args"
+		},
+		"220": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"221": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type.pressed"
+		},
+		"222": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type.onChange"
+		},
+		"223": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"224": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"225": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "Signature.Blocks"
+		},
+		"226": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type"
+		},
+		"227": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "__type.default"
+		},
+		"228": {
+			"sourceFileName": "../ember-primitives/dist/components/toggle.d.ts",
+			"qualifiedName": "default"
+		},
+		"229": {
 			"sourceFileName": "../ember-primitives/dist/helpers/service.d.ts",
 			"qualifiedName": "service"
 		},
-		"216": {
+		"230": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "ExternalLink"
 		},
-		"217": {
+		"231": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Link"
 		},
-		"218": {
+		"232": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Popover"
 		},
-		"219": {
+		"233": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Portal"
 		},
-		"220": {
+		"234": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "PortalTargets"
 		},
-		"221": {
+		"235": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "PORTALS"
 		},
-		"222": {
+		"236": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Shadowed"
 		},
-		"223": {
+		"237": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Switch"
 		},
-		"224": {
+		"238": {
 			"sourceFileName": "../ember-primitives/dist/index.d.ts",
 			"qualifiedName": "Toggle"
 		},
-		"225": {
+		"239": {
 			"sourceFileName": "../ember-primitives/dist/helpers.d.ts",
 			"qualifiedName": "service"
 		}

@@ -15,6 +15,7 @@
 !.*
 .eslintcache
 .lint-todo/
+.github/
 
 # ember-try
 /.node_modules.ember-try/

@@ -122,7 +122,7 @@ importers:
         version: 4.1.0(ember-source@5.0.0)
       ember-primitives:
         specifier: workspace:*
-        version: file:ember-primitives(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-modifier@4.1.0)(ember-resources@6.1.0)(ember-source@5.0.0)
+        version: file:ember-primitives(@babel/core@7.22.1)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-modifier@4.1.0)(ember-resources@6.1.0)(ember-source@5.0.0)
       ember-repl:
         specifier: ^3.0.0-beta.3
         version: 3.0.0-beta.3(@glimmer/compiler@0.84.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.0.2)(ember-resources@6.1.0)(ember-source@5.0.0)
@@ -313,6 +313,9 @@ importers:
       qunit:
         specifier: ^2.19.3
         version: 2.19.4
+      qunit-assertions-extra:
+        specifier: ^1.0.0
+        version: 1.0.0(qunit@2.19.4)
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
@@ -623,6 +626,9 @@ importers:
       qunit:
         specifier: ^2.19.4
         version: 2.19.4
+      qunit-assertions-extra:
+        specifier: ^1.0.0
+        version: 1.0.0(qunit@2.19.4)
       qunit-dom:
         specifier: ^2.0.0
         version: 2.0.0
@@ -15147,6 +15153,14 @@ packages:
       rimraf: 2.7.1
       underscore.string: 3.3.6
 
+  /qunit-assertions-extra@1.0.0(qunit@2.19.4):
+    resolution: {integrity: sha512-yWTiZ8B73HpDtXzxWhE12rwKtPkdQ3SUTie4FNDkqr4hfCtEuTeYa/vmJKGzw+bfjdxuK6gTjSXnOFw2YZfFIQ==}
+    peerDependencies:
+      qunit: ^2.0.0
+    dependencies:
+      qunit: 2.19.4
+    dev: true
+
   /qunit-dom@2.0.0:
     resolution: {integrity: sha512-mElzLN99wYPOGekahqRA+mq7NcThXY9c+/tDkgJmT7W5LeZAFNyITr2rFKNnCbWLIhuLdFw88kCBMrJSfyBYpA==}
     engines: {node: 12.* || 14.* || >= 16.*}
@@ -18357,11 +18371,11 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  file:ember-primitives(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-modifier@4.1.0)(ember-resources@6.1.0)(ember-source@5.0.0):
+  file:ember-primitives(@babel/core@7.22.1)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-modifier@4.1.0)(ember-resources@6.1.0)(ember-source@5.0.0):
     resolution: {directory: ember-primitives, type: directory}
     id: file:ember-primitives
     name: ember-primitives
-    version: 0.0.2
+    version: 0.0.3
     peerDependencies:
       '@glimmer/component': ^1.1.2
       '@glimmer/tracking': ^1.1.2
@@ -18377,7 +18391,9 @@ packages:
       ember-modifier: 4.1.0(ember-source@5.0.0)
       ember-resources: 6.1.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-source@5.0.0)
       ember-source: 5.0.0(@babel/core@7.22.1)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.85.0)
+      ember-velcro: 2.1.0(@babel/core@7.22.1)(ember-source@5.0.0)
     transitivePeerDependencies:
+      - '@babel/core'
       - '@glint/template'
       - supports-color
     dev: false

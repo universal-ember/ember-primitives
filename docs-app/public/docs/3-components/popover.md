@@ -26,10 +26,10 @@ import { PortalTargets, Popover } from 'ember-primitives';
   <PortalTargets />
 
   <Popover as |p|>
-    <textarea {{p.hook}}>
+    <div class="hook" {{p.hook}}>
       the hook / anchor of the popover.
-      This demo looks best in light mode
-    </textarea>
+      This demo looks best in light mode<br>
+    </div>
     <p.Content class="floatybit">
       The floaty bit here
     </p.Content>
@@ -47,11 +47,10 @@ import { PortalTargets, Popover } from 'ember-primitives';
       padding: 5px;
       border-radius: 4px;
       font-size: 90%;
+      border: 1px solid;
     }
-    textarea {
-      resize: both;
-      min-height: 3rem;
-      min-width: 200px;
+    .hook {
+      padding: 1rem;
     }
   </style>
 </template>

@@ -1,6 +1,8 @@
 import { assert } from '@ember/debug';
 import { isDevelopingApp, macroCondition } from '@embroider/macros';
 
+import type { TOC } from '@ember/component/template-only';
+
 export const TARGETS = Object.freeze({
   popover: 'ember-primitives__portal-targets__popover',
   tooltip: 'ember-primitives__portal-targets__tooltip',
@@ -40,7 +42,12 @@ export function findNearestTarget(origin: Element, name: string) {
   return element;
 }
 
-export const PortalTargets = <template>
+export interface Signature {
+  Args: {};
+  Blocks: {};
+}
+
+export const PortalTargets: TOC<Signature> = <template>
   <div data-portal-name={{TARGETS.popover}}></div>
   <div data-portal-name={{TARGETS.tooltip}}></div>
   <div data-portal-name={{TARGETS.modal}}></div>

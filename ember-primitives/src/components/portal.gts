@@ -12,7 +12,7 @@ export interface Signature {
      * This is the value of the `data-portal-name` attribute
      * of the element you wish to render in to.
      */
-    to: (typeof TARGETS)[keyof typeof TARGETS] & string;
+    to: (typeof TARGETS)[keyof typeof TARGETS] | (string & {});
   };
   Blocks: {
     /**

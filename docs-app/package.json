@@ -44,6 +44,9 @@
   "dependenciesMeta": {
     "ember-primitives": {
       "injected": true
+    },
+    "ember-repl": {
+      "injected": true
     }
   },
   "devDependencies": {

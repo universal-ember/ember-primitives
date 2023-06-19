@@ -31,7 +31,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <div class="scroll-content">
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
-    <Popover @placement="top" @offsetOptions={{8}} @flipOptions={{hash elementContext="reference"}} as |p|>
+    <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.hook}}>
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
@@ -42,7 +42,7 @@ import { loremIpsum } from 'lorem-ipsum';
       </p.Content>
     </Popover>
 
-    {{loremIpsum (hash count=4 units="paragraphs")}}
+    {{loremIpsum (hash count=2 units="paragraphs")}}
   </div>
 
   <style>

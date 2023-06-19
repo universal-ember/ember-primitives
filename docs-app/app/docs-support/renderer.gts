@@ -163,7 +163,7 @@ const isArray = (x: SomeType | undefined): x is ArrayType => {
   return x.type === 'array';
 };
 
-const isFn = (x: SomeType | undefined): x is SignatureReflection => {
+const isFn = (x: SomeType | undefined) => {
   if (!x) return false;
   if (typeof x !== 'object') return false;
   if (x === null) return false;
@@ -263,12 +263,14 @@ const Function: TOC<{ Args: { info: SignatureReflection } }> = <template>
         <div class='typedoc__function__parameter'>
           <div class='typedoc__function__parameter__name'>{{param.name}}</div>:
           <div class='typedoc__function__parameter__type'>
+            {{! @glint-expect-error }}
             <Type @info={{param.type}} /><br />
           </div>
         </div>
       {{/each}}
     </div>
     ) =>
+    {{! @glint-expect-error }}
     <Type @info={{@info.type}} />
   </div>
 </template>;
@@ -328,6 +330,7 @@ export const Type: TOC<{ Args: { info: SomeType } }> = <template>
   {{else if (isArray @info)}}
     <Array @info={{@info}} />
   {{else if (isFn @info)}}
+    {{! @glint-expect-error }}
     <Function @info={{@info}} />
   {{else if (isUnion @info)}}
     <Union @info={{@info}} />

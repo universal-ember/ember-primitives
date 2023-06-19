@@ -1,6 +1,7 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const sortBy = require('lodash.sortby');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
@@ -198,7 +199,7 @@ function parse(paths) {
   let actualResult = {};
 
   for (let sortedKey of sortedKeys) {
-    actualResult[sortedKey] = result[sortedKey];
+    actualResult[sortedKey] = sortBy(result[sortedKey], (x) => x.name);
   }
 
   return actualResult;

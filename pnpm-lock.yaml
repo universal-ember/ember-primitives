@@ -138,6 +138,9 @@ importers:
       highlightjs-glimmer:
         specifier: ^2.0.1
         version: 2.0.1(highlight.js@11.8.0)
+      lodash.sortby:
+        specifier: ^4.7.0
+        version: 4.7.0
       lorem-ipsum:
         specifier: ^2.0.8
         version: 2.0.8
@@ -354,7 +357,7 @@ importers:
         version: 1.4.1
       ember-velcro:
         specifier: ^2.1.0
-        version: link:../../ember-velcro/ember-velcro
+        version: 2.1.0(@babel/core@7.22.1)(ember-source@5.0.0)
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.0.3
@@ -12877,6 +12880,10 @@ packages:
     resolution: {integrity: sha512-L4/arjjuq4noiUJpt3yS6KIKDtJwNe2fIYgMqyYYKoeIfV1iEqvPwhCx23o+R9dzouGihDAPN1dTIRWa7zk8tw==}
     dev: true
 
+  /lodash.sortby@4.7.0:
+    resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
+    dev: false
+
   /lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
     dev: true
@@ -18405,6 +18412,7 @@ packages:
       '@babel/runtime': 7.22.5
       '@embroider/addon-shim': 1.8.6-unstable.d120477
       '@embroider/macros': 1.11.1(@glint/template@1.0.2)
+      '@floating-ui/dom': 1.4.1
       '@glimmer/component': 1.1.2(@babel/core@7.22.1)
       '@glimmer/tracking': 1.1.2
       ember-modifier: 4.1.0(ember-source@5.0.0)

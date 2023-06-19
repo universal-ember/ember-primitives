@@ -68,20 +68,22 @@ export class Nav extends Component {
     this.ui.isNavOpen = false;
   };
 
+  /**
+   *
+   * This nav needs an aria-label to get around
+   *  "Ensure landmarks are unique"
+   *  because some demos render navs, and it's important that those
+   *  demos are as simple as possible.
+   *
+   *
+   *  nav isn't actually made in to an interactive element,
+   *  it's an event delegation handler.
+   *  The links themselves remain the actual interactive elements.
+   */
   <template>
-    {{!
-      This nav needs an aria-label to get around
-      "Ensure landmarks are unique"
-      because some demos render navs, and it's important that those
-      demos are as simple as possible.
-    }}
     <nav
       aria-label='Main Navigation'
       class={{if this.ui.isNavOpen 'open'}}
-      {{! nav isn't actually made in to an interactive element,
-        it's an event delegation handler.
-        The links themselves remain the actual interactive elements.
-      }}
       {{! template-lint-disable no-invalid-interactive }}
       {{on 'click' this.closeNav}}
     >

@@ -29,15 +29,16 @@ import { loremIpsum } from 'lorem-ipsum';
   <PortalTargets />
 
   <div class="scroll-content">
-    {{loremIpsum (hash count=2)}}
+    {{loremIpsum (hash count=1 units="paragraphs")}}
 
-    <Popover @placement="top" as |p|>
+    <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.hook}}>
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
       </div>
       <p.Content class="floatybit">
         The floaty bit here
+        <div class="arrow" {{p.arrow}}></div>
       </p.Content>
     </Popover>
 
@@ -57,17 +58,27 @@ import { loremIpsum } from 'lorem-ipsum';
       border-radius: 4px;
       font-size: 90%;
       filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+      z-index: 10;
+    }
+    .arrow {
+      position: absolute;
+      background: #222;
+      width: 8px;
+      height: 8px;
+      transform: rotate(45deg);
     }
     .hook {
       padding: 0.5rem;
       border: 1px solid;
       display: inline-block;
+      color: black;
     }
     .scroll-content {
       max-height: 150px;
       overflow-y: auto;
       border: 1px solid;
       padding: 0.5rem;
+      color: #888;
     }
   </style>
 </template>

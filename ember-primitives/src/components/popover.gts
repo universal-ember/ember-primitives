@@ -1,11 +1,15 @@
 import { hash } from '@ember/helper';
 
+import { arrow } from '@floating-ui/dom';
+import { modifier } from 'ember-modifier';
+import { cell } from 'ember-resources';
 import { Velcro } from 'ember-velcro';
 
 import { Portal } from './portal';
 import { TARGETS } from './portal-targets';
 
 import type { TOC } from '@ember/component/template-only';
+import type { Middleware, MiddlewareData } from '@floating-ui/dom';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
 import type { Signature as HookSignature } from 'ember-velcro/modifiers/velcro';
 
@@ -63,6 +67,8 @@ export interface Signature {
       {
         hook: ModifierLike<HookSignature>;
         Content: WithBoundArgs<typeof Content, 'loop'>;
+        data: MiddlewareData;
+        arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
       }
     ];
   };
@@ -88,18 +94,94 @@ const Content: TOC<PrivateContentSignature> = <template>
   </Portal>
 </template>;
 
+interface AttachArrowSignature {
+  Element: HTMLElement;
+  Args: {
+    Named: {
+      arrowElement: ReturnType<typeof ArrowElement>;
+      data?: {
+        middlewareData?: MiddlewareData;
+        placement?: Placement;
+      };
+    };
+  };
+}
+
+const arrowSides = {
+  top: 'bottom',
+  right: 'left',
+  bottom: 'top',
+  left: 'right',
+};
+
+type Direction = 'top' | 'bottom' | 'left' | 'right';
+type Placement = `${Direction}${'' | '-start' | '-end'}`;
+
+const attachArrow = modifier<AttachArrowSignature>((element, _: [], named) => {
+  if (element === named.arrowElement.current) {
+    if (!named.data) return;
+    if (!named.data.middlewareData) return;
+
+    let { arrow } = named.data.middlewareData;
+    let { placement } = named.data;
+
+    if (!arrow) return;
+    if (!placement) return;
+
+    let { x: arrowX, y: arrowY } = arrow;
+    let otherSide = (placement as Placement).split('-')[0] as Direction;
+    let staticSide = arrowSides[otherSide];
+
+    Object.assign(named.arrowElement.current.style, {
+      left: arrowX != null ? `${arrowX}px` : '',
+      top: arrowY != null ? `${arrowY}px` : '',
+      right: '',
+      bottom: '',
+      [staticSide]: '-4px',
+    });
+
+    return;
+  }
+
+  (async () => {
+    await Promise.resolve();
+    named.arrowElement.set(element);
+  })();
+});
+
+const ArrowElement = () => cell<HTMLElement>();
+
+function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
+  let result = [...(middleware || [])];
+
+  if (element) {
+    result.push(arrow({ element }));
+  }
+
+  return result;
+}
+
 export const Popover: TOC<Signature> = <template>
-  <Velcro
-    @placement={{@placement}}
-    @strategy={{@strategy}}
-    @middleware={{@middleware}}
-    @flipOptions={{@flipOptions}}
-    @shiftOptions={{@shiftOptions}}
-    @offsetOptions={{@offsetOptions}}
-    as |velcro|
-  >
-    {{yield (hash hook=velcro.hook Content=(component Content loop=velcro.loop))}}
-  </Velcro>
+  {{#let (ArrowElement) as |arrowElement|}}
+    <Velcro
+      @placement={{@placement}}
+      @strategy={{@strategy}}
+      @middleware={{maybeAddArrow @middleware arrowElement.current}}
+      @flipOptions={{@flipOptions}}
+      @shiftOptions={{@shiftOptions}}
+      @offsetOptions={{@offsetOptions}}
+      as |velcro|
+    >
+      {{yield
+        (hash
+          hook=velcro.hook
+          Content=(component Content loop=velcro.loop)
+          data=velcro.data
+          arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)
+        )
+      }}
+    </Velcro>
+  {{/let}}
 </template>;
 
 export default Popover;

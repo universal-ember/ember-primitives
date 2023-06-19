@@ -120,7 +120,7 @@
       "cache": false,
       "dependsOn": ["lint:js:fix", "lint:prettier:fix", "lint:hbs:fix"]
     },
-    // Pretier can alter files too, so let's prevent race conditions for multiple
+    // Prettier can alter files too, so let's prevent race conditions for multiple
     // writing to the same files.
     "lint:js:fix": { "cache": false },
     "lint:hbs:fix": { "cache": false, "dependsOn": ["lint:prettier:fix"] },

@@ -161,13 +161,20 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
   return result;
 }
 
+function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
+  return {
+    elementContext: 'reference',
+    ...options,
+  };
+}
+
 export const Popover: TOC<Signature> = <template>
   {{#let (ArrowElement) as |arrowElement|}}
     <Velcro
       @placement={{@placement}}
       @strategy={{@strategy}}
       @middleware={{maybeAddArrow @middleware arrowElement.current}}
-      @flipOptions={{@flipOptions}}
+      @flipOptions={{flipOptions @flipOptions}}
       @shiftOptions={{@shiftOptions}}
       @offsetOptions={{@offsetOptions}}
       as |velcro|

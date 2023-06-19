@@ -29,6 +29,8 @@ import { loremIpsum } from 'lorem-ipsum';
   <PortalTargets />
 
   <div class="scroll-content">
+    {{loremIpsum (hash count=2)}}
+
     <Popover @placement="top" as |p|>
       <div class="hook" {{p.hook}}>
         the hook / anchor of the popover.

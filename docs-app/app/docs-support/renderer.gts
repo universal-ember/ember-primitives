@@ -1,5 +1,5 @@
 import { highlight } from 'docs-app/components/highlight';
-import { Compiled, defaultOptions } from 'docs-app/markdown';
+import { Compiled } from 'docs-app/markdown';
 
 import { Load } from './utils';
 
@@ -68,7 +68,7 @@ export const Comment: TOC<{
   };
 }> = <template>
   {{#if @info.comment.summary}}
-    {{#let (Compiled (join (text @info.comment.summary)) defaultOptions) as |compiled|}}
+    {{#let (Compiled (join (text @info.comment.summary))) as |compiled|}}
       {{#if compiled.isReady}}
         <div class='typedoc-rendered-comment' {{highlight}}>
           <compiled.component />

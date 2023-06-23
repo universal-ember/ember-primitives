@@ -1,4 +1,5 @@
 import * as docsSupport from 'docs-app/docs-support';
+import * as docsMarkdown from 'docs-app/markdown';
 import * as emberHeadlessForm from 'ember-headless-form';
 // ember-primitives (this library! yay!)
 import * as emberPrimitives from 'ember-primitives';
@@ -25,6 +26,7 @@ export const defaultOptions: Options = {
     'ember-resources': emberResources,
     'ember-resources/util/remote-data': remoteData,
     'docs-app/docs-support': docsSupport,
+    'docs-app/markdown': docsMarkdown,
     'lorem-ipsum': loremIpsum,
   },
 };

@@ -1,8 +1,8 @@
 import { Shadowed } from 'ember-primitives';
-import { compile } from 'ember-repl';
-import { cell, resource, resourceFactory } from 'ember-resources';
+import { Compiled as REPLCompiled } from 'ember-repl';
+import { resource, resourceFactory } from 'ember-resources';
 
-import type { ComponentLike } from '@glint/template';
+import { defaultOptions } from './import-map';
 
 type Input = string | undefined | null;
 type Format = 'glimdown' | 'gjs' | 'hbs';
@@ -11,42 +11,21 @@ export interface Options {
   importMap: Record<string, Record<string, unknown>>;
 }
 
-// TODO: upstream these tweaks to ember-repl
-export const Compiled = resourceFactory((markdownText: Input | (() => Input), options: Options) => {
-  return resource(() => {
-    let { format = 'glimdown', importMap } = options ?? {};
-
-    let input = typeof markdownText === 'function' ? markdownText() : markdownText;
-    let ready = cell(false);
-    let error = cell();
-    let result = cell<ComponentLike>();
-
-    if (input) {
-      compile(input, {
-        format,
-        importMap,
+export const Compiled = resourceFactory(
+  (markdownText: Input | (() => Input), userOptions?: Options) => {
+    return resource(({ use }) => {
+      let options = {
         topLevelScope: {
           Shadowed,
         },
         ShadowComponent: 'Shadowed',
-        onSuccess: async (component) => {
-          result.current = component;
-          ready.set(true);
-          error.set(null);
-        },
-        onError: async (e) => {
-          error.set(e);
-        },
-        onCompileStart: async () => {
-          ready.set(false);
-        },
-      });
-    }
+        ...defaultOptions,
+        ...userOptions,
+      };
 
-    return () => ({
-      isReady: ready.current,
-      error: error.current,
-      component: result.current,
+      let output = use(REPLCompiled(markdownText, options));
+
+      return () => output.current;
     });
-  });
-});
+  }
+);

@@ -32,7 +32,7 @@
     "ember-headless-form": "^1.0.0-beta.3",
     "ember-modifier": "^4.1.0",
     "ember-primitives": "workspace:*",
-    "ember-repl": "^3.0.0-beta.3",
+    "ember-repl": "^3.0.0-beta.4",
     "ember-velcro": "^2.1.0",
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
@@ -43,6 +43,9 @@
   },
   "dependenciesMeta": {
     "ember-primitives": {
+      "injected": true
+    },
+    "ember-repl": {
       "injected": true
     }
   },
@@ -87,7 +90,7 @@
     "ember-page-title": "^7.0.0",
     "ember-qunit": "^6.0.0",
     "ember-resolver": "^10.1.0",
-    "ember-resources": "^6.1.0",
+    "ember-resources": "^6.1.1",
     "ember-source": "~5.0.0",
     "ember-template-imports": "^3.4.2",
     "ember-template-lint": "^5.2.0",

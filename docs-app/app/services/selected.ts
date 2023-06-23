@@ -1,7 +1,6 @@
 import Service, { service } from '@ember/service';
 
-import { Compiled, defaultOptions } from 'docs-app/markdown';
-// import { Compiled } from 'ember-repl';
+import { Compiled } from 'docs-app/markdown';
 import { use } from 'ember-resources';
 import { keepLatest } from 'ember-resources/util/keep-latest';
 import { RemoteData } from 'ember-resources/util/remote-data';
@@ -34,7 +33,7 @@ export default class Selected extends Service {
 
   @use proseFile = RemoteData<string>(() => `/docs${this.path}.md`);
   // @use proseCompiled = MarkdownToHTML(() => this.proseFile.value);
-  @use proseCompiled = Compiled(() => this.proseFile.value, defaultOptions);
+  @use proseCompiled = Compiled(() => this.proseFile.value);
 
   /*********************************************************************
    * This is a pattern to help reduce flashes of content during

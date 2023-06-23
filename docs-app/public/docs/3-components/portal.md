@@ -47,7 +47,7 @@ import { PortalTargets, Portal, PORTALS } from 'ember-primitives';
       padding: 1rem;
       margin: 1.25rem;
       background: #fefefe;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
+      filter: invert(1)  drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
       border-radius: 4px;
     }
     .style-wrapper { 

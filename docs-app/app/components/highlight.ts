@@ -13,7 +13,7 @@ export async function getHighlighter(): Promise<HLJSApi> {
    * since we now use hljs on initial page load, eagerly, we want to load
    * as little as possible
    */
-  let [hljs, glimmer, javascript, typescript, markdown, css, bash] = await Promise.all([
+  let [hljs, glimmer, javascript, typescript, markdown, css, bash, diff] = await Promise.all([
     import('highlight.js/lib/core'),
     import('highlightjs-glimmer'),
     import('highlight.js/lib/languages/javascript'),
@@ -21,6 +21,7 @@ export async function getHighlighter(): Promise<HLJSApi> {
     import('highlight.js/lib/languages/markdown'),
     import('highlight.js/lib/languages/css'),
     import('highlight.js/lib/languages/bash'),
+    import('highlight.js/lib/languages/diff'),
   ]);
 
   HIGHLIGHT = hljs.default;
@@ -29,6 +30,7 @@ export async function getHighlighter(): Promise<HLJSApi> {
   HIGHLIGHT.registerLanguage('markdown', markdown.default);
   HIGHLIGHT.registerLanguage('css', css.default);
   HIGHLIGHT.registerLanguage('bash', bash.default);
+  HIGHLIGHT.registerLanguage('diff', diff.default);
 
   glimmer.setup(HIGHLIGHT);
 

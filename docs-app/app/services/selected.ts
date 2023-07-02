@@ -68,6 +68,8 @@ export default class Selected extends Service {
   }
 
   get path(): string | undefined {
+    if (!this.router.currentURL) return this.#manifest?.first.path;
+
     let [path] = this.router.currentURL.split('?');
     let result = path && path !== '/' ? path : this.#manifest?.first.path;
 

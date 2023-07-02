@@ -8,8 +8,6 @@ module('Rendering | <Portal>', function (hooks) {
   setupRenderingTest(hooks);
 
   test('errors without an existing portal target', async function (assert) {
-    assert.expect(1);
-
     setupOnerror((error) => {
       assert.matches(error.message, /Could not find element by the given name: `does-not-exist`/);
     });

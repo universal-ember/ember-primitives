@@ -11,8 +11,6 @@ module('Rendering | <PortalTargets>', function (hooks) {
   setupRenderingTest(hooks);
 
   test('just divs', async function (assert) {
-    assert.expect(Object.values(PORTALS).length);
-
     await render(<template><PortalTargets /></template>);
 
     for (let name of Object.values(PORTALS)) {

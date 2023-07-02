@@ -16,12 +16,12 @@
     "lint": "turbo run _:lint --output-logs errors-only"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.26.1",
+    "@changesets/cli": "^2.26.2",
     "@nullvoxpopuli/dev": "workspace:*",
-    "concurrently": "^8.1.0",
-    "prettier": "^2.5.1",
+    "concurrently": "^8.2.0",
+    "prettier": "^2.8.8",
     "prettier-plugin-ember-template-tag": "^0.3.2",
-    "turbo": "^1.10.3"
+    "turbo": "^1.10.7"
   },
   "engines": {
     "node": ">= 18.*",
@@ -34,13 +34,12 @@
   },
   "pnpm": {
     "overrides": {
+      "@glimmer/validator": "^0.84.3",
       "ember-async-data": "^1.0.1",
       "ember-cli-babel": "^7.26.11"
     },
     "patchedDependencies": {
-      "@changesets/assemble-release-plan@5.2.3": "patches/@changesets__assemble-release-plan@5.2.3.patch",
-      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch",
-      "ember-qunit@6.2.0": "patches/ember-qunit@6.2.0.patch"
+      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch"
     },
     "packageExtensions": {
       "ember-qunit": {
@@ -61,7 +60,8 @@
         "ember-source"
       ],
       "ignoreMissing": [
-        "webpack"
+        "webpack",
+        "rsvp"
       ]
     }
   }

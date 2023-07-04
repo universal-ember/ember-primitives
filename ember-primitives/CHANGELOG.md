@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.0.5
+
+### Patch Changes
+
+- d72fb6e: Update proper-links to be compat with TS 5.1
+
 ## 0.0.4
 
 ### Patch Changes

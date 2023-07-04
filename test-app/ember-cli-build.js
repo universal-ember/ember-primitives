@@ -12,7 +12,17 @@ module.exports = function (defaults) {
     },
   });
 
-  const { maybeEmbroider } = require('@embroider/test-setup');
+  const { Webpack } = require('@embroider/webpack');
 
-  return maybeEmbroider(app);
+  return require('@embroider/compat').compatBuild(app, Webpack, {
+    extraPublicTrees: [],
+    staticAddonTrees: true,
+    staticAddonTestSupportTrees: true,
+    staticHelpers: true,
+    staticModifiers: true,
+    staticComponents: true,
+    splitControllers: true,
+    splitRouteClasses: true,
+    implicitModulesStrategy: 'packageNames',
+  });
 };

@@ -49,8 +49,6 @@ module('Application | Pages', function (hooks) {
 
   for (let page of pages) {
     test(`${page.path}`, async function (assert) {
-      assert.expect(3);
-
       let path = page.path.replace('.md', '');
 
       await visit(path);

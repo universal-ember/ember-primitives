@@ -31,7 +31,7 @@ export const APIDocs: TOC<{
     name: string;
   };
 }> = <template>
-  <Load @module='{{@module}}' @name='{{name}}' as |info|>
+  <Load @module='{{@module}}' @name='{{@name}}' as |info|>
     <Declaration @info={{info}} />
   </Load>
 </template>;
@@ -257,21 +257,26 @@ const Array: TOC<{ Args: { info: ArrayType } }> = <template>
 
 const Function: TOC<{ Args: { info: SignatureReflection } }> = <template>
   <div class='typedoc__function'>
-    (
-    <div class='typedoc_function_parameters'>
-      {{#each @info.parameters as |param|}}
-        <div class='typedoc__function__parameter'>
-          <div class='typedoc__function__parameter__name'>{{param.name}}</div>:
-          <div class='typedoc__function__parameter__type'>
-            {{! @glint-expect-error }}
-            <Type @info={{param.type}} /><br />
+    <div class='typedoc__function__type'>
+      (
+      <div class='typedoc_function_parameters'>
+        {{#each @info.parameters as |param|}}
+          <div class='typedoc__function__parameter'>
+            <div class='typedoc__function__parameter__name'>{{param.name}}</div>:
+            <div class='typedoc__function__parameter__type'>
+              {{! @glint-expect-error }}
+              <Type @info={{param.type}} /><br />
+            </div>
           </div>
-        </div>
-      {{/each}}
+        {{/each}}
+      </div>
+      ) =>
+      {{! @glint-expect-error }}
+      <Type @info={{@info.type}} />
     </div>
-    ) =>
-    {{! @glint-expect-error }}
-    <Type @info={{@info.type}} />
+    <div class='typedoc__function_comment'>
+      <Comment @info={{@info}} />
+    </div>
   </div>
 </template>;
 

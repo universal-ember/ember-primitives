@@ -46,6 +46,5 @@ const isOpen = cell(false);
       </:body>
     </Modal>
   {{/if}}
-
 </template>
  ```

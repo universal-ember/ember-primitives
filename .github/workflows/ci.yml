@@ -28,6 +28,13 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
+      - name: 'Debug Cache Test'
+        run: pnpm turbo run test --dry-run=json | jq '.tasks[] | { package, task } * .cache'
+      - name: 'Debug Cache _:lint'
+        run: pnpm turbo run _:lint --dry-run=json | jq '.tasks[] | { package, task } * .cache'
+      - name: 'Debug Cache lint:types'
+        run: pnpm turbo run lint:types --dry-run=json | jq '.tasks[] | { package, task } * .cache'
+
       # Determine which of the next jobs need to run
       - id: set-pending
         run: |

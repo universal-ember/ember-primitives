@@ -9,22 +9,18 @@ pnpm add ember-primitives
 ```
 
 
-### `inIframe`
-
 ```gjs live no-shadow
-import { CommentQuery } from 'docs-app/docs-support';
+import { APIDocs } from 'docs-app/docs-support';
 
 <template>
-  <CommentQuery @module="iframe" @name="inIframe" />
+  <APIDocs @module="iframe" @name="inIframe" />
 </template>
 ```
 
-### `notInIframe`
-
 ```gjs live no-shadow
-import { CommentQuery } from 'docs-app/docs-support';
+import { APIDocs } from 'docs-app/docs-support';
 
 <template>
-  <CommentQuery @module="iframe" @name="notInIframe" />
+  <APIDocs @module="iframe" @name="notInIframe" />
 </template>
 ```

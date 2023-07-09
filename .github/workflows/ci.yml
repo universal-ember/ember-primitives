@@ -35,17 +35,17 @@ jobs:
         run: |
           info=$(./cache-status.sh test)
           echo "tests=#info" >> $GITHUB_ENV
+      - name: 'Debug Cache lint:types'
+        id: set-pending-typecheck
+        run: |
+          info=$(./cache-status.sh lint:types)
+          echo "typecheck=$info" >> $GITHUB_ENV
       - name: 'Debug Cache _:lint'
         id: set-pending-lints
         run: |
           info=$(./cache-status.sh _:lint)
           echo "lints=$info" >> $GITHUB_ENV
 
-      - name: 'Debug Cache lint:types'
-        id: set-pending-typecheck
-        run: |
-          info=$(./cache-status.sh lint:types)
-          echo "typecheck=$info" >> $GITHUB_ENV
 
       - run:  echo ${{ github.event.number }} > ./pr-number.txt
 

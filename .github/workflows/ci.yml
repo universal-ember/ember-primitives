@@ -124,7 +124,7 @@ jobs:
   typecheck:
     name: '${{ matrix.typescript-scenario }}'
     runs-on: ubuntu-latest
-    if: ${{ fromJSON(needs.setup.outputs.typecheck).test-app.["lint:types"].status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.typecheck).test-app.lint:types.status == 'MISS' }}
     timeout-minutes: 2
     needs: [test]
     continue-on-error: true
@@ -167,7 +167,7 @@ jobs:
 
   docs-types:
     name: "Docs' Types"
-    if: ${{ fromJSON(needs.setup.outputs.typecheck).docs-app.['lint:types'].status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.typecheck).docs-app.lint:types.status == 'MISS' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [setup]

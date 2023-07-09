@@ -705,8 +705,8 @@ packages:
       chalk: 4.1.2
       cli-table3: 0.6.3
       commander: 10.0.1
-      marked: 5.1.1
-      marked-terminal: 5.2.0(marked@5.1.1)
+      marked: 5.1.0
+      marked-terminal: 5.2.0(marked@5.1.0)
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -2397,7 +2397,7 @@ packages:
       calculate-cache-key-for-tree: 2.0.0
       ember-cli-babel: 7.26.11
       ember-cli-version-checker: 5.1.2
-      semver: 7.5.4
+      semver: 7.5.3
     transitivePeerDependencies:
       - supports-color
 
@@ -2622,7 +2622,7 @@ packages:
       js-string-escape: 1.0.1
       lodash: 4.17.21
       resolve-package-path: 4.0.3
-      semver: 7.5.4
+      semver: 7.5.3
       typescript-memoize: 1.1.1
 
   /@embroider/util@1.11.1(@glint/environment-ember-loose@1.0.2)(@glint/template@1.0.2)(ember-source@5.0.0):
@@ -3076,7 +3076,7 @@ packages:
       '@types/ember__routing':
         optional: true
     dependencies:
-      '@glint/environment-ember-loose': 1.0.2(@glimmer/component@1.1.2)(@glint/template@1.0.2)(ember-modifier@4.1.0)
+      '@glint/environment-ember-loose': 1.0.2(@glimmer/component@1.1.2)(@glint/template@1.0.2)(ember-cli-htmlbars@6.2.0)(ember-modifier@4.1.0)
       '@glint/template': 1.0.2
       ember-template-imports: 3.4.2
     dev: true
@@ -6361,7 +6361,7 @@ packages:
   /builtins@5.0.1:
     resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
     dependencies:
-      semver: 7.5.4
+      semver: 7.5.3
 
   /bundle-name@3.0.0:
     resolution: {integrity: sha512-PKA4BeSvBpQKQ8iPOGCSiell+N8P+Tf1DlwqmYhpe2gAhKPHn8EYOxVT+ShuGmhg8lN8XiSlS80yiExKXrURlw==}
@@ -7290,7 +7290,7 @@ packages:
       postcss-modules-values: 4.0.0(postcss@8.4.24)
       postcss-value-parser: 4.2.0
       schema-utils: 3.3.0
-      semver: 7.5.4
+      semver: 7.5.3
       webpack: 5.88.1
 
   /css-tree@1.1.3:
@@ -8200,7 +8200,7 @@ packages:
       fs-extra: 9.1.0
       resolve: 1.22.2
       rsvp: 4.8.5
-      semver: 7.5.4
+      semver: 7.5.3
       stagehand: 1.0.1
       walk-sync: 2.2.0
     transitivePeerDependencies:
@@ -8246,7 +8246,7 @@ packages:
     engines: {node: 10.* || >= 12.*}
     dependencies:
       resolve-package-path: 3.1.0
-      semver: 7.5.4
+      semver: 7.5.3
       silent-error: 1.1.1
     transitivePeerDependencies:
       - supports-color
@@ -9963,7 +9963,7 @@ packages:
   /fetch-ponyfill@7.1.0:
     resolution: {integrity: sha512-FhbbL55dj/qdVO3YNK7ZEkshvj3eQ7EuIGV2I6ic/2YiocvyWv+7jg2s4AyS0wdRU75s3tA8ZxI/xPigb0v5Aw==}
     dependencies:
-      node-fetch: 2.6.12
+      node-fetch: 2.6.11
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -12545,7 +12545,7 @@ packages:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
     dev: false
 
-  /marked-terminal@5.2.0(marked@5.1.1):
+  /marked-terminal@5.2.0(marked@5.1.0):
     resolution: {integrity: sha512-Piv6yNwAQXGFjZSaiNljyNFw7jKDdGrw70FSbtxEyldLsyeuV5ZHm/1wW++kWbrOF1VPnUgYOhB2oLL0ZpnekA==}
     engines: {node: '>=14.13.1 || >=16.0.0'}
     peerDependencies:
@@ -12555,7 +12555,7 @@ packages:
       cardinal: 2.1.1
       chalk: 5.3.0
       cli-table3: 0.6.3
-      marked: 5.1.1
+      marked: 5.1.0
       node-emoji: 1.11.0
       supports-hyperlinks: 2.3.0
     dev: true
@@ -12566,8 +12566,8 @@ packages:
     hasBin: true
     dev: true
 
-  /marked@5.1.1:
-    resolution: {integrity: sha512-bTmmGdEINWmOMDjnPWDxGPQ4qkDLeYorpYbEtFOXzOruTwUE671q4Guiuchn4N8h/v6NGd7916kXsm3Iz4iUSg==}
+  /marked@5.1.0:
+    resolution: {integrity: sha512-z3/nBe7aTI8JDszlYLk7dDVNpngjw0o1ZJtrA9kIfkkHcIF+xH7mO23aISl4WxP83elU+MFROgahqdpd05lMEQ==}
     engines: {node: '>= 18'}
     hasBin: true
     dev: true
@@ -13432,18 +13432,6 @@ packages:
       whatwg-url: 5.0.0
     dev: true
 
-  /node-fetch@2.6.12:
-    resolution: {integrity: sha512-C/fGU2E8ToujUivIO0H+tpQ6HWo4eEmchoPIoXtxCrVghxdKq+QOHqEZW7tuP3KlV3bC8FRMO5nMCC7Zm1VP6g==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
-    dependencies:
-      whatwg-url: 5.0.0
-    dev: true
-
   /node-gyp@9.4.0:
     resolution: {integrity: sha512-dMXsYP6gc9rRbejLXmTbVRYjAHw7ppswsKyMxuxJxxOHzluIO1rGp9TOQgjFJ+2MCqcOcQTOPB/8Xwhr+7s4Eg==}
     engines: {node: ^12.13 || ^14.13 || >=16}
@@ -14003,7 +13991,7 @@ packages:
       got: 12.6.1
       registry-auth-token: 5.0.2
       registry-url: 6.0.1
-      semver: 7.5.4
+      semver: 7.5.3
     dev: false
 
   /pacote@15.2.0:
@@ -16624,6 +16612,23 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /tracked-toolbox@2.0.0(@babel/core@7.22.5)(ember-source@5.0.0):
+    resolution: {integrity: sha512-adZtX+RGN6F+pWs/5JqVuDxLhuia4uhqmQp+UlUaxpykWjDFETtAdQR+LdDJiFPXFAXnS6FBqn/tnSLJQCm3Yw==}
+    engines: {node: 14.* || 16.* || >= 18}
+    peerDependencies:
+      ember-source: '*'
+    peerDependenciesMeta:
+      ember-source:
+        optional: true
+    dependencies:
+      '@embroider/addon-shim': 1.8.5
+      ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.22.5)
+      ember-source: 5.0.0(@babel/core@7.22.5)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.1)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+    dev: false
+
   /tracked-toolbox@2.0.0(@babel/core@7.22.5)(ember-source@5.1.2):
     resolution: {integrity: sha512-adZtX+RGN6F+pWs/5JqVuDxLhuia4uhqmQp+UlUaxpykWjDFETtAdQR+LdDJiFPXFAXnS6FBqn/tnSLJQCm3Yw==}
     engines: {node: 14.* || 16.* || >= 18}
@@ -17183,7 +17188,7 @@ packages:
     resolution: {integrity: sha512-nd2HUpKc6RWblPZQ2GDuI65sxJ2n/UqZwSBVtj64xlWjMx0m7ZB2m9b2JS3v1f+n9VWH/dd1CMhkHfP6pIdckA==}
     dependencies:
       resolve-package-path: 3.1.0
-      semver: 7.5.4
+      semver: 7.5.3
     dev: true
 
   /validate-peer-dependencies@2.2.0:
@@ -17191,7 +17196,7 @@ packages:
     engines: {node: '>= 12'}
     dependencies:
       resolve-package-path: 4.0.3
-      semver: 7.5.4
+      semver: 7.5.3
     dev: true
 
   /vary@1.1.2:
@@ -17803,6 +17808,7 @@ packages:
       ember-resources: 6.1.1(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-source@5.0.0)
       ember-source: 5.0.0(@babel/core@7.22.5)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.1)
       ember-velcro: 2.1.0(@babel/core@7.22.5)(ember-source@5.0.0)
+      tracked-toolbox: 2.0.0(@babel/core@7.22.5)(ember-source@5.0.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'

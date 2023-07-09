@@ -28,7 +28,7 @@ import { loremIpsum } from 'lorem-ipsum';
 <template>
   <PortalTargets />
 
-  <div class="scroll-content">
+  <div class="scroll-content" tabindex="0">
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>

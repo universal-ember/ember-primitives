@@ -18,6 +18,7 @@ pnpm add ember-primitives
 
 ### CSS Compatibility
 
+- [Open Props](https://open-props.style/)
 - [Tailwind](https://tailwindcss.com/)
 - [Tachyons](https://tachyons.io/)
 - [Open Props](https://open-props.style/)

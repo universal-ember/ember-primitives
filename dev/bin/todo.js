@@ -40,9 +40,11 @@ async function gather() {
       test,
       typecheck,
       atAll: {
-        lint: Object.values(lint).every(Boolean),
-        test: Object.values(test).every(Boolean),
-        typecheck: Object.values(typecheck).every(Boolean),
+        // If all of these values are false, that means that
+        // each package had a cache-hit
+        lint: Object.values(lint).some(Boolean),
+        test: Object.values(test).some(Boolean),
+        typecheck: Object.values(typecheck).some(Boolean),
       },
     })
   );

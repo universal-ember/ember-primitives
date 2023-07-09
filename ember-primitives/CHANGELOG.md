@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.0.8
+
+### Patch Changes
+
+- 79b0e5f: Fix issue where <Link> did not fallback to browser-behavior like @properLinks does
+
 ## 0.0.7
 
 ### Patch Changes

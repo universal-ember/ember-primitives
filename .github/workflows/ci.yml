@@ -37,9 +37,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [setup]
     steps:
-      - run: echo ${{  needs.setup.outputs.tests }}
-      - run: echo '${{  needs.setup.outputs.tests.test-app.test }}'
-      - run: echo '${{  fromJSON(needs.setup.outputs.typecheck).test-app }}'
+      - run: echo ${{  needs.setup.outputs.pending }}
+      - run: echo '${{  needs.setup.outputs.pending.test-app.test }}'
+      - run: echo '${{  fromJSON(needs.setup.outputs.pending).test-app }}'
 
   lint:
     name: Lint

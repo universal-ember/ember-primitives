@@ -22,32 +22,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
-      tests: ${{ steps.set-pending-tests.outputs.tests }}
-      lints: ${{ steps.set-pending-tests.outputs.lints }}
-      typecheck: ${{ steps.set-pending-tests.outputs.typecheck }}
+      pending: ${{ steps.set-pending.outputs.pending }}
     steps:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      #
-      # NOTE: GitHub actions does not support json-keys
-      #
-      - id: set-pending-tests
+      - id: set-pending
         run: |
-          info=$(./cache-status.sh test)
-          echo "tests=#info" >> $GITHUB_ENV
-      - name: 'Cache lint:types'
-        id: set-pending-typecheck
-        run: |
-          info=$(./cache-status.sh lint:types | sed 's/lint:types/typecheck/g')
-          echo "typecheck=$info" >> $GITHUB_ENV
-      - name: 'Cache _:lint'
-        id: set-pending-lints
-        run: |
-          info=$(./cache-status.sh _:lint | sed 's/_:lint/lint/g')
-          echo "lints=$info" >> $GITHUB_ENV
-
+          info=$(./cache-status.sh)
+          echo "tests=$info" >> $GITHUB_ENV
 
       - run:  echo ${{ github.event.number }} > ./pr-number.txt
 

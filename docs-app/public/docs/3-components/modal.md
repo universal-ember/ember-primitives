@@ -1,4 +1,4 @@
-# Modal
+# Modal `<dialog>`
 
 A modal in is a temporary overlay that appears on top of the main content of a webpage. 
 It is used to present important information, prompt for input, or require the user to make a decision. 
@@ -10,10 +10,11 @@ Modals create a focused and isolated interaction, often with a darker background
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { Modal, /* or Dialog (alias) */ } from 'ember-primitives';
+import { Modal } from 'ember-primitives';
+
 import { on } from '@ember/modifier';
-import { loremIpsum } from 'lorem-ipsum';
 import { cell } from 'ember-resources';
+import { loremIpsum } from 'lorem-ipsum';
 
 const returnValue = cell('');
 
@@ -100,20 +101,6 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 
 export default class RouteableModal extends Component {
-  @service router;
-
-  handleClose = (reason) => {
-    switch (reason) {
-      case 'create': return this.router.transitionTo('place/when/created');
-      case 'confirm': return this.router.transitionTo('place/when/created');
-      default:
-        /**
-          * there is no reason when ESC is pressed, or a type=reset button is clicked
-          */
-        return this.router.transitionTo('place/when/cancelled');
-    }
-  }
-
   <template>
     <Modal @open={{true}} @onClose={{this.handleClose}} as |m|>
 
@@ -126,6 +113,22 @@ export default class RouteableModal extends Component {
       </m.Dialog>
     </Modal>
   </template>
+
+  @service router;
+
+  handleClose = (reason) => {
+    switch (reason) {
+      case 'create': return this.router.transitionTo('place/when/created');
+      case 'confirm': return this.router.transitionTo('place/when/confirmed');
+      default:
+        /**
+          * there is no reason when ESC is pressed, 
+          * or a type=reset button is clicked
+          */
+        return this.router.transitionTo('place/when/cancelled');
+    }
+  }
+
 }
 ```
 

@@ -9,6 +9,7 @@
 # - we want to stay as true to turbo's json format as possible
 #
 # https://jqplay.org/s/g1NZ1sAB_F_Q
+# https://jqplay.org/s/3fjQTNbPH3u
 pnpm turbo run lint:types test _:lint --dry-run=json \
 | jq 'reduce .tasks[] as {$package,$task,$cache} ({};
         .[$package][$task] |= $cache

@@ -29,10 +29,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - id: set-pending
-        run: |
-          info=$(./cache-status.sh)
-          echo "tests=$info" >> $GITHUB_ENV
-
+        run: echo "tests=$(./cache-status.sh)" >> $GITHUB_ENV
       - run:  echo ${{ github.event.number }} > ./pr-number.txt
 
 

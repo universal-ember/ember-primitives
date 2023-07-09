@@ -82,8 +82,6 @@ export function setup(parent: object, ignore?: string[]) {
     let routerService = owner.lookup('service:router');
 
     handle(routerService, interactive, ignore ?? [], event);
-
-    return false;
   };
 
   document.body.addEventListener('click', handler, false);

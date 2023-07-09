@@ -34,20 +34,20 @@ jobs:
         id: set-pending-tests
         run: |
           info=$(pnpm turbo run test --dry-run=json \
-          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)')
+          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)' | jq -R)
           echo "tests=#info" >> $GITHUB_ENV
       - name: 'Debug Cache _:lint'
         id: set-pending-lints
         run: |
           info=$(pnpm turbo run _:lint --dry-run=json \
-          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)')
+          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)' | jq -R)
           echo "lints=$info" >> $GITHUB_ENV
 
       - name: 'Debug Cache lint:types'
         id: set-pending-typecheck
         run: |
           info=$(pnpm turbo run lint:types --dry-run=json \
-          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)')
+          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)' | jq -R)
           echo "typecheck=$info" >> $GITHUB_ENV
 
       - run:  echo ${{ github.event.number }} > ./pr-number.txt

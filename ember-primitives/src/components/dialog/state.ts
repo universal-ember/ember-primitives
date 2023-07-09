@@ -9,22 +9,22 @@ interface Options {
 }
 
 export class DialogState {
-  #elementState: ElementState;
-  #onClose: ((reason: string) => void) | undefined;
+  elementState: ElementState;
+  onClose: ((reason: string) => void) | undefined;
 
   constructor(options: Options) {
-    this.#elementState = options.elementState;
-    this.#onClose = options.onClose;
+    this.elementState = options.elementState;
+    this.onClose = options.onClose;
   }
 
-  get #element() {
-    return this.#elementState.element;
+  get element() {
+    return this.elementState.element;
   }
 
   get isOpen() {
     let trackedValue = this.__isOpen__;
 
-    return (this.#element?.hasAttribute('open') && trackedValue) ?? false;
+    return (this.element?.hasAttribute('open') && trackedValue) ?? false;
   }
 
   /**
@@ -36,12 +36,12 @@ export class DialogState {
    * Closes the dialog -- this will throw an error in development if the dialog element was not rendered
    */
   close = () => {
-    assert('Cannot call `close` on <Dialog> without rendering the dialog element.', this.#element);
+    assert('Cannot call `close` on <Dialog> without rendering the dialog element.', this.element);
 
     /**
      * If the element is already closed, don't run all this again
      */
-    if (!this.#element.hasAttribute('open')) {
+    if (!this.element.hasAttribute('open')) {
       return;
     }
 
@@ -49,7 +49,7 @@ export class DialogState {
      * removes the `open` attribute
      * handleClose will be called because the dialog has bound the `close` event.
      */
-    this.#element.close();
+    this.element.close();
   };
 
   /**
@@ -61,32 +61,32 @@ export class DialogState {
   handleClose = () => {
     assert(
       'Cannot call `handleDialogClose` on <Dialog> without rendering the dialog element. This is likely a bug in ember-primitives. Please open an issue <3',
-      this.#element
+      this.element
     );
 
     this.__isOpen__ = false;
-    this.#onClose?.(this.#element.returnValue);
+    this.onClose?.(this.element.returnValue);
     // the return value ends up staying... which is annoying
-    this.#element.returnValue = '';
+    this.element.returnValue = '';
   };
 
   /**
    * Opens the dialog -- this will throw an error in development if the dialog element was not rendered
    */
   open = () => {
-    assert('Cannot call `open` on <Dialog> without rendering the dialog element.', this.#element);
+    assert('Cannot call `open` on <Dialog> without rendering the dialog element.', this.element);
 
     /**
      * If the element is already open, don't run all this again
      */
-    if (this.#element.hasAttribute('open')) {
+    if (this.element.hasAttribute('open')) {
       return;
     }
 
     /**
      * adds the `open` attribute
      */
-    this.#element.showModal();
+    this.element.showModal();
     this.__isOpen__ = true;
   };
 }

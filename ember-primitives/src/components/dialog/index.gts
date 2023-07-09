@@ -1,7 +1,7 @@
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 
-import { elementState } from './element-state';
+import { elementState, ElementState } from './element-state';
 import { dialogState } from './state';
 
 import type { DialogState } from './state';
@@ -58,30 +58,28 @@ export interface Signature {
 }
 
 function useEffect(
-  element: HTMLDialogElement | undefined,
+  eState: ElementState,
   state: DialogState,
   userProvidedValue: boolean | undefined
 ) {
-  if (element) return;
   if (userProvidedValue === undefined) return;
 
-  if (userProvidedValue) {
-    state.open();
-  } else {
-    state.close();
-  }
+  requestAnimationFrame(() => {
+    if (!eState.element) {
+      return;
+    }
+
+    if (userProvidedValue) {
+      state.open();
+    } else {
+      state.close();
+    }
+  });
 }
 
 export const Dialog: TOC<Signature> = <template>
   {{#let (elementState) as |elementState|}}
     {{#let (dialogState elementState @onClose) as |state|}}
-      {{!
-        no-op under best use case,
-        double render when folks want to control the state
-        (double renders and other state maintenance issues are why
-         folks should avoid "useEffect" in all frameworks)
-      }}
-      {{(useEffect elementState.element state @open)}}
 
       {{yield
         (hash
@@ -92,6 +90,13 @@ export const Dialog: TOC<Signature> = <template>
         )
       }}
 
+      {{!
+        no-op under best use case,
+        double render when folks want to control the state
+        (double renders and other state maintenance issues are why
+         folks should avoid "useEffect" in all frameworks)
+      }}
+      {{(useEffect elementState state @open)}}
     {{/let}}
   {{/let}}
 </template>;

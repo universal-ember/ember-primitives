@@ -1,3 +1,4 @@
+import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { settled, render, click, find } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -124,10 +125,14 @@ module('Rendering | dialog', function (hooks) {
     test('starts open', async function (assert) {
       await render(<template>
         <Modal @open={{true}} as |m|>
+          <out>{{m.isOpen}}</out>
           <button {{on 'click' m.open}}>Open Dialog</button>
           <m.Dialog> content </m.Dialog>
         </Modal>
       </template>);
+
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await settled();
 
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
@@ -154,20 +159,30 @@ module('Rendering | dialog', function (hooks) {
 
       await render(<template>
         <Modal @open={{state.open}} as |m|>
+          <out>{{m.isOpen}}</out>
           <m.Dialog> content </m.Dialog>
         </Modal>
       </template>);
+
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await settled();
 
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
 
       state.open = true;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
+
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
 
       state.open = false;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await settled();
+
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
     });

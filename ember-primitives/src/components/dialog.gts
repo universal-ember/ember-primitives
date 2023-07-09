@@ -64,7 +64,7 @@ export interface Signature {
         isOpen: boolean;
         close: () => void;
         open: () => void;
-        Dialog: WithBoundArgs<typeof DialogElement, 'onClose' | 'register'>;
+        Dialog: WithBoundArgs<typeof DialogElement, 'onClose' | 'register' | 'open'>;
       }
     ];
   };

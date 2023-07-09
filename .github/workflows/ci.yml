@@ -39,7 +39,7 @@ jobs:
     steps:
       - run: echo ${{  needs.setup.outputs.pending }}
       - run: echo '${{  needs.setup.outputs.pending.test-app.test }}'
-      - run: echo '${{  fromJSON(needs.setup.outputs.pending)["test-app"] }}'
+      - run: echo '${{  fromJSON(needs.setup.outputs.pending.test-app) }}'
 
   lint:
     name: Lint

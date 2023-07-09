@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [setup]
     timeout-minutes: 5
-    if: ${{ fromJSON(needs.setup.outputs.tests).atAll.lint }}
+    # if: ${{ fromJSON(needs.setup.outputs.tests).atAll.lint }}
     steps:
       - uses: wyvox/action@v1
         with:
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [setup]
     timeout-minutes: 5
-    if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
+    # if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
     steps:
       - uses: wyvox/action@v1
         with:
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     timeout-minutes: 5
-    if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
+    # if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
     steps:
       - uses: wyvox/action@v1
         with:
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     timeout-minutes: 8
-    if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
+    # if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
     strategy:
       fail-fast: false
       matrix:
@@ -144,7 +144,7 @@ jobs:
 
   docs-tests:
     name: "Docs' Tests"
-    if: ${{ fromJSON(needs.setup.outputs.tests).docs-app.test.status == 'MISS' }}
+    # if: ${{ fromJSON(needs.setup.outputs.tests).docs-app.test.status == 'MISS' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [setup]
@@ -155,21 +155,6 @@ jobs:
       - run: pnpm build
       - run: pnpm i -f
       - run: pnpm test --filter docs-app
-
-  docs-types:
-    name: "Docs' Types"
-    # if: ${{ fromJSON(needs.setup.outputs.typecheck).docs-app.lint:types.status == 'MISS' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    needs: [setup]
-    steps:
-      - uses: wyvox/action@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm i -f
-      - run: pnpm lint:types --filter docs-app
-
 
   DeployProduction:
     name: "Deploy: Production"

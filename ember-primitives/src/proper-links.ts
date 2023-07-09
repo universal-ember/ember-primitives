@@ -103,7 +103,7 @@ export function isLink(event: Event) {
   }
 }
 
-function handle(
+export function handle(
   router: RouterService,
   element: HTMLAnchorElement,
   ignore: string[],

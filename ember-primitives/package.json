@@ -40,7 +40,8 @@
     "@embroider/addon-shim": "^1.8.5",
     "@embroider/macros": "1.12.2",
     "@floating-ui/dom": "^1.4.3",
-    "ember-velcro": "^2.1.0"
+    "ember-velcro": "^2.1.0",
+    "tracked-toolbox": "^2.0.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.5.0",
@@ -96,6 +97,7 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
+      "./components/dialog.js": "./dist/_app_/components/dialog.js",
       "./components/external-link.js": "./dist/_app_/components/external-link.js",
       "./components/link.js": "./dist/_app_/components/link.js",
       "./components/popover.js": "./dist/_app_/components/popover.js",

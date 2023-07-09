@@ -108,7 +108,7 @@ module('Rendering | dialog', function (hooks) {
       assert.verifySteps(['closed '], 'no reason given');
 
       await click('#open');
-      await click('[type=submit]');
+      await click('[value=confirmBtn]');
       assert.verifySteps(['closed confirmBtn'], 'a reason given');
 
       await click('#open');
@@ -130,9 +130,6 @@ module('Rendering | dialog', function (hooks) {
           <m.Dialog> content </m.Dialog>
         </Modal>
       </template>);
-
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      await settled();
 
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
@@ -164,23 +161,18 @@ module('Rendering | dialog', function (hooks) {
         </Modal>
       </template>);
 
-      await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
 
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
 
       state.open = true;
-      await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
 
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
 
       state.open = false;
-      await new Promise((resolve) => requestAnimationFrame(resolve));
-      await settled();
-      await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
 
       assert.dom('dialog').hasStyle({ display: 'none' });

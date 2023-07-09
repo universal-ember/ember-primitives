@@ -45,7 +45,6 @@ jobs:
         id: set-pending-typecheck
         run: |
           info=$(./cache-status.sh lint:types)
-          info=$()
           echo "typecheck=$info" >> $GITHUB_ENV
 
       - run:  echo ${{ github.event.number }} > ./pr-number.txt

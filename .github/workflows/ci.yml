@@ -30,20 +30,22 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - name: 'Debug Cache Test'
-        id: set-pending-tests
+      #
+      # NOTE: GitHub actions does not support json-keys
+      #
+      - id: set-pending-tests
         run: |
           info=$(./cache-status.sh test)
           echo "tests=#info" >> $GITHUB_ENV
-      - name: 'Debug Cache lint:types'
+      - name: 'Cache lint:types'
         id: set-pending-typecheck
         run: |
-          info=$(./cache-status.sh lint:types)
+          info=$(./cache-status.sh lint:types | sed 's/lint:types/typecheck/g')
           echo "typecheck=$info" >> $GITHUB_ENV
-      - name: 'Debug Cache _:lint'
+      - name: 'Cache _:lint'
         id: set-pending-lints
         run: |
-          info=$(./cache-status.sh _:lint)
+          info=$(./cache-status.sh _:lint | sed 's/_:lint/lint/g')
           echo "lints=$info" >> $GITHUB_ENV
 
 

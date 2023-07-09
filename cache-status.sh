@@ -21,4 +21,6 @@ pnpm turbo run lint:types test _:lint --dry-run=json \
         ))
       ' \
 | sed 's/lint:types/typecheck/g' \
-| sed 's/_:lint/lint/g'
+| sed 's/_:lint/lint/g' \
+| jq -c
+

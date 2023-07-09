@@ -10,6 +10,7 @@ import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
+import { handle } from '../proper-links';
 import { ExternalLink } from './external-link';
 
 import type RouterService from '@ember/routing/router-service';
@@ -77,14 +78,10 @@ export class Link extends Component<Signature> {
 
   @service declare router: RouterService;
 
-  handleClick = (event: Event) => {
-    event.preventDefault();
-
+  handleClick = (event: MouseEvent) => {
     assert('[BUG]', event.target instanceof HTMLAnchorElement);
 
-    let path = new URL(event.target.href).pathname;
-
-    this.router.transitionTo(path);
+    handle(this.router, event.target, [], event);
   };
 }
 

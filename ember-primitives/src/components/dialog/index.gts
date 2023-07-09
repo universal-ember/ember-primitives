@@ -1,10 +1,9 @@
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 
-import { elementState, ElementState } from './element-state';
+import { elementState } from './element-state';
 import { dialogState } from './state';
 
-import type { DialogState } from './state';
 import type { TOC } from '@ember/component/template-only';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
 

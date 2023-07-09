@@ -13,13 +13,17 @@ Modals create a focused and isolated interaction, often with a darker background
 import { Modal, /* or Dialog (alias) */ } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { loremIpsum } from 'lorem-ipsum';
+import { cell } from 'ember-resources';
+
+const returnValue = cell('');
 
 <template>
-  <Modal as |m|>
+  <Modal @onClose={{returnValue.set}} as |m|>
     <button {{on 'click' m.open}}>Open Modal</button>
 
     <br><br>
-    isOpen: {{m.isOpen}}
+    isOpen: {{m.isOpen}}<br>
+    return: {{returnValue.current}}
 
     <m.Dialog>
       <div>
@@ -29,12 +33,20 @@ import { loremIpsum } from 'lorem-ipsum';
           <button {{on 'click' m.close}}>Close</button>
         </header>
 
-        <main>
-          Modal content here
-          <br>
+        <form method="dialog">
+          <main>
+            Modal content here
+            <br>
 
-         {{loremIpsum 1}}
-        </main>
+           {{loremIpsum 1}}
+          </main>
+
+          <footer>
+            <button type="submit" value="confirm">Confirm</button>
+            <button type="submit" value="create">Create</button>
+            <button type="reset" value="close" {{on 'click' m.close}}>Reset</button>
+          </footer>
+        </form>
       </div>
     </m.Dialog>
   </Modal>
@@ -66,6 +78,10 @@ import { loremIpsum } from 'lorem-ipsum';
 
     dialog main {
       max-width: 300px;
+    }
+    form {
+      display: grid;
+      gap: 1rem; 
     }
   </style>
 </template>

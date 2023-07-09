@@ -42,6 +42,9 @@ export interface Signature {
      * and the <dialog>'s `returnValue` will be passed.
      *
      * This can be used to determine which button was clicked to close the modal
+     *
+     * Note though that this value is only populated when using
+     * <form method='dialog'>
      */
     onClose?: (returnValue: string) => void;
   };
@@ -57,28 +60,8 @@ export interface Signature {
   };
 }
 
-function useEffect(
-  eState: ElementState,
-  state: DialogState,
-  userProvidedValue: boolean | undefined
-) {
-  if (userProvidedValue === undefined) return;
-
-  requestAnimationFrame(() => {
-    if (!eState.element) {
-      return;
-    }
-
-    if (userProvidedValue) {
-      state.open();
-    } else {
-      state.close();
-    }
-  });
-}
-
 export const Dialog: TOC<Signature> = <template>
-  {{#let (elementState) as |elementState|}}
+  {{#let (elementState @open) as |elementState|}}
     {{#let (dialogState elementState @onClose) as |state|}}
 
       {{yield
@@ -89,14 +72,6 @@ export const Dialog: TOC<Signature> = <template>
           Dialog=(component DialogElement onClose=state.handleClose register=elementState.register)
         )
       }}
-
-      {{!
-        no-op under best use case,
-        double render when folks want to control the state
-        (double renders and other state maintenance issues are why
-         folks should avoid "useEffect" in all frameworks)
-      }}
-      {{(useEffect elementState state @open)}}
     {{/let}}
   {{/let}}
 </template>;

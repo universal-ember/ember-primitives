@@ -13,6 +13,10 @@ module('Rendering | dialog', function (hooks) {
     // We don't need to test "escape" because the browser already has
     // tests for that for us. So we can instead call the dialog's close method
     find('dialog')?.close();
+    // NOTE: headless chrome has either:
+    //       inconsistent timings, or is so fast, we actually do have a timing issue.
+    //       TODO: consider how to tie the waiter system to the dialog close status
+    await new Promise((resolve) => requestAnimationFrame(resolve));
     await settled();
   }
 
@@ -58,6 +62,8 @@ module('Rendering | dialog', function (hooks) {
       assert.dom('out').hasText('true');
 
       await click('#close');
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await settled();
 
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
@@ -109,6 +115,8 @@ module('Rendering | dialog', function (hooks) {
 
       await click('#open');
       await click('[value=confirmBtn]');
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await settled();
       assert.verifySteps(['closed confirmBtn'], 'a reason given');
 
       await click('#open');
@@ -117,6 +125,8 @@ module('Rendering | dialog', function (hooks) {
 
       await click('#open');
       await click('[value=resetBtn]');
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+      await settled();
       assert.verifySteps(['closed '], 'a reason given');
     });
   });

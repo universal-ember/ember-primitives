@@ -1,6 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { click, find,render, settled } from '@ember/test-helpers';
+import { click, find, render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -12,7 +12,7 @@ module('Rendering | dialog', function (hooks) {
   async function close() {
     // We don't need to test "escape" because the browser already has
     // tests for that for us. So we can instead call the dialog's close method
-    find('dialog').close();
+    find('dialog')?.close();
     await settled();
   }
 
@@ -21,7 +21,7 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal as |m|>
           <out>{{m.isOpen}}</out>
-          <button type="button" {{on 'click' m.open}}>Open Dialog</button>
+          <button type='button' {{on 'click' m.open}}>Open Dialog</button>
           <m.Dialog>
             content
           </m.Dialog>
@@ -43,10 +43,10 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal as |m|>
           <out>{{m.isOpen}}</out>
-          <button id='open' type="button" {{on 'click' m.open}}>Open Dialog</button>
+          <button id='open' type='button' {{on 'click' m.open}}>Open Dialog</button>
           <m.Dialog>
             content
-            <button id='close' type="button" {{on 'click' m.close}}>Close Dialog</button>
+            <button id='close' type='button' {{on 'click' m.close}}>Close Dialog</button>
           </m.Dialog>
         </Modal>
       </template>);
@@ -67,7 +67,7 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal as |m|>
           <out>{{m.isOpen}}</out>
-          <button id='open' type="button" {{on 'click' m.open}}>Open Dialog</button>
+          <button id='open' type='button' {{on 'click' m.open}}>Open Dialog</button>
           <m.Dialog>
             content
           </m.Dialog>
@@ -92,11 +92,11 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal @onClose={{handleClose}} as |m|>
           <out>{{m.isOpen}}</out>
-          <button id='open' type="button" {{on 'click' m.open}}>Open Dialog</button>
+          <button id='open' type='button' {{on 'click' m.open}}>Open Dialog</button>
           <m.Dialog>
             content
             <form method='dialog'>
-              <button value='resetBtn' type="submit" {{on 'click' m.close}}>Reset</button>
+              <button value='resetBtn' type='submit' {{on 'click' m.close}}>Reset</button>
               <button type='submit' value='confirmBtn'>Confirm</button>
             </form>
           </m.Dialog>
@@ -126,7 +126,7 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal @open={{true}} as |m|>
           <out>{{m.isOpen}}</out>
-          <button type="button" {{on 'click' m.open}}>Open Dialog</button>
+          <button type='button' {{on 'click' m.open}}>Open Dialog</button>
           <m.Dialog> content </m.Dialog>
         </Modal>
       </template>);

@@ -33,21 +33,19 @@ jobs:
       - name: 'Debug Cache Test'
         id: set-pending-tests
         run: |
-          info=$(pnpm turbo run test --dry-run=json \
-          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)' | jq -R)
+          info=$(./cache-status.sh test)
           echo "tests=#info" >> $GITHUB_ENV
       - name: 'Debug Cache _:lint'
         id: set-pending-lints
         run: |
-          info=$(pnpm turbo run _:lint --dry-run=json \
-          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)' | jq -R)
+          info=$(./cache-status.sh _:lint)
           echo "lints=$info" >> $GITHUB_ENV
 
       - name: 'Debug Cache lint:types'
         id: set-pending-typecheck
         run: |
-          info=$(pnpm turbo run lint:types --dry-run=json \
-          | jq 'reduce .tasks[] as {$package,$task,$cache} ({};.[$package][$task] |= $cache)' | jq -R)
+          info=$(./cache-status.sh lint:types)
+          info=$()
           echo "typecheck=$info" >> $GITHUB_ENV
 
       - run:  echo ${{ github.event.number }} > ./pr-number.txt
@@ -126,7 +124,7 @@ jobs:
   typecheck:
     name: '${{ matrix.typescript-scenario }}'
     runs-on: ubuntu-latest
-    if: ${{ fromJSON(needs.setup.outputs.typecheck).test-app["lint:types"].status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.typecheck).test-app.["lint:types"].status == 'MISS' }}
     timeout-minutes: 2
     needs: [test]
     continue-on-error: true
@@ -169,7 +167,7 @@ jobs:
 
   docs-types:
     name: "Docs' Types"
-    if: ${{ fromJSON(needs.setup.outputs.typecheck).docs-app['lint:types'].status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.typecheck).docs-app.['lint:types'].status == 'MISS' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [setup]

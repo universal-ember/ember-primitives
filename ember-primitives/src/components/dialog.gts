@@ -18,7 +18,7 @@ const DialogElement: TOC<{
   Element: HTMLDialogElement;
   Args: {
     /**
-     *
+     * @internal
      */
     open: boolean | undefined;
     /**
@@ -61,9 +61,24 @@ export interface Signature {
   Blocks: {
     default: [
       {
+        /**
+         * Represents the open state of the `<dialog>` element.
+         */
         isOpen: boolean;
+        /**
+         * Closes the `<dialog>` element
+         * Will throw an error if `Dialog` is not rendered.
+         */
         close: () => void;
+        /**
+         * Opens the `<dialog>` element.
+         * Will throw an error if `Dialog` is not rendered.
+         */
         open: () => void;
+        /**
+         * This is the `<dialog>` element (with some defaults pre-wired).
+         * This is required to be rendered.
+         */
         Dialog: WithBoundArgs<typeof DialogElement, 'onClose' | 'register' | 'open'>;
       }
     ];
@@ -183,4 +198,4 @@ class ModalDialog extends Component<Signature> {
 export const Modal = ModalDialog;
 export const Dialog = ModalDialog;
 
-export default Dialog;
+export default ModalDialog;

@@ -29,7 +29,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - id: set-pending
-        run: echo "pending=$(./cache-status.sh)" >> $GITHUB_ENV
+        run: echo "pending=$(./cache-status.sh)" >> $GITHUB_OUTPUT
       - run:  echo ${{ github.event.number }} > ./pr-number.txt
 
 
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [setup]
     timeout-minutes: 5
-    # if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     steps:
       - uses: wyvox/action@v1
         with:
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     timeout-minutes: 5
-    # if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     steps:
       - uses: wyvox/action@v1
         with:
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test]
     timeout-minutes: 8
-    # if: ${{ fromJSON(needs.setup.outputs.tests).test-app.test.status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     strategy:
       fail-fast: false
       matrix:
@@ -112,10 +112,13 @@ jobs:
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
         working-directory: test-app
 
+  # NOTE: Docs' types don't need checking because we check types in the
+  #       Lint phase up above
+  #       This job is for checking specific versions of typescript
   typecheck:
     name: '${{ matrix.typescript-scenario }}'
     runs-on: ubuntu-latest
-    # if: ${{ fromJSON(needs.setup.outputs.typecheck).test-app.lint:types.status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.pending).test-app['lint:types'].status == 'MISS' }}
     timeout-minutes: 2
     needs: [test]
     continue-on-error: true
@@ -123,10 +126,6 @@ jobs:
       fail-fast: true
       matrix:
         typescript-scenario:
-          # I don't need to support these anymore.
-          # This library is still very pre 1.0
-          # - typescript@4.8
-          # - typescript@4.9
           - typescript@5.0
           - typescript@5.1
           - typescript@rc
@@ -146,7 +145,7 @@ jobs:
 
   docs-tests:
     name: "Docs' Tests"
-    # if: ${{ fromJSON(needs.setup.outputs.tests).docs-app.test.status == 'MISS' }}
+    if: ${{ fromJSON(needs.setup.outputs.pending).docs-app.test.status == 'MISS' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     needs: [setup]

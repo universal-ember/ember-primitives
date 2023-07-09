@@ -14,13 +14,6 @@ pnpm turbo run lint:types test _:lint --dry-run=json \
 | jq 'reduce .tasks[] as {$package,$task,$cache} ({};
         .[$package][$task] |= $cache
       )
-      | with_entries(select(
-             .key == "test-app"
-          or .key == "docs-app"
-          or .key == "ember-primitives"
-        ))
       ' \
-| sed 's/lint:types/typecheck/g' \
-| sed 's/_:lint/lint/g' \
 | jq -c
 

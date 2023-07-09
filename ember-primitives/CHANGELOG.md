@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.0.7
+
+### Patch Changes
+
+- fec2dc4: Add dialog component
+
 ## 0.0.6
 
 ### Patch Changes

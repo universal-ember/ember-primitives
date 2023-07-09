@@ -161,8 +161,6 @@ module('Rendering | dialog', function (hooks) {
         </Modal>
       </template>);
 
-      await settled();
-
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
 

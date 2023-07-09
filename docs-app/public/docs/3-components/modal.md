@@ -91,6 +91,44 @@ const returnValue = cell('');
 
 Note that animations on `<dialog>` elements do not work within a [Shadow Dom](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM).
 
+### Using as a Routeable Modal
+
+To use the modal as a routeable modal, you can set the `@open` and `@onClose` keys, like so:
+```gjs
+import { Modal } from 'ember-primitives';
+import Component from '@glimmer/component';
+import { service } from '@ember/service';
+
+export default class RouteableModal extends Component {
+  @service router;
+
+  handleClose = (reason) => {
+    switch (reason) {
+      case 'create': return this.router.transitionTo('place/when/created');
+      case 'confirm': return this.router.transitionTo('place/when/created');
+      default:
+        /**
+          * there is no reason when ESC is pressed, or a type=reset button is clicked
+          */
+        return this.router.transitionTo('place/when/cancelled');
+    }
+  }
+
+  <template>
+    <Modal @open={{true}} @onClose={{this.handleClose}} as |m|>
+
+      <m.Dialog>
+        <form method="dialog">
+          <button type="submit" value="confirm">Confirm</button>
+          <button type="submit" value="create">Create</button>
+          <button type="reset" value="close" {{on 'click' m.close}}>Reset</button>
+        </form>
+      </m.Dialog>
+    </Modal>
+  </template>
+}
+```
+
 ## Anatomy
 
 ```js 

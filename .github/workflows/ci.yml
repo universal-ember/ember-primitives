@@ -32,21 +32,12 @@ jobs:
         run: echo "pending=$(./cache-status.sh)" >> $GITHUB_OUTPUT
       - run:  echo ${{ github.event.number }} > ./pr-number.txt
 
-
-  # debug_pending_tasks:
-  #   runs-on: ubuntu-latest
-  #   needs: [setup]
-  #   steps:
-  #     - run: echo ${{  needs.setup.outputs.pending }}
-  #     - run: echo '${{  needs.setup.outputs.pending.test-app.test }}'
-  #     - run: echo '${{  fromJSON(needs.setup.outputs.pending.test-app) }}'
-
+  # Every PR will need linting. Turbo's cache can optimize per-package
   lint:
     name: Lint
     runs-on: ubuntu-latest
     needs: [setup]
     timeout-minutes: 5
-    # if: ${{ fromJSON(needs.setup.outputs.tests).atAll.lint }}
     steps:
       - uses: wyvox/action@v1
         with:

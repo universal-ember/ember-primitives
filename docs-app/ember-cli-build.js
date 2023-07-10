@@ -4,10 +4,21 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const sortBy = require('lodash.sortby');
 
 module.exports = function (defaults) {
+  let environment = EmberApp.env();
+  let isProduction = environment === 'production';
+
   const app = new EmberApp(defaults, {
     // Add options here
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
+    },
+    prember: {
+      enabled: isProduction || process.env.PREMBER === 'true',
+      urls: async function () {
+        let data = await urlsForPrerender();
+
+        return data.map((markdownUrl) => markdownUrl.replace(/\.md$/, ''));
+      },
     },
   });
 
@@ -32,7 +43,7 @@ module.exports = function (defaults) {
     variants = [{ name: 'deployed-dev-build', runtime: 'browser', optimizeForProduction }];
   }
 
-  return require('@embroider/compat').compatBuild(app, _Webpack, {
+  const compiledApp = require('@embroider/compat').compatBuild(app, _Webpack, {
     extraPublicTrees: [],
     staticAddonTrees: true,
     staticAddonTestSupportTrees: true,
@@ -71,6 +82,8 @@ module.exports = function (defaults) {
       },
     },
   });
+
+  return require('prember').prerender(app, compiledApp);
 };
 
 const { createUnplugin } = require('unplugin');
@@ -115,19 +128,17 @@ const createManifest = createUnplugin((options) => {
     name: 'create-manifest',
     async buildStart() {
       const path = await import('node:path');
-      const { globbySync } = await import('globby');
 
-      let paths = globbySync(include, {
-        cwd: path.join(process.cwd(), src),
-        expandDirectories: true,
+      let reshaped = await buildManifest({
+        src,
+        include,
+        exclude,
       });
-
-      paths = paths.filter((path) => !exclude.some((pattern) => path.match(pattern)));
 
       await this.emitFile({
         type: 'asset',
         fileName: path.join(dest, name),
-        source: JSON.stringify(reshape(paths)),
+        source: JSON.stringify(reshaped),
       });
     },
     watchChange(id) {
@@ -135,6 +146,32 @@ const createManifest = createUnplugin((options) => {
     },
   };
 });
+
+async function urlsForPrerender() {
+  let manifest = await buildManifest({
+    src: 'public/docs',
+    include: '**/*',
+    exclude: [],
+  });
+
+  return manifest.list.flat().map((tutorial) => tutorial.path);
+}
+
+async function buildManifest(options) {
+  const { src, include, exclude } = options;
+
+  const path = await import('node:path');
+  const { globbySync } = await import('globby');
+
+  let paths = globbySync(include, {
+    cwd: path.join(process.cwd(), src),
+    expandDirectories: true,
+  });
+
+  paths = paths.filter((path) => !exclude.some((pattern) => path.match(pattern)));
+
+  return reshape(paths);
+}
 
 /**
  * @param {string[]} paths

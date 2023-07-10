@@ -17,7 +17,11 @@ module.exports = function (defaults) {
       urls: async function () {
         let data = await urlsForPrerender();
 
-        return data.map((markdownUrl) => markdownUrl.replace(/\.md$/, ''));
+        let pages = data.map((markdownUrl) => markdownUrl.replace(/\.md$/, ''));
+
+        console.debug('pre-rendered pages', pages);
+
+        return pages;
       },
     },
   });

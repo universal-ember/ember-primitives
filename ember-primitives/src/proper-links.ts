@@ -66,6 +66,9 @@ export function properLinks<Instance extends {}, Klass = { new (...args: any[]):
  * This function only requires that a framework object with an owner is passed.
  */
 export function setup(parent: object, ignore?: string[]) {
+  // Fastboot has no graceful fallbacks
+  if (typeof document === 'undefined') return;
+
   const handler = (event: MouseEvent) => {
     /**
      * event.target may not be an anchor,

@@ -21,7 +21,6 @@ pnpm add ember-primitives
 - [Open Props](https://open-props.style/)
 - [Tailwind](https://tailwindcss.com/)
 - [Tachyons](https://tachyons.io/)
-- [Open Props](https://open-props.style/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Bulma](https://bulma.io/)
 - [water.css](https://watercss.kognise.dev/)

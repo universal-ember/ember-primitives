@@ -9,7 +9,7 @@ overrides:
   ember-async-data: ^1.0.1
   ember-cli-babel: ^7.26.11
 
-packageExtensionsChecksum: 89f1ddeb468cf96fa5eae56caf0dc39e
+packageExtensionsChecksum: 7d456f94fcb212f3b99ec0fb4a0269f9
 
 patchedDependencies:
   ember-headless-form@1.0.0-beta.3:
@@ -11180,6 +11180,7 @@ packages:
   /iconv-lite@0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
     dependencies:
       safer-buffer: 2.1.2
     dev: false
@@ -17790,12 +17791,11 @@ packages:
     resolution: {directory: ember-primitives, type: directory}
     id: file:ember-primitives
     name: ember-primitives
-    version: 0.0.5
     peerDependencies:
-      '@glimmer/component': ^1.1.2
-      '@glimmer/tracking': ^1.1.2
-      ember-modifier: ^4.1.0
-      ember-resources: ^6.1.0
+      '@glimmer/component': '>= 1.1.2'
+      '@glimmer/tracking': '>= 1.1.2'
+      ember-modifier: '>= 4.1.0'
+      ember-resources: '>= 6.1.0'
       ember-source: '*'
     dependencies:
       '@babel/runtime': 7.22.5

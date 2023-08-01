@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.0.9
+
+### Patch Changes
+
+- 59c02c3: Fix peers so that this library is compatible with all the next majors
+
 ## 0.0.8
 
 ### Patch Changes

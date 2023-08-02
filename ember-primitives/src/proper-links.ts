@@ -191,7 +191,7 @@ export function handle(
     event.stopImmediatePropagation();
     event.stopPropagation();
 
-    router.transitionTo(url.pathname);
+    router.transitionTo(url.pathname + url.search + url.hash);
 
     return false;
   }

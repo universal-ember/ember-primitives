@@ -2,6 +2,7 @@
 
 # compiled output
 dist/
+docs-api/docs.json
 
 # dependencies
 node_modules/

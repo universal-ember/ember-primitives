@@ -10,9 +10,16 @@ import { properLinks } from 'ember-primitives/proper-links';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
 
-function setupRouting(owner: Owner, map: Parameters<(typeof Router)['map']>[0]) {
+function setupRouting(
+  owner: Owner,
+  map: Parameters<(typeof Router)['map']>[0],
+  options?: { rootURL: string }
+) {
   @properLinks
-  class TestRouter extends Router {}
+  class TestRouter extends Router {
+    rootURL = options?.rootURL ?? '/';
+  }
+
   TestRouter.map(map);
 
   owner.register('router:main', TestRouter);
@@ -92,6 +99,42 @@ module('@properLinks', function (hooks) {
     assert.strictEqual(router.currentURL, '/foo/foo-foo');
 
     await click('[href="/bar"]');
+
+    assert.strictEqual(router.currentURL, '/bar');
+  });
+
+  test('it works with a custom rootURL', async function (assert) {
+    setupRouting(
+      this.owner,
+      function () {
+        this.route('foo');
+        this.route('bar');
+      },
+      { rootURL: '/the-root' }
+    );
+
+    this.owner.register(
+      'template:application',
+      hbs`
+        <a href="/the-root/foo">Foo</a>
+        <a href="/the-root/bar">Bar</a>
+      `
+    );
+
+    await visit('/');
+    await this.pauseTest();
+
+    assert.dom('a').exists({ count: 2 });
+
+    let router = getRouter(this.owner);
+
+    assert.strictEqual(router.currentURL, '/');
+
+    await click('[href="/the-root/foo"]');
+
+    assert.strictEqual(router.currentURL, '/foo');
+
+    await click('[href="/the-root/bar"]');
 
     assert.strictEqual(router.currentURL, '/bar');
   });

@@ -188,15 +188,24 @@ export function handle(
 
   let rootURL = router.rootURL;
   let withoutRootURL = fullHref.slice(rootURL.length - 1);
-  let routeInfo = router.recognize(withoutRootURL);
 
-  if (routeInfo) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    event.stopPropagation();
+  try {
+    let routeInfo = router.recognize(withoutRootURL);
 
-    router.transitionTo(withoutRootURL);
+    if (routeInfo) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      event.stopPropagation();
 
-    return false;
+      router.transitionTo(withoutRootURL);
+
+      return false;
+    }
+  } catch (e) {
+    if (e instanceof Error && e.name === 'UnrecognizedURLError') {
+      return;
+    }
+
+    throw e;
   }
 }

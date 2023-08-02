@@ -184,14 +184,18 @@ export function handle(
    */
   if (ignore.includes(url.pathname)) return;
 
-  let routeInfo = router.recognize(url.pathname);
+  let fullHref = `${url.pathname}${url.search}${url.hash}`;
+
+  let rootURL = router.rootURL;
+  let withoutRootURL = fullHref.slice(rootURL.length - 1);
+  let routeInfo = router.recognize(withoutRootURL);
 
   if (routeInfo) {
     event.preventDefault();
     event.stopImmediatePropagation();
     event.stopPropagation();
 
-    router.transitionTo(url.pathname + url.search + url.hash);
+    router.transitionTo(withoutRootURL);
 
     return false;
   }

@@ -1,3 +1,4 @@
+/** eslint-disable ember/no-shadow-route-definition */
 import Router from '@ember/routing/router';
 import { click, visit } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
@@ -37,7 +38,7 @@ module('@properLinks', function (hooks) {
     });
 
     this.owner.register(
-      'application:template',
+      'template:application',
       hbs`
         <a href="/foo">Foo</a>
         <a href="/bar">Bar</a>
@@ -55,6 +56,40 @@ module('@properLinks', function (hooks) {
     await click('[href="/foo"]');
 
     assert.strictEqual(router.currentURL, '/foo');
+
+    await click('[href="/bar"]');
+
+    assert.strictEqual(router.currentURL, '/bar');
+  });
+
+  test('it works with nested paths', async function (assert) {
+    setupRouting(this.owner, function () {
+      this.route('foo', function () {
+        this.route('foo-foo');
+      });
+      this.route('bar');
+    });
+
+    this.owner.register(
+      'template:application',
+      hbs`
+        <a href="/foo">Foo</a>
+        <a href="/foo/foo-foo">Foo Foo</a>
+        <a href="/bar">Bar</a>
+      `
+    );
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 3 });
+
+    let router = getRouter(this.owner);
+
+    assert.strictEqual(router.currentURL, '/');
+
+    await click('[href="/foo/foo-foo"]');
+
+    assert.strictEqual(router.currentURL, '/foo/foo-foo');
 
     await click('[href="/bar"]');
 

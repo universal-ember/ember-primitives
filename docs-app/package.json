@@ -103,7 +103,7 @@
     "eslint-plugin-qunit": "^8.0.0",
     "globby": "^13.1.4",
     "loader.js": "^4.7.0",
-    "pnpm-sync-dependencies-meta-injected": "0.0.8",
+    "pnpm-sync-dependencies-meta-injected": "0.0.9",
     "prettier": "^2.8.1",
     "prettier-plugin-ember-template-tag": "^0.3.2",
     "qunit": "^2.19.3",

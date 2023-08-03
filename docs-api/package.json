@@ -13,7 +13,7 @@
   "devDependencies": {
     "@tsconfig/ember": "^3.0.0",
     "@zamiell/typedoc-plugin-not-exported": "^0.2.0",
-    "pnpm-sync-dependencies-meta-injected": "0.0.8",
+    "pnpm-sync-dependencies-meta-injected": "0.0.9",
     "typedoc": "^0.24.8",
     "typescript": "^5.1.3"
   }

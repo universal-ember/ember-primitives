@@ -145,6 +145,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - run: pnpm i -f
+      - run: pnpm build --filter docs-api
       - run: pnpm test --filter docs-app
 
   DeployProduction:

@@ -187,10 +187,18 @@ export function handle(
   let fullHref = `${url.pathname}${url.search}${url.hash}`;
 
   let rootURL = router.rootURL;
-  let withoutRootURL = fullHref.slice(rootURL.length - 1);
+
+  let withoutRootURL = fullHref.slice(rootURL.length);
+
+  // re-add the "root" sigil
+  // we removed it when we chopped off the rootURL,
+  // because the rootURL often has this attached to it as well
+  if (!withoutRootURL.startsWith('/')) {
+    withoutRootURL = `/${withoutRootURL}`;
+  }
 
   try {
-    let routeInfo = router.recognize(withoutRootURL);
+    let routeInfo = router.recognize(fullHref);
 
     if (routeInfo) {
       event.preventDefault();

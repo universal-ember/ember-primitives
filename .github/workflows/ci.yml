@@ -43,7 +43,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm lint
 
 
@@ -58,7 +57,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm turbo test --filter test-app
 
   floating:
@@ -73,7 +71,6 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
       - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm turbo test --filter test-app
 
   try-scenarios:
@@ -97,7 +94,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm i -f
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
         working-directory: test-app
@@ -126,7 +122,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm i -f
       - name: 'Change TS to ${{ matrix.typescript-scenario }}'
         run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
         working-directory: ./test-app
@@ -144,7 +139,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
-      - run: pnpm i -f
       - run: pnpm build --filter docs-api
       - run: pnpm test --filter docs-app
 

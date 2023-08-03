@@ -23,10 +23,17 @@
     "start": "concurrently 'ember serve' 'pnpm _syncPnpm --watch' --names 'tests serve,tests sync deps'",
     "test": "ember test",
     "test:ember": "ember test",
-    "_syncPnpm": "pnpm sync-dependencies-meta-injected"
+    "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
   },
   "dependencies": {
+    "ember-primitives": "workspace:*",
+    "ember-resources": "^6.1.1",
     "qunit-assertions-extra": "^1.0.3"
+  },
+  "dependenciesMeta": {
+    "ember-primitives": {
+      "injected": true
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.22.5",
@@ -65,7 +72,6 @@
     "ember-load-initializers": "^2.1.2",
     "ember-modifier": "^4.1.0",
     "ember-page-title": "^7.0.0",
-    "ember-primitives": "workspace:*",
     "ember-qunit": "^7.0.0",
     "ember-resolver": "^10.1.1",
     "ember-source": "~5.1.2",

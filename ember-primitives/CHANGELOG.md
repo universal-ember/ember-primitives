@@ -1,5 +1,18 @@
 # ember-primitives
 
+## 0.1.0
+
+### Minor Changes
+
+- 5921fb4: Drop support for Ember 4.8. It could still be supported through @embroider/macros, but I don't have the energy for that right now. If someone wanted to submit a PR, that'd be ligit -- however, the gap between 4.8 and 4.12 is very small, and folks should just use latest 4.x if they can"
+
+### Patch Changes
+
+- 7267ccb: @properLinks
+  - needs to support both QueryParams and the hash
+  - supports custom rootURL
+  - internally: adding tests for all of this as well
+
 ## 0.0.9
 
 ### Patch Changes

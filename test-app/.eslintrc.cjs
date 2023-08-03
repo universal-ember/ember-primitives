@@ -3,4 +3,17 @@
 const { configs } = require('@nullvoxpopuli/eslint-configs');
 
 // accommodates: JS, TS, App, Addon, and V2 Addon
-module.exports = configs.ember();
+const config = configs.ember();
+
+module.exports = {
+  ...config,
+  overrides: [
+    ...config.overrides,
+    {
+      files: ['tests/proper-links/**/*'],
+      rules: {
+        'ember/no-shadow-route-definition': 'off',
+      },
+    },
+  ],
+};

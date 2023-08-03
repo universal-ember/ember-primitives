@@ -184,15 +184,36 @@ export function handle(
    */
   if (ignore.includes(url.pathname)) return;
 
-  let routeInfo = router.recognize(url.pathname);
+  let fullHref = `${url.pathname}${url.search}${url.hash}`;
 
-  if (routeInfo) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    event.stopPropagation();
+  let rootURL = router.rootURL;
 
-    router.transitionTo(url.pathname);
+  let withoutRootURL = fullHref.slice(rootURL.length);
 
-    return false;
+  // re-add the "root" sigil
+  // we removed it when we chopped off the rootURL,
+  // because the rootURL often has this attached to it as well
+  if (!withoutRootURL.startsWith('/')) {
+    withoutRootURL = `/${withoutRootURL}`;
+  }
+
+  try {
+    let routeInfo = router.recognize(fullHref);
+
+    if (routeInfo) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      event.stopPropagation();
+
+      router.transitionTo(withoutRootURL);
+
+      return false;
+    }
+  } catch (e) {
+    if (e instanceof Error && e.name === 'UnrecognizedURLError') {
+      return;
+    }
+
+    throw e;
   }
 }

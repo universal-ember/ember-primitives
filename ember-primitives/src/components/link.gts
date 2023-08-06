@@ -23,29 +23,29 @@ export interface Signature {
      */
     href: string;
     /**
-      * When calculating the "active" state of the link, you may decide
-    * whether or not you want to _require_ that all query params be considered (true)
-    * or specify individual query params, ignoring anything not specified.
-      *
-      * For example:
-      *
-         * ```gjs live preview
-         * import { Link } from 'ember-primitives';
-         *
-         * <template>
-         *   <Link @href="/" @includeActiveQueryParams={{true}} as |a|>
-         *     ...
-         *   </Link>
-         * </template>
-         * ```
-         *
-           * the data-active state here will only be "true" on
-         * - `/`
-         *   - `/?foo=2`
-         *   - `/?foo=&bar=`
-      *
-      */
-      includeActiveQueryParams?: true | string[];
+     * When calculating the "active" state of the link, you may decide
+     * whether or not you want to _require_ that all query params be considered (true)
+     * or specify individual query params, ignoring anything not specified.
+     *
+     * For example:
+     *
+     * ```gjs live preview
+     * import { Link } from 'ember-primitives';
+     *
+     * <template>
+     *   <Link @href="/" @includeActiveQueryParams={{true}} as |a|>
+     *     ...
+     *   </Link>
+     * </template>
+     * ```
+     *
+     * the data-active state here will only be "true" on
+     * - `/`
+     *   - `/?foo=2`
+     *   - `/?foo=&bar=`
+     *
+     */
+    includeActiveQueryParams?: true | string[];
   };
   Blocks: {
     default: [
@@ -109,7 +109,7 @@ export interface Signature {
 
           */
         isActive: boolean;
-      }
+      },
     ];
   };
 }
@@ -127,7 +127,12 @@ export class Link extends Component<Signature> {
         {{yield (hash isExternal=true isActive=false)}}
       </ExternalLink>
     {{else}}
-      <a data-active={{this.isActive}} href={{if @href @href '##missing##'}} {{on 'click' this.handleClick}} ...attributes>
+      <a
+        data-active={{this.isActive}}
+        href={{if @href @href '##missing##'}}
+        {{on 'click' this.handleClick}}
+        ...attributes
+      >
         {{yield (hash isExternal=false isActive=this.isActive)}}
       </a>
     {{/if}}

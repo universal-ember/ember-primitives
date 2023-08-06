@@ -8,7 +8,7 @@ import type RouterService from '@ember/routing/router-service';
 export function setupRouting(
   owner: Owner,
   map: Parameters<(typeof Router)['map']>[0],
-  options?: { rootURL: string }
+  options?: { rootURL: string },
 ) {
   @properLinks
   class TestRouter extends Router {
@@ -23,10 +23,10 @@ export function setupRouting(
   let iKnowWhatIMDoing = owner.lookup('router:main');
 
   // We need a public testing API for this sort of stuff
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (iKnowWhatIMDoing as any).setupRouter();
 }
 
 export function getRouter(owner: Owner) {
   return owner.lookup('service:router') as RouterService;
 }
-

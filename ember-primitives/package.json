@@ -118,6 +118,10 @@
       "types": "./dist-types/*.d.ts",
       "default": "./dist/*.js"
     },
+    "./test-support": {
+      "types": "./dist-types/test-support/index.d.ts",
+      "default": "./dist/test-support/index.js"
+    },
     "./addon-main": "./addon-main.cjs"
   },
   "typesVersions": {

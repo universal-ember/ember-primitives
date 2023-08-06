@@ -168,5 +168,21 @@ function isActive(router: RouterService, href: string, includeQueryParams?: bool
     return router.isActive(href);
   }
 
-  return false;
+  const currentQueryParams = router.currentRoute?.queryParams;
+
+  if (!currentQueryParams) return false;
+
+    let url = new URL(href, location.origin);
+    let hrefQueryParams = new URLSearchParams(url.searchParams);
+
+  if (includeQueryParams === true) {
+
+    return Object.entries(currentQueryParams).every(([key, value]) => {
+      return hrefQueryParams.get(key) === value;
+    });
+  }
+
+  return includeQueryParams.every(key => {
+    return hrefQueryParams.get(key) === currentQueryParams[key];
+  });
 }

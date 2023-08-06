@@ -9,7 +9,7 @@ import { setupRouting } from 'ember-primitives/test-support';
 module('<Link />', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('it works', async function (assert) {
+  test('[data-active] it works', async function (assert) {
     setupRouting(this.owner, function() {
       this.route('foo');
       this.route('bar');
@@ -42,12 +42,12 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').hasText('Home');
   });
 
-  test('it works with nested paths', async function (assert) {
-  });
+  // texst('it works with nested paths', async function (assert) {
+  // });
 
-  test('it works with a custom rootURL', async function (assert) {
-  });
+  // texst('it works with a custom rootURL', async function (assert) {
+  // });
 
-  test('it works with query params', async function (assert) {
-  });
+  // texst('it works with query params', async function (assert) {
+  // });
 });

@@ -9,9 +9,9 @@
     "unstable": "./bin/use-unstable-embroider.js"
   },
   "dependencies": {
-    "chalk": "^5.2.0",
+    "chalk": "^5.3.0",
     "ember-apply": "^2.10.0",
-    "execa": "^7.1.1",
+    "execa": "^7.2.0",
     "fs-extra": "^11.1.1",
     "latest-version": "^7.0.0"
   },
@@ -22,13 +22,13 @@
     "extends": "../package.json"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
-    "@babel/eslint-parser": "^7.21.8",
-    "@nullvoxpopuli/eslint-configs": "^3.1.3",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
-    "@typescript-eslint/parser": "^5.61.0",
+    "@babel/core": "^7.22.9",
+    "@babel/eslint-parser": "^7.22.9",
+    "@nullvoxpopuli/eslint-configs": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
     "eslint": "^8.46.0",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.1",
     "typescript": "^5.1.3"
   },
   "scripts": {

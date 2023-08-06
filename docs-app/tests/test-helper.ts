@@ -23,7 +23,7 @@ QUnit.config.urlConfig.push({
   // The accessibility page deliberately
   // has violations for demonstration
   (window as any).__pages__ = pages.filter(
-    (page: { path: string }) => !page.path.includes('accessibility')
+    (page: { path: string }) => !page.path.includes('accessibility'),
   );
   start();
 })();

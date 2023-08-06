@@ -46,7 +46,7 @@ async function gather() {
         test: Object.values(test).some(Boolean),
         typecheck: Object.values(typecheck).some(Boolean),
       },
-    })
+    }),
   );
 }
 

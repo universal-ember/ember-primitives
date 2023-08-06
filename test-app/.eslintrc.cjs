@@ -15,5 +15,12 @@ module.exports = {
         'ember/no-shadow-route-definition': 'off',
       },
     },
+    {
+      files: ['**/*.ts', '**/*.gts'],
+      rules: {
+        '@typescript-eslint/prefer-optional-chain': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+    },
   ],
 };

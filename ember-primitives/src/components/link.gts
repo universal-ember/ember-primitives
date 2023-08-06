@@ -165,7 +165,11 @@ function isExternal(href: string) {
 
 function isActive(router: RouterService, href: string, includeQueryParams?: boolean | string[]) {
   if (!includeQueryParams) {
-    return router.isActive(href);
+    /**
+      * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
+      */
+      let info = router.recognize(href);
+    return router.isActive('index');
   }
 
   const currentQueryParams = router.currentRoute?.queryParams;

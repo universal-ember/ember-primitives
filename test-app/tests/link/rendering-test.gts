@@ -94,7 +94,7 @@ module('<Link />', function (hooks) {
         this.route('foo');
         this.route('bar');
       },
-      { rootURL: 'some-root' },
+      { rootURL: '/some-root' },
     );
 
     this.owner.register(
@@ -127,6 +127,7 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').hasText('Home');
   });
 
-  // texst('it works with query params', async function (assert) {
-  // });
+  test('[data-active] work with all query params', async function (assert) {});
+  test('[data-active] work with some query params', async function (assert) {});
+  test('[data-active] work with dynamic segments', async function (assert) {});
 });

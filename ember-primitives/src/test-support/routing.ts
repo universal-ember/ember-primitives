@@ -1,4 +1,5 @@
 import Router from '@ember/routing/router';
+import { assert } from '@ember/debug';
 
 import { properLinks } from '../proper-links';
 
@@ -31,6 +32,10 @@ import type RouterService from '@ember/routing/router-service';
  *
  */
 export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL: string }) {
+  if (options?.rootURL) {
+    assert('rootURL must begin with a forward slash ("/")', options?.rootURL?.startsWith('/'));
+  }
+
   @properLinks
   class TestRouter extends Router {
     rootURL = options?.rootURL ?? '/';

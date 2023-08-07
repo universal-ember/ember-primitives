@@ -42,8 +42,45 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').hasText('Home');
   });
 
-  // texst('it works with nested paths', async function (assert) {
-  // });
+  test('it works with nested paths', async function (assert) {
+    setupRouting(this.owner, function() {
+      this.route('foo', function () {
+        this.route('a');
+        this.route('b');
+      });
+    });
+
+    this.owner.register('template:application', hbs`
+      <Link @href="/foo/a">a</Link>
+      <Link @href="/foo/b">b</Link>
+      <Link @href="/foo">Foo Home</Link>
+    `);
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 3 });
+    assert.dom('[data-active]').exists({ count: 0 });
+
+    await click('a[href="/foo"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Foo Home');
+
+    await click('a[href="/foo/a"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('a');
+
+    await click('a[href="/foo/b"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('b');
+
+    await click('a[href="/foo"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Foo Home');
+  });
 
   // texst('it works with a custom rootURL', async function (assert) {
   // });

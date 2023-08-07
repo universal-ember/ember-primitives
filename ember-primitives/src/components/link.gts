@@ -169,7 +169,12 @@ function isActive(router: RouterService, href: string, includeQueryParams?: bool
       * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
       */
       let info = router.recognize(href);
-    return router.isActive('index');
+
+      if (info) {
+    return router.isActive(info.name);
+      }
+
+      return false;
   }
 
   const currentQueryParams = router.currentRoute?.queryParams;

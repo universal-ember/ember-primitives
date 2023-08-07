@@ -24,7 +24,7 @@ module('<Link />', function (hooks) {
     await visit('/');
 
     assert.dom('a').exists({ count: 3 });
-    assert.dom('[data-active]').exists({ count: 0 });
+    assert.dom('[data-active]').exists({ count: 1 });
 
     await click('a[href="/foo"]');
 

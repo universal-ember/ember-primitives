@@ -126,6 +126,9 @@
   },
   "typesVersions": {
     "*": {
+      "test-support": [
+        "dist-types/test-support/index.d.ts"
+      ],
       "*": [
         "dist-types/*"
       ]

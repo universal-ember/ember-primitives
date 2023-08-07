@@ -5,21 +5,23 @@ import { setupApplicationTest } from 'ember-qunit';
 
 import { setupRouting } from 'ember-primitives/test-support';
 
-
 module('<Link />', function (hooks) {
   setupApplicationTest(hooks);
 
-  test('[data-active] it works', async function (assert) {
-    setupRouting(this.owner, function() {
+  test('[data-active] works', async function (assert) {
+    setupRouting(this.owner, function () {
       this.route('foo');
       this.route('bar');
     });
 
-    this.owner.register('template:application', hbs`
+    this.owner.register(
+      'template:application',
+      hbs`
       <Link @href="/foo">Foo</Link>
       <Link @href="/bar">Bar</Link>
       <Link @href="/">Home</Link>
-    `);
+    `,
+    );
 
     await visit('/');
 
@@ -42,19 +44,22 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').hasText('Home');
   });
 
-  test('it works with nested paths', async function (assert) {
-    setupRouting(this.owner, function() {
+  test('[data-active] works with nested paths', async function (assert) {
+    setupRouting(this.owner, function () {
       this.route('foo', function () {
         this.route('a');
         this.route('b');
       });
     });
 
-    this.owner.register('template:application', hbs`
+    this.owner.register(
+      'template:application',
+      hbs`
       <Link @href="/foo/a">a</Link>
       <Link @href="/foo/b">b</Link>
       <Link @href="/foo">Foo Home</Link>
-    `);
+    `,
+    );
 
     await visit('/');
 
@@ -82,8 +87,45 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').hasText('Foo Home');
   });
 
-  // texst('it works with a custom rootURL', async function (assert) {
-  // });
+  test('[data-active] with a custom rootURL', async function (assert) {
+    setupRouting(
+      this.owner,
+      function () {
+        this.route('foo');
+        this.route('bar');
+      },
+      { rootURL: 'some-root' },
+    );
+
+    this.owner.register(
+      'template:application',
+      hbs`
+      <Link @href="/some-root/foo">Foo</Link>
+      <Link @href="/some-root/bar">Bar</Link>
+      <Link @href="/some-root/">Home</Link>
+    `,
+    );
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 3 });
+    assert.dom('[data-active]').exists({ count: 1 });
+
+    await click('a[href="/some-root/foo"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Foo');
+
+    await click('a[href="/some-root/bar"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Bar');
+
+    await click('a[href="/some-root/"]');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Home');
+  });
 
   // texst('it works with query params', async function (assert) {
   // });

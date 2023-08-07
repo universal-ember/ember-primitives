@@ -166,32 +166,31 @@ function isExternal(href: string) {
 function isActive(router: RouterService, href: string, includeQueryParams?: boolean | string[]) {
   if (!includeQueryParams) {
     /**
-      * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
-      */
-      let info = router.recognize(href);
+     * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
+     */
+    let info = router.recognize(href);
 
-      if (info) {
-    return router.isActive(info.name);
-      }
+    if (info) {
+      return router.isActive(info.name);
+    }
 
-      return false;
+    return false;
   }
 
   const currentQueryParams = router.currentRoute?.queryParams;
 
   if (!currentQueryParams) return false;
 
-    let url = new URL(href, location.origin);
-    let hrefQueryParams = new URLSearchParams(url.searchParams);
+  let url = new URL(href, location.origin);
+  let hrefQueryParams = new URLSearchParams(url.searchParams);
 
   if (includeQueryParams === true) {
-
     return Object.entries(currentQueryParams).every(([key, value]) => {
       return hrefQueryParams.get(key) === value;
     });
   }
 
-  return includeQueryParams.every(key => {
+  return includeQueryParams.every((key) => {
     return hrefQueryParams.get(key) === currentQueryParams[key];
   });
 }

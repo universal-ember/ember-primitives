@@ -3,13 +3,34 @@ import Router from '@ember/routing/router';
 import { properLinks } from '../proper-links';
 
 import type Owner from '@ember/owner';
+import type { DSLCallback } from '@ember/routing/lib/dsl';
 import type RouterService from '@ember/routing/router-service';
 
-export function setupRouting(
-  owner: Owner,
-  map: Parameters<(typeof Router)['map']>[0],
-  options?: { rootURL: string },
-) {
+/**
+ * Allows setting up routes in tests without the need to scaffold routes in the actual app,
+ * allowing for iterating on many different routing scenario / configurations rapidly.
+ *
+ * Example:
+ * ```js
+ * import { setupRouting } from 'ember-primitives/test-support';
+ *
+ *  ...
+ *
+ * test('my test', async function (assert) {
+ *   setupRouting(this.owner, function () {
+ *     this.route('foo');
+ *     this.route('bar', function () {
+ *       this.route('a');
+ *       this.route('b');
+ *     })
+ *   });
+ *
+ *   await visit('/bar/b');
+ * });
+ * ```
+ *
+ */
+export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL: string }) {
   @properLinks
   class TestRouter extends Router {
     rootURL = options?.rootURL ?? '/';

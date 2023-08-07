@@ -10,7 +10,7 @@ module.exports = {
   overrides: [
     ...config.overrides,
     {
-      files: ['tests/proper-links/**/*'],
+      files: ['tests/**/*'],
       rules: {
         'ember/no-shadow-route-definition': 'off',
       },

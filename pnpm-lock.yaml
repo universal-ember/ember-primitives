@@ -1,15 +1,11 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: false
-  excludeLinksFromLockfile: false
-
 overrides:
   '@glimmer/validator': ^0.84.3
   ember-async-data: ^1.0.1
   ember-cli-babel: ^7.26.11
 
-packageExtensionsChecksum: 7d456f94fcb212f3b99ec0fb4a0269f9
+packageExtensionsChecksum: 89f1ddeb468cf96fa5eae56caf0dc39e
 
 patchedDependencies:
   ember-headless-form@1.0.0-beta.3:
@@ -65,7 +61,7 @@ importers:
         version: 7.22.9(@babel/core@7.22.9)(eslint@8.46.0)
       '@nullvoxpopuli/eslint-configs':
         specifier: ^3.2.0
-        version: 3.2.0(@babel/core@7.22.9)(@babel/eslint-parser@7.22.9)(@typescript-eslint/eslint-plugin@6.2.1)(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(prettier@3.0.1)
+        version: 3.2.0(@babel/core@7.22.9)(@babel/eslint-parser@7.22.9)(@typescript-eslint/eslint-plugin@6.2.1)(@typescript-eslint/parser@6.2.1)(eslint-config-prettier@9.0.0)(eslint-plugin-ember@11.10.0)(eslint-plugin-qunit@8.0.0)(eslint@8.46.0)(prettier@3.0.1)
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.2.1
         version: 6.2.1(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(typescript@5.1.6)
@@ -3242,56 +3238,6 @@ packages:
       eslint-plugin-n: 16.0.1(eslint@8.46.0)
       eslint-plugin-prettier: 4.2.1(eslint-config-prettier@9.0.0)(eslint@8.46.0)(prettier@3.0.1)
       eslint-plugin-qunit: 8.0.0(eslint@8.46.0)
-      eslint-plugin-simple-import-sort: 10.0.0(eslint@8.46.0)
-      prettier: 3.0.1
-      prettier-plugin-ember-template-tag: 0.3.2
-    transitivePeerDependencies:
-      - eslint-config-prettier
-      - eslint-import-resolver-node
-      - eslint-import-resolver-webpack
-      - supports-color
-    dev: true
-
-  /@nullvoxpopuli/eslint-configs@3.2.0(@babel/core@7.22.9)(@babel/eslint-parser@7.22.9)(@typescript-eslint/eslint-plugin@6.2.1)(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(prettier@3.0.1):
-    resolution: {integrity: sha512-Gg0Yr6N3hmrJ1ECgsN2eypOJSRhxTKlfySLHxiBGeKJMjvNrBCAxOTvXVj4k33sLTZw/1oykH3eo9WYhCEf8BQ==}
-    engines: {node: '>= v16.0.0'}
-    peerDependencies:
-      '@babel/core': ^7.22.8
-      '@babel/eslint-parser': ^7.22.7
-      '@typescript-eslint/eslint-plugin': ^5.61.0
-      '@typescript-eslint/parser': ^5.61.0
-      eslint: ^7.0.0 || ^8.0.0
-      eslint-plugin-ember: ^11.10.0
-      eslint-plugin-qunit: ^8.0.0
-      prettier: ^2.8.8
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-      '@babel/eslint-parser':
-        optional: true
-      '@typescript-eslint/eslint-plugin':
-        optional: true
-      '@typescript-eslint/parser':
-        optional: true
-      eslint-plugin-ember:
-        optional: true
-      eslint-plugin-qunit:
-        optional: true
-      prettier:
-        optional: true
-    dependencies:
-      '@babel/core': 7.22.9(supports-color@8.1.1)
-      '@babel/eslint-parser': 7.22.9(@babel/core@7.22.9)(eslint@8.46.0)
-      '@typescript-eslint/eslint-plugin': 6.2.1(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)(typescript@5.1.6)
-      '@typescript-eslint/parser': 6.2.1(eslint@8.46.0)(typescript@5.1.6)
-      cosmiconfig: 8.2.0
-      eslint: 8.46.0
-      eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.2.1)(eslint-plugin-import@2.28.0)(eslint@8.46.0)
-      eslint-plugin-decorator-position: 5.0.2(@babel/eslint-parser@7.22.9)(eslint@8.46.0)
-      eslint-plugin-import: 2.28.0(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
-      eslint-plugin-json: 3.1.0
-      eslint-plugin-n: 16.0.1(eslint@8.46.0)
-      eslint-plugin-prettier: 4.2.1(eslint-config-prettier@9.0.0)(eslint@8.46.0)(prettier@3.0.1)
       eslint-plugin-simple-import-sort: 10.0.0(eslint@8.46.0)
       prettier: 3.0.1
       prettier-plugin-ember-template-tag: 0.3.2
@@ -17606,6 +17552,7 @@ packages:
     resolution: {directory: ember-primitives, type: directory}
     id: file:ember-primitives
     name: ember-primitives
+    version: 0.1.0
     peerDependencies:
       '@glimmer/component': '>= 1.1.2'
       '@glimmer/tracking': '>= 1.1.2'
@@ -17629,3 +17576,7 @@ packages:
       - '@glint/template'
       - supports-color
     dev: false
+
+settings:
+  autoInstallPeers: false
+  excludeLinksFromLockfile: false

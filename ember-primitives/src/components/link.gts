@@ -171,18 +171,27 @@ function isActive(router: RouterService, href: string, includeQueryParams?: bool
     let info = router.recognize(href);
 
     if (info) {
-      return router.isActive(info.name);
+      let dynamicSegments = getParams(info);
+
+      return router.isActive(info.name, ...dynamicSegments);
     }
 
     return false;
   }
 
+  let url = new URL(href, location.origin);
+  let hrefQueryParams = new URLSearchParams(url.searchParams);
+  let hrefPath = url.pathname;
+
+  const currentPath = router.currentURL?.split('?')[0];
+
+  if (!currentPath) return false;
+
+  if (hrefPath !== currentPath) return false;
+
   const currentQueryParams = router.currentRoute?.queryParams;
 
   if (!currentQueryParams) return false;
-
-  let url = new URL(href, location.origin);
-  let hrefQueryParams = new URLSearchParams(url.searchParams);
 
   if (includeQueryParams === true) {
     return Object.entries(currentQueryParams).every(([key, value]) => {
@@ -193,4 +202,19 @@ function isActive(router: RouterService, href: string, includeQueryParams?: bool
   return includeQueryParams.every((key) => {
     return hrefQueryParams.get(key) === currentQueryParams[key];
   });
+}
+
+type RouteInfo = ReturnType<RouterService['recognize']>;
+
+function getParams(currentRouteInfo: RouteInfo) {
+  let params: Record<string, string | unknown | undefined>[] = [];
+
+  while (currentRouteInfo?.parent) {
+    let currentParams = currentRouteInfo.params;
+
+    params = currentParams ? [currentParams, ...params] : params;
+    currentRouteInfo = currentRouteInfo.parent;
+  }
+
+  return params.map(Object.values).flat();
 }

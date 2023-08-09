@@ -127,7 +127,107 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').hasText('Home');
   });
 
-  test('[data-active] work with all query params', async function (assert) {});
-  test('[data-active] work with some query params', async function (assert) {});
-  test('[data-active] work with dynamic segments', async function (assert) {});
+  test('[data-active] work with all query params', async function (assert) {
+    setupRouting(this.owner, function () {
+      this.route('foo');
+      this.route('bar');
+    });
+
+    this.owner.register(
+      'template:application',
+      hbs`
+      <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{true}}>One</Link>
+      <Link id="two" @href="/foo?hello=1&there=4" @includeActiveQueryParams={{true}}>Two</Link>
+    `,
+    );
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 2 });
+    assert.dom('[data-active]').exists({ count: 0 });
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+
+    await click('#two');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Two');
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+  });
+
+  test('[data-active] work with some query params', async function (assert) {
+    setupRouting(this.owner, function () {
+      this.route('foo');
+      this.route('bar');
+    });
+
+    this.owner.register(
+      'template:application',
+      hbs`
+      <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}}>One</Link>
+      <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
+    `,
+    );
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 2 });
+    assert.dom('[data-active]').exists({ count: 0 });
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+
+    await click('#two');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Two');
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+  });
+
+  test('[data-active] work with dynamic segments', async function (assert) {
+    setupRouting(this.owner, function () {
+      this.route('foo', { path: '/foo/:id' });
+    });
+
+    this.owner.register(
+      'template:application',
+      hbs`
+      <Link id="one" @href="/foo/1">One</Link>
+      <Link id="two" @href="/foo/2">Two</Link>
+    `,
+    );
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 2 });
+    assert.dom('[data-active]').exists({ count: 0 });
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+
+    await click('#two');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Two');
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+  });
 });

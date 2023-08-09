@@ -1,5 +1,5 @@
-import Router from '@ember/routing/router';
 import { assert } from '@ember/debug';
+import Router from '@ember/routing/router';
 
 import { properLinks } from '../proper-links';
 

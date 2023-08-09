@@ -41,8 +41,8 @@ export interface Signature {
      *
      * the data-active state here will only be "true" on
      * - `/`
-     *   - `/?foo=2`
-     *   - `/?foo=&bar=`
+     * - `/?foo=2`
+     * - `/?foo=&bar=`
      *
      */
     includeActiveQueryParams?: true | string[];
@@ -77,37 +77,37 @@ export interface Signature {
          */
         isExternal: boolean;
         /**
-          * Indicates if the passed `href` is *active*, or the user is on the same basepath.
-          * This allows consumers to style their link if they wish or style their text.
-          * The active state will also be present on a `data-active` attribute on the generated anchor tag.
-          *
-          *
-          * For example
-          * ```gjs
-          * import { Link, service } from 'ember-primitives';
-          *
-          * const MyLink = <template>
-          *   <Link @href="..."> as |a|>
-          *     <span class="{{if a.isActive 'underline'}}">
-            *     {{yield}}
-          *     </span>
-          *   </Link>
-          * </template>
-          *
+         * Indicates if the passed `href` is *active*, or the user is on the same basepath.
+         * This allows consumers to style their link if they wish or style their text.
+         * The active state will also be present on a `data-active` attribute on the generated anchor tag.
+         *
+         *
+         * For example
+         * ```gjs
+         * import { Link, service } from 'ember-primitives';
+         *
+         * const MyLink = <template>
+         *   <Link @href="..."> as |a|>
+         *     <span class="{{if a.isActive 'underline'}}">
+         *     {{yield}}
+         *     </span>
+         *   </Link>
+         * </template>
+         *
          * <template>
-          * {{#let (service 'router') as |router|}}
+         * {{#let (service 'router') as |router|}}
          *     <MyLink @href={{router.currentURL}}>Ths page</MyLink> &nbsp;&nbsp;
          *     <MyLink @href="/">Home</MyLink>
          *   {{/let}}
          *  </template>
-          *
-          * By default, the query params are omitted from `isActive` calculation, but you may
-          * configure the query params to be included if you wish
-            * See: `@includeActiveQueryParams`
-          *
-            * Note that external links are never active.
-
-          */
+         * ```
+         *
+         * By default, the query params are omitted from `isActive` calculation, but you may
+         * configure the query params to be included if you wish
+         * See: `@includeActiveQueryParams`
+         *
+         * Note that external links are never active.
+         */
         isActive: boolean;
       },
     ];

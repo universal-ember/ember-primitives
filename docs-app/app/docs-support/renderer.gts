@@ -1,3 +1,5 @@
+import { hash } from '@ember/helper';
+
 import { highlight } from 'docs-app/components/highlight';
 import { Compiled } from 'docs-app/markdown';
 
@@ -206,24 +208,32 @@ const isLiteral = (x: SomeType | undefined): x is UnionType => {
 
 //   return extended.typeArguments[0]
 // }
+//
+const isInvokable = (info: ReferenceType) => info.name === 'Invokable';
 
 const Reference: TOC<{ info: ReferenceType }> = <template>
-  <div class='typedoc__reference'>
-    {{#if (not (isIgnored @info.name))}}
-      <div class='typedoc__reference__name'>{{@info.name}}</div>
-    {{/if}}
-    {{#if @info.typeArguments.length}}
-      <div class='typedoc__reference__typeArguments'>
-        &lt;
-        {{#each @info.typeArguments as |typeArg|}}
-          <div class='typedoc__reference__typeArgument'>
-            <Type @info={{typeArg}} />
-          </div>
-        {{/each}}
-        &gt;
-      </div>
-    {{/if}}
-  </div>
+  {{#if (isInvokable @info)}}
+    <div class='typedoc__unknown__yield'>
+      <Intrinsic @info={{hash name='Component'}} />
+    </div>
+  {{else}}
+    <div class='typedoc__reference'>
+      {{#if (not (isIgnored @info.name))}}
+        <div class='typedoc__reference__name'>{{@info.name}}</div>
+      {{/if}}
+      {{#if @info.typeArguments.length}}
+        <div class='typedoc__reference__typeArguments'>
+          &lt;
+          {{#each @info.typeArguments as |typeArg|}}
+            <div class='typedoc__reference__typeArgument'>
+              <Type @info={{typeArg}} />
+            </div>
+          {{/each}}
+          &gt;
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
 </template>;
 
 const Intrinsic: TOC<{ info: { name: string } }> = <template>

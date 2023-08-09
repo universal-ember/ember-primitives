@@ -10,9 +10,16 @@ module.exports = {
   overrides: [
     ...config.overrides,
     {
-      files: ['tests/proper-links/**/*'],
+      files: ['tests/**/*'],
       rules: {
         'ember/no-shadow-route-definition': 'off',
+      },
+    },
+    {
+      files: ['**/*.ts', '**/*.gts'],
+      rules: {
+        '@typescript-eslint/prefer-optional-chain': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
       },
     },
   ],

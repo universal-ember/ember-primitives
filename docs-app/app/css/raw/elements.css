@@ -101,7 +101,11 @@ th {
 }
 
 kbd {
-  font-family: Lato, Helvetica Neue, Helvetica, sans-serif;
+  font-family:
+    Lato,
+    Helvetica Neue,
+    Helvetica,
+    sans-serif;
   background-color: #fff;
   border: 1px solid rgba(63, 63, 63, 0.25);
   border-radius: 3px;

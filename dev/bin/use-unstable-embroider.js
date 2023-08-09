@@ -24,7 +24,7 @@ export async function useUnstableEmbroider() {
       let version = await latestVersion(name, { version: 'unstable' });
 
       return [name, version];
-    })
+    }),
   );
 
   // Update in-monorepo things (at the very least for busting turbo's cache)

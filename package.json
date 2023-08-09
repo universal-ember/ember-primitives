@@ -19,8 +19,8 @@
     "@changesets/cli": "^2.26.2",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^8.2.0",
-    "prettier": "^2.8.8",
-    "prettier-plugin-ember-template-tag": "^0.3.2",
+    "prettier": "^3.0.1",
+    "prettier-plugin-ember-template-tag": "^1.0.2",
     "turbo": "^1.10.12"
   },
   "engines": {
@@ -35,7 +35,7 @@
   "pnpm": {
     "overrides": {
       "@glimmer/validator": "^0.84.3",
-      "ember-async-data": "^1.0.1",
+      "ember-async-data": "1.0.1",
       "ember-cli-babel": "^7.26.11"
     },
     "patchedDependencies": {

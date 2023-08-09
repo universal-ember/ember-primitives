@@ -32,26 +32,26 @@ async function run() {
     case 'prettier:fix':
       return execaCommand(
         `pnpm prettier -w . ` + `--cache --cache-strategy content`,
-        { cwd, stdio: 'inherit' }
+        { cwd, stdio: 'inherit' },
       );
     case 'prettier':
       return execaCommand(`pnpm prettier -c .`, { cwd, stdio: 'inherit' });
     case 'js:fix':
       return execaCommand(
         `pnpm eslint . ` + `--fix --cache --cache-strategy content`,
-        { cwd, stdio: 'inherit' }
+        { cwd, stdio: 'inherit' },
       );
     case 'js':
       return execaCommand(`pnpm eslint .`, { cwd, stdio: 'inherit' });
     case 'hbs:fix':
       return execaCommand(
         `pnpm ember-template-lint . --fix --no-error-on-unmatched-pattern`,
-        { cwd, stdio: 'inherit' }
+        { cwd, stdio: 'inherit' },
       );
     case 'hbs':
       return execaCommand(
         `pnpm ember-template-lint . --no-error-on-unmatched-pattern`,
-        { cwd, stdio: 'inherit' }
+        { cwd, stdio: 'inherit' },
       );
     case 'fix':
       return turbo('_:lint:fix');

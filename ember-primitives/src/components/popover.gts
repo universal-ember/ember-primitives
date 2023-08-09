@@ -149,7 +149,7 @@ const attachArrow = modifier<AttachArrowSignature>((element, _: [], named) => {
   })();
 });
 
-const ArrowElement = () => cell<HTMLElement>();
+const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
 
 function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
   let result = [...(middleware || [])];

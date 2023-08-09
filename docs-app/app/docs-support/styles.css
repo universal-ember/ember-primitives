@@ -77,6 +77,19 @@
 .typedoc__component-signature__block .typedoc-declaration-name + .typedoc-reference {
   margin-bottom: -0.25rem;
 }
+.typedoc__component-signature__block > .typedoc-property .typedoc-declaration-children {
+  display: grid;
+  gap: 0.5rem;
+}
+.typedoc__component-signature__block
+  > .typedoc-property
+  > .typedoc-declaration
+  > ul.typedoc-declaration-children
+  > li
+  > .typedoc-declaration {
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+}
 
 .typedoc-component-arg {
   margin-bottom: 0.5rem;

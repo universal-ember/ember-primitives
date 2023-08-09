@@ -1,5 +1,12 @@
 # ember-primitives
 
+## 0.2.0
+
+### Minor Changes
+
+- ef7306f: Link now exposes an `isActive` property on the yielded data, as well as provides a data-active attribute on the generated `<a>` element
+- 2c7696d: Add a loosemode template-registry for Glint users not yet using gjs/gts
+
 ## 0.1.0
 
 ### Minor Changes

@@ -390,8 +390,8 @@ importers:
         specifier: ^7.22.5
         version: 7.22.5(@babel/core@7.22.9)
       '@embroider/addon-dev':
-        specifier: 3.1.1
-        version: 3.1.1(@glint/template@1.0.2)(rollup@3.26.0)
+        specifier: 3.2.0
+        version: 3.2.0(@glint/template@1.0.2)(rollup@3.26.0)
       '@glimmer/component':
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.22.9)
@@ -2342,14 +2342,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@embroider/addon-dev@3.1.1(@glint/template@1.0.2)(rollup@3.26.0):
-    resolution: {integrity: sha512-Z04WwUCymsND96LBv8wSsvlCR2oF6iIb44N+GA0UXTanTJ8fXgMOTKiv1BFeoVXrWhds/00S/VG/L+2kA1BioA==}
+  /@embroider/addon-dev@3.2.0(@glint/template@1.0.2)(rollup@3.26.0):
+    resolution: {integrity: sha512-ISihBJQEHJQ3HBYMKh5wBP5VHiUWNRTtDs7diQCb75WTHa7lXP3UhONuJ4cX5CuWmGSwJjwKg0Z5hXxXbN0Olg==}
     engines: {node: 12.* || 14.* || >= 16}
     hasBin: true
     dependencies:
       '@embroider/core': 3.2.1(@glint/template@1.0.2)
       '@rollup/pluginutils': 4.2.1
       assert-never: 1.2.1
+      content-tag: 1.0.1
       fs-extra: 10.1.0
       minimatch: 3.1.2
       rollup-plugin-copy-assets: 2.0.3(rollup@3.26.0)
@@ -7137,6 +7138,10 @@ packages:
     engines: {node: '>= 0.6'}
     dependencies:
       safe-buffer: 5.2.1
+    dev: true
+
+  /content-tag@1.0.1:
+    resolution: {integrity: sha512-7NqA1EmPLgpahxyz8NdLwJVbBzjwHCOsvrKsl1ISfpNNd2Sy/nPSWj4+1HacDMMm8yYoM3Bj2EiCrC9F4ktifg==}
     dev: true
 
   /content-type@1.0.5:

@@ -8,6 +8,7 @@
   "repository": "https://github.com/universal-ember/ember-primitives",
   "license": "MIT",
   "author": "nullvoxpopuli",
+  "type": "module",
   "files": [
     "addon-main.cjs",
     "dist",
@@ -24,7 +25,7 @@
     "lint:hbs": "pnpm -w exec lint hbs",
     "lint:hbs:fix": "pnpm -w exec lint hbs:fix",
     "lint:package": "pnpm publint",
-    "lint:published-types": "attw *.tgz || exit 0",
+    "lint:published-types": "attw --pack --exclude-entrypoints addon-main.js --ignore-rules cjs-resolves-to-esm",
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",

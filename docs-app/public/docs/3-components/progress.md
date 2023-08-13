@@ -2,6 +2,9 @@
 
 ## Examples
 
+
+<div class="featured-demo">
+
 ```gjs live preview
 import { Progress } from 'ember-primitives';
 import { cell, resource } from 'ember-resources';
@@ -18,10 +21,12 @@ const randomValue = resource(({on}) => {
   return value;
 }); 
 
+const translate = (v) => -(100 - v);
+
 <template>
   <Progress @value={{(randomValue)}} as |x|>
-    <x.Indicator style="transform: translateX({{x.negativePercent}}%);">
-      {{x.percent}}%
+    <span>{{Math.round x.value}}%</span>
+    <x.Indicator style="transform: translateX({{translate x.percent}}%);">
     </x.Indicator>
   </Progress>
 
@@ -29,23 +34,34 @@ const randomValue = resource(({on}) => {
     [role="progressbar"] {
       margin: 0 auto;
       width: 60%;
-      height: 1rem;
-      border: 1px solid;
-      border-radius: 0.5rem;
+      height: 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,50%);
       position: relative;
-      background: conic-gradient(at -20% 15%, red 0%, transparent 28%, #1e90ff 72%);
+      overflow: hidden;
+      background: conic-gradient(at -20% 15%, white 0%, #aaccff 72%);
 
       /* Fix overflow clipping in Safari
          https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0 */
       transform: translateZ(0);
     }
     [role="progressbar"] > div {
-      background: white;
+      background: conic-gradient(at -20% 15%, blue 0%, transparent 28%, #1e50aa 72%);
       width: 100%;
       height: 100%;
-      text-align: center;
+      line-height: 1.5rem;
+      border-radius: 1rem;
       transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    [role="progressbar"] > span {
+      line-height: 1.5rem;
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
     }
   </style>
 </template>
 ```
+
+</div>

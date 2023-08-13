@@ -64,8 +64,8 @@ async function run() {
 }
 
 /**
-  * attw does not support wildcard entrypoints
-  */
+ * attw does not support wildcard entrypoints
+ */
 async function lintPublishedTypes({ cwd }) {
   let manifest = await packageJson.read(cwd);
   let name = manifest.name;
@@ -80,10 +80,10 @@ async function lintPublishedTypes({ cwd }) {
       continue;
     }
 
-    const files = globbySync(mapping.types.replace('*', '**/*'), {cwd});
+    const files = globbySync(mapping.types.replace('*', '**/*'), { cwd });
 
     // Map the files to full module paths
-    const mappedFiles = files.map(file => {
+    const mappedFiles = files.map((file) => {
       // Now that we found files, we need to map them _back_ to entrypoints.
       // Based on the entryGlob, we need to remove the path leading up until the '*',
       let toRemove = mapping.types.split('*')[0];
@@ -102,21 +102,27 @@ async function lintPublishedTypes({ cwd }) {
 
   entrypoints = entrypoints
     // Remove stuff we are going to exclude
-    .filter(entry => !entry.endsWith('addon-main'))
+    .filter((entry) => !entry.endsWith('addon-main'))
     // Remove index files
-    .filter(entry => !entry.endsWith('index'));
+    .filter((entry) => !entry.endsWith('index'));
 
   let args = [
-    'attw', '--pack',
+    'attw',
+    '--pack',
     // This does not provide types
-    '--exclude-entrypoints', 'addon-main',
+    '--exclude-entrypoints',
+    'addon-main',
     // We turn this one off because we don't care about CJS consumers
-    '--ignore-rules', 'cjs-resolves-to-esm',
+    '--ignore-rules',
+    'cjs-resolves-to-esm',
     // Wildcard is not official supported
-    '--ignore-rules', 'wildcard',
+    '--ignore-rules',
+    'wildcard',
     // publint will handle resolving
-    '--ignore-rules', 'internal-resolution-error',
-    '--include-entrypoints', ...entrypoints
+    '--ignore-rules',
+    'internal-resolution-error',
+    '--include-entrypoints',
+    ...entrypoints,
   ];
 
   console.info(chalk.blueBright('Running:\n', args.join(' ')));

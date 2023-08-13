@@ -25,7 +25,7 @@
     "lint:hbs": "pnpm -w exec lint hbs",
     "lint:hbs:fix": "pnpm -w exec lint hbs:fix",
     "lint:package": "pnpm publint",
-    "lint:published-types": "attw --pack --exclude-entrypoints addon-main.js --ignore-rules cjs-resolves-to-esm",
+    "lint:published-types": "pnpm -w exec lint published-types",
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
@@ -34,7 +34,7 @@
     "start:js": "rollup --config --watch",
     "start:types": "glint --build --watch",
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'",
-    "prepack": "rollup --config"
+    "prepack": "pnpm build"
   },
   "dependencies": {
     "@babel/runtime": "^7.22.6",

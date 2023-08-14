@@ -163,6 +163,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
+      - run: pnpm build --filter docs-api
       - run: pnpm ember build
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}

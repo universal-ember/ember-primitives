@@ -141,7 +141,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           pnpm build
-          pnpm i -f # sync for some reason isn't running before lint
+          pnpm build --filter docs-api
           pnpm test --filter docs-app
 
   DeployProduction:

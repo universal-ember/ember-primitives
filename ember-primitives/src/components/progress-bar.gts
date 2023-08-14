@@ -92,7 +92,7 @@ const Indicator: TOC<{
 </template>;
 
 
-export class Progress extends Component<Signature> {
+export class ProgressBar extends Component<Signature> {
   get max() {
     return getMax(this.args.max);
   }
@@ -133,4 +133,4 @@ export class Progress extends Component<Signature> {
   </template>
 }
 
-export default Progress;
+export default ProgressBar;

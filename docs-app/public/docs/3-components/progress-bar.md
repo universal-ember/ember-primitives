@@ -1,4 +1,4 @@
-# Progress
+# ProgressBar
 
 ## Examples
 
@@ -6,12 +6,8 @@
 <div class="featured-demo">
 
 ```gjs live preview
-import { Progress } from 'ember-primitives';
+import { ProgressBar } from 'ember-primitives';
 import { cell, resource } from 'ember-resources';
-
-function randomPercent() {
-  return Math.random() * 100
-}
 
 const randomValue = resource(({on}) => {
   let value = cell(randomPercent());
@@ -21,14 +17,15 @@ const randomValue = resource(({on}) => {
   return value;
 }); 
 
+const randomPercent = () => Math.random() * 100;
 const translate = (v) => -(100 - v);
 
 <template>
-  <Progress @value={{(randomValue)}} as |x|>
+  <ProgressBar @value={{(randomValue)}} as |x|>
     <span>{{Math.round x.value}}%</span>
     <x.Indicator style="transform: translateX({{translate x.percent}}%);">
     </x.Indicator>
-  </Progress>
+  </ProgressBar>
 
   <style>
     [role="progressbar"] {
@@ -36,20 +33,14 @@ const translate = (v) => -(100 - v);
       width: 60%;
       height: 1.5rem;
       border-radius: 0.75rem;
-      box-shadow: inset 0px 1px 1px 0px rgba(0,0,0,50%);
       position: relative;
       overflow: hidden;
       background: conic-gradient(at -20% 15%, white 0%, #aaccff 72%);
-
-      /* Fix overflow clipping in Safari
-         https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0 */
-      transform: translateZ(0);
     }
     [role="progressbar"] > div {
-      background: conic-gradient(at -20% 15%, blue 0%, transparent 28%, #1e50aa 72%);
+      background: linear-gradient(45deg, #5E0091FF 0%, #004976FF 100%);
       width: 100%;
       height: 100%;
-      line-height: 1.5rem;
       border-radius: 1rem;
       transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
     }
@@ -57,6 +48,8 @@ const translate = (v) => -(100 - v);
       line-height: 1.5rem;
       text-align: center;
       width: 100%;
+      color: white;
+      mix-blend-mode: difference;
       position: absolute;
       z-index: 1;
     }

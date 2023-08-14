@@ -105,7 +105,7 @@
       "./components/popover.js": "./dist/_app_/components/popover.js",
       "./components/portal-targets.js": "./dist/_app_/components/portal-targets.js",
       "./components/portal.js": "./dist/_app_/components/portal.js",
-      "./components/progress.js": "./dist/_app_/components/progress.js",
+      "./components/progress-bar.js": "./dist/_app_/components/progress-bar.js",
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
       "./components/toggle.js": "./dist/_app_/components/toggle.js",

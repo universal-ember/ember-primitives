@@ -43,6 +43,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
+      - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm lint
 
 
@@ -140,6 +141,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           pnpm build
+          pnpm i -f # sync for some reason isn't running before lint
           pnpm test --filter docs-app
 
   DeployProduction:
@@ -163,7 +165,9 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
+      - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm build --filter docs-api
+      - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm ember build
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}

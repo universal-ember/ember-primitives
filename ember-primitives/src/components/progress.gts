@@ -119,7 +119,7 @@ export class Progress extends Component<Signature> {
       aria-valuemin="0"
       aria-valuenow={{this.value}}
       aria-valuetext={{this.valueLabel}}
-      role="Progress"
+      role="progressbar"
       data-value={{this.value}}
       data-state={{progressState this.value this.max}}
       data-max={{this.max}}

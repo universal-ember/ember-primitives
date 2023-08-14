@@ -29,11 +29,11 @@ body {
   gap: 2rem;
   max-width: var(--breakpoint);
   margin: 0 auto;
-  padding-bottom: 10rem;
 }
 
 #layout > section {
   padding-right: 1rem;
+  padding-bottom: 10rem;
 }
 
 #nav-toggle {
@@ -89,3 +89,4 @@ body {
     position: absolute;
   }
 }
+

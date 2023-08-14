@@ -2,9 +2,6 @@
 
 Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 
-## Examples
-
-
 <div class="featured-demo">
 
 ```gjs live preview
@@ -25,8 +22,7 @@ const translate = (v) => -(100 - v);
 <template>
   <Progress @value={{(randomValue)}} as |x|>
     <span>{{Math.round x.value}}%</span>
-    <x.Indicator style="transform: translateX({{translate x.percent}}%);">
-    </x.Indicator>
+    <x.Indicator style="transform: translateX({{translate x.percent}}%);" />
   </Progress>
 
   <style>
@@ -60,3 +56,76 @@ const translate = (v) => -(100 - v);
 ```
 
 </div>
+
+## Features
+
+* Provides context for assistive technology to read the progress of a task.
+
+## Installation
+
+```bash 
+pnpm add ember-primitives
+```
+
+## Anatomy
+
+```js 
+import { Progress } from 'ember-primitives';
+```
+
+or for non-tree-shaking environments:
+```js 
+import { Progress } from 'ember-primitives/components/progress';
+```
+
+
+```gjs 
+import { Progress } from 'ember-primitives';
+
+<template>
+  <Progress as |x|>
+    <x.Indicator />
+    <x.Indicator>
+      with text
+    </x.Indicator>
+
+    text can go out here, too
+  </Switch>
+</template>
+```
+
+## Accessibility
+
+Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/meter).
+
+## API Reference
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="components/progress" @name="Signature" />
+</template>
+```
+
+### State Attributes
+
+<br>
+
+#### `<Progress>`
+
+| key | description |  
+| :---: | :----------- |  
+| `data-state` | `'complete' \| 'indeterminate' \| 'loading'` | 
+| `data-value` | The current value. Will never be less than 0, and never more than `@max` 
+| `data-max` | The max value 
+| `data-min` | Always 0 
+
+
+#### `<Indicator>`
+
+| key | description |  
+| :---: | :----------- |  
+| `data-state` | `'complete' \| 'indeterminate' \| 'loading'` | 
+| `data-value` | The current value. Will never be less than 0, and never more than `@max` 
+| `data-max` | The max value 

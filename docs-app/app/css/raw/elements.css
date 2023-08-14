@@ -75,6 +75,10 @@ pre {
   overflow-y: auto;
 }
 
+code {
+  word-break: keep-all;
+}
+
 pre > code {
   max-width: 100%;
   line-height: 1rem;

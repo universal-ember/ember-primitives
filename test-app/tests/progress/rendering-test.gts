@@ -25,15 +25,15 @@ module('<Progress />', function (hooks) {
       </template>
     );
 
-    let Progress = '[role="Progress"]';
-    let indicator = `${Progress} > [data-state]`;
+    let progressBar = '[role="progressbar"]';
+    let indicator = `${progressBar} > [data-state]`;
 
-    assert.dom(Progress).exists();
+    assert.dom(progressBar).exists();
     assert.dom(indicator).exists();
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '100');
-    assert.dom(Progress).hasAria('valuenow', '0');
-    assert.dom(Progress).hasAria('valuetext', '0%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '100');
+    assert.dom(progressBar).hasAria('valuenow', '0');
+    assert.dom(progressBar).hasAria('valuetext', '0%');
     assert.dom(indicator).hasAttribute('data-max', '100');
     assert.dom(indicator).hasAttribute('data-value', '0');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -41,10 +41,10 @@ module('<Progress />', function (hooks) {
     state.value = 50;
     await rerender();
 
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '100');
-    assert.dom(Progress).hasAria('valuenow', '50');
-    assert.dom(Progress).hasAria('valuetext', '50%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '100');
+    assert.dom(progressBar).hasAria('valuenow', '50');
+    assert.dom(progressBar).hasAria('valuetext', '50%');
     assert.dom(indicator).hasAttribute('data-max', '100');
     assert.dom(indicator).hasAttribute('data-value', '50');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -52,10 +52,10 @@ module('<Progress />', function (hooks) {
     state.value = 100;
     await rerender();
 
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '100');
-    assert.dom(Progress).hasAria('valuenow', '100');
-    assert.dom(Progress).hasAria('valuetext', '100%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '100');
+    assert.dom(progressBar).hasAria('valuenow', '100');
+    assert.dom(progressBar).hasAria('valuetext', '100%');
     assert.dom(indicator).hasAttribute('data-max', '100');
     assert.dom(indicator).hasAttribute('data-value', '100');
     assert.dom(indicator).hasAttribute('data-state', 'complete');
@@ -79,15 +79,15 @@ module('<Progress />', function (hooks) {
       </template>
     );
 
-    let Progress = '[role="Progress"]';
-    let indicator = `${Progress} > [data-state]`;
+    let progressBar = '[role="progressbar"]';
+    let indicator = `${progressBar} > [data-state]`;
 
-    assert.dom(Progress).exists();
+    assert.dom(progressBar).exists();
     assert.dom(indicator).exists();
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '1000');
-    assert.dom(Progress).hasAria('valuenow', '0');
-    assert.dom(Progress).hasAria('valuetext', '0%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '1000');
+    assert.dom(progressBar).hasAria('valuenow', '0');
+    assert.dom(progressBar).hasAria('valuetext', '0%');
     assert.dom(indicator).hasAttribute('data-max', '1000');
     assert.dom(indicator).hasAttribute('data-value', '0');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -95,10 +95,10 @@ module('<Progress />', function (hooks) {
     state.value = 50;
     await rerender();
 
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '1000');
-    assert.dom(Progress).hasAria('valuenow', '50');
-    assert.dom(Progress).hasAria('valuetext', '5%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '1000');
+    assert.dom(progressBar).hasAria('valuenow', '50');
+    assert.dom(progressBar).hasAria('valuetext', '5%');
     assert.dom(indicator).hasAttribute('data-max', '1000');
     assert.dom(indicator).hasAttribute('data-value', '50');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -106,10 +106,10 @@ module('<Progress />', function (hooks) {
     state.value = 100;
     await rerender();
 
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '1000');
-    assert.dom(Progress).hasAria('valuenow', '100');
-    assert.dom(Progress).hasAria('valuetext', '10%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '1000');
+    assert.dom(progressBar).hasAria('valuenow', '100');
+    assert.dom(progressBar).hasAria('valuetext', '10%');
     assert.dom(indicator).hasAttribute('data-max', '1000');
     assert.dom(indicator).hasAttribute('data-value', '100');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -134,15 +134,15 @@ module('<Progress />', function (hooks) {
       </template>
     );
 
-    let Progress = '[role="Progress"]';
-    let indicator = `${Progress} > [data-state]`;
+    let progressBar = '[role="progressbar"]';
+    let indicator = `${progressBar} > [data-state]`;
 
-    assert.dom(Progress).exists();
+    assert.dom(progressBar).exists();
     assert.dom(indicator).exists();
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '1000');
-    assert.dom(Progress).hasAria('valuenow', '0');
-    assert.dom(Progress).hasAria('valuetext', '0%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '1000');
+    assert.dom(progressBar).hasAria('valuenow', '0');
+    assert.dom(progressBar).hasAria('valuetext', '0%');
     assert.dom(indicator).hasAttribute('data-max', '1000');
     assert.dom(indicator).hasAttribute('data-value', '0');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -153,10 +153,10 @@ module('<Progress />', function (hooks) {
     state.value = 100;
     await rerender();
 
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '10');
-    assert.dom(Progress).hasAria('valuenow', '10');
-    assert.dom(Progress).hasAria('valuetext', '100%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '10');
+    assert.dom(progressBar).hasAria('valuenow', '10');
+    assert.dom(progressBar).hasAria('valuetext', '100%');
     assert.dom(indicator).hasAttribute('data-max', '10');
     assert.dom(indicator).hasAttribute('data-value', '10');
     assert.dom(indicator).hasAttribute('data-state', 'complete');
@@ -166,10 +166,10 @@ module('<Progress />', function (hooks) {
     state.max = 150;
     await rerender();
 
-    assert.dom(Progress).hasAria('valuemin', '0');
-    assert.dom(Progress).hasAria('valuemax', '150');
-    assert.dom(Progress).hasAria('valuenow', '100');
-    assert.dom(Progress).hasAria('valuetext', '67%');
+    assert.dom(progressBar).hasAria('valuemin', '0');
+    assert.dom(progressBar).hasAria('valuemax', '150');
+    assert.dom(progressBar).hasAria('valuenow', '100');
+    assert.dom(progressBar).hasAria('valuetext', '67%');
     assert.dom(indicator).hasAttribute('data-max', '150');
     assert.dom(indicator).hasAttribute('data-value', '100');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -181,6 +181,7 @@ module('<Progress />', function (hooks) {
     test(`invalid value of ${value} is passed`, async function (assert) {
       await render(
         <template>
+          {{! @glint-ignore }}
           <Progress @value={{value}} as |x|>
             <div id="value">{{x.value}}</div>
             <div id="percent">{{x.percent}}</div>
@@ -189,15 +190,15 @@ module('<Progress />', function (hooks) {
         </template>
       );
 
-      let Progress = '[role="Progress"]';
-      let indicator = `${Progress} > [data-state]`;
+      let progressBar = '[role="progressbar"]';
+      let indicator = `${progressBar} > [data-state]`;
 
-      assert.dom(Progress).exists();
+      assert.dom(progressBar).exists();
       assert.dom(indicator).exists();
-      assert.dom(Progress).hasAria('valuemin', '0');
-      assert.dom(Progress).hasAria('valuemax', '100');
-      assert.dom(Progress).hasAria('valuenow', '0');
-      assert.dom(Progress).hasAria('valuetext', '0%');
+      assert.dom(progressBar).hasAria('valuemin', '0');
+      assert.dom(progressBar).hasAria('valuemax', '100');
+      assert.dom(progressBar).hasAria('valuenow', '0');
+      assert.dom(progressBar).hasAria('valuetext', '0%');
       assert.dom(indicator).hasAttribute('data-max', '100');
       assert.dom(indicator).hasAttribute('data-value', '0');
       assert.dom(indicator).hasAttribute('data-state', 'loading');
@@ -209,6 +210,7 @@ module('<Progress />', function (hooks) {
     test(`invalid max of ${value} is passed`, async function (assert) {
       await render(
         <template>
+          {{! @glint-ignore }}
           <Progress @value={{10}} @max={{value}} as |x|>
             <div id="value">{{x.value}}</div>
             <div id="percent">{{x.percent}}</div>
@@ -217,15 +219,15 @@ module('<Progress />', function (hooks) {
         </template>
       );
 
-      let Progress = '[role="Progress"]';
-      let indicator = `${Progress} > [data-state]`;
+      let progressBar = '[role="progressbar"]';
+      let indicator = `${progressBar} > [data-state]`;
 
-      assert.dom(Progress).exists();
+      assert.dom(progressBar).exists();
       assert.dom(indicator).exists();
-      assert.dom(Progress).hasAria('valuemin', '0');
-      assert.dom(Progress).hasAria('valuemax', '100');
-      assert.dom(Progress).hasAria('valuenow', '10');
-      assert.dom(Progress).hasAria('valuetext', '10%');
+      assert.dom(progressBar).hasAria('valuemin', '0');
+      assert.dom(progressBar).hasAria('valuemax', '100');
+      assert.dom(progressBar).hasAria('valuenow', '10');
+      assert.dom(progressBar).hasAria('valuetext', '10%');
       assert.dom(indicator).hasAttribute('data-max', '100');
       assert.dom(indicator).hasAttribute('data-value', '10');
       assert.dom(indicator).hasAttribute('data-state', 'loading');

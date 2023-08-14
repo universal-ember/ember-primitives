@@ -26,7 +26,7 @@ const translate = (v) => -(100 - v);
   </Progress>
 
   <style>
-    [role="Progress"] {
+    [role="progressbar"] {
       margin: 0 auto;
       width: 60%;
       height: 1.5rem;
@@ -35,14 +35,14 @@ const translate = (v) => -(100 - v);
       overflow: hidden;
       background: conic-gradient(at -20% 15%, white 0%, #aaccff 72%);
     }
-    [role="Progress"] > div {
+    [role="progressbar"] > div {
       background: linear-gradient(45deg, #5E0091FF 0%, #004976FF 100%);
       width: 100%;
       height: 100%;
       border-radius: 1rem;
       transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
     }
-    [role="Progress"] > span {
+    [role="progressbar"] > span {
       line-height: 1.5rem;
       text-align: center;
       width: 100%;

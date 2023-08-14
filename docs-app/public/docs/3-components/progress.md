@@ -1,4 +1,6 @@
-# ProgressBar
+# Progress
+
+Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 
 ## Examples
 
@@ -6,7 +8,7 @@
 <div class="featured-demo">
 
 ```gjs live preview
-import { ProgressBar } from 'ember-primitives';
+import { Progress } from 'ember-primitives';
 import { cell, resource } from 'ember-resources';
 
 const randomValue = resource(({on}) => {
@@ -21,14 +23,14 @@ const randomPercent = () => Math.random() * 100;
 const translate = (v) => -(100 - v);
 
 <template>
-  <ProgressBar @value={{(randomValue)}} as |x|>
+  <Progress @value={{(randomValue)}} as |x|>
     <span>{{Math.round x.value}}%</span>
     <x.Indicator style="transform: translateX({{translate x.percent}}%);">
     </x.Indicator>
-  </ProgressBar>
+  </Progress>
 
   <style>
-    [role="progressbar"] {
+    [role="Progress"] {
       margin: 0 auto;
       width: 60%;
       height: 1.5rem;
@@ -37,14 +39,14 @@ const translate = (v) => -(100 - v);
       overflow: hidden;
       background: conic-gradient(at -20% 15%, white 0%, #aaccff 72%);
     }
-    [role="progressbar"] > div {
+    [role="Progress"] > div {
       background: linear-gradient(45deg, #5E0091FF 0%, #004976FF 100%);
       width: 100%;
       height: 100%;
       border-radius: 1rem;
       transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
     }
-    [role="progressbar"] > span {
+    [role="Progress"] > span {
       line-height: 1.5rem;
       text-align: center;
       width: 100%;

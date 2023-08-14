@@ -27,13 +27,10 @@ export interface Signature {
     Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max'>;
     /**
       * The value as a percent of how far along the indicator should be
-    * positioned
+    * positioned.
+      * Will be rounded to two decimal places.
       */
     percent: number;
-    /**
-      * The inverse of percent
-      */
-    negativePercent: number;
     /**
       * The resolved value within the limits of the progress bar.
       */
@@ -45,22 +42,28 @@ type ProgressState = 'indeterminate' | 'complete' | 'loading';
 
 const DEFAULT_MAX = 100;
 
+/**
+  * Non-negative, non-NaN, non-Infinite, positive, rational
+  */
+function isValidProgressNumber(value: number | undefined | null): value is number {
+  if (typeof value !== 'number') return false;
+  if (!Number.isFinite(value)) return false;
+
+  return value >= 0;
+}
+
 function progressState(value: number | undefined | null, maxValue: number): ProgressState {
   return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading';
 }
 
 function getMax(userMax: number | undefined | null): number {
-  return (typeof userMax === 'number' && userMax > 0) ? userMax : DEFAULT_MAX;
+  return isValidProgressNumber(userMax) ? userMax : DEFAULT_MAX;
 }
 
 function getValue(userValue: number | undefined | null, maxValue: number): number {
   let max = getMax(maxValue)
 
-  if (typeof userValue !== 'number') {
-    return 0;
-  }
-
-  if (userValue < 0) {
+  if (!isValidProgressNumber(userValue)) {
     return 0;
   }
 
@@ -92,7 +95,7 @@ const Indicator: TOC<{
 </template>;
 
 
-export class ProgressBar extends Component<Signature> {
+export class Progress extends Component<Signature> {
   get max() {
     return getMax(this.args.max);
   }
@@ -105,8 +108,9 @@ export class ProgressBar extends Component<Signature> {
     return getValueLabel(this.value, this.max);
   }
 
-  get percent() { return (this.value / this.max) * 100; }
-  get negativePercent() { return 0 - this.percent; }
+  get percent() {
+    return Math.round(this.value / this.max * 100 * 100) / 100;
+  }
 
   <template>
     <div
@@ -115,7 +119,7 @@ export class ProgressBar extends Component<Signature> {
       aria-valuemin="0"
       aria-valuenow={{this.value}}
       aria-valuetext={{this.valueLabel}}
-      role="progressbar"
+      role="Progress"
       data-value={{this.value}}
       data-state={{progressState this.value this.max}}
       data-max={{this.max}}
@@ -126,11 +130,10 @@ export class ProgressBar extends Component<Signature> {
       {{yield (hash
          Indicator=(component Indicator value=this.value max=this.max)
          percent=this.percent
-         negativePercent=this.negativePercent
          value=this.value
       )}}
     </div>
   </template>
 }
 
-export default ProgressBar;
+export default Progress;

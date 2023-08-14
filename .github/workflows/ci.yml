@@ -138,9 +138,9 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - run: pnpm build
-      - run: pnpm build --filter docs-api
-      - run: pnpm test --filter docs-app
+      - run: |
+          pnpm build
+          pnpm test --filter docs-app
 
   DeployProduction:
     name: "Deploy: Production"

@@ -2,6 +2,8 @@
 
 Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 
+Note, before reaching for this component, consider if the [native `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) is sufficient for your use case. 
+
 <div class="featured-demo">
 
 ```gjs live preview
@@ -20,7 +22,7 @@ const randomPercent = () => Math.random() * 100;
 const translate = (v) => -(100 - v);
 
 <template>
-  <Progress @value={{(randomValue)}} as |x|>
+  <Progress @value={{(randomValue)}} aria-label="demo" as |x|>
     <span>{{Math.round x.value}}%</span>
     <x.Indicator style="transform: translateX({{translate x.percent}}%);" />
   </Progress>
@@ -83,7 +85,7 @@ import { Progress } from 'ember-primitives/components/progress';
 import { Progress } from 'ember-primitives';
 
 <template>
-  <Progress as |x|>
+  <Progress aria-label="example" as |x|>
     <x.Indicator />
     <x.Indicator>
       with text
@@ -97,6 +99,8 @@ import { Progress } from 'ember-primitives';
 ## Accessibility
 
 Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/meter).
+
+Note, however, that a progressbar is [required to have a name](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role#associated_wai-aria_roles_states_and_properties).
 
 ## API Reference
 

@@ -2,6 +2,7 @@ import { Shadowed } from 'ember-primitives';
 import { Compiled as REPLCompiled } from 'ember-repl';
 import { resource, resourceFactory } from 'ember-resources';
 
+import { Callout } from '../components/callout';
 import { defaultOptions } from './import-map';
 
 type Input = string | undefined | null;
@@ -17,6 +18,7 @@ export const Compiled = resourceFactory(
       let options = {
         topLevelScope: {
           Shadowed,
+          Callout,
         },
         ShadowComponent: 'Shadowed',
         ...defaultOptions,

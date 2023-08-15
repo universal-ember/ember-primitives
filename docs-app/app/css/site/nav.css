@@ -2,6 +2,9 @@ nav > ul {
   position: sticky;
   top: 1rem;
   z-index: var(--alt-z-nav);
+  height: 100dvh;
+  overflow: auto;
+  padding-bottom: 5rem;
 }
 nav ul {
   list-style: none;

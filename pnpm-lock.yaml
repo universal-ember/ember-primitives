@@ -338,8 +338,6 @@ importers:
     dependenciesMeta:
       ember-primitives:
         injected: true
-      ember-repl:
-        injected: true
 
   ember-primitives:
     dependencies:
@@ -381,6 +379,9 @@ importers:
         specifier: ^7.20.7
         version: 7.20.7(@babel/core@7.22.9)
       '@babel/plugin-syntax-decorators':
+        specifier: ^7.22.5
+        version: 7.22.5(@babel/core@7.22.9)
+      '@babel/plugin-transform-class-static-block':
         specifier: ^7.22.5
         version: 7.22.5(@babel/core@7.22.9)
       '@babel/plugin-transform-private-methods':
@@ -431,6 +432,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.2.1
         version: 6.2.1(eslint@8.46.0)(typescript@5.1.6)
+      babel-plugin-ember-template-compilation:
+        specifier: ^2.2.0
+        version: 2.2.0
       concurrently:
         specifier: ^8.2.0
         version: 8.2.0

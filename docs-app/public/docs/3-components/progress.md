@@ -86,14 +86,14 @@ const toOffset = (x) => ((100 - x) / 100) * size;
 
 const RandomProgress = 
 <template>
-  <Progress @value={{(randomValue)}} aria-label="demo" as |x|>
+  <Progress @value={{(randomValue)}} ...attributes as |x|>
     <x.Indicator class="progress" />
     <svg width="200" height="200" viewPort="0 0 100 100">
       <circle 
         r={{r}} cx="100" cy="100" 
         fill="transparent" 
         stroke-dasharray={{size}} stroke-dashoffset="0"></circle>
-      <circle id="bar" 
+      <circle
         r={{r}} cx="100" cy="100" 
         fill="transparent" 
         style="stroke: {{@color}}"
@@ -125,8 +125,8 @@ const RandomProgress =
 
 <template>
   <div style="display: flex; gap: 1.5rem">
-    <RandomProgress @color="#FF1E7D" />
-    <RandomProgress @color="#1EFF7D" />
+    <RandomProgress @color="#FF1E7D" aria-label="demo-pink" />
+    <RandomProgress @color="#1EFF7D" aria-label="demo-green" />
   </div>
 </template>
 ```

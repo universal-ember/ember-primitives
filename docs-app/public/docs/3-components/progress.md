@@ -48,7 +48,7 @@ const translate = (v) => -(100 - v);
       width: 100%;
       height: 100%;
       border-radius: 1rem;
-      transition: transform 660ms cubic-bezier(0.65, 0, 0.35, 1);
+      transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1);
     }
     [role="progressbar"] > span {
       line-height: 1.5rem;
@@ -60,6 +60,74 @@ const translate = (v) => -(100 - v);
       z-index: 1;
     }
   </style>
+</template>
+```
+
+</div>
+
+<div class="featured-demo">
+
+```gjs live preview
+import { Progress } from 'ember-primitives';
+import { cell, resource } from 'ember-resources';
+
+const randomValue = resource(({on}) => {
+  let value = cell(randomPercent());
+  let interval = setInterval(() => value.current = randomPercent(), 3000);
+  on.cleanup(() => clearInterval(interval));
+
+  return value;
+}); 
+
+const randomPercent = () => Math.random() * 100;
+const r = 60;
+const size = Math.PI * 2 * r;
+const toOffset = (x) => ((100 - x) / 100) * size;
+
+const RandomProgress = 
+<template>
+  <Progress @value={{(randomValue)}} aria-label="demo" as |x|>
+    <x.Indicator class="progress" />
+    <svg width="200" height="200" viewPort="0 0 100 100">
+      <circle 
+        r={{r}} cx="100" cy="100" 
+        fill="transparent" 
+        stroke-dasharray={{size}} stroke-dashoffset="0"></circle>
+      <circle id="bar" 
+        r={{r}} cx="100" cy="100" 
+        fill="transparent" 
+        style="stroke: {{@color}}"
+        stroke-linecap="round"
+        stroke-dasharray={{size}} stroke-dashoffset="{{toOffset x.percent}}"></circle>
+    </svg>
+  </Progress>
+
+  <style>
+    [role="progressbar"] { position: relative; }
+    svg circle {
+      transition: stroke-dashoffset 0.5s linear;
+      stroke: #555;
+      stroke-width: 1rem;
+    }
+    .progress {
+      height: 200px;
+      width: 200px;
+      position: absolute;
+      text-align: center;
+    }
+    .progress:after {
+      content: attr(data-percent)"%";
+      line-height: 200px;
+      font-size: 1.5rem;
+    }
+  </style>
+</template>;
+
+<template>
+  <div style="display: flex; gap: 1.5rem">
+    <RandomProgress @color="#FF1E7D" />
+    <RandomProgress @color="#1EFF7D" />
+  </div>
 </template>
 ```
 
@@ -130,6 +198,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 | `data-value` | The current value. Will never be less than 0, and never more than `@max` 
 | `data-max` | The max value 
 | `data-min` | Always 0 
+| `data-percent` | The current value, rounded to two decimal places
 
 
 #### `<Indicator>`
@@ -139,3 +208,4 @@ import { ComponentSignature } from 'docs-app/docs-support';
 | `data-state` | `'complete' \| 'indeterminate' \| 'loading'` | 
 | `data-value` | The current value. Will never be less than 0, and never more than `@max` 
 | `data-max` | The max value 
+| `data-percent` | The current value, rounded to two decimal places

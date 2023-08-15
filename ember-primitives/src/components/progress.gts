@@ -27,10 +27,15 @@ export interface Signature {
     Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max'>;
     /**
       * The value as a percent of how far along the indicator should be
-    * positioned.
+      * positioned, between 0 and 100.
       * Will be rounded to two decimal places.
       */
     percent: number;
+    /**
+      * The value as a percent of how far along the indicator should be positioned,
+      * between 0 and 1
+      */
+    decimal: number;
     /**
       * The resolved value within the limits of the progress bar.
       */
@@ -81,7 +86,7 @@ function getValueLabel(value: number, max: number) {
 
 const Indicator: TOC<{
   Element: HTMLDivElement;
-  Args: { max: number; value: number},
+  Args: { max: number; value: number; percent: number; },
   Blocks: {default:[]}
 }> = <template>
   <div
@@ -89,6 +94,7 @@ const Indicator: TOC<{
     data-max={{@max}}
     data-value={{@value}}
     data-state={{progressState @value @max}}
+    data-percent={{@percent}}
   >
     {{yield}}
   </div>
@@ -108,8 +114,12 @@ export class Progress extends Component<Signature> {
     return getValueLabel(this.value, this.max);
   }
 
+  get decimal() {
+    return this.value / this.max;
+  }
+
   get percent() {
-    return Math.round(this.value / this.max * 100 * 100) / 100;
+    return Math.round(this.decimal * 100 * 100) / 100;
   }
 
   <template>
@@ -124,13 +134,15 @@ export class Progress extends Component<Signature> {
       data-state={{progressState this.value this.max}}
       data-max={{this.max}}
       data-min="0"
+      data-percent={{this.percent}}
     >
 
       {{! @glint-ignore }}
       {{yield (hash
-         Indicator=(component Indicator value=this.value max=this.max)
-         percent=this.percent
+         Indicator=(component Indicator value=this.value max=this.max percent=this.percent)
          value=this.value
+         percent=this.percent
+         decimal=this.decimal
       )}}
     </div>
   </template>

@@ -2,7 +2,13 @@
 
 Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
 
-Note, before reaching for this component, consider if the [native `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) is sufficient for your use case. 
+<Callout>
+
+Before reaching for this component, consider if the [native `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) is sufficient for your use case. 
+
+</Callout>
+<br>
+
 
 <div class="featured-demo">
 
@@ -100,7 +106,7 @@ import { Progress } from 'ember-primitives';
 
 Adheres to the [`progressbar` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/meter).
 
-Note, however, that a progressbar is [required to have a name](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role#associated_wai-aria_roles_states_and_properties).
+Note that a progressbar is [required to have a name](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role#associated_wai-aria_roles_states_and_properties).
 
 ## API Reference
 

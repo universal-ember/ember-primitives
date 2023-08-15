@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.3.0
+
+### Minor Changes
+
+- c043045: Add new component, <ProgressBar />. see docs for details
+
 ## 0.2.0
 
 ### Minor Changes

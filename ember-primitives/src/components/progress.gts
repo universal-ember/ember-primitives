@@ -24,7 +24,7 @@ export interface Signature {
       * The indicator element with some state applied.
       * This can be used to style the progress of bar.
       */
-    Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max'>;
+    Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max' | 'percent'>;
     /**
       * The value as a percent of how far along the indicator should be
       * positioned, between 0 and 100.

@@ -100,7 +100,7 @@ The `<dialog>` element already traps focus for your webpage -- however,
 This is, in part, so that focus behavior is consistent in and out of a modal, 
 and that keyboard users retain the ability to escape the webpage without being forced to close the modal.
 
-But this conflicts with the [W3 ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) recommends:
+But this conflicts with the [W3 ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) recommendation:
 
 > If focus is on the last tabbable element inside the dialog, moves focus to the first tabbable element inside the dialog.
 

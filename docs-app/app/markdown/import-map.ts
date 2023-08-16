@@ -1,5 +1,8 @@
 import * as docsSupport from 'docs-app/docs-support';
 import * as docsMarkdown from 'docs-app/markdown';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import * as emberFocusTrap from 'ember-focus-trap/modifiers/focus-trap';
 import * as emberHeadlessForm from 'ember-headless-form';
 // ember-primitives (this library! yay!)
 import * as emberPrimitives from 'ember-primitives';
@@ -25,6 +28,7 @@ export const defaultOptions: Options = {
     'ember-headless-form': emberHeadlessForm,
     'ember-resources': emberResources,
     'ember-resources/util/remote-data': remoteData,
+    'ember-focus-trap/modifiers/focus-trap': emberFocusTrap,
     'docs-app/docs-support': docsSupport,
     'docs-app/markdown': docsMarkdown,
     'lorem-ipsum': loremIpsum,

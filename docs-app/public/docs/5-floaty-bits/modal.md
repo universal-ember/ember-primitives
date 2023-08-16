@@ -92,6 +92,106 @@ const returnValue = cell('');
 
 Note that animations on `<dialog>` elements do not work within a [Shadow Dom](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM).
 
+### Adding a focus-trap
+
+`<Modal />` doesn't provide a focus-trap by default. 
+The `<dialog>` element already traps focus for your webpage -- however, 
+`<dialog>` does not trap focus from tabbing to the browser (address bar, tabs, etc). 
+This is, in part, so that focus behavior is consistent in and out of a modal, 
+and that keyboard users retain the ability to escape the webpage without being forced to close the modal.
+
+But this conflicts with the [W3 ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) recommends:
+
+> If focus is on the last tabbable element inside the dialog, moves focus to the first tabbable element inside the dialog.
+
+_However_, the [example](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/) does not use the `<dialog>` element, and instead uses divs.
+
+If you wish to follow this guideline, it can be achieved via the `{{focus-trap}}` modifier.
+
+```bash
+pnpm add ember-focus-trap
+```
+
+<div class="featured-demo">
+
+```gjs live preview no-shadow
+import { Modal } from 'ember-primitives';
+
+import { on } from '@ember/modifier';
+import focusTrap from 'ember-focus-trap/modifiers/focus-trap';
+import { loremIpsum } from 'lorem-ipsum';
+
+
+<template>
+  <Modal as |m|>
+    <button {{on 'click' m.open}}>Open Modal</button>
+
+    <br><br>
+    isOpen: {{m.isOpen}}<br>
+
+    <m.Dialog {{focusTrap isActive=m.isOpen}}>
+      <div>
+        <header>
+          <h2>Example Modal</h2>
+
+          <button {{on 'click' m.close}}>Close</button>
+        </header>
+
+        <form method="dialog">
+          <main>
+            Modal content here
+            <br>
+
+           {{loremIpsum 1}}
+          </main>
+
+          <footer>
+            <button type="submit" value="confirm">Confirm</button>
+            <button type="reset" value="close" {{on 'click' m.close}}>Reset</button>
+          </footer>
+        </form>
+      </div>
+    </m.Dialog>
+  </Modal>
+
+
+  <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
+  <style>
+    dialog {
+      border-radius: 0.25rem;
+      animation: var(--animation-slide-in-up), var(--animation-fade-in);
+      animation-timing-function: var(--ease-out-5);
+      animation-duration: 0.2s;
+    }
+    dialog > div {
+      display: grid;
+      gap: 1rem;
+    }
+    dialog::backdrop {
+      backdrop-filter: blur(1px);
+    }
+    dialog header { 
+      display: flex;
+      justify-content: space-between;
+    }
+    dialog h2 {
+      margin: 0;
+    }
+
+    dialog main {
+      max-width: 300px;
+    }
+    form {
+      display: grid;
+      gap: 1rem; 
+    }
+  </style>
+</template>
+```
+
+</div>
+
 ### Using as a Routeable Modal
 
 To use the modal as a routeable modal, you can set the `@open` and `@onClose` keys, like so:

@@ -39,6 +39,7 @@ module.exports = function (defaults) {
     staticHelpers: true,
     staticModifiers: true,
     staticComponents: true,
+    staticEmberSource: true,
     splitControllers: true,
     splitRouteClasses: true,
     implicitModulesStrategy: 'packageNames',

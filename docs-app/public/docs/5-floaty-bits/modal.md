@@ -98,15 +98,19 @@ Note that animations on `<dialog>` elements do not work within a [Shadow Dom](ht
 The `<dialog>` element already traps focus for your webpage -- however, 
 `<dialog>` does not trap focus from tabbing to the browser (address bar, tabs, etc). 
 This is, in part, so that focus behavior is consistent in and out of a modal, 
-and that keyboard users retain the ability to escape the webpage without being forced to close the modal.
+and that keyboard users retain the ability to escape the webpage without being forced to close the modal -- though,
+if keyboard users are also power-users, they may know about <kbd>ctrl</kbd> + <kbd>l</kbd> which escapes all focus traps, focusing the address bar, which would then allow them to tab to the back, forward, refresh, etc buttons in their browsers UI.
 
-But this conflicts with the [W3 ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) recommendation:
+This browser defined, yet consistent across all browser behavior, conflicts with the [W3 ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/) recommendation:
 
 > If focus is on the last tabbable element inside the dialog, moves focus to the first tabbable element inside the dialog.
 
 _However_, the [example](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/) does not use the `<dialog>` element, and instead uses divs.
 
-If you wish to follow this guideline, it can be achieved via the `{{focus-trap}}` modifier.
+The behavior of trapping all focus is [proposed here](https://github.com/whatwg/html/issues/8339), and we are reminded that the ARIA patterns are _guidelines_.
+
+
+If you wish to follow this guideline, it can be achieved via the `{{focusTrap}}` modifier.
 
 ```bash
 pnpm add ember-focus-trap

@@ -39,7 +39,8 @@
       "ember-cli-babel": "^7.26.11"
     },
     "patchedDependencies": {
-      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch"
+      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch",
+      "ember-velcro@2.1.1": "patches/ember-velcro@2.1.1.patch"
     },
     "packageExtensions": {
       "ember-qunit": {

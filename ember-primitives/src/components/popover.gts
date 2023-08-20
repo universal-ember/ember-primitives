@@ -181,6 +181,7 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
 function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
   return {
     elementContext: 'reference',
+    altBoundary: true,
     ...options,
   };
 }

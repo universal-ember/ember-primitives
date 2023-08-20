@@ -1,0 +1,21 @@
+diff --git a/dist/modifiers/velcro.js b/dist/modifiers/velcro.js
+index 3d21d8f9ef1113c6ef66e6d3a6976a32eb0ad3de..3c63008a9887459bf4f44a20e3d797ae60f82263 100644
+--- a/dist/modifiers/velcro.js
++++ b/dist/modifiers/velcro.js
+@@ -1,6 +1,6 @@
+ import { assert } from '@ember/debug';
+ import { registerDestructor } from '@ember/destroyable';
+-import { autoUpdate, computePosition, offset, flip, shift, hide } from '@floating-ui/dom';
++import { autoUpdate, computePosition, offset, flip, shift, hide, autoPlacement } from '@floating-ui/dom';
+ import Modifier from 'ember-modifier';
+ 
+ function velcroData() {
+@@ -41,7 +41,7 @@ class VelcroModifier extends Modifier {
+         y,
+         middlewareData
+       } = await computePosition(referenceElement, floatingElement, {
+-        middleware: [offset(offsetOptions), flip(flipOptions), shift(shiftOptions), ...middleware, hide({
++        middleware: [offset(offsetOptions), autoPlacement(flipOptions), shift(shiftOptions), ...middleware, hide({
+           strategy: 'referenceHidden'
+         }), hide({
+           strategy: 'escaped'

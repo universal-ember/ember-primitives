@@ -9,7 +9,7 @@ The goal of a popover is to provide additional behavioral functionality to make 
 - focus returning (TODO) 
 -->
 
-The `<Popover>` component uses portals in a way that totally solves layering issues. See the `<Portal>` and `<PortalTargets>` pages for more information.
+The `<Popover>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
@@ -22,7 +22,7 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 
 ```gjs live preview
 import { PortalTargets, Popover } from 'ember-primitives';
-import { hash } from '@ember/helper';
+import { array, hash } from '@ember/helper';
 import { loremIpsum } from 'lorem-ipsum';
 
 <template>
@@ -31,7 +31,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <div class="scroll-content" tabindex="0">
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
-    <Popover @placement="top" @offsetOptions={{8}} as |p|>
+    <Popover @placement="top" @offsetOptions={{8}} @allowedPlacements={{array "top" "bottom"}} as |p|>
       <div class="hook" {{p.hook}}>
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
@@ -107,7 +107,9 @@ const settings = cell(true);
   <PortalTargets />
 
   <header>
-    <Popover @offsetOptions={{8}} as |p|>
+    <span>My App</span>
+
+    <Popover @offsetOptions={{8}} @flipOptions={{hash crossAxis=true elementContext='floating' padding=48}} as |p|>
       <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
         Settings
       </button>
@@ -183,7 +185,8 @@ const settings = cell(true);
     }
     header {
       display: flex;
-      justify-content: end;
+      justify-content: space-between;
+      align-items: center;
       background: white;
       position: sticky;
       top: 0;

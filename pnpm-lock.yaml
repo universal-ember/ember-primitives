@@ -15,6 +15,9 @@ patchedDependencies:
   ember-headless-form@1.0.0-beta.3:
     hash: u4n53cevs3dxnryrysa4kwtk4u
     path: patches/ember-headless-form@1.0.0-beta.3.patch
+  ember-velcro@2.1.1:
+    hash: tv2q4drko3di4faucs5dwlrumq
+    path: patches/ember-velcro@2.1.1.patch
 
 importers:
 
@@ -129,7 +132,7 @@ importers:
         version: 3.0.0-beta.4(@glimmer/compiler@0.84.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.0.2)(ember-resources@6.4.0)(ember-source@5.2.0)
       ember-velcro:
         specifier: ^2.1.1
-        version: 2.1.1(ember-modifier@4.1.0)(ember-source@5.2.0)
+        version: 2.1.1(patch_hash=tv2q4drko3di4faucs5dwlrumq)(ember-modifier@4.1.0)(ember-source@5.2.0)
       hash:
         specifier: ^0.2.1
         version: 0.2.1
@@ -358,7 +361,7 @@ importers:
         version: 1.5.1
       ember-velcro:
         specifier: ^2.1.1
-        version: 2.1.1(ember-modifier@4.1.0)(ember-source@5.2.0)
+        version: 2.1.1(patch_hash=tv2q4drko3di4faucs5dwlrumq)(ember-modifier@4.1.0)(ember-source@5.2.0)
       tracked-toolbox:
         specifier: ^2.0.0
         version: 2.0.0(@babel/core@7.22.10)(ember-source@5.2.0)
@@ -8749,7 +8752,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-velcro@2.1.1(ember-modifier@4.1.0)(ember-source@5.2.0):
+  /ember-velcro@2.1.1(patch_hash=tv2q4drko3di4faucs5dwlrumq)(ember-modifier@4.1.0)(ember-source@5.2.0):
     resolution: {integrity: sha512-ZUTtDLPPWMz95DgD/7yiwRPh7EU/htaCAB3Zc5OO/vGNn3gWjpjWWuBBp7sSYVs++gCegYoE/3MsnhdmAwR34w==}
     engines: {node: 14.* || >= 16}
     peerDependencies:
@@ -8764,6 +8767,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+    patched: true
 
   /ember-welcome-page@7.0.2:
     resolution: {integrity: sha512-TyaKxFIRXhODW5BTbqD/by0Gu8Z9B9AA1ki3Bzzm6fOj2b30Qlprtt+XUG52kS0zVNmxYj/WWoT0TsKiU61VOw==}
@@ -17632,7 +17636,7 @@ packages:
       ember-modifier: 4.1.0(ember-source@5.2.0)
       ember-resources: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-source@5.2.0)
       ember-source: 5.2.0(@babel/core@7.22.10)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.2)
-      ember-velcro: 2.1.1(ember-modifier@4.1.0)(ember-source@5.2.0)
+      ember-velcro: 2.1.1(patch_hash=tv2q4drko3di4faucs5dwlrumq)(ember-modifier@4.1.0)(ember-source@5.2.0)
       tracked-toolbox: 2.0.0(@babel/core@7.22.10)(ember-source@5.2.0)
     transitivePeerDependencies:
       - '@babel/core'

@@ -61,6 +61,15 @@ export interface Signature {
      * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
      */
     strategy?: HookSignature['Args']['Named']['strategy'];
+
+    /**
+      * By default, the popover is portaled.
+      * If you don't control your CSS, and the positioning of the popover content
+      * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
+        *
+        * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
+      */
+    inline?: boolean;
   };
   Blocks: {
     default: [
@@ -79,6 +88,7 @@ interface PrivateContentSignature {
   Element: HTMLDivElement;
   Args: {
     loop: ModifierLike<{ Element: HTMLElement }>;
+    inline?: boolean;
   };
   Blocks: { default: [] };
 }
@@ -88,11 +98,17 @@ interface PrivateContentSignature {
  * This is useful because the algorithm for finding the portal target isn't cheap.
  */
 const Content: TOC<PrivateContentSignature> = <template>
-  <Portal @to={{TARGETS.popover}}>
+  {{#if @inline}}
     <div {{@loop}} ...attributes>
       {{yield}}
     </div>
-  </Portal>
+  {{else}}
+    <Portal @to={{TARGETS.popover}}>
+      <div {{@loop}} ...attributes>
+        {{yield}}
+      </div>
+    </Portal>
+  {{/if}}
 </template>;
 
 interface AttachArrowSignature {
@@ -184,7 +200,7 @@ export const Popover: TOC<Signature> = <template>
         (hash
           hook=velcro.hook
           loop=velcro.loop
-          Content=(component Content loop=velcro.loop)
+          Content=(component Content loop=velcro.loop inline=@inline)
           data=velcro.data
           arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)
         )

@@ -34,7 +34,7 @@ const ElementValue = () => cell<Element | ShadowRoot>();
 
 export const Portal: TOC<Signature> = <template>
   {{#let (ElementValue) as |target|}}
-    <div {{anchor @to target.set}}>
+    <div style="display:contents;" {{anchor @to target.set}}>
       {{#if target.current}}
         {{#in-element target.current}}
           {{yield}}

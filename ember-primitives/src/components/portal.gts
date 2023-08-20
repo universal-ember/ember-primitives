@@ -34,6 +34,10 @@ const ElementValue = () => cell<Element | ShadowRoot>();
 
 export const Portal: TOC<Signature> = <template>
   {{#let (ElementValue) as |target|}}
+    {{!-- This div is always going to be empty,
+          because it'll either find the portal and render content elsewhere,
+          it it won't find the portal and won't render anything.
+    --}}
     <div style="display:contents;" {{anchor @to target.set}}>
       {{#if target.current}}
         {{#in-element target.current}}

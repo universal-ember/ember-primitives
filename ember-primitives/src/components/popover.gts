@@ -66,7 +66,7 @@ export interface Signature {
     default: [
       {
         hook: ModifierLike<HookSignature>;
-        loop: ModifierLike;
+        loop: ModifierLike<{ Element: HTMLElement }>;
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: MiddlewareData;
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;

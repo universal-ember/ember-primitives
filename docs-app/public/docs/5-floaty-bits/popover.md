@@ -158,10 +158,11 @@ const settings = cell(true);
       z-index: 10;
     }
     .floatybit .floatybit {
-      background: #333;
+      background: #eee;
+      color: black;
     }
     .floatybit .floatybit .arrow {
-      background: #333;
+      background: #eee;
     }
     ul {
       padding-left: 1rem;

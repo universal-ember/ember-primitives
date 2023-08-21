@@ -100,6 +100,7 @@ import { loremIpsum } from 'lorem-ipsum';
 import { cell } from 'ember-resources';
 import { on } from '@ember/modifier';
 import { modifier } from 'ember-modifier';
+import { focusTrap } from 'ember-focus-trap';
 
 const settings = cell(true);
 const boundary = cell();
@@ -118,7 +119,7 @@ const updateBoundary = modifier((el) => {
             <span>My App</span>
 
             <Popover 
-                @strategy="absolute"
+              @strategy="absolute"
               @offsetOptions={{8}} 
               @flipOptions={{hash crossAxis=true padding=48 rootBoundary=boundary.current}} 
               @shiftOptions={{hash rootBoundary=boundary.current padding=8}}
@@ -127,7 +128,7 @@ const updateBoundary = modifier((el) => {
                 Settings
               </button>
               {{#if settings.current}}
-                <p.Content class="floatybit">
+                <p.Content @as="dialog" open class="floatybit">
                   <PortalTargets />
                   <ul>
                     <li>a</li>

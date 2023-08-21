@@ -356,6 +356,9 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.5.1
         version: 1.5.1
+      ember-element-helper:
+        specifier: ^0.8.2
+        version: 0.8.2(@glint/environment-ember-loose@1.0.2)(@glint/template@1.0.2)(ember-source@5.2.0)
       ember-velcro:
         specifier: github:nullvoxpopuli/ember-velcro#dist
         version: github.com/nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0)
@@ -2364,6 +2367,14 @@ packages:
       - utf-8-validate
     dev: true
 
+  /@embroider/addon-shim@1.8.3:
+    resolution: {integrity: sha512-7pyHwzT6ESXc3nZsB8rfnirLkUhQWdvj6CkYH+0MUPN74mX4rslf7pnBqZE/KZkW3uBIaBYvU8fxi0hcKC/Paw==}
+    engines: {node: 12.* || 14.* || >= 16}
+    dependencies:
+      '@embroider/shared-internals': 1.8.3
+      semver: 7.5.4
+    dev: false
+
   /@embroider/addon-shim@1.8.5:
     resolution: {integrity: sha512-pDgpdTsC9i/+5hHziygK5VIZc64OG8bupiqL0OxJp+bnINURalHMbu5B3Gikq/a0QIvMPzDFWzKxIZCBpeiHkg==}
     engines: {node: 12.* || 14.* || >= 16}
@@ -2548,6 +2559,20 @@ packages:
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
+
+  /@embroider/shared-internals@1.8.3:
+    resolution: {integrity: sha512-N5Gho6Qk8z5u+mxLCcMYAoQMbN4MmH+z2jXwQHVs859bxuZTxwF6kKtsybDAASCtd2YGxEmzcc1Ja/wM28824w==}
+    engines: {node: 12.* || 14.* || >= 16}
+    dependencies:
+      babel-import-util: 1.4.1
+      ember-rfc176-data: 0.3.18
+      fs-extra: 9.1.0
+      js-string-escape: 1.0.1
+      lodash: 4.17.21
+      resolve-package-path: 4.0.3
+      semver: 7.5.4
+      typescript-memoize: 1.1.1
+    dev: false
 
   /@embroider/shared-internals@2.1.0:
     resolution: {integrity: sha512-9hKbMxW7wDWt1BqdpnLZ5W6ETrmAg9HnfBwf1IDkT+8he5nOdTD0PNtruMjm7V0Tb9p9hI7O+UXSa8ZnX1BQXg==}
@@ -8339,6 +8364,21 @@ packages:
     resolution: {integrity: sha512-SB9NcZ27OtoUk+gfalsc3QU17+54OoqR668qHcuvHByk4KAhGxCKlkm9EBlKJcGr7yceOOAJqohTcCEBqfRw9g==}
     engines: {node: '>= 0.10.0'}
     dev: true
+
+  /ember-element-helper@0.8.2(@glint/environment-ember-loose@1.0.2)(@glint/template@1.0.2)(ember-source@5.2.0):
+    resolution: {integrity: sha512-1vvvZ0fUv1WPRkTiY3HZu5o4Wsc6v4TaMJkRChtPkio/QXjbV6kxIJK0lD0XGAOPeHL57VceNYfpQ/0splta7A==}
+    engines: {node: 14.* || 16.* || >= 18}
+    peerDependencies:
+      ember-source: '*'
+    dependencies:
+      '@embroider/addon-shim': 1.8.3
+      '@embroider/util': 1.12.0(@glint/environment-ember-loose@1.0.2)(@glint/template@1.0.2)(ember-source@5.2.0)
+      ember-source: 5.2.0(@babel/core@7.22.10)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.2)
+    transitivePeerDependencies:
+      - '@glint/environment-ember-loose'
+      - '@glint/template'
+      - supports-color
+    dev: false
 
   /ember-fetch@8.1.2:
     resolution: {integrity: sha512-TVx24/jrvDIuPL296DV0hBwp7BWLcSMf0I8464KGz01sPytAB+ZAePbc9ooBTJDkKZEGFgatJa4nj3yF1S9Bpw==}
@@ -17605,11 +17645,30 @@ packages:
       ember-modifier: 4.1.0(ember-source@5.2.0)
       ember-resources: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-source@5.2.0)
       ember-source: 5.2.0(@babel/core@7.22.10)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.2)
-      ember-velcro: github.com/nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0)
+      ember-velcro: git@github.com+nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0)
       tracked-toolbox: 2.0.0(@babel/core@7.22.10)(ember-source@5.2.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'
+      - supports-color
+    dev: false
+
+  git@github.com+nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0):
+    resolution: {commit: c3644623a8f51404aed0f2d38fc26cd25075054f, repo: git@github.com:nullvoxpopuli/ember-velcro.git, type: git}
+    id: git@github.com+nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f
+    name: ember-velcro
+    version: 2.1.1
+    engines: {node: 14.* || >= 16}
+    peerDependencies:
+      ember-modifier: ^3.2.7 || >= 4.0.0
+      ember-source: '*'
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
+      '@floating-ui/dom': 1.5.1
+      ember-functions-as-helper-polyfill: 2.1.2(ember-source@5.2.0)
+      ember-modifier: 4.1.0(ember-source@5.2.0)
+      ember-source: 5.2.0(@babel/core@7.22.10)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.2)
+    transitivePeerDependencies:
       - supports-color
     dev: false
 

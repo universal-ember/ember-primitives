@@ -1,6 +1,7 @@
 import { hash } from '@ember/helper';
 
 import { arrow } from '@floating-ui/dom';
+import { element } from 'ember-element-helper';
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
 import { Velcro } from 'ember-velcro';
@@ -83,31 +84,61 @@ export interface Signature {
   };
 }
 
-interface PrivateContentSignature {
-  Element: HTMLDivElement;
-  Args: {
-    loop: ModifierLike<{ Element: HTMLElement }>;
-    inline?: boolean;
-  };
-  Blocks: { default: [] };
+function getElementTag(tagName: undefined | string) {
+  return tagName || 'div';
 }
 
 /**
  * Allows lazy evaluation of the portal target (do nothing until rendered)
  * This is useful because the algorithm for finding the portal target isn't cheap.
  */
-const Content: TOC<PrivateContentSignature> = <template>
-  {{#if @inline}}
-    <div {{@loop}} ...attributes>
-      {{yield}}
-    </div>
-  {{else}}
-    <Portal @to={{TARGETS.popover}}>
-      <div {{@loop}} ...attributes>
+const Content: TOC<
+{
+
+  Element: HTMLDivElement;
+  Args: {
+    loop: ModifierLike<{ Element: HTMLElement }>;
+    inline?: boolean;
+    /**
+      * By default the popover content is wrapped in a div.
+      * You may change this by supplying the name of an element here.
+      *
+      * For example:
+      * ```gjs
+      * <Popover as |p|>
+      *  <p.Content @as="dialog">
+      *    this is now focus trapped
+      *  </p.Content>
+      * </Popover>
+      * ```
+      */
+    as?: string;
+  };
+  Blocks: { default: [] };
+}
+
+> = <template>
+  {{#let (element (getElementTag @as)) as |El|}}
+    {{#if @inline}}
+      {{!-- @glint-ignore
+            https://github.com/tildeio/ember-element-helper/issues/91
+            https://github.com/typed-ember/glint/issues/610
+      --}}
+      <El {{@loop}} ...attributes>
         {{yield}}
-      </div>
-    </Portal>
-  {{/if}}
+      </El>
+    {{else}}
+      <Portal @to={{TARGETS.popover}}>
+        {{!-- @glint-ignore
+              https://github.com/tildeio/ember-element-helper/issues/91
+              https://github.com/typed-ember/glint/issues/610
+        --}}
+        <El open {{@loop}} ...attributes>
+          {{yield}}
+        </El>
+      </Portal>
+    {{/if}}
+  {{/let}}
 </template>;
 
 interface AttachArrowSignature {

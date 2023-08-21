@@ -139,9 +139,9 @@ const settings = cell(true);
 
   </header>
 
-  <main>
-    {{loremIpsum (hash count=1 units="paragraphs")}}
-  </main>
+    <div class="main">
+      {{loremIpsum (hash count=1 units="paragraphs")}}
+    </div>
   </div>
 
   <style>
@@ -194,7 +194,7 @@ const settings = cell(true);
       padding: 0.25rem;
       filter: drop-shadow(0px 3px 6px #000000aa);
     }
-    main {
+    .main {
       padding: 0.5rem;
       color: #888;
     }

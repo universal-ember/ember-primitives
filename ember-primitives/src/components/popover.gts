@@ -75,7 +75,6 @@ export interface Signature {
     default: [
       {
         hook: ModifierLike<HookSignature>;
-        loop: ModifierLike<{ Element: HTMLElement }>;
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: MiddlewareData;
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
@@ -181,7 +180,6 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
 function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
   return {
     elementContext: 'reference',
-    altBoundary: true,
     ...options,
   };
 }
@@ -200,7 +198,6 @@ export const Popover: TOC<Signature> = <template>
       {{yield
         (hash
           hook=velcro.hook
-          loop=velcro.loop
           Content=(component Content loop=velcro.loop inline=@inline)
           data=velcro.data
           arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)

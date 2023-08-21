@@ -2,4 +2,4 @@
 'ember-primitives': minor
 ---
 
-Expose {{loop}} so folks can opt out of portaling until https://github.com/floating-ui/floating-ui/issues/2496 is fixed (which would simultaneously help with positioning, z-index, and focus trapping)
+For `<Popover>`, provide an escape hatch on `<Content>` so that folks can opt out of portaling, if their CSS or middleware is misbehaving. This should be a last resort, however, as portalling can help solve layering and z-index issues across the whole application -- see https://ember-primitives.pages.dev/5-floaty-bits/portal for a demo.

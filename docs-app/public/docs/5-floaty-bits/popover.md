@@ -31,7 +31,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <div class="scroll-content" tabindex="0">
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
-    <Popover @placement="top" @offsetOptions={{8}} @allowedPlacements={{array "top" "bottom"}} as |p|>
+    <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.hook}}>
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
@@ -99,50 +99,69 @@ import { hash } from '@ember/helper';
 import { loremIpsum } from 'lorem-ipsum';
 import { cell } from 'ember-resources';
 import { on } from '@ember/modifier';
+import { modifier } from 'ember-modifier';
 
 const settings = cell(true);
+const boundary = cell();
+const updateBoundary = modifier((el) => {
+    (async () => {
+        await Promise.resolve();
+        boundary.current = el;
+    })();
+});
 
 <template>
-  <div class="site">
-  <PortalTargets />
+    <div class="site" {{updateBoundary}}>
+      <PortalTargets />
 
-  <header>
-    <span>My App</span>
+        <header>
+            <span>My App</span>
 
-    <Popover @offsetOptions={{8}} @flipOptions={{hash crossAxis=true elementContext='floating' padding=48}} as |p|>
-      <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
-        Settings
-      </button>
-      {{#if settings.current}}
-        <p.Content class="floatybit">
-          <ul>
-            <li>a</li>
-            <li>not so big list</li>
-            <li>of</li>
-            <li>
-              things<br>
+            <Popover 
+                @strategy="absolute"
+              @offsetOptions={{8}} 
+              @flipOptions={{hash crossAxis=true padding=48 rootBoundary=boundary.current}} 
+              @shiftOptions={{hash rootBoundary=boundary.current padding=8}}
+            as |p|>
+              <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
+                Settings
+              </button>
+              {{#if settings.current}}
+                <p.Content class="floatybit">
+                  <PortalTargets />
+                  <ul>
+                    <li>a</li>
+                    <li>not so big list</li>
+                    <li>of</li>
+                    <li>
+                      things<br>
 
-              <Popover @inline={{true}} @placement="left" @offsetOptions={{16}} as |pp|>
-                <button {{pp.hook}}>view profile</button>
+                      <Popover 
+                        @placement="left" 
+                        @offsetOptions={{16}} 
+                        @flipOptions={{hash rootBoundary=boundary.current}} 
+                        @shiftOptions={{hash rootBoundary=boundary.current padding=8}}
+                        as |pp|>
+                        <button {{pp.hook}}>view profile</button>
 
-                <pp.Content class="floatybit">
-                  View or edit your profile settings
-                  <div class="arrow" {{pp.arrow}}></div>
-                </pp.Content>
-              </Popover>
-            </li>
-          </ul>
-          <div class="arrow" {{p.arrow}}></div>
-        </p.Content>
-      {{/if}}
-    </Popover>
+                        <pp.Content class="floatybit">
+                          View or edit your profile settings
+                          <div class="arrow" {{pp.arrow}}></div>
+                        </pp.Content>
+                      </Popover>
+                    </li>
+                  </ul>
+                  <div class="arrow" {{p.arrow}}></div>
+                </p.Content>
+              {{/if}}
+            </Popover>
 
-  </header>
+        </header>
 
-    <div class="main">
-      {{loremIpsum (hash count=1 units="paragraphs")}}
+        <div class="main">
+          {{loremIpsum (hash count=2 units="paragraphs")}}
+        </div>
     </div>
-  </div>
 
   <style>
     .floatybit {

@@ -357,8 +357,8 @@ importers:
         specifier: ^1.5.1
         version: 1.5.1
       ember-velcro:
-        specifier: ^2.1.1
-        version: 2.1.1(ember-modifier@4.1.0)(ember-source@5.2.0)
+        specifier: github:nullvoxpopuli/ember-velcro#dist
+        version: github.com/nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0)
       tracked-toolbox:
         specifier: ^2.0.0
         version: 2.0.0(@babel/core@7.22.10)(ember-source@5.2.0)
@@ -17605,10 +17605,29 @@ packages:
       ember-modifier: 4.1.0(ember-source@5.2.0)
       ember-resources: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.0.2)(ember-source@5.2.0)
       ember-source: 5.2.0(@babel/core@7.22.10)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.2)
-      ember-velcro: 2.1.1(ember-modifier@4.1.0)(ember-source@5.2.0)
+      ember-velcro: github.com/nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0)
       tracked-toolbox: 2.0.0(@babel/core@7.22.10)(ember-source@5.2.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'
+      - supports-color
+    dev: false
+
+  github.com/nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f(ember-modifier@4.1.0)(ember-source@5.2.0):
+    resolution: {tarball: https://codeload.github.com/nullvoxpopuli/ember-velcro/tar.gz/c3644623a8f51404aed0f2d38fc26cd25075054f}
+    id: github.com/nullvoxpopuli/ember-velcro/c3644623a8f51404aed0f2d38fc26cd25075054f
+    name: ember-velcro
+    version: 2.1.1
+    engines: {node: 14.* || >= 16}
+    peerDependencies:
+      ember-modifier: ^3.2.7 || >= 4.0.0
+      ember-source: '*'
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
+      '@floating-ui/dom': 1.5.1
+      ember-functions-as-helper-polyfill: 2.1.2(ember-source@5.2.0)
+      ember-modifier: 4.1.0(ember-source@5.2.0)
+      ember-source: 5.2.0(@babel/core@7.22.10)(@glimmer/component@1.1.2)(@glint/template@1.0.2)(webpack@5.88.2)
+    transitivePeerDependencies:
       - supports-color
     dev: false

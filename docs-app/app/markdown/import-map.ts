@@ -1,5 +1,6 @@
 import * as docsSupport from 'docs-app/docs-support';
 import * as docsMarkdown from 'docs-app/markdown';
+import * as eModifier from 'ember-modifier';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import * as emberFocusTrap from 'ember-focus-trap/modifiers/focus-trap';
@@ -32,5 +33,6 @@ export const defaultOptions: Options = {
     'docs-app/docs-support': docsSupport,
     'docs-app/markdown': docsMarkdown,
     'lorem-ipsum': loremIpsum,
+    'ember-modifier': eModifier,
   },
 };

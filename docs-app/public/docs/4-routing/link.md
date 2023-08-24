@@ -8,6 +8,22 @@ import { CommentQuery } from 'docs-app/docs-support';
 </template>
 ```
 
+<Callout>
+
+Most of the time, for in-app navigations especially, you'll want to use the [native `<a>`][mdn-a] element.
+
+However, for consistent usage and behavior within a design system, it'll be beneficial to lint against `<a>`, and use a design-system-provided version of `<Link />`, which wraps _this_ `<Link />`.
+
+</Callout>
+
+The `<Link />` component provides additional behavior and utilities for styling and providing additional context, such as within `<nav>` or other UI patterns which persist across multiple page navigations.
+
+`<Link />` will automatically externalize a `href` which specify different domains (add `target='_blank'` and `rel='noreferrer noopener'`)
+
+
+
+[mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+
 ## Example
 
 

@@ -5,6 +5,7 @@
     "environment": ["ember-loose", "ember-template-imports"]
   },
   "compilerOptions": {
+    "skipLibCheck": true,
     "declarationDir": "dist-types",
     "emitDeclarationOnly": true,
     "noEmit": false

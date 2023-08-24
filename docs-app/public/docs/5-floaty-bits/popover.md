@@ -9,7 +9,7 @@ The goal of a popover is to provide additional behavioral functionality to make 
 - focus returning (TODO) 
 -->
 
-The `<Popover>` component uses portals in a way that totally solves layering issues. See the `<Portal>` and `<PortalTargets>` pages for more information.
+The `<Popover>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
@@ -22,7 +22,7 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 
 ```gjs live preview
 import { PortalTargets, Popover } from 'ember-primitives';
-import { hash } from '@ember/helper';
+import { array, hash } from '@ember/helper';
 import { loremIpsum } from 'lorem-ipsum';
 
 <template>
@@ -80,6 +80,132 @@ import { loremIpsum } from 'lorem-ipsum';
       padding: 0.5rem;
       color: #888;
     }
+  </style>
+</template>
+```
+
+</div>
+
+## Usage within a header
+
+It's often common to provide popover-using UIs in site headers, such as a settings menu, or navigation.
+
+
+<div class="featured-demo">
+
+```gjs live preview
+import { PortalTargets, Popover } from 'ember-primitives';
+import { hash } from '@ember/helper';
+import { loremIpsum } from 'lorem-ipsum';
+import { cell } from 'ember-resources';
+import { on } from '@ember/modifier';
+import { focusTrap } from 'ember-focus-trap';
+
+const settings = cell(true);
+
+<template>
+    <div class="site">
+      <PortalTargets />
+
+        <header>
+            <span>My App</span>
+
+            <Popover @offsetOptions={{8}} as |p|>
+              <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
+                Settings
+              </button>
+              {{#if settings.current}}
+                <p.Content @as="dialog" open class="floatybit">
+                  <PortalTargets />
+                  <ul>
+                    <li>a</li>
+                    <li>not so big list</li>
+                    <li>of</li>
+                    <li>
+                      things<br>
+
+                      <Popover @placement="left" @offsetOptions={{16}} as |pp|>
+                        <button {{pp.hook}}>view profile</button>
+
+                        <pp.Content class="floatybit">
+                          View or edit your profile settings
+                          <div class="arrow" {{pp.arrow}}></div>
+                        </pp.Content>
+                      </Popover>
+                    </li>
+                  </ul>
+                  <div class="arrow" {{p.arrow}}></div>
+                </p.Content>
+              {{/if}}
+            </Popover>
+
+        </header>
+
+        <div class="main">
+          {{loremIpsum (hash count=2 units="paragraphs")}}
+        </div>
+    </div>
+
+  <style>
+    .floatybit {
+      width: max-content;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #222;
+      color: white;
+      font-weight: bold;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 90%;
+      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+      z-index: 10;
+    }
+    .floatybit .floatybit {
+      background: #eee;
+      color: black;
+    }
+    .floatybit .floatybit .arrow {
+      background: #eee;
+    }
+    ul {
+      padding-left: 1rem;
+      margin: 0;
+    }
+    .arrow {
+      position: absolute;
+      background: #222;
+      width: 8px;
+      height: 8px;
+      transform: rotate(45deg);
+    }
+    .hook {
+      padding: 0.5rem;
+      border: 1px solid;
+      display: inline-block;
+      color: black;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      padding: 0.25rem;
+      filter: drop-shadow(0px 3px 6px #000000aa);
+    }
+    .main {
+      padding: 0.5rem;
+      color: #888;
+    }
+    .site {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid;
+    }
+    * { box-sizing: border-box; }
   </style>
 </template>
 ```

@@ -133,7 +133,7 @@ const Content: TOC<
               https://github.com/tildeio/ember-element-helper/issues/91
               https://github.com/typed-ember/glint/issues/610
         --}}
-        <El open {{@loop}} ...attributes>
+        <El {{@loop}} ...attributes>
           {{yield}}
         </El>
       </Portal>

@@ -24,11 +24,21 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 import { PortalTargets, Popover } from 'ember-primitives';
 import { array, hash } from '@ember/helper';
 import { loremIpsum } from 'lorem-ipsum';
+import { modifier } from 'ember-modifier';
+import { cell } from 'ember-resources';
+
+const boundary = cell();
+const updateBoundary = modifier((el) => {
+    (async () => {
+        await Promise.resolve();
+        boundary.current = el;
+    })();
+});
 
 <template>
   <PortalTargets />
 
-  <div class="scroll-content" tabindex="0">
+  <div class="scroll-content" tabindex="0" {{updateBoundary}}>
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
@@ -36,7 +46,7 @@ import { loremIpsum } from 'lorem-ipsum';
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
       </div>
-      <p.Content class="floatybit">
+      <p.Content @inline={{true}} class="floatybit">
         The floaty bit here
         <div class="arrow" {{p.arrow}}></div>
       </p.Content>
@@ -121,8 +131,6 @@ const updateBoundary = modifier((el) => {
             <Popover 
               @strategy="absolute"
               @offsetOptions={{8}} 
-              @flipOptions={{hash crossAxis=true padding=48 rootBoundary=boundary.current}} 
-              @shiftOptions={{hash rootBoundary=boundary.current padding=8}}
             as |p|>
               <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
                 Settings

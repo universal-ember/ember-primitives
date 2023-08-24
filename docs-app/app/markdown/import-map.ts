@@ -1,5 +1,7 @@
 import * as docsSupport from 'docs-app/docs-support';
 import * as docsMarkdown from 'docs-app/markdown';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import * as eFocusTrap from 'ember-focus-trap';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore

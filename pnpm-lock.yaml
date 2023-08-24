@@ -15,9 +15,6 @@ patchedDependencies:
   ember-headless-form@1.0.0-beta.3:
     hash: u4n53cevs3dxnryrysa4kwtk4u
     path: patches/ember-headless-form@1.0.0-beta.3.patch
-  ember-velcro@2.1.2:
-    hash: ajpjv76k6ojmigggvmqwpncmxu
-    path: patches/ember-velcro@2.1.2.patch
 
 importers:
 
@@ -131,8 +128,8 @@ importers:
         specifier: ^3.0.0-beta.4
         version: 3.0.0-beta.4(@glimmer/compiler@0.84.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.1.0)(ember-resources@6.4.0)(ember-source@5.2.0)
       ember-velcro:
-        specifier: ^2.1.2
-        version: 2.1.2(patch_hash=ajpjv76k6ojmigggvmqwpncmxu)(ember-modifier@4.1.0)(ember-source@5.2.0)
+        specifier: ^2.1.3
+        version: 2.1.3(ember-modifier@4.1.0)(ember-source@5.2.0)
       hash:
         specifier: ^0.2.1
         version: 0.2.1
@@ -8790,8 +8787,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-velcro@2.1.2(patch_hash=ajpjv76k6ojmigggvmqwpncmxu)(ember-modifier@4.1.0)(ember-source@5.2.0):
-    resolution: {integrity: sha512-dk96VUUYAbeyDAGDQycR7+6gEnxPbNzV9qhN9ZDLUM1N+fLK9Cmy+HcVHFifzq8COA3qg+7mBAKdsB3fm5+dLg==}
+  /ember-velcro@2.1.3(ember-modifier@4.1.0)(ember-source@5.2.0):
+    resolution: {integrity: sha512-4V6rT9b9XSeMaPmiYYA2hIhfMD088vru6AvfGWBY7L1w/st5hYv6iIfamy9+W1l9xKvIH3Hcl8+B0637/SRmzQ==}
     engines: {node: 14.* || >= 16}
     peerDependencies:
       ember-modifier: ^3.2.7 || >= 4.0.0
@@ -8805,7 +8802,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
-    patched: true
 
   /ember-welcome-page@7.0.2:
     resolution: {integrity: sha512-TyaKxFIRXhODW5BTbqD/by0Gu8Z9B9AA1ki3Bzzm6fOj2b30Qlprtt+XUG52kS0zVNmxYj/WWoT0TsKiU61VOw==}

@@ -46,7 +46,7 @@ const updateBoundary = modifier((el) => {
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
       </div>
-      <p.Content @inline={{true}} class="floatybit">
+      <p.Content class="floatybit">
         The floaty bit here
         <div class="arrow" {{p.arrow}}></div>
       </p.Content>

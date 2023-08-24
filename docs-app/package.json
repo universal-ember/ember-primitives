@@ -34,7 +34,7 @@
     "ember-modifier": "^4.1.0",
     "ember-primitives": "workspace:*",
     "ember-repl": "^3.0.0-beta.4",
-    "ember-velcro": "^2.1.2",
+    "ember-velcro": "^2.1.3",
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.1.0",

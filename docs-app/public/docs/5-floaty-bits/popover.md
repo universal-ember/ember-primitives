@@ -24,21 +24,11 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 import { PortalTargets, Popover } from 'ember-primitives';
 import { array, hash } from '@ember/helper';
 import { loremIpsum } from 'lorem-ipsum';
-import { modifier } from 'ember-modifier';
-import { cell } from 'ember-resources';
-
-const boundary = cell();
-const updateBoundary = modifier((el) => {
-    (async () => {
-        await Promise.resolve();
-        boundary.current = el;
-    })();
-});
 
 <template>
   <PortalTargets />
 
-  <div class="scroll-content" tabindex="0" {{updateBoundary}}>
+  <div class="scroll-content" tabindex="0">
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
@@ -109,29 +99,18 @@ import { hash } from '@ember/helper';
 import { loremIpsum } from 'lorem-ipsum';
 import { cell } from 'ember-resources';
 import { on } from '@ember/modifier';
-import { modifier } from 'ember-modifier';
 import { focusTrap } from 'ember-focus-trap';
 
 const settings = cell(true);
-const boundary = cell();
-const updateBoundary = modifier((el) => {
-    (async () => {
-        await Promise.resolve();
-        boundary.current = el;
-    })();
-});
 
 <template>
-    <div class="site" {{updateBoundary}}>
+    <div class="site">
       <PortalTargets />
 
         <header>
             <span>My App</span>
 
-            <Popover 
-              @strategy="absolute"
-              @offsetOptions={{8}} 
-            as |p|>
+            <Popover @offsetOptions={{8}} as |p|>
               <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
                 Settings
               </button>
@@ -145,12 +124,7 @@ const updateBoundary = modifier((el) => {
                     <li>
                       things<br>
 
-                      <Popover 
-                        @placement="left" 
-                        @offsetOptions={{16}} 
-                        @flipOptions={{hash rootBoundary=boundary.current}} 
-                        @shiftOptions={{hash rootBoundary=boundary.current padding=8}}
-                        as |pp|>
+                      <Popover @placement="left" @offsetOptions={{16}} as |pp|>
                         <button {{pp.hook}}>view profile</button>
 
                         <pp.Content class="floatybit">

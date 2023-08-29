@@ -59,7 +59,7 @@
     /////////////////////////////////////////////////
     // development
     "build:dev": {
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", "dist-types/**", "declarations/**"],
       "dependsOn": ["_syncPnpm"]
     },
     "pack": {

@@ -6,6 +6,7 @@ if (macroCondition(isDevelopingApp())) {
 
 export { Dialog, Dialog as Modal } from './components/dialog';
 export { ExternalLink } from './components/external-link';
+export { Form } from './components/form';
 export { Link } from './components/link';
 export { Popover } from './components/popover';
 export { Portal } from './components/portal';

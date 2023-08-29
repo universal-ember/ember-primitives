@@ -102,6 +102,7 @@
     "app-js": {
       "./components/dialog.js": "./dist/_app_/components/dialog.js",
       "./components/external-link.js": "./dist/_app_/components/external-link.js",
+      "./components/form.js": "./dist/_app_/components/form.js",
       "./components/link.js": "./dist/_app_/components/link.js",
       "./components/popover.js": "./dist/_app_/components/popover.js",
       "./components/portal-targets.js": "./dist/_app_/components/portal-targets.js",

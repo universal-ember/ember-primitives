@@ -19,6 +19,7 @@ import * as emberVelcro from 'ember-velcro';
 import * as velcro from 'ember-velcro/modifiers/velcro';
 // other
 import * as loremIpsum from 'lorem-ipsum';
+import * as trackedBuiltIns from 'tracked-built-ins';
 
 import type { Options } from './compiler';
 
@@ -34,6 +35,7 @@ export const defaultOptions: Options = {
     'ember-resources/util/remote-data': remoteData,
     'ember-focus-trap/modifiers/focus-trap': emberFocusTrap,
     'ember-focus-trap': eFocusTrap,
+    'tracked-built-ins': trackedBuiltIns,
     'docs-app/docs-support': docsSupport,
     'docs-app/markdown': docsMarkdown,
     'lorem-ipsum': loremIpsum,

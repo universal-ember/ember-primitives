@@ -24,7 +24,7 @@ jobs:
     outputs:
       pending: ${{ steps.set-pending.outputs.pending }}
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -39,7 +39,7 @@ jobs:
     needs: [setup]
     timeout-minutes: 5
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -54,7 +54,7 @@ jobs:
     timeout-minutes: 5
     if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -67,7 +67,7 @@ jobs:
     timeout-minutes: 5
     if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
@@ -91,7 +91,7 @@ jobs:
           - ember-canary
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -119,7 +119,7 @@ jobs:
           - typescript@next
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -136,7 +136,7 @@ jobs:
     timeout-minutes: 5
     needs: [setup]
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: |
@@ -161,7 +161,7 @@ jobs:
       deployments: write
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@NullVoxPopuli-patch-1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -171,7 +171,7 @@ jobs:
       - run: pnpm ember build
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}
-        uses: cloudflare/pages-action@v1.5.0
+        uses: cloudflare/pages-action@NullVoxPopuli-patch-1.5.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -370,8 +370,8 @@ importers:
         version: 2.0.0(@babel/core@7.22.10)(ember-source@5.2.0)
     devDependencies:
       '@arethetypeswrong/cli':
-        specifier: ^0.8.0
-        version: 0.8.0
+        specifier: ^0.9.0
+        version: 0.9.0
       '@babel/core':
         specifier: ^7.22.10
         version: 7.22.10(supports-color@8.1.1)
@@ -716,11 +716,11 @@ packages:
     resolution: {integrity: sha512-hL80MHK3b++pEp6K23+Nl5r5D1F19DRagp2ruCBIv4McyCiLKq67vUNvEQY1aGCAKNZ8GxV23n5MhOm7RwO8Pg==}
     dev: true
 
-  /@arethetypeswrong/cli@0.8.0:
-    resolution: {integrity: sha512-Zgf3PXL7fnbmiLSTjYwJRK1HDHybZMCz2PDv/rVglWI93KOLmvBeP2QNMW3DUC/hKA3ifFsmx6IxhRq+9HKX4Q==}
+  /@arethetypeswrong/cli@0.9.0:
+    resolution: {integrity: sha512-QeT3TXtivqfH6LL0kPI2YcqH7IzQ2VKnCwJgVLxsmXKsd7ng8XhpInu0w69OIfEQ5qMaHAdVXyB0pI6NYpY3SQ==}
     hasBin: true
     dependencies:
-      '@arethetypeswrong/core': 0.8.0
+      '@arethetypeswrong/core': 0.9.0
       chalk: 4.1.2
       cli-table3: 0.6.3
       commander: 10.0.1
@@ -731,14 +731,14 @@ packages:
       - encoding
     dev: true
 
-  /@arethetypeswrong/core@0.8.0:
-    resolution: {integrity: sha512-7SBu32kfG+obCWor80OTt41Rn2Q3lXSWR2WPCimICSH4SSdFLbmMcF9oI5p9kxv7z7x1LrQUPDRdCSpq0Wkmhw==}
+  /@arethetypeswrong/core@0.9.0:
+    resolution: {integrity: sha512-Bu6lLtGPBmj1psNwZCZi6avCewl/M+JZ6vGtHA/FkgGWz48vffWIa8d0i8t/QGwxda5WUnGeKaaARkvsivarRg==}
     dependencies:
       '@andrewbranch/untar.js': 1.0.2
       fetch-ponyfill: 7.1.0
       fflate: 0.7.4
       semver: 7.5.4
-      typescript: 5.1.6
+      typescript: 5.2.2
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
       - encoding
@@ -16752,6 +16752,12 @@ packages:
 
   /typescript@5.1.6:
     resolution: {integrity: sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
+
+  /typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true

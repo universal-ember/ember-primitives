@@ -24,6 +24,9 @@ module.exports = function (defaults) {
         return pages;
       },
     },
+    fastboot: {
+      hostWhitelist: [/^localhost:\d+/, 'ember-primitives.pages.dev'],
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated

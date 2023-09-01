@@ -53,19 +53,54 @@ export function sync() {
 }
 
 export const prefers = {
-  dark: () => window.matchMedia('(prefers-color-scheme: dark)').matches,
-  light: () => window.matchMedia('(prefers-color-scheme: light)').matches,
-  custom: (name: string) => window.matchMedia(`(prefers-color-scheme: ${name})`).matches,
-  none: () => window.matchMedia('(prefers-color-scheme: no-preference)').matches,
+  dark: () => {
+    // Fastboot has no graceful fallbacks
+    if (typeof matchMedia === 'undefined') return;
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  },
+  light: () => {
+    // Fastboot has no graceful fallbacks
+    if (typeof matchMedia === 'undefined') return;
+
+    return window.matchMedia('(prefers-color-scheme: light)').matches;
+  },
+  custom: (name: string) => {
+    // Fastboot has no graceful fallbacks
+    if (typeof matchMedia === 'undefined') return;
+
+    return window.matchMedia(`(prefers-color-scheme: ${name})`).matches;
+  },
+  none: () => {
+    // Fastboot has no graceful fallbacks
+    if (typeof matchMedia === 'undefined') return;
+
+    return window.matchMedia('(prefers-color-scheme: no-preference)').matches;
+  },
 };
 
 const LOCAL_PREF_KEY = 'ember-primitives/color-scheme#local-preference';
 
 export const localPreference = {
   isSet: () => Boolean(localPreference.read()),
-  read: () => localStorage.getItem(LOCAL_PREF_KEY),
-  update: (value: string) => localStorage.setItem(LOCAL_PREF_KEY, value),
-  delete: () => localStorage.removeItem(LOCAL_PREF_KEY),
+  read: () => {
+    // Fastboot has no graceful fallbacks
+    if (typeof localStorage === 'undefined') return;
+
+    return localStorage.getItem(LOCAL_PREF_KEY);
+  },
+  update: (value: string) => {
+    // Fastboot has no graceful fallbacks
+    if (typeof localStorage === 'undefined') return;
+
+    return localStorage.setItem(LOCAL_PREF_KEY, value);
+  },
+  delete: () => {
+    // Fastboot has no graceful fallbacks
+    if (typeof localStorage === 'undefined') return;
+
+    return localStorage.removeItem(LOCAL_PREF_KEY);
+  },
 };
 
 export function getColorScheme(element?: HTMLElement) {

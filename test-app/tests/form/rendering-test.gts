@@ -10,12 +10,12 @@ module('<Form />', function (hooks) {
 
   test('input works', async function (assert) {
     const data = cell<any>({});
-    const update = (x: any) => data.current = x;
+    const update = (x: any) => (data.current = x);
 
     await render(<template>
       <Form @onChange={{update}}>
         <label>first
-          <input name="first" />
+          <input name='first' />
         </label>
       </Form>
     </template>);
@@ -30,14 +30,14 @@ module('<Form />', function (hooks) {
 
   test('submit works', async function (assert) {
     const data = cell<any>({});
-    const update = (x: any) => data.current = x;
+    const update = (x: any) => (data.current = x);
 
     await render(<template>
       <Form @onChange={{update}}>
         <label>first
-          <input name="first" value="from-dom" />
+          <input name='first' value='from-dom' />
         </label>
-        <button type="submit">submit</button>
+        <button type='submit'>submit</button>
       </Form>
     </template>);
 
@@ -47,4 +47,4 @@ module('<Form />', function (hooks) {
 
     assert.strictEqual(data.current.first, 'from-dom');
   });
-})
+});

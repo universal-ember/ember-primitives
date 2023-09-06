@@ -1,5 +1,5 @@
 import { modifier } from 'ember-modifier';
-import { ExternalLink,service } from 'ember-primitives';
+import { ExternalLink, service } from 'ember-primitives';
 
 import { highlight } from './highlight';
 
@@ -27,8 +27,8 @@ export const Prose: TOC<{ Element: HTMLDivElement }> = <template>
       <hr class='border' />
 
       <ExternalLink
-        class="edit-page"
-        href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{docs.selected.path}}.md"
+        class='edit-page'
+        href='https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{docs.selected.path}}.md'
       >
         Edit this page
       </ExternalLink>

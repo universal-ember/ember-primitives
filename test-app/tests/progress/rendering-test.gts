@@ -15,15 +15,13 @@ module('<Progress />', function (hooks) {
 
     let state = new State();
 
-    await render(
-      <template>
-        <Progress @value={{state.value}} as |x|>
-          <div id="value">{{x.value}}</div>
-          <div id="percent">{{x.percent}}</div>
-          <x.Indicator />
-        </Progress>
-      </template>
-    );
+    await render(<template>
+      <Progress @value={{state.value}} as |x|>
+        <div id='value'>{{x.value}}</div>
+        <div id='percent'>{{x.percent}}</div>
+        <x.Indicator />
+      </Progress>
+    </template>);
 
     let progressBar = '[role="progressbar"]';
     let indicator = `${progressBar} > [data-state]`;
@@ -69,15 +67,13 @@ module('<Progress />', function (hooks) {
 
     let state = new State();
 
-    await render(
-      <template>
-        <Progress @value={{state.value}} @max={{state.max}} as |x|>
-          <div id="value">{{x.value}}</div>
-          <div id="percent">{{x.percent}}</div>
-          <x.Indicator />
-        </Progress>
-      </template>
-    );
+    await render(<template>
+      <Progress @value={{state.value}} @max={{state.max}} as |x|>
+        <div id='value'>{{x.value}}</div>
+        <div id='percent'>{{x.percent}}</div>
+        <x.Indicator />
+      </Progress>
+    </template>);
 
     let progressBar = '[role="progressbar"]';
     let indicator = `${progressBar} > [data-state]`;
@@ -113,7 +109,6 @@ module('<Progress />', function (hooks) {
     assert.dom(indicator).hasAttribute('data-max', '1000');
     assert.dom(indicator).hasAttribute('data-value', '100');
     assert.dom(indicator).hasAttribute('data-state', 'loading');
-
   });
 
   test('with a max, changing with a value', async function (assert) {
@@ -124,15 +119,13 @@ module('<Progress />', function (hooks) {
 
     let state = new State();
 
-    await render(
-      <template>
-        <Progress @value={{state.value}} @max={{state.max}} as |x|>
-          <div id="value">{{x.value}}</div>
-          <div id="percent">{{x.percent}}</div>
-          <x.Indicator />
-        </Progress>
-      </template>
-    );
+    await render(<template>
+      <Progress @value={{state.value}} @max={{state.max}} as |x|>
+        <div id='value'>{{x.value}}</div>
+        <div id='percent'>{{x.percent}}</div>
+        <x.Indicator />
+      </Progress>
+    </template>);
 
     let progressBar = '[role="progressbar"]';
     let indicator = `${progressBar} > [data-state]`;
@@ -177,18 +170,29 @@ module('<Progress />', function (hooks) {
     assert.dom('#percent').hasText('66.67');
   });
 
-  for (let value of [undefined, null, 'string', '1', NaN, Infinity, -Infinity, -100, -1, ['array'], {}, Math.sqrt(-1)]) {
+  for (let value of [
+    undefined,
+    null,
+    'string',
+    '1',
+    NaN,
+    Infinity,
+    -Infinity,
+    -100,
+    -1,
+    ['array'],
+    {},
+    Math.sqrt(-1),
+  ]) {
     test(`invalid value of ${value} is passed`, async function (assert) {
-      await render(
-        <template>
-          {{! @glint-ignore }}
-          <Progress @value={{value}} as |x|>
-            <div id="value">{{x.value}}</div>
-            <div id="percent">{{x.percent}}</div>
-            <x.Indicator />
-          </Progress>
-        </template>
-      );
+      await render(<template>
+        {{! @glint-ignore }}
+        <Progress @value={{value}} as |x|>
+          <div id='value'>{{x.value}}</div>
+          <div id='percent'>{{x.percent}}</div>
+          <x.Indicator />
+        </Progress>
+      </template>);
 
       let progressBar = '[role="progressbar"]';
       let indicator = `${progressBar} > [data-state]`;
@@ -206,18 +210,15 @@ module('<Progress />', function (hooks) {
       assert.dom('#percent').hasText('0');
     });
 
-
     test(`invalid max of ${value} is passed`, async function (assert) {
-      await render(
-        <template>
-          {{! @glint-ignore }}
-          <Progress @value={{10}} @max={{value}} as |x|>
-            <div id="value">{{x.value}}</div>
-            <div id="percent">{{x.percent}}</div>
-            <x.Indicator />
-          </Progress>
-        </template>
-      );
+      await render(<template>
+        {{! @glint-ignore }}
+        <Progress @value={{10}} @max={{value}} as |x|>
+          <div id='value'>{{x.value}}</div>
+          <div id='percent'>{{x.percent}}</div>
+          <x.Indicator />
+        </Progress>
+      </template>);
 
       let progressBar = '[role="progressbar"]';
       let indicator = `${progressBar} > [data-state]`;
@@ -235,5 +236,4 @@ module('<Progress />', function (hooks) {
       assert.dom('#percent').hasText('10');
     });
   }
-
 });

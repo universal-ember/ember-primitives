@@ -8,6 +8,7 @@ export { Dialog, Dialog as Modal } from './components/dialog';
 export { ExternalLink } from './components/external-link';
 export { Form } from './components/form';
 export { Link } from './components/link';
+export { OTP, OTPInput } from './components/one-time-password/index';
 export { Popover } from './components/popover';
 export { Portal } from './components/portal';
 export { PortalTargets } from './components/portal-targets';

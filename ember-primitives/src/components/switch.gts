@@ -58,7 +58,7 @@ export interface Signature {
          * ```
          */
         Label: WithBoundArgs<typeof Label, 'for'>;
-      }
+      },
     ];
   };
 }

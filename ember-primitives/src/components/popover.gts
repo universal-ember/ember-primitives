@@ -64,12 +64,12 @@ export interface Signature {
     strategy?: HookSignature['Args']['Named']['strategy'];
 
     /**
-      * By default, the popover is portaled.
-      * If you don't control your CSS, and the positioning of the popover content
-      * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
-        *
-        * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
-      */
+     * By default, the popover is portaled.
+     * If you don't control your CSS, and the positioning of the popover content
+     * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
+     *
+     * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
+     */
     inline?: boolean;
   };
   Blocks: {
@@ -79,7 +79,7 @@ export interface Signature {
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: MiddlewareData;
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
-      }
+      },
     ];
   };
 }
@@ -92,47 +92,43 @@ function getElementTag(tagName: undefined | string) {
  * Allows lazy evaluation of the portal target (do nothing until rendered)
  * This is useful because the algorithm for finding the portal target isn't cheap.
  */
-const Content: TOC<
-{
-
+const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
     loop: ModifierLike<{ Element: HTMLElement }>;
     inline?: boolean;
     /**
-      * By default the popover content is wrapped in a div.
-      * You may change this by supplying the name of an element here.
-      *
-      * For example:
-      * ```gjs
-      * <Popover as |p|>
-      *  <p.Content @as="dialog">
-      *    this is now focus trapped
-      *  </p.Content>
-      * </Popover>
-      * ```
-      */
+     * By default the popover content is wrapped in a div.
+     * You may change this by supplying the name of an element here.
+     *
+     * For example:
+     * ```gjs
+     * <Popover as |p|>
+     *  <p.Content @as="dialog">
+     *    this is now focus trapped
+     *  </p.Content>
+     * </Popover>
+     * ```
+     */
     as?: string;
   };
   Blocks: { default: [] };
-}
-
-> = <template>
+}> = <template>
   {{#let (element (getElementTag @as)) as |El|}}
     {{#if @inline}}
-      {{!-- @glint-ignore
+      {{! @glint-ignore
             https://github.com/tildeio/ember-element-helper/issues/91
             https://github.com/typed-ember/glint/issues/610
-      --}}
+      }}
       <El {{@loop}} ...attributes>
         {{yield}}
       </El>
     {{else}}
       <Portal @to={{TARGETS.popover}}>
-        {{!-- @glint-ignore
+        {{! @glint-ignore
               https://github.com/tildeio/ember-element-helper/issues/91
               https://github.com/typed-ember/glint/issues/610
-        --}}
+        }}
         <El {{@loop}} ...attributes>
           {{yield}}
         </El>

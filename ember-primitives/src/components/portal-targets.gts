@@ -37,7 +37,7 @@ export function findNearestTarget(origin: Element, name: string) {
       `The element passed to \`findNearestTarget\` is stored on \`window.prime0\` ` +
       `You can debug in your browser's console via ` +
       `\`document.querySelector('[data-portal-name="${name}"]')\``,
-    element
+    element,
   );
 
   return element;

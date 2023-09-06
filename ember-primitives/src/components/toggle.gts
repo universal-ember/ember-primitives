@@ -30,7 +30,7 @@ export interface Signature {
        *
        * Useful when using the toggle button as an uncontrolled component
        */
-      pressed: boolean
+      pressed: boolean,
     ];
   };
 }

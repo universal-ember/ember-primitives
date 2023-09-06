@@ -8,39 +8,43 @@ export interface Signature {
   Element: HTMLDivElement;
   Args: {
     /**
-      * The current progress
-    * This may be less than 0 or more than `max`,
-    * but the resolved value (managed internally, and yielded out)
-    * does not exceed the range [0, max]
-      */
+     * The current progress
+     * This may be less than 0 or more than `max`,
+     * but the resolved value (managed internally, and yielded out)
+     * does not exceed the range [0, max]
+     */
     value: number;
     /**
-      * The max value, defaults to 100
-      */
+     * The max value, defaults to 100
+     */
     max?: number;
   };
-  Blocks: {default: [{
-    /**
-      * The indicator element with some state applied.
-      * This can be used to style the progress of bar.
-      */
-    Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max' | 'percent'>;
-    /**
-      * The value as a percent of how far along the indicator should be
-      * positioned, between 0 and 100.
-      * Will be rounded to two decimal places.
-      */
-    percent: number;
-    /**
-      * The value as a percent of how far along the indicator should be positioned,
-      * between 0 and 1
-      */
-    decimal: number;
-    /**
-      * The resolved value within the limits of the progress bar.
-      */
-    value: number;
-  }]}
+  Blocks: {
+    default: [
+      {
+        /**
+         * The indicator element with some state applied.
+         * This can be used to style the progress of bar.
+         */
+        Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max' | 'percent'>;
+        /**
+         * The value as a percent of how far along the indicator should be
+         * positioned, between 0 and 100.
+         * Will be rounded to two decimal places.
+         */
+        percent: number;
+        /**
+         * The value as a percent of how far along the indicator should be positioned,
+         * between 0 and 1
+         */
+        decimal: number;
+        /**
+         * The resolved value within the limits of the progress bar.
+         */
+        value: number;
+      },
+    ];
+  };
 }
 
 type ProgressState = 'indeterminate' | 'complete' | 'loading';
@@ -48,8 +52,8 @@ type ProgressState = 'indeterminate' | 'complete' | 'loading';
 const DEFAULT_MAX = 100;
 
 /**
-  * Non-negative, non-NaN, non-Infinite, positive, rational
-  */
+ * Non-negative, non-NaN, non-Infinite, positive, rational
+ */
 function isValidProgressNumber(value: number | undefined | null): value is number {
   if (typeof value !== 'number') return false;
   if (!Number.isFinite(value)) return false;
@@ -66,7 +70,7 @@ function getMax(userMax: number | undefined | null): number {
 }
 
 function getValue(userValue: number | undefined | null, maxValue: number): number {
-  let max = getMax(maxValue)
+  let max = getMax(maxValue);
 
   if (!isValidProgressNumber(userValue)) {
     return 0;
@@ -79,15 +83,14 @@ function getValue(userValue: number | undefined | null, maxValue: number): numbe
   return userValue;
 }
 
-
 function getValueLabel(value: number, max: number) {
   return `${Math.round((value / max) * 100)}%`;
 }
 
 const Indicator: TOC<{
   Element: HTMLDivElement;
-  Args: { max: number; value: number; percent: number; },
-  Blocks: {default:[]}
+  Args: { max: number; value: number; percent: number };
+  Blocks: { default: [] };
 }> = <template>
   <div
     ...attributes
@@ -99,7 +102,6 @@ const Indicator: TOC<{
     {{yield}}
   </div>
 </template>;
-
 
 export class Progress extends Component<Signature> {
   get max() {
@@ -126,24 +128,26 @@ export class Progress extends Component<Signature> {
     <div
       ...attributes
       aria-valuemax={{this.max}}
-      aria-valuemin="0"
+      aria-valuemin='0'
       aria-valuenow={{this.value}}
       aria-valuetext={{this.valueLabel}}
-      role="progressbar"
+      role='progressbar'
       data-value={{this.value}}
       data-state={{progressState this.value this.max}}
       data-max={{this.max}}
-      data-min="0"
+      data-min='0'
       data-percent={{this.percent}}
     >
 
       {{! @glint-ignore }}
-      {{yield (hash
-         Indicator=(component Indicator value=this.value max=this.max percent=this.percent)
-         value=this.value
-         percent=this.percent
-         decimal=this.decimal
-      )}}
+      {{yield
+        (hash
+          Indicator=(component Indicator value=this.value max=this.max percent=this.percent)
+          value=this.value
+          percent=this.percent
+          decimal=this.decimal
+        )
+      }}
     </div>
   </template>
 }

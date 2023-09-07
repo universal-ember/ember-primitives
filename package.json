@@ -18,10 +18,10 @@
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@nullvoxpopuli/dev": "workspace:*",
-    "concurrently": "^8.2.0",
-    "prettier": "^3.0.2",
-    "prettier-plugin-ember-template-tag": "^1.0.2",
-    "turbo": "^1.10.12"
+    "concurrently": "^8.2.1",
+    "prettier": "^3.0.3",
+    "prettier-plugin-ember-template-tag": "^1.1.0",
+    "turbo": "^1.10.13"
   },
   "engines": {
     "node": ">= 18.*",

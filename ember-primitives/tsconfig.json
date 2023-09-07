@@ -9,7 +9,6 @@
     "allowImportingTsExtensions": true,
     "declarationDir": "dist-types",
     "emitDeclarationOnly": true,
-    "noEmit": false,
-    "verbatimModuleSyntax": true
+    "noEmit": false
   }
 }

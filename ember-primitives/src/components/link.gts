@@ -10,8 +10,8 @@ import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
-import { handle } from '../proper-links';
-import { ExternalLink } from './external-link';
+import { handle } from '../proper-links.ts';
+import { ExternalLink } from './external-link.gts';
 
 import type RouterService from '@ember/routing/router-service';
 

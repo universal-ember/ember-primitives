@@ -3,9 +3,9 @@ import { on } from '@ember/modifier';
 
 import { cell } from 'ember-resources';
 
-import { uniqueId } from '../utils';
+import { uniqueId } from '../utils.ts';
 import { Label } from './-private/typed-elements.gts';
-import { toggleWithFallback } from './-private/utils';
+import { toggleWithFallback } from './-private/utils.ts';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';

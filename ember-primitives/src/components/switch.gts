@@ -4,7 +4,7 @@ import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
 import { uniqueId } from '../utils';
-import { Label } from './-private/typed-elements';
+import { Label } from './-private/typed-elements.gts';
 import { toggleWithFallback } from './-private/utils';
 
 import type { TOC } from '@ember/component/template-only';

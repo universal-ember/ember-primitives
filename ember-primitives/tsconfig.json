@@ -6,8 +6,10 @@
   },
   "compilerOptions": {
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
     "declarationDir": "dist-types",
     "emitDeclarationOnly": true,
-    "noEmit": false
+    "noEmit": false,
+    "verbatimModuleSyntax": true
   }
 }

@@ -41,7 +41,7 @@
     "lodash.sortby": "^4.7.0",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
-    "tracked-built-ins": "^3.1.1"
+    "tracked-built-ins": "^3.2.0"
   },
   "dependenciesMeta": {
     "ember-primitives": {
@@ -75,7 +75,7 @@
     "@typescript-eslint/parser": "^6.6.0",
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^8.2.1",
-    "ember-a11y-testing": "^6.1.0",
+    "ember-a11y-testing": "^6.1.1",
     "ember-auto-import": "^2.5.0",
     "ember-cached-decorator-polyfill": "^1.0.2",
     "ember-cli": "~5.2.1",

@@ -6,10 +6,16 @@ import { OTP } from 'ember-primitives';
 
 import { fillOTP } from 'ember-primitives/test-support';
 
-function readValue() {
+function getInputs() {
   let inputs = findAll('[data-primitives-code-segment]');
 
-  return inputs.map((input) => input.value).join('');
+  return inputs as HTMLInputElement[];
+}
+
+function readValue() {
+  return getInputs()
+    .map((input) => input.value)
+    .join('');
 }
 
 module('Rendering | <OTP>', function (hooks) {

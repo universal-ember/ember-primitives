@@ -54,6 +54,32 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.verifySteps(['123456:true']);
   });
 
+  test('@labelFn, by default, provides a predictable, default english label', async function (assert) {
+    await render(<template><OTPInput /></template>);
+
+    let inputs = findAll('[aria-label]');
+
+    assert.strictEqual(inputs.length, 6, 'there are labels equal to the number of input fields (the default number in this case)');
+
+    inputs.forEach((input, i) => {
+      assert.dom(input).hasAria('label', `Please enter OTP character ${i + 1}`);
+    })
+  });
+
+  test('@labelFn can be specified to override the aria-label', async function (assert) {
+    let label = (i: number) => `OTP#${i}`;
+
+    await render(<template><OTPInput @labelFn={{label}} /></template>);
+
+    let inputs = findAll('[aria-label]');
+
+    assert.strictEqual(inputs.length, 6, 'there are labels equal to the number of input fields (the default number in this case)');
+
+    inputs.forEach((input, i) => {
+      assert.dom(input).hasAria('label', `OTP#${i}`);
+    })
+  });
+
   test('individually typing in each field focuses the next', async function (assert) {
     await render(<template><OTPInput /></template>);
 

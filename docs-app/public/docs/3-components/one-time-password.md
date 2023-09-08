@@ -42,3 +42,23 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 ```
 
 </div>
+
+## Features
+
+* Auto-advance focus between inputs as characters are typed
+* Pasting into the collective field will fill all inputs with the pasted value
+* Standalone form, allowing for easily creating OTP-entry screens
+* Optional reset button
+
+## Anatomy
+
+## API Reference
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="components/one-time-password/otp" @name="OTP" />
+</template>
+```
+

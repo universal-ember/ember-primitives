@@ -39,7 +39,8 @@ module.exports = function (defaults) {
     staticHelpers: true,
     staticModifiers: true,
     staticComponents: true,
-    staticEmberSource: true,
+    // ember-inspector does not work with this flag
+    // staticEmberSource: true,
     splitControllers: true,
     splitRouteClasses: true,
     implicitModulesStrategy: 'packageNames',

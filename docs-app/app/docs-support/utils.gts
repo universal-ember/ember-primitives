@@ -9,8 +9,13 @@ export function findChildDeclaration(info: DeclarationReflection, name: string) 
 }
 
 export const infoFor = (data: DeclarationReflection, module: string, name: string) => {
-  let found = data.children
+  let moduleType =
+  data.children
     ?.find((child) => child.name === module)
+
+    console.log(data, moduleType);
+
+  let found = moduleType
     ?.children?.find((grandChild) => grandChild.name === name);
 
   return found as DeclarationReflection | undefined;

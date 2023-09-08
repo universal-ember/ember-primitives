@@ -13,8 +13,6 @@ export const infoFor = (data: DeclarationReflection, module: string, name: strin
   data.children
     ?.find((child) => child.name === module)
 
-    console.log(data, moduleType);
-
   let found = moduleType
     ?.children?.find((grandChild) => grandChild.name === name);
 

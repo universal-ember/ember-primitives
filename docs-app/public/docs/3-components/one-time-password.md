@@ -1,5 +1,13 @@
 # One-Time Password
 
+
+<Callout>
+
+Before reaching for this component, consider if the [`WebOTP` API](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API) and/or the [native `<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) with [`autocomplete="one-time-code"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#browser_compatibility) is sufficient for your use case. 
+
+</Callout>
+<br>
+
 <div class="featured-demo">
 
 ```gjs live preview
@@ -13,6 +21,7 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
   <pre>submitted: {{submittedCode}}</pre>
 
   <OTP @onSubmit={{handleSubmit}} as |x|>
+    <x.Label>Please enter the OTP</x.Label>
     <div class="fields">
       <x.Input />
     </div>
@@ -49,8 +58,51 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 * Pasting into the collective field will fill all inputs with the pasted value
 * Standalone form, allowing for easily creating OTP-entry screens
 * Optional reset button
+* Label component is automatically wired up to each input field
+* Pressing enter submits the code
+
+## Installation
+
+```bash
+pnpm add ember-primitives
+```
 
 ## Anatomy
+
+```js 
+import { OTP } from 'ember-primitives';
+```
+
+or for non-tree-shaking environments:
+```js 
+import { OTP } from 'ember-primitives/components/one-time-password';
+```
+
+
+```gjs 
+import { OTP } from 'ember-primitives';
+
+<template>
+  <OTP as |x|>
+    text can go here, or in between the below components
+
+    <x.Label>Please enter the OTP</x.Label>
+    <x.Input />
+    <x.Submit> submit text </x.Submit>
+    <x.Reset> reset text </x.Reset>
+
+    text can go here as well
+  </OTP>
+</template>
+```
+
+
+## Accessibility
+
+This component complies with all `<form>` and `<input>` accessibility guidelines.
+However, it's possible for implementers to create a less-than-ideal situation for their users,
+as a visible label is recommended.
+
 
 ## API Reference
 
@@ -58,7 +110,9 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="components/one-time-password/otp" @name="OTP" />
+  <ComponentSignature @module="index" @name="OTP" />
 </template>
 ```
+### State Attributes
 
+none

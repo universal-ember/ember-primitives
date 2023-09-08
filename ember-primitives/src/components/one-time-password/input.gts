@@ -7,13 +7,6 @@ import { buildWaiter } from '@ember/test-waiters';
 
 const DEFAULT_LENGTH = 6;
 
-//  https://web.dev/sms-otp-form/
-// https://developer.mastercard.com/unified-checkout-solutions/documentation/use-cases/click-to-pay/ui-components/otp-input/
-// https://www.cssscript.com/otp-input/
-//
-// This whole thing can be replicated with a single input and some *crazy* CSS
-//  https://dev.to/madsstoumann/using-a-single-input-for-one-time-code-352l
-
 const autoAdvance = (event: Event) => {
   assert(
     '[BUG]: autoAdvance called on non-input element',
@@ -70,8 +63,18 @@ export class OTPInput extends Component<{
     length?: number;
 
     /**
+      * The Id of the label for the collective input to be described by.
+      * This is preferred over customizing the labels with `@labelFn`, 
+      * as a visible label helps both visual users as well as screen-reader users.
+      */
+    labelId?: string;
+
+    /**
      * To Customize the label of the input fields, you may pass a function.
      * By default, this is `Please enter OTP character ${index + 1}`.
+     *
+     * However, it is recommended to use a real <label> field 
+    * and pass in the `@labelId` to this `<OTPInput>` component
      */
     labelFn?: (index: number) => string;
 
@@ -164,7 +167,8 @@ export class OTPInput extends Component<{
         min='0'
         step='1'
         ...attributes
-        aria-label={{labelFor i @labelFn}}
+        aria-describedby={{if @labelId @labelId}}
+        aria-label={{if @labelId undefined (labelFor i @labelFn)}}
         {{on 'input' autoAdvance}}
         {{on 'input' this.handleChange}}
       />

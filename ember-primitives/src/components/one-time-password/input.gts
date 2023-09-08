@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { assert } from '@ember/debug';
+import { assert, warn } from '@ember/debug';
 import { isDestroyed, isDestroying } from '@ember/destroyable';
 import { uniqueId } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -64,7 +64,7 @@ export class OTPInput extends Component<{
 
     /**
       * The Id of the label for the collective input to be described by.
-      * This is preferred over customizing the labels with `@labelFn`, 
+      * This is preferred over customizing the labels with `@labelFn`,
       * as a visible label helps both visual users as well as screen-reader users.
       */
     labelId?: string;
@@ -73,7 +73,7 @@ export class OTPInput extends Component<{
      * To Customize the label of the input fields, you may pass a function.
      * By default, this is `Please enter OTP character ${index + 1}`.
      *
-     * However, it is recommended to use a real <label> field 
+     * However, it is recommended to use a real <label> field
     * and pass in the `@labelId` to this `<OTPInput>` component
      */
     labelFn?: (index: number) => string;
@@ -126,7 +126,7 @@ export class OTPInput extends Component<{
     // We  use requestAnimationFrame to be friendly to rendering.
     // We don't know if onChange is going to want to cause paints
     // (it's also how we debounce, under the assumption that "paste" behavior
-    //  would be fast enough to be quicker than inamiot frames
+    //  would be fast enough to be quicker than individual frames
     //   (see logic in autoAdvance)
     //  )
     this.#frame = requestAnimationFrame(() => {
@@ -135,7 +135,15 @@ export class OTPInput extends Component<{
       if (isDestroyed(this) || isDestroying(this)) return;
       if (!this.args.onChange) return;
 
-      let value = getCollectiveValue(this.id, this.length);
+      let value = getCollectiveValue(event.target, this.id, this.length);
+
+      if (value === undefined) {
+        warn(`Value could not be determined for the OTP field. was it removed from the DOM?`, {
+          id: 'ember-primitives.OTPInput.missing-value'
+        });
+
+        return;
+      }
 
       this.args.onChange({ code: value, complete: value.length === this.length }, event);
     });
@@ -162,10 +170,8 @@ export class OTPInput extends Component<{
       <input
         data-primitives-code-segment='{{this.id}}:{{i}}'
         name='code{{i}}'
-        type='number'
-        max='9'
-        min='0'
-        step='1'
+        type='text'
+        inputmode="numeric"
         ...attributes
         aria-describedby={{if @labelId @labelId}}
         aria-label={{if @labelId undefined (labelFor i @labelFn)}}
@@ -176,13 +182,33 @@ export class OTPInput extends Component<{
   </template>
 }
 
-function getCollectiveValue(id: string, length: number) {
-  let elements = document.querySelectorAll(`[data-primitives-code-segment^="${id}:"]`);
+function getCollectiveValue(elementTarget: EventTarget | null, id: string, length: number) {
+  if (!elementTarget) return;
+
+  assert(`[BUG]: somehow the element target is not HTMLElement`, elementTarget instanceof HTMLElement);
+
+  let parent: null | HTMLElement | ShadowRoot;
+
+  // TODO: should this logic be extracted?
+  //       why is getting the target element within a shadow root hard?
+  if (!(elementTarget instanceof HTMLInputElement)) {
+    if (elementTarget.shadowRoot) {
+      parent = elementTarget.shadowRoot;
+    } else {
+      parent = elementTarget.parentElement;
+    }
+  } else {
+    parent = elementTarget.parentElement;
+  }
+
+  assert(`[BUG]: somehow the input fields were rendered without a parent element`, parent);
+
+  let elements = parent.querySelectorAll(`[data-primitives-code-segment^="${id}:"]`);
 
   let value = '';
 
   assert(
-    `found elements do not match length (${length}). Was the same OTP input rendered more than once?`,
+    `found elements (${elements.length}) do not match length (${length}). Was the same OTP input rendered more than once?`,
     elements.length === length,
   );
 

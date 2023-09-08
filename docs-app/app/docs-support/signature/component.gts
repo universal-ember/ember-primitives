@@ -15,6 +15,21 @@ function getSignature(info: DeclarationReflection) {
   }
 
   /**
+    * export class Foo extends Component<{ signature here }> { ... }
+    */
+  if (info.variant === 'declaration' && 'extendedTypes' in info) {
+    let extendedType = info.extendedTypes?.[0];
+
+    if (extendedType?.type === 'reference' && extendedType?.package === '@glimmer/component') {
+      let typeArg = extendedType.typeArguments?.[0];
+
+      if (typeArg?.type === 'reflection') {
+        return typeArg.declaration;
+      }
+    }
+  }
+
+  /**
    * export interface Signature { ... }
    */
   return info;

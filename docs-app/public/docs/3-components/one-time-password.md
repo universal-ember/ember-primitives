@@ -1,5 +1,8 @@
 # One-Time Password
 
+The `<OTP>` component provides a way to manage one-time-password entry using the common pattern where each character entry for the one-time-password is its own field, while also managing accessibility requirements of a multi-field input. 
+
+For more information on OTP patterns, see [web.dev's SMS OTP Form](https://web.dev/sms-otp-form/)[^sms]
 
 <Callout>
 
@@ -60,6 +63,7 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 * Optional reset button
 * Label component is automatically wired up to each input field
 * Pressing enter submits the code
+* number keyboard on [mobile](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/inputmode)
 
 ## Installation
 
@@ -116,3 +120,5 @@ import { ComponentSignature } from 'docs-app/docs-support';
 ### State Attributes
 
 none
+
+[^sms]: noting that SMS is not the *most secure* form of 2FA, and for applications that truly need secure logic, you'll want an authenticator app. See [this article for a high level overview of the reasoning](https://www.securemac.com/news/is-sms-for-2fa-insecure)

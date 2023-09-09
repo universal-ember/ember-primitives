@@ -98,6 +98,22 @@ import { OTP } from 'ember-primitives';
 </template>
 ```
 
+Additionally, the customization from `<OTPInput>` is available as well
+
+```gjs 
+import { OTP } from 'ember-primitives';
+
+<template>
+  <OTP as |x|>
+    <x.Input as |Fields|>
+        <Fields />
+    </x.Input>
+
+    <x.Submit> submit text </x.Submit>
+  </OTP>
+</template>
+```
+
 
 ## Accessibility
 

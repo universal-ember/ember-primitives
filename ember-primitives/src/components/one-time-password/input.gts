@@ -94,7 +94,10 @@ export class OTPInput extends Component<{
   };
   Blocks: {
     /**
-     * Optionally, you may control how the
+     * Optionally, you may control how the Fields are rendered, with proceeding text,
+    * additional attributes added, etc.
+      *
+      * This is how you can add custom validation to each input field.
      */
     default?: [fields: WithBoundArgs<typeof Fields, 'fields' | 'handleChange' | 'labelFn'>];
   };

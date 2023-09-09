@@ -24,13 +24,9 @@ const update = ({ code }) => currentCode.current = code;
 <template>
   <pre>code: {{currentCode}}</pre>
 
-  {{#let (uniqueId) as |id|}}
-    <label id={{id}}>
-      Please enter the OTP<br>
+  Please enter the OTP<br>
 
-      <OTPInput @labelId={{id}} @onChange={{update}} />
-    </label>
-  {{/let}}
+  <OTPInput @onChange={{update}} />
 
   <style>
     input {
@@ -81,6 +77,18 @@ import { OTPInput } from 'ember-primitives';
 
     <OTPInput />
   </label>
+</template>
+```
+
+There is also an alternate block-fork you can use if you want to place additional information
+within the `fieldset`
+```gjs 
+import { OTPInput } from 'ember-primitives';
+
+<template>
+    <OTPInput as |Fields|>
+        <Fields />
+    </OTPInput>
 </template>
 ```
 

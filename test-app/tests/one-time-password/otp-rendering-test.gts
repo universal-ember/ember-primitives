@@ -59,6 +59,23 @@ module('Rendering | <OTP>', function (hooks) {
     assert.verifySteps(['123456']);
   });
 
+  test(`The Input's <Fields> can be used`, async function (assert) {
+    let step = ({ code }: { code: string }) => assert.step(code);
+
+    await render(<template>
+      <OTP @onSubmit={{step}} as |x|>
+        <x.Input as |Fields|>
+          <out>my extra info</out>
+          <Fields />
+        </x.Input>
+        <x.Submit>submit</x.Submit>
+      </OTP>
+    </template>);
+
+    assert.dom('out').exists();
+    assert.dom('input').exists({ count: 6 });
+  });
+
   test('@autoSubmit works', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 

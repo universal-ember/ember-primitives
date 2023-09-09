@@ -21,6 +21,8 @@ function labelFor(inputIndex: number, labelFn: undefined | ((index: number) => s
 
 let waiter = buildWaiter('ember-primitives:OTPInput:handleChange');
 
+let isFirst = (i: number) => i === 0;
+
 const Fields: TOC<{
   /**
    * Any attributes passed to this component will be applied to each input.
@@ -40,6 +42,7 @@ const Fields: TOC<{
         type='text'
         inputmode='numeric'
         ...attributes
+        autocomplete={{if (isFirst i) "one-time-code"}}
         {{on 'input' autoAdvance}}
         {{on 'input' @handleChange}}
         {{on 'keydown' handleNavigation}}

@@ -1,5 +1,43 @@
 # ember-primitives
 
+## 0.6.0
+
+### Minor Changes
+
+- 4ba80e6: Two new components: `<OTP>` and `<OTPInput>`
+
+  To use:
+
+  ```gjs
+  import { OTP } from 'ember-primitives';
+  import { cell } from 'ember-resources';
+
+  const submittedCode = cell();
+  const handleSubmit = ({ code }) => submittedCode.current = code;
+
+  <template>
+    <pre>submitted: {{submittedCode}}</pre>
+
+    <OTP @onSubmit={{handleSubmit}} as |x|>
+      <x.Input class="fields" />
+      <br>
+      <x.Submit>Submit</x.Submit>
+      <x.Reset>Reset</x.Reset>
+    </OTP>
+  </template>
+  ```
+
+  the reset button is optional.
+
+  For more information, see the docs for
+
+  - [OTP](https://ember-primitives.pages.dev/3-components/one-time-password)
+  - [OTPInput](https://ember-primitives.pages.dev/3-components/one-time-password-input)
+
+### Patch Changes
+
+- 9f4fc3e: Declare @glint/template as an optional peer dependency
+
 ## 0.5.0
 
 ### Minor Changes

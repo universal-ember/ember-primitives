@@ -29,6 +29,10 @@ const update = ({ code }) => currentCode.current = code;
   <OTPInput @onChange={{update}} />
 
   <style>
+    fieldset {
+      border: none;
+      padding: 0;
+    }
     input {
       border: 1px solid;
       font-size: 2rem;

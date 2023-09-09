@@ -2,12 +2,12 @@
 'ember-primitives': minor
 ---
 
-Add new component, `<OTPInput>`
+Two new components: `<OTP>` and `<OTPInput>`
 
 To use:
 
 ```gjs
-import { OTPInput as OTP } from 'ember-primitives';
+import { OTP } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const submittedCode = cell();
@@ -17,9 +17,7 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
   <pre>submitted: {{submittedCode}}</pre>
 
   <OTP @onSubmit={{handleSubmit}} as |x|>
-    <div class="fields">
-      <x.Input />
-    </div>
+    <x.Input class="fields" />
     <br>
     <x.Submit>Submit</x.Submit>
     <x.Reset>Reset</x.Reset>
@@ -28,4 +26,7 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 ```
 
 the reset button is optional.
-the submit button is technically optional, but you need it to trigger the `@onSubmit` callback.
+
+For more information, see the docs for
+- [OTP](https://ember-primitives.pages.dev/3-components/one-time-password)
+- [OTPInput](https://ember-primitives.pages.dev/3-components/one-time-password-input)

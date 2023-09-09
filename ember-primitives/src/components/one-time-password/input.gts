@@ -1,11 +1,10 @@
 import Component from '@glimmer/component';
 import { warn } from '@ember/debug';
 import { isDestroyed, isDestroying } from '@ember/destroyable';
-import { uniqueId } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
 
-import { autoAdvance, getCollectiveValue } from './utils';
+import { autoAdvance, getCollectiveValue, handleNavigation } from './utils';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
@@ -29,7 +28,6 @@ const Fields: TOC<{
   Element: HTMLInputElement;
   Args: {
     fields: unknown[];
-    id: string;
     labelFn: (index: number) => string;
     handleChange: (event: Event) => void;
   };
@@ -38,13 +36,13 @@ const Fields: TOC<{
     <label>
       <span class='ember-primitives__sr-only'>{{labelFor i @labelFn}}</span>
       <input
-        data-primitives-code-segment='{{@id}}:{{i}}'
         name='code{{i}}'
         type='text'
         inputmode='numeric'
         ...attributes
         {{on 'input' autoAdvance}}
         {{on 'input' @handleChange}}
+        {{on 'keyup' handleNavigation}}
       />
     </label>
   {{/each}}
@@ -133,7 +131,7 @@ export class OTPInput extends Component<{
       if (isDestroyed(this) || isDestroying(this)) return;
       if (!this.args.onChange) return;
 
-      let value = getCollectiveValue(event.target, this.id, this.length);
+      let value = getCollectiveValue(event.target, this.length);
 
       if (value === undefined) {
         warn(`Value could not be determined for the OTP field. was it removed from the DOM?`, {
@@ -147,7 +145,6 @@ export class OTPInput extends Component<{
     });
   };
 
-  id = uniqueId();
   #token: unknown | undefined;
   #frame: number | undefined;
   #timer: number | undefined;
@@ -167,7 +164,7 @@ export class OTPInput extends Component<{
     <fieldset ...attributes>
       {{#let
         (component
-          Fields fields=this.fields id=this.id handleChange=this.handleChange labelFn=@labelFn
+          Fields fields=this.fields handleChange=this.handleChange labelFn=@labelFn
         )
         as |CurriedFields|
       }}

@@ -61,6 +61,7 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 * Standalone form, allowing for easily creating OTP-entry screens
 * Optional reset button
 * Pressing enter submits the code
+* backspace / arrow key support
 * number keyboard on [mobile](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/inputmode)
 
 ## Installation

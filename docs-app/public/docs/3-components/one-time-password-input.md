@@ -50,6 +50,7 @@ const update = ({ code }) => currentCode.current = code;
 
 * Auto-advance focus between inputs as characters are typed
 * Pasting into the collective field will fill all inputs with the pasted value
+* backspace / arrow key support
 * number keyboard on [mobile](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/inputmode)
 
 ## Installation
@@ -86,8 +87,10 @@ import { OTPInput } from 'ember-primitives';
 
 ## Accessibility
 
-Developers using `<OTPInput>` must supply their own `label`. 
-However, to protect the end-user, a default aria-label is present for each field.
+Every field making up the collective input already has a screen-reader friendly label.
+Developers are encouraged to provide a visible label via `<legend>` or other means.
+
+Keyboard interactions try to mimic select interactions from a single input (arrows, backspace, etc).
 
 
 ## API Reference

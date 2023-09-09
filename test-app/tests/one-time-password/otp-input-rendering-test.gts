@@ -1,5 +1,6 @@
-import { fillIn, findAll, focus, render } from '@ember/test-helpers';
-import { module, test } from 'qunit';
+import { assert as debugAssert } from '@ember/debug';
+import { fillIn, find, findAll, focus, render, triggerEvent, triggerKeyEvent } from '@ember/test-helpers';
+import { module, skip,test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { OTPInput } from 'ember-primitives';
@@ -7,9 +8,11 @@ import { OTPInput } from 'ember-primitives';
 import { fillOTP } from 'ember-primitives/test-support';
 
 function getInputs() {
-  let inputs = findAll('[data-primitives-code-segment]');
+  let inputs = find('fieldset')?.querySelectorAll('input');
 
-  return inputs as HTMLInputElement[];
+  if (!inputs) return [];
+
+  return [...inputs] as HTMLInputElement[];
 }
 
 function readValue() {
@@ -63,13 +66,14 @@ module('Rendering | <OTPInput>', function (hooks) {
   test('@labelFn, by default, provides a predictable, default english label', async function (assert) {
     await render(<template><OTPInput /></template>);
 
-    let inputs = findAll('[aria-label]');
+    let inputs = findAll('input');
+    let labels = findAll('label');
 
-    assert.strictEqual(inputs.length, 6, 'there are labels equal to the number of input fields (the default number in this case)');
+    assert.strictEqual(inputs.length, labels.length, 'there are labels equal to the number of input fields');
 
-    inputs.forEach((input, i) => {
-      assert.dom(input).hasAria('label', `Please enter OTP character ${i + 1}`);
-    })
+    labels.forEach((label, i) => {
+      assert.dom(label).hasText(`Please enter OTP character ${i + 1}`);
+    });
   });
 
   test('@labelFn can be specified to override the aria-label', async function (assert) {
@@ -77,13 +81,14 @@ module('Rendering | <OTPInput>', function (hooks) {
 
     await render(<template><OTPInput @labelFn={{label}} /></template>);
 
-    let inputs = findAll('[aria-label]');
+    let inputs = findAll('input');
+    let labels = findAll('label');
 
-    assert.strictEqual(inputs.length, 6, 'there are labels equal to the number of input fields (the default number in this case)');
+    assert.strictEqual(inputs.length, labels.length, 'there are labels equal to the number of input fields');
 
-    inputs.forEach((input, i) => {
-      assert.dom(input).hasAria('label', `OTP#${i}`);
-    })
+    labels.forEach((label, i) => {
+      assert.dom(label).hasText(`OTP#${i}`);
+    });
   });
 
   test('individually typing in each field focuses the next', async function (assert) {
@@ -113,5 +118,103 @@ module('Rendering | <OTPInput>', function (hooks) {
 
     await fillIn(inputs[2], '0');
     assert.strictEqual(document.activeElement, inputs[3]);
+  });
+
+  test('ArrowRight: moving to the right: arrow keys correctly change focus', async function (assert) {
+    await render(<template><OTPInput /></template>);
+
+    let inputs = getInputs();
+
+    debugAssert('Missing Input', inputs[0]);
+    debugAssert('Missing Input', inputs[1]);
+    debugAssert('Missing Input', inputs[2]);
+    debugAssert('Missing Input', inputs[3]);
+    debugAssert('Missing Input', inputs[4]);
+    debugAssert('Missing Input', inputs[5]);
+
+    await focus(inputs[0]);
+    assert.strictEqual(document.activeElement, inputs[0]);
+
+    await triggerKeyEvent(inputs[0], 'keyup', 'ArrowLeft');
+    assert.strictEqual(document.activeElement, inputs[0], `Can't go more left, we're at the beginning`);
+
+    for (let i = 0; i < 5; i++) {
+      let current = inputs[i];
+
+      debugAssert('Incorrect index', current);
+      await triggerKeyEvent(current, 'keyup', 'ArrowRight');
+      assert.strictEqual(document.activeElement, inputs[i + 1]);
+    }
+
+    assert.strictEqual(document.activeElement, inputs[5], `make sure we're at the end after our loop`);
+
+    await triggerKeyEvent(inputs[5], 'keyup', 'ArrowRight');
+    assert.strictEqual(document.activeElement, inputs[5], `Can't go more right, we're already at the end`);
+  });
+
+  test('ArrowLeft: moving to the left: arrow keys correctly change focus', async function (assert) {
+    await render(<template><OTPInput /></template>);
+
+    let inputs = getInputs();
+
+    debugAssert('Missing Input', inputs[0]);
+    debugAssert('Missing Input', inputs[1]);
+    debugAssert('Missing Input', inputs[2]);
+    debugAssert('Missing Input', inputs[3]);
+    debugAssert('Missing Input', inputs[4]);
+    debugAssert('Missing Input', inputs[5]);
+
+    await focus(inputs[5]);
+    assert.strictEqual(document.activeElement, inputs[5]);
+
+    await triggerKeyEvent(inputs[5], 'keyup', 'ArrowRight');
+    assert.strictEqual(document.activeElement, inputs[5], `Can't go more right, we're at the end`);
+
+    for (let i = 5; i > 0; i--) {
+      let current = inputs[i];
+
+      debugAssert('Incorrect index', current);
+      await triggerKeyEvent(current, 'keyup', 'ArrowLeft');
+      assert.strictEqual(document.activeElement, inputs[i - 1]);
+    }
+
+    assert.strictEqual(document.activeElement, inputs[0], `make sure we're at the end after our loop`);
+
+    await triggerKeyEvent(inputs[0], 'keyup', 'ArrowLeft');
+    assert.strictEqual(document.activeElement, inputs[0], `Can't go more left, we're already at the beginning`);
+  });
+
+
+  // Backspace can only work when isTrusted:true
+  // how do we test the backspace behavior?
+  //
+  // NOTE: this test is incomplete and probably wrong as is.
+  //       there are some debugging artifacts in here
+  skip('backspace behavior after a full code is entered', async function (assert) {
+    await render(<template><OTPInput /></template>);
+
+    await fillOTP('123456');
+
+    assert.strictEqual(readValue(), '123456');
+
+    let inputs = getInputs();
+
+    debugAssert('Missing Input', inputs[0]);
+    debugAssert('Missing Input', inputs[1]);
+    debugAssert('Missing Input', inputs[2]);
+    debugAssert('Missing Input', inputs[3]);
+    debugAssert('Missing Input', inputs[4]);
+    debugAssert('Missing Input', inputs[5]);
+
+    debugAssert(`Missing i:5`, inputs[5]);
+    await focus(inputs[5]);
+    // assert.strictEqual(inputs[5].selectionStart, 1, 'cursor is at the beginning of the text field');
+    assert.dom(inputs[5]).hasValue('6');
+    inputs[5].select();
+    await triggerEvent(inputs[5], 'input', { key: 'Backspace', isTrusted: true });
+    await this.pauseTest();
+    assert.dom(inputs[5]).hasValue('');
+    assert.strictEqual(document.activeElement, inputs[5]);
+
   });
 });

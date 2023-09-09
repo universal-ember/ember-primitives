@@ -15,6 +15,49 @@ function nextInput(current: HTMLInputElement) {
   return inputs[currentIndex + 1];
 }
 
+export function handleNavigation(event: KeyboardEvent) {
+  switch (event.key) {
+    case 'Backspace': return handleBackspace(event);
+    case 'ArrowLeft': return focusLeft(event);
+    case 'ArrowRight': return focusRight(event);
+  }
+}
+
+function focusLeft(event: Event) {
+  let target = event.target;
+
+  assert(`only allowed on input elements`, target instanceof HTMLInputElement);
+
+  let input = previousInput(target);
+
+  input?.focus();
+  input?.select();
+}
+
+function focusRight(event: Event) {
+  let target = event.target;
+
+  assert(`only allowed on input elements`, target instanceof HTMLInputElement);
+
+  let input = nextInput(target)
+
+  input?.focus();
+  input?.select();
+}
+
+function handleBackspace(event: KeyboardEvent) {
+  if (event.key !== 'Backspace') return;
+
+  focusLeft(event);
+}
+
+function previousInput(current: HTMLInputElement) {
+  let inputs = getInputs(current);
+  let currentIndex = inputs.indexOf(current);
+
+  return inputs[currentIndex - 1];
+}
+
 export const autoAdvance = (event: Event) => {
   assert(
     '[BUG]: autoAdvance called on non-input element',
@@ -23,15 +66,8 @@ export const autoAdvance = (event: Event) => {
 
   let value = event.target.value;
 
-  if (value.length === 1 && /\d/.test(value)) {
-    let nextElement = nextInput(event.target);
-
-    if (nextElement instanceof HTMLElement) {
-      nextElement.focus?.();
-    }
-
-    return;
-  }
+  if (value.length === 0) return;
+  if (value.length === 1) return focusRight(event);
 
   const digits = value;
   let i = 0;
@@ -52,7 +88,7 @@ export const autoAdvance = (event: Event) => {
 
 
 
-export function getCollectiveValue(elementTarget: EventTarget | null, id: string, length: number) {
+export function getCollectiveValue(elementTarget: EventTarget | null, length: number) {
   if (!elementTarget) return;
 
   assert(
@@ -68,15 +104,15 @@ export function getCollectiveValue(elementTarget: EventTarget | null, id: string
     if (elementTarget.shadowRoot) {
       parent = elementTarget.shadowRoot;
     } else {
-      parent = elementTarget.parentElement;
+      parent = elementTarget.closest('fieldset');
     }
   } else {
-    parent = elementTarget.parentElement;
+    parent = elementTarget.closest('fieldset');
   }
 
   assert(`[BUG]: somehow the input fields were rendered without a parent element`, parent);
 
-  let elements = parent.querySelectorAll(`[data-primitives-code-segment^="${id}:"]`);
+  let elements = parent.querySelectorAll('input');
 
   let value = '';
 

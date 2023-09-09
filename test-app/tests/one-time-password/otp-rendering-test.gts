@@ -1,4 +1,4 @@
-import { click, findAll, render } from '@ember/test-helpers';
+import { click, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -7,9 +7,11 @@ import { OTP } from 'ember-primitives';
 import { fillOTP } from 'ember-primitives/test-support';
 
 function getInputs() {
-  let inputs = findAll('[data-primitives-code-segment]');
+  let inputs = find('fieldset')?.querySelectorAll('input');
 
-  return inputs as HTMLInputElement[];
+  if (!inputs) return [];
+
+  return [...inputs] as HTMLInputElement[];
 }
 
 function readValue() {

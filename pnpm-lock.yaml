@@ -23,6 +23,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.26.2
         version: 2.26.2
+      '@glint/core':
+        specifier: ^1.1.0
+        version: 1.1.0(typescript@5.2.2)
       '@nullvoxpopuli/dev':
         specifier: workspace:*
         version: link:dev
@@ -38,6 +41,9 @@ importers:
       turbo:
         specifier: ^1.10.13
         version: 1.10.13
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
 
   dev:
     dependencies:
@@ -123,7 +129,7 @@ importers:
         version: 4.1.0(ember-source@5.2.0)
       ember-primitives:
         specifier: workspace:*
-        version: file:ember-primitives(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.2.0)
+        version: file:ember-primitives(@babel/core@7.22.15)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.2.0)
       ember-repl:
         specifier: ^3.0.0-beta.4
         version: 3.0.0-beta.4(@glimmer/compiler@0.84.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.1.0)(ember-resources@6.4.0)(ember-source@5.2.0)
@@ -167,6 +173,9 @@ importers:
       '@ember/test-helpers':
         specifier: ^3.2.0
         version: 3.2.0(@glint/template@1.1.0)(ember-source@5.2.0)(webpack@5.88.2)
+      '@ember/test-waiters':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@embroider/compat':
         specifier: 3.2.1
         version: 3.2.1(@embroider/core@3.2.1)(@glint/template@1.1.0)
@@ -274,7 +283,7 @@ importers:
         version: 11.0.1(ember-source@5.2.0)
       ember-resources:
         specifier: ^6.4.0
-        version: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
+        version: 6.4.0(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
       ember-source:
         specifier: ~5.2.0
         version: 5.2.0(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glint/template@1.1.0)(webpack@5.88.2)
@@ -399,6 +408,12 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.22.15
         version: 7.22.15(@babel/core@7.22.15)
+      '@ember/test-helpers':
+        specifier: ^3.2.0
+        version: 3.2.0(@glint/template@1.1.0)(ember-source@5.2.0)(webpack@5.88.2)
+      '@ember/test-waiters':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@embroider/addon-dev':
         specifier: 4.1.0
         version: 4.1.0(@glint/template@1.1.0)(rollup@3.29.0)
@@ -452,7 +467,7 @@ importers:
         version: 4.1.0(ember-source@5.2.0)
       ember-resources:
         specifier: ^6.4.0
-        version: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
+        version: 6.4.0(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
       ember-source:
         specifier: ~5.2.0
         version: 5.2.0(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glint/template@1.1.0)(webpack@5.88.2)
@@ -503,10 +518,10 @@ importers:
     dependencies:
       ember-primitives:
         specifier: workspace:*
-        version: file:ember-primitives(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.2.0)
+        version: file:ember-primitives(@babel/core@7.22.15)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.2.0)
       ember-resources:
         specifier: ^6.4.0
-        version: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
+        version: 6.4.0(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
       qunit-assertions-extra:
         specifier: ^1.0.3
         version: 1.0.3(qunit@2.19.4)
@@ -526,6 +541,9 @@ importers:
       '@ember/test-helpers':
         specifier: ^3.2.0
         version: 3.2.0(@glint/template@1.1.0)(ember-source@5.2.0)(webpack@5.88.2)
+      '@ember/test-waiters':
+        specifier: ^3.0.2
+        version: 3.0.2
       '@embroider/compat':
         specifier: 3.2.1
         version: 3.2.1(@embroider/core@3.2.1)(@glint/template@1.1.0)
@@ -2341,7 +2359,6 @@ packages:
       - '@glint/template'
       - supports-color
       - webpack
-    dev: true
 
   /@ember/test-waiters@3.0.2:
     resolution: {integrity: sha512-H8Q3Xy9rlqhDKnQpwt2pzAYDouww4TZIGSI1pZJhM7mQIGufQKuB0ijzn/yugA6Z+bNdjYp1HioP8Y4hn2zazQ==}
@@ -8550,7 +8567,7 @@ packages:
       broccoli-file-creator: 2.1.1
       change-case: 4.1.2
       common-tags: 1.8.2
-      ember-resources: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
+      ember-resources: 6.4.0(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
       ember-source: 5.2.0(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glint/template@1.1.0)(webpack@5.88.2)
       line-column: 1.0.2
       magic-string: 0.30.2
@@ -8584,7 +8601,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-resources@6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0):
+  /ember-resources@6.4.0(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0):
     resolution: {integrity: sha512-F5tfwhu8yRrPsMQk5nJWAZJuCi1xvGaTHp3izT+8rwuBXZSvjJAW+EapWNhKR7SYmtail9cPVwh37lcDd6HLXQ==}
     peerDependencies:
       '@ember/test-waiters': ^3.0.0
@@ -8602,6 +8619,7 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.22.10
+      '@ember/test-waiters': 3.0.2
       '@embroider/addon-shim': 1.8.6
       '@embroider/macros': 1.13.1(@glint/template@1.1.0)
       '@glimmer/component': 1.1.2(@babel/core@7.22.15)
@@ -17637,11 +17655,13 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  file:ember-primitives(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.2.0):
+  file:ember-primitives(@babel/core@7.22.15)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.2.0):
     resolution: {directory: ember-primitives, type: directory}
     id: file:ember-primitives
     name: ember-primitives
     peerDependencies:
+      '@ember/test-helpers': ^3.2.0
+      '@ember/test-waiters': ^3.0.2
       '@glimmer/component': '>= 1.1.2'
       '@glimmer/tracking': '>= 1.1.2'
       '@glint/template': '>= 1.0.0'
@@ -17649,10 +17669,14 @@ packages:
       ember-resources: '>= 6.1.0'
       ember-source: '*'
     peerDependenciesMeta:
+      '@ember/test-helpers':
+        optional: true
       '@glint/template':
         optional: true
     dependencies:
       '@babel/runtime': 7.22.10
+      '@ember/test-helpers': 3.2.0(@glint/template@1.1.0)(ember-source@5.2.0)(webpack@5.88.2)
+      '@ember/test-waiters': 3.0.2
       '@embroider/addon-shim': 1.8.6
       '@embroider/macros': 1.13.1(@glint/template@1.1.0)
       '@floating-ui/dom': 1.5.1
@@ -17661,7 +17685,7 @@ packages:
       '@glint/template': 1.1.0
       ember-element-helper: 0.8.4(@glint/environment-ember-loose@1.1.0)(@glint/template@1.1.0)(ember-source@5.2.0)
       ember-modifier: 4.1.0(ember-source@5.2.0)
-      ember-resources: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
+      ember-resources: 6.4.0(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-source@5.2.0)
       ember-source: 5.2.0(@babel/core@7.22.15)(@glimmer/component@1.1.2)(@glint/template@1.1.0)(webpack@5.88.2)
       ember-velcro: 2.1.3(ember-modifier@4.1.0)(ember-source@5.2.0)
       tracked-toolbox: 2.0.0(@babel/core@7.22.15)(ember-source@5.2.0)

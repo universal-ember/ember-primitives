@@ -14,7 +14,7 @@
   "out": "./dist",
   "json": "./docs.json",
   "pretty": true,
-  "excludeInternal": true,
+  "excludeInternal": false,
   "skipErrorChecking": true,
   "plugin": ["@zamiell/typedoc-plugin-not-exported"]
 }

@@ -1,6 +1,7 @@
 {
   "name": "docs-api",
   "private": true,
+  "type": "module",
   "scripts": {
     "debug": "npx html-pages ./dist --no-cache",
     "build": "typedoc --options ./typedoc.config.json --json ./docs.json --plugin @zamiell/typedoc-plugin-not-exported --includeTag external ",

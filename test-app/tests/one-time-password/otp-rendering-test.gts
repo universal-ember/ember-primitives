@@ -60,8 +60,10 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test(`The Input's <Fields> can be used`, async function (assert) {
+    let step = ({ code }: { code: string }) => assert.step(code);
+
     await render(<template>
-      <OTP as |x|>
+      <OTP @onSubmit={{step}} as |x|>
         <x.Input as |Fields|>
           <out>my extra info</out>
           <Fields />

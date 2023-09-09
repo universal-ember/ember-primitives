@@ -42,7 +42,7 @@ const Fields: TOC<{
         ...attributes
         {{on 'input' autoAdvance}}
         {{on 'input' @handleChange}}
-        {{on 'keyup' handleNavigation}}
+        {{on 'keydown' handleNavigation}}
       />
     </label>
   {{/each}}

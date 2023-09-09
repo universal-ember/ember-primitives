@@ -26,7 +26,7 @@ export function handleNavigation(event: KeyboardEvent) {
   }
 }
 
-function focusLeft(event: Event) {
+function focusLeft(event: Pick<Event, 'target'>) {
   let target = event.target;
 
   assert(`only allowed on input elements`, target instanceof HTMLInputElement);
@@ -37,7 +37,7 @@ function focusLeft(event: Event) {
   input?.select();
 }
 
-function focusRight(event: Event) {
+function focusRight(event: Pick<Event, 'target'>) {
   let target = event.target;
 
   assert(`only allowed on input elements`, target instanceof HTMLInputElement);
@@ -51,7 +51,11 @@ function focusRight(event: Event) {
 function handleBackspace(event: KeyboardEvent) {
   if (event.key !== 'Backspace') return;
 
-  focusLeft(event);
+  let target = event.target;
+
+  requestAnimationFrame(() => {
+    focusLeft({ target });
+  });
 }
 
 function previousInput(current: HTMLInputElement) {

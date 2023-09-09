@@ -157,7 +157,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     await focus(inputs[0]);
     assert.strictEqual(document.activeElement, inputs[0]);
 
-    await triggerKeyEvent(inputs[0], 'keyup', 'ArrowLeft');
+    await triggerKeyEvent(inputs[0], 'keydown', 'ArrowLeft');
     assert.strictEqual(
       document.activeElement,
       inputs[0],
@@ -168,7 +168,7 @@ module('Rendering | <OTPInput>', function (hooks) {
       let current = inputs[i];
 
       debugAssert('Incorrect index', current);
-      await triggerKeyEvent(current, 'keyup', 'ArrowRight');
+      await triggerKeyEvent(current, 'keydown', 'ArrowRight');
       assert.strictEqual(document.activeElement, inputs[i + 1]);
     }
 
@@ -178,7 +178,7 @@ module('Rendering | <OTPInput>', function (hooks) {
       `make sure we're at the end after our loop`,
     );
 
-    await triggerKeyEvent(inputs[5], 'keyup', 'ArrowRight');
+    await triggerKeyEvent(inputs[5], 'keydown', 'ArrowRight');
     assert.strictEqual(
       document.activeElement,
       inputs[5],
@@ -201,14 +201,14 @@ module('Rendering | <OTPInput>', function (hooks) {
     await focus(inputs[5]);
     assert.strictEqual(document.activeElement, inputs[5]);
 
-    await triggerKeyEvent(inputs[5], 'keyup', 'ArrowRight');
+    await triggerKeyEvent(inputs[5], 'keydown', 'ArrowRight');
     assert.strictEqual(document.activeElement, inputs[5], `Can't go more right, we're at the end`);
 
     for (let i = 5; i > 0; i--) {
       let current = inputs[i];
 
       debugAssert('Incorrect index', current);
-      await triggerKeyEvent(current, 'keyup', 'ArrowLeft');
+      await triggerKeyEvent(current, 'keydown', 'ArrowLeft');
       assert.strictEqual(document.activeElement, inputs[i - 1]);
     }
 
@@ -218,7 +218,7 @@ module('Rendering | <OTPInput>', function (hooks) {
       `make sure we're at the end after our loop`,
     );
 
-    await triggerKeyEvent(inputs[0], 'keyup', 'ArrowLeft');
+    await triggerKeyEvent(inputs[0], 'keydown', 'ArrowLeft');
     assert.strictEqual(
       document.activeElement,
       inputs[0],

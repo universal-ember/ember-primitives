@@ -1,3 +1,5 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+// any disabled for this file, because not all browsers have the APIs used
 import Component from '@glimmer/component';
 import { assert } from '@ember/debug';
 import { fn, hash } from '@ember/helper';
@@ -85,9 +87,11 @@ const GetOTP = resourceFactory(( receiveOTP: (code: string) => void ) => resourc
     .get({
       otp: { transport: ["sms"] },
       signal: ac.signal,
-    })
+    } as any)
     .then((otp) => {
-      receiveOTP(otp.code);
+      if (!otp) return;
+      // there is also a type property, but it's always the same "otp" string
+      receiveOTP(( otp as any).code);
     })
     .catch((err) => {
       console.error(err);

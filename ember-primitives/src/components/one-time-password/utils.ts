@@ -53,6 +53,10 @@ function handleBackspace(event: KeyboardEvent) {
 
   let target = event.target;
 
+  // We need to requestAnimationFrame here, because
+  // we don't want to change focus before the native browser
+  // behavior of backspace (deleting a character backwards)
+  // has taken affect.
   requestAnimationFrame(() => {
     focusLeft({ target });
   });

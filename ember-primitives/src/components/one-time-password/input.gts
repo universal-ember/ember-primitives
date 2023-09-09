@@ -1,49 +1,16 @@
-import './styles.css';
-
 import Component from '@glimmer/component';
-import { assert, warn } from '@ember/debug';
+import { warn } from '@ember/debug';
 import { isDestroyed, isDestroying } from '@ember/destroyable';
 import { uniqueId } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
 
+import { autoAdvance, getCollectiveValue } from './utils';
+
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
 const DEFAULT_LENGTH = 6;
-
-const autoAdvance = (event: Event) => {
-  assert(
-    '[BUG]: autoAdvance called on non-input element',
-    event.target instanceof HTMLInputElement,
-  );
-
-  let value = event.target.value;
-
-  if (value.length === 1 && /\d/.test(value)) {
-    let nextElement = event.target.nextElementSibling;
-
-    if (nextElement instanceof HTMLElement) {
-      nextElement.focus?.();
-    }
-
-    return;
-  }
-
-  const digits = value;
-  let i = 0;
-  let currElement: HTMLInputElement | null = event.target;
-
-  while (currElement) {
-    currElement.value = digits[i++] || '';
-
-    if (currElement.nextElementSibling instanceof HTMLInputElement) {
-      currElement = currElement.nextElementSibling;
-    } else {
-      break;
-    }
-  }
-};
 
 function labelFor(inputIndex: number, labelFn: undefined | ((index: number) => string)) {
   if (labelFn) {
@@ -69,7 +36,7 @@ const Fields: TOC<{
 }> = <template>
   {{#each @fields as |_field i|}}
     <label>
-      <span class='sr-only'>{{labelFor i @labelFn}}</span>
+      <span class='ember-primitives__sr-only'>{{labelFor i @labelFn}}</span>
       <input
         data-primitives-code-segment='{{@id}}:{{i}}'
         name='code{{i}}'
@@ -210,50 +177,21 @@ export class OTPInput extends Component<{
           <CurriedFields />
         {{/if}}
       {{/let}}
+
+      <style>
+        .ember-primitives__sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
+      </style>
     </fieldset>
   </template>
 }
 
-function getCollectiveValue(elementTarget: EventTarget | null, id: string, length: number) {
-  if (!elementTarget) return;
-
-  assert(
-    `[BUG]: somehow the element target is not HTMLElement`,
-    elementTarget instanceof HTMLElement,
-  );
-
-  let parent: null | HTMLElement | ShadowRoot;
-
-  // TODO: should this logic be extracted?
-  //       why is getting the target element within a shadow root hard?
-  if (!(elementTarget instanceof HTMLInputElement)) {
-    if (elementTarget.shadowRoot) {
-      parent = elementTarget.shadowRoot;
-    } else {
-      parent = elementTarget.parentElement;
-    }
-  } else {
-    parent = elementTarget.parentElement;
-  }
-
-  assert(`[BUG]: somehow the input fields were rendered without a parent element`, parent);
-
-  let elements = parent.querySelectorAll(`[data-primitives-code-segment^="${id}:"]`);
-
-  let value = '';
-
-  assert(
-    `found elements (${elements.length}) do not match length (${length}). Was the same OTP input rendered more than once?`,
-    elements.length === length,
-  );
-
-  for (let element of elements) {
-    assert(
-      '[BUG]: how did the queried elements become a non-input element?',
-      element instanceof HTMLInputElement,
-    );
-    value += element.value;
-  }
-
-  return value;
-}

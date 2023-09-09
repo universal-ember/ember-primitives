@@ -18,6 +18,12 @@ function readValue() {
     .join('');
 }
 
+/**
+  * Additional tests needed:
+  * backspace:
+  *  - once: deletes the character (default)
+  *  - again: when there is no character, goes to previous field
+  */
 module('Rendering | <OTPInput>', function (hooks) {
   setupRenderingTest(hooks);
 

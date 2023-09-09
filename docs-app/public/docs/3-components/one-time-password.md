@@ -24,9 +24,7 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
   <pre>submitted: {{submittedCode}}</pre>
 
   <OTP @onSubmit={{handleSubmit}} as |x|>
-    <div class="fields">
-      <x.Input />
-    </div>
+    <x.Input class="fields" />
     <br>
     <x.Submit>Submit</x.Submit>
     <x.Reset>Reset</x.Reset>
@@ -38,6 +36,8 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
       grid-auto-flow: column;
       gap: 0.5rem;
       width: min-content;
+      border: none;
+      padding: 0;
 
       input {
         border: 1px solid;

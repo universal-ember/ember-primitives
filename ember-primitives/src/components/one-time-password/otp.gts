@@ -1,5 +1,4 @@
 import { assert } from '@ember/debug';
-import { uniqueId } from '@ember/helper';
 import { fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
@@ -64,12 +63,6 @@ function handleChange(
   form.requestSubmit();
 }
 
-const Label: TOC<{ Element: HTMLLabelElement, Args: { labelId: string }, Blocks: { default: []} }> = <template>
-  <label ...attributes id={{@labelId}}>
-    {{yield}}
-  </label>
-</template>;
-
 export const OTP: TOC<{
   /**
    * The overall OTP Input is in its own form.
@@ -107,37 +100,30 @@ export const OTP: TOC<{
     default: [
       {
         /**
-          * The collective input field that the OTP code will be typed/pasted in to
-          */
-        Input: WithBoundArgs<typeof OTPInput, 'length' | 'onChange' | 'labelId'>;
+         * The collective input field that the OTP code will be typed/pasted in to
+         */
+        Input: WithBoundArgs<typeof OTPInput, 'length' | 'onChange'>;
         /**
-          * The `<label>` element, pre-wired up to be tied to the `<Input>`
-          */
-        Label: WithBoundArgs<typeof Label, 'labelId'>;
-        /**
-          * Button with `type="submit"` to submit the form
-          */
+         * Button with `type="submit"` to submit the form
+         */
         Submit: typeof Submit;
         /**
-          * Pre-wired button to reset the form
-          */
+         * Pre-wired button to reset the form
+         */
         Reset: typeof Reset;
       },
     ];
   };
 }> = <template>
   <form {{on 'submit' (fn handleFormSubmit @onSubmit)}} ...attributes>
-    {{#let (uniqueId) as |fieldId|}}
-      {{yield
-        (hash
-          Label=(component Label labelId=fieldId)
-          Input=(component
-            OTPInput labelId=fieldId length=@length onChange=(if @autoSubmit (fn handleChange @autoSubmit))
-          )
-          Submit=Submit
-          Reset=Reset
+    {{yield
+      (hash
+        Input=(component
+          OTPInput length=@length onChange=(if @autoSubmit (fn handleChange @autoSubmit))
         )
-      }}
-    {{/let}}
+        Submit=Submit
+        Reset=Reset
+      )
+    }}
   </form>
 </template>;

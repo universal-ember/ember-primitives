@@ -1,9 +1,14 @@
+import './styles.css';
+
 import Component from '@glimmer/component';
 import { assert, warn } from '@ember/debug';
 import { isDestroyed, isDestroying } from '@ember/destroyable';
 import { uniqueId } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
+
+import type { TOC } from '@ember/component/template-only';
+import type { WithBoundArgs } from '@glint/template';
 
 const DEFAULT_LENGTH = 6;
 
@@ -50,11 +55,41 @@ function labelFor(inputIndex: number, labelFn: undefined | ((index: number) => s
 
 let waiter = buildWaiter('ember-primitives:OTPInput:handleChange');
 
-export class OTPInput extends Component<{
+const Fields: TOC<{
   /**
    * Any attributes passed to this component will be applied to each input.
    */
   Element: HTMLInputElement;
+  Args: {
+    fields: unknown[];
+    id: string;
+    labelFn: (index: number) => string;
+    handleChange: (event: Event) => void;
+  };
+}> = <template>
+  {{#each @fields as |_field i|}}
+    <label>
+      <span class='sr-only'>{{labelFor i @labelFn}}</span>
+      <input
+        data-primitives-code-segment='{{@id}}:{{i}}'
+        name='code{{i}}'
+        type='text'
+        inputmode='numeric'
+        ...attributes
+        {{on 'input' autoAdvance}}
+        {{on 'input' @handleChange}}
+      />
+    </label>
+  {{/each}}
+</template>;
+
+export class OTPInput extends Component<{
+  /**
+   * The collection of individual OTP inputs are contained by a fieldset.
+   * Applying the `disabled` attribute to this fieldset will disable
+   * all of the inputs, if that's desired.
+   */
+  Element: HTMLFieldSetElement;
   Args: {
     /**
      * How many characters the one-time-password field should be
@@ -63,18 +98,8 @@ export class OTPInput extends Component<{
     length?: number;
 
     /**
-      * The Id of the label for the collective input to be described by.
-      * This is preferred over customizing the labels with `@labelFn`,
-      * as a visible label helps both visual users as well as screen-reader users.
-      */
-    labelId?: string;
-
-    /**
      * To Customize the label of the input fields, you may pass a function.
      * By default, this is `Please enter OTP character ${index + 1}`.
-     *
-     * However, it is recommended to use a real <label> field
-    * and pass in the `@labelId` to this `<OTPInput>` component
      */
     labelFn?: (index: number) => string;
 
@@ -101,6 +126,12 @@ export class OTPInput extends Component<{
        */
       event: Event,
     ) => void;
+  };
+  Blocks: {
+    /**
+     * Optionally, you may control how the
+     */
+    default?: [fields: WithBoundArgs<typeof Fields, 'fields' | 'handleChange' | 'labelFn'>];
   };
 }> {
   /**
@@ -139,7 +170,7 @@ export class OTPInput extends Component<{
 
       if (value === undefined) {
         warn(`Value could not be determined for the OTP field. was it removed from the DOM?`, {
-          id: 'ember-primitives.OTPInput.missing-value'
+          id: 'ember-primitives.OTPInput.missing-value',
         });
 
         return;
@@ -166,26 +197,30 @@ export class OTPInput extends Component<{
   }
 
   <template>
-    {{#each this.fields as |_field i|}}
-      <input
-        data-primitives-code-segment='{{this.id}}:{{i}}'
-        name='code{{i}}'
-        type='text'
-        inputmode="numeric"
-        ...attributes
-        aria-describedby={{if @labelId @labelId}}
-        aria-label={{if @labelId undefined (labelFor i @labelFn)}}
-        {{on 'input' autoAdvance}}
-        {{on 'input' this.handleChange}}
-      />
-    {{/each}}
+    <fieldset ...attributes>
+      {{#let
+        (component
+          Fields fields=this.fields id=this.id handleChange=this.handleChange labelFn=@labelFn
+        )
+        as |CurriedFields|
+      }}
+        {{#if (has-block)}}
+          {{yield CurriedFields}}
+        {{else}}
+          <CurriedFields />
+        {{/if}}
+      {{/let}}
+    </fieldset>
   </template>
 }
 
 function getCollectiveValue(elementTarget: EventTarget | null, id: string, length: number) {
   if (!elementTarget) return;
 
-  assert(`[BUG]: somehow the element target is not HTMLElement`, elementTarget instanceof HTMLElement);
+  assert(
+    `[BUG]: somehow the element target is not HTMLElement`,
+    elementTarget instanceof HTMLElement,
+  );
 
   let parent: null | HTMLElement | ShadowRoot;
 

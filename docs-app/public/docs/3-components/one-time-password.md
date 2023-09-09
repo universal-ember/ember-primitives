@@ -24,7 +24,6 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
   <pre>submitted: {{submittedCode}}</pre>
 
   <OTP @onSubmit={{handleSubmit}} as |x|>
-    <x.Label>Please enter the OTP</x.Label>
     <div class="fields">
       <x.Input />
     </div>
@@ -61,7 +60,6 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 * Pasting into the collective field will fill all inputs with the pasted value
 * Standalone form, allowing for easily creating OTP-entry screens
 * Optional reset button
-* Label component is automatically wired up to each input field
 * Pressing enter submits the code
 * number keyboard on [mobile](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/inputmode)
 
@@ -90,7 +88,6 @@ import { OTP } from 'ember-primitives';
   <OTP as |x|>
     text can go here, or in between the below components
 
-    <x.Label>Please enter the OTP</x.Label>
     <x.Input />
     <x.Submit> submit text </x.Submit>
     <x.Reset> reset text </x.Reset>
@@ -104,8 +101,7 @@ import { OTP } from 'ember-primitives';
 ## Accessibility
 
 This component complies with all `<form>` and `<input>` accessibility guidelines.
-However, it's possible for implementers to create a less-than-ideal situation for their users,
-as a visible label is recommended.
+It is rendered within a fieldset to convey that all of the character inputs are related.
 
 
 ## API Reference

@@ -13,7 +13,8 @@ export async function fillOTP(code: string, selector?: string) {
     ancestor,
   );
 
-  let fieldset = ancestor instanceof HTMLFieldSetElement ? ancestor : ancestor.querySelector('fieldset');
+  let fieldset =
+    ancestor instanceof HTMLFieldSetElement ? ancestor : ancestor.querySelector('fieldset');
 
   assert(
     `Could not find containing fieldset element (this holds the OTP Input fields). Was the OTP component rendered?`,

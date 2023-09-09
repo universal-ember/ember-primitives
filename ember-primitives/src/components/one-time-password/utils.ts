@@ -17,9 +17,12 @@ function nextInput(current: HTMLInputElement) {
 
 export function handleNavigation(event: KeyboardEvent) {
   switch (event.key) {
-    case 'Backspace': return handleBackspace(event);
-    case 'ArrowLeft': return focusLeft(event);
-    case 'ArrowRight': return focusRight(event);
+    case 'Backspace':
+      return handleBackspace(event);
+    case 'ArrowLeft':
+      return focusLeft(event);
+    case 'ArrowRight':
+      return focusRight(event);
   }
 }
 
@@ -39,7 +42,7 @@ function focusRight(event: Event) {
 
   assert(`only allowed on input elements`, target instanceof HTMLInputElement);
 
-  let input = nextInput(target)
+  let input = nextInput(target);
 
   input?.focus();
   input?.select();
@@ -79,14 +82,12 @@ export const autoAdvance = (event: Event) => {
     let next = nextInput(currElement);
 
     if (next instanceof HTMLInputElement) {
-      currElement = next
+      currElement = next;
     } else {
       break;
     }
   }
 };
-
-
 
 export function getCollectiveValue(elementTarget: EventTarget | null, length: number) {
   if (!elementTarget) return;

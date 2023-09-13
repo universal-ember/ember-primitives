@@ -276,8 +276,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
       ember-qunit:
-        specifier: ^8.0.0
-        version: 8.0.0(@ember/test-helpers@3.2.0)(@glint/template@1.1.0)(ember-source@5.2.0)(qunit@2.19.4)
+        specifier: ^8.0.1
+        version: 8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.1.0)(ember-source@5.2.0)(qunit@2.19.4)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.2.0)
@@ -638,8 +638,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
       ember-qunit:
-        specifier: ^8.0.0
-        version: 8.0.0(@ember/test-helpers@3.2.0)(@glint/template@1.1.0)(ember-source@5.2.0)(qunit@2.19.4)
+        specifier: ^8.0.1
+        version: 8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.1.0)(ember-source@5.2.0)(qunit@2.19.4)
       ember-resolver:
         specifier: ^11.0.1
         version: 11.0.1(ember-source@5.2.0)
@@ -8592,8 +8592,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-qunit@8.0.0(@ember/test-helpers@3.2.0)(@glint/template@1.1.0)(ember-source@5.2.0)(qunit@2.19.4):
-    resolution: {integrity: sha512-H61shPfAvaTLpPqZgk5QPvYtC1q171EVF62sU+y/i693cTX728ukYWj5NYbrOX51OAKc5aXfjepdnCOYKIOmfg==}
+  /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.1.0)(ember-source@5.2.0)(qunit@2.19.4):
+    resolution: {integrity: sha512-13PtywHNPTQKkDW4o8QRkJvcdsZr8hRyvh6xh/YLAX8+HaRLd3nPL8mBF4O/Kur/DAj3QWLvjzktZ2uRNGSh3A==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.3'
       ember-source: '*'

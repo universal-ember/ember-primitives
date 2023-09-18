@@ -75,7 +75,7 @@
     "concurrently": "^8.2.1",
     "ember-modifier": "^4.1.0",
     "ember-resources": "^6.4.0",
-    "ember-source": "~5.2.0",
+    "ember-source": "~5.3.0",
     "ember-template-imports": "^3.4.2",
     "ember-template-lint": "^5.11.2",
     "eslint": "^8.48.0",

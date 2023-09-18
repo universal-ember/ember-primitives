@@ -95,9 +95,9 @@ export class OTPInput extends Component<{
   Blocks: {
     /**
      * Optionally, you may control how the Fields are rendered, with proceeding text,
-    * additional attributes added, etc.
-      *
-      * This is how you can add custom validation to each input field.
+     * additional attributes added, etc.
+     *
+     * This is how you can add custom validation to each input field.
      */
     default?: [fields: WithBoundArgs<typeof Fields, 'fields' | 'handleChange' | 'labelFn'>];
   };
@@ -166,9 +166,7 @@ export class OTPInput extends Component<{
   <template>
     <fieldset ...attributes>
       {{#let
-        (component
-          Fields fields=this.fields handleChange=this.handleChange labelFn=@labelFn
-        )
+        (component Fields fields=this.fields handleChange=this.handleChange labelFn=@labelFn)
         as |CurriedFields|
       }}
         {{#if (has-block)}}
@@ -179,19 +177,10 @@ export class OTPInput extends Component<{
       {{/let}}
 
       <style>
-        .ember-primitives__sr-only {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0, 0, 0, 0);
-          white-space: nowrap;
-          border-width: 0;
-        }
+        .ember-primitives__sr-only { position: absolute; width: 1px; height: 1px; padding: 0;
+        margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width:
+        0; }
       </style>
     </fieldset>
   </template>
 }
-

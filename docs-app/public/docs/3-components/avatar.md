@@ -19,6 +19,21 @@ import { Avatar } from 'ember-primitives';
       <a.Image alt="GitHub profile picture of NullVoxPopuli" />
       <a.Fallback @delayMs={{600}}>NVP</a.Fallback>
     </Avatar>
+
+    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/2/21/CarbotZerglingLevel_SC2_Portrait1.jpg" as |a|>
+      <a.Image alt="Zergling" />
+      <a.Fallback>Z</a.Fallback>
+    </Avatar>
+
+    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/b/bc/Vorazun_SC2_Portrait1.jpg" as |a|>
+      <a.Image alt="Vorazun's profile picture" />
+      <a.Fallback>V</a.Fallback>
+    </Avatar>
+
+    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/3/34/GhostKerrigan_SC2_Portrait1.jpg" as |a|>
+      <a.Image alt="Sarah Kerrigan's profile picture" />
+      <a.Fallback>SK</a.Fallback>
+    </Avatar>
   </div>
 
   <style>
@@ -48,19 +63,11 @@ import { Avatar } from 'ember-primitives';
 
 </div>
 
-## Examples
+## Features
 
 * Automatic and manual control over when the image renders.
 * Fallback accepts any content.
 * Optionally delay fallback rendering to avoid content flashing.
-
-### Clickable Avatar with tooltip
-
-```gjs
-
-```
-
-## Features
 
 ## Installation
 
@@ -69,6 +76,29 @@ pnpm add ember-primitives
 ```
 
 ## Anatomy
+
+```js 
+import { Avatar } from 'ember-primitives';
+```
+
+or for non-tree-shaking environments:
+```js 
+import { Avatar } from 'ember-primitives/components/avatar';
+```
+
+
+```gjs 
+import { Avatar } from 'ember-primitives';
+
+<template>
+  <Avatar @src="..." as |a|>
+    <a.Image />
+    <a.Fallback>
+      any content here
+    </a.Fallback>
+  </Avatar>
+</template>
+```
 
 ## Accessibility
 
@@ -86,4 +116,11 @@ import { ComponentSignature } from 'docs-app/docs-support';
 
 ### State Attributes
 
-TODO
+There are state attributes available on the the root element of this component.
+These may allow for stateful CSS-only stylings of the Avatar component.
+
+| key | description |  
+| :---: | :----------- |  
+| `data-loading` | the loading state of the image | 
+| `data-error` | will be "true" if the image failed to load | 
+

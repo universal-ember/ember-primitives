@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.7.0
+
+### Minor Changes
+
+- 73c231d: New component: Avatar -- see docs for details
+
 ## 0.6.0
 
 ### Minor Changes

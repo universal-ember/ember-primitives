@@ -40,14 +40,14 @@ module('<Avatar />', function (hooks) {
       <template>
         <Avatar @src="https://fake.uri" as |a|>
           <a.Image />
-          <a.Fallback @delayMs={{50}}>NVP</a.Fallback>
+          <a.Fallback @delayMs={{150}}>NVP</a.Fallback>
         </Avatar>
       </template>
     );
 
     assert.dom('img').doesNotExist();
     assert.dom().doesNotContainText('NVP');
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 300));
     assert.dom().containsText('NVP');
   });
 });

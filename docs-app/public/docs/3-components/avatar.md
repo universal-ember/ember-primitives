@@ -51,7 +51,7 @@ import { Avatar } from 'ember-primitives';
       place-content: center;
       border: 2px solid #A300DE;
 
-      img {
+      > img {
         width: 100%;
         height: 100%;
         object-fit: contain;

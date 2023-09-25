@@ -36,8 +36,8 @@ const isLoneIndex = (pages: Page[]) =>
 
 const unExct = (str: string) => str.replace(/\.md$/, '');
 
-const NameLink: TOC<{ Args: { href: string; name: string } }> = <template>
-  <Link @href={{unExct @href}}>
+const NameLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> = <template>
+  <Link @href={{unExct @href}} ...attributes>
     {{#if (isComponents @name)}}
       {{asComponent (titleize @name)}}
     {{else}}
@@ -84,22 +84,28 @@ export class Nav extends Component {
     <nav
       aria-label='Main Navigation'
       class={{if this.ui.isNavOpen 'open'}}
-      {{! template-lint-disable no-invalid-interactive }}
-      {{on 'click' this.closeNav}}
     >
       <ul>
         {{#each-in this.docs.grouped as |group pages|}}
           <li>
             {{#if (isLoneIndex pages)}}
               {{#each pages as |page|}}
-                <NameLink @name={{group}} @href={{page.path}} />
+                <NameLink
+                  @name={{group}}
+                  @href={{page.path}}
+                  {{on 'click' this.closeNav}}
+                />
               {{/each}}
             {{else}}
               <h2>{{titleize group}}</h2>
               <ul>
                 {{#each pages as |page|}}
                   <li>
-                    <NameLink @name={{page.name}} @href={{page.path}} />
+                    <NameLink
+                      @name={{page.name}}
+                      @href={{page.path}}
+                      {{on 'click' this.closeNav}}
+                    />
                   </li>
                 {{/each}}
               </ul>

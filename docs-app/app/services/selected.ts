@@ -19,6 +19,9 @@ import type RouterService from '@ember/routing/router-service';
 // const fillCache = (path: string) => {
 //   fetch(`/docs/${path}`)
 // };
+//
+
+const firstPath = '/1-get-started/intro.md';
 
 export default class Selected extends Service {
   @service declare router: RouterService;
@@ -68,10 +71,10 @@ export default class Selected extends Service {
   }
 
   get path(): string | undefined {
-    if (!this.router.currentURL) return this.#manifest?.first.path;
+    if (!this.router.currentURL) return firstPath;
 
     let [path] = this.router.currentURL.split('?');
-    let result = path && path !== '/' ? path : this.#manifest?.first.path;
+    let result = path && path !== '/' ? path : firstPath;
 
     return result?.replace(/\.md$/, '');
   }

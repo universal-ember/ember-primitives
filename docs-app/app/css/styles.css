@@ -3,7 +3,7 @@
    * Only one breakpoint, because this site
    * is mostly prose, and we don't want too much variation.
    */
-  --breakpoint: 800px;
+  --breakpoint: 1000px;
 
   /**
    * z-index managed here at a glance

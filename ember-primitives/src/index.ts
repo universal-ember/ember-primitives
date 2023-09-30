@@ -4,6 +4,7 @@ if (macroCondition(isDevelopingApp())) {
   importSync('./components/violations.css');
 }
 
+export { Accordion } from './components/accordion/accordion';
 export { Avatar } from './components/avatar';
 export { Dialog, Dialog as Modal } from './components/dialog';
 export { ExternalLink } from './components/external-link';

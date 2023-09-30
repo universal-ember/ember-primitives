@@ -2,6 +2,7 @@
 // Add all your components, helpers and modifiers to the template registry here, so apps don't have to do this.
 // See https://typed-ember.gitbook.io/glint/using-glint/ember/authoring-addons
 
+import type { Accordion } from './components/accordion/accordion';
 import type { Dialog } from './components/dialog';
 import type { ExternalLink } from './components/external-link';
 import type { Link } from './components/link';
@@ -19,6 +20,7 @@ import type { service } from './helpers/service';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export default interface Registry {
   // components
+  Accordion: typeof Accordion
   Dialog: typeof Dialog;
   ExternalLink: typeof ExternalLink;
   Link: typeof Link;

@@ -1,9 +1,14 @@
 import Component from '@glimmer/component';
+import { hash } from '@ember/helper';
+
+import Header from './header';
+
+import type { WithBoundArgs } from '@glint/template';
 
 export interface AccordionItemSignature {
   Element: HTMLDivElement;
   Blocks: {
-    default: [];
+    default: [{ Header: WithBoundArgs<typeof Header, 'value' | 'isExpanded' | 'toggleItem' > }];
   };
   Args: {
     value: string;
@@ -15,7 +20,7 @@ export interface AccordionItemSignature {
 export class AccordionItem extends Component<AccordionItemSignature> {
   <template>
     <div ...attributes>
-      {{yield}}
+      {{yield (hash Header=(component Header value=this.args.value isExpanded=this.isExpanded toggleItem=this.toggleItem))}}
     </div>
   </template>
 
@@ -25,6 +30,10 @@ export class AccordionItem extends Component<AccordionItemSignature> {
     }
 
     return this.args.selectedValue === this.args.value;
+  }
+
+  toggleItem = (): void => {
+    this.args.toggleItem(this.args.value);
   }
 }
 

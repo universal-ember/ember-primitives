@@ -12,8 +12,6 @@ import AccordionItem from './item';
 
 import type { WithBoundArgs } from '@glint/template';
 
-
-
 type AccordionSingleArgs = {
   type: 'single'
 } & ({

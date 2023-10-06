@@ -1,6 +1,7 @@
-import type { TOC } from '@ember/component/template-only';
+import Component from '@glimmer/component';
 
-export const AccordionContent: TOC<{
+
+export interface AccordionContentSignature {
   Element: HTMLDivElement;
   Blocks: {
     default: [];
@@ -9,10 +10,14 @@ export const AccordionContent: TOC<{
     isExpanded: boolean;
     value: string;
   }
-}> = <template>
-  <div role="region" id={{@value}} aria-hidden={{unless @isExpanded "true"}} ...attributes>
-    {{yield}}
-  </div>
-</template>
+}
+
+export class AccordionContent extends Component<AccordionContentSignature> {
+  <template>
+    <div role="region" id={{@value}} ...attributes>
+      {{yield}}
+    </div>
+  </template>
+}
 
 export default AccordionContent;

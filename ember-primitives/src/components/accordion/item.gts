@@ -6,6 +6,10 @@ import Header from './header';
 
 import type { WithBoundArgs } from '@glint/template';
 
+export function getDataState(isExpanded: boolean): string {
+  return isExpanded ? 'open' : 'closed';
+}
+
 export interface AccordionItemSignature {
   Element: HTMLDivElement;
   Blocks: {
@@ -24,7 +28,7 @@ export interface AccordionItemSignature {
 
 export class AccordionItem extends Component<AccordionItemSignature> {
   <template>
-    <div data-disabled={{@disabled}} ...attributes>
+    <div data-state={{getDataState this.isExpanded}} data-disabled={{@disabled}} ...attributes>
       {{yield
         (hash
           Header=(component Header value=this.args.value isExpanded=this.isExpanded disabled=@disabled toggleItem=this.toggleItem)

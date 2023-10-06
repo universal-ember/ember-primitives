@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 
 import { modifier } from 'ember-modifier';
 
+import { getDataState } from './item';
 
 export interface AccordionContentSignature {
   Element: HTMLDivElement;
@@ -18,7 +19,7 @@ export interface AccordionContentSignature {
 
 export class AccordionContent extends Component<AccordionContentSignature> {
   <template>
-    <div {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{if @isExpanded "open" "closed"}} hidden={{this.isHidden}} data-disabled={{@disabled}} ...attributes>
+    <div {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{getDataState @isExpanded}} hidden={{this.isHidden}} data-disabled={{@disabled}} ...attributes>
       {{yield}}
     </div>
   </template>

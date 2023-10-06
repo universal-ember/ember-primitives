@@ -1,5 +1,6 @@
 import { hash } from '@ember/helper';
 
+import { getDataState } from './item';
 import Trigger from './trigger';
 
 import type { TOC } from '@ember/component/template-only';
@@ -17,7 +18,7 @@ export const AccordionHeader: TOC<{
     toggleItem: () => void;
   }
 }> = <template>
-  <div role='heading' aria-level='3' data-disabled={{@disabled}} ...attributes>
+  <div role='heading' aria-level='3' data-state={{getDataState @isExpanded}} data-disabled={{@disabled}} ...attributes>
     {{yield (hash Trigger=(component Trigger value=@value isExpanded=@isExpanded disabled=@disabled toggleItem=@toggleItem))}}
   </div>
 </template>

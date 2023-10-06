@@ -6,6 +6,7 @@ import type { Accordion } from './components/accordion/accordion';
 import type { AccordionItem } from './components/accordion/item';
 import type { AccordionHeader } from './components/accordion/header';
 import type { AccordionContent } from './components/accordion/content';
+import type { AccordionTrigger } from './components/accordion/trigger';
 import type { Dialog } from './components/dialog';
 import type { ExternalLink } from './components/external-link';
 import type { Link } from './components/link';
@@ -27,6 +28,7 @@ export default interface Registry {
   AccordionItem: typeof AccordionItem;
   AccordionHeader: typeof AccordionHeader;
   AccordionContent: typeof AccordionContent;
+  AccordionTrigger: typeof AccordionTrigger;
   Dialog: typeof Dialog;
   ExternalLink: typeof ExternalLink;
   Link: typeof Link;

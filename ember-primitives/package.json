@@ -102,6 +102,7 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
+      "./components/accordion/accordion.js": "./dist/_app_/components/accordion/accordion.js",
       "./components/avatar.js": "./dist/_app_/components/avatar.js",
       "./components/dialog.js": "./dist/_app_/components/dialog.js",
       "./components/external-link.js": "./dist/_app_/components/external-link.js",

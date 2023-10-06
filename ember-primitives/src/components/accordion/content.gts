@@ -17,14 +17,14 @@ export interface AccordionContentSignature {
 
 export class AccordionContent extends Component<AccordionContentSignature> {
   <template>
-    <div {{this.register @isExpanded}} role="region" id={{@value}} data-state={{if @isExpanded "open" "closed"}} hidden={{this.isHidden}} ...attributes>
+    <div {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{if @isExpanded "open" "closed"}} hidden={{this.isHidden}} ...attributes>
       {{yield}}
     </div>
   </template>
 
   @tracked isHidden = !this.args.isExpanded;
 
-  register = modifier((element: HTMLDivElement, [isExpanded]) => {
+  handleHiddenState = modifier((element: HTMLDivElement, [isExpanded]) => {
     if (isExpanded) {
       this.isHidden = false;
 

@@ -1,9 +1,14 @@
+import { hash } from '@ember/helper';
+
+import Trigger from './trigger';
+
 import type { TOC } from '@ember/component/template-only';
+import type { WithBoundArgs } from '@glint/template';
 
 export const AccordionHeader: TOC<{
   Element: HTMLDivElement;
   Blocks: {
-    default: [];
+    default: [{ Trigger: WithBoundArgs<typeof Trigger, 'value' | 'isExpanded' | 'toggleItem'>; }];
   };
   Args: {
     value: string;
@@ -12,7 +17,7 @@ export const AccordionHeader: TOC<{
   }
 }> = <template>
   <div role='heading' aria-level='3' ...attributes>
-    {{yield}}
+    {{yield (hash Trigger=(component Trigger value=@value isExpanded=@isExpanded toggleItem=@toggleItem))}}
   </div>
 </template>
 

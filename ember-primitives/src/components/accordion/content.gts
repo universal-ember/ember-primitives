@@ -14,3 +14,5 @@ export const AccordionContent: TOC<{
     {{yield}}
   </div>
 </template>
+
+export default AccordionContent;

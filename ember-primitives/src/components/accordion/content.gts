@@ -12,12 +12,13 @@ export interface AccordionContentSignature {
   Args: {
     isExpanded: boolean;
     value: string;
+    disabled?: boolean;
   }
 }
 
 export class AccordionContent extends Component<AccordionContentSignature> {
   <template>
-    <div {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{if @isExpanded "open" "closed"}} hidden={{this.isHidden}} ...attributes>
+    <div {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{if @isExpanded "open" "closed"}} hidden={{this.isHidden}} data-disabled={{@disabled}} ...attributes>
       {{yield}}
     </div>
   </template>

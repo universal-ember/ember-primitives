@@ -13,7 +13,8 @@ import AccordionItem from './item';
 import type { WithBoundArgs } from '@glint/template';
 
 type AccordionSingleArgs = {
-  type: 'single'
+  type: 'single',
+  disabled?: boolean;
 } & ({
   value: string;
   onValueChange: (value: string | undefined) => void;
@@ -26,6 +27,7 @@ type AccordionSingleArgs = {
 
 type AccordionMultipleArgs = {
   type: 'multiple'
+  disabled?: boolean;
 } & ({
   value: string[];
   onValueChange: (value?: string[] | undefined) => void;
@@ -40,14 +42,14 @@ export interface Signature {
   Element: HTMLDivElement;
   Args: AccordionSingleArgs | AccordionMultipleArgs;
   Blocks: {
-    default: [{Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem'>}];
+    default: [{Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem' | 'disabled'>}];
   };
 }
 
 export class Accordion extends Component<Signature> {
   <template>
-    <div ...attributes>
-      {{yield (hash Item=(component AccordionItem selectedValue=this.selectedValue toggleItem=this.toggleItem))}}
+    <div data-disabled={{@disabled}} ...attributes>
+      {{yield (hash Item=(component AccordionItem selectedValue=this.selectedValue toggleItem=this.toggleItem disabled=@disabled))}}
     </div>
   </template>
 
@@ -58,6 +60,10 @@ export class Accordion extends Component<Signature> {
   }
 
   toggleItem = (value: string) => {
+    if (this.args.disabled) {
+      return;
+    }
+
     if (this.args.type === 'single') {
       this.toggleItemSingle(value);
     } else if (this.args.type === 'multiple') {
@@ -66,6 +72,7 @@ export class Accordion extends Component<Signature> {
   }
 
   toggleItemSingle = (value: string) => {
+    assert('Cannot call `toggleItemSingle` when `disabled` is true.', !this.args.disabled);
     assert('Cannot call `toggleItemSingle` when `type` is not `single`.', this.args.type === 'single');
 
     const newValue = value === this.selectedValue ? undefined : value;
@@ -78,6 +85,7 @@ export class Accordion extends Component<Signature> {
   }
 
   toggleItemMultiple = (value: string) => {
+    assert('Cannot call `toggleItemMultiple` when `disabled` is true.', !this.args.disabled);
     assert('Cannot call `toggleItemMultiple` when `type` is not `multiple`.', this.args.type === 'multiple');
 
     const currentValues = this.selectedValue as string[] | undefined ?? [];

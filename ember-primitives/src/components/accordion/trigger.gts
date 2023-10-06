@@ -10,6 +10,7 @@ export const AccordionTrigger: TOC<{
   Args: {
     isExpanded: boolean;
     value: string;
+    disabled?: boolean;
     toggleItem: () => void;
   }
 }> = <template>
@@ -17,6 +18,8 @@ export const AccordionTrigger: TOC<{
     type="button"
     aria-controls={{@value}}
     aria-expanded={{@isExpanded}}
+    data-disabled={{@disabled}}
+    disabled={{@disabled}}
     {{on "click" @toggleItem}}
     ...attributes
   >

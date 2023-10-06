@@ -12,7 +12,7 @@ export interface AccordionItemSignature {
   }
 }
 
-export default class AccordionItem extends Component<AccordionItemSignature> {
+export class AccordionItem extends Component<AccordionItemSignature> {
   <template>
     <div ...attributes>
       {{yield}}
@@ -27,3 +27,5 @@ export default class AccordionItem extends Component<AccordionItemSignature> {
     return this.args.selectedValue === this.args.value;
   }
 }
+
+export default AccordionItem;

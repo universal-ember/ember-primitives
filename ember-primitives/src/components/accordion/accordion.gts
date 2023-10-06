@@ -1,11 +1,18 @@
 import Component from '@glimmer/component';
 import { assert } from '@ember/debug';
+import { hash } from '@ember/helper';
 
 // temp
 //  https://github.com/tracked-tools/tracked-toolbox/issues/38
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { localCopy } from 'tracked-toolbox';
+
+import AccordionItem from './item';
+
+import type { WithBoundArgs } from '@glint/template';
+
+
 
 type AccordionSingleArgs = {
   type: 'single'
@@ -35,14 +42,14 @@ export interface Signature {
   Element: HTMLDivElement;
   Args: AccordionSingleArgs | AccordionMultipleArgs;
   Blocks: {
-    default: [];
+    default: [{Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem'>}];
   };
 }
 
 export class Accordion extends Component<Signature> {
   <template>
     <div ...attributes>
-      {{yield}}
+      {{yield (hash Item=(component AccordionItem selectedValue=this.selectedValue toggleItem=this.toggleItem))}}
     </div>
   </template>
 

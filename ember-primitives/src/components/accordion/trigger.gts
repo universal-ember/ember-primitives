@@ -4,7 +4,7 @@ import { getDataState } from './item';
 
 import type { TOC } from '@ember/component/template-only';
 
-export const AccordionTrigger: TOC<{
+export interface Signature {
   Element: HTMLButtonElement;
   Blocks: {
     default: [];
@@ -15,7 +15,9 @@ export const AccordionTrigger: TOC<{
     disabled?: boolean;
     toggleItem: () => void;
   }
-}> = <template>
+}
+
+export const AccordionTrigger: TOC<Signature> = <template>
   <button
     type="button"
     aria-controls={{@value}}

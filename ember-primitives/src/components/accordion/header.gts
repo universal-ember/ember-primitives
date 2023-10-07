@@ -6,7 +6,7 @@ import Trigger from './trigger';
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
-export const AccordionHeader: TOC<{
+export interface Signature {
   Element: HTMLDivElement;
   Blocks: {
     default: [{ Trigger: WithBoundArgs<typeof Trigger, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>; }];
@@ -17,7 +17,9 @@ export const AccordionHeader: TOC<{
     disabled?: boolean;
     toggleItem: () => void;
   }
-}> = <template>
+}
+
+export const AccordionHeader: TOC<Signature> = <template>
   <div role='heading' aria-level='3' data-state={{getDataState @isExpanded}} data-disabled={{@disabled}} ...attributes>
     {{yield (hash Trigger=(component Trigger value=@value isExpanded=@isExpanded disabled=@disabled toggleItem=@toggleItem))}}
   </div>

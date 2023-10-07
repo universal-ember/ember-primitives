@@ -10,7 +10,7 @@ export function getDataState(isExpanded: boolean): string {
   return isExpanded ? 'open' : 'closed';
 }
 
-export interface AccordionItemSignature {
+export interface Signature {
   Element: HTMLDivElement;
   Blocks: {
     default: [{
@@ -26,7 +26,7 @@ export interface AccordionItemSignature {
   }
 }
 
-export class AccordionItem extends Component<AccordionItemSignature> {
+export class AccordionItem extends Component<Signature> {
   <template>
     <div data-state={{getDataState this.isExpanded}} data-disabled={{@disabled}} ...attributes>
       {{yield

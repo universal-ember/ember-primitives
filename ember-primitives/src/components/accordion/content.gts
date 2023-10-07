@@ -5,7 +5,7 @@ import { modifier } from 'ember-modifier';
 
 import { getDataState } from './item';
 
-export interface AccordionContentSignature {
+export interface Signature {
   Element: HTMLDivElement;
   Blocks: {
     default: [];
@@ -17,7 +17,7 @@ export interface AccordionContentSignature {
   }
 }
 
-export class AccordionContent extends Component<AccordionContentSignature> {
+export class AccordionContent extends Component<Signature> {
   <template>
     <div {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{getDataState @isExpanded}} hidden={{this.isHidden}} data-disabled={{@disabled}} ...attributes>
       {{yield}}

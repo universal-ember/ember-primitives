@@ -193,6 +193,9 @@ import { Accordion } from 'ember-primitives';
 
 ## API Reference
 
+<details open>
+<summary><h3>Accordion</h3></summary>
+
 ```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';
 
@@ -200,6 +203,55 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="index" @name="Accordion" />
 </template>
 ```
+</details>
+
+<details>
+<summary><h3>AccordionItem</h3></summary>
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="index" @name="AccordionItem" />
+</template>
+```
+</details>
+
+<details>
+<summary><h3>AccordionHeader</h3></summary>
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="index" @name="AccordionHeader" />
+</template>
+```
+</details>
+
+<details>
+<summary><h3>AccordionTrigger</h3></summary>
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="index" @name="AccordionTrigger" />
+</template>
+```
+</details>
+
+<details>
+<summary><h3>AccordionContent</h3></summary>
+
+```gjs live no-shadow
+import { ComponentSignature } from 'docs-app/docs-support';
+
+<template>
+  <ComponentSignature @module="index" @name="AccordionContent" />
+</template>
+```
+</details>
 
 ## Accessibility
 

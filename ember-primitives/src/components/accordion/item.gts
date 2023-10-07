@@ -48,7 +48,7 @@ export class AccordionItem extends Component<{
       {{yield
         (hash
           Header=(component Header value=this.args.value isExpanded=this.isExpanded disabled=@disabled toggleItem=this.toggleItem)
-          Content=(component Content isExpanded=this.isExpanded disabled=@disabled)
+          Content=(component Content value=this.args.value isExpanded=this.isExpanded disabled=@disabled)
         )
       }}
     </div>

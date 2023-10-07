@@ -110,3 +110,8 @@ export class Accordion extends Component<Signature> {
 }
 
 export default Accordion;
+
+export { AccordionContent } from './content';
+export { AccordionHeader } from './header';
+export { AccordionItem } from './item';
+export { AccordionTrigger } from './trigger';

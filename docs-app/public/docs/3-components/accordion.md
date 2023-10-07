@@ -119,6 +119,10 @@ import { Accordion } from 'ember-primitives';
   </Accordion>
 
   <style>
+    .accordion-content {
+      overflow: hidden;
+    }
+
     .accordion-content[data-state="open"] {
       animation: slide-down 0.3s ease-in-out;
     }

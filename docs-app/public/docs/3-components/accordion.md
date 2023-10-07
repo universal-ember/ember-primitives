@@ -203,6 +203,11 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="index" @name="Accordion" />
 </template>
 ```
+
+### State Attributes
+| key | description |
+| :---: | :----------- |
+| `data-disabled` | Indicates whether the accordion is disabled. |
 </details>
 
 <details>
@@ -215,6 +220,12 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="index" @name="AccordionItem" />
 </template>
 ```
+
+### State Attributes
+| key | description |
+| :---: | :----------- |
+| `data-state` | "open" or "closed", depending on whether the accordion item is expanded or collapsed. |
+| `data-disabled` | Indicates whether the accordion item is disabled. |
 </details>
 
 <details>
@@ -227,6 +238,12 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="index" @name="AccordionHeader" />
 </template>
 ```
+
+### State Attributes
+| key | description |
+| :---: | :----------- |
+| `data-state` | "open" or "closed", depending on whether the accordion item is expanded or collapsed. |
+| `data-disabled` | Indicates whether the accordion item is disabled. |
 </details>
 
 <details>
@@ -239,6 +256,12 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="index" @name="AccordionTrigger" />
 </template>
 ```
+
+### State Attributes
+| key | description |
+| :---: | :----------- |
+| `data-state` | "open" or "closed", depending on whether the accordion item is expanded or collapsed. |
+| `data-disabled` | Indicates whether the accordion item is disabled. |
 </details>
 
 <details>
@@ -255,7 +278,9 @@ import { ComponentSignature } from 'docs-app/docs-support';
 
 ## Accessibility
 
-...
+* Sets `aria-expanded` on the accordion trigger to indicate whether the accordion item is expanded or collapsed.
+* Uses `aria-controls` and `id` to associate the accordion trigger with the accordion content.
+* Sets `hidden` on the accordion content when it is collapsed.
 
 ## Keyboard Interactions
 | key | description |

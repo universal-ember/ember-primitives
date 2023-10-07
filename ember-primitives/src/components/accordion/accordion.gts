@@ -38,15 +38,13 @@ type AccordionMultipleArgs = {
   defaultValue?: string[];
 })
 
-export interface Signature {
+export class Accordion extends Component<{
   Element: HTMLDivElement;
   Args: AccordionSingleArgs | AccordionMultipleArgs;
   Blocks: {
     default: [{Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem' | 'disabled'>}];
   };
-}
-
-export class Accordion extends Component<Signature> {
+}> {
   <template>
     <div data-disabled={{@disabled}} ...attributes>
       {{yield (hash Item=(component AccordionItem selectedValue=this.selectedValue toggleItem=this.toggleItem disabled=@disabled))}}

@@ -13,28 +13,58 @@ import AccordionItem from './item';
 import type { WithBoundArgs } from '@glint/template';
 
 type AccordionSingleArgs = {
+  /**
+   * The type of accordion. If `single`, only one item can be selected at a time. If `multiple`, multiple items can be selected at a time.
+   */
   type: 'single',
+  /**
+   * Whether the accordion is disabled.
+   */
   disabled?: boolean;
 } & ({
+  /**
+   * The currently selected value. To be used in a controlled fashion in conjunction with `onValueChange`.
+   */
   value: string;
+  /**
+   * A callback that is called when the selected value changes. To be used in a controlled fashion in conjunction with `value`.
+   */
   onValueChange: (value: string | undefined) => void;
   defaultValue?: never;
 } | {
   value?: never;
   onValueChange?: never;
+  /**
+   * The default value of the accordion. To be used in an uncontrolled fashion.
+   */
   defaultValue?: string;
 });
 
 type AccordionMultipleArgs = {
+  /**
+   * The type of accordion. If `single`, only one item can be selected at a time. If `multiple`, multiple items can be selected at a time.
+   */
   type: 'multiple'
+  /**
+   * Whether the accordion is disabled.
+   */
   disabled?: boolean;
 } & ({
+  /**
+   * The currently selected values. To be used in a controlled fashion in conjunction with `onValueChange`.
+   */
   value: string[];
+  /**
+   * A callback that is called when the selected values change. To be used in a controlled fashion in conjunction with `value`.
+   */
   onValueChange: (value?: string[] | undefined) => void;
   defaultValue?: never;
 } | {
   value?: never;
   onValueChange?: never;
+  /**
+   * The default values of the accordion. To be used in an uncontrolled fashion.
+   */
   defaultValue?: string[];
 })
 
@@ -42,7 +72,12 @@ export class Accordion extends Component<{
   Element: HTMLDivElement;
   Args: AccordionSingleArgs | AccordionMultipleArgs;
   Blocks: {
-    default: [{Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem' | 'disabled'>}];
+    default: [{
+      /**
+       * The AccordionItem component.
+       */
+      Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem' | 'disabled'>
+    }];
   };
 }> {
   <template>

@@ -137,13 +137,13 @@ import { Accordion } from 'ember-primitives';
       }
 
       to {
-        height: 40px;
+        height: var(--accordion-content-height);
       }
     }
 
     @keyframes slide-up {
       from {
-        height: 40px;
+        height: var(--accordion-content-height);
       }
 
       to {

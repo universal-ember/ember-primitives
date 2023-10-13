@@ -34,16 +34,24 @@ export class AccordionContent extends Component<{
   @tracked isHidden = !this.args.isExpanded;
 
   setHeightAndWidthCssProperties = modifier((element: HTMLDivElement, [_]) => {
-    const display = element.style.display;
+    const currentStyleProperties = {
+      hidden: element.hidden,
+      transitionDuration: element.style.transitionDuration,
+      animationName: element.style.animationName,
+    }
 
-    element.style.display = 'block';
+    element.hidden = false;
+    element.style.transitionDuration = '0s';
+    element.style.animationName = 'none';
 
     const { height, width } = element.getBoundingClientRect();
 
     element.style.setProperty('--accordion-content-height', `${height}px`);
     element.style.setProperty('--accordion-content-width', `${width}px`);
 
-    element.style.display = display;
+    element.hidden = currentStyleProperties.hidden;
+    element.style.transitionDuration = currentStyleProperties.transitionDuration;
+    element.style.animationName = currentStyleProperties.animationName;
   });
 
   handleHiddenState = modifier((element: HTMLDivElement, [isExpanded]) => {

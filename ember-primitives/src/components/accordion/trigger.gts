@@ -34,7 +34,7 @@ export const AccordionTrigger: TOC<{
     aria-expanded={{@isExpanded}}
     data-state={{getDataState @isExpanded}}
     data-disabled={{@disabled}}
-    disabled={{@disabled}}
+    aria-disabled={{if @disabled "true" "false"}}
     {{on "click" @toggleItem}}
     ...attributes
   >

@@ -18,7 +18,7 @@ type AccordionSingleArgs = {
    */
   type: 'single',
   /**
-   * Whether the accordion is disabled.
+   * Whether the accordion is disabled. When `true`, all items cannot be expanded or collapsed.
    */
   disabled?: boolean;
 } & ({
@@ -46,7 +46,7 @@ type AccordionMultipleArgs = {
    */
   type: 'multiple'
   /**
-   * Whether the accordion is disabled.
+   * Whether the accordion is disabled. When `true`, all items cannot be expanded or collapsed.
    */
   disabled?: boolean;
 } & ({

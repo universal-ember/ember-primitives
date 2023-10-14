@@ -38,7 +38,7 @@ export class AccordionItem extends Component<{
      */
     selectedValue?: string | string[];
     /**
-     * Whether the accordion item is disabled.
+     * Whether the accordion item is disabled. When `true`, the item cannot be expanded or collapsed.
      */
     disabled?: boolean;
     /**

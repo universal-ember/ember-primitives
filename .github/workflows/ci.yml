@@ -26,6 +26,7 @@ jobs:
     steps:
       - uses: wyvox/action@v1
         with:
+          node-version: 18.18.1
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - id: set-pending
@@ -57,6 +58,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 18.18.1
       - run: pnpm build
       - run: pnpm turbo test --filter test-app
 
@@ -71,6 +73,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
+          node-version: 18.18.1
       - run: pnpm build
       - run: pnpm turbo test --filter test-app
 
@@ -94,6 +97,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 18.18.1
       - run: pnpm build
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }} --skip-cleanup
@@ -123,6 +127,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 18.18.1
       - run: pnpm build
       - name: 'Change TS to ${{ matrix.typescript-scenario }}'
         run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
@@ -140,6 +145,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 18.18.1
       - run: |
           pnpm build
           pnpm build --filter docs-api
@@ -165,6 +171,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 18.18.1
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm build --filter docs-api

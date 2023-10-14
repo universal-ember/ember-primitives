@@ -7,6 +7,10 @@ import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
 export const AccordionHeader: TOC<{
+  /**
+   * Add aria-level according to the heading level where the accordion is used (default: 3).
+   * See https://www.w3.org/WAI/ARIA/apg/patterns/accordion/ for more information.
+   */
   Element: HTMLDivElement;
   Blocks: {
     default: [{

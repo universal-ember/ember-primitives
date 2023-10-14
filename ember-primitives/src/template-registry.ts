@@ -2,7 +2,7 @@
 // Add all your components, helpers and modifiers to the template registry here, so apps don't have to do this.
 // See https://typed-ember.gitbook.io/glint/using-glint/ember/authoring-addons
 
-import type { Accordion } from './components/accordion/accordion';
+import type { Accordion } from './components/accordion';
 import type { AccordionItem } from './components/accordion/item';
 import type { AccordionHeader } from './components/accordion/header';
 import type { AccordionContent } from './components/accordion/content';

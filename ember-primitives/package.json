@@ -102,11 +102,7 @@
     "type": "addon",
     "main": "addon-main.cjs",
     "app-js": {
-      "./components/accordion/accordion.js": "./dist/_app_/components/accordion/accordion.js",
-      "./components/accordion/content.js": "./dist/_app_/components/accordion/content.js",
-      "./components/accordion/header.js": "./dist/_app_/components/accordion/header.js",
-      "./components/accordion/item.js": "./dist/_app_/components/accordion/item.js",
-      "./components/accordion/trigger.js": "./dist/_app_/components/accordion/trigger.js",
+      "./components/accordion.js": "./dist/_app_/components/accordion.js",
       "./components/avatar.js": "./dist/_app_/components/avatar.js",
       "./components/dialog.js": "./dist/_app_/components/dialog.js",
       "./components/external-link.js": "./dist/_app_/components/external-link.js",

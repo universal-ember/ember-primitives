@@ -15,7 +15,7 @@ export default {
   output: addon.output(),
   plugins: [
     addon.publicEntrypoints(['**/*.js']),
-    addon.appReexports(['components/*.js', 'components/accordion/*.js', 'helpers/**/*.js']),
+    addon.appReexports(['components/*.js', 'helpers/**/*.js']),
     addon.dependencies(),
     glimmerTemplateTag(),
     nodeResolve({ extensions }),

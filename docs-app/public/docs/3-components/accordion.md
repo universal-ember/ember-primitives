@@ -219,7 +219,7 @@ import { Accordion } from 'ember-primitives';
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="index" @name="Accordion" />
+  <ComponentSignature @module="components/accordion" @name="Accordion" />
 </template>
 ```
 

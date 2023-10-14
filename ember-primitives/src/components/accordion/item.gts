@@ -15,6 +15,10 @@ export class AccordionItem extends Component<{
   Blocks: {
     default: [{
       /**
+       * Whether the accordion item is expanded.
+       */
+      isExpanded: boolean;
+      /**
        * The AccordionHeader component.
        */
       Header: WithBoundArgs<typeof Header, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>;
@@ -47,6 +51,7 @@ export class AccordionItem extends Component<{
     <div data-state={{getDataState this.isExpanded}} data-disabled={{@disabled}} ...attributes>
       {{yield
         (hash
+          isExpanded=this.isExpanded
           Header=(component Header value=this.args.value isExpanded=this.isExpanded disabled=@disabled toggleItem=this.toggleItem)
           Content=(component Content value=this.args.value isExpanded=this.isExpanded disabled=@disabled)
         )

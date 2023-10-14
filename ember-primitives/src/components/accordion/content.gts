@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { waitForPromise } from '@ember/test-waiters';
 
 import { modifier } from 'ember-modifier';
 
@@ -65,7 +66,7 @@ export class AccordionContent extends Component<{
     }
 
     // Wait for all animations to finish before hiding the element
-    Promise.allSettled(element.getAnimations().map((a) => a.finished)).then(() => { this.isHidden = true })
+    waitForPromise(Promise.allSettled(element.getAnimations().map((a) => a.finished))).then(() => { this.isHidden = true })
   });
 }
 

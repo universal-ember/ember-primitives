@@ -136,6 +136,42 @@ export default class ControlledAccordion extends Component {
 ```
 </details>
 
+<details>
+<summary><h3>Multiple - Controlled</h3></summary>
+
+```gjs live preview
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+
+import { Accordion } from 'ember-primitives';
+
+export default class ControlledAccordion extends Component {
+  <template>
+    <Accordion @type="multiple" @value={{this.values}} @onValueChange={{this.updateValues}} as |A|>
+      <A.Item @value="what" as |I|>
+        <I.Header as |H|>
+          <H.Trigger>What is Ember?</H.Trigger>
+        </I.Header>
+        <I.Content>Ember.js is a productive, battle-tested JavaScript framework for building modern web applications. It includes everything you need to build rich UIs that work on any device.</I.Content>
+      </A.Item>
+      <A.Item @value="why" as |I|>
+        <I.Header as |H|>
+          <H.Trigger>Why should I use Ember?</H.Trigger>
+        </I.Header>
+        <I.Content>Use Ember.js for its opinionated structure and extensive ecosystem, which simplify development and ensure long-term stability for web applications.</I.Content>
+      </A.Item>
+    </Accordion>
+  </template>
+
+  @tracked values = ['what', 'why'];
+
+  updateValues = (values) => {
+    this.values = values;
+  }
+}
+```
+</details>
+
 ## Features
 
 * Full keyboard navigation

@@ -212,7 +212,7 @@ import { Accordion } from 'ember-primitives';
 
 ## API Reference
 
-<details open>
+<details>
 <summary><h3>Accordion</h3></summary>
 
 ```gjs live no-shadow

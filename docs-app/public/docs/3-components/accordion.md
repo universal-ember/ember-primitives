@@ -176,6 +176,7 @@ export default class ControlledAccordion extends Component {
 
 * Full keyboard navigation
 * Can be controlled or uncontrolled
+* Can expand one or multiple items
 
 ## Installation
 

@@ -30,9 +30,18 @@ type AccordionSingleArgs = {
    * A callback that is called when the selected value changes. To be used in a controlled fashion in conjunction with `value`.
    */
   onValueChange: (value: string | undefined) => void;
+  /**
+   * Not available in a controlled fashion.
+   */
   defaultValue?: never;
 } | {
+  /**
+   * Not available in an uncontrolled fashion.
+   */
   value?: never;
+  /**
+   * Not available in an uncontrolled fashion.
+   */
   onValueChange?: never;
   /**
    * The default value of the accordion. To be used in an uncontrolled fashion.
@@ -58,9 +67,18 @@ type AccordionMultipleArgs = {
    * A callback that is called when the selected values change. To be used in a controlled fashion in conjunction with `value`.
    */
   onValueChange: (value?: string[] | undefined) => void;
+  /**
+   * Not available in a controlled fashion.
+   */
   defaultValue?: never;
 } | {
+  /**
+   * Not available in an uncontrolled fashion.
+   */
   value?: never;
+  /**
+   * Not available in an uncontrolled fashion.
+   */
   onValueChange?: never;
   /**
    * The default values of the accordion. To be used in an uncontrolled fashion.

@@ -7,91 +7,36 @@ An accordion component is an element that organizes content into collapsible sec
 ## Examples
 
 <details open>
-<summary><h3>Simple Accordion</h3></summary>
+<summary><h3>Bootstrap</h3></summary>
 
 ```gjs live preview
 import { Accordion } from 'ember-primitives';
 
 <template>
-  <Accordion @type="single" as |A|>
+  <Accordion class="accordion" @type="single" as |A|>
     <A.Item class="accordion-item" @value="what" as |I|>
-      <I.Header as |H|>
-        <H.Trigger class="accordion-trigger">What is Ember?</H.Trigger>
+      <I.Header class="accordion-header" as |H|>
+        <H.Trigger aria-expanded="{{I.isExpanded}}" class="accordion-button {{unless I.isExpanded 'collapsed'}}">What is Ember?</H.Trigger>
       </I.Header>
-      <I.Content class="accordion-content">Ember.js is a productive, battle-tested JavaScript framework for building modern web applications. It includes everything you need to build rich UIs that work on any device.</I.Content>
+      <I.Content class="accordion-collapse collapse {{if I.isExpanded 'show'}}">
+        <div class="accordion-body">
+          Ember.js is a productive, battle-tested JavaScript framework for building modern web applications. It includes everything you need to build rich UIs that work on any device.
+        </div>
+      </I.Content>
     </A.Item>
     <A.Item class="accordion-item" @value="why" as |I|>
-      <I.Header as |H|>
-        <H.Trigger class="accordion-trigger">Why should I use Ember?</H.Trigger>
+      <I.Header class="accordion-header" as |H|>
+        <H.Trigger aria-expanded="{{I.isExpanded}}" class="accordion-button {{unless I.isExpanded 'collapsed'}}">Why should I use Ember?</H.Trigger>
       </I.Header>
-      <I.Content class="accordion-content">Use Ember.js for its opinionated structure and extensive ecosystem, which simplify development and ensure long-term stability for web applications.</I.Content>
+      <I.Content class="accordion-collapse collapse {{if I.isExpanded 'show'}}">
+        <div class="accordion-body">
+          Use Ember.js for its opinionated structure and extensive ecosystem, which simplify development and ensure long-term stability for web applications.
+        </div>    
+      </I.Content>
     </A.Item>
   </Accordion>
 
-  <style>
-    /* Bootstrap 5 Accordion styles (more or less) */
-    .accordion-item {
-      color: #dee2e6;
-      background-color: #212529;
-      border: 1px solid #495057;
-    }
-
-    .accordion-item:not(:first-of-type) {
-      border-top: 0px;
-    }
-
-    .accordion-item:first-of-type {
-      border-top-left-radius: 0.375rem;
-      border-top-right-radius: 0.375rem;
-    }
-
-    .accordion-item:first-of-type .accordion-trigger {
-      border-top-left-radius: 0.375rem;
-      border-top-right-radius: 0.375rem;
-    }
-
-    .accordion-item:last-of-type {
-      border-bottom-left-radius: 0.375rem;
-      border-bottom-right-radius: 0.375rem;
-    }
-
-    .accordion-item:last-of-type .accordion-trigger {
-      border-bottom-left-radius: 0.375rem;
-      border-bottom-right-radius: 0.375rem;
-    }
-
-    .accordion-content {
-      padding: 1rem 1.25rem;
-    }
-
-    .accordion-trigger {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      font-size: 1rem;
-      color: #dee2e6;
-      text-align: left;
-      background-color: #212529;
-      overflow-anchor: none;
-      padding: 1rem 1.25rem;
-      border-width: 0px;
-      border-style: initial;
-      border-color: initial;
-      border-image: initial;
-      border-radius: 0px;
-      transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,border-radius 0.15s ease;
-    }
-
-    .accordion-trigger:not(:disabled) {
-      cursor: pointer;
-    }
-
-    .accordion-item[data-state="open"] .accordion-trigger {
-      color: #6ea8fe;
-      background-color: #031633;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </template>
 ```
 </details>

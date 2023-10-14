@@ -22,7 +22,7 @@
     "concurrently": "^8.2.1",
     "prettier": "^3.0.3",
     "prettier-plugin-ember-template-tag": "^1.1.0",
-    "turbo": "^1.10.13",
+    "turbo": "^1.10.15",
     "typescript": "^5.2.2"
   },
   "engines": {

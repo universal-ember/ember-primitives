@@ -12,6 +12,9 @@ overrides:
 packageExtensionsChecksum: 7d456f94fcb212f3b99ec0fb4a0269f9
 
 patchedDependencies:
+  ember-compatibility-helpers@1.2.6:
+    hash: kiy7nmrr6i46vggs64csq3dgpi
+    path: patches/ember-compatibility-helpers@1.2.6.patch
   ember-headless-form@1.0.0-beta.3:
     hash: u4n53cevs3dxnryrysa4kwtk4u
     path: patches/ember-headless-form@1.0.0-beta.3.patch
@@ -2762,7 +2765,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-typescript: 3.0.0(@babel/core@7.23.2)
       ember-cli-version-checker: 3.1.3
-      ember-compatibility-helpers: 1.2.6(@babel/core@7.23.2)
+      ember-compatibility-helpers: 1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8031,7 +8034,7 @@ packages:
     dependencies:
       ember-cli-babel: 8.2.0(@babel/core@7.23.2)
       ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.6(@babel/core@7.23.2)
+      ember-compatibility-helpers: 1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2)
       silent-error: 1.1.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -8491,7 +8494,7 @@ packages:
       - whiskers
     dev: true
 
-  /ember-compatibility-helpers@1.2.6(@babel/core@7.23.2):
+  /ember-compatibility-helpers@1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2):
     resolution: {integrity: sha512-2UBUa5SAuPg8/kRVaiOfTwlXdeVweal1zdNPibwItrhR0IvPrXpaqwJDlEZnWKEoB+h33V0JIfiWleSG6hGkkA==}
     engines: {node: 10.* || >= 12.*}
     dependencies:
@@ -8503,6 +8506,7 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+    patched: true
 
   /ember-destroyable-polyfill@2.0.3(@babel/core@7.23.2):
     resolution: {integrity: sha512-TovtNqCumzyAiW0/OisSkkVK93xnVF4NRU6+FN0ubpfwEOpRrmM2RqDwXI6YAChCgSHON1cz0DfQStpA1Gjuuw==}
@@ -8510,7 +8514,7 @@ packages:
     dependencies:
       ember-cli-babel: 8.2.0(@babel/core@7.23.2)
       ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.6(@babel/core@7.23.2)
+      ember-compatibility-helpers: 1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color

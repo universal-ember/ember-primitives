@@ -25,7 +25,7 @@ export class AccordionItem extends Component<{
       /**
        * The AccordionContent component.
        */
-      Content: WithBoundArgs<typeof Content, 'isExpanded' | 'disabled'>;
+      Content: WithBoundArgs<typeof Content, 'value' | 'isExpanded' | 'disabled'>;
     }];
   };
   Args: {

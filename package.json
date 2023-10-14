@@ -22,7 +22,7 @@
     "concurrently": "^8.2.1",
     "prettier": "^3.0.3",
     "prettier-plugin-ember-template-tag": "^1.1.0",
-    "turbo": "^1.10.13",
+    "turbo": "^1.10.15",
     "typescript": "^5.2.2"
   },
   "engines": {
@@ -31,17 +31,18 @@
     "npm": "use pnpm"
   },
   "volta": {
-    "node": "18.18.0",
+    "node": "18.18.1",
     "pnpm": "8.8.0"
   },
   "pnpm": {
     "overrides": {
       "@glimmer/validator": "^0.84.3",
       "ember-async-data": "1.0.1",
-      "ember-cli-babel": "^7.26.11"
+      "ember-cli-babel": "^8.2.0"
     },
     "patchedDependencies": {
-      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch"
+      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch",
+      "ember-compatibility-helpers@1.2.6": "patches/ember-compatibility-helpers@1.2.6.patch"
     },
     "packageExtensions": {
       "ember-qunit": {

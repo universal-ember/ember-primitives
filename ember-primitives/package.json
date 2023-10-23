@@ -2,6 +2,9 @@
   "name": "ember-primitives",
   "version": "0.8.0",
   "description": "Making apps easier to build",
+  "sideEffects": [
+    "*.css"
+  ],
   "keywords": [
     "ember-addon"
   ],

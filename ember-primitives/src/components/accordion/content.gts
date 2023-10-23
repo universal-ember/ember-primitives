@@ -24,13 +24,21 @@ interface Signature extends AccordionContentExternalSignature {
 
 export class AccordionContent extends Component<Signature> {
   <template>
-    <div {{this.setHeightAndWidthCssProperties @isExpanded}} {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{getDataState @isExpanded}} hidden={{this.isHidden}} data-disabled={{@disabled}} ...attributes>
+    <div
+      {{this.setHeightAndWidthCssProperties @isExpanded}}
+      {{this.handleHiddenState @isExpanded}}
+      role='region'
+      id={{@value}}
+      data-state={{getDataState @isExpanded}}
+      hidden={{this.isHidden}}
+      data-disabled={{@disabled}}
+      ...attributes
+    >
       {{yield}}
     </div>
   </template>
 
   @tracked isHidden = !this.args.isExpanded;
-
 
   setHeightAndWidthCssProperties = modifier((element: HTMLDivElement, [_]) => {
     const hidden = element.hidden;
@@ -57,7 +65,9 @@ export class AccordionContent extends Component<Signature> {
     }
 
     // Wait for all animations to finish before hiding the element
-    waitForPromise(Promise.allSettled(element.getAnimations().map((a) => a.finished))).then(() => { this.isHidden = true })
+    waitForPromise(Promise.allSettled(element.getAnimations().map((a) => a.finished))).then(() => {
+      this.isHidden = true;
+    });
   });
 }
 

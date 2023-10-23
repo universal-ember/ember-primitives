@@ -13,12 +13,14 @@ export interface AccordionHeaderExternalSignature {
    */
   Element: HTMLDivElement;
   Blocks: {
-    default: [{
-      /**
-       * The AccordionTrigger component.
-       */
-      Trigger: WithBoundArgs<typeof Trigger, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>;
-    }];
+    default: [
+      {
+        /**
+         * The AccordionTrigger component.
+         */
+        Trigger: WithBoundArgs<typeof Trigger, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>;
+      },
+    ];
   };
   Args: {};
 }
@@ -29,13 +31,25 @@ interface Signature extends AccordionHeaderExternalSignature {
     isExpanded: boolean;
     disabled?: boolean;
     toggleItem: () => void;
-  }
+  };
 }
 
 export const AccordionHeader: TOC<Signature> = <template>
-  <div role='heading' aria-level='3' data-state={{getDataState @isExpanded}} data-disabled={{@disabled}} ...attributes>
-    {{yield (hash Trigger=(component Trigger value=@value isExpanded=@isExpanded disabled=@disabled toggleItem=@toggleItem))}}
+  <div
+    role='heading'
+    aria-level='3'
+    data-state={{getDataState @isExpanded}}
+    data-disabled={{@disabled}}
+    ...attributes
+  >
+    {{yield
+      (hash
+        Trigger=(component
+          Trigger value=@value isExpanded=@isExpanded disabled=@disabled toggleItem=@toggleItem
+        )
+      )
+    }}
   </div>
-</template>
+</template>;
 
 export default AccordionHeader;

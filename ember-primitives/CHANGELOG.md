@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.8.1
+
+### Patch Changes
+
+- 535b4be: Declare css imports as side-effects
+
 ## 0.8.0
 
 ### Minor Changes

@@ -7,3 +7,7 @@
   background: conic-gradient(at -20% 15%, red 0%, transparent 28%, #1e90ff 72%);
   max-height: 300px;
 }
+
+.featured-demo.auto-height .glimdown-render {
+  max-height: unset;
+}

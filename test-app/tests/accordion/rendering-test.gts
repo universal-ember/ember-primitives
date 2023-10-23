@@ -26,6 +26,7 @@ module('Rendering | <Accordion>', function (hooks) {
         </A.Item>
       </Accordion>
 
+      {{! template-lint-disable no-forbidden-elements }}
       <style>
         .accordion-content { overflow: hidden; } .accordion-content[data-state="open"] { animation:
         slide-down 0.5s ease-out; } .accordion-content[data-state="closed"] { animation: slide-up

@@ -236,7 +236,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="index" @name="AccordionItem" />
+  <ComponentSignature @module="index" @name="AccordionItemExternalSignature" />
 </template>
 ```
 
@@ -254,7 +254,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="index" @name="AccordionHeader" />
+  <ComponentSignature @module="index" @name="AccordionHeaderExternalSignature" />
 </template>
 ```
 
@@ -272,7 +272,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="index" @name="AccordionTrigger" />
+  <ComponentSignature @module="index" @name="AccordionTriggerExternalSignature" />
 </template>
 ```
 
@@ -290,7 +290,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="index" @name="AccordionContent" />
+  <ComponentSignature @module="index" @name="AccordionContentExternalSignature" />
 </template>
 ```
 </details>

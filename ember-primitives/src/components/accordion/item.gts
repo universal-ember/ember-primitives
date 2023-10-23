@@ -10,7 +10,7 @@ export function getDataState(isExpanded: boolean): string {
   return isExpanded ? 'open' : 'closed';
 }
 
-export class AccordionItem extends Component<{
+export interface AccordionItemExternalSignature {
   Element: HTMLDivElement;
   Blocks: {
     default: [{
@@ -33,20 +33,18 @@ export class AccordionItem extends Component<{
      * The value of the accordion item.
      */
     value: string;
-    /**
-     * The currently selected value(s) of the accordion. Used to determine if the item is expanded.
-     */
-    selectedValue?: string | string[];
-    /**
-     * Whether the accordion item is disabled. When `true`, the item cannot be expanded or collapsed.
-     */
-    disabled?: boolean;
-    /**
-     * A callback that is called when the accordion item is toggled.
-     */
-    toggleItem: (value: string) => void;
   }
-}> {
+}
+
+interface Signature extends AccordionItemExternalSignature {
+  Args: AccordionItemExternalSignature['Args'] & {
+    selectedValue?: string | string[];
+    disabled?: boolean;
+    toggleItem: (value: string) => void;
+  };
+}
+
+export class AccordionItem extends Component<Signature> {
   <template>
     <div data-state={{getDataState this.isExpanded}} data-disabled={{@disabled}} ...attributes>
       {{yield

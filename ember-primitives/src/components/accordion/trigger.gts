@@ -4,30 +4,24 @@ import { getDataState } from './item';
 
 import type { TOC } from '@ember/component/template-only';
 
-export const AccordionTrigger: TOC<{
+export interface AccordionTriggerExternalSignature {
   Element: HTMLButtonElement;
   Blocks: {
     default: [];
   };
-  Args: {
-    /**
-     * Whether the accordion item is expanded or not.
-     */
+  Args: {};
+}
+
+interface Signature extends AccordionTriggerExternalSignature {
+  Args: AccordionTriggerExternalSignature['Args'] & {
     isExpanded: boolean;
-    /**
-     * The value of the accordion item.
-     */
     value: string;
-    /**
-     * Whether the accordion item is disabled or not.
-     */
     disabled?: boolean;
-    /**
-     * A callback that is called when the accordion item is toggled.
-     */
     toggleItem: () => void;
-  }
-}> = <template>
+  };
+}
+
+export const AccordionTrigger: TOC<Signature> = <template>
   <button
     type="button"
     aria-controls={{@value}}

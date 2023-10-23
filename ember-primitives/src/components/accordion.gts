@@ -162,7 +162,7 @@ export class Accordion extends Component<{
 
 export default Accordion;
 
-export { AccordionContent } from './accordion/content';
-export { AccordionHeader } from './accordion/header';
-export { AccordionItem } from './accordion/item';
-export { AccordionTrigger } from './accordion/trigger';
+export { type AccordionContentExternalSignature } from './accordion/content';
+export { type AccordionHeaderExternalSignature } from './accordion/header';
+export { type AccordionItemExternalSignature } from './accordion/item';
+export { type AccordionTriggerExternalSignature } from './accordion/trigger';

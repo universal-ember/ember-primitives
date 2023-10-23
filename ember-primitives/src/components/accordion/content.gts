@@ -6,26 +6,23 @@ import { modifier } from 'ember-modifier';
 
 import { getDataState } from './item';
 
-export class AccordionContent extends Component<{
+export interface AccordionContentExternalSignature {
   Element: HTMLDivElement;
   Blocks: {
     default: [];
   };
-  Args: {
-    /**
-     * Whether the content is expanded.
-     */
+  Args: {};
+}
+
+interface Signature extends AccordionContentExternalSignature {
+  Args: AccordionContentExternalSignature['Args'] & {
     isExpanded: boolean;
-    /**
-     * The value of the accordion item.
-     */
     value: string;
-    /**
-     * Whether the accordion item is disabled.
-     */
     disabled?: boolean;
-  }
-}> {
+  };
+}
+
+export class AccordionContent extends Component<Signature> {
   <template>
     <div {{this.setHeightAndWidthCssProperties @isExpanded}} {{this.handleHiddenState @isExpanded}} role="region" id={{@value}} data-state={{getDataState @isExpanded}} hidden={{this.isHidden}} data-disabled={{@disabled}} ...attributes>
       {{yield}}

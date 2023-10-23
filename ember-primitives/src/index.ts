@@ -6,9 +6,9 @@ if (macroCondition(isDevelopingApp())) {
 
 export {
   Accordion,
-  type AccordionItemExternalSignature,
-  type AccordionHeaderExternalSignature,
   type AccordionContentExternalSignature,
+  type AccordionHeaderExternalSignature,
+  type AccordionItemExternalSignature,
   type AccordionTriggerExternalSignature,
 } from './components/accordion';
 export { Avatar } from './components/avatar';

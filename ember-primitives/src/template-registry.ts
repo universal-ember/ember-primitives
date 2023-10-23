@@ -3,9 +3,9 @@
 // See https://typed-ember.gitbook.io/glint/using-glint/ember/authoring-addons
 
 import type { Accordion } from './components/accordion';
-import type { AccordionItem } from './components/accordion/item';
-import type { AccordionHeader } from './components/accordion/header';
 import type { AccordionContent } from './components/accordion/content';
+import type { AccordionHeader } from './components/accordion/header';
+import type { AccordionItem } from './components/accordion/item';
 import type { AccordionTrigger } from './components/accordion/trigger';
 import type { Dialog } from './components/dialog';
 import type { ExternalLink } from './components/external-link';

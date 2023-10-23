@@ -1,5 +1,11 @@
 # ember-primitives
 
+## 0.8.0
+
+### Minor Changes
+
+- 4352415: Add new component, `<StickyFooter>`. see documentation for details.
+
 ## 0.7.0
 
 ### Minor Changes

@@ -21,9 +21,9 @@ module('Rendering | <Portal>', function (hooks) {
       </template>
     );
 
-    assert.dom('ember-primitives__sticky-footer__wrapper').exists();
-    assert.dom('ember-primitives__sticky-footer__container').exists();
-    assert.dom('ember-primitives__sticky-footer__content').hasText('the content');
-    assert.dom('ember-primitives__sticky-footer__footer').hasText('the footer');
+    assert.dom('.ember-primitives__sticky-footer__wrapper').exists();
+    assert.dom('.ember-primitives__sticky-footer__container').exists();
+    assert.dom('.ember-primitives__sticky-footer__content').hasText('the content');
+    assert.dom('.ember-primitives__sticky-footer__footer').hasText('the footer');
   }) ;
 });

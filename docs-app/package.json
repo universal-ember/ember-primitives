@@ -58,7 +58,7 @@
     "@embroider/compat": "3.2.3",
     "@embroider/core": "3.3.0",
     "@embroider/webpack": "3.2.0",
-    "@glimmer/compiler": "^0.84.3",
+    "@glimmer/compiler": "^0.85.0",
     "@glimmer/component": "^1.1.2",
     "@glimmer/syntax": "^0.84.3",
     "@glimmer/tracking": "^1.1.2",

@@ -377,6 +377,9 @@ importers:
       ember-velcro:
         specifier: ^2.1.3
         version: 2.1.3(@babel/core@7.23.2)(ember-modifier@4.1.0)(ember-source@5.3.0)
+      reactive-primitives:
+        specifier: ^0.0.1
+        version: 0.0.1(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
       tracked-toolbox:
         specifier: ^2.0.0
         version: 2.0.0(@babel/core@7.23.2)(ember-source@5.3.0)
@@ -8789,6 +8792,37 @@ packages:
       - '@babel/core'
       - supports-color
 
+  /ember-resources@6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0):
+    resolution: {integrity: sha512-B1OLdSpekdiyk/yfHc+aJF3ovI6rskwJOLzd+iX60RTyicO9Nsjw8LU9XI95uk4AOqO0MbSXogQ/MsN/mIPzOw==}
+    peerDependencies:
+      '@ember/test-waiters': ^3.0.0
+      '@glimmer/component': ^1.1.2
+      '@glimmer/tracking': ^1.1.2
+      '@glint/template': ^1.0.0-beta.3 || ^1.0.0
+      ember-concurrency: ^2.0.0 || ^3.0.0
+      ember-source: '*'
+    peerDependenciesMeta:
+      '@ember/test-waiters':
+        optional: true
+      '@glimmer/component':
+        optional: true
+      ember-concurrency:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@ember/test-waiters': 3.0.2(@babel/core@7.23.2)
+      '@embroider/addon-shim': 1.8.6
+      '@embroider/macros': 1.13.2(@babel/core@7.23.2)(@glint/template@1.2.1)
+      '@glimmer/component': 1.1.2(@babel/core@7.23.2)
+      '@glimmer/tracking': 1.1.2
+      '@glint/template': 1.2.1
+      ember-async-data: 1.0.1(@babel/core@7.23.2)(ember-source@5.3.0)
+      ember-source: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+    dev: false
+
   /ember-rfc176-data@0.3.18:
     resolution: {integrity: sha512-JtuLoYGSjay1W3MQAxt3eINWXNYYQliK90tLwtb8aeCuQK8zKGCRbBodVIrkcTqshULMnRuTOS6t1P7oQk3g6Q==}
 
@@ -14611,6 +14645,22 @@ packages:
       ini: 1.3.8
       minimist: 1.2.8
       strip-json-comments: 2.0.1
+
+  /reactive-primitives@0.0.1(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0):
+    resolution: {integrity: sha512-IL3rJ1I7JoRZUJjl5Ep35YCBDkrQOT5jtmFPDLbLjbzq8uNP8I6HDhyaClfjqzcopoJk72h0kN9n84ihcSDgLg==}
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
+      ember-resources: 6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@ember/test-waiters'
+      - '@glimmer/component'
+      - '@glimmer/tracking'
+      - '@glint/template'
+      - ember-concurrency
+      - ember-source
+      - supports-color
+    dev: false
 
   /read-ini-file@4.0.0:
     resolution: {integrity: sha512-zz4qv/sKETv7nAkATqSJ9YMbKD8NXRPuA8d17VdYCuNYrVstB1S6UAMU6aytf5vRa9MESbZN7jLZdcmrOxz4gg==}

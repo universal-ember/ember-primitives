@@ -2,8 +2,8 @@ import Service, { service } from '@ember/service';
 
 import { Compiled } from 'docs-app/markdown';
 import { use } from 'ember-resources';
-import { keepLatest } from 'ember-resources/util/keep-latest';
-import { RemoteData } from 'ember-resources/util/remote-data';
+import { keepLatest } from 'reactiveweb/keep-latest';
+import { RemoteData } from 'reactiveweb/remote-data';
 
 import type DocsService from './docs';
 import type { Page } from './types';

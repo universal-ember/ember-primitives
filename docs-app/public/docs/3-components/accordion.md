@@ -203,10 +203,6 @@ import { Accordion } from 'ember-primitives';
       </I.Header>
       <I.Content>Content</I.Content>
   </Accordion>
-
-
-
-
 </template>
 ```
 

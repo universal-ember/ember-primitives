@@ -61,7 +61,7 @@
     "@embroider/webpack": "3.2.0",
     "@glimmer/compiler": "^0.85.0",
     "@glimmer/component": "^1.1.2",
-    "@glimmer/syntax": "^0.84.3",
+    "@glimmer/syntax": "^0.85.0",
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^1.1.0",
     "@glint/environment-ember-loose": "^1.1.0",

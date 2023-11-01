@@ -1,5 +1,5 @@
 import { array } from '@ember/helper';
-import { click, render, settled } from '@ember/test-helpers';
+import { click, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -7,41 +7,6 @@ import { Accordion } from 'ember-primitives';
 
 module('Rendering | <Accordion>', function (hooks) {
   setupRenderingTest(hooks);
-
-  // it waits to hide the content until the animation is complete
-  test('it waits to hide the content until the animation is complete', async function (assert) {
-    await render(<template>
-      <Accordion @type='single' @defaultValue='item-1' as |A|>
-        <A.Item @value='item-1' as |I|>
-          <I.Header as |H|>
-            <H.Trigger data-test-trigger-1>Trigger 1</H.Trigger>
-          </I.Header>
-          <I.Content class='accordion-content' data-test-content-1>Content 1</I.Content>
-        </A.Item>
-        <A.Item @value='item-2' as |I|>
-          <I.Header as |H|>
-            <H.Trigger data-test-trigger-2>Trigger 2</H.Trigger>
-          </I.Header>
-          <I.Content data-test-content-2>Content 2</I.Content>
-        </A.Item>
-      </Accordion>
-
-      {{! template-lint-disable no-forbidden-elements }}
-      <style>
-        .accordion-content { overflow: hidden; } .accordion-content[data-state="open"] { animation:
-        slide-down 0.5s ease-out; } .accordion-content[data-state="closed"] { animation: slide-up
-        0.5s ease-out; } @keyframes slide-down { 0% { height: 0; } 100% { height:
-        var(--accordion-content-height); } } @keyframes slide-up { 0% { height:
-        var(--accordion-content-height); } 100% { height: 0; } }
-      </style>
-    </template>);
-
-    assert.dom('[data-test-content-1]').hasNoAttribute('hidden');
-    click('[data-test-trigger-1');
-    assert.dom('[data-test-content-1]').hasNoAttribute('hidden');
-    await settled();
-    assert.dom('[data-test-content-1]').hasAttribute('hidden');
-  });
 
   module('single accordion', function () {
     module('clicking a trigger', function (hooks) {

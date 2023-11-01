@@ -55,7 +55,7 @@ import { Accordion } from 'ember-primitives';
 </details>
 
 <details>
-<summary><h3>Animated - Multiple - Uncontrolled</h3></summary>
+<summary><h3>Multiple - Uncontrolled</h3></summary>
 
 ```gjs live preview
 import { Accordion } from 'ember-primitives';
@@ -66,26 +66,17 @@ import { Accordion } from 'ember-primitives';
       <I.Header as |H|>
         <H.Trigger>What is Ember?</H.Trigger>
       </I.Header>
-      <I.Content class='accordion-content'>Ember.js is a productive, battle-tested JavaScript
-        framework for building modern web applications. It includes everything you need to build
-        rich UIs that work on any device.</I.Content>
+      <I.Content>Ember.js is a productive, battle-tested JavaScript framework for building modern
+        web applications. It includes everything you need to build rich UIs that work on any device.</I.Content>
     </A.Item>
     <A.Item @value='why' as |I|>
       <I.Header as |H|>
         <H.Trigger>Why should I use Ember?</H.Trigger>
       </I.Header>
-      <I.Content class='accordion-content'>Use Ember.js for its opinionated structure and extensive
-        ecosystem, which simplify development and ensure long-term stability for web applications.</I.Content>
+      <I.Content>Use Ember.js for its opinionated structure and extensive ecosystem, which simplify
+        development and ensure long-term stability for web applications.</I.Content>
     </A.Item>
   </Accordion>
-
-  <style>
-    .accordion-content { overflow: hidden; } .accordion-content[data-state="open"] { animation:
-    slide-down 0.3s ease-in-out; } .accordion-content[data-state="closed"] { animation: slide-up
-    0.3s ease-in-out; } @keyframes slide-down { from { height: 0; } to { height:
-    var(--accordion-content-height); } } @keyframes slide-up { from { height:
-    var(--accordion-content-height); } to { height: 0; } }
-  </style>
 </template>
 ```
 
@@ -206,6 +197,8 @@ import { Accordion } from 'ember-primitives';
       </I.Header>
       <I.Content>Content</I.Content>
   </Accordion>
+
+
 </template>
 ```
 

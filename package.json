@@ -39,6 +39,7 @@
       "@glimmer/validator": "^0.84.2",
       "@glimmer/interfaces": "^0.84.2",
       "ember-async-data": "1.0.1",
+      "ember-compatibility-helpers": "1.2.7",
       "ember-cli-babel": "^8.2.0"
     },
     "patchedDependencies": {

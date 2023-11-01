@@ -83,7 +83,7 @@ import { Accordion } from 'ember-primitives';
 </details>
 
 <details>
-<summary><h3>Single - Controlled</h3></summary>
+<summary><h3>Single - Controlled - Collapsible</h3></summary>
 
 ```gjs live preview
 import Component from '@glimmer/component';
@@ -92,7 +92,13 @@ import { Accordion } from 'ember-primitives';
 
 export default class ControlledAccordion extends Component {
   <template>
-    <Accordion @type='single' @value={{this.value}} @onValueChange={{this.updateValue}} as |A|>
+    <Accordion
+      @type='single'
+      @collapsible={{true}}
+      @value={{this.value}}
+      @onValueChange={{this.updateValue}}
+      as |A|
+    >
       <A.Item @value='what' as |I|>
         <I.Header as |H|>
           <H.Trigger>What is Ember?</H.Trigger>
@@ -197,6 +203,8 @@ import { Accordion } from 'ember-primitives';
       </I.Header>
       <I.Content>Content</I.Content>
   </Accordion>
+
+
 
 
 </template>

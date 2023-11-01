@@ -8,14 +8,12 @@ overrides:
   '@glimmer/validator': ^0.84.2
   '@glimmer/interfaces': ^0.84.2
   ember-async-data: 1.0.1
+  ember-compatibility-helpers: 1.2.7
   ember-cli-babel: ^8.2.0
 
 packageExtensionsChecksum: 7d456f94fcb212f3b99ec0fb4a0269f9
 
 patchedDependencies:
-  ember-compatibility-helpers@1.2.6:
-    hash: kiy7nmrr6i46vggs64csq3dgpi
-    path: patches/ember-compatibility-helpers@1.2.6.patch
   ember-headless-form@1.0.0-beta.3:
     hash: u4n53cevs3dxnryrysa4kwtk4u
     path: patches/ember-headless-form@1.0.0-beta.3.patch
@@ -133,10 +131,10 @@ importers:
         version: 4.1.0(ember-source@5.3.0)
       ember-primitives:
         specifier: workspace:*
-        version: file:ember-primitives(@babel/core@7.23.2)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.3.0)
+        version: file:ember-primitives(@babel/core@7.23.2)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.2)(ember-source@5.3.0)
       ember-repl:
         specifier: ^3.0.0-beta.4
-        version: 3.0.0-beta.6(@babel/core@7.23.2)(@glimmer/compiler@0.85.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.2.1)(ember-resources@6.4.0)(ember-source@5.3.0)
+        version: 3.0.0-beta.6(@babel/core@7.23.2)(@glimmer/compiler@0.85.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.2.1)(ember-resources@6.4.2)(ember-source@5.3.0)
       ember-route-template:
         specifier: ^1.0.1
         version: 1.0.1
@@ -290,7 +288,7 @@ importers:
         version: 11.0.1(@babel/core@7.23.2)(ember-source@5.3.0)
       ember-resources:
         specifier: ^6.4.0
-        version: 6.4.0(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
+        version: 6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
       ember-source:
         specifier: ~5.3.0
         version: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
@@ -477,7 +475,7 @@ importers:
         version: 4.1.0(ember-source@5.3.0)
       ember-resources:
         specifier: ^6.4.0
-        version: 6.4.0(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
+        version: 6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
       ember-source:
         specifier: ~5.3.0
         version: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
@@ -528,10 +526,10 @@ importers:
     dependencies:
       ember-primitives:
         specifier: workspace:*
-        version: file:ember-primitives(@babel/core@7.23.2)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.3.0)
+        version: file:ember-primitives(@babel/core@7.23.2)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.2)(ember-source@5.3.0)
       ember-resources:
         specifier: ^6.4.0
-        version: 6.4.0(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
+        version: 6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
       qunit-assertions-extra:
         specifier: ^1.0.3
         version: 1.0.3(qunit@2.20.0)
@@ -2740,7 +2738,7 @@ packages:
   /@glimmer/compiler@0.84.2:
     resolution: {integrity: sha512-rU8qpqbqxIPwrEQH82yDDFi1hgv6ud1agYexmnmCXlaLS5uCVATJAqKsVozc7aHOgmmF4Ukd/LoF4NYfGr8X3w==}
     dependencies:
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/syntax': 0.84.2
       '@glimmer/util': 0.84.2
       '@glimmer/wire-format': 0.84.2
@@ -2773,7 +2771,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-typescript: 3.0.0(@babel/core@7.23.2)
       ember-cli-version-checker: 3.1.3
-      ember-compatibility-helpers: 1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2)
+      ember-compatibility-helpers: 1.2.7(@babel/core@7.23.2)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -2783,7 +2781,7 @@ packages:
     dependencies:
       '@glimmer/env': 0.1.7
       '@glimmer/global-context': 0.84.2
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.2
 
   /@glimmer/di@0.1.11:
@@ -2793,7 +2791,7 @@ packages:
     resolution: {integrity: sha512-599TMDNDHiw+PhNXy5/AnMjh83NBKy+tl2YmwSRY9qktx4DDOZenzgwZ5haLlzPaceejJ6ZNAoGyV5bBrDY5+w==}
     dependencies:
       '@glimmer/env': 0.1.7
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/vm': 0.84.2
 
   /@glimmer/env@0.1.7:
@@ -2809,11 +2807,6 @@ packages:
     dependencies:
       '@glimmer/env': 0.1.7
 
-  /@glimmer/interfaces@0.84.2:
-    resolution: {integrity: sha512-tMZxQpOddUVmHEOuripkNqVR7ba0K4doiYnFd4WyswqoHPlxqpBujbIamQ+bWCWEF0U4yxsXKa31ekS/JHkiBQ==}
-    dependencies:
-      '@simple-dom/interface': 1.4.0
-
   /@glimmer/interfaces@0.84.3:
     resolution: {integrity: sha512-dk32ykoNojt0mvEaIW6Vli5MGTbQo58uy3Epj7ahCgTHmWOKuw/0G83f2UmFprRwFx689YTXG38I/vbpltEjzg==}
     dependencies:
@@ -2828,7 +2821,7 @@ packages:
       '@glimmer/destroyable': 0.84.2
       '@glimmer/env': 0.1.7
       '@glimmer/global-context': 0.84.2
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/reference': 0.84.2
       '@glimmer/util': 0.84.2
       '@glimmer/validator': 0.84.3
@@ -2836,7 +2829,7 @@ packages:
   /@glimmer/node@0.84.2:
     resolution: {integrity: sha512-kefGxH+0N0xNyb6QovdPzmIBefZwu8TID45qsASgVbFx7mfFiXjQiyaxbRUyam4MAEb8Nzzx1Byxn1FQCYyLdA==}
     dependencies:
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/runtime': 0.84.2
       '@glimmer/util': 0.84.2
       '@simple-dom/document': 1.4.0
@@ -2847,7 +2840,7 @@ packages:
     dependencies:
       '@glimmer/encoder': 0.84.2
       '@glimmer/env': 0.1.7
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/reference': 0.84.2
       '@glimmer/util': 0.84.2
       '@glimmer/vm': 0.84.2
@@ -2863,7 +2856,7 @@ packages:
     dependencies:
       '@glimmer/encoder': 0.84.2
       '@glimmer/env': 0.1.7
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/manager': 0.84.2
       '@glimmer/opcode-compiler': 0.84.2
       '@glimmer/util': 0.84.2
@@ -2873,7 +2866,7 @@ packages:
     dependencies:
       '@glimmer/env': 0.1.7
       '@glimmer/global-context': 0.84.2
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.2
       '@glimmer/validator': 0.84.3
 
@@ -2892,7 +2885,7 @@ packages:
       '@glimmer/destroyable': 0.84.2
       '@glimmer/env': 0.1.7
       '@glimmer/global-context': 0.84.2
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/low-level': 0.78.2
       '@glimmer/owner': 0.84.2
       '@glimmer/program': 0.84.2
@@ -2906,7 +2899,7 @@ packages:
   /@glimmer/syntax@0.84.2:
     resolution: {integrity: sha512-SPBd1tpIR9XeaXsXsMRCnKz63eLnIZ0d5G9QC4zIBFBC3pQdtG0F5kWeuRVCdfTIFuR+5WBMfk5jvg+3gbQhjg==}
     dependencies:
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.2
       '@handlebars/parser': 2.0.0
       simple-html-tokenizer: 0.5.11
@@ -2941,7 +2934,7 @@ packages:
     resolution: {integrity: sha512-VbhzE2s4rmU+qJF3gGBTL1IDjq+/G2Th51XErS8MQVMCmE4CU2pdwSzec8PyOowqCGUOrVIWuMzEI6VoPM4L4w==}
     dependencies:
       '@glimmer/env': 0.1.7
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@simple-dom/interface': 1.4.0
 
   /@glimmer/util@0.84.3:
@@ -2973,7 +2966,7 @@ packages:
   /@glimmer/vm@0.84.2:
     resolution: {integrity: sha512-IuQeDlh+AUOOX8QXc+ehPv5uFnqstQVZGplqqvPQRcKvsEalog88RC34dAEwFdB756SKjgRSw+N+nT3ZDNVlvA==}
     dependencies:
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.2
 
   /@glimmer/vm@0.85.3:
@@ -2985,7 +2978,7 @@ packages:
   /@glimmer/wire-format@0.84.2:
     resolution: {integrity: sha512-/FmbXSPFJAoIZ6qu28xVXpAdy2Ln++Ewe6mRHFpnudV1lUrBN+Q09A4j/RN/hpAkyz/8ai5W+5rHKuaWxoi4Dg==}
     dependencies:
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.2
 
   /@glimmer/wire-format@0.85.3:
@@ -8063,7 +8056,7 @@ packages:
     dependencies:
       ember-cli-babel: 8.2.0(@babel/core@7.23.2)
       ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2)
+      ember-compatibility-helpers: 1.2.7(@babel/core@7.23.2)
       silent-error: 1.1.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -8523,8 +8516,8 @@ packages:
       - whiskers
     dev: true
 
-  /ember-compatibility-helpers@1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2):
-    resolution: {integrity: sha512-2UBUa5SAuPg8/kRVaiOfTwlXdeVweal1zdNPibwItrhR0IvPrXpaqwJDlEZnWKEoB+h33V0JIfiWleSG6hGkkA==}
+  /ember-compatibility-helpers@1.2.7(@babel/core@7.23.2):
+    resolution: {integrity: sha512-BtkjulweiXo9c3yVWrtexw2dTmBrvavD/xixNC6TKOBdrixUwU+6nuOO9dufDWsMxoid7MvtmDpzc9+mE8PdaA==}
     engines: {node: 10.* || >= 12.*}
     dependencies:
       babel-plugin-debug-macros: 0.2.0(@babel/core@7.23.2)
@@ -8535,7 +8528,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
-    patched: true
 
   /ember-destroyable-polyfill@2.0.3(@babel/core@7.23.2):
     resolution: {integrity: sha512-TovtNqCumzyAiW0/OisSkkVK93xnVF4NRU6+FN0ubpfwEOpRrmM2RqDwXI6YAChCgSHON1cz0DfQStpA1Gjuuw==}
@@ -8543,7 +8535,7 @@ packages:
     dependencies:
       ember-cli-babel: 8.2.0(@babel/core@7.23.2)
       ember-cli-version-checker: 5.1.2
-      ember-compatibility-helpers: 1.2.6(patch_hash=kiy7nmrr6i46vggs64csq3dgpi)(@babel/core@7.23.2)
+      ember-compatibility-helpers: 1.2.7(@babel/core@7.23.2)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -8701,7 +8693,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-repl@3.0.0-beta.6(@babel/core@7.23.2)(@glimmer/compiler@0.85.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.2.1)(ember-resources@6.4.0)(ember-source@5.3.0):
+  /ember-repl@3.0.0-beta.6(@babel/core@7.23.2)(@glimmer/compiler@0.85.3)(@glimmer/component@1.1.2)(@glimmer/syntax@0.84.3)(@glint/template@1.2.1)(ember-resources@6.4.2)(ember-source@5.3.0):
     resolution: {integrity: sha512-qcvNa0EqsVPFY0T67a9Jjzm1HvaR1Ol+qfaBiqQ/ap4ZT3KRrGwPYSTIpiz0hYZMt5CtZkVX4Fh3iDSmzOgouw==}
     engines: {node: '>= v16', npm: use pnpm, yarn: use pnpm}
     peerDependencies:
@@ -8725,7 +8717,7 @@ packages:
       broccoli-file-creator: 2.1.1
       change-case: 4.1.2
       common-tags: 1.8.2
-      ember-resources: 6.4.0(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
+      ember-resources: 6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
       ember-source: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
       line-column: 1.0.2
       magic-string: 0.30.5
@@ -8761,36 +8753,6 @@ packages:
       - supports-color
     dev: true
 
-  /ember-resources@6.4.0(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0):
-    resolution: {integrity: sha512-F5tfwhu8yRrPsMQk5nJWAZJuCi1xvGaTHp3izT+8rwuBXZSvjJAW+EapWNhKR7SYmtail9cPVwh37lcDd6HLXQ==}
-    peerDependencies:
-      '@ember/test-waiters': ^3.0.0
-      '@glimmer/component': ^1.1.2
-      '@glimmer/tracking': ^1.1.2
-      '@glint/template': ^1.0.0-beta.3 || ^1.0.0
-      ember-concurrency: ^2.0.0 || ^3.0.0
-      ember-source: '*'
-    peerDependenciesMeta:
-      '@ember/test-waiters':
-        optional: true
-      '@glimmer/component':
-        optional: true
-      ember-concurrency:
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.23.2
-      '@ember/test-waiters': 3.0.2(@babel/core@7.23.2)
-      '@embroider/addon-shim': 1.8.6
-      '@embroider/macros': 1.13.2(@babel/core@7.23.2)(@glint/template@1.2.1)
-      '@glimmer/component': 1.1.2(@babel/core@7.23.2)
-      '@glimmer/tracking': 1.1.2
-      '@glint/template': 1.2.1
-      ember-async-data: 1.0.1(@babel/core@7.23.2)(ember-source@5.3.0)
-      ember-source: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-
   /ember-resources@6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0):
     resolution: {integrity: sha512-B1OLdSpekdiyk/yfHc+aJF3ovI6rskwJOLzd+iX60RTyicO9Nsjw8LU9XI95uk4AOqO0MbSXogQ/MsN/mIPzOw==}
     peerDependencies:
@@ -8820,7 +8782,6 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
-    dev: false
 
   /ember-rfc176-data@0.3.18:
     resolution: {integrity: sha512-JtuLoYGSjay1W3MQAxt3eINWXNYYQliK90tLwtb8aeCuQK8zKGCRbBodVIrkcTqshULMnRuTOS6t1P7oQk3g6Q==}
@@ -8867,7 +8828,7 @@ packages:
       '@glimmer/destroyable': 0.84.2
       '@glimmer/env': 0.1.7
       '@glimmer/global-context': 0.84.3
-      '@glimmer/interfaces': 0.84.2
+      '@glimmer/interfaces': 0.84.3
       '@glimmer/manager': 0.84.2
       '@glimmer/node': 0.84.2
       '@glimmer/opcode-compiler': 0.84.2
@@ -17882,7 +17843,7 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  file:ember-primitives(@babel/core@7.23.2)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.0)(ember-source@5.3.0):
+  file:ember-primitives(@babel/core@7.23.2)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.2)(ember-source@5.3.0):
     resolution: {directory: ember-primitives, type: directory}
     id: file:ember-primitives
     name: ember-primitives
@@ -17912,7 +17873,7 @@ packages:
       '@glint/template': 1.2.1
       ember-element-helper: 0.8.5(@babel/core@7.23.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-source@5.3.0)
       ember-modifier: 4.1.0(ember-source@5.3.0)
-      ember-resources: 6.4.0(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
+      ember-resources: 6.4.2(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)
       ember-source: 5.3.0(@babel/core@7.23.2)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
       ember-velcro: 2.1.3(@babel/core@7.23.2)(ember-modifier@4.1.0)(ember-source@5.3.0)
       reactive-primitives: 0.0.3(@babel/core@7.23.2)(@ember/test-waiters@3.0.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.2.1)(ember-source@5.3.0)

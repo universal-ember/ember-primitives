@@ -21,6 +21,10 @@ type AccordionSingleArgs = {
    * Whether the accordion is disabled. When `true`, all items cannot be expanded or collapsed.
    */
   disabled?: boolean;
+  /**
+   * When type is `single`, whether the accordion is collapsible. When `true`, the selected item can be collapsed by clicking its trigger.
+   */
+  collapsible?: boolean;
 } & (
   | {
       /**
@@ -145,6 +149,10 @@ export class Accordion extends Component<{
       'Cannot call `toggleItemSingle` when `type` is not `single`.',
       this.args.type === 'single',
     );
+
+    if (value === this.selectedValue && !this.args.collapsible) {
+      return;
+    }
 
     const newValue = value === this.selectedValue ? undefined : value;
 

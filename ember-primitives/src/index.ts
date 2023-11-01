@@ -4,6 +4,13 @@ if (macroCondition(isDevelopingApp())) {
   importSync('./components/violations.css');
 }
 
+export {
+  Accordion,
+  type AccordionContentExternalSignature,
+  type AccordionHeaderExternalSignature,
+  type AccordionItemExternalSignature,
+  type AccordionTriggerExternalSignature,
+} from './components/accordion';
 export { Avatar } from './components/avatar';
 export { Dialog, Dialog as Modal } from './components/dialog';
 export { ExternalLink } from './components/external-link';

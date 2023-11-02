@@ -19,10 +19,10 @@
     "@changesets/cli": "^2.26.2",
     "@glint/core": "^1.1.0",
     "@nullvoxpopuli/dev": "workspace:*",
-    "concurrently": "^8.2.1",
+    "concurrently": "^8.2.2",
     "prettier": "^3.0.3",
     "prettier-plugin-ember-template-tag": "^1.1.0",
-    "turbo": "^1.10.15",
+    "turbo": "^1.10.16",
     "typescript": "^5.2.2"
   },
   "engines": {

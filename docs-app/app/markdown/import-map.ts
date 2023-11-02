@@ -13,12 +13,12 @@ import * as emberPrimitives from 'ember-primitives';
 import * as colorScheme from 'ember-primitives/color-scheme';
 // ember-resources
 import * as emberResources from 'ember-resources';
-import * as remoteData from 'ember-resources/util/remote-data';
 // ember-velcro
 import * as emberVelcro from 'ember-velcro';
 import * as velcro from 'ember-velcro/modifiers/velcro';
 // other
 import * as loremIpsum from 'lorem-ipsum';
+import * as remoteData from 'reactiveweb/remote-data';
 import * as trackedBuiltIns from 'tracked-built-ins';
 
 import type { Options } from './compiler';
@@ -32,7 +32,7 @@ export const defaultOptions: Options = {
     'ember-primitives/color-scheme': colorScheme,
     'ember-headless-form': emberHeadlessForm,
     'ember-resources': emberResources,
-    'ember-resources/util/remote-data': remoteData,
+    'reactiveweb/remote-data': remoteData,
     'ember-focus-trap/modifiers/focus-trap': emberFocusTrap,
     'ember-focus-trap': eFocusTrap,
     'tracked-built-ins': trackedBuiltIns,

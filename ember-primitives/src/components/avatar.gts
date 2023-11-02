@@ -1,7 +1,7 @@
 import { hash } from '@ember/helper';
 
-import { ReactiveImage } from 'reactive-primitives/image';
-import { WaitUntil } from 'reactive-primitives/wait-until';
+import { ReactiveImage } from 'reactiveweb/image';
+import { WaitUntil } from 'reactiveweb/wait-until';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';

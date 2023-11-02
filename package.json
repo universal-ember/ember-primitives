@@ -61,7 +61,9 @@
     "peerDependencyRules": {
       "allowAny": [
         "typescript",
-        "ember-source"
+        "ember-source",
+        "@glimmer/compiler",
+        "@glimmer/syntax"
       ],
       "ignoreMissing": [
         "webpack",

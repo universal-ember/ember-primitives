@@ -14,7 +14,7 @@
   "files": [
     "addon-main.cjs",
     "dist",
-    "dist-types"
+    "declarations"
   ],
   "scripts": {
     "build": "concurrently 'npm:build:*'",
@@ -72,15 +72,16 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
-    "@tsconfig/ember": "^3.0.0",
+    "@tsconfig/ember": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
     "babel-plugin-ember-template-compilation": "^2.2.1",
     "concurrently": "^8.2.2",
+    "content-tag": "^1.1.2",
     "ember-modifier": "^4.1.0",
     "ember-resources": "^6.4.0",
     "ember-source": "~5.3.0",
-    "ember-template-imports": "^3.4.2",
+    "ember-template-imports": "^3.0.0",
     "ember-template-lint": "^5.11.2",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",

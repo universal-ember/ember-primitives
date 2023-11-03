@@ -12,7 +12,7 @@
     "ember-primitives": "workspace:*"
   },
   "devDependencies": {
-    "@tsconfig/ember": "^3.0.0",
+    "@tsconfig/ember": "^3.0.2",
     "@zamiell/typedoc-plugin-not-exported": "^0.2.0",
     "pnpm-sync-dependencies-meta-injected": "0.0.10",
     "typedoc": "^0.25.2",

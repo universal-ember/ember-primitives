@@ -1,7 +1,7 @@
 import { hash } from '@ember/helper';
 
-import { getDataState } from './item';
-import Trigger from './trigger';
+import { getDataState } from './item.gts';
+import Trigger from './trigger.gts';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';

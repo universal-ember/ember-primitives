@@ -1,8 +1,8 @@
 import Component from '@glimmer/component';
 import { hash } from '@ember/helper';
 
-import Content from './content';
-import Header from './header';
+import Content from './content.gts';
+import Header from './header.gts';
 
 import type { WithBoundArgs } from '@glint/template';
 

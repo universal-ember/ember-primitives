@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 
-import { getDataState } from './item';
+import { getDataState } from './item.gts';
 
 export interface AccordionContentExternalSignature {
   Element: HTMLDivElement;

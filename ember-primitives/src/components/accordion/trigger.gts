@@ -1,6 +1,6 @@
 import { on } from '@ember/modifier';
 
-import { getDataState } from './item';
+import { getDataState } from './item.gts';
 
 import type { TOC } from '@ember/component/template-only';
 

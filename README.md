@@ -3,7 +3,7 @@ ember-primitives
 
 Primitives for building UI faster.
 
-Docs: ember-primitives.pages.dev/
+Docs: https://ember-primitives.pages.dev/
 
 
 Contributing

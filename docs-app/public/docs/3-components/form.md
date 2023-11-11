@@ -1,10 +1,8 @@
 # Forms
 
 There are (at least) two ways to create forms. Here are:
-- a light wrapper that has automatic two-way binding without wiring anything up 
-- a controlled form which focuses on managing data, and is good for building design systems
-
-## Light Forms
+- a light wrapper that has automatic two-way binding without wiring anything up (what is implemented here)
+- a controlled form which focuses on managing data, and is good for building design systems ([see here](https://github.com/universal-ember/dev/issues/2))
 
 This type of form is a thin, almost invisible, wrapper around the [native `<form>`][mdn-form]. 
 
@@ -101,16 +99,3 @@ const handleSubmit = (onChange, event) => {
 [mdn-FormData]: https://udn.realityripple.com/docs/Web/API/FormData
 [mdn-FormDataEntryValue]: https://udn.realityripple.com/docs/Web/API/FormDataEntryValue
 
-## Controlled Forms
-
-This type of form is handled by and built with [this styleless Forms implementation][gh-headless-form]. The library provides provides a way to [build your fields][gh-custom-controls], which we will use with the unique, non-native fields provided by `ember-primitives` 
-
-
-> [ember-headless-form] distills the common behavior and accessibility best practices of forms into reusable components, without any opinions on specific markup or styling. Use it to build your forms directly, or to build your opinionated forms component kit on top of it. 
-> <cite>[from the docs][gh-form-intro]</cite>
-
-The _Light Form_ does not provide any accessibility guidance between labels, inputs, errors, and other statuses (because the light form is just a `<form>` element). ember-headless-form solves all of this boilerplate for you.
-
-[gh-headless-form]: https://github.com/CrowdStrike/ember-headless-form/
-[gh-custom-controls]: https://ember-headless-form.pages.dev/docs/usage/custom-controls
-[gh-form-intro]: https://ember-headless-form.pages.dev/docs

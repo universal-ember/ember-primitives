@@ -1,18 +1,23 @@
+/** eslint-disable @typescript-eslint/no-explicit-any */
+// any disabled for this file, because not all browsers have the APIs used
+import Component from '@glimmer/component';
 import { assert } from '@ember/debug';
 import { fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
 
+import { resource, resourceFactory } from 'ember-resources';
+
 import { Reset, Submit } from './buttons';
 import { OTPInput } from './input';
 
-import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
 let waiter = buildWaiter('ember-primitives:OTP:handleAutoSubmitAttempt');
 
-const handleFormSubmit = (submit: (data: { code: string }) => void, event: SubmitEvent) => {
+const handleFormSubmit = (submit: (data: { code: string }) => void, signal: undefined | { abort: () => void }, event: SubmitEvent) => {
   event.preventDefault();
+  signal?.abort?.();
 
   assert(
     '[BUG]: handleFormSubmit was not attached to a form. Please open an issue.',
@@ -63,7 +68,45 @@ function handleChange(
   form.requestSubmit();
 }
 
-export const OTP: TOC<{
+const GetOTP = resourceFactory(( receiveOTP: (code: string) => void ) => resource(({ on }) => {
+  let ac = new AbortController();
+
+  on.cleanup(() => ac.abort());
+
+  // Not All browsers support this. 
+  // Mainly, the only browsers that do support it are ones
+  // that also have a corresponding phone ecosystem.
+  // (Chrome and Safari support this, but FireFox does not)
+  let hasOTPCredential = "OTPCredential" in window;
+
+  if (!hasOTPCredential) {
+    return;
+  }
+
+  navigator.credentials
+    .get({
+      otp: { transport: ["sms"] },
+      signal: ac.signal,
+    } as any)
+    .then((otp) => {
+      if (!otp) return;
+      // there is also a type property, but it's always the same "otp" string
+      receiveOTP(( otp as any).code);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+
+  return {
+    // To be called if the form is submitted,
+    // so we stop waiting for credentials.
+    abort: () => ac.abort(),
+  };
+}));
+
+
+export class OTP extends Component<{
   /**
    * The overall OTP Input is in its own form.
    * Modern UI/UX Patterns usually have this sort of field
@@ -114,16 +157,27 @@ export const OTP: TOC<{
       },
     ];
   };
-}> = <template>
-  <form {{on 'submit' (fn handleFormSubmit @onSubmit)}} ...attributes>
-    {{yield
-      (hash
-        Input=(component
-          OTPInput length=@length onChange=(if @autoSubmit (fn handleChange @autoSubmit))
-        )
-        Submit=Submit
-        Reset=Reset
-      )
-    }}
-  </form>
-</template>;
+}> {
+  handleOTP = (code) => {
+    // TODO:
+    // 1. ensure that the fields have been populated with the value
+    // 2. do form.requestSubmit()
+  }
+
+  <template>
+    {{#let (GetOTP this.handleOTP) as |signal|}}
+      <form {{on 'submit' (fn handleFormSubmit @onSubmit signal)}} ...attributes>
+        {{yield
+          (hash
+            Input=(component
+              OTPInput length=@length onChange=(if @autoSubmit (fn handleChange @autoSubmit))
+            )
+            Submit=Submit
+            Reset=Reset
+          )
+        }}
+      </form>
+    {{/let}}
+  </template>
+}
+

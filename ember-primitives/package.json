@@ -61,7 +61,7 @@
     "@babel/preset-typescript": "^7.23.2",
     "@ember/test-helpers": "^3.2.0",
     "@ember/test-waiters": "^3.1.0",
-    "@embroider/addon-dev": "4.1.1",
+    "@embroider/addon-dev": "4.1.2",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "^1.1.0",

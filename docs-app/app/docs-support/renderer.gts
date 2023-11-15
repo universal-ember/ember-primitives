@@ -241,8 +241,10 @@ const Intrinsic: TOC<{ info: { name: string } }> = <template>
 </template>;
 
 const VoidIntrinsic: TOC<{ info: { name: string } }> = <template>
-  {{! @glint-expect-error }}
-  <Declaration @info={{@info}} />
+  <div class="typedoc__void_intrinsic">
+    {{!-- @glint-expect-error --}}
+    <Function @info={{@info}} />
+  </div>
 </template>;
 
 const Tuple: TOC<{ Args: { info: TupleType } }> = <template>
@@ -267,25 +269,32 @@ const Array: TOC<{ Args: { info: ArrayType } }> = <template>
 
 const Function: TOC<{ Args: { info: SignatureReflection } }> = <template>
   <div class='typedoc__function'>
+    <div class='typedoc__function_comment'>
+      <Comment @info={{@info}} />
+    </div>
     <div class='typedoc__function__type'>
-      (
-      <div class='typedoc_function_parameters'>
+      <div class="typedoc__function__open">(</div>
+      <div class='typedoc__function__parameters'>
         {{#each @info.parameters as |param|}}
-          <div class='typedoc__function__parameter'>
-            <div class='typedoc__function__parameter__name'>{{param.name}}</div>:
-            <div class='typedoc__function__parameter__type'>
-              {{! @glint-expect-error }}
-              <Type @info={{param.type}} /><br />
+          <div class="typedoc__function__parameter__container">
+            <div class='typedoc__function__parameter'>
+              <div class='typedoc__function__parameter__name'>{{param.name}}</div>
+              <div class='typedoc__function__parameter__type'>
+                {{! @glint-expect-error }}
+                <Type @info={{param.type}} />
+              </div>
+            </div>
+            <div class='typedoc__function__parameter__comment'>
+              <Comment @info={{param}} />
             </div>
           </div>
         {{/each}}
       </div>
-      ) =>
-      {{! @glint-expect-error }}
-      <Type @info={{@info.type}} />
-    </div>
-    <div class='typedoc__function_comment'>
-      <Comment @info={{@info}} />
+      <div class="typedoc__function__close">) =></div>
+      <div class="typedoc__function__return_type">
+        {{! @glint-expect-error }}
+        <Type @info={{@info.type}} />
+      </div>
     </div>
   </div>
 </template>;

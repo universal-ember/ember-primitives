@@ -147,10 +147,17 @@
  * Signature / Function Formatting
  */
 .typedoc__function__type {
-  display: flex;
+  display: grid;
+  gap: 0.25rem;
 }
 .typedoc__function__parameters {
   margin-left: 1rem;
+  display: grid;
+  gap: 0.25rem;
+}
+.typedoc__function__parameter__container {
+  border: 1px solid;
+  padding: 0.5rem;
 }
 .typedoc__function__parameter {
   width: fit-content;
@@ -158,10 +165,21 @@
   grid-auto-flow: column;
   gap: 0.5rem;
 }
+.typedoc__function__parameter__comment {
+  /* font-style: italic; */
+  /* font-size: 0.75rem; */
+}
+.typedoc__function__return_type,
+.typedoc__function__close {
+  display: inline-block;
+}
+.typedoc__function__return_type {
+  margin-left: 1rem;
+}
 .typedoc__function__parameter__name {
   font-style: italic;
   font-family: monospace;
-  font-size: 0.75rem;
+  font-size: 1rem;
 }
 
 /**

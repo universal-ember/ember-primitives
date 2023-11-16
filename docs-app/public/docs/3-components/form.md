@@ -122,7 +122,7 @@ const handleSubmit = (onChange, event) => {
 
 [mdn-form]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form
 [mdn-FormData]:  https://developer.mozilla.org/en-US/docs/Web/API/FormData
-[mdn-FormDataEntryValue]: https://developer.mozilla.org/en-US/docs/Web/API/FormDataEntryValue
+[mdn-FormDataEntryValue]: https://udn.realityripple.com/docs/Web/API/FormDataEntryValue
 
 
 ## Fetaures 

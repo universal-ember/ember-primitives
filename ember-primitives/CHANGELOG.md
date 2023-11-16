@@ -1,5 +1,16 @@
 # ember-primitives
 
+## 0.9.0
+
+### Minor Changes
+
+- 155f0bc: New component: Accordion -- see docs for more information
+
+### Patch Changes
+
+- c8baa6e: Extract common utils to another library which will be reactive utility focused
+- 3cfc238: Switch to reactive-primitives to reactiveweb (same library)
+
 ## 0.8.1
 
 ### Patch Changes

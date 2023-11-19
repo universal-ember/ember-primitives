@@ -98,3 +98,19 @@ function syncBodyClass() {
   {{ (syncBodyClass) }}
 </template>
 ```
+
+## API Reference
+
+```gjs live no-shadow
+import { APIDocs } from 'docs-app/docs-support';
+
+<template>
+  <APIDocs @module="color-scheme" @name="colorScheme" />
+  <APIDocs @module="color-scheme" @name="sync" />
+  <APIDocs @module="color-scheme" @name="prefers" />
+  <APIDocs @module="color-scheme" @name="localPreference" />
+  <APIDocs @module="color-scheme" @name="getColorScheme" />
+  <APIDocs @module="color-scheme" @name="setColorScheme" />
+  <APIDocs @module="color-scheme" @name="removeColorScheme" />
+</template>
+```

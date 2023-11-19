@@ -1,5 +1,15 @@
 # ember-primitives
 
+## 0.10.0
+
+### Minor Changes
+
+- 3515f4d: Improvements to `ember-primitives/color-scheme`
+
+  - fix a bug with `setColorScheme`
+  - new method, `onUpdate`, which can be used to synchronize external systems,
+    like graphics or charting systems that need to sync with the broader site theme.
+
 ## 0.9.0
 
 ### Minor Changes

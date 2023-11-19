@@ -19,6 +19,18 @@
   display: inline-block;
   line-height: 1.5rem;
 }
+.typedoc-declaration {
+  .typedoc-declaration-name {
+    font-weight: bold;
+  }
+}
+section {
+ >.typedoc-declaration {
+   >.typedoc-declaration-name {
+      font-size: 1.5rem;
+    }
+  }
+}
 
 .typedoc-heading {
   display: block;
@@ -147,9 +159,14 @@
  * Signature / Function Formatting
  */
 .typedoc__function__type {
-  display: grid;
+  display: flex;
   gap: 0.25rem;
 }
+
+.typedoc__function__type:has(.typedoc__function__parameter) {
+  display: grid;
+}
+
 .typedoc__function__parameters {
   margin-left: 1rem;
   display: grid;

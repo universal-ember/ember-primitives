@@ -26,6 +26,9 @@ import {
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 
+// reads the user's browser preferences
+sync();
+
 function gatherSchemePreferences() {
   return {
     prefers: {
@@ -71,5 +74,27 @@ function isDark() {
       rel="stylesheet" 
       href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-light.css" />
   {{/if}}
+</template>
+```
+
+Sometimes, you may wish to control the CSS via a class property on `<body>` or similar element.
+
+To do that, you need an effect:
+
+```gjs 
+import { colorScheme } from 'ember-primitives/color-scheme';
+
+function syncBodyClass() {
+  if (colorScheme.current === 'dark') {
+    document.body.classList.remove('theme-light');
+    document.body.classList.add('theme-dark');
+  } else {
+    document.body.classList.remove('theme-dark');
+    document.body.classList.add('theme-light');
+  }
+}
+
+<template>
+  {{ (syncBodyClass) }}
 </template>
 ```

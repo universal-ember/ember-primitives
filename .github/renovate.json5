@@ -41,7 +41,7 @@
       // ensure maximum compatibility, when possible
       "matchPaths": ["ember-primitives/package.json"],
       "matchDepTypes": ["dependencies"],
-      "enabled": false
+      "enabled": true
     },
   ]
 }

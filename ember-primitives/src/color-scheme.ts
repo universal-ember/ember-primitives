@@ -33,7 +33,7 @@ export const colorScheme = {
      */
     update: (callback: (colorScheme: string) => void) => {
       callbacks.add(callback);
-    }
+    },
   },
   off: {
     /**
@@ -41,7 +41,7 @@ export const colorScheme = {
      */
     update: (callback: (colorScheme: string) => void) => {
       callbacks.delete(callback);
-    }
+    },
   },
 
   /**

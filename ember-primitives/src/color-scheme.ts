@@ -28,11 +28,17 @@ export const colorScheme = {
   },
 
   on: {
+    /**
+     * register a function to be called when the color scheme changes.
+     */
     update: (callback: (colorScheme: string) => void) => {
       callbacks.add(callback);
     }
   },
   off: {
+    /**
+     * unregister a function that would have been called when the color scheme changes.
+     */
     update: (callback: (colorScheme: string) => void) => {
       callbacks.delete(callback);
     }

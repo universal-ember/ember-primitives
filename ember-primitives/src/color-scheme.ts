@@ -4,30 +4,14 @@ import { cell } from 'ember-resources';
 
 const _colorScheme = cell<string | undefined>();
 
-let callbacks: Set<WeakRef<(colorScheme: string) => void>> = new Set();
+let callbacks: Set<(colorScheme: string) => void> = new Set();
 
 async function runCallbacks(theme: string) {
   await Promise.resolve();
 
-  for (let ref of callbacks.values()) {
-    let callback = ref.deref();
-
-    if (!callback) {
-      callbacks.delete(ref);
-    } else {
-      callback(theme);
-    }
+  for (let callback of callbacks.values()) {
+    callback(theme);
   }
-}
-
-/**
- * Callback to sync external systems, such as graphing or charting APIs with the theme system.
- *
- * There is no need to remove the callback like you would with `removeEventListener`.
- * It is managed with WeakRefs so memory is cleaned up automatically over time.
- */
-export function onUpdate(callback: (colorScheme: string) => void) {
-  callbacks.add(new WeakRef(callback));
 }
 
 /**
@@ -38,9 +22,20 @@ export const colorScheme = {
    * Set's the current color scheme to the passed value
    */
   update: (value: string) => {
-    colorScheme.current = value;
+    _colorScheme.current = value;
 
     waitForPromise(runCallbacks(value));
+  },
+
+  on: {
+    update: (callback: (colorScheme: string) => void) => {
+      callbacks.add(callback);
+    }
+  },
+  off: {
+    update: (callback: (colorScheme: string) => void) => {
+      callbacks.delete(callback);
+    }
   },
 
   /**

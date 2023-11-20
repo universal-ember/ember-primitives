@@ -107,7 +107,6 @@ import { APIDocs } from 'docs-app/docs-support';
 <template>
   <APIDocs @module="color-scheme" @name="colorScheme" />
   <APIDocs @module="color-scheme" @name="sync" />
-  <APIDocs @module="color-scheme" @name="onUpdate" />
   <APIDocs @module="color-scheme" @name="prefers" />
   <APIDocs @module="color-scheme" @name="localPreference" />
   <APIDocs @module="color-scheme" @name="getColorScheme" />

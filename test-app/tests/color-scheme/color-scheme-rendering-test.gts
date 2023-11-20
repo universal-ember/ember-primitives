@@ -2,7 +2,7 @@ import { settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import { colorScheme, getColorScheme, localPreference, onUpdate, prefers, removeColorScheme,setColorScheme, sync} from 'ember-primitives/color-scheme';
+import { colorScheme, getColorScheme, localPreference, prefers, removeColorScheme,setColorScheme, sync} from 'ember-primitives/color-scheme';
 
 module('color-scheme', function (hooks) {
   setupRenderingTest(hooks);
@@ -16,23 +16,34 @@ module('color-scheme', function (hooks) {
   test('colorScheme', async function (assert) {
     colorScheme.update('dark');
     assert.strictEqual(colorScheme.current, 'dark');
+    assert.strictEqual(localPreference.read(), 'dark');
+    assert.strictEqual(getColorScheme(), 'dark');
+
     colorScheme.update('light');
     assert.strictEqual(colorScheme.current, 'light');
+    assert.strictEqual(localPreference.read(), 'light');
+    assert.strictEqual(getColorScheme(), 'light');
   });
 
-  test('onUpdate', async function (assert) {
-    onUpdate((theme) => assert.step(theme));
+  test('colorScheme on/off update', async function (assert) {
+    let callback = (theme: string) => assert.step(theme);
+
+    colorScheme.on.update(callback);
 
     assert.verifySteps([]);
 
     colorScheme.update('dark');
     await settled();
-
     assert.verifySteps(['dark']);
 
     colorScheme.update('light')
     await settled();
     assert.verifySteps(['light']);
+
+    colorScheme.off.update(callback);
+    colorScheme.update('dark')
+    await settled();
+    assert.verifySteps([]);
   });
 
 

@@ -22,7 +22,7 @@ export const colorScheme = {
    * Set's the current color scheme to the passed value
    */
   update: (value: string) => {
-    _colorScheme.current = value;
+    colorScheme.current = value;
 
     waitForPromise(runCallbacks(value));
   },

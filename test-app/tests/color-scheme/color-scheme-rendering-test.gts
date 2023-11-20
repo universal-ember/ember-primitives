@@ -16,8 +16,13 @@ module('color-scheme', function (hooks) {
   test('colorScheme', async function (assert) {
     colorScheme.update('dark');
     assert.strictEqual(colorScheme.current, 'dark');
+    assert.strictEqual(localPreference.read(), 'dark');
+    assert.strictEqual(getColorScheme(), 'dark');
+
     colorScheme.update('light');
     assert.strictEqual(colorScheme.current, 'light');
+    assert.strictEqual(localPreference.read(), 'light');
+    assert.strictEqual(getColorScheme(), 'light');
   });
 
   test('colorScheme on/off update', async function (assert) {

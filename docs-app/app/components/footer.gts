@@ -7,12 +7,12 @@ import { Flask, GitHub } from './icons';
 import { ThemeToggle } from './theme-toggle';
 
 export const Footer = <template>
-  <footer id='site-footer'>
+  <footer id="site-footer">
     <div>
-      <span class='left'>
-        <a href='/'>ember-primitives</a>
+      <span class="left">
+        <a href="/">ember-primitives</a>
       </span>
-      <span class='right'>
+      <span class="right">
         <ToggleNav />
         <TestsLink />
         <GitHubLink />
@@ -23,25 +23,25 @@ export const Footer = <template>
 </template>;
 
 const TestsLink = <template>
-  <ExternalLink href='/tests' class='icon-link'>
-    <span class='small:sr-only'>Tests</span>
+  <ExternalLink href="/tests" class="icon-link">
+    <span class="small:sr-only">Tests</span>
     <Flask />
   </ExternalLink>
 </template>;
 
 const GitHubLink = <template>
-  <ExternalLink class='icon-link' href='https://github.com/universal-ember/ember-primitives'>
-    <span class='small:sr-only'>GitHub</span>
+  <ExternalLink class="icon-link" href="https://github.com/universal-ember/ember-primitives">
+    <span class="small:sr-only">GitHub</span>
     <GitHub />
   </ExternalLink>
 </template>;
 
 const ToggleNav = <template>
   <button
-    id='nav-toggle'
-    aria-label='Toggle navigation'
-    type='button'
-    {{on 'click' (get (service 'ui') 'toggleNav')}}
+    id="nav-toggle"
+    aria-label="Toggle navigation"
+    type="button"
+    {{on "click" (get (service "ui") "toggleNav")}}
   >
     Toggle Nav
   </button>

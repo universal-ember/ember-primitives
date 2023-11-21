@@ -13,7 +13,7 @@
 }
 
 #site-footer:before {
-  content: ' ';
+  content: " ";
   z-index: 0;
   position: absolute;
   top: 0;

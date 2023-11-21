@@ -17,8 +17,8 @@ module('<Progress />', function (hooks) {
 
     await render(<template>
       <Progress @value={{state.value}} as |x|>
-        <div id='value'>{{x.value}}</div>
-        <div id='percent'>{{x.percent}}</div>
+        <div id="value">{{x.value}}</div>
+        <div id="percent">{{x.percent}}</div>
         <x.Indicator />
       </Progress>
     </template>);
@@ -69,8 +69,8 @@ module('<Progress />', function (hooks) {
 
     await render(<template>
       <Progress @value={{state.value}} @max={{state.max}} as |x|>
-        <div id='value'>{{x.value}}</div>
-        <div id='percent'>{{x.percent}}</div>
+        <div id="value">{{x.value}}</div>
+        <div id="percent">{{x.percent}}</div>
         <x.Indicator />
       </Progress>
     </template>);
@@ -121,8 +121,8 @@ module('<Progress />', function (hooks) {
 
     await render(<template>
       <Progress @value={{state.value}} @max={{state.max}} as |x|>
-        <div id='value'>{{x.value}}</div>
-        <div id='percent'>{{x.percent}}</div>
+        <div id="value">{{x.value}}</div>
+        <div id="percent">{{x.percent}}</div>
         <x.Indicator />
       </Progress>
     </template>);
@@ -188,8 +188,8 @@ module('<Progress />', function (hooks) {
       await render(<template>
         {{! @glint-ignore }}
         <Progress @value={{value}} as |x|>
-          <div id='value'>{{x.value}}</div>
-          <div id='percent'>{{x.percent}}</div>
+          <div id="value">{{x.value}}</div>
+          <div id="percent">{{x.percent}}</div>
           <x.Indicator />
         </Progress>
       </template>);
@@ -214,8 +214,8 @@ module('<Progress />', function (hooks) {
       await render(<template>
         {{! @glint-ignore }}
         <Progress @value={{10}} @max={{value}} as |x|>
-          <div id='value'>{{x.value}}</div>
-          <div id='percent'>{{x.percent}}</div>
+          <div id="value">{{x.value}}</div>
+          <div id="percent">{{x.percent}}</div>
           <x.Indicator />
         </Progress>
       </template>);

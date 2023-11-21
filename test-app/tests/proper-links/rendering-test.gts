@@ -39,7 +39,7 @@ module('@properLinks', function (hooks) {
       hbs`
         <a href="/foo">Foo</a>
         <a href="/bar">Bar</a>
-      `,
+      `
     );
 
     await visit('/');
@@ -68,7 +68,7 @@ module('@properLinks', function (hooks) {
         <a href="/foo">Foo</a>
         <a href="/foo/foo-foo">Foo Foo</a>
         <a href="/bar">Bar</a>
-      `,
+      `
     );
 
     await visit('/');
@@ -95,7 +95,7 @@ module('@properLinks', function (hooks) {
         this.route('foo');
         this.route('bar');
       },
-      { rootURL: '/the-root' },
+      { rootURL: '/the-root' }
     );
 
     this.owner.register(
@@ -103,7 +103,7 @@ module('@properLinks', function (hooks) {
       hbs`
         <a href="/the-root/foo">Foo</a>
         <a href="/the-root/bar">Bar</a>
-      `,
+      `
     );
 
     await visit('/');
@@ -135,14 +135,14 @@ module('@properLinks', function (hooks) {
         <a href="/foo?greeting='hello%20there'">Foo</a>
         <a href="/foo?greeting='general%20kenobi'">Foo</a>
         <a href="/bar">Bar</a>
-      `,
+      `
     );
 
     this.owner.register(
       'route:foo',
       class FooRoute extends Route {
         queryParams = { greeting: { refreshModel: true } };
-      },
+      }
     );
 
     await visit('/');

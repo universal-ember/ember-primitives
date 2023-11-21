@@ -20,7 +20,7 @@ module('<Link />', function (hooks) {
       <Link @href="/foo">Foo</Link>
       <Link @href="/bar">Bar</Link>
       <Link @href="/">Home</Link>
-    `,
+    `
     );
 
     await visit('/');
@@ -58,7 +58,7 @@ module('<Link />', function (hooks) {
       <Link @href="/foo/a">a</Link>
       <Link @href="/foo/b">b</Link>
       <Link @href="/foo">Foo Home</Link>
-    `,
+    `
     );
 
     await visit('/');
@@ -94,7 +94,7 @@ module('<Link />', function (hooks) {
         this.route('foo');
         this.route('bar');
       },
-      { rootURL: '/some-root' },
+      { rootURL: '/some-root' }
     );
 
     this.owner.register(
@@ -103,7 +103,7 @@ module('<Link />', function (hooks) {
       <Link @href="/some-root/foo">Foo</Link>
       <Link @href="/some-root/bar">Bar</Link>
       <Link @href="/some-root/">Home</Link>
-    `,
+    `
     );
 
     await visit('/');
@@ -138,7 +138,7 @@ module('<Link />', function (hooks) {
       hbs`
       <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{true}}>One</Link>
       <Link id="two" @href="/foo?hello=1&there=4" @includeActiveQueryParams={{true}}>Two</Link>
-    `,
+    `
     );
 
     await visit('/');
@@ -173,7 +173,7 @@ module('<Link />', function (hooks) {
       hbs`
       <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}}>One</Link>
       <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
-    `,
+    `
     );
 
     await visit('/');
@@ -207,7 +207,7 @@ module('<Link />', function (hooks) {
       hbs`
       <Link id="one" @href="/foo/1">One</Link>
       <Link id="two" @href="/foo/2">Two</Link>
-    `,
+    `
     );
 
     await visit('/');

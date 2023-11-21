@@ -16,7 +16,7 @@ const handleFormSubmit = (submit: (data: { code: string }) => void, event: Submi
 
   assert(
     '[BUG]: handleFormSubmit was not attached to a form. Please open an issue.',
-    event.currentTarget instanceof HTMLFormElement,
+    event.currentTarget instanceof HTMLFormElement
   );
 
   let formData = new FormData(event.currentTarget);
@@ -37,14 +37,14 @@ const handleFormSubmit = (submit: (data: { code: string }) => void, event: Submi
 function handleChange(
   autoSubmit: boolean | undefined,
   data: { code: string; complete: boolean },
-  event: Event,
+  event: Event
 ) {
   if (!autoSubmit) return;
   if (!data.complete) return;
 
   assert(
     '[BUG]: event target is not a known element type',
-    event.target instanceof HTMLElement || event.target instanceof SVGElement,
+    event.target instanceof HTMLElement || event.target instanceof SVGElement
   );
 
   const form = event.target.closest('form');
@@ -115,7 +115,7 @@ export const OTP: TOC<{
     ];
   };
 }> = <template>
-  <form {{on 'submit' (fn handleFormSubmit @onSubmit)}} ...attributes>
+  <form {{on "submit" (fn handleFormSubmit @onSubmit)}} ...attributes>
     {{yield
       (hash
         Input=(component

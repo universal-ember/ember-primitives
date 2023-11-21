@@ -29,5 +29,5 @@ export const Compiled = resourceFactory(
 
       return () => output.current;
     });
-  },
+  }
 );

@@ -27,7 +27,7 @@ const anchor = modifier(
     let found = findNearestTarget(element, to);
 
     update(found);
-  },
+  }
 );
 
 const ElementValue = () => cell<Element | ShadowRoot>();
@@ -38,7 +38,8 @@ export const Portal: TOC<Signature> = <template>
           because it'll either find the portal and render content elsewhere,
           it it won't find the portal and won't render anything.
     }}
-    <div style='display:contents;' {{anchor @to target.set}}>
+    {{! template-lint-disable no-inline-styles }}
+    <div style="display:contents;" {{anchor @to target.set}}>
       {{#if target.current}}
         {{#in-element target.current}}
           {{yield}}

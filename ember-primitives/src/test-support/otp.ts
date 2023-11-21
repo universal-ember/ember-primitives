@@ -10,7 +10,7 @@ export async function fillOTP(code: string, selector?: string) {
 
   assert(
     `Could not find ancestor element, does your selector match an existing element?`,
-    ancestor,
+    ancestor
   );
 
   let fieldset =
@@ -18,14 +18,14 @@ export async function fillOTP(code: string, selector?: string) {
 
   assert(
     `Could not find containing fieldset element (this holds the OTP Input fields). Was the OTP component rendered?`,
-    fieldset,
+    fieldset
   );
 
   let inputs = fieldset.querySelectorAll('input');
 
   assert(
     `code cannot be longer than the available inputs. code is of length ${code.length} but there are ${inputs.length}`,
-    code.length <= inputs.length,
+    code.length <= inputs.length
   );
 
   // let chars = code.split('');

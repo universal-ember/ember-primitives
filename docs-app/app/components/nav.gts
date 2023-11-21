@@ -36,15 +36,16 @@ const isLoneIndex = (pages: Page[]) =>
 
 const unExct = (str: string) => str.replace(/\.md$/, '');
 
-const NameLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> = <template>
-  <Link @href={{unExct @href}} ...attributes>
-    {{#if (isComponents @name)}}
-      {{asComponent (titleize @name)}}
-    {{else}}
-      {{(titleize @name)}}
-    {{/if}}
-  </Link>
-</template>;
+const NameLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
+  <template>
+    <Link @href={{unExct @href}} ...attributes>
+      {{#if (isComponents @name)}}
+        {{asComponent (titleize @name)}}
+      {{else}}
+        {{(titleize @name)}}
+      {{/if}}
+    </Link>
+  </template>;
 
 export class Nav extends Component {
   @service declare docs: DocsService;
@@ -81,20 +82,13 @@ export class Nav extends Component {
    *  The links themselves remain the actual interactive elements.
    */
   <template>
-    <nav
-      aria-label='Main Navigation'
-      class={{if this.ui.isNavOpen 'open'}}
-    >
+    <nav aria-label="Main Navigation" class={{if this.ui.isNavOpen "open"}}>
       <ul>
         {{#each-in this.docs.grouped as |group pages|}}
           <li>
             {{#if (isLoneIndex pages)}}
               {{#each pages as |page|}}
-                <NameLink
-                  @name={{group}}
-                  @href={{page.path}}
-                  {{on 'click' this.closeNav}}
-                />
+                <NameLink @name={{group}} @href={{page.path}} {{on "click" this.closeNav}} />
               {{/each}}
             {{else}}
               <h2>{{titleize group}}</h2>
@@ -104,7 +98,7 @@ export class Nav extends Component {
                     <NameLink
                       @name={{page.name}}
                       @href={{page.path}}
-                      {{on 'click' this.closeNav}}
+                      {{on "click" this.closeNav}}
                     />
                   </li>
                 {{/each}}

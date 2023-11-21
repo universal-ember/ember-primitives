@@ -38,9 +38,9 @@ export interface Signature {
 export const Toggle: TOC<Signature> = <template>
   {{#let (cell @pressed) as |pressed|}}
     <button
-      type='button'
-      aria-pressed='{{pressed.current}}'
-      {{on 'click' (fn toggleWithFallback pressed.toggle @onChange)}}
+      type="button"
+      aria-pressed="{{pressed.current}}"
+      {{on "click" (fn toggleWithFallback pressed.toggle @onChange)}}
       ...attributes
     >
       {{yield pressed.current}}

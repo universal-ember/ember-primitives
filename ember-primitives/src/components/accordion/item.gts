@@ -54,14 +54,12 @@ export class AccordionItem extends Component<Signature> {
           isExpanded=this.isExpanded
           Header=(component
             Header
-            value=this.args.value
+            value=@value
             isExpanded=this.isExpanded
             disabled=@disabled
             toggleItem=this.toggleItem
           )
-          Content=(component
-            Content value=this.args.value isExpanded=this.isExpanded disabled=@disabled
-          )
+          Content=(component Content value=@value isExpanded=this.isExpanded disabled=@disabled)
         )
       }}
     </div>

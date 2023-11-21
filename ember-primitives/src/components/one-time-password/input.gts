@@ -34,15 +34,15 @@ const Fields: TOC<{
 }> = <template>
   {{#each @fields as |_field i|}}
     <label>
-      <span class='ember-primitives__sr-only'>{{labelFor i @labelFn}}</span>
+      <span class="ember-primitives__sr-only">{{labelFor i @labelFn}}</span>
       <input
-        name='code{{i}}'
-        type='text'
-        inputmode='numeric'
+        name="code{{i}}"
+        type="text"
+        inputmode="numeric"
         ...attributes
-        {{on 'input' autoAdvance}}
-        {{on 'input' @handleChange}}
-        {{on 'keydown' handleNavigation}}
+        {{on "input" autoAdvance}}
+        {{on "input" @handleChange}}
+        {{on "keydown" handleNavigation}}
       />
     </label>
   {{/each}}
@@ -89,7 +89,7 @@ export class OTPInput extends Component<{
       /**
        * The last input event received
        */
-      event: Event,
+      event: Event
     ) => void;
   };
   Blocks: {

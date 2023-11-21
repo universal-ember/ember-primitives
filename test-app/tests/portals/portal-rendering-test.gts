@@ -13,7 +13,7 @@ module('Rendering | <Portal>', function (hooks) {
     });
 
     await render(<template>
-      <Portal @to='does-not-exist'>
+      <Portal @to="does-not-exist">
         content
       </Portal>
     </template>);

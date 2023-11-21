@@ -15,7 +15,7 @@ module('<Form />', function (hooks) {
     await render(<template>
       <Form @onChange={{update}}>
         <label>first
-          <input name='first' />
+          <input name="first" />
         </label>
       </Form>
     </template>);
@@ -35,9 +35,9 @@ module('<Form />', function (hooks) {
     await render(<template>
       <Form @onChange={{update}}>
         <label>first
-          <input name='first' value='from-dom' />
+          <input name="first" value="from-dom" />
         </label>
-        <button type='submit'>submit</button>
+        <button type="submit">submit</button>
       </Form>
     </template>);
 

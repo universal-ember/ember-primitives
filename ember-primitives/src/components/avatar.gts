@@ -52,7 +52,6 @@ const Image: TOC<{
   {{/if}}
 </template>;
 
-
 export const Avatar: TOC<{
   Element: HTMLSpanElement;
   Args: {
@@ -65,8 +64,8 @@ export const Avatar: TOC<{
     default: [
       avatar: {
         /**
-          * The image to render. It will only render when it has loaded.
-          */
+         * The image to render. It will only render when it has loaded.
+         */
         Image: WithBoundArgs<typeof Image, 'src' | 'isLoaded'>;
         /**
          * An element that renders when the image hasn't loaded.
@@ -76,26 +75,32 @@ export const Avatar: TOC<{
          */
         Fallback: WithBoundArgs<typeof Fallback, 'isLoaded'>;
         /**
-          * true while the image is loading
-          */
+         * true while the image is loading
+         */
         isLoading: boolean;
         /**
-          * If the image fails to load, this will be `true`
-          */
+         * If the image fails to load, this will be `true`
+         */
         isError: boolean;
       },
     ];
   };
-}> =
-  <template>
+}> = <template>
   {{#let (ReactiveImage @src) as |imgState|}}
-    <span data-prim-avatar ...attributes data-loading={{imgState.isLoading}} data-error={{imgState.isError}}>
-      {{yield (hash
-        Image=(component Image src=@src isLoaded=imgState.isResolved)
-        Fallback=(component Fallback isLoaded=imgState.isResolved)
-        isLoading=imgState.isLoading
-        isError=imgState.isError
-      )}}
+    <span
+      data-prim-avatar
+      ...attributes
+      data-loading={{imgState.isLoading}}
+      data-error={{imgState.isError}}
+    >
+      {{yield
+        (hash
+          Image=(component Image src=@src isLoaded=imgState.isResolved)
+          Fallback=(component Fallback isLoaded=imgState.isResolved)
+          isLoading=imgState.isLoading
+          isError=imgState.isError
+        )
+      }}
     </span>
   {{/let}}
 </template>;

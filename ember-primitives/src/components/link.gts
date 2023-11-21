@@ -129,8 +129,8 @@ export class Link extends Component<Signature> {
     {{else}}
       <a
         data-active={{this.isActive}}
-        href={{if @href @href '##missing##'}}
-        {{on 'click' this.handleClick}}
+        href={{if @href @href "##missing##"}}
+        {{on "click" this.handleClick}}
         ...attributes
       >
         {{yield (hash isExternal=false isActive=this.isActive)}}

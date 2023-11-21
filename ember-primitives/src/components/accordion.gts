@@ -147,7 +147,7 @@ export class Accordion extends Component<{
     assert('Cannot call `toggleItemSingle` when `disabled` is true.', !this.args.disabled);
     assert(
       'Cannot call `toggleItemSingle` when `type` is not `single`.',
-      this.args.type === 'single',
+      this.args.type === 'single'
     );
 
     if (value === this.selectedValue && !this.args.collapsible) {
@@ -167,7 +167,7 @@ export class Accordion extends Component<{
     assert('Cannot call `toggleItemMultiple` when `disabled` is true.', !this.args.disabled);
     assert(
       'Cannot call `toggleItemMultiple` when `type` is not `multiple`.',
-      this.args.type === 'multiple',
+      this.args.type === 'multiple'
     );
 
     const currentValues = (this.selectedValue as string[] | undefined) ?? [];

@@ -5,6 +5,6 @@
   text-decoration: none;
 }
 .edit-page:after {
-  content: '➚';
+  content: "➚";
   padding-left: 0.25rem;
 }

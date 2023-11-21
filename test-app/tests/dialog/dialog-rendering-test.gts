@@ -25,7 +25,7 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal as |m|>
           <out>{{m.isOpen}}</out>
-          <button type='button' {{on 'click' m.open}}>Open Dialog</button>
+          <button type="button" {{on "click" m.open}}>Open Dialog</button>
           <m.Dialog>
             content
           </m.Dialog>
@@ -47,10 +47,10 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal as |m|>
           <out>{{m.isOpen}}</out>
-          <button id='open' type='button' {{on 'click' m.open}}>Open Dialog</button>
+          <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
           <m.Dialog>
             content
-            <button id='close' type='button' {{on 'click' m.close}}>Close Dialog</button>
+            <button id="close" type="button" {{on "click" m.close}}>Close Dialog</button>
           </m.Dialog>
         </Modal>
       </template>);
@@ -73,7 +73,7 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal as |m|>
           <out>{{m.isOpen}}</out>
-          <button id='open' type='button' {{on 'click' m.open}}>Open Dialog</button>
+          <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
           <m.Dialog>
             content
           </m.Dialog>
@@ -98,12 +98,12 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal @onClose={{handleClose}} as |m|>
           <out>{{m.isOpen}}</out>
-          <button id='open' type='button' {{on 'click' m.open}}>Open Dialog</button>
+          <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
           <m.Dialog>
             content
-            <form method='dialog'>
-              <button value='resetBtn' type='submit' {{on 'click' m.close}}>Reset</button>
-              <button type='submit' value='confirmBtn'>Confirm</button>
+            <form method="dialog">
+              <button value="resetBtn" type="submit" {{on "click" m.close}}>Reset</button>
+              <button type="submit" value="confirmBtn">Confirm</button>
             </form>
           </m.Dialog>
         </Modal>
@@ -136,7 +136,7 @@ module('Rendering | dialog', function (hooks) {
       await render(<template>
         <Modal @open={{true}} as |m|>
           <out>{{m.isOpen}}</out>
-          <button type='button' {{on 'click' m.open}}>Open Dialog</button>
+          <button type="button" {{on "click" m.open}}>Open Dialog</button>
           <m.Dialog> content </m.Dialog>
         </Modal>
       </template>);

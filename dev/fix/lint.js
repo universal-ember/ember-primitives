@@ -52,7 +52,7 @@ for await (let workspace of await project.getWorkspaces()) {
       'prettier',
       'typescript',
     ]),
-    workspace,
+    workspace
   );
 
   await packageJson.modify((json) => {
@@ -76,7 +76,7 @@ for await (let workspace of await project.getWorkspaces()) {
       'lint:prettier:fix': 'pnpm -w exec lint prettier:fix',
       'lint:prettier': 'pnpm -w exec lint prettier',
     },
-    workspace,
+    workspace
   );
 
   let configPath = path.join(workspace, '.eslintrc.cjs');
@@ -87,7 +87,7 @@ for await (let workspace of await project.getWorkspaces()) {
       configPath,
       `'use strict';\n\n` +
         `const { configs } = require('@nullvoxpopuli/eslint-configs');\n\n` +
-        `module.exports = configs.crossPlatform();\n`,
+        `module.exports = configs.crossPlatform();\n`
     );
   }
 }

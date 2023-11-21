@@ -7,10 +7,14 @@ import type { TOC } from '@ember/component/template-only';
 type FormDataEntryValue = NonNullable<ReturnType<FormData['get']>>;
 type Data = { [key: string]: FormDataEntryValue };
 
-const handleInput = (onChange: (data: Data, eventType: 'input' | 'submit', event: Event) => void, event: Event | SubmitEvent, eventType: 'input' | 'submit' = 'input') => {
+const handleInput = (
+  onChange: (data: Data, eventType: 'input' | 'submit', event: Event) => void,
+  event: Event | SubmitEvent,
+  eventType: 'input' | 'submit' = 'input'
+) => {
   assert(
     'An unexpected event was passed to handleInput in <Form>',
-    'currentTarget' in event && event.currentTarget instanceof HTMLFormElement,
+    'currentTarget' in event && event.currentTarget instanceof HTMLFormElement
   );
 
   let formData = new FormData(event.currentTarget);
@@ -19,17 +23,20 @@ const handleInput = (onChange: (data: Data, eventType: 'input' | 'submit', event
   onChange(data, eventType, event);
 };
 
-const handleSubmit = (onChange: (data: Data, eventType: 'input' | 'submit', event: Event | SubmitEvent) => void, event: SubmitEvent) => {
+const handleSubmit = (
+  onChange: (data: Data, eventType: 'input' | 'submit', event: Event | SubmitEvent) => void,
+  event: SubmitEvent
+) => {
   event.preventDefault();
   handleInput(onChange, event, 'submit');
 };
 
 export interface Signature {
   Element: HTMLFormElement;
-  Args: { 
+  Args: {
     /**
-    *  Any time the value of any field is changed this function will be called.
-    */
+     *  Any time the value of any field is changed this function will be called.
+     */
     onChange: (
       /**
        * The data from the form as an Object of `{ [field name] => value }` pairs.
@@ -38,31 +45,31 @@ export interface Signature {
        * Additional fields/inputs/controls can be added to this data by specifying a
        * "name" attribute.
        */
-      data: Data, 
+      data: Data,
       /**
        * Indicates whether the `onChange` function was called from the `input` or `submit` event handlers.
        */
-      eventType: 'input' | 'submit', 
+      eventType: 'input' | 'submit',
       /**
        * The raw event, if needed.
        */
       event: Event | SubmitEvent
-    ) => void 
+    ) => void;
   };
-  Blocks: { 
+  Blocks: {
     /**
      * The main content for the form. This is where inputs / fields / controls would go.
-     * Within the `<form>` content, `<button type="submit">` will submit the form, which 
+     * Within the `<form>` content, `<button type="submit">` will submit the form, which
      * triggers the `@onChange` event.
      */
-    default: [] 
+    default: [];
   };
 }
 
 export const Form: TOC<Signature> = <template>
   <form
-    {{on 'input' (fn handleInput @onChange)}}
-    {{on 'submit' (fn handleSubmit @onChange)}}
+    {{on "input" (fn handleInput @onChange)}}
+    {{on "submit" (fn handleSubmit @onChange)}}
     ...attributes
   >
     {{yield}}

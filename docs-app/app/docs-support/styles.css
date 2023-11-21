@@ -220,7 +220,7 @@ section {
   gap: 0.25rem;
 }
 .typedoc__union__type::before {
-  content: '|';
+  content: "|";
 }
 .typedoc__union .typedoc__union__type:first-child::before {
   display: none;

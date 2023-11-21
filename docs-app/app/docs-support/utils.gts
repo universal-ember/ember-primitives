@@ -9,12 +9,9 @@ export function findChildDeclaration(info: DeclarationReflection, name: string) 
 }
 
 export const infoFor = (data: DeclarationReflection, module: string, name: string) => {
-  let moduleType =
-  data.children
-    ?.find((child) => child.name === module)
+  let moduleType = data.children?.find((child) => child.name === module);
 
-  let found = moduleType
-    ?.children?.find((grandChild) => grandChild.name === name);
+  let found = moduleType?.children?.find((grandChild) => grandChild.name === name);
 
   return found as DeclarationReflection | undefined;
 };
@@ -27,7 +24,7 @@ export const Query: TOC<{
     {{#if info}}
       {{yield info}}
     {{else}}
-      {{yield to='notFound'}}
+      {{yield to="notFound"}}
     {{/if}}
   {{/let}}
 </template>;
@@ -40,7 +37,7 @@ export const Load: TOC<{
   Args: { module: string; name: string };
   Blocks: { default: [DeclarationReflection] };
 }> = <template>
-  {{#let (RemoteData '/api-docs.json') as |request|}}
+  {{#let (RemoteData "/api-docs.json") as |request|}}
     {{#if request.isLoading}}
       Loading api docs...
     {{/if}}

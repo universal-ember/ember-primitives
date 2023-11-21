@@ -86,7 +86,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.strictEqual(
       inputs.length,
       labels.length,
-      'there are labels equal to the number of input fields',
+      'there are labels equal to the number of input fields'
     );
 
     labels.forEach((label, i) => {
@@ -105,7 +105,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.strictEqual(
       inputs.length,
       labels.length,
-      'there are labels equal to the number of input fields',
+      'there are labels equal to the number of input fields'
     );
 
     labels.forEach((label, i) => {
@@ -161,7 +161,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.strictEqual(
       document.activeElement,
       inputs[0],
-      `Can't go more left, we're at the beginning`,
+      `Can't go more left, we're at the beginning`
     );
 
     for (let i = 0; i < 5; i++) {
@@ -175,14 +175,14 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.strictEqual(
       document.activeElement,
       inputs[5],
-      `make sure we're at the end after our loop`,
+      `make sure we're at the end after our loop`
     );
 
     await triggerKeyEvent(inputs[5], 'keydown', 'ArrowRight');
     assert.strictEqual(
       document.activeElement,
       inputs[5],
-      `Can't go more right, we're already at the end`,
+      `Can't go more right, we're already at the end`
     );
   });
 
@@ -215,14 +215,14 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.strictEqual(
       document.activeElement,
       inputs[0],
-      `make sure we're at the end after our loop`,
+      `make sure we're at the end after our loop`
     );
 
     await triggerKeyEvent(inputs[0], 'keydown', 'ArrowLeft');
     assert.strictEqual(
       document.activeElement,
       inputs[0],
-      `Can't go more left, we're already at the beginning`,
+      `Can't go more left, we're already at the beginning`
     );
   });
 

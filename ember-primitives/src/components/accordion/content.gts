@@ -21,7 +21,7 @@ interface Signature extends AccordionContentExternalSignature {
 export class AccordionContent extends Component<Signature> {
   <template>
     <div
-      role='region'
+      role="region"
       id={{@value}}
       data-state={{getDataState @isExpanded}}
       hidden={{this.isHidden}}

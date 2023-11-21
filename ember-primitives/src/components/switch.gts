@@ -72,11 +72,12 @@ const Checkbox: TOC<ControlSignature> = <template>
   {{#let (cell @checked) as |checked|}}
     <input
       id={{@id}}
-      type='checkbox'
-      role='switch'
+      type="checkbox"
+      role="switch"
       checked={{checked.current}}
-      data-state={{if checked.current 'on' 'off'}}
-      {{on 'click' (fn toggleWithFallback checked.toggle @onChange)}}
+      aria-checked={{checked.current}}
+      data-state={{if checked.current "on" "off"}}
+      {{on "click" (fn toggleWithFallback checked.toggle @onChange)}}
       ...attributes
     />
   {{/let}}

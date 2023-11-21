@@ -14,30 +14,30 @@ function isDark() {
 }
 
 const ReportingAnIssue = <template>
-  <ExternalLink href='https://github.com/universal-ember/ember-primitives/issues/new'>
+  <ExternalLink href="https://github.com/universal-ember/ember-primitives/issues/new">
     reporting an issue
   </ExternalLink>
 </template>;
 
 <template>
-  {{#let (service 'selected') as |page|}}
+  {{#let (service "selected") as |page|}}
     {{#if page.prose}}
 
       {{(removeAppShell)}}
 
       {{#if (isDark)}}
         <link
-          rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-dark.css'
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-dark.css"
         />
       {{else}}
         <link
-          rel='stylesheet'
-          href='https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-light.css'
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-light.css"
         />
       {{/if}}
 
-      <main id='layout'>
+      <main id="layout">
         <Nav />
         <section>
           <Prose />

@@ -36,8 +36,8 @@ interface Signature extends AccordionHeaderExternalSignature {
 
 export const AccordionHeader: TOC<Signature> = <template>
   <div
-    role='heading'
-    aria-level='3'
+    role="heading"
+    aria-level="3"
     data-state={{getDataState @isExpanded}}
     data-disabled={{@disabled}}
     ...attributes

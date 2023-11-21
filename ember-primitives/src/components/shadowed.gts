@@ -25,7 +25,7 @@ const Styles = <template>
   {{#let (getStyles) as |styles|}}
     {{#each styles as |styleHref|}}
 
-      <link rel='stylesheet' href={{styleHref}} />
+      <link rel="stylesheet" href={{styleHref}} />
 
     {{/each}}
   {{/let}}

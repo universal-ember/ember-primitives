@@ -10,7 +10,7 @@ const reset = (event: Event) => {
 
   assert(
     'Form is missing. Cannot use <Reset> without being contained within a <form>',
-    form instanceof HTMLFormElement,
+    form instanceof HTMLFormElement
   );
 
   form.reset();
@@ -19,11 +19,11 @@ const reset = (event: Event) => {
 export const Submit: TOC<{
   Element: HTMLButtonElement;
   Blocks: { default: [] };
-}> = <template><button type='submit' ...attributes>Submit</button></template>;
+}> = <template><button type="submit" ...attributes>Submit</button></template>;
 
 export const Reset: TOC<{
   Element: HTMLButtonElement;
   Blocks: { default: [] };
 }> = <template>
-  <button type='button' {{on 'click' reset}} ...attributes>{{yield}}</button>
+  <button type="button" {{on "click" reset}} ...attributes>{{yield}}</button>
 </template>;

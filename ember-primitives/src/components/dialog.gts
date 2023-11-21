@@ -33,7 +33,7 @@ const DialogElement: TOC<{
   };
   Blocks: { default: [] };
 }> = <template>
-  <dialog ...attributes open={{@open}} {{on 'close' @onClose}} {{@register}}>
+  <dialog ...attributes open={{@open}} {{on "close" @onClose}} {{@register}}>
     {{yield}}
   </dialog>
 </template>;
@@ -136,7 +136,7 @@ class ModalDialog extends Component<Signature> {
   close = () => {
     assert(
       'Cannot call `close` on <Dialog> without rendering the dialog element.',
-      this.dialogElement,
+      this.dialogElement
     );
 
     /**
@@ -162,7 +162,7 @@ class ModalDialog extends Component<Signature> {
   handleClose = () => {
     assert(
       'Cannot call `handleDialogClose` on <Dialog> without rendering the dialog element. This is likely a bug in ember-primitives. Please open an issue <3',
-      this.dialogElement,
+      this.dialogElement
     );
 
     this.isOpen = false;
@@ -177,7 +177,7 @@ class ModalDialog extends Component<Signature> {
   open = () => {
     assert(
       'Cannot call `open` on <Dialog> without rendering the dialog element.',
-      this.dialogElement,
+      this.dialogElement
     );
 
     /**

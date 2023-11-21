@@ -23,13 +23,13 @@ interface Signature extends AccordionTriggerExternalSignature {
 
 export const AccordionTrigger: TOC<Signature> = <template>
   <button
-    type='button'
+    type="button"
     aria-controls={{@value}}
     aria-expanded={{@isExpanded}}
     data-state={{getDataState @isExpanded}}
     data-disabled={{@disabled}}
-    aria-disabled={{if @disabled 'true' 'false'}}
-    {{on 'click' @toggleItem}}
+    aria-disabled={{if @disabled "true" "false"}}
+    {{on "click" @toggleItem}}
     ...attributes
   >
     {{yield}}

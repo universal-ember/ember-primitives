@@ -13,18 +13,18 @@ export interface Options {
 }
 
 export function properLinks(
-  options: Options,
+  options: Options
 ): <Instance extends {}, Klass = { new (...args: any[]): Instance }>(klass: Klass) => Klass;
 
 export function properLinks<Instance extends {}, Klass = { new (...args: any[]): Instance }>(
-  klass: Klass,
+  klass: Klass
 ): Klass;
 /**
  * @internal
  */
 export function properLinks<Instance extends {}, Klass = { new (...args: any[]): Instance }>(
   options: Options,
-  klass: Klass,
+  klass: Klass
 ): Klass;
 
 export function properLinks<Instance extends {}, Klass = { new (...args: any[]): Instance }>(
@@ -107,7 +107,7 @@ export function handle(
   router: RouterService,
   element: HTMLAnchorElement,
   ignore: string[],
-  event: MouseEvent,
+  event: MouseEvent
 ) {
   if (!element) return;
   /**

@@ -52,7 +52,7 @@ module('Rendering | findNearestTarget', function (hooks) {
     });
 
     test('second arg, representing the target name, is not in the DOM', async function (assert) {
-      await render(<template><div id='origin'></div></template>);
+      await render(<template><div id="origin"></div></template>);
 
       let origin = find('#origin');
 
@@ -67,7 +67,7 @@ module('Rendering | findNearestTarget', function (hooks) {
     await render(<template>
       <PortalTargets />
 
-      <div id='origin'></div>
+      <div id="origin"></div>
     </template>);
 
     let origin = find('#origin');
@@ -78,13 +78,13 @@ module('Rendering | findNearestTarget', function (hooks) {
 
   test('finds nested targets', async function (assert) {
     await render(<template>
-      <div id='root'>
+      <div id="root">
         <PortalTargets />
       </div>
 
-      <div id='pretend-modal'>
+      <div id="pretend-modal">
         <PortalTargets />
-        <div id='origin'></div>
+        <div id="origin"></div>
       </div>
     </template>);
 
@@ -98,13 +98,13 @@ module('Rendering | findNearestTarget', function (hooks) {
 
   test('not fooled by siling portal targets 1', async function (assert) {
     await render(<template>
-      <div id='root'>
+      <div id="root">
         <PortalTargets />
       </div>
 
-      <div id='pretend-modal'>
+      <div id="pretend-modal">
         <PortalTargets />
-        <div id='origin'></div>
+        <div id="origin"></div>
       </div>
 
       <div>
@@ -123,7 +123,7 @@ module('Rendering | findNearestTarget', function (hooks) {
 
   test('not fooled by siling portal targets 2', async function (assert) {
     await render(<template>
-      <div id='root'>
+      <div id="root">
         <PortalTargets />
       </div>
 
@@ -132,9 +132,9 @@ module('Rendering | findNearestTarget', function (hooks) {
         <div></div>
       </div>
 
-      <div id='pretend-modal'>
+      <div id="pretend-modal">
         <PortalTargets />
-        <div id='origin'></div>
+        <div id="origin"></div>
       </div>
     </template>);
 
@@ -148,15 +148,15 @@ module('Rendering | findNearestTarget', function (hooks) {
 
   test('nested modals, the worst UX', async function (assert) {
     await render(<template>
-      <div id='root'>
+      <div id="root">
         <PortalTargets />
       </div>
 
       <div>
         <PortalTargets />
-        <div id='pretend-modal'>
+        <div id="pretend-modal">
           <PortalTargets />
-          <div id='origin'></div>
+          <div id="origin"></div>
         </div>
       </div>
     </template>);

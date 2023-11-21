@@ -6,7 +6,7 @@ export const ExternalLink: TOC<{
     default: [];
   };
 }> = <template>
-  <a target='_blank' rel='noreferrer noopener' href='##missing##' ...attributes>
+  <a target="_blank" rel="noreferrer noopener" href="##missing##" ...attributes>
     {{yield}}
   </a>
 </template>;

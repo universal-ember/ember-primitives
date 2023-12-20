@@ -11,6 +11,7 @@
   "repository": "https://github.com/universal-ember/ember-primitives",
   "license": "MIT",
   "author": "nullvoxpopuli",
+  "type": "module",
   "files": [
     "addon-main.cjs",
     "dist",
@@ -27,7 +28,7 @@
     "lint:hbs": "pnpm -w exec lint hbs",
     "lint:hbs:fix": "pnpm -w exec lint hbs:fix",
     "lint:package": "pnpm publint",
-    "lint:published-types": "attw *.tgz || exit 0",
+    "lint:published-types": "pnpm -w exec lint published-types",
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
@@ -36,7 +37,7 @@
     "start:js": "rollup --config --watch",
     "start:types": "glint --build --watch",
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'",
-    "prepack": "rollup --config"
+    "prepack": "pnpm build"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.4",

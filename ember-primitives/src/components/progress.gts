@@ -139,7 +139,6 @@ export class Progress extends Component<Signature> {
       data-percent={{this.percent}}
     >
 
-      {{! @glint-ignore }}
       {{yield
         (hash
           Indicator=(component Indicator value=this.value max=this.max percent=this.percent)

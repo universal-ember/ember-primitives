@@ -13,11 +13,6 @@ overrides:
 
 packageExtensionsChecksum: 7d456f94fcb212f3b99ec0fb4a0269f9
 
-patchedDependencies:
-  ember-headless-form@1.0.0-beta.3:
-    hash: u4n53cevs3dxnryrysa4kwtk4u
-    path: patches/ember-headless-form@1.0.0-beta.3.patch
-
 importers:
 
   .:
@@ -124,8 +119,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(ember-source@5.4.0)
       ember-headless-form:
-        specifier: ^1.0.0-beta.3
-        version: 1.0.0-beta.3(patch_hash=u4n53cevs3dxnryrysa4kwtk4u)(@babel/core@7.23.3)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-source@5.4.0)
+        specifier: ^1.0.0
+        version: 1.0.0(@babel/core@7.23.3)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-source@5.4.0)
       ember-modifier:
         specifier: ^4.1.0
         version: 4.1.0(ember-source@5.4.0)
@@ -8088,7 +8083,7 @@ packages:
       ember-source: '*'
     dependencies:
       '@ember/test-waiters': 3.1.0(@babel/core@7.23.3)
-      '@embroider/addon-shim': 1.8.6
+      '@embroider/addon-shim': 1.8.7
       ember-source: 5.4.0(@babel/core@7.23.3)(@glimmer/component@1.1.2)(@glint/template@1.2.1)(webpack@5.89.0)
     transitivePeerDependencies:
       - '@babel/core'
@@ -8739,15 +8734,15 @@ packages:
       - supports-color
     dev: false
 
-  /ember-headless-form@1.0.0-beta.3(patch_hash=u4n53cevs3dxnryrysa4kwtk4u)(@babel/core@7.23.3)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-source@5.4.0):
-    resolution: {integrity: sha512-lM9AcRcf0zY7PK/TZykrlBweO3JOcR8Bwb8yXzfy3ikhAZKRCz9zFmoY7gHreSM5IirutDmqB+rEz/lL0Ab5Ow==}
+  /ember-headless-form@1.0.0(@babel/core@7.23.3)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-source@5.4.0):
+    resolution: {integrity: sha512-m7YUAmoenLmNaS9jOsbqsjvISOESkgM0RV2C7tqD9HW4C0GQGOG5xiNTqzlEJNPvtRpNGaQf5JJ3t7MPENbn/w==}
     peerDependencies:
       '@glimmer/component': ^1.1.2
       '@glimmer/tracking': ^1.1.2
       ember-source: '*'
     dependencies:
-      '@babel/runtime': 7.23.2
-      '@embroider/addon-shim': 1.8.6
+      '@babel/runtime': 7.23.4
+      '@embroider/addon-shim': 1.8.7
       '@embroider/util': 1.12.0(@babel/core@7.23.3)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-source@5.4.0)
       '@glimmer/component': 1.1.2(@babel/core@7.23.3)
       '@glimmer/tracking': 1.1.2
@@ -8762,7 +8757,6 @@ packages:
       - '@glint/template'
       - supports-color
     dev: false
-    patched: true
 
   /ember-load-initializers@2.1.2(@babel/core@7.23.3):
     resolution: {integrity: sha512-CYR+U/wRxLbrfYN3dh+0Tb6mFaxJKfdyz+wNql6cqTrA0BBi9k6J3AaKXj273TqvEpyyXegQFFkZEiuZdYtgJw==}

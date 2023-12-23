@@ -602,8 +602,8 @@ importers:
         specifier: ^8.2.2
         version: 8.2.2
       ember-auto-import:
-        specifier: 2.7.1
-        version: 2.7.1(@glint/template@1.2.1)(webpack@5.89.0)
+        specifier: 2.7.2
+        version: 2.7.2(@glint/template@1.2.1)(webpack@5.89.0)
       ember-cli:
         specifier: ~5.4.0
         version: 5.4.0
@@ -7958,8 +7958,8 @@ packages:
       - supports-color
       - webpack
 
-  /ember-auto-import@2.7.1(@glint/template@1.2.1)(webpack@5.89.0):
-    resolution: {integrity: sha512-8i5pw9DAtIJ+h+iGbYD25GPTyF3gLurokT7b1HBvKkHdOQuqGaXB9aiWA72BnqwA3Kwd3nfgdOml3HEaeQmCKQ==}
+  /ember-auto-import@2.7.2(@glint/template@1.2.1)(webpack@5.89.0):
+    resolution: {integrity: sha512-pkWIljmJClYL17YBk8FjO7NrZPQoY9v0b+FooJvaHf/xlDQIBYVP7OaDHbNuNbpj7+wAwSDAnnwxjCoLsmm4cw==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
       '@babel/core': 7.23.3(supports-color@8.1.1)

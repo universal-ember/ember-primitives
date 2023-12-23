@@ -68,9 +68,6 @@
         "webpack",
         "rsvp"
       ]
-    },
-    "patchedDependencies": {
-      "ember-headless-form@1.0.0-beta.3": "patches/ember-headless-form@1.0.0-beta.3.patch"
     }
   }
 }

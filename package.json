@@ -40,7 +40,7 @@
     "overrides": {
       "@glimmer/validator": ">= 0.84.2",
       "@glimmer/interfaces": ">= 0.84.2",
-      "ember-eslint-parser": "0.2.4",
+      "ember-eslint-parser": "0.2.5",
       "eslint-plugin-ember": "github:ember-cli/eslint-plugin-ember#master",
       "ember-async-data": "1.0.1",
       "ember-compatibility-helpers": "1.2.7",

@@ -1,3 +1,4 @@
+/* global out */
 import { assert as debugAssert } from '@ember/debug';
 import {
   fillIn,

@@ -7,7 +7,7 @@ settings:
 overrides:
   '@glimmer/validator': '>= 0.84.2'
   '@glimmer/interfaces': '>= 0.84.2'
-  ember-eslint-parser: 0.2.4
+  ember-eslint-parser: 0.2.5
   eslint-plugin-ember: github:ember-cli/eslint-plugin-ember#master
   ember-async-data: 1.0.1
   ember-compatibility-helpers: 1.2.7
@@ -8490,8 +8490,8 @@ packages:
       - supports-color
     dev: false
 
-  /ember-eslint-parser@0.2.4(@babel/core@7.23.3)(@typescript-eslint/parser@6.12.0)(eslint@8.54.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-bWtxLkR4lZFlPsg/I+qRqa94xrwgOnOJJ3a86F5wPpZjKcqM6s7My95+jUma555GbLDktM4FHAImmiTj2mMSbQ==}
+  /ember-eslint-parser@0.2.5(@babel/core@7.23.3)(@typescript-eslint/parser@6.12.0)(eslint@8.54.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-ht3kkY6h+kWb6yW2OrqFG9TpC4pgdiTflDYMmJtHgZbbrIPD8fCeo8jVPBYCIO5HCHqxVwmT1H0rNlRRhWfUJg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       '@babel/core': ^7.23.6
@@ -17699,7 +17699,7 @@ packages:
     dependencies:
       '@ember-data/rfc395-data': 0.0.4
       css-tree: 2.3.1
-      ember-eslint-parser: 0.2.4(@babel/core@7.23.3)(@typescript-eslint/parser@6.12.0)(eslint@8.54.0)(typescript@5.3.2)
+      ember-eslint-parser: 0.2.5(@babel/core@7.23.3)(@typescript-eslint/parser@6.12.0)(eslint@8.54.0)(typescript@5.3.2)
       ember-rfc176-data: 0.3.18
       eslint: 8.54.0
       eslint-utils: 3.0.0(eslint@8.54.0)

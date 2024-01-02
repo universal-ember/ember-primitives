@@ -10,10 +10,14 @@ module.exports = {
   overrides: [
     ...config.overrides,
     {
-      files: ['**/*.ts', '**/*.gts'],
-      rules: {
-        '@typescript-eslint/prefer-optional-chain': 'off',
-      },
+      files: ['**/*.gts'],
+      plugins: ['ember'],
+      parser: 'ember-eslint-parser',
+    },
+    {
+      files: ['**/*.gjs'],
+      plugins: ['ember'],
+      parser: 'ember-eslint-parser',
     },
   ],
 };

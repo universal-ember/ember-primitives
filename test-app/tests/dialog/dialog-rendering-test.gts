@@ -1,3 +1,4 @@
+/* global out */
 import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { click, find, render, settled } from '@ember/test-helpers';

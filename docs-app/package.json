@@ -60,7 +60,7 @@
     "@embroider/compat": "3.4.0",
     "@embroider/core": "3.4.2",
     "@embroider/webpack": "3.2.1",
-    "@glimmer/compiler": "^0.85.12",
+    "@glimmer/compiler": "^0.87.0",
     "@glimmer/component": "^1.1.2",
     "@glimmer/syntax": "^0.85.12",
     "@glimmer/tracking": "^1.1.2",

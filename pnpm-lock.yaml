@@ -131,7 +131,7 @@ importers:
         version: file:ember-primitives(@babel/core@7.23.3)(@ember/test-helpers@3.2.0)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/environment-ember-loose@1.2.1)(@glint/template@1.2.1)(ember-modifier@4.1.0)(ember-resources@6.4.2)(ember-source@5.4.0)
       ember-repl:
         specifier: ^3.0.0-beta.7
-        version: 3.0.0-beta.7(@babel/core@7.23.3)(@glimmer/compiler@0.87.1)(@glimmer/component@1.1.2)(@glimmer/syntax@0.85.13)(@glint/template@1.2.1)(ember-resources@6.4.2)(ember-source@5.4.0)
+        version: 3.0.0-beta.7(@babel/core@7.23.3)(@glimmer/compiler@0.87.1)(@glimmer/component@1.1.2)(@glimmer/syntax@0.87.1)(@glint/template@1.2.1)(ember-resources@6.4.2)(ember-source@5.4.0)
       ember-route-template:
         specifier: ^1.0.3
         version: 1.0.3
@@ -197,8 +197,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.23.3)
       '@glimmer/syntax':
-        specifier: ^0.85.12
-        version: 0.85.13
+        specifier: ^0.87.0
+        version: 0.87.1
       '@glimmer/tracking':
         specifier: ^1.1.2
         version: 1.1.2
@@ -2714,6 +2714,7 @@ packages:
       '@glimmer/wire-format': 0.85.13
       '@handlebars/parser': 2.0.0
       simple-html-tokenizer: 0.5.11
+    dev: true
 
   /@glimmer/syntax@0.87.1:
     resolution: {integrity: sha512-zYzZT6LgpSF0iv5iuxmMV5Pf52aE8dukNC2KfrHC6gXJfM4eLZMZcyk76NW5m+SEetZSOXX6AWv/KwLnoxiMfQ==}
@@ -2745,6 +2746,7 @@ packages:
     dependencies:
       '@glimmer/env': 0.1.7
       '@glimmer/interfaces': 0.84.3
+    dev: true
 
   /@glimmer/util@0.87.1:
     resolution: {integrity: sha512-Duxi2JutaIewfIWp8PJl7U5n12yasKWtZFHNLSrg+C8TKeMXdRyJtI7uqtqg0Z/6F9JwdJe/IPhTvdsTTfzAuA==}
@@ -2788,6 +2790,7 @@ packages:
     dependencies:
       '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.85.13
+    dev: true
 
   /@glimmer/wire-format@0.87.1:
     resolution: {integrity: sha512-O3W1HDfRGX7wHZqvP8UzI/nWyZ2GIMFolU7l6WcLGU9HIdzqfxsc7ae2Icob/fq2kV9meHti4yDEdTMlBVK9AQ==}
@@ -8687,7 +8690,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-repl@3.0.0-beta.7(@babel/core@7.23.3)(@glimmer/compiler@0.87.1)(@glimmer/component@1.1.2)(@glimmer/syntax@0.85.13)(@glint/template@1.2.1)(ember-resources@6.4.2)(ember-source@5.4.0):
+  /ember-repl@3.0.0-beta.7(@babel/core@7.23.3)(@glimmer/compiler@0.87.1)(@glimmer/component@1.1.2)(@glimmer/syntax@0.87.1)(@glint/template@1.2.1)(ember-resources@6.4.2)(ember-source@5.4.0):
     resolution: {integrity: sha512-eDdzS/SUqRLbBr3jnvRh7oO550lg2/laolX+1Wi1uK7atZqLQfVUka62zFNgp7SMzNnLhlLhX01OaUqkXyLmEA==}
     engines: {node: '>= v16', npm: use pnpm, yarn: use pnpm}
     peerDependencies:
@@ -8704,7 +8707,7 @@ packages:
       '@embroider/macros': 1.13.3(@babel/core@7.23.3)(@glint/template@1.2.1)
       '@glimmer/compiler': 0.87.1
       '@glimmer/component': 1.1.2(@babel/core@7.23.3)
-      '@glimmer/syntax': 0.85.13
+      '@glimmer/syntax': 0.87.1
       '@glint/template': 1.2.1
       babel-import-util: 2.0.1
       babel-plugin-ember-template-compilation: 2.2.1

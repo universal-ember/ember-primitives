@@ -42,7 +42,7 @@
     "lodash.sortby": "^4.7.0",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
-    "reactiveweb": "^0.1.0",
+    "reactiveweb": "^1.0.0",
     "tracked-built-ins": "^3.2.0"
   },
   "dependenciesMeta": {

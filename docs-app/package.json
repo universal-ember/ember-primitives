@@ -92,7 +92,7 @@
     "ember-page-title": "^8.1.0",
     "ember-qunit": "^8.0.2",
     "ember-resolver": "^11.0.1",
-    "ember-resources": "^6.4.0",
+    "ember-resources": "^7.0.0",
     "ember-source": "~5.5.0",
     "ember-template-imports": "^3.4.2",
     "ember-template-lint": "^5.12.0",

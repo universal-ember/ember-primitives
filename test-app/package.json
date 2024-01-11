@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "ember-primitives": "workspace:*",
-    "ember-resources": "^6.4.0",
+    "ember-resources": "^7.0.0",
     "qunit-assertions-extra": "^1.0.3"
   },
   "dependenciesMeta": {

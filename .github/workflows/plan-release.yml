@@ -33,6 +33,10 @@ jobs:
     name: Prepare Release Notes
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+
     needs: check-plan
     outputs:
       explanation: ${{ steps.explanation.outputs.text }}

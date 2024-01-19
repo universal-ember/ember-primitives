@@ -1,0 +1,21 @@
+{
+  "solution": {
+    "ember-primitives": {
+      "impact": "patch",
+      "oldVersion": "0.10.1",
+      "newVersion": "0.10.2",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./ember-primitives/package.json"
+    }
+  },
+  "description": "## Release (2024-01-19)\n\nember-primitives 0.10.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#202](https://github.com/universal-ember/ember-primitives/pull/202) Fix issue where the progress component had an internal glint ignore ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#209](https://github.com/universal-ember/ember-primitives/pull/209)  Eslint plugin ember alpha v12 testing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`\n  * [#203](https://github.com/universal-ember/ember-primitives/pull/203) Use released version of ember-headless-form ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+}

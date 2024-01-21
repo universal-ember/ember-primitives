@@ -41,9 +41,6 @@ module.exports = function (defaults) {
     staticComponents: true,
     // ember-inspector does not work with this flag
     // staticEmberSource: true,
-    splitControllers: true,
-    splitRouteClasses: true,
-    implicitModulesStrategy: 'packageNames',
     packagerOptions: {
       webpackConfig: {
         devtool: process.env.CI ? 'source-map' : 'eval',

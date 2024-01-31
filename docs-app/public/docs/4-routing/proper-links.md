@@ -1,7 +1,7 @@
 # Proper Links
 
 Enables usage of plain `<a>` tags.
-You no longer need to use a component to have single-app-app navigation 🎉.
+You no longer need to use a component to have single-page-app navigation 🎉.
 
 
 ## Installation 

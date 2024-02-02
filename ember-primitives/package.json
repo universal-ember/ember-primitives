@@ -36,7 +36,7 @@
     "start:js": "rollup --config --watch",
     "start:types": "glint --build --watch",
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'",
-    "prepack": "rollup --config"
+    "prepack": "pnpm build"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.9",

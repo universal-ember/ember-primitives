@@ -27,12 +27,14 @@ module('Rendering | <OTP>', function (hooks) {
   test('@length can be adjusted', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @length={{4}} @onSubmit={{step}} as |x|>
-        <x.Input />
-        <x.Submit>submit</x.Submit>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @length={{4}} @onSubmit={{step}} as |x|>
+          <x.Input />
+          <x.Submit>submit</x.Submit>
+        </OTP>
+      </template>
+    );
 
     assert.dom('input').exists({ count: 4 });
 
@@ -45,12 +47,14 @@ module('Rendering | <OTP>', function (hooks) {
   test('@length={{6}} is the default', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @length={{6}} @onSubmit={{step}} as |x|>
-        <x.Input />
-        <x.Submit>submit</x.Submit>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @length={{6}} @onSubmit={{step}} as |x|>
+          <x.Input />
+          <x.Submit>submit</x.Submit>
+        </OTP>
+      </template>
+    );
 
     assert.dom('input').exists({ count: 6 });
 
@@ -63,15 +67,17 @@ module('Rendering | <OTP>', function (hooks) {
   test(`The Input's <Fields> can be used`, async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @onSubmit={{step}} as |x|>
-        <x.Input as |Fields|>
-          <out>my extra info</out>
-          <Fields />
-        </x.Input>
-        <x.Submit>submit</x.Submit>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @onSubmit={{step}} as |x|>
+          <x.Input as |Fields|>
+            <out>my extra info</out>
+            <Fields />
+          </x.Input>
+          <x.Submit>submit</x.Submit>
+        </OTP>
+      </template>
+    );
 
     assert.dom('out').exists();
     assert.dom('input').exists({ count: 6 });
@@ -80,12 +86,14 @@ module('Rendering | <OTP>', function (hooks) {
   test('@autoSubmit works', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @autoSubmit={{true}} @onSubmit={{step}} as |x|>
-        <x.Input />
-        <x.Submit>submit</x.Submit>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @autoSubmit={{true}} @onSubmit={{step}} as |x|>
+          <x.Input />
+          <x.Submit>submit</x.Submit>
+        </OTP>
+      </template>
+    );
 
     await fillOTP('123456');
 
@@ -95,12 +103,14 @@ module('Rendering | <OTP>', function (hooks) {
   test('@autoSubmit with incomplete input does submit', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @autoSubmit={{true}} @onSubmit={{step}} as |x|>
-        <x.Input />
-        <x.Submit>submit</x.Submit>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @autoSubmit={{true}} @onSubmit={{step}} as |x|>
+          <x.Input />
+          <x.Submit>submit</x.Submit>
+        </OTP>
+      </template>
+    );
 
     await fillOTP('123');
 
@@ -110,12 +120,14 @@ module('Rendering | <OTP>', function (hooks) {
   test('@autoSubmit={{false}} is the default', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @autoSubmit={{false}} @onSubmit={{step}} as |x|>
-        <x.Input />
-        <x.Submit>submit</x.Submit>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @autoSubmit={{false}} @onSubmit={{step}} as |x|>
+          <x.Input />
+          <x.Submit>submit</x.Submit>
+        </OTP>
+      </template>
+    );
 
     await fillOTP('123456');
 
@@ -129,12 +141,14 @@ module('Rendering | <OTP>', function (hooks) {
   test('<Reset> clears the inputs', async function (assert) {
     let step = ({ code }: { code: string }) => assert.step(code);
 
-    await render(<template>
-      <OTP @onSubmit={{step}} as |x|>
-        <x.Input />
-        <x.Reset>reset</x.Reset>
-      </OTP>
-    </template>);
+    await render(
+      <template>
+        <OTP @onSubmit={{step}} as |x|>
+          <x.Input />
+          <x.Reset>reset</x.Reset>
+        </OTP>
+      </template>
+    );
 
     await fillOTP('123456');
 

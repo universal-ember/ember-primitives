@@ -13,13 +13,15 @@ module('Iframe', function (hooks) {
     });
 
     test('works in templates', async function (assert) {
-      await render(<template>
-        {{#if (inIframe)}}
-          in iframe
-        {{else}}
-          not in iframe
-        {{/if}}
-      </template>);
+      await render(
+        <template>
+          {{#if (inIframe)}}
+            in iframe
+          {{else}}
+            not in iframe
+          {{/if}}
+        </template>
+      );
 
       assert.dom().hasText('not in iframe');
     });
@@ -31,13 +33,15 @@ module('Iframe', function (hooks) {
     });
 
     test('works in templates', async function (assert) {
-      await render(<template>
-        {{#if (notInIframe)}}
-          not in iframe
-        {{else}}
-          in iframe
-        {{/if}}
-      </template>);
+      await render(
+        <template>
+          {{#if (notInIframe)}}
+            not in iframe
+          {{else}}
+            in iframe
+          {{/if}}
+        </template>
+      );
 
       assert.dom().hasText('not in iframe');
     });

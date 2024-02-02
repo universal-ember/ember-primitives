@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "chalk": "^5.3.0",
-    "ember-apply": "^2.10.2",
+    "ember-apply": "^2.11.1",
     "execa": "^8.0.1",
-    "fs-extra": "^11.1.1",
-    "latest-version": "^7.0.0"
+    "fs-extra": "^11.2.0",
+    "latest-version": "^8.0.0"
   },
   "engines": {
     "node": ">= 18"
@@ -22,13 +22,13 @@
     "extends": "../package.json"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/eslint-parser": "^7.23.3",
+    "@babel/core": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
     "@nullvoxpopuli/eslint-configs": "^3.2.2",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
-    "prettier": "^3.1.0",
+    "prettier": "^3.2.4",
     "typescript": "^5.3.3"
   },
   "scripts": {

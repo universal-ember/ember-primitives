@@ -12,20 +12,24 @@ module('Rendering | <Portal>', function (hooks) {
       assert.matches(error.message, /Could not find element by the given name: `does-not-exist`/);
     });
 
-    await render(<template>
-      <Portal @to="does-not-exist">
-        content
-      </Portal>
-    </template>);
+    await render(
+      <template>
+        <Portal @to="does-not-exist">
+          content
+        </Portal>
+      </template>
+    );
   });
 
   test('renders in to a portal target', async function (assert) {
-    await render(<template>
-      <PortalTargets />
-      <Portal @to={{PORTALS.popover}}>
-        content
-      </Portal>
-    </template>);
+    await render(
+      <template>
+        <PortalTargets />
+        <Portal @to={{PORTALS.popover}}>
+          content
+        </Portal>
+      </template>
+    );
 
     assert.dom(`[data-portal-name="${PORTALS.popover}"]`).hasText('content');
   });

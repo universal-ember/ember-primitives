@@ -19,7 +19,9 @@ const reset = (event: Event) => {
 export const Submit: TOC<{
   Element: HTMLButtonElement;
   Blocks: { default: [] };
-}> = <template><button type="submit" ...attributes>Submit</button></template>;
+}> = <template>
+  <button type="submit" ...attributes>Submit</button>
+</template>;
 
 export const Reset: TOC<{
   Element: HTMLButtonElement;

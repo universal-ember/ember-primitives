@@ -52,7 +52,11 @@ module('Rendering | findNearestTarget', function (hooks) {
     });
 
     test('second arg, representing the target name, is not in the DOM', async function (assert) {
-      await render(<template><div id="origin"></div></template>);
+      await render(
+        <template>
+          <div id="origin"></div>
+        </template>
+      );
 
       let origin = find('#origin');
 
@@ -64,11 +68,13 @@ module('Rendering | findNearestTarget', function (hooks) {
   });
 
   test('finds root targets', async function (assert) {
-    await render(<template>
-      <PortalTargets />
+    await render(
+      <template>
+        <PortalTargets />
 
-      <div id="origin"></div>
-    </template>);
+        <div id="origin"></div>
+      </template>
+    );
 
     let origin = find('#origin');
 
@@ -77,16 +83,18 @@ module('Rendering | findNearestTarget', function (hooks) {
   });
 
   test('finds nested targets', async function (assert) {
-    await render(<template>
-      <div id="root">
-        <PortalTargets />
-      </div>
+    await render(
+      <template>
+        <div id="root">
+          <PortalTargets />
+        </div>
 
-      <div id="pretend-modal">
-        <PortalTargets />
-        <div id="origin"></div>
-      </div>
-    </template>);
+        <div id="pretend-modal">
+          <PortalTargets />
+          <div id="origin"></div>
+        </div>
+      </template>
+    );
 
     let origin = find('#origin');
     let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
@@ -97,21 +105,23 @@ module('Rendering | findNearestTarget', function (hooks) {
   });
 
   test('not fooled by siling portal targets 1', async function (assert) {
-    await render(<template>
-      <div id="root">
-        <PortalTargets />
-      </div>
+    await render(
+      <template>
+        <div id="root">
+          <PortalTargets />
+        </div>
 
-      <div id="pretend-modal">
-        <PortalTargets />
-        <div id="origin"></div>
-      </div>
+        <div id="pretend-modal">
+          <PortalTargets />
+          <div id="origin"></div>
+        </div>
 
-      <div>
-        <PortalTargets />
-        <div></div>
-      </div>
-    </template>);
+        <div>
+          <PortalTargets />
+          <div></div>
+        </div>
+      </template>
+    );
 
     let origin = find('#origin');
     let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
@@ -122,21 +132,23 @@ module('Rendering | findNearestTarget', function (hooks) {
   });
 
   test('not fooled by siling portal targets 2', async function (assert) {
-    await render(<template>
-      <div id="root">
-        <PortalTargets />
-      </div>
+    await render(
+      <template>
+        <div id="root">
+          <PortalTargets />
+        </div>
 
-      <div>
-        <PortalTargets />
-        <div></div>
-      </div>
+        <div>
+          <PortalTargets />
+          <div></div>
+        </div>
 
-      <div id="pretend-modal">
-        <PortalTargets />
-        <div id="origin"></div>
-      </div>
-    </template>);
+        <div id="pretend-modal">
+          <PortalTargets />
+          <div id="origin"></div>
+        </div>
+      </template>
+    );
 
     let origin = find('#origin');
     let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
@@ -147,19 +159,21 @@ module('Rendering | findNearestTarget', function (hooks) {
   });
 
   test('nested modals, the worst UX', async function (assert) {
-    await render(<template>
-      <div id="root">
-        <PortalTargets />
-      </div>
-
-      <div>
-        <PortalTargets />
-        <div id="pretend-modal">
+    await render(
+      <template>
+        <div id="root">
           <PortalTargets />
-          <div id="origin"></div>
         </div>
-      </div>
-    </template>);
+
+        <div>
+          <PortalTargets />
+          <div id="pretend-modal">
+            <PortalTargets />
+            <div id="origin"></div>
+          </div>
+        </div>
+      </template>
+    );
 
     let origin = find('#origin');
     let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);

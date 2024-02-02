@@ -2,3 +2,7 @@ dist/
 dist-types/
 node_modules/
 *.md
+
+# these break the prettier plugin atm
+link.gts
+

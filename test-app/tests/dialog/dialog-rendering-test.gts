@@ -23,15 +23,17 @@ module('Rendering | dialog', function (hooks) {
 
   module('preferred usage', function () {
     test('can be open', async function (assert) {
-      await render(<template>
-        <Modal as |m|>
-          <out>{{m.isOpen}}</out>
-          <button type="button" {{on "click" m.open}}>Open Dialog</button>
-          <m.Dialog>
-            content
-          </m.Dialog>
-        </Modal>
-      </template>);
+      await render(
+        <template>
+          <Modal as |m|>
+            <out>{{m.isOpen}}</out>
+            <button type="button" {{on "click" m.open}}>Open Dialog</button>
+            <m.Dialog>
+              content
+            </m.Dialog>
+          </Modal>
+        </template>
+      );
 
       assert.dom('dialog').exists();
       assert.dom('dialog').hasStyle({ display: 'none' });
@@ -45,16 +47,18 @@ module('Rendering | dialog', function (hooks) {
     });
 
     test('can be closed', async function (assert) {
-      await render(<template>
-        <Modal as |m|>
-          <out>{{m.isOpen}}</out>
-          <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
-          <m.Dialog>
-            content
-            <button id="close" type="button" {{on "click" m.close}}>Close Dialog</button>
-          </m.Dialog>
-        </Modal>
-      </template>);
+      await render(
+        <template>
+          <Modal as |m|>
+            <out>{{m.isOpen}}</out>
+            <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
+            <m.Dialog>
+              content
+              <button id="close" type="button" {{on "click" m.close}}>Close Dialog</button>
+            </m.Dialog>
+          </Modal>
+        </template>
+      );
 
       await click('#open');
 
@@ -71,15 +75,17 @@ module('Rendering | dialog', function (hooks) {
     });
 
     test('can be closed via the ESC key', async function (assert) {
-      await render(<template>
-        <Modal as |m|>
-          <out>{{m.isOpen}}</out>
-          <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
-          <m.Dialog>
-            content
-          </m.Dialog>
-        </Modal>
-      </template>);
+      await render(
+        <template>
+          <Modal as |m|>
+            <out>{{m.isOpen}}</out>
+            <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
+            <m.Dialog>
+              content
+            </m.Dialog>
+          </Modal>
+        </template>
+      );
 
       await click('#open');
 
@@ -96,19 +102,21 @@ module('Rendering | dialog', function (hooks) {
     test('@onClose is called', async function (assert) {
       const handleClose = (reason: string) => assert.step(`closed ${reason}`);
 
-      await render(<template>
-        <Modal @onClose={{handleClose}} as |m|>
-          <out>{{m.isOpen}}</out>
-          <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
-          <m.Dialog>
-            content
-            <form method="dialog">
-              <button value="resetBtn" type="submit" {{on "click" m.close}}>Reset</button>
-              <button type="submit" value="confirmBtn">Confirm</button>
-            </form>
-          </m.Dialog>
-        </Modal>
-      </template>);
+      await render(
+        <template>
+          <Modal @onClose={{handleClose}} as |m|>
+            <out>{{m.isOpen}}</out>
+            <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
+            <m.Dialog>
+              content
+              <form method="dialog">
+                <button value="resetBtn" type="submit" {{on "click" m.close}}>Reset</button>
+                <button type="submit" value="confirmBtn">Confirm</button>
+              </form>
+            </m.Dialog>
+          </Modal>
+        </template>
+      );
 
       await click('#open');
       await close();
@@ -134,13 +142,15 @@ module('Rendering | dialog', function (hooks) {
 
   module('when setting the initial state', function () {
     test('starts open', async function (assert) {
-      await render(<template>
-        <Modal @open={{true}} as |m|>
-          <out>{{m.isOpen}}</out>
-          <button type="button" {{on "click" m.open}}>Open Dialog</button>
-          <m.Dialog> content </m.Dialog>
-        </Modal>
-      </template>);
+      await render(
+        <template>
+          <Modal @open={{true}} as |m|>
+            <out>{{m.isOpen}}</out>
+            <button type="button" {{on "click" m.open}}>Open Dialog</button>
+            <m.Dialog> content </m.Dialog>
+          </Modal>
+        </template>
+      );
 
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
@@ -165,12 +175,14 @@ module('Rendering | dialog', function (hooks) {
 
       let state = new Controlled();
 
-      await render(<template>
-        <Modal @open={{state.open}} as |m|>
-          <out>{{m.isOpen}}</out>
-          <m.Dialog> content </m.Dialog>
-        </Modal>
-      </template>);
+      await render(
+        <template>
+          <Modal @open={{state.open}} as |m|>
+            <out>{{m.isOpen}}</out>
+            <m.Dialog> content </m.Dialog>
+          </Modal>
+        </template>
+      );
 
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');

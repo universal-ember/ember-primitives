@@ -8,4 +8,6 @@ export const Label: TOC<{
   Element: HTMLLabelElement;
   Args: { for: string };
   Blocks: { default: [] };
-}> = <template><label for={{@for}} ...attributes>{{yield}}</label></template>;
+}> = <template>
+  <label for={{@for}} ...attributes>{{yield}}</label>
+</template>;

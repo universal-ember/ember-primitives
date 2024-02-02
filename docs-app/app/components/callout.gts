@@ -14,5 +14,4 @@ export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
     italic; } .callout p { /* override prose styles */ margin: 0; }
   </style>
 </template>;
-
 export default Callout;

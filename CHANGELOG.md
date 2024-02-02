@@ -1,4 +1,18 @@
 # Changelog 
+
+## Release (2024-02-02)
+
+ember-primitives 0.10.3 (patch)
+
+#### :house: Internal
+* `@nullvoxpopuli/dev`, `docs-api`, `docs-app`, `ember-primitives`, `test-app`
+  * [#234](https://github.com/universal-ember/ember-primitives/pull/234) Upgrade build dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#233](https://github.com/universal-ember/ember-primitives/pull/233) Upgrade types-related dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#231](https://github.com/universal-ember/ember-primitives/pull/231) Upgrade lint deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 ## Release (2024-01-19)
 
 ember-primitives 0.10.2 (patch)

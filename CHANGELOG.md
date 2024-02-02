@@ -2,6 +2,17 @@
 
 ## Release (2024-02-02)
 
+ember-primitives 0.10.4 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#235](https://github.com/universal-ember/ember-primitives/pull/235) fix prepack command so types are shipped ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2024-02-02)
+
 ember-primitives 0.10.3 (patch)
 
 #### :house: Internal

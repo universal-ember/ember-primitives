@@ -2,16 +2,16 @@
   "solution": {
     "ember-primitives": {
       "impact": "patch",
-      "oldVersion": "0.10.2",
-      "newVersion": "0.10.3",
+      "oldVersion": "0.10.3",
+      "newVersion": "0.10.4",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-02-02)\n\nember-primitives 0.10.3 (patch)\n\n#### :house: Internal\n* `@nullvoxpopuli/dev`, `docs-api`, `docs-app`, `ember-primitives`, `test-app`\n  * [#234](https://github.com/universal-ember/ember-primitives/pull/234) Upgrade build dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#233](https://github.com/universal-ember/ember-primitives/pull/233) Upgrade types-related dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`\n  * [#231](https://github.com/universal-ember/ember-primitives/pull/231) Upgrade lint deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-02-02)\n\nember-primitives 0.10.4 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#235](https://github.com/universal-ember/ember-primitives/pull/235) fix prepack command so types are shipped ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

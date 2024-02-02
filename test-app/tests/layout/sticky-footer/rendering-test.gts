@@ -8,16 +8,18 @@ module('Rendering | <Portal>', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
-    await render(<template>
-      <StickyFooter>
-        <:content>
-          the content
-        </:content>
-        <:footer>
-          the footer
-        </:footer>
-      </StickyFooter>
-    </template>);
+    await render(
+      <template>
+        <StickyFooter>
+          <:content>
+            the content
+          </:content>
+          <:footer>
+            the footer
+          </:footer>
+        </StickyFooter>
+      </template>
+    );
 
     assert.dom('.ember-primitives__sticky-footer__wrapper').exists();
     assert.dom('.ember-primitives__sticky-footer__container').exists();

@@ -46,12 +46,14 @@ module('Rendering | <OTPInput>', function (hooks) {
   });
 
   test('<Fields> can be used', async function (assert) {
-    await render(<template>
-      <OTPInput as |Fields|>
-        <out>my extra info</out>
-        <Fields />
-      </OTPInput>
-    </template>);
+    await render(
+      <template>
+        <OTPInput as |Fields|>
+          <out>my extra info</out>
+          <Fields />
+        </OTPInput>
+      </template>
+    );
 
     assert.dom('out').exists();
     assert.dom('input').exists({ count: 6 });

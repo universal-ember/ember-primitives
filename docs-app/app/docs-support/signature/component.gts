@@ -88,7 +88,6 @@ const Element: TOC<{ Args: { info: any } }> = <template>
     </span>
   {{/if}}
 </template>;
-
 const Blocks: TOC<{ Args: { info: any } }> = <template>
   {{#if @info}}
     <h3 class="typedoc-heading">Blocks</h3>

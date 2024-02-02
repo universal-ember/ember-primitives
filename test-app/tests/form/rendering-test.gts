@@ -12,13 +12,15 @@ module('<Form />', function (hooks) {
     const data = cell<any>({});
     const update = (x: any) => (data.current = x);
 
-    await render(<template>
-      <Form @onChange={{update}}>
-        <label>first
-          <input name="first" />
-        </label>
-      </Form>
-    </template>);
+    await render(
+      <template>
+        <Form @onChange={{update}}>
+          <label>first
+            <input name="first" />
+          </label>
+        </Form>
+      </template>
+    );
 
     assert.dom('input').hasValue('');
     assert.notOk(data.current.first);
@@ -32,14 +34,16 @@ module('<Form />', function (hooks) {
     const data = cell<any>({});
     const update = (x: any) => (data.current = x);
 
-    await render(<template>
-      <Form @onChange={{update}}>
-        <label>first
-          <input name="first" value="from-dom" />
-        </label>
-        <button type="submit">submit</button>
-      </Form>
-    </template>);
+    await render(
+      <template>
+        <Form @onChange={{update}}>
+          <label>first
+            <input name="first" value="from-dom" />
+          </label>
+          <button type="submit">submit</button>
+        </Form>
+      </template>
+    );
 
     assert.notOk(data.current.first);
 

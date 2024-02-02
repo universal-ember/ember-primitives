@@ -16,6 +16,6 @@
     "@zamiell/typedoc-plugin-not-exported": "^0.2.0",
     "pnpm-sync-dependencies-meta-injected": "0.0.10",
     "typedoc": "^0.25.3",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.3"
   }
 }

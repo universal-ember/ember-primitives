@@ -107,15 +107,21 @@ function focusRight(event: Pick<Event, 'target'>) {
 function handleBackspace(event: KeyboardEvent) {
   if (event.key !== 'Backspace') return;
 
+  event.preventDefault();
+
   let target = event.target;
+
+  if (target && 'value' in target) {
+    target.value = '';
+  }
 
   // We need to requestAnimationFrame here, because
   // we don't want to change focus before the native browser
   // behavior of backspace (deleting a character backwards)
   // has taken affect.
-  requestAnimationFrame(() => {
-    focusLeft({ target });
-  });
+  // requestAnimationFrame(() => {
+  focusLeft({ target });
+  // });
 }
 
 function previousInput(current: HTMLInputElement) {

@@ -371,6 +371,9 @@ importers:
       '@floating-ui/dom':
         specifier: ^1.5.1
         version: 1.5.3
+      decorator-transforms:
+        specifier: ^1.1.0
+        version: 1.1.0(@babel/core@7.23.9)
       ember-element-helper:
         specifier: ^0.8.4
         version: 0.8.5(@babel/core@7.23.9)(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-source@5.5.0)

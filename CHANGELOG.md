@@ -1,5 +1,30 @@
 # Changelog 
 
+## Release (2024-02-03)
+
+ember-primitives 0.11.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#241](https://github.com/universal-ember/ember-primitives/pull/241) [OTP]: Disable autocomplete on the input fields ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`, `test-app`
+  * [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `ember-primitives`, `test-app`
+  * [#243](https://github.com/universal-ember/ember-primitives/pull/243) [OTP]: Fix issue with backspace repeating faster than the otp input logic could keep up with (by keeping up with it) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#240](https://github.com/universal-ember/ember-primitives/pull/240) [OTP]: Resolve pasting and focus state issues ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `test-app`
+  * [#242](https://github.com/universal-ember/ember-primitives/pull/242) [Avatar] Fix flaky test ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`
+  * [#237](https://github.com/universal-ember/ember-primitives/pull/237) Upgrade repl ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-02-02)
 
 ember-primitives 0.10.4 (patch)

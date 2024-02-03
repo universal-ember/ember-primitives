@@ -256,6 +256,26 @@ module('Rendering | <OTPInput>', function (hooks) {
     );
   });
 
+  // Apparently we can't test paste :(
+  // https://stackoverflow.com/questions/51395393/how-to-trigger-paste-event-manually-in-javascript
+  skip('pasting into a field fills subsequent fields', async function (assert) {
+    let step = ({ code, complete }: { code: string; complete: boolean }) =>
+      assert.step(`${code}:${complete}`);
+
+    await render(<template><OTPInput @onChange={{step}} /></template>);
+
+    assert.strictEqual(readValue(), '');
+
+    let inputs = getInputs() as [HTMLInputElement];
+
+    await triggerEvent(inputs[0], 'paste', {
+      clipboardData: { getData: () => '123456' },
+      data: '123456',
+    });
+
+    assert.verifySteps(['123456:true']);
+  });
+
   test('clicking into a filled field selects the whole character, because it needs to be replaced', async function (assert) {
     let step = ({ code, complete }: { code: string; complete: boolean }) =>
       assert.step(`${code}:${complete}`);

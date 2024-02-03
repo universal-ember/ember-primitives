@@ -4,7 +4,7 @@ import { isDestroyed, isDestroying } from '@ember/destroyable';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
 
-import { autoAdvance, getCollectiveValue, handleNavigation, selectAll } from './utils';
+import { autoAdvance, getCollectiveValue, handleNavigation, handlePaste, selectAll } from './utils';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
@@ -41,6 +41,7 @@ const Fields: TOC<{
         inputmode="numeric"
         ...attributes
         {{on "click" selectAll}}
+        {{on "paste" handlePaste}}
         {{on "input" autoAdvance}}
         {{on "input" @handleChange}}
         {{on "keydown" handleNavigation}}

@@ -23,6 +23,36 @@ export function selectAll(event: Event) {
   target.select();
 }
 
+export function handlePaste(event: Event) {
+  let target = event.target;
+
+  assert(
+    `handlePaste is only meant for use with input elements`,
+    target instanceof HTMLInputElement
+  );
+
+  let value = target.value;
+  const digits = value;
+  let i = 0;
+  let currElement: HTMLInputElement | null = target;
+
+  while (currElement) {
+    currElement.value = digits[i++] || '';
+
+    let next = nextInput(currElement);
+
+    if (next instanceof HTMLInputElement) {
+      currElement = next;
+    } else {
+      break;
+    }
+  }
+
+  target.select();
+
+  // console.log('did paste');
+}
+
 export function handleNavigation(event: KeyboardEvent) {
   switch (event.key) {
     case 'Backspace':
@@ -86,26 +116,18 @@ export const autoAdvance = (event: Event) => {
     '[BUG]: autoAdvance called on non-input element',
     event.target instanceof HTMLInputElement
   );
+  assert('[BUG]: event must be InputEvent', event instanceof InputEvent);
 
   let value = event.target.value;
 
   if (value.length === 0) return;
-  if (value.length === 1) return focusRight(event);
 
-  const digits = value;
-  let i = 0;
-  let currElement: HTMLInputElement | null = event.target;
-
-  while (currElement) {
-    currElement.value = digits[i++] || '';
-
-    let next = nextInput(currElement);
-
-    if (next instanceof HTMLInputElement) {
-      currElement = next;
-    } else {
-      break;
+  if (value.length > 0) {
+    if (event.data) {
+      event.target.value = event.data;
     }
+
+    return focusRight(event);
   }
 };
 

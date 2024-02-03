@@ -496,8 +496,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       fix-bad-declaration-output:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.1
+        version: 1.1.1
       prettier:
         specifier: ^3.2.4
         version: 3.2.4
@@ -10984,8 +10984,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /fix-bad-declaration-output@1.1.0:
-    resolution: {integrity: sha512-v75Y7ec5pnbmvKOsITCc6uDd8aJI10gw8jfWyzyDhS56r0or+/nvW2ury9U8yeRvipPBnf2PNTFtdC2z6FwlqQ==}
+  /fix-bad-declaration-output@1.1.1:
+    resolution: {integrity: sha512-b59YI2lzwzet4Xi31sYh0pPXwnqY8fVAZUeGcR1DJsx+FMcwTkxukSmUVcC0VH1LJjiE+KlTfYj/a0BtKKlCqg==}
     hasBin: true
     dependencies:
       fs-extra: 11.2.0

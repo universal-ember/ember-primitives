@@ -45,6 +45,7 @@ export default {
         await fixBadDeclarationOutput("declarations/**/*.d.ts", [
           ["TypeScript#56571", { types: "all" }],
           "Glint#628",
+          "Glint#697",
         ]);
         console.log("⚠️ Dangerously (but neededly) fixed bad declaration output from typescript");
       },

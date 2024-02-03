@@ -1,5 +1,5 @@
 dist/
-dist-types/
+declarations/
 node_modules/
 *.md
 .eslintcache

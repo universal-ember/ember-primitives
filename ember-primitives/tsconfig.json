@@ -6,9 +6,15 @@
   },
   "compilerOptions": {
     "skipLibCheck": true,
-    "declarationDir": "dist-types",
+    "declarationDir": "declarations",
     "emitDeclarationOnly": true,
+
+    // Required, else declarations don't emit
+    // @tsconfig/ember sets noEmit: true
     "noEmit": false,
+    // noEmitOnError true is not a good default.
+    // especially as CLI tools can accidentally swallow errors
+    "noEmitOnError": false,
 
     /**
       https://www.typescriptlang.org/tsconfig#rootDir

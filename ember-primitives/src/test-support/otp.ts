@@ -28,14 +28,22 @@ export async function fillOTP(code: string, selector?: string) {
     code.length <= inputs.length
   );
 
-  // let chars = code.split('');
+  let chars = code.split('');
 
   assert(`OTP Input for index 0 is missing!`, inputs[0]);
+  assert(`Character at index 0 is missing`, chars[0]);
 
-  /**
-   * Relies on the paste functionality to be more relyable in test timings.
-   */
-  await fillIn(inputs[0], code);
+  for (let i = 0; i < chars.length; i++) {
+    let input = inputs[i];
+    let char = chars[i];
+
+    assert(`Input at index ${i} is missing`, input);
+    assert(`Character at index ${i} is missing`, char);
+
+    input.value = char;
+  }
+
+  await fillIn(inputs[0], chars[0]);
 
   // Account for out-of-settled-system delay due to RAF debounce.
   await new Promise((resolve) => requestAnimationFrame(resolve));

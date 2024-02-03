@@ -15,6 +15,14 @@ function nextInput(current: HTMLInputElement) {
   return inputs[currentIndex + 1];
 }
 
+export function selectAll(event: Event) {
+  let target = event.target;
+
+  assert(`selectAll is only meant for use with input elements`, target instanceof HTMLInputElement);
+
+  target.select();
+}
+
 export function handleNavigation(event: KeyboardEvent) {
   switch (event.key) {
     case 'Backspace':

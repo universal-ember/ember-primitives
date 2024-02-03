@@ -1,11 +1,13 @@
 /* global out */
 import { assert as debugAssert } from '@ember/debug';
 import {
+  click,
   fillIn,
   find,
   findAll,
   focus,
   render,
+  settled,
   triggerEvent,
   triggerKeyEvent,
 } from '@ember/test-helpers';
@@ -28,6 +30,31 @@ function readValue() {
   return getInputs()
     .map((input) => input.value)
     .join('');
+}
+
+function isSelected(input: HTMLInputElement) {
+  if (null === input.selectionStart || null === input.selectionEnd) {
+    return false;
+  }
+
+  let selectionLength = input.selectionEnd - input.selectionStart;
+
+  return input.value.length === selectionLength;
+}
+
+async function arrowLeft() {
+  debugAssert(`Cannot use arrowLeft with no activeElement`, document.activeElement);
+
+  await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowLeft');
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  await settled();
+}
+
+async function arrowRight() {
+  debugAssert(`Cannot use arrowRight with no activeElement`, document.activeElement);
+  await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowRight');
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+  await settled();
 }
 
 module('Rendering | <OTPInput>', function (hooks) {
@@ -227,6 +254,44 @@ module('Rendering | <OTPInput>', function (hooks) {
       inputs[0],
       `Can't go more left, we're already at the beginning`
     );
+  });
+
+  test('clicking into a filled field selects the whole character, because it needs to be replaced', async function (assert) {
+    let step = ({ code, complete }: { code: string; complete: boolean }) =>
+      assert.step(`${code}:${complete}`);
+
+    await render(<template><OTPInput @onChange={{step}} /></template>);
+
+    assert.strictEqual(readValue(), '');
+
+    let inputs = getInputs() as [
+      HTMLInputElement,
+      HTMLInputElement,
+      HTMLInputElement,
+      HTMLInputElement,
+    ];
+
+    await fillOTP('123456');
+    assert.verifySteps(['123456:true']);
+
+    await click(inputs[2]);
+
+    assert.ok(isSelected(inputs[2]), 'The third input is highlighted / selected');
+
+    await arrowLeft();
+    assert.ok(isSelected(inputs[1]), 'The second input is now highlighted / selected');
+
+    await arrowLeft();
+    assert.ok(isSelected(inputs[0]), 'The first input is now highlighted / selected');
+
+    await arrowLeft();
+    assert.ok(isSelected(inputs[0]), 'The first input remains selected');
+
+    await arrowRight();
+    assert.ok(isSelected(inputs[1]), 'The second input is now highlighted / selected');
+
+    await arrowRight();
+    assert.ok(isSelected(inputs[2]), 'The second input is now highlighted / selected');
   });
 
   // Backspace can only work when isTrusted:true

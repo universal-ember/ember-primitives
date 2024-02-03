@@ -42,7 +42,9 @@ function focusLeft(event: Pick<Event, 'target'>) {
   let input = previousInput(target);
 
   input?.focus();
-  input?.select();
+  requestAnimationFrame(() => {
+    input?.select();
+  });
 }
 
 function focusRight(event: Pick<Event, 'target'>) {
@@ -53,7 +55,9 @@ function focusRight(event: Pick<Event, 'target'>) {
   let input = nextInput(target);
 
   input?.focus();
-  input?.select();
+  requestAnimationFrame(() => {
+    input?.select();
+  });
 }
 
 function handleBackspace(event: KeyboardEvent) {

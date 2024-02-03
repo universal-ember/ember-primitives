@@ -31,7 +31,16 @@ export function handlePaste(event: Event) {
     target instanceof HTMLInputElement
   );
 
-  let value = target.value;
+  let clipboardData = (event as ClipboardEvent).clipboardData;
+  assert(`Could not get clipboardData while handling the paste event on OTP. Please report this issue on the ember-primitives repo with a reproduction. Thanks!`, clipboardData);
+
+  // This is typically not good to prevent paste.
+  // But because of the UX we're implementing,
+  // we want to split the pasted value across
+  // multiple text fields
+  event.preventDefault();
+
+  let value = clipboardData.getData('Text');
   const digits = value;
   let i = 0;
   let currElement: HTMLInputElement | null = target;
@@ -48,9 +57,10 @@ export function handlePaste(event: Event) {
     }
   }
 
+  // We want to select the first field again
+  // so that if someone holds paste, or
+  // pastes again, they get the same result.
   target.select();
-
-  // console.log('did paste');
 }
 
 export function handleNavigation(event: KeyboardEvent) {
@@ -116,14 +126,12 @@ export const autoAdvance = (event: Event) => {
     '[BUG]: autoAdvance called on non-input element',
     event.target instanceof HTMLInputElement
   );
-  assert('[BUG]: event must be InputEvent', event instanceof InputEvent);
-
   let value = event.target.value;
 
   if (value.length === 0) return;
 
   if (value.length > 0) {
-    if (event.data) {
+    if ('data' in event && event.data && typeof event.data === 'string') {
       event.target.value = event.data;
     }
 

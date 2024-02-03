@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 import Router from '@ember/routing/router';
 
-import { properLinks } from '../proper-links';
+import { properLinks } from '../proper-links.ts';
 
 import type Owner from '@ember/owner';
 import type { DSLCallback } from '@ember/routing/lib/dsl';

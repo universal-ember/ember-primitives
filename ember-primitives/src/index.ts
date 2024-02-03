@@ -4,26 +4,26 @@ if (macroCondition(isDevelopingApp())) {
   importSync('./components/violations.css');
 }
 
-export {
-  Accordion,
-  type AccordionContentExternalSignature,
-  type AccordionHeaderExternalSignature,
-  type AccordionItemExternalSignature,
-  type AccordionTriggerExternalSignature,
-} from './components/accordion';
-export { Avatar } from './components/avatar';
-export { Dialog, Dialog as Modal } from './components/dialog';
-export { ExternalLink } from './components/external-link';
-export { Form } from './components/form';
-export { StickyFooter } from './components/layout/sticky-footer/index';
-export { Link } from './components/link';
-export { OTP, OTPInput } from './components/one-time-password/index';
-export { Popover } from './components/popover';
-export { Portal } from './components/portal';
-export { PortalTargets } from './components/portal-targets';
-export { TARGETS as PORTALS } from './components/portal-targets';
-export { Progress } from './components/progress';
-export { Shadowed } from './components/shadowed';
-export { Switch } from './components/switch';
-export { Toggle } from './components/toggle';
-export * from './helpers';
+export { Accordion } from './components/accordion.gts';
+export type {
+  AccordionContentExternalSignature,
+  AccordionHeaderExternalSignature,
+  AccordionItemExternalSignature,
+  AccordionTriggerExternalSignature,
+} from './components/accordion/public.ts';
+export { Avatar } from './components/avatar.gts';
+export { Dialog, Dialog as Modal } from './components/dialog.gts';
+export { ExternalLink } from './components/external-link.gts';
+export { Form } from './components/form.gts';
+export { StickyFooter } from './components/layout/sticky-footer/index.gts';
+export { Link } from './components/link.gts';
+export { OTP, OTPInput } from './components/one-time-password/index.gts';
+export { Popover } from './components/popover.gts';
+export { Portal } from './components/portal.gts';
+export { PortalTargets } from './components/portal-targets.gts';
+export { TARGETS as PORTALS } from './components/portal-targets.gts';
+export { Progress } from './components/progress.gts';
+export { Shadowed } from './components/shadowed.gts';
+export { Switch } from './components/switch.gts';
+export { Toggle } from './components/toggle.gts';
+export * from './helpers.ts';

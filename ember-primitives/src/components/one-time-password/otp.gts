@@ -3,8 +3,8 @@ import { fn, hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
 
-import { Reset, Submit } from './buttons';
-import { OTPInput } from './input';
+import { Reset, Submit } from './buttons.gts';
+import { OTPInput } from './input.gts';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';

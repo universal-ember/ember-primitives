@@ -6,8 +6,8 @@ import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
 import { Velcro } from 'ember-velcro';
 
-import { Portal } from './portal';
-import { TARGETS } from './portal-targets';
+import { Portal } from './portal.gts';
+import { TARGETS } from './portal-targets.gts';
 
 import type { TOC } from '@ember/component/template-only';
 import type { Middleware, MiddlewareData } from '@floating-ui/dom';

@@ -8,7 +8,7 @@ import { hash } from '@ember/helper';
 // @ts-ignore
 import { localCopy } from 'tracked-toolbox';
 
-import AccordionItem from './accordion/item';
+import AccordionItem from './accordion/item.gts';
 
 import type { WithBoundArgs } from '@glint/template';
 
@@ -193,7 +193,3 @@ export class Accordion extends Component<{
 
 export default Accordion;
 
-export { type AccordionContentExternalSignature } from './accordion/content';
-export { type AccordionHeaderExternalSignature } from './accordion/header';
-export { type AccordionItemExternalSignature } from './accordion/item';
-export { type AccordionTriggerExternalSignature } from './accordion/trigger';

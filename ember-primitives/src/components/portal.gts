@@ -1,7 +1,7 @@
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
 
-import { findNearestTarget, type TARGETS } from './portal-targets';
+import { findNearestTarget, type TARGETS } from './portal-targets.gts';
 
 import type { TOC } from '@ember/component/template-only';
 

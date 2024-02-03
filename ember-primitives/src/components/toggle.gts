@@ -3,7 +3,7 @@ import { on } from '@ember/modifier';
 
 import { cell } from 'ember-resources';
 
-import { toggleWithFallback } from './-private/utils';
+import { toggleWithFallback } from './-private/utils.ts';
 
 import type { TOC } from '@ember/component/template-only';
 

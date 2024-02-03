@@ -1,2 +1,2 @@
-export { fillOTP } from './otp';
-export { getRouter, setupRouting } from './routing';
+export { fillOTP } from './otp.ts';
+export { getRouter, setupRouting } from './routing.ts';

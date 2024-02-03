@@ -1,2 +1,2 @@
-export { OTPInput } from './input';
-export { OTP } from './otp';
+export { OTPInput } from './input.gts';
+export { OTP } from './otp.gts';

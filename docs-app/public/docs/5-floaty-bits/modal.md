@@ -236,6 +236,24 @@ export default class RouteableModal extends Component {
 }
 ```
 
+## Enabling automatic body-scroll lock
+
+You'll need page-wide CSS similar to this:
+```css
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow: auto;
+  height: 100dvh;
+}
+```
+This is also a common technique for controlling which element scrolls when doing custom layouts.
+Constraining the height of an element to the dynamic vertical height works for desktop and mobile where some elements of the browser may not always be visible.
+
+The scrollable element doesn't have to be the `body` either, it could be a `<div>`, as you'll see in layouts where scroll-content may be wholly underneath a header.
+
 ## Anatomy
 
 ```js 

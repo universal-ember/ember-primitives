@@ -121,10 +121,6 @@ export class OTPInput extends Component<{
       cancelAnimationFrame(this.#frame);
     }
 
-    if (this.#timer) {
-      clearTimeout(this.#timer);
-    }
-
     // We  use requestAnimationFrame to be friendly to rendering.
     // We don't know if onChange is going to want to cause paints
     // (it's also how we debounce, under the assumption that "paste" behavior
@@ -153,7 +149,6 @@ export class OTPInput extends Component<{
 
   #token: unknown | undefined;
   #frame: number | undefined;
-  #timer: number | undefined;
 
   get length() {
     return this.args.length ?? DEFAULT_LENGTH;

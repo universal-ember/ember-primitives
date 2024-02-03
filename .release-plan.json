@@ -1,10 +1,14 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.10.3",
-      "newVersion": "0.10.4",
+      "impact": "minor",
+      "oldVersion": "0.10.4",
+      "newVersion": "0.11.0",
       "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
@@ -13,5 +17,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-02-02)\n\nember-primitives 0.10.4 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#235](https://github.com/universal-ember/ember-primitives/pull/235) fix prepack command so types are shipped ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-02-03)\n\nember-primitives 0.11.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#241](https://github.com/universal-ember/ember-primitives/pull/241) [OTP]: Disable autocomplete on the input fields ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`, `test-app`\n  * [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`, `test-app`\n  * [#243](https://github.com/universal-ember/ember-primitives/pull/243) [OTP]: Fix issue with backspace repeating faster than the otp input logic could keep up with (by keeping up with it) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#240](https://github.com/universal-ember/ember-primitives/pull/240) [OTP]: Resolve pasting and focus state issues ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `test-app`\n  * [#242](https://github.com/universal-ember/ember-primitives/pull/242) [Avatar] Fix flaky test ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`\n  * [#237](https://github.com/universal-ember/ember-primitives/pull/237) Upgrade repl ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

@@ -1,5 +1,16 @@
+import type Content from './content.gts';
+import type Header from './header.gts';
 import type Trigger from './trigger.gts';
 import type { WithBoundArgs } from '@glint/template';
+
+export interface AccordionTriggerExternalSignature {
+  Element: HTMLButtonElement;
+  Blocks: {
+    default: [];
+  };
+  Args: {};
+}
+
 
 export interface AccordionContentExternalSignature {
   Element: HTMLDivElement;
@@ -26,5 +37,33 @@ export interface AccordionHeaderExternalSignature {
     ];
   };
   Args: {};
+}
+
+export interface AccordionItemExternalSignature {
+  Element: HTMLDivElement;
+  Blocks: {
+    default: [
+      {
+        /**
+         * Whether the accordion item is expanded.
+         */
+        isExpanded: boolean;
+        /**
+         * The AccordionHeader component.
+         */
+        Header: WithBoundArgs<typeof Header, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>;
+        /**
+         * The AccordionContent component.
+         */
+        Content: WithBoundArgs<typeof Content, 'value' | 'isExpanded' | 'disabled'>;
+      },
+    ];
+  };
+  Args: {
+    /**
+     * The value of the accordion item.
+     */
+    value: string;
+  };
 }
 

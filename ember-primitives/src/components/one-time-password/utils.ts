@@ -32,7 +32,11 @@ export function handlePaste(event: Event) {
   );
 
   let clipboardData = (event as ClipboardEvent).clipboardData;
-  assert(`Could not get clipboardData while handling the paste event on OTP. Please report this issue on the ember-primitives repo with a reproduction. Thanks!`, clipboardData);
+
+  assert(
+    `Could not get clipboardData while handling the paste event on OTP. Please report this issue on the ember-primitives repo with a reproduction. Thanks!`,
+    clipboardData
+  );
 
   // This is typically not good to prevent paste.
   // But because of the UX we're implementing,
@@ -126,6 +130,7 @@ export const autoAdvance = (event: Event) => {
     '[BUG]: autoAdvance called on non-input element',
     event.target instanceof HTMLInputElement
   );
+
   let value = event.target.value;
 
   if (value.length === 0) return;

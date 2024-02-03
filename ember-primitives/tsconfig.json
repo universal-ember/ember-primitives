@@ -37,7 +37,5 @@
       can do the proper transformations on those files.
     */
     "allowImportingTsExtensions": true,
-
-    "allowArbitraryExtensions": true,
   },
 }

@@ -2,7 +2,9 @@ dist/
 dist-types/
 node_modules/
 *.md
+.eslintcache
 
 # these break the prettier plugin atm
 link.gts
+
 

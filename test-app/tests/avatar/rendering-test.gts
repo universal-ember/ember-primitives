@@ -1,3 +1,4 @@
+import { renderSettled } from '@ember/renderer';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -36,7 +37,7 @@ module('<Avatar />', function (hooks) {
   });
 
   test('the fallback can be delayed', async function (assert) {
-    await render(
+    render(
       <template>
         <Avatar @src="https://fake.uri" as |a|>
           <a.Image />
@@ -45,6 +46,7 @@ module('<Avatar />', function (hooks) {
       </template>
     );
 
+    await renderSettled();
     assert.dom('img').doesNotExist();
     assert.dom().doesNotContainText('NVP');
     await new Promise((resolve) => setTimeout(resolve, 300));

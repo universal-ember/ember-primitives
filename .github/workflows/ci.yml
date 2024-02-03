@@ -117,9 +117,8 @@ jobs:
       fail-fast: true
       matrix:
         typescript-scenario:
-          - typescript@5.0
-          - typescript@5.1
           - typescript@5.2
+          - typescript@5.3
           - typescript@rc
           - typescript@next
 

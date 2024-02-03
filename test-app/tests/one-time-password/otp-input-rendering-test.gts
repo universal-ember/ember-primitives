@@ -277,10 +277,7 @@ module('Rendering | <OTPInput>', function (hooks) {
   });
 
   test('clicking into a filled field selects the whole character, because it needs to be replaced', async function (assert) {
-    let step = ({ code, complete }: { code: string; complete: boolean }) =>
-      assert.step(`${code}:${complete}`);
-
-    await render(<template><OTPInput @onChange={{step}} /></template>);
+    await render(<template><OTPInput /></template>);
 
     assert.strictEqual(readValue(), '');
 
@@ -292,7 +289,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     ];
 
     await fillOTP('123456');
-    assert.verifySteps(['123456:true']);
+    assert.strictEqual(readValue(), '123456', 'initial value for the test is set');
 
     await click(inputs[2]);
 
@@ -340,8 +337,8 @@ module('Rendering | <OTPInput>', function (hooks) {
     // assert.strictEqual(inputs[5].selectionStart, 1, 'cursor is at the beginning of the text field');
     assert.dom(inputs[5]).hasValue('6');
     inputs[5].select();
-    await triggerEvent(inputs[5], 'input', { key: 'Backspace', isTrusted: true });
-    await this.pauseTest();
+    await triggerEvent(inputs[5], 'input', { keyCode: 8, key: 'Backspace', code: 'Backspace' });
+    // await this.pauseTest();
     assert.dom(inputs[5]).hasValue('');
     assert.strictEqual(document.activeElement, inputs[5]);
   });

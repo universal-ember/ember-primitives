@@ -11,7 +11,6 @@ export interface AccordionTriggerExternalSignature {
   Args: {};
 }
 
-
 export interface AccordionContentExternalSignature {
   Element: HTMLDivElement;
   Blocks: {
@@ -66,4 +65,3 @@ export interface AccordionItemExternalSignature {
     value: string;
   };
 }
-

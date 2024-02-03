@@ -4,9 +4,7 @@ if (macroCondition(isDevelopingApp())) {
   importSync('./components/violations.css');
 }
 
-export {
-  Accordion,
-} from './components/accordion.gts';
+export { Accordion } from './components/accordion.gts';
 export type {
   AccordionContentExternalSignature,
   AccordionHeaderExternalSignature,

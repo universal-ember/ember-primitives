@@ -38,6 +38,6 @@
     */
     "allowImportingTsExtensions": true,
 
-    "allowArbitraryExtensions": true
+    "allowArbitraryExtensions": true,
   },
 }

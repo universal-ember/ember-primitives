@@ -4,7 +4,13 @@ import { isDestroyed, isDestroying } from '@ember/destroyable';
 import { on } from '@ember/modifier';
 import { buildWaiter } from '@ember/test-waiters';
 
-import { autoAdvance, getCollectiveValue, handleNavigation, handlePaste, selectAll } from './utils.ts';
+import {
+  autoAdvance,
+  getCollectiveValue,
+  handleNavigation,
+  handlePaste,
+  selectAll,
+} from './utils.ts';
 
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';

@@ -1,6 +1,6 @@
 {
   "name": "ember-primitives",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Making apps easier to build",
   "sideEffects": [
     "*.css"

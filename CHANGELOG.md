@@ -1,5 +1,25 @@
 # Changelog 
 
+## Release (2024-02-04)
+
+ember-primitives 0.11.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#248](https://github.com/universal-ember/ember-primitives/pull/248) [OTP] Trigger an input event for backspace ([@evoactivity](https://github.com/evoactivity))
+
+#### :memo: Documentation
+* `docs-app`
+  * [#244](https://github.com/universal-ember/ember-primitives/pull/244) [Docs]: Explain how body-lock works with <Modal> ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-primitives`, `test-app`
+  * [#246](https://github.com/universal-ember/ember-primitives/pull/246) Unify with the v2 addon blueprint, using extensions in the imports and stuch ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-02-03)
 
 ember-primitives 0.11.0 (minor)

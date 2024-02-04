@@ -104,6 +104,8 @@ function focusRight(event: Pick<Event, 'target'>) {
   });
 }
 
+const syntheticEvent = new InputEvent('input');
+
 function handleBackspace(event: KeyboardEvent) {
   if (event.key !== 'Backspace') return;
 
@@ -120,6 +122,8 @@ function handleBackspace(event: KeyboardEvent) {
   if (target && 'value' in target) {
     target.value = '';
   }
+
+  target?.dispatchEvent(syntheticEvent);
 
   focusLeft({ target });
 }

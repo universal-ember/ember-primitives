@@ -121,6 +121,9 @@ function handleBackspace(event: KeyboardEvent) {
     target.value = '';
   }
 
+  const syntheticEvent = new InputEvent('input');
+  target?.dispatchEvent(syntheticEvent);
+
   focusLeft({ target });
 }
 

@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-02-05)
+
+ember-primitives 0.11.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`, `test-app`
+  * [#252](https://github.com/universal-ember/ember-primitives/pull/252) [Shadowed]: Add support for ember-source 5.6 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-02-04)
 
 ember-primitives 0.11.1 (patch)

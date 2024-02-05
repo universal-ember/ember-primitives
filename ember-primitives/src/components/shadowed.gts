@@ -4,14 +4,26 @@ import { cell } from 'ember-resources';
 import type { TOC } from '@ember/component/template-only';
 
 const Shadow = () => {
-  let shadow = cell<ShadowRoot>();
+  let shadow = cell<Element>();
 
   return {
     get root() {
       return shadow.current;
     },
     attach: modifier((element: Element) => {
-      shadow.set(element.attachShadow({ mode: 'open' }));
+      let shadowRoot = element.attachShadow({ mode: 'open' });
+      let div = document.createElement('div');
+
+      // ember-source 5.6 broke the ability to in-element
+      // natively into a shadowroot.
+      //
+      // See these ember-source bugs:
+      // -
+      // -
+      // -
+      shadowRoot.appendChild(div);
+
+      shadow.set(div);
     }),
   };
 };

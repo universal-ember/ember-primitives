@@ -18,9 +18,9 @@ const Shadow = () => {
       // natively into a shadowroot.
       //
       // See these ember-source bugs:
-      // -
-      // -
-      // -
+      // - https://github.com/emberjs/ember.js/issues/20643
+      // - https://github.com/emberjs/ember.js/issues/20642
+      // - https://github.com/emberjs/ember.js/issues/20641
       shadowRoot.appendChild(div);
 
       shadow.set(div);

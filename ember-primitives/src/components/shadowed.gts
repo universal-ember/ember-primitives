@@ -22,13 +22,11 @@ const Shadow = () => {
 const getStyles = () => [...document.head.querySelectorAll('link')].map((link) => link.href);
 
 const Styles = <template>
-  {{#let (getStyles) as |styles|}}
-    {{#each styles as |styleHref|}}
+  {{#each (getStyles) as |styleHref|}}
 
-      <link rel="stylesheet" href={{styleHref}} />
+    <link rel="stylesheet" href={{styleHref}} />
 
-    {{/each}}
-  {{/let}}
+  {{/each}}
 </template>;
 
 /**

@@ -12,7 +12,7 @@ module('Rendering | <Shadowed>', function (hooks) {
       <template>
         out of shadow
 
-        <Shadowed>
+        <Shadowed data-shadow>
           in shadow
         </Shadowed>
       </template>

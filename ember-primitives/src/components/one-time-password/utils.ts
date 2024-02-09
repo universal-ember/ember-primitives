@@ -120,12 +120,14 @@ function handleBackspace(event: KeyboardEvent) {
   let target = event.target;
 
   if (target && 'value' in target) {
-    target.value = '';
+    if (target.value === '') {
+      focusLeft({ target });
+    } else {
+      target.value = '';
+    }
   }
 
   target?.dispatchEvent(syntheticEvent);
-
-  focusLeft({ target });
 }
 
 function previousInput(current: HTMLInputElement) {

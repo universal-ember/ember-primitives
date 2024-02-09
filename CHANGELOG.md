@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-02-09)
+
+ember-primitives 0.11.3 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#255](https://github.com/universal-ember/ember-primitives/pull/255) [OTP] makes backspace stay in current input unless it's empty ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2024-02-05)
 
 ember-primitives 0.11.2 (patch)

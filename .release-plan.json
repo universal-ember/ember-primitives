@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "patch",
-      "oldVersion": "0.11.1",
-      "newVersion": "0.11.2",
+      "oldVersion": "0.11.2",
+      "newVersion": "0.11.3",
       "constraints": [
         {
           "impact": "patch",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-02-05)\n\nember-primitives 0.11.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`, `test-app`\n  * [#252](https://github.com/universal-ember/ember-primitives/pull/252) [Shadowed]: Add support for ember-source 5.6 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-02-09)\n\nember-primitives 0.11.3 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#255](https://github.com/universal-ember/ember-primitives/pull/255) [OTP] makes backspace stay in current input unless it's empty ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
 }

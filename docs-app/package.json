@@ -114,7 +114,6 @@
     "qunit-dom": "^3.0.0",
     "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
-    "unplugin": "^1.6.0",
     "webpack": "^5.90.1"
   },
   "engines": {

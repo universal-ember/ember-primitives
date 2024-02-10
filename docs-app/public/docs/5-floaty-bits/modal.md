@@ -285,13 +285,7 @@ import { Modal } from 'ember-primitives';
 
 ## API Reference
 
-```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
-
-<template>
-  <ComponentSignature @module="components/dialog" @name="Signature" />
-</template>
-```
+<ComponentSignature @module="components/dialog" @name="Signature" />
 
 ### State Attributes
 

@@ -77,13 +77,7 @@ import { Link } from 'ember-primitives';
 
 ## API Reference
 
-```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
-
-<template>
-  <ComponentSignature @module="components/link" @name="Signature" />
-</template>
-```
+<ComponentSignature @module="components/link" @name="Signature" />
 
 ### State Attributes
 

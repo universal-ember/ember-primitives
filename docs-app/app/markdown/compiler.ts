@@ -1,3 +1,4 @@
+import { APIDocs, ComponentSignature } from 'docs-app/docs-support';
 import { Shadowed } from 'ember-primitives';
 import { Compiled as REPLCompiled } from 'ember-repl';
 import { resource, resourceFactory } from 'ember-resources';
@@ -19,6 +20,8 @@ export const Compiled = resourceFactory(
         topLevelScope: {
           Shadowed,
           Callout,
+          APIDocs,
+          ComponentSignature,
         },
         ShadowComponent: 'Shadowed',
         ...defaultOptions,

@@ -26,6 +26,8 @@ export default class Application extends Route {
 
   beforeModel() {
     this.docs.setup({
+      manifest: '/docs/manifest.json',
+      typedoc: '/api-docs.json',
       // Available directly within the markdown
       topLevelScope: {
         Callout,

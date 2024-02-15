@@ -27,4 +27,6 @@ export { Scroller } from './components/scroller.gts';
 export { Shadowed } from './components/shadowed.gts';
 export { Switch } from './components/switch.gts';
 export { Toggle } from './components/toggle.gts';
+export { ToggleGroup } from './components/toggle-group.gts';
 export * from './helpers.ts';
+export type { default as SetupService } from './services/ember-primitives/setup.ts';

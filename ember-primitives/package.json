@@ -43,6 +43,7 @@
     "ember-element-helper": "^0.8.4",
     "ember-velcro": "^2.1.3",
     "reactiveweb": "^1.2.0",
+    "tabster": "^7.0.1",
     "tracked-toolbox": "^2.0.0"
   },
   "devDependencies": {
@@ -115,8 +116,10 @@
       "./components/scroller.js": "./dist/_app_/components/scroller.js",
       "./components/shadowed.js": "./dist/_app_/components/shadowed.js",
       "./components/switch.js": "./dist/_app_/components/switch.js",
+      "./components/toggle-group.js": "./dist/_app_/components/toggle-group.js",
       "./components/toggle.js": "./dist/_app_/components/toggle.js",
-      "./helpers/service.js": "./dist/_app_/helpers/service.js"
+      "./helpers/service.js": "./dist/_app_/helpers/service.js",
+      "./services/ember-primitives/setup.js": "./dist/_app_/services/ember-primitives/setup.js"
     }
   },
   "exports": {

@@ -156,7 +156,7 @@ importers:
         version: 1.0.1
       reactiveweb:
         specifier: ^1.2.0
-        version: 1.2.0(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
+        version: 1.2.1(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       tracked-built-ins:
         specifier: ^3.2.0
         version: 3.3.0(@babel/core@7.23.9)
@@ -382,7 +382,7 @@ importers:
         version: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
       reactiveweb:
         specifier: ^1.2.0
-        version: 1.2.0(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
+        version: 1.2.1(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       tracked-toolbox:
         specifier: ^2.0.0
         version: 2.0.0(@babel/core@7.23.9)(ember-source@5.5.0)
@@ -5563,9 +5563,6 @@ packages:
 
   /ajv-formats@2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
-    peerDependenciesMeta:
-      ajv:
-        optional: true
     dependencies:
       ajv: 8.12.0
 
@@ -9535,7 +9532,7 @@ packages:
       magic-string: 0.30.6
       mdast: 3.0.0
       parse-static-imports: 1.1.0
-      reactiveweb: 1.2.0(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
+      reactiveweb: 1.2.1(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       rehype-raw: 6.1.1
       rehype-stringify: 9.0.4
       remark-gfm: 3.0.1
@@ -15431,8 +15428,8 @@ packages:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  /reactiveweb@1.2.0(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0):
-    resolution: {integrity: sha512-pVuDzSK06mb+gr3eYIzeLbx1uDqbi0Xsx5YH0aSwl3HH7l341oOF+x09jfZgCdA2o6yvSOlJC4scndhItfAXMg==}
+  /reactiveweb@1.2.1(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0):
+    resolution: {integrity: sha512-3ju+HLdSJb9eVaAek0MEsbQnFEQiYSxhVcYrIbhhPQwsGe21OWDaKaaclppNmIngelKf/XRSWFR/bbUZ0dOurQ==}
     peerDependencies:
       '@ember/test-waiters': '>= 3.1.0'
       ember-source: '*'
@@ -18615,12 +18612,13 @@ packages:
       '@glimmer/component': 1.1.2(@babel/core@7.23.9)
       '@glimmer/tracking': 1.1.2
       '@glint/template': 1.3.0
+      decorator-transforms: 1.1.0(@babel/core@7.23.9)
       ember-element-helper: 0.8.5(@babel/core@7.23.9)(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-source@5.5.0)
       ember-modifier: 4.1.0(ember-source@5.5.0)
       ember-resources: 7.0.0(@babel/core@7.23.9)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       ember-source: 5.5.0(@babel/core@7.23.9)(@glimmer/component@1.1.2)(@glint/template@1.3.0)(webpack@5.90.1)
       ember-velcro: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
-      reactiveweb: 1.2.0(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
+      reactiveweb: 1.2.1(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       tracked-toolbox: 2.0.0(@babel/core@7.23.9)(ember-source@5.5.0)
     transitivePeerDependencies:
       - '@babel/core'

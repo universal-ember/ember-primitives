@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
-    "docs-api": "workspace:*",
     "ember-focus-trap": "^1.1.0",
     "ember-headless-form": "^1.0.0",
     "ember-modifier": "^4.1.0",
@@ -39,6 +38,7 @@
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.2.1",
+    "kolay": "link:../../kolay",
     "lodash.sortby": "^4.7.0",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
@@ -113,7 +113,6 @@
     "qunit-dom": "^3.0.0",
     "typedoc": "^0.25.7",
     "typescript": "^5.3.3",
-    "unplugin": "^1.6.0",
     "webpack": "^5.90.1"
   },
   "engines": {

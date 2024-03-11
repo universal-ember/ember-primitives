@@ -31,14 +31,22 @@ const Shadow = () => {
 // index.html has the production-fingerprinted references to these links
 // Ideally, we'd have some pre-processor scan everything for references to
 // assets in public, but idk how to set that up
-const getStyles = () => [...document.head.querySelectorAll('link')].map((link) => link.href);
+const getStyles = () => [...document.querySelectorAll('link')].map((link) => link.href);
 
+/**
+ * style + native @import
+ * is the only robust way to load styles in a shadowroot.
+ *
+ * link is only valid in the head element.
+ */
 const Styles = <template>
-  {{#each (getStyles) as |styleHref|}}
+  <style>
+    {{#each (getStyles) as |styleHref|}}
 
-    <link rel="stylesheet" href={{styleHref}} />
+      @import "{{styleHref}}";
 
-  {{/each}}
+    {{/each}}
+  </style>
 </template>;
 
 /**

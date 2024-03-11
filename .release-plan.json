@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "patch",
-      "oldVersion": "0.11.2",
-      "newVersion": "0.11.3",
+      "oldVersion": "0.11.3",
+      "newVersion": "0.11.4",
       "constraints": [
         {
           "impact": "patch",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-02-09)\n\nember-primitives 0.11.3 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#255](https://github.com/universal-ember/ember-primitives/pull/255) [OTP] makes backspace stay in current input unless it's empty ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2024-03-11)\n\nember-primitives 0.11.4 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#270](https://github.com/universal-ember/ember-primitives/pull/270) Fix shadowroot styles, include all <link> tags available on document when includeStyles is true ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

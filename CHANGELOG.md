@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-03-11)
+
+ember-primitives 0.11.4 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#270](https://github.com/universal-ember/ember-primitives/pull/270) Fix shadowroot styles, include all <link> tags available on document when includeStyles is true ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-02-09)
 
 ember-primitives 0.11.3 (patch)

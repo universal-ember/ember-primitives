@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-03-14)
+
+ember-primitives 0.12.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`
+  * [#271](https://github.com/universal-ember/ember-primitives/pull/271) Add `<Scroller />` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-03-11)
 
 ember-primitives 0.11.4 (patch)

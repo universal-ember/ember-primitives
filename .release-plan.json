@@ -1,17 +1,17 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.11.3",
-      "newVersion": "0.11.4",
+      "impact": "minor",
+      "oldVersion": "0.11.4",
+      "newVersion": "0.12.0",
       "constraints": [
         {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-03-11)\n\nember-primitives 0.11.4 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#270](https://github.com/universal-ember/ember-primitives/pull/270) Fix shadowroot styles, include all <link> tags available on document when includeStyles is true ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-03-14)\n\nember-primitives 0.12.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`\n  * [#271](https://github.com/universal-ember/ember-primitives/pull/271) Add `<Scroller />` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

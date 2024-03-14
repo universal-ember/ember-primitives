@@ -106,3 +106,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
   <ComponentSignature @module="components/scroller" @name="Scroller" />
 </template>
 ```
+
+## Accessibility
+
+The wrapping `<div>` is scrollable, and is required to have keyboard access, via [AXE: Scrollable Region Must have Keyboard Access](https://dequeuniversity.com/rules/axe/4.8/scrollable-region-focusable?application=axeAPI).

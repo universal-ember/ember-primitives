@@ -156,7 +156,7 @@ export class Scroller extends Component<{
   };
 
   <template>
-    <div ...attributes {{this.ref}}>
+    <div tabindex="0" ...attributes {{this.ref}}>
       {{yield
         (hash
           scrollToBottom=this.scrollToBottom

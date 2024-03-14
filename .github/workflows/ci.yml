@@ -45,6 +45,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
+      - run: ls -la ember-primitives/
       - run: pnpm lint
 
 

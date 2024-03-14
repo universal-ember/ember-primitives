@@ -45,19 +45,19 @@ const click = (methodName) => scrollers[methodName]();
     .container {
       overflow: auto;
       height: 200px;
+      scroll-behavior: smooth;
     } 
     .big-content {
       width: 200%;
     }
     .fixed-button-set {
       position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: white;
-      padding: 0.5rem;
+      top: 0rem;
+      right: 0rem;
+      margin-top: -4rem;
       filter: drop-shadow(0 2px 3px #555);
-      border-radius: 0.125rem;
     }
+    button { padding: 0; font-size: 2rem; line-height: 2rem;}
   </style>
 </template>
 ```

@@ -14,6 +14,15 @@ export class Scroller extends Component<{
   /**
    * A containing element is required - in this case, a div.
    * It must be scrollable for this component to work, but can be customized.
+   *
+   * By default, this element will have some styling applied:
+   *   overflow: auto;
+   *
+   * By default, this element will have tabindex="0" to support keyboard usage.
+   *
+   * The scroll-behavior is "auto", which can be controlled via CSS
+   * https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+   *
    */
   Element: HTMLDivElement;
   Blocks: {
@@ -105,7 +114,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         top: this.withinElement.scrollHeight,
-        behavior: 'smooth',
+        behavior: 'auto',
       });
     });
   };
@@ -120,7 +129,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         top: 0,
-        behavior: 'smooth',
+        behavior: 'auto',
       });
     });
   };
@@ -135,7 +144,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         left: 0,
-        behavior: 'smooth',
+        behavior: 'auto',
       });
     });
   };
@@ -150,7 +159,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         left: this.withinElement.scrollWidth,
-        behavior: 'smooth',
+        behavior: 'auto',
       });
     });
   };

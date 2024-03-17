@@ -1,6 +1,9 @@
 import Component from "@glimmer/component";
 
-export class DisclosureSingleManager extends Component<{
+/**
+ * Allow only one disclosure to be open at a time
+ */
+export class SingleDisclosureManager extends Component<{
   Element: null;
   Args: {
     /**
@@ -17,6 +20,9 @@ export class DisclosureSingleManager extends Component<{
 
 }
 
+/**
+ * Allow multiple disclosures to be open at a time
+ */
 export class DisclosureMultipleManager extends Component<{
   Element: null;
   Args: {

@@ -1,3 +1,10 @@
+/**
+ * DANGER: this is a *barrel file*
+ *
+ * It forces the whole library to be loaded and all dependencies.
+ *
+ * If you have a small app, you probably don't want to import from here -- instead import from each sub-path.
+ */
 import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
 
 if (macroCondition(isDevelopingApp())) {

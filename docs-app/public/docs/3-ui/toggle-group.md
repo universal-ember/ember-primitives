@@ -11,13 +11,13 @@ import { ToggleGroup } from 'ember-primitives';
 <template>
   <div class="demo">
     <ToggleGroup class="toggle-group" as |t|>
-      <t.Item @value="left">
+      <t.Item @value="left" aria-label="Left align">
         <AlignLeft />
       </t.Item> 
-      <t.Item @value="center">
+      <t.Item @value="center" aria-label="Center align">
         <AlignCenter />
       </t.Item> 
-      <t.Item @value="right">
+      <t.Item @value="right" aria-label="Right align">
         <AlignRight />
       </t.Item> 
     </ToggleGroup>

@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
+    "decorator-transforms": "^1.1.0",
     "docs-api": "workspace:*",
     "ember-focus-trap": "^1.1.0",
     "ember-headless-form": "^1.0.0",

@@ -38,13 +38,16 @@
   },
   "pnpm": {
     "overrides": {
-      "@glimmer/validator": ">= 0.84.2",
-      "@glimmer/interfaces": ">= 0.84.2",
       "ember-async-data": "1.0.1",
       "ember-compatibility-helpers": "1.2.7",
       "ember-cli-babel": "^8.2.0"
     },
     "packageExtensions": {
+      "@glimmer/component": {
+        "dependencies": {
+          "@glimmer/validator": ">= 0.44.0"
+        }
+      },
       "ember-qunit": {
         "peerDependencies": {
           "@ember/test-helpers": "^2.7.0 || >= 3.0.0"

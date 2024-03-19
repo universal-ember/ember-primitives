@@ -8,6 +8,13 @@ module.exports = function (defaults) {
     // Add options here
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
+      disableDecoratorTransforms: true,
+    },
+    babel: {
+      plugins: [
+        // add the new transform.
+        require.resolve('decorator-transforms'),
+      ],
     },
   });
 
@@ -43,7 +50,7 @@ module.exports = function (defaults) {
     // staticEmberSource: true,
     packagerOptions: {
       webpackConfig: {
-        devtool: process.env.CI ? 'source-map' : 'eval',
+        devtool: 'source-map',
         resolve: {
           alias: {
             path: 'path-browserify',

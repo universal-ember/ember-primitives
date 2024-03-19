@@ -1,3 +1,4 @@
+// import Component from '@glimmer/component';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 
@@ -28,7 +29,7 @@ export interface Signature<Value = any> {
      * This can be useful when using the same function for the `@onChange`
      * handler with multiple `<Toggle>` components.
      */
-    onChange?: (value?: Value | undefined) => void;
+    onChange?: (value: Value | undefined, pressed: boolean) => void;
 
     /**
      * When used in a group of Toggles, this option will be helpful to

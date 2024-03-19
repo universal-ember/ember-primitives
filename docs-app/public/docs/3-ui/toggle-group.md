@@ -21,32 +21,10 @@ import { ToggleGroup } from 'ember-primitives';
         <AlignRight />
       </t.Item> 
     </ToggleGroup>
-
-    <ToggleGroup @type="multi" class="toggle-group" as |t|>
-      <t.Item @value="bold" aria-label="Bold text">
-        B
-      </t.Item> 
-      <t.Item @value="italic" aria-label="Italicize text">
-        I
-      </t.Item> 
-      <t.Item @value="underline" aria-label="Underline text">
-        U
-      </t.Item> 
-    </ToggleGroup>
   </div>
 
   <style>
-    button[aria-label="Bold text"] { font-weight: bold; }
-    button[aria-label="Italicize text"] { font-style: italic; }
-    button[aria-label="Underline text"] { text-decoration: underline; } 
-
-    .demo { 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      gap: 1rem; 
-    }
-
+    .demo { display: flex; justify-content: center; align-items: center;}
     .toggle-group {
       display: inline-flex;
       background-color: #fff;
@@ -56,7 +34,7 @@ import { ToggleGroup } from 'ember-primitives';
 
     .toggle-group > button {
       background-color: white;
-      color: #black;
+      color: #fff;
       height: 35px;
       width: 35px;
       display: flex;
@@ -139,30 +117,19 @@ import { ToggleGroup } from 'ember-primitives';
 </template>
 ```
 
-## API Reference: `@type='single'` (default)
+## API Reference
 
 ```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="SingleSignature" />
+  <ComponentSignature @module="components/toggle-group" @name="ToggleGroup" />
 </template>
 ```
-
-## API Reference: `@type='multi'` 
-
-```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
-
-<template>
-  <ComponentSignature @module="components/toggle-group" @name="MultiSignature" />
-</template>
-```
-
 
 <hr>
 
-## API Reference: `Item`
+### Item
 
 ```gjs live no-shadow
 import { ComponentSignature } from 'docs-app/docs-support';

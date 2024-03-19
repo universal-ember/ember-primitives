@@ -19,12 +19,5 @@ module.exports = {
       plugins: ['ember'],
       parser: 'ember-eslint-parser',
     },
-
-    {
-      files: ['./src/components/toggle-group.gts'],
-      rules: {
-        '@typescript-eslint/no-explicit-any': 'off',
-      },
-    },
   ],
 };

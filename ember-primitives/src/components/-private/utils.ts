@@ -4,8 +4,7 @@
  */
 export function toggleWithFallback(
   uncontrolledToggle: (...args: unknown[]) => void,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  controlledToggle?: (...args: any[]) => void,
+  controlledToggle?: (...args: unknown[]) => void,
   ...args: unknown[]
 ) {
   if (controlledToggle) {

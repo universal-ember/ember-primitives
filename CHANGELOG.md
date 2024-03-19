@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-03-18)
+
+ember-primitives 0.13.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#258](https://github.com/universal-ember/ember-primitives/pull/258) [ToggleGroup]: New component ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-03-14)
 
 ember-primitives 0.12.0 (minor)

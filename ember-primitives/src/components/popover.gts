@@ -11,7 +11,7 @@ import { TARGETS } from './portal-targets.gts';
 
 import type { TOC } from '@ember/component/template-only';
 import type { Middleware, MiddlewareData } from '@floating-ui/dom';
-import type { ModifierLike, WithBoundArgs } from '@glint/template';
+import type { ComponentLike,ModifierLike,WithBoundArgs } from '@glint/template';
 import type { Signature as HookSignature } from 'ember-velcro/modifiers/velcro';
 
 export interface Signature {
@@ -76,8 +76,29 @@ export interface Signature {
     default: [
       {
         hook: ModifierLike<HookSignature>;
-        Content: WithBoundArgs<typeof Content, 'loop'>;
+        Content: ComponentLike<{
+          Element: HTMLDivElement;
+          Args: {
+            inline?: boolean;
+            /**
+             * By default the popover content is wrapped in a div.
+             * You may change this by supplying the name of an element here.
+             *
+             * For example:
+             * ```gjs
+             * <Popover as |p|>
+             *  <p.Content @as="dialog">
+             *    this is now focus trapped
+             *  </p.Content>
+             * </Popover>
+             * ```
+             */
+            as?: string;
+          };
+          Blocks: { default: [] };
+        }>;
         data: MiddlewareData;
+        // arrow: ModifierLike<{ Element: HTMLElement }>;
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
       },
     ];
@@ -142,10 +163,8 @@ interface AttachArrowSignature {
   Args: {
     Named: {
       arrowElement: ReturnType<typeof ArrowElement>;
-      data?: {
-        middlewareData?: MiddlewareData;
-        placement?: Placement;
-      };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data?: any;
     };
   };
 }

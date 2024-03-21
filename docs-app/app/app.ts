@@ -1,3 +1,4 @@
+import 'decorator-transforms/globals';
 import './css/styles.css';
 
 import Application from '@ember/application';

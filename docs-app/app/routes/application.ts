@@ -1,33 +1,37 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
+import rehypeShikiFromHighlighter from "@shikijs/rehype/core";
 import { Callout } from 'docs-app/components/callout';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import * as eFocusTrap from 'ember-focus-trap';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import * as emberFocusTrap from 'ember-focus-trap/modifiers/focus-trap';
-import * as emberHeadlessForm from 'ember-headless-form';
-// ember-primitives (this library! yay!)
-import * as emberPrimitives from 'ember-primitives';
-import * as colorScheme from 'ember-primitives/color-scheme';
-// ember-velcro
-import * as emberVelcro from 'ember-velcro';
-import * as velcro from 'ember-velcro/modifiers/velcro';
-import * as loremIpsum from 'lorem-ipsum';
-import * as remoteData from 'reactiveweb/remote-data';
+import { colorScheme } from "ember-primitives/color-scheme";
+import { getHighlighterCore } from "shiki/core";
+import getWasm from "shiki/wasm";
 
 import type { DocsService } from 'kolay';
-
 
 export default class Application extends Route {
   @service('kolay/docs') declare docs: DocsService;
 
-  beforeModel() {
-    this.docs.setup({
-      manifest: '/docs/manifest.json',
-      typedoc: '/api-docs.json',
+  async model() {
+    const highlighter = await getHighlighterCore({
+      themes: [import("shiki/themes/github-dark.mjs"), import("shiki/themes/github-light.mjs")],
+      langs: [
+        import("shiki/langs/javascript.mjs"),
+        import("shiki/langs/typescript.mjs"),
+        import("shiki/langs/bash.mjs"),
+        import("shiki/langs/css.mjs"),
+        import("shiki/langs/html.mjs"),
+        import("shiki/langs/glimmer-js.mjs"),
+        import("shiki/langs/glimmer-ts.mjs"),
+        import("shiki/langs/handlebars.mjs"),
+        import("shiki/langs/jsonc.mjs"),
+      ],
+      loadWasm: getWasm,
+    });
+
+    await this.docs.setup({
+      apiDocs: import("kolay/api-docs:virtual"),
+      manifest: import("kolay/manifest:virtual"),
       // Available directly within the markdown
       topLevelScope: {
         Callout,
@@ -36,20 +40,37 @@ export default class Application extends Route {
       // TODO: change all this to await imports
       resolve: {
         // ember-primitives
-        'ember-primitives': emberPrimitives,
-        'ember-primitives/color-scheme': colorScheme,
+        'ember-primitives': import('ember-primitives'),
+        'ember-primitives/color-scheme': import('ember-primitives/color-scheme'),
 
         // community libraries
-        'ember-headless-form': emberHeadlessForm,
-        'reactiveweb/remote-data': remoteData,
-        'ember-focus-trap/modifiers/focus-trap': emberFocusTrap,
-        'ember-focus-trap': eFocusTrap,
-        'ember-velcro': emberVelcro,
-        'ember-velcro/modifiers/velcro': velcro,
+        'ember-headless-form': import('ember-headless-form'),
+        'reactiveweb/remote-data': import('reactiveweb/remote-data'),
+        // @ts-expect-error - no types provided
+        'ember-focus-trap/modifiers/focus-trap': import('ember-focus-trap/modifiers/focus-trap'),
+        // @ts-expect-error - no types provided
+        'ember-focus-trap': import('ember-focus-trap'),
+        'ember-velcro': import('ember-velcro'),
+        'ember-velcro/modifiers/velcro': import('ember-velcro/modifiers/velcro'),
 
         // utility
-        'lorem-ipsum': loremIpsum,
+        'lorem-ipsum': import('lorem-ipsum')
       },
+      rehypePlugins: [
+        [
+          rehypeShikiFromHighlighter,
+          highlighter,
+          {
+            defaultColor: colorScheme.current === "dark" ? "dark" : "light",
+            themes: {
+              light: "github-light",
+              dark: "github-dark",
+            },
+          },
+        ],
+      ],
     });
+
+    return { manifest: this.docs.manifest };
   }
 }

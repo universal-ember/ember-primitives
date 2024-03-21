@@ -1,30 +1,23 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const sortBy = require('lodash.sortby');
 
 module.exports = async function (defaults) {
   const app = new EmberApp(defaults, {
     // Add options here
     'ember-cli-babel': {
       enableTypeScriptTransform: true,
+      disableDecoratorTransforms: true,
+    },
+    babel: {
+      plugins: [
+        // add the new transform.
+        require.resolve('decorator-transforms'),
+      ],
     },
   });
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
-
-  const { createManifest, copyFile } = await import('kolay/build');
+  const { kolay } = await import('kolay/webpack');
 
   const { Webpack } = require('@embroider/webpack');
 
@@ -45,7 +38,7 @@ module.exports = async function (defaults) {
     // staticEmberSource: true,
     packagerOptions: {
       webpackConfig: {
-        devtool: process.env.CI ? 'source-map' : 'eval',
+        devtool: 'source-map',
         resolve: {
           alias: {
             path: 'path-browserify',
@@ -62,10 +55,9 @@ module.exports = async function (defaults) {
           __dirname: true,
         },
         plugins: [
-          createManifest.webpack({ src: 'public/docs', dest: 'docs' }),
-          copyFile.webpack({
-            src: '../docs-api/docs.json',
-            dest: 'api-docs.json',
+          kolay({
+            src: 'public/docs',
+            packages: ['ember-primitives'],
           }),
         ],
       },

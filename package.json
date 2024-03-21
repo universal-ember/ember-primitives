@@ -21,10 +21,10 @@
     "@glint/core": "^1.3.0",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^8.2.2",
-    "prettier": "^3.2.4",
-    "prettier-plugin-ember-template-tag": "^2.0.0",
-    "release-plan": "^0.7.0",
-    "turbo": "^1.10.16",
+    "prettier": "^3.2.5",
+    "prettier-plugin-ember-template-tag": "^2.0.1",
+    "release-plan": "^0.9.0",
+    "turbo": "^1.12.5",
     "typescript": "^5.3.3"
   },
   "engines": {
@@ -54,6 +54,37 @@
         "dependencies": {
           "ember-cached-decorator-polyfill": "*",
           "ember-async-data": "^1.0.1"
+        }
+      },
+      "ember-repl": {
+        "peerDependencies": {
+          "reactiveweb": "*",
+          "ember-source": "*"
+        }
+      },
+      "ember-async-data": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-primitives": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-resources": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-cached-decorator-polyfill": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@universal-ember/kolay-ui": {
+        "peerDependencies": {
+          "ember-source": "*"
         }
       }
     },

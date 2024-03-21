@@ -62,7 +62,17 @@
           "ember-source": "*"
         }
       },
+      "ember-element-helper": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
       "ember-async-data": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "tracked-toolbox": {
         "peerDependencies": {
           "ember-source": "*"
         }
@@ -78,6 +88,11 @@
         }
       },
       "ember-cached-decorator-polyfill": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-functions-as-helper-polyfill": {
         "peerDependencies": {
           "ember-source": "*"
         }

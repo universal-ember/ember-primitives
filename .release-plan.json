@@ -1,17 +1,8 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.13.0",
-      "newVersion": "0.14.0",
-      "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        }
-      ],
-      "pkgJSONPath": "./ember-primitives/package.json"
+      "oldVersion": "0.14.0"
     }
   },
-  "description": "## Release (2024-03-19)\n\nember-primitives 0.14.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#279](https://github.com/universal-ember/ember-primitives/pull/279) [ToggleGroup]: Support `@type=multi`, allowing multiple toggles to be active at once. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "\n\n\n\n"
 }

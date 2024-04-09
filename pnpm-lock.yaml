@@ -135,8 +135,8 @@ importers:
         specifier: ^1.0.3
         version: 1.0.3
       ember-velcro:
-        specifier: ^2.1.3
-        version: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
+        specifier: ^2.2.0
+        version: 2.2.0(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
       hash:
         specifier: ^0.2.1
         version: 0.2.1
@@ -379,8 +379,8 @@ importers:
         specifier: ^0.8.4
         version: 0.8.6(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-source@5.5.0)
       ember-velcro:
-        specifier: ^2.1.3
-        version: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
+        specifier: ^2.2.0
+        version: 2.2.0(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
       reactiveweb:
         specifier: ^1.2.0
         version: 1.2.2(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
@@ -10720,7 +10720,7 @@ packages:
       fs-extra: 9.1.0
       resolve: 1.22.8
       rsvp: 4.8.5
-      semver: 7.5.4
+      semver: 7.6.0
       stagehand: 1.0.1
       walk-sync: 2.2.0
     transitivePeerDependencies:
@@ -11400,8 +11400,8 @@ packages:
       - supports-color
     dev: true
 
-  /ember-velcro@2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0):
-    resolution: {integrity: sha512-4V6rT9b9XSeMaPmiYYA2hIhfMD088vru6AvfGWBY7L1w/st5hYv6iIfamy9+W1l9xKvIH3Hcl8+B0637/SRmzQ==}
+  /ember-velcro@2.2.0(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0):
+    resolution: {integrity: sha512-+5qVN0xGgr5N+CVEK1cKBGsfUNBfOQrakfz/4qOdE8YYFc0Prlo8ZXs8Je/Juop4OcZTGXMa5QlY/2okMo+X8A==}
     engines: {node: 14.* || >= 16}
     peerDependencies:
       ember-modifier: ^3.2.7 || >= 4.0.0
@@ -20122,7 +20122,7 @@ packages:
       ember-modifier: 4.1.0(ember-source@5.5.0)
       ember-resources: 7.0.0(@babel/core@7.23.9)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       ember-source: 5.5.0(@babel/core@7.23.9)(@glimmer/component@1.1.2)(@glint/template@1.3.0)(webpack@5.90.1)
-      ember-velcro: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
+      ember-velcro: 2.2.0(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
       reactiveweb: 1.2.2(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
       tabster: 7.0.1
       tracked-built-ins: 3.3.0(@babel/core@7.23.9)

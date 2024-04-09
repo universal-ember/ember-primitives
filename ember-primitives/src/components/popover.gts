@@ -10,7 +10,7 @@ import { Portal } from './portal.gts';
 import { TARGETS } from './portal-targets.gts';
 
 import type { TOC } from '@ember/component/template-only';
-import type { Middleware, MiddlewareData } from '@floating-ui/dom';
+import type { ElementContext, Middleware, MiddlewareData } from '@floating-ui/dom';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
 import type { Signature as HookSignature } from 'ember-velcro/modifiers/velcro';
 
@@ -76,6 +76,7 @@ export interface Signature {
     default: [
       {
         hook: ModifierLike<HookSignature>;
+        setHook: (element: HTMLElement | SVGElement) => void;
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: MiddlewareData;
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
@@ -206,7 +207,7 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
 
 function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
   return {
-    elementContext: 'reference',
+    elementContext: 'reference' as ElementContext,
     ...options,
   };
 }
@@ -225,6 +226,7 @@ export const Popover: TOC<Signature> = <template>
       {{yield
         (hash
           hook=velcro.hook
+          setHook=velcro.setHook
           Content=(component Content loop=velcro.loop inline=@inline)
           data=velcro.data
           arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)

@@ -4,7 +4,7 @@ Popovers are built with [ember-velcro][gh-e-velcro], which is an ergonomic wrapp
 
 
 <!--
-The goal of a popover is to provide additional behavioral functionality to make interacting with floaty bits easier easier:
+The goal of a popover is to provide additional behavioral functionality to make interacting with floaty bits easier:
 - focus trapping (TODO)
 - focus returning (TODO) 
 -->

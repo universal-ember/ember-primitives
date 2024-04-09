@@ -24,6 +24,7 @@ export { ExternalLink } from './components/external-link.gts';
 export { Form } from './components/form.gts';
 export { StickyFooter } from './components/layout/sticky-footer/index.gts';
 export { Link } from './components/link.gts';
+export { Menu } from './components/menu.gts';
 export { OTP, OTPInput } from './components/one-time-password/index.gts';
 export { Popover } from './components/popover.gts';
 export { Portal } from './components/portal.gts';

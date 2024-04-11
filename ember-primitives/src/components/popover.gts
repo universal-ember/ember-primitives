@@ -75,7 +75,7 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        hook: ModifierLike<HookSignature>;
+        hook: ModifierLike<{ Element: HTMLElement | SVGElement }>;
         setHook: (element: HTMLElement | SVGElement) => void;
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: MiddlewareData;

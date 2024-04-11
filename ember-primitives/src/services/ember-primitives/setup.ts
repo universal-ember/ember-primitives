@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Service from '@ember/service';
 
-import { createTabster, getMover, getTabster } from 'tabster';
+import { createTabster, getDeloser, getGroupper, getModalizer, getMover, getTabster } from 'tabster';
 
 /**
  * @internal
@@ -25,7 +25,7 @@ export default class EmberPrimitivesSetup extends Service {
      *
      * Defaults to `true`,
      *
-     * Will fallback to an existing tabster instance automatically if `getCurrentTabster` returns a value.
+     * Will fallback to an existing tabster instance automatically if `getTabster` returns a value.
      */
     tabster?: boolean;
     setTabsterRoot?: boolean;
@@ -48,5 +48,8 @@ export default class EmberPrimitivesSetup extends Service {
 
   #setupTabster = (tabster: ReturnType<typeof createTabster>) => {
     getMover(tabster);
+    getGroupper(tabster);
+    getModalizer(tabster);
+    getDeloser(tabster);
   };
 }

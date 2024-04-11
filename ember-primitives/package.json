@@ -43,7 +43,7 @@
     "ember-element-helper": "^0.8.4",
     "ember-velcro": "^2.2.0",
     "reactiveweb": "^1.2.0",
-    "tabster": "^7.0.1",
+    "tabster": "^7.1.0",
     "tracked-built-ins": "^3.2.0",
     "tracked-toolbox": "^2.0.0"
   },

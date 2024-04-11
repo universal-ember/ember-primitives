@@ -6,57 +6,69 @@ The `<Menu>` component uses portals in a way that totally solves layering issues
 
 <div class="featured-demo">
 
-```gjs live preview
+```gjs live preview no-shadow
 import { PortalTargets, Menu } from 'ember-primitives';
-import { array, hash } from '@ember/helper';
-import { loremIpsum } from 'lorem-ipsum';
 
 <template>
   <PortalTargets />
 
   <Menu @offsetOptions={{8}} as |m|>
-    <button type="button" class="hook" {{m.trigger}}>
+    <m.Trigger class="trigger">
       <EllipsisVertical />
-    </button>
-    <m.Content class="floatybit">
-      The floaty bit here3
-      <div class="arrow" {{m.arrow}}></div>
+    </m.Trigger>
+
+    <m.Content class="content" as |c|>
+      <c.Item>Item 1</c.Item>
+      <c.Item>Item 2</c.Item>
+      <c.Separator />
+      <c.Item>Item 3</c.Item>
     </m.Content>
   </Menu>
 
   <style>
-    .floatybit {
-      width: max-content;
-      position: absolute;
-      top: 0;
-      left: 0;
+    .content {
+      all: unset;
+      min-width: 180px;
       background: #fff;
       color: #111827;
-      padding: 5px;
-      border-radius: 4px;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+      padding: 8px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
       z-index: 10;
-      border-color: rgb(17 24 39 / 5%)
-      border-width: 1px;
+      box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
     }
-    .arrow {
-      position: absolute;
-      background: #222;
-      width: 8px;
-      height: 8px;
-      transform: rotate(45deg);
+
+    .content [role="menuitem"] {
+      all: unset;
+      display: block;
+      padding: 4px 12px;
+      cursor: pointer;
     }
-    .hook {
-      padding: 0.5rem;
+
+    .content [role="menuitem"]:focus, .content [role="menuitem"]:hover, .trigger:hover {
+      background-color: #f9fafb;
+    }
+
+    .trigger {
       display: inline-block;
       border-radius: 4px;
-      background-color: #4f46e5;
-      color: #fff;
+      border-width: 0;
+      background-color: #fff;
+      color: rgb(101, 80, 185);
+      border-radius: 100%;
+      padding: 10px;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+      cursor: pointer;
     }
-    .hook svg {
-      width: 18px;
-      height: 18px;
-      color: #fff;
+
+    .trigger svg {
+      width: 15px;
+      height: 15px;
+      color: rgb(101, 80, 185);
+      display: block;
     }
   </style>
 </template>

@@ -52,6 +52,10 @@ import { PortalTargets, Menu } from 'ember-primitives';
       background-color: #f9fafb;
     }
 
+    .content [role="separator"] {
+      border-bottom: 1px solid rgb(17 24 39 / 0.1);
+    }
+
     .trigger {
       display: inline-block;
       border-radius: 4px;

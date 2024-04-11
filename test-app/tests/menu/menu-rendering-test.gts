@@ -1,6 +1,14 @@
 import { assert as debugAssert } from '@ember/debug';
 import { fn } from '@ember/helper';
-import { click, find, focus, render, triggerKeyEvent, waitUntil } from '@ember/test-helpers';
+import {
+  click,
+  find,
+  focus,
+  render,
+  triggerEvent,
+  triggerKeyEvent,
+  waitUntil,
+} from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -142,7 +150,7 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.trigger').isFocused();
   });
 
-  test('keyboard selection works', async function (assert) {
+  test('selection works', async function (assert) {
     function select(value: string) {
       assert.step(value);
     }
@@ -228,5 +236,63 @@ module('Rendering | menu', function (hooks) {
     await waitForFocus('.trigger');
 
     assert.dom('.trigger').isFocused();
+  });
+
+  test('moving pointer hover item focuses it', async function (assert) {
+    await render(
+      <template>
+        <PortalTargets />
+
+        <Menu as |m|>
+          <m.Trigger class="trigger">
+            Trigger
+          </m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.Item>Item 1</c.Item>
+            <c.Item>Item 2</c.Item>
+            <c.Separator />
+            <c.Item>Item 3</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+
+    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
+
+    await triggerEvent('[role="menuitem"]:nth-of-type(3)', 'pointermove');
+
+    assert.dom('[role="menuitem"]:nth-of-type(3)').isFocused();
+  });
+
+  test('yielded isOpen has correct value', async function (assert) {
+    await render(
+      <template>
+        <PortalTargets />
+
+        <Menu as |m|>
+          <m.Trigger class="trigger">
+            {{if m.isOpen "open" "closed"}}
+          </m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.Item>Item 1</c.Item>
+            <c.Item>Item 2</c.Item>
+            <c.Separator />
+            <c.Item>Item 3</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    assert.dom('.trigger').hasText('closed');
+
+    await click('.trigger');
+
+    assert.dom('.trigger').hasText('open');
   });
 });

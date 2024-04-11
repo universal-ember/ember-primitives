@@ -10,6 +10,8 @@ import { Popover, type Signature as PopoverSignature } from './popover.gts';
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
+type Cell<V> = ReturnType<typeof cell<V>>;
+
 const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
   {
     mover: {
@@ -17,8 +19,6 @@ const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
       cyclic: true,
     },
     deloser: {},
-    // groupper: {},
-    // modalizer: {},
   },
   true
 );
@@ -36,10 +36,10 @@ export interface Signature {
     default: [
       {
         arrow: PopoverSignature['Blocks']['default'][0]['arrow'];
-        Trigger: WithBoundArgs<typeof Trigger, 'triggerId' | 'contentId' | 'isOpen' | 'hook'>;
+        Trigger: WithBoundArgs<typeof Trigger, 'triggerElement' | 'contentId' | 'isOpen' | 'hook'>;
         Content: WithBoundArgs<
           typeof Content,
-          'triggerId' | 'contentId' | 'isOpen' | 'PopoverContent'
+          'triggerElement' | 'contentId' | 'isOpen' | 'PopoverContent'
         >;
         isOpen: boolean;
       },
@@ -95,8 +95,13 @@ const Item: TOC<{
 
 const installContent = modifier<{
   Element: HTMLElement;
-  Args: { Named: { isOpen: ReturnType<typeof cell<boolean>>; triggerId: string } };
-}>((element, _: [], { isOpen, triggerId }) => {
+  Args: {
+    Named: {
+      isOpen: Cell<boolean>;
+      triggerElement: Cell<HTMLElement>;
+    };
+  };
+}>((element, _: [], { isOpen, triggerElement }) => {
   // focus first focusable element on the content
   const tabster = getTabster(window);
   const firstFocusable = tabster?.focusable.findFirst({
@@ -107,13 +112,11 @@ const installContent = modifier<{
 
   // listen for "outside" clicks
   function onDocumentClick(e: MouseEvent) {
-    const trigger = document.getElementById(triggerId);
-
     if (
       isOpen.current &&
       e.target &&
       !element.contains(e.target as HTMLElement) &&
-      !trigger?.contains(e.target as HTMLElement)
+      !triggerElement.current?.contains(e.target as HTMLElement)
     ) {
       isOpen.current = false;
     }
@@ -138,9 +141,9 @@ const installContent = modifier<{
 const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
-    triggerId: string;
+    triggerElement: Cell<HTMLElement>;
     contentId: string;
-    isOpen: ReturnType<typeof cell<boolean>>;
+    isOpen: Cell<boolean>;
     PopoverContent: PopoverSignature['Blocks']['default'][0]['Content'];
   };
   Blocks: { default: [{ Item: typeof Item; Separator: typeof Separator }] };
@@ -151,7 +154,7 @@ const Content: TOC<{
       role="menu"
       data-tabster={{TABSTER_CONFIG_CONTENT}}
       tabindex="0"
-      {{installContent isOpen=@isOpen triggerId=@triggerId}}
+      {{installContent isOpen=@isOpen triggerElement=@triggerElement}}
       {{on "click" @isOpen.toggle}}
       ...attributes
     >
@@ -160,12 +163,19 @@ const Content: TOC<{
   {{/if}}
 </template>;
 
+const installTrigger = modifier<{
+  Element: HTMLElement;
+  Args: { Named: { triggerElement: Cell<HTMLElement> } };
+}>((element, _: [], { triggerElement }) => {
+  triggerElement.current = element;
+});
+
 const Trigger: TOC<{
   Element: HTMLButtonElement;
   Args: {
-    triggerId: string;
+    triggerElement: Cell<HTMLElement>;
     contentId: string;
-    isOpen: ReturnType<typeof cell<boolean>>;
+    isOpen: Cell<boolean>;
     hook: PopoverSignature['Blocks']['default'][0]['hook'];
   };
   Blocks: { default: [] };
@@ -173,11 +183,11 @@ const Trigger: TOC<{
   <button
     data-tabster={{TABSTER_CONFIG_TRIGGER}}
     type="button"
-    id={{@triggerId}}
     aria-controls={{if @isOpen.current @contentId}}
     aria-haspopup="menu"
     aria-expanded={{if @isOpen.current "true" "false"}}
     {{@hook}}
+    {{installTrigger triggerElement=@triggerElement}}
     {{on "click" @isOpen.toggle}}
     ...attributes
   >
@@ -185,10 +195,11 @@ const Trigger: TOC<{
   </button>
 </template>;
 
-const IsOpen: () => ReturnType<typeof cell<boolean>> = () => cell<boolean>(false);
+const IsOpen = () => cell<boolean>(false);
+const TriggerElement = () => cell<HTMLElement>();
 
 export const Menu: TOC<Signature> = <template>
-  {{#let (IsOpen) (uniqueId) (uniqueId) as |isOpen contentId triggerId|}}
+  {{#let (IsOpen) (uniqueId) (TriggerElement) as |isOpen contentId triggerEl|}}
     <Popover
       @flipOptions={{@flipOptions}}
       @middleware={{@middleware}}
@@ -202,10 +213,14 @@ export const Menu: TOC<Signature> = <template>
       {{yield
         (hash
           Trigger=(component
-            Trigger hook=p.hook isOpen=isOpen triggerId=triggerId contentId=contentId
+            Trigger hook=p.hook isOpen=isOpen triggerElement=triggerEl contentId=contentId
           )
           Content=(component
-            Content PopoverContent=p.Content isOpen=isOpen triggerId=triggerId contentId=contentId
+            Content
+            PopoverContent=p.Content
+            isOpen=isOpen
+            triggerElement=triggerEl
+            contentId=contentId
           )
           arrow=p.arrow
           isOpen=isOpen.current

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Service from '@ember/service';
 
-import { createTabster, getDeloser, getGroupper, getModalizer, getMover, getTabster } from 'tabster';
+import { createTabster, getDeloser, getMover, getTabster } from 'tabster';
 
 /**
  * @internal
@@ -48,8 +48,6 @@ export default class EmberPrimitivesSetup extends Service {
 
   #setupTabster = (tabster: ReturnType<typeof createTabster>) => {
     getMover(tabster);
-    getGroupper(tabster);
-    getModalizer(tabster);
     getDeloser(tabster);
   };
 }

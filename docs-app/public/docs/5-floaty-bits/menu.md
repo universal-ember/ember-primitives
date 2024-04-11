@@ -48,7 +48,7 @@ import { PortalTargets, Menu } from 'ember-primitives';
       cursor: pointer;
     }
 
-    .content [role="menuitem"]:focus, .content [role="menuitem"]:hover, .trigger:hover {
+    .content [role="menuitem"]:focus, .trigger:hover {
       background-color: #f9fafb;
     }
 

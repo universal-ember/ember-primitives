@@ -57,6 +57,25 @@ const Separator: TOC<{
   </div>
 </template>;
 
+/**
+ * We focus items on `pointerMove` to achieve the following:
+ *
+ * - Mouse over an item (it focuses)
+ * - Leave mouse where it is and use keyboard to focus a different item
+ * - Wiggle mouse without it leaving previously focused item
+ * - Previously focused item should re-focus
+ *
+ * If we used `mouseOver`/`mouseEnter` it would not re-focus when the mouse
+ * wiggles. This is to match native menu implementation.
+ */
+function focusOnHover(e: PointerEvent) {
+  const item = e.currentTarget;
+
+  if (item instanceof HTMLElement) {
+    item?.focus();
+  }
+}
+
 const Item: TOC<{
   Element: HTMLButtonElement;
   Args: { onSelect: (event: Event) => void };
@@ -67,6 +86,7 @@ const Item: TOC<{
     role="menuitem"
     {{! @glint-ignore !}}
     {{(if @onSelect (modifier on "click" @onSelect))}}
+    {{on "pointermove" focusOnHover}}
     ...attributes
   >
     {{yield}}

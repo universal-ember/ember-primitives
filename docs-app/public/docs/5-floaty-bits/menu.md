@@ -2,7 +2,9 @@
 
 Menus are built with Popovers, with added features for keyboard navigation and accessibility. 
 
-The `<Menu>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
+The placement of the menu content is handled by `<Popover>`, so `<Menu>` accepts the same arguments for positioning the dropdown.
+
+Like `<Popover>`, the `<Menu>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
 <div class="featured-demo">
 
@@ -61,7 +63,7 @@ import { PortalTargets, Menu } from 'ember-primitives';
       border-radius: 4px;
       border-width: 0;
       background-color: #fff;
-      color: rgb(101, 80, 185);
+      color: #111827;
       border-radius: 100%;
       padding: 10px;
       box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
@@ -71,7 +73,6 @@ import { PortalTargets, Menu } from 'ember-primitives';
     .trigger svg {
       width: 15px;
       height: 15px;
-      color: rgb(101, 80, 185);
       display: block;
     }
   </style>

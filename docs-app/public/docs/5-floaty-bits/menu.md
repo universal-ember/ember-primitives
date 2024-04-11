@@ -98,14 +98,15 @@ import { ComponentSignature } from 'docs-app/docs-support';
 
 ## Accessibility
 
-The `Content` of a popover is focusable, so that keyboard (and screenreader) users can interact with the Popover content. Generally this is great for modals, but also extends to things like tooltips, so that folks can copy the content out.
+Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/).
 
-Since a `Popover` isn't an explicit design pattern provided by W3, but instead, `Popover` is a low level primitive that could be used to build the W3 examples of
-- [Modal Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/)
-- [Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)
-- [Date Picker Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-datepicker/)
-- [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
-- and more
+### Keyboard Interactions
 
+| key | description |
+| :---: | :----------- |
+| <kbd>Space</kbd> <kbd>Enter</kbd>  | When focus is on `Trigger`, opens the menu and focuses the first item. When focus is on an `Item`, activates the focused item. |
+| <kbd>ArrowDown</kbd> <kbd>ArrowRight</kbd> | When `Content` is open, moves to the next item.  |
+| <kbd>ArrowUp</kbd> <kbd>ArrowLeft</kbd> | When `Content` is open, moves to the previous item.  |
+| <kbd>Esc</kbd> | Closes the menu and moves focus to `Trigger`. |
 
-
+In addition, a label is required so that users know what the switch is for.

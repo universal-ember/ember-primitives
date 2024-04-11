@@ -78,7 +78,7 @@ function focusOnHover(e: PointerEvent) {
 
 const Item: TOC<{
   Element: HTMLButtonElement;
-  Args: { onSelect: (event: Event) => void };
+  Args: { onSelect?: (event: Event) => void };
   Blocks: { default: [] };
 }> = <template>
   <button
@@ -199,7 +199,6 @@ export const Menu: TOC<Signature> = <template>
       @inline={{@inline}}
       as |p|
     >
-
       {{yield
         (hash
           Trigger=(component

@@ -1,5 +1,7 @@
-import { hash, uniqueId } from '@ember/helper';
+import Component from '@glimmer/component';
+import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
+import { guidFor } from '@ember/object/internals';
 
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
@@ -198,36 +200,40 @@ const Trigger: TOC<{
 const IsOpen = () => cell<boolean>(false);
 const TriggerElement = () => cell<HTMLElement>();
 
-export const Menu: TOC<Signature> = <template>
-  {{#let (IsOpen) (uniqueId) (TriggerElement) as |isOpen contentId triggerEl|}}
-    <Popover
-      @flipOptions={{@flipOptions}}
-      @middleware={{@middleware}}
-      @offsetOptions={{@offsetOptions}}
-      @placement={{@placement}}
-      @shiftOptions={{@shiftOptions}}
-      @strategy={{@strategy}}
-      @inline={{@inline}}
-      as |p|
-    >
-      {{yield
-        (hash
-          Trigger=(component
-            Trigger hook=p.hook isOpen=isOpen triggerElement=triggerEl contentId=contentId
+export class Menu extends Component<Signature> {
+  contentId = guidFor(this);
+
+  <template>
+    {{#let (IsOpen) (TriggerElement) as |isOpen triggerEl|}}
+      <Popover
+        @flipOptions={{@flipOptions}}
+        @middleware={{@middleware}}
+        @offsetOptions={{@offsetOptions}}
+        @placement={{@placement}}
+        @shiftOptions={{@shiftOptions}}
+        @strategy={{@strategy}}
+        @inline={{@inline}}
+        as |p|
+      >
+        {{yield
+          (hash
+            Trigger=(component
+              Trigger hook=p.hook isOpen=isOpen triggerElement=triggerEl contentId=this.contentId
+            )
+            Content=(component
+              Content
+              PopoverContent=p.Content
+              isOpen=isOpen
+              triggerElement=triggerEl
+              contentId=this.contentId
+            )
+            arrow=p.arrow
+            isOpen=isOpen.current
           )
-          Content=(component
-            Content
-            PopoverContent=p.Content
-            isOpen=isOpen
-            triggerElement=triggerEl
-            contentId=contentId
-          )
-          arrow=p.arrow
-          isOpen=isOpen.current
-        )
-      }}
-    </Popover>
-  {{/let}}
-</template>;
+        }}
+      </Popover>
+    {{/let}}
+  </template>
+}
 
 export default Menu;

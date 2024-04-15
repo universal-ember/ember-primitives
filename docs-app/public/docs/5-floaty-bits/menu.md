@@ -15,7 +15,7 @@ import { PortalTargets, Menu } from 'ember-primitives';
   <PortalTargets />
 
   <Menu @offsetOptions={{8}} as |m|>
-    <m.Trigger class="trigger">
+    <m.Trigger class="trigger" aria-label="Options">
       <EllipsisVertical />
     </m.Trigger>
 

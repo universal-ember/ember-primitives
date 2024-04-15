@@ -33,8 +33,8 @@
     "npm": "use pnpm"
   },
   "volta": {
-    "node": "20.11.1",
-    "pnpm": "8.15.4"
+    "node": "20.12.2",
+    "pnpm": "8.15.6"
   },
   "pnpm": {
     "overrides": {

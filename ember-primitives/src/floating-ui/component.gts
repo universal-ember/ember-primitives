@@ -7,12 +7,13 @@ import { modifier } from 'ember-modifier';
 import VelcroModifier from './modifier.ts';
 
 import type { Signature as ModifierSignature } from './modifier.ts';
-import type { MiddlewareArguments } from '@floating-ui/dom';
+import type { MiddlewareState } from '@floating-ui/dom';
+import type { WithBoundArgs, WithBoundPositionals } from '@glint/template';
 import type { ModifierLike } from '@glint/template';
 
 type ModifierArgs = ModifierSignature['Args']['Named'];
 
-interface Signature {
+export interface Signature {
   Args: {
     middleware?: ModifierArgs['middleware'];
     placement?: ModifierArgs['placement'];
@@ -27,11 +28,9 @@ interface Signature {
       velcro: {
         hook: ModifierLike<HookSignature>;
         setHook: (element: HTMLElement | SVGElement) => void;
-        loop: ModifierLike<{
-          Element: HTMLElement;
-        }>;
-        data: MiddlewareArguments;
-      }
+        loop?: WithBoundArgs<WithBoundPositionals<typeof VelcroModifier, 1>, keyof ModifierArgs>;
+        data?: MiddlewareState;
+      },
     ];
   };
 }
@@ -44,26 +43,22 @@ export default class Velcro extends Component<Signature> {
   @tracked hook?: HTMLElement | SVGElement = undefined;
 
   // set by VelcroModifier
-  @tracked velcroData?: MiddlewareArguments = undefined;
+  @tracked velcroData?: MiddlewareState = undefined;
 
-  setVelcroData = (data: MiddlewareArguments) => void (this.velcroData = data);
+  setVelcroData: ModifierArgs['setVelcroData'] = (data) => (this.velcroData = data);
 
   setHook = (element: HTMLElement | SVGElement) => {
     this.hook = element;
   };
 
-  velcroHook = modifier<HookSignature>(
-    (element: HTMLElement | SVGElement) => {
-      this.setHook(element);
-    },
-  );
+  velcroHook = modifier<HookSignature>((element: HTMLElement | SVGElement) => {
+    this.setHook(element);
+  });
 
   <template>
-    {{yield (hash
-      hook=this.velcroHook
-      setHook=this.setHook
-      loop=(if this.hook (modifier VelcroModifier
-        this.hook
+    {{#let
+      (modifier
+        VelcroModifier
         flipOptions=@flipOptions
         hideOptions=@hideOptions
         middleware=@middleware
@@ -72,8 +67,14 @@ export default class Velcro extends Component<Signature> {
         shiftOptions=@shiftOptions
         strategy=@strategy
         setVelcroData=this.setVelcroData
-      ))
-      data=this.velcroData
-    )}}
+      )
+      as |loop|
+    }}
+      {{#let (if this.hook (modifier loop this.hook)) as |loopWithHook|}}
+        {{yield
+          (hash hook=this.velcroHook setHook=this.setHook loop=loopWithHook data=this.velcroData)
+        }}
+      {{/let}}
+    {{/let}}
   </template>
 }

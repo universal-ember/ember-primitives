@@ -9,9 +9,10 @@ import { FloatingUI } from '../floating-ui.ts';
 import { Portal } from './portal.gts';
 import { TARGETS } from './portal-targets.gts';
 
+import type { Signature as FloatingUiComponentSignature } from '../floating-ui/component.ts';
 import type { Signature as HookSignature } from '../floating-ui/modifier.ts';
 import type { TOC } from '@ember/component/template-only';
-import type { Middleware, MiddlewareData } from '@floating-ui/dom';
+import type { ElementContext, Middleware, MiddlewareData } from '@floating-ui/dom';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
 
 export interface Signature {
@@ -77,7 +78,7 @@ export interface Signature {
       {
         hook: ModifierLike<HookSignature>;
         Content: WithBoundArgs<typeof Content, 'loop'>;
-        data: MiddlewareData;
+        data: FloatingUiComponentSignature['Blocks']['default'][0]['data'];
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
       },
     ];
@@ -206,7 +207,7 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
 
 function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
   return {
-    elementContext: 'reference',
+    elementContext: 'reference' as ElementContext,
     ...options,
   };
 }
@@ -220,14 +221,14 @@ export const Popover: TOC<Signature> = <template>
       @flipOptions={{flipOptions @flipOptions}}
       @shiftOptions={{@shiftOptions}}
       @offsetOptions={{@offsetOptions}}
-      as |velcro|
+      as |fui|
     >
       {{yield
         (hash
-          hook=velcro.hook
-          Content=(component Content loop=velcro.loop inline=@inline)
-          data=velcro.data
-          arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)
+          hook=fui.hook
+          Content=(component Content loop=fui.loop inline=@inline)
+          data=fui.data
+          arrow=(modifier attachArrow arrowElement=arrowElement data=fui.data)
         )
       }}
     </FloatingUI>

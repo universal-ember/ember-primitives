@@ -4,15 +4,16 @@ import { arrow } from '@floating-ui/dom';
 import { element } from 'ember-element-helper';
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
-import { Velcro } from 'ember-velcro';
 
+import { FloatingUI } from '../floating-ui.ts';
 import { Portal } from './portal.gts';
 import { TARGETS } from './portal-targets.gts';
 
+import type { Signature as FloatingUiComponentSignature } from '../floating-ui/component.ts';
+import type { Signature as HookSignature } from '../floating-ui/modifier.ts';
 import type { TOC } from '@ember/component/template-only';
 import type { ElementContext, Middleware, MiddlewareData } from '@floating-ui/dom';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
-import type { Signature as HookSignature } from 'ember-velcro/modifiers/velcro';
 
 export interface Signature {
   Args: {
@@ -78,7 +79,7 @@ export interface Signature {
         hook: ModifierLike<{ Element: HTMLElement | SVGElement }>;
         setHook: (element: HTMLElement | SVGElement) => void;
         Content: WithBoundArgs<typeof Content, 'loop'>;
-        data: MiddlewareData;
+        data: FloatingUiComponentSignature['Blocks']['default'][0]['data'];
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
       },
     ];
@@ -214,25 +215,25 @@ function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
 
 export const Popover: TOC<Signature> = <template>
   {{#let (ArrowElement) as |arrowElement|}}
-    <Velcro
+    <FloatingUI
       @placement={{@placement}}
       @strategy={{@strategy}}
       @middleware={{maybeAddArrow @middleware arrowElement.current}}
       @flipOptions={{flipOptions @flipOptions}}
       @shiftOptions={{@shiftOptions}}
       @offsetOptions={{@offsetOptions}}
-      as |velcro|
+      as |fui|
     >
       {{yield
         (hash
-          hook=velcro.hook
-          setHook=velcro.setHook
-          Content=(component Content loop=velcro.loop inline=@inline)
-          data=velcro.data
-          arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)
+          hook=fui.hook
+          setHook=fui.setHook
+          Content=(component Content loop=fui.loop inline=@inline)
+          data=fui.data
+          arrow=(modifier attachArrow arrowElement=arrowElement data=fui.data)
         )
       }}
-    </Velcro>
+    </FloatingUI>
   {{/let}}
 </template>;
 

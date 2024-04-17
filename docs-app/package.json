@@ -36,7 +36,6 @@
     "ember-primitives": "workspace:*",
     "ember-repl": "3.0.0-beta.8",
     "ember-route-template": "^1.0.3",
-    "ember-velcro": "^2.2.0",
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.2.1",

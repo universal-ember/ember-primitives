@@ -134,9 +134,6 @@ importers:
       ember-route-template:
         specifier: ^1.0.3
         version: 1.0.3
-      ember-velcro:
-        specifier: ^2.1.3
-        version: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
       hash:
         specifier: ^0.2.1
         version: 0.2.1
@@ -370,7 +367,7 @@ importers:
         specifier: 1.15.1
         version: 1.15.1(@glint/template@1.3.0)
       '@floating-ui/dom':
-        specifier: ^1.5.1
+        specifier: ^1.5.3
         version: 1.5.3
       decorator-transforms:
         specifier: ^1.1.0
@@ -378,9 +375,6 @@ importers:
       ember-element-helper:
         specifier: ^0.8.4
         version: 0.8.6(@glint/environment-ember-loose@1.3.0)(@glint/template@1.3.0)(ember-source@5.5.0)
-      ember-velcro:
-        specifier: ^2.1.3
-        version: 2.1.3(@babel/core@7.23.9)(ember-modifier@4.1.0)(ember-source@5.5.0)
       reactiveweb:
         specifier: ^1.2.0
         version: 1.2.3(@babel/core@7.23.9)(@ember/test-waiters@3.1.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.3.0)(ember-source@5.5.0)
@@ -566,6 +560,9 @@ importers:
       '@embroider/webpack':
         specifier: 3.2.2
         version: 3.2.2(@embroider/core@3.4.4)(webpack@5.90.1)
+      '@floating-ui/dom':
+        specifier: ^1.5.3
+        version: 1.5.3
       '@glimmer/component':
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.23.9)
@@ -3776,18 +3773,15 @@ packages:
     resolution: {integrity: sha512-kK1h4m36DQ0UHGj5Ah4db7R0rHemTqqO0QLvUqi1/mUUp3LuAWbWxdxSIf/XsnH9VS6rRVPLJCncjRzUvyCLXg==}
     dependencies:
       '@floating-ui/utils': 0.1.6
-    dev: false
 
   /@floating-ui/dom@1.5.3:
     resolution: {integrity: sha512-ClAbQnEqJAKCJOEbbLo5IUlZHkNszqhuxS4fHAVxRPXPya6Ysf2G8KypnYcOTpx6I8xcgF9bbHb6g/2KpbV8qA==}
     dependencies:
       '@floating-ui/core': 1.5.0
       '@floating-ui/utils': 0.1.6
-    dev: false
 
   /@floating-ui/utils@0.1.6:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
-    dev: false
 
   /@gar/promisify@1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
@@ -8865,7 +8859,6 @@ packages:
     dependencies:
       ms: 2.1.2
       supports-color: 9.4.0
-    dev: true
 
   /decimal.js@10.4.3:
     resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
@@ -9602,7 +9595,7 @@ packages:
     dependencies:
       ansi-to-html: 0.6.15
       broccoli-stew: 3.0.0
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.4(supports-color@9.4.0)
       execa: 4.1.0
       fs-extra: 9.1.0
       resolve: 1.22.8
@@ -17392,7 +17385,6 @@ packages:
   /supports-color@9.4.0:
     resolution: {integrity: sha512-VL+lNrEoIXww1coLPOmiEmK/0sGigko5COxI09KzHc2VJXJsQ37UaQ+8quuxjDeA7+KnLGTWRyOXSLLR2Wb4jw==}
     engines: {node: '>=12'}
-    dev: true
 
   /supports-hyperlinks@3.0.0:
     resolution: {integrity: sha512-QBDPHyPQDRTy9ku4URNGY5Lah8PAaXs6tAAwp55sL5WCsSW7GIfdf6W5ixfziW+t7wh3GVvHyHHyQ1ESsoRvaA==}

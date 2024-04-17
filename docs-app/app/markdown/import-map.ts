@@ -11,11 +11,9 @@ import * as eModifier from 'ember-modifier';
 // ember-primitives (this library! yay!)
 import * as emberPrimitives from 'ember-primitives';
 import * as colorScheme from 'ember-primitives/color-scheme';
+import * as floatingUI from 'ember-primitives/floating-ui';
 // ember-resources
 import * as emberResources from 'ember-resources';
-// ember-velcro
-import * as emberVelcro from 'ember-velcro';
-import * as velcro from 'ember-velcro/modifiers/velcro';
 // other
 import * as loremIpsum from 'lorem-ipsum';
 import * as remoteData from 'reactiveweb/remote-data';
@@ -26,8 +24,7 @@ import type { Options } from './compiler';
 export const defaultOptions: Options = {
   format: 'glimdown',
   importMap: {
-    'ember-velcro': emberVelcro,
-    'ember-velcro/modifiers/velcro': velcro,
+    'ember-primitives/floating-ui': floatingUI,
     'ember-primitives': emberPrimitives,
     'ember-primitives/color-scheme': colorScheme,
     'ember-headless-form': emberHeadlessForm,

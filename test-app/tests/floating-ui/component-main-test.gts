@@ -5,9 +5,9 @@ import { setupRenderingTest } from 'ember-qunit';
 import { modifier } from 'ember-modifier';
 import { FloatingUI } from 'ember-primitives/floating-ui';
 
-import { findElement, resetTestingContainerDimensions, styleFor } from './test-helpers';
+import { findElement, resetTestingContainerDimensions } from './test-helpers';
 
-module('Integration | Component | velcro', function (hooks) {
+module('Integration | Component | floating-ui', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {

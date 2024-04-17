@@ -76,8 +76,8 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        hook: ModifierLike<{ Element: HTMLElement | SVGElement }>;
-        setHook: (element: HTMLElement | SVGElement) => void;
+        hook: FloatingUiComponentSignature['Blocks']['default'][0]['hook'];
+        setHook: FloatingUiComponentSignature['Blocks']['default'][0]['setHook'];
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: FloatingUiComponentSignature['Blocks']['default'][0]['data'];
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;

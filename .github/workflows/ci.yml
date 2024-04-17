@@ -153,7 +153,7 @@ jobs:
 
   DeployProduction:
     name: "Deploy: Production"
-    # if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: [setup]

@@ -4,15 +4,15 @@ import { arrow } from '@floating-ui/dom';
 import { element } from 'ember-element-helper';
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
-import { Velcro } from 'ember-velcro';
 
+import { FloatingUI } from '../floating-ui.ts';
 import { Portal } from './portal.gts';
 import { TARGETS } from './portal-targets.gts';
 
+import type { Signature as HookSignature } from '../floating-ui/modifier.ts';
 import type { TOC } from '@ember/component/template-only';
 import type { Middleware, MiddlewareData } from '@floating-ui/dom';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
-import type { Signature as HookSignature } from 'ember-velcro/modifiers/velcro';
 
 export interface Signature {
   Args: {
@@ -213,7 +213,7 @@ function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
 
 export const Popover: TOC<Signature> = <template>
   {{#let (ArrowElement) as |arrowElement|}}
-    <Velcro
+    <FloatingUI
       @placement={{@placement}}
       @strategy={{@strategy}}
       @middleware={{maybeAddArrow @middleware arrowElement.current}}
@@ -230,7 +230,7 @@ export const Popover: TOC<Signature> = <template>
           arrow=(modifier attachArrow arrowElement=arrowElement data=velcro.data)
         )
       }}
-    </Velcro>
+    </FloatingUI>
   {{/let}}
 </template>;
 

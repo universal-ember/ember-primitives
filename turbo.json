@@ -75,7 +75,7 @@
     },
     // production
     "build": {
-      "outputs": ["dist/**", "dist-types/**", "docs.json"],
+      "outputs": ["dist/**", "dist-types/**", "declarations/**", "docs.json"],
       "dependsOn": ["_syncPnpm"]
     },
     "_syncPnpm": {

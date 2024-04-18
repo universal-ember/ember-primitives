@@ -129,5 +129,3 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
 | <kbd>ArrowDown</kbd> <kbd>ArrowRight</kbd> | When `Content` is open, moves to the next item.  |
 | <kbd>ArrowUp</kbd> <kbd>ArrowLeft</kbd> | When `Content` is open, moves to the previous item.  |
 | <kbd>Esc</kbd> | Closes the menu and moves focus to `Trigger`. |
-
-In addition, a label is required so that users know what the switch is for.

@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { hash } from '@ember/helper';
 
-import { modifier } from 'ember-modifier';
+import { modifier as eModifier } from 'ember-modifier';
 
 import VelcroModifier from './modifier.ts';
 
@@ -12,6 +12,10 @@ import type { WithBoundArgs, WithBoundPositionals } from '@glint/template';
 import type { ModifierLike } from '@glint/template';
 
 type ModifierArgs = ModifierSignature['Args']['Named'];
+
+interface HookSignature {
+  Element: HTMLElement | SVGElement;
+}
 
 export interface Signature {
   Args: {
@@ -35,9 +39,18 @@ export interface Signature {
   };
 }
 
-interface HookSignature {
+const ref = eModifier<{
   Element: HTMLElement | SVGElement;
-}
+  Args: {
+    Positional: [setRef: (element: HTMLElement | SVGElement) => void];
+  }
+}>((element: HTMLElement | SVGElement, positional) => {
+  let fn = positional[0];
+
+  fn(element);
+});
+
+
 
 export default class Velcro extends Component<Signature> {
   @tracked hook?: HTMLElement | SVGElement = undefined;
@@ -50,10 +63,6 @@ export default class Velcro extends Component<Signature> {
   setHook = (element: HTMLElement | SVGElement) => {
     this.hook = element;
   };
-
-  velcroHook = modifier<HookSignature>((element: HTMLElement | SVGElement) => {
-    this.setHook(element);
-  });
 
   <template>
     {{#let
@@ -71,8 +80,14 @@ export default class Velcro extends Component<Signature> {
       as |loop|
     }}
       {{#let (if this.hook (modifier loop this.hook)) as |loopWithHook|}}
+        {{! @glint-nocheck -- Excessively deep, possibly infinite }}
         {{yield
-          (hash hook=this.velcroHook setHook=this.setHook loop=loopWithHook data=this.velcroData)
+          (hash
+            hook=(modifier ref this.setHook)
+            setHook=this.setHook
+            loop=loopWithHook
+            data=this.velcroData
+          )
         }}
       {{/let}}
     {{/let}}

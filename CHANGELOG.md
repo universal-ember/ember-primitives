@@ -1,5 +1,24 @@
 # Changelog 
 
+## Release (2024-04-18)
+
+ember-primitives 0.15.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#286](https://github.com/universal-ember/ember-primitives/pull/286) Implement Menu ([@miguelcobain](https://github.com/miguelcobain))
+  * [#289](https://github.com/universal-ember/ember-primitives/pull/289) Injest all of ember-velcro as a new optional import: `ember-primitives/floating-ui` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `test-app`
+  * [#291](https://github.com/universal-ember/ember-primitives/pull/291) fix floating-ui tests ([@miguelcobain](https://github.com/miguelcobain))
+* `ember-primitives`, `test-app`
+  * [#290](https://github.com/universal-ember/ember-primitives/pull/290) fix velcro types ([@miguelcobain](https://github.com/miguelcobain))
+
+#### Committers: 2
+- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-03-19)
 
 ember-primitives 0.14.0 (minor)

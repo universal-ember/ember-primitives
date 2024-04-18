@@ -86,7 +86,7 @@ const EllipsisVertical = <template>
 </div>
 
 
-Sometimes, you need to use an existing component as the trigger. `<Menu>` also yield a `trigger` modifier that you can use anywhere, even on your own components (e.g a custom button):
+Sometimes, you need to use an existing component as the trigger. `<Menu>` also yields a `trigger` modifier that you can use anywhere, even on your own components (e.g a custom button):
 
 
 ```hbs

@@ -4,7 +4,7 @@ Popovers are built with [ember-velcro][gh-e-velcro], which is an ergonomic wrapp
 
 
 <!--
-The goal of a popover is to provide additional behavioral functionality to make interacting with floaty bits easier easier:
+The goal of a popover is to provide additional behavioral functionality to make interacting with floaty bits easier:
 - focus trapping (TODO)
 - focus returning (TODO) 
 -->
@@ -232,4 +232,5 @@ Since a `Popover` isn't an explicit design pattern provided by W3, but instead, 
 - [Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)
 - [Date Picker Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-datepicker/)
 - [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
+- [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)
 - and more

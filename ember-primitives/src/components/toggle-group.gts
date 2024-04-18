@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { hash } from '@ember/helper';
 
-import { Types } from 'tabster';
+import { getTabsterAttribute, Types } from 'tabster';
 import { TrackedSet } from 'tracked-built-ins';
 // The consumer will need to provide types for tracked-toolbox.
 // Or.. better yet, we PR to trakcked-toolbox to provide them
@@ -14,12 +14,15 @@ import { Toggle } from './toggle.gts';
 
 import type { ComponentLike } from '@glint/template';
 
-const TABSTER_CONFIG = JSON.stringify({
-  mover: {
-    direction: Types.MoverDirections.Both,
-    cyclic: true,
+const TABSTER_CONFIG = getTabsterAttribute(
+  {
+    mover: {
+      direction: Types.MoverDirections.Both,
+      cyclic: true,
+    },
   },
-});
+  true
+);
 
 export interface ItemSignature<Value = any> {
   /**

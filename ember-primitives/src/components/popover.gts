@@ -76,7 +76,8 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        hook: ModifierLike<HookSignature>;
+        hook: FloatingUiComponentSignature['Blocks']['default'][0]['hook'];
+        setHook: FloatingUiComponentSignature['Blocks']['default'][0]['setHook'];
         Content: WithBoundArgs<typeof Content, 'loop'>;
         data: FloatingUiComponentSignature['Blocks']['default'][0]['data'];
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
@@ -226,6 +227,7 @@ export const Popover: TOC<Signature> = <template>
       {{yield
         (hash
           hook=fui.hook
+          setHook=fui.setHook
           Content=(component Content loop=fui.loop inline=@inline)
           data=fui.data
           arrow=(modifier attachArrow arrowElement=arrowElement data=fui.data)

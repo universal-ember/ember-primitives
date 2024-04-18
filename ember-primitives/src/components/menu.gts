@@ -5,7 +5,7 @@ import { guidFor } from '@ember/object/internals';
 
 import { modifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
-import { getTabster, getTabsterAttribute, Types } from 'tabster';
+import { getTabster, getTabsterAttribute, setTabsterAttribute, Types } from 'tabster';
 
 import { Popover, type Signature as PopoverSignature } from './popover.gts';
 
@@ -13,6 +13,8 @@ import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
 type Cell<V> = ReturnType<typeof cell<V>>;
+type PopoverArgs = PopoverSignature['Args'];
+type PopoverBlockParams = PopoverSignature['Blocks']['default'][0];
 
 const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
   {
@@ -25,20 +27,21 @@ const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
   true
 );
 
-const TABSTER_CONFIG_TRIGGER = getTabsterAttribute(
-  {
-    deloser: {},
-  },
-  true
-);
+const TABSTER_CONFIG_TRIGGER = {
+  deloser: {},
+};
 
 export interface Signature {
-  Args: PopoverSignature['Args'];
+  Args: PopoverArgs;
   Blocks: {
     default: [
       {
-        arrow: PopoverSignature['Blocks']['default'][0]['arrow'];
-        Trigger: WithBoundArgs<typeof Trigger, 'triggerElement' | 'contentId' | 'isOpen' | 'hook'>;
+        arrow: PopoverBlockParams['arrow'];
+        trigger: WithBoundArgs<
+          typeof trigger,
+          'triggerElement' | 'contentId' | 'isOpen' | 'setHook'
+        >;
+        Trigger: WithBoundArgs<typeof Trigger, 'triggerModifier'>;
         Content: WithBoundArgs<
           typeof Content,
           'triggerElement' | 'contentId' | 'isOpen' | 'PopoverContent'
@@ -146,7 +149,7 @@ const Content: TOC<{
     triggerElement: Cell<HTMLElement>;
     contentId: string;
     isOpen: Cell<boolean>;
-    PopoverContent: PopoverSignature['Blocks']['default'][0]['Content'];
+    PopoverContent: PopoverBlockParams['Content'];
   };
   Blocks: { default: [{ Item: typeof Item; Separator: typeof Separator }] };
 }> = <template>
@@ -165,34 +168,52 @@ const Content: TOC<{
   {{/if}}
 </template>;
 
-const installTrigger = modifier<{
+const trigger = modifier<{
   Element: HTMLElement;
-  Args: { Named: { triggerElement: Cell<HTMLElement> } };
-}>((element, _: [], { triggerElement }) => {
+  Args: {
+    Named: {
+      triggerElement: Cell<HTMLElement>;
+      isOpen: Cell<boolean>;
+      contentId: string;
+      setHook: PopoverBlockParams['setHook'];
+    };
+  };
+}>((element, _: [], { triggerElement, isOpen, contentId, setHook }) => {
+  element.setAttribute('aria-haspopup', 'menu');
+
+  if (isOpen.current) {
+    element.setAttribute('aria-controls', contentId);
+    element.setAttribute('aria-expanded', 'true');
+  } else {
+    element.removeAttribute('aria-controls');
+    element.setAttribute('aria-expanded', 'false');
+  }
+
+  setTabsterAttribute(element, TABSTER_CONFIG_TRIGGER);
+
+  const onTriggerClick = () => isOpen.toggle();
+
+  element.addEventListener('click', onTriggerClick);
+
   triggerElement.current = element;
+  setHook(element);
+
+  return () => {
+    element.removeEventListener('click', onTriggerClick);
+  };
 });
 
 const Trigger: TOC<{
   Element: HTMLButtonElement;
   Args: {
-    triggerElement: Cell<HTMLElement>;
-    contentId: string;
-    isOpen: Cell<boolean>;
-    hook: PopoverSignature['Blocks']['default'][0]['hook'];
+    triggerModifier: WithBoundArgs<
+      typeof trigger,
+      'triggerElement' | 'contentId' | 'isOpen' | 'setHook'
+    >;
   };
   Blocks: { default: [] };
 }> = <template>
-  <button
-    data-tabster={{TABSTER_CONFIG_TRIGGER}}
-    type="button"
-    aria-controls={{if @isOpen.current @contentId}}
-    aria-haspopup="menu"
-    aria-expanded={{if @isOpen.current "true" "false"}}
-    {{@hook}}
-    {{installTrigger triggerElement=@triggerElement}}
-    {{on "click" @isOpen.toggle}}
-    ...attributes
-  >
+  <button type="button" {{@triggerModifier}} ...attributes>
     {{yield}}
   </button>
 </template>;
@@ -215,22 +236,32 @@ export class Menu extends Component<Signature> {
         @inline={{@inline}}
         as |p|
       >
-        {{yield
-          (hash
-            Trigger=(component
-              Trigger hook=p.hook isOpen=isOpen triggerElement=triggerEl contentId=this.contentId
-            )
-            Content=(component
-              Content
-              PopoverContent=p.Content
-              isOpen=isOpen
-              triggerElement=triggerEl
-              contentId=this.contentId
-            )
-            arrow=p.arrow
-            isOpen=isOpen.current
+        {{#let
+          (modifier
+            trigger
+            triggerElement=triggerEl
+            isOpen=isOpen
+            contentId=this.contentId
+            setHook=p.setHook
           )
+          as |triggerModifier|
         }}
+          {{yield
+            (hash
+              trigger=triggerModifier
+              Trigger=(component Trigger triggerModifier=triggerModifier)
+              Content=(component
+                Content
+                PopoverContent=p.Content
+                isOpen=isOpen
+                triggerElement=triggerEl
+                contentId=this.contentId
+              )
+              arrow=p.arrow
+              isOpen=isOpen.current
+            )
+          }}
+        {{/let}}
       </Popover>
     {{/let}}
   </template>

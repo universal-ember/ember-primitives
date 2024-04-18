@@ -91,6 +91,62 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.trigger').isFocused();
   });
 
+  test('can be opened/closed using the trigger and has correct aria attributes (using trigger modifier)', async function (assert) {
+    await render(
+      <template>
+        <PortalTargets />
+
+        <Menu as |m|>
+          <button type="button" class="trigger" {{m.trigger}}>
+            Trigger
+          </button>
+
+          <m.Content class="content" as |c|>
+            <c.Item>Item 1</c.Item>
+            <c.Item>Item 2</c.Item>
+            <c.Separator />
+            <c.Item>Item 3</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    assert.dom('.trigger').exists({ count: 1 });
+    assert.dom('.trigger').hasTagName('button');
+    assert.dom('.trigger').doesNotHaveAttribute('aria-controls');
+    assert.dom('.trigger').hasAttribute('aria-haspopup', 'menu');
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.trigger').hasText('Trigger');
+    assert.dom('.content').doesNotExist();
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+
+    let content = find('.content');
+
+    debugAssert(`There must be a content element with id set`, content?.id);
+
+    assert.dom('.trigger').hasAttribute('aria-controls', content.id);
+    assert.dom('.trigger').hasAttribute('aria-haspopup', 'menu');
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'true');
+    assert.dom('.content').hasAttribute('role', 'menu');
+    assert.dom('[role="menuitem"]').exists({ count: 3 });
+    assert.dom('[role="menuitem"]:nth-of-type(1)').hasText('Item 1');
+    assert.dom('[role="menuitem"]:nth-of-type(2)').hasText('Item 2');
+    assert.dom('[role="menuitem"]:nth-of-type(3)').hasText('Item 3');
+    assert.dom('[role="separator"]').exists({ count: 1 });
+    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
+
+    await click('.trigger');
+
+    assert.dom('.trigger').doesNotHaveAttribute('aria-controls');
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.content').doesNotExist();
+
+    assert.dom('.trigger').isFocused();
+  });
+
   test('keyboard navigation works', async function (assert) {
     await render(
       <template>

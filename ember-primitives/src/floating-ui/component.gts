@@ -43,14 +43,12 @@ const ref = eModifier<{
   Element: HTMLElement | SVGElement;
   Args: {
     Positional: [setRef: (element: HTMLElement | SVGElement) => void];
-  }
+  };
 }>((element: HTMLElement | SVGElement, positional) => {
   let fn = positional[0];
 
   fn(element);
 });
-
-
 
 export default class Velcro extends Component<Signature> {
   @tracked hook?: HTMLElement | SVGElement = undefined;

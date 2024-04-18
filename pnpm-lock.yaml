@@ -2619,6 +2619,7 @@ packages:
     dependencies:
       '@glimmer/di': 0.1.11
       '@glimmer/env': 0.1.7
+      '@glimmer/manager': 0.92.0
       '@glimmer/util': 0.44.0
       '@glimmer/validator': 0.92.0
       broccoli-file-creator: 2.1.1
@@ -2636,6 +2637,13 @@ packages:
       - '@babel/core'
       - supports-color
 
+  /@glimmer/debug@0.92.0:
+    resolution: {integrity: sha512-asWN1hsKYDwfyCc6dZeIyrXs4EpQCwAfZi9I1/U/RweI7iNOME0baunDVCUB9jZpV5TBSeEx+J1fs1GsIYvqAg==}
+    dependencies:
+      '@glimmer/interfaces': 0.92.0
+      '@glimmer/util': 0.92.0
+      '@glimmer/vm': 0.92.0
+
   /@glimmer/destroyable@0.84.3:
     resolution: {integrity: sha512-4tUw5UR4ntuySPvbcWyCMRjqxMJMV1GewjU3zGq22XvuBVFfq2K9WmuYV9H9FHg8X0MgDwcus+LjxrVSel39Sw==}
     dependencies:
@@ -2643,6 +2651,14 @@ packages:
       '@glimmer/global-context': 0.84.3
       '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.3
+
+  /@glimmer/destroyable@0.92.0:
+    resolution: {integrity: sha512-Y6IO0CTKdIvM24HvhcZBePDRG9Rc3nbRRqpYameNHmI/msEOVHk6BT217qkpGnma4OuT/AU6msoIOkTQI5kQPg==}
+    dependencies:
+      '@glimmer/env': 0.1.7
+      '@glimmer/global-context': 0.92.0
+      '@glimmer/interfaces': 0.92.0
+      '@glimmer/util': 0.92.0
 
   /@glimmer/di@0.1.11:
     resolution: {integrity: sha512-moRwafNDwHTnTHzyyZC9D+mUSvYrs1Ak0tRPjjmCghdoHHIvMshVbEnwKb/1WmW5CUlKc2eL9rlAV32n3GiItg==}
@@ -2694,6 +2710,19 @@ packages:
       '@glimmer/util': 0.84.3
       '@glimmer/validator': 0.84.3
 
+  /@glimmer/manager@0.92.0:
+    resolution: {integrity: sha512-vo5kpdyRq1YpP9FBcpSB9K8nGyz3C8k/vF3yd6g0u4zqVaaQrtvM+nw7pqOOQHf+FfQMr5nLYisvySWT7Eqwww==}
+    dependencies:
+      '@glimmer/debug': 0.92.0
+      '@glimmer/destroyable': 0.92.0
+      '@glimmer/env': 0.1.7
+      '@glimmer/global-context': 0.92.0
+      '@glimmer/interfaces': 0.92.0
+      '@glimmer/reference': 0.92.0
+      '@glimmer/util': 0.92.0
+      '@glimmer/validator': 0.92.0
+      '@glimmer/vm': 0.92.0
+
   /@glimmer/node@0.84.3:
     resolution: {integrity: sha512-QXlZjr7X6DDTJ3wiYQIHv2Pq/5sdGeTTW15+U+IosjZuQgvwCPJaeXC2CU8yqgA33yHgMgJpkdvLnPUCPrrhwg==}
     dependencies:
@@ -2737,6 +2766,15 @@ packages:
       '@glimmer/interfaces': 0.84.3
       '@glimmer/util': 0.84.3
       '@glimmer/validator': 0.84.3
+
+  /@glimmer/reference@0.92.0:
+    resolution: {integrity: sha512-es2a3bh9nk8kYCacLfm5Ly3x5sFDf2f0/7Vj1Ca2BXXfAn8UhuaR9uCrEI1OtBBz1JBciCzpbKemsu8J6VulYg==}
+    dependencies:
+      '@glimmer/env': 0.1.7
+      '@glimmer/global-context': 0.92.0
+      '@glimmer/interfaces': 0.92.0
+      '@glimmer/util': 0.92.0
+      '@glimmer/validator': 0.92.0
 
   /@glimmer/runtime@0.84.3:
     resolution: {integrity: sha512-LzlJbPDCUH/wjsgJ5kRImvOkqAImSyVRW37t34n/1Qd3v7ZoI8xVQg92lS+2kHZe030sT49ZwKkEIeVZiBreBw==}
@@ -2835,6 +2873,12 @@ packages:
     dependencies:
       '@glimmer/interfaces': 0.88.1
       '@glimmer/util': 0.88.1
+
+  /@glimmer/vm@0.92.0:
+    resolution: {integrity: sha512-y8HKYa0XrVZEKKJxfjVudpiC1ghe33lNKy0+/vxUBosQlH/+i1IJsHMaszQ5jhXZ3+RyTug4PMbs8BUeKDfzig==}
+    dependencies:
+      '@glimmer/interfaces': 0.92.0
+      '@glimmer/util': 0.92.0
 
   /@glimmer/wire-format@0.84.3:
     resolution: {integrity: sha512-aZVfQhqv4k7tTo2vwjy+b4mAxKt7cHH75JR3zAeCilimApa+yYTYUyY73NDNSUVbelgAlQ5s6vTiMSQ55WwVow==}
@@ -6468,7 +6512,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001610
-      electron-to-chromium: 1.4.738
+      electron-to-chromium: 1.4.739
     dev: true
 
   /browserslist@4.23.0:
@@ -6477,7 +6521,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001610
-      electron-to-chromium: 1.4.738
+      electron-to-chromium: 1.4.739
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.23.0)
 
@@ -7895,8 +7939,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: true
 
-  /electron-to-chromium@1.4.738:
-    resolution: {integrity: sha512-lwKft2CLFztD+vEIpesrOtCrko/TFnEJlHFdRhazU7Y/jx5qc4cqsocfVrBg4So4gGe9lvxnbLIoev47WMpg+A==}
+  /electron-to-chromium@1.4.739:
+    resolution: {integrity: sha512-koRkawXOuN9w/ymhTNxGfB8ta4MRKVW0nzifU17G1UwTWlBg0vv7xnz4nxDnRFSBe9nXMGRgICcAzqXc0PmLeA==}
 
   /ember-a11y-testing@6.1.1(@babel/core@7.24.4)(@ember/test-helpers@3.3.0)(@glint/template@1.4.0)(qunit@2.20.1)(webpack@5.91.0):
     resolution: {integrity: sha512-bDpw5+B2q++xwz5DWcbYB6dXp6nNe4jBwDkT6CqMESiVWWsSKPHs3ygt1Y89ESucesRIiv/49gNKMftZNsCpkw==}

@@ -51,6 +51,8 @@ function update(newValues) {
   }
 }
 
+const { JSON } = globalThis;
+
 <template>
   <div class="layout">
     <Form @onChange={{update}}>

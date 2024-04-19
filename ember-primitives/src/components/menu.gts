@@ -52,11 +52,13 @@ export interface Signature {
   };
 }
 
-const Separator: TOC<{
+export interface SeparatorSignature {
   Element: HTMLDivElement;
   Args: {};
   Blocks: { default: [] };
-}> = <template>
+}
+
+const Separator: TOC<SeparatorSignature> = <template>
   <div role="separator" ...attributes>
     {{yield}}
   </div>
@@ -81,11 +83,13 @@ function focusOnHover(e: PointerEvent) {
   }
 }
 
-const Item: TOC<{
+export interface ItemSignature {
   Element: HTMLButtonElement;
   Args: { onSelect?: (event: Event) => void };
   Blocks: { default: [] };
-}> = <template>
+}
+
+const Item: TOC<ItemSignature> = <template>
   <button
     type="button"
     role="menuitem"
@@ -143,7 +147,7 @@ const installContent = eModifier<{
   };
 });
 
-const Content: TOC<{
+interface PrivateContentSignature {
   Element: HTMLDivElement;
   Args: {
     triggerElement: Cell<HTMLElement>;
@@ -152,7 +156,15 @@ const Content: TOC<{
     PopoverContent: PopoverBlockParams['Content'];
   };
   Blocks: { default: [{ Item: typeof Item; Separator: typeof Separator }] };
-}> = <template>
+}
+
+export interface ContentSignature {
+  Element: PrivateContentSignature['Element'];
+  Args: {};
+  Blocks: PrivateContentSignature['Blocks'];
+}
+
+const Content: TOC<PrivateContentSignature> = <template>
   {{#if @isOpen.current}}
     <@PopoverContent
       id={{@contentId}}
@@ -168,7 +180,7 @@ const Content: TOC<{
   {{/if}}
 </template>;
 
-const trigger = eModifier<{
+interface PrivateTriggerModifierSignature {
   Element: HTMLElement;
   Args: {
     Named: {
@@ -178,32 +190,40 @@ const trigger = eModifier<{
       setHook: PopoverBlockParams['setHook'];
     };
   };
-}>((element, _: [], { triggerElement, isOpen, contentId, setHook }) => {
-  element.setAttribute('aria-haspopup', 'menu');
+}
 
-  if (isOpen.current) {
-    element.setAttribute('aria-controls', contentId);
-    element.setAttribute('aria-expanded', 'true');
-  } else {
-    element.removeAttribute('aria-controls');
-    element.setAttribute('aria-expanded', 'false');
+export interface TriggerModifierSignature {
+  Element: PrivateTriggerModifierSignature['Element'];
+}
+
+const trigger = eModifier<PrivateTriggerModifierSignature>(
+  (element, _: [], { triggerElement, isOpen, contentId, setHook }) => {
+    element.setAttribute('aria-haspopup', 'menu');
+
+    if (isOpen.current) {
+      element.setAttribute('aria-controls', contentId);
+      element.setAttribute('aria-expanded', 'true');
+    } else {
+      element.removeAttribute('aria-controls');
+      element.setAttribute('aria-expanded', 'false');
+    }
+
+    setTabsterAttribute(element, TABSTER_CONFIG_TRIGGER);
+
+    const onTriggerClick = () => isOpen.toggle();
+
+    element.addEventListener('click', onTriggerClick);
+
+    triggerElement.current = element;
+    setHook(element);
+
+    return () => {
+      element.removeEventListener('click', onTriggerClick);
+    };
   }
+);
 
-  setTabsterAttribute(element, TABSTER_CONFIG_TRIGGER);
-
-  const onTriggerClick = () => isOpen.toggle();
-
-  element.addEventListener('click', onTriggerClick);
-
-  triggerElement.current = element;
-  setHook(element);
-
-  return () => {
-    element.removeEventListener('click', onTriggerClick);
-  };
-});
-
-const Trigger: TOC<{
+interface PrivateTriggerSignature {
   Element: HTMLButtonElement;
   Args: {
     triggerModifier: WithBoundArgs<
@@ -212,7 +232,15 @@ const Trigger: TOC<{
     >;
   };
   Blocks: { default: [] };
-}> = <template>
+}
+
+export interface TriggerSignature {
+  Element: PrivateTriggerSignature['Element'];
+  Args: {};
+  Blocks: PrivateTriggerSignature['Blocks'];
+}
+
+const Trigger: TOC<PrivateTriggerSignature> = <template>
   <button type="button" {{@triggerModifier}} ...attributes>
     {{yield}}
   </button>

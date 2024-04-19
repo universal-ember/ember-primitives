@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.14.0",
-      "newVersion": "0.15.0",
+      "oldVersion": "0.15.0",
+      "newVersion": "0.16.0",
       "constraints": [
         {
           "impact": "minor",
@@ -11,11 +11,11 @@
         },
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-04-18)\n\nember-primitives 0.15.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#286](https://github.com/universal-ember/ember-primitives/pull/286) Implement Menu ([@miguelcobain](https://github.com/miguelcobain))\n  * [#289](https://github.com/universal-ember/ember-primitives/pull/289) Injest all of ember-velcro as a new optional import: `ember-primitives/floating-ui` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `test-app`\n  * [#291](https://github.com/universal-ember/ember-primitives/pull/291) fix floating-ui tests ([@miguelcobain](https://github.com/miguelcobain))\n* `ember-primitives`, `test-app`\n  * [#290](https://github.com/universal-ember/ember-primitives/pull/290) fix velcro types ([@miguelcobain](https://github.com/miguelcobain))\n\n#### Committers: 2\n- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-04-19)\n\nember-primitives 0.16.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#294](https://github.com/universal-ember/ember-primitives/pull/294) export menu signatures ([@miguelcobain](https://github.com/miguelcobain))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#293](https://github.com/universal-ember/ember-primitives/pull/293) use trigger modifier ([@miguelcobain](https://github.com/miguelcobain))\n\n#### :house: Internal\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#292](https://github.com/universal-ember/ember-primitives/pull/292) remove babel-plugin-ember-template-compilation overrides ([@miguelcobain](https://github.com/miguelcobain))\n\n#### Committers: 1\n- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))\n"
 }

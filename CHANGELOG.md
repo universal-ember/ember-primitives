@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release (2024-04-19)
+
+ember-primitives 0.16.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#294](https://github.com/universal-ember/ember-primitives/pull/294) export menu signatures ([@miguelcobain](https://github.com/miguelcobain))
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#293](https://github.com/universal-ember/ember-primitives/pull/293) use trigger modifier ([@miguelcobain](https://github.com/miguelcobain))
+
+#### :house: Internal
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#292](https://github.com/universal-ember/ember-primitives/pull/292) remove babel-plugin-ember-template-compilation overrides ([@miguelcobain](https://github.com/miguelcobain))
+
+#### Committers: 1
+- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
+
 ## Release (2024-04-18)
 
 ember-primitives 0.15.0 (minor)

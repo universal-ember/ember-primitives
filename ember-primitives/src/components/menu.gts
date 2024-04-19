@@ -3,7 +3,7 @@ import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { guidFor } from '@ember/object/internals';
 
-import { modifier } from 'ember-modifier';
+import { modifier as eModifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
 import { getTabster, getTabsterAttribute, setTabsterAttribute, Types } from 'tabster';
 
@@ -98,7 +98,7 @@ const Item: TOC<{
   </button>
 </template>;
 
-const installContent = modifier<{
+const installContent = eModifier<{
   Element: HTMLElement;
   Args: {
     Named: {
@@ -168,7 +168,7 @@ const Content: TOC<{
   {{/if}}
 </template>;
 
-const trigger = modifier<{
+const trigger = eModifier<{
   Element: HTMLElement;
   Args: {
     Named: {

@@ -2,7 +2,7 @@ import { hash } from '@ember/helper';
 
 import { arrow } from '@floating-ui/dom';
 import { element } from 'ember-element-helper';
-import { modifier } from 'ember-modifier';
+import { modifier as eModifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
 
 import { FloatingUI } from '../floating-ui.ts';
@@ -162,7 +162,7 @@ const arrowSides = {
 type Direction = 'top' | 'bottom' | 'left' | 'right';
 type Placement = `${Direction}${'' | '-start' | '-end'}`;
 
-const attachArrow = modifier<AttachArrowSignature>((element, _: [], named) => {
+const attachArrow = eModifier<AttachArrowSignature>((element, _: [], named) => {
   if (element === named.arrowElement.current) {
     if (!named.data) return;
     if (!named.data.middlewareData) return;

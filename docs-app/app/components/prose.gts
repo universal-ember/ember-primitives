@@ -1,11 +1,11 @@
-import { modifier } from 'ember-modifier';
+import { modifier as eModifier } from 'ember-modifier';
 import { ExternalLink, service } from 'ember-primitives';
 
 import { highlight } from './highlight';
 
 import type { TOC } from '@ember/component/template-only';
 
-const resetScroll = modifier((element, [prose]) => {
+const resetScroll = eModifier((element, [prose]) => {
   prose;
   element.scrollTo(0, 0);
 });

@@ -86,6 +86,27 @@ const EllipsisVertical = <template>
 </div>
 
 
+Sometimes, you need to use an existing component as the trigger. `<Menu>` also yields a `trigger` modifier that you can use anywhere, even on your own components (e.g a custom button):
+
+
+```hbs
+<Menu as |m|>
+  <MyButton {{m.trigger}}>
+    <EllipsisVertical />
+  </MyButton>
+
+  <m.Content class="content" as |c|>
+    <c.Item>Item 1</c.Item>
+    <c.Item>Item 2</c.Item>
+    <c.Separator />
+    <c.Item>Item 3</c.Item>
+  </m.Content>
+</Menu>
+```
+
+Keep in mind that for the modifier to do its work, your custom component must use [`...attributes`](https://guides.emberjs.com/v5.7.0/components/component-arguments-and-html-attributes/#toc_html-attributes) in some HTML element.
+
+
 ## API Reference
 
 ```gjs live no-shadow
@@ -108,5 +129,3 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
 | <kbd>ArrowDown</kbd> <kbd>ArrowRight</kbd> | When `Content` is open, moves to the next item.  |
 | <kbd>ArrowUp</kbd> <kbd>ArrowLeft</kbd> | When `Content` is open, moves to the previous item.  |
 | <kbd>Esc</kbd> | Closes the menu and moves focus to `Trigger`. |
-
-In addition, a label is required so that users know what the switch is for.

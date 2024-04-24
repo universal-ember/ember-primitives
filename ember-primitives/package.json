@@ -119,6 +119,7 @@
       "./components/switch.js": "./dist/_app_/components/switch.js",
       "./components/toggle-group.js": "./dist/_app_/components/toggle-group.js",
       "./components/toggle.js": "./dist/_app_/components/toggle.js",
+      "./helpers/link.js": "./dist/_app_/helpers/link.js",
       "./helpers/service.js": "./dist/_app_/helpers/service.js",
       "./services/ember-primitives/setup.js": "./dist/_app_/services/ember-primitives/setup.js"
     }

@@ -47,12 +47,6 @@ import { Toggle } from 'ember-primitives';
 * Can be controlled or uncontrolled
 
 
-## Installation 
-
-```bash 
-pnpm add ember-primitives
-```
-
 ## Anatomy
 
 ```js 

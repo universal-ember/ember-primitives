@@ -64,12 +64,6 @@ const click = (methodName) => scrollers[methodName]();
 
 </div>
 
-## Installation
-
-```bash
-pnpm add ember-primitives
-```
-
 ## Anatomy
 
 ```js 

@@ -1,13 +1,7 @@
 .featured-demo .glimdown-render {
-  width: 100%;
-  max-width: 100%;
-  border: 1px solid;
-  padding: 5rem;
-  box-shadow: inset 0px 3px 8px rgba(0, 0, 0, 0.3);
-  background: conic-gradient(at -20% 15%, red 0%, transparent 28%, #1e90ff 72%);
-  max-height: 300px;
+  @apply w-full max-w-full p-20 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl max-h-80 text-slate-50;
 }
 
 .featured-demo.auto-height .glimdown-render {
-  max-height: unset;
+  @apply max-h-none;
 }

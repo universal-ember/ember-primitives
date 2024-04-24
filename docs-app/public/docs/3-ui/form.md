@@ -127,18 +127,12 @@ const handleSubmit = (onChange, event) => {
 [mdn-FormDataEntryValue]: https://udn.realityripple.com/docs/Web/API/FormDataEntryValue
 
 
-## Fetaures 
+## Features 
 
 * All types of inputs and controls are supported
 * Best accessibility
 * No need to add boilerplate to inputs
 * Works with any shape of data
-
-## Installation
-
-```bash 
-pnpm add ember-primitives
-```
 
 ## Anatomy
 

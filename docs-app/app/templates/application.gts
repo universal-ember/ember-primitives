@@ -8,6 +8,8 @@ export default Route(
   <template>
     {{pageTitle "ember-primitives"}}
 
-    <Layout />
+    <div class="flex w-full flex-col">
+      <Layout />
+    </div>
   </template>
 );

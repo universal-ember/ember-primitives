@@ -26,8 +26,8 @@ export const ThemeToggle = <template>
         🎵 It's raining, it's pouring, ... 🎵
         https://www.youtube.com/watch?v=ll5ykbAumD4
       }}
-      <Moon />
-      <Sun />
+      <Moon class="fill-sky-400" />
+      <Sun class="fill-yellow-400" />
       <span class="ball"></span>
     </s.Label>
   </Switch>
@@ -40,11 +40,9 @@ export const ThemeToggle = <template>
     input[type='checkbox'][role='switch'] { opacity: 0; position: absolute; } #site-theme-toggle
     label { background-color: #111; width: 50px; height: 26px; border-radius: 50px; position:
     relative; padding: 5px; cursor: pointer; display: flex; justify-content: space-between;
-    align-items: center; gap: 0.5rem; box-shadow: inset 1px 0px 1px gray; } #site-theme-toggle svg {
-    fill: currentColor; } #site-theme-toggle .fa-moon { color: #f1c40f; } #site-theme-toggle .fa-sun
-    { color: #f39c12; } #site-theme-toggle label .ball { background-color: #fff; width: 22px;
-    height: 22px; position: absolute; left: 2px; top: 2px; border-radius: 50%; transition: transform
-    0.2s linear; } #site-theme-toggle input[type='checkbox'][role='switch']:checked + label .ball {
-    transform: translateX(24px); }
+    align-items: center; gap: 0.5rem; box-shadow: inset 1px 0px 1px gray; } #site-theme-toggle label
+    .ball { background-color: #fff; width: 22px; height: 22px; position: absolute; left: 2px; top:
+    2px; border-radius: 50%; transition: transform 0.2s linear; } #site-theme-toggle
+    input[type='checkbox'][role='switch']:checked + label .ball { transform: translateX(24px); }
   </style>
 </template>;

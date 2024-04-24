@@ -2,12 +2,6 @@
 
 Utilities for working with IFrames.
 
-## Installation 
-
-```bash 
-pnpm add ember-primitives
-```
-
 
 ```gjs live no-shadow
 import { APIDocs } from 'docs-app/docs-support';

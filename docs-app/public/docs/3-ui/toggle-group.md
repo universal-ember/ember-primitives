@@ -56,7 +56,7 @@ import { ToggleGroup } from 'ember-primitives';
 
     .toggle-group > button {
       background-color: white;
-      color: #black;
+      color: #000;
       height: 35px;
       width: 35px;
       display: flex;
@@ -110,12 +110,6 @@ const AlignRight = <template>
 * Supports horizontal / vertical orientation
 * Support single and multiple pressed buttons
 * Can be controlled or uncontrolled
-
-## Installation 
-
-```bash 
-pnpm add ember-primitives
-```
 
 ## Anatomy
 

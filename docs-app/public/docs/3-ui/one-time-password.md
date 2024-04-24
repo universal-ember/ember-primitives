@@ -64,11 +64,6 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 * backspace / arrow key support
 * number keyboard on [mobile](https://developer.mozilla.org/docs/Web/HTML/Global_attributes/inputmode)
 
-## Installation
-
-```bash
-pnpm add ember-primitives
-```
 
 ## Anatomy
 

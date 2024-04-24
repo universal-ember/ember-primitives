@@ -261,11 +261,6 @@ export default class ControlledAccordion extends Component {
 - Can expand one or multiple items
 - Can be animated
 
-## Installation
-
-```bash
-pnpm add ember-primitives
-```
 
 ## Anatomy
 

@@ -1,8 +1,0 @@
-.glimdown-snippet > pre {
-  border: 1px solid gray;
-  width: 100%;
-  display: grid;
-}
-.glimdown-snippet > pre > code {
-  display: contents;
-}

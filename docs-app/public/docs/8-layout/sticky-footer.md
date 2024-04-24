@@ -125,12 +125,6 @@ const removeContent = () => content.splice(-1);
 * Footer sticks to the bottom of the window when there is less than a screen's worth of content
 * Footer sits below the content when there is enough content to overflow the containing element / body
 
-## Installation
-
-```bash
-pnpm add ember-primitives
-```
-
 ## Anatomy
 
 ```js 

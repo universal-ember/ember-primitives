@@ -4,16 +4,13 @@
  *
  * This would require that modifiers could run pre-render
  */
-import Component from '@glimmer/component';
-import { assert } from '@ember/debug';
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
-import { service } from '@ember/service';
 
-import { handle } from '../proper-links.ts';
+import { link } from '../helpers/link.ts';
 import { ExternalLink } from './external-link.gts';
 
-import type RouterService from '@ember/routing/router-service';
+import type { TOC } from '@ember/component/template-only';
 
 export interface Signature {
   Element: HTMLAnchorElement;
@@ -120,101 +117,23 @@ export interface Signature {
  *
  * [mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
  */
-export class Link extends Component<Signature> {
-  <template>
-    {{#if (isExternal @href)}}
+export const Link: TOC<Signature> = <template>
+  {{#let (link @href includeActiveQueryParams=@includeActiveQueryParams) as |l|}}
+    {{#if l.isExternal}}
       <ExternalLink href={{@href}} ...attributes>
         {{yield (hash isExternal=true isActive=false)}}
       </ExternalLink>
     {{else}}
       <a
-        data-active={{this.isActive}}
+        data-active={{l.isActive}}
         href={{if @href @href "##missing##"}}
-        {{on "click" this.handleClick}}
+        {{on "click" l.handleClick}}
         ...attributes
       >
-        {{yield (hash isExternal=false isActive=this.isActive)}}
+        {{yield (hash isExternal=false isActive=l.isActive)}}
       </a>
     {{/if}}
-  </template>
-
-  @service declare router: RouterService;
-
-  handleClick = (event: MouseEvent) => {
-    assert('[BUG]', event.target instanceof HTMLAnchorElement);
-
-    handle(this.router, event.target, [], event);
-  };
-
-  get isActive() {
-    let { href, includeActiveQueryParams } = this.args;
-
-    return isActive(this.router, href, includeActiveQueryParams);
-  }
-}
+  {{/let}}
+</template>;
 
 export default Link;
-
-function isExternal(href: string) {
-  if (!href) return false;
-  if (href.startsWith('#')) return false;
-  if (href.startsWith('/')) return false;
-
-  return location.origin !== new URL(href).origin;
-}
-
-function isActive(router: RouterService, href: string, includeQueryParams?: boolean | string[]) {
-  if (!includeQueryParams) {
-    /**
-     * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
-     */
-    let info = router.recognize(href);
-
-    if (info) {
-      let dynamicSegments = getParams(info);
-
-      return router.isActive(info.name, ...dynamicSegments);
-    }
-
-    return false;
-  }
-
-  let url = new URL(href, location.origin);
-  let hrefQueryParams = new URLSearchParams(url.searchParams);
-  let hrefPath = url.pathname;
-
-  const currentPath = router.currentURL?.split('?')[0];
-
-  if (!currentPath) return false;
-
-  if (hrefPath !== currentPath) return false;
-
-  const currentQueryParams = router.currentRoute?.queryParams;
-
-  if (!currentQueryParams) return false;
-
-  if (includeQueryParams === true) {
-    return Object.entries(currentQueryParams).every(([key, value]) => {
-      return hrefQueryParams.get(key) === value;
-    });
-  }
-
-  return includeQueryParams.every((key) => {
-    return hrefQueryParams.get(key) === currentQueryParams[key];
-  });
-}
-
-type RouteInfo = ReturnType<RouterService['recognize']>;
-
-function getParams(currentRouteInfo: RouteInfo) {
-  let params: Record<string, string | unknown | undefined>[] = [];
-
-  while (currentRouteInfo?.parent) {
-    let currentParams = currentRouteInfo.params;
-
-    params = currentParams ? [currentParams, ...params] : params;
-    currentRouteInfo = currentRouteInfo.parent;
-  }
-
-  return params.map(Object.values).flat();
-}

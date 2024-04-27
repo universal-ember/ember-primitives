@@ -15,3 +15,24 @@
     display: none;
   }
 }
+
+a,
+button,
+input,
+select,
+textarea,
+[role="switch"],
+[role="button"],
+[tabindex] {
+  &:focus,
+  &:focus-visible {
+    @apply outline-none;
+  }
+  &:focus-visible {
+    @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
+  }
+}
+
+[role="switch"][name="color-scheme"]:focus-visible + label .ball {
+  @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
+}

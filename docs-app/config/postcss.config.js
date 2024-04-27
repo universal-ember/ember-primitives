@@ -1,6 +1,7 @@
 module.exports = {
   plugins: {
-    'postcss-import': {},
+    // postcss-import causes a massive perf degredation in webpack
+    //'postcss-import': {},
     tailwindcss: {
       config: 'config/tailwind.config.js',
     },

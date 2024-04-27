@@ -38,11 +38,12 @@
   },
   "pnpm": {
     "overrides": {
+      "@embroider/util": "1.13.0",
       "@typescript-eslint/eslint-plugin": "^7.7.1",
       "@typescript-eslint/parser": "^7.7.1",
-      "ember-element-helper": "0.8.6",
-      "ember-source": "5.8.0",
-      "tracked-toolbox": "2.0.0",
+      "ember-element-helper": ">= 0.8.6",
+      "ember-source": "^5.8.0",
+      "tracked-toolbox": "^2.0.0",
       "ember-cli-babel": "^8.2.0",
       "webpack": "^5.91.0"
     },
@@ -58,6 +59,11 @@
         }
       },
       "@glint/template": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@universal-ember/kolay-ui": {
         "peerDependencies": {
           "ember-source": "*"
         }
@@ -89,16 +95,6 @@
           "ember-source": "*"
         }
       },
-      "tracked-toolbox": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "ember-primitives": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
       "ember-resources": {
         "peerDependencies": {
           "ember-source": "*"
@@ -114,7 +110,7 @@
           "ember-source": "*"
         }
       },
-      "@universal-ember/kolay-ui": {
+      "tracked-toolbox": {
         "peerDependencies": {
           "ember-source": "*"
         }

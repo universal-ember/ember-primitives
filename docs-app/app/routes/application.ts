@@ -51,6 +51,7 @@ export default class Application extends Route {
         'ember-primitives/color-scheme': import('ember-primitives/color-scheme'),
 
         // community libraries
+        'ember-resources': import('ember-resources'),
         'ember-headless-form': import('ember-headless-form'),
         'reactiveweb/remote-data': import('reactiveweb/remote-data'),
         // @ts-expect-error - no types provided

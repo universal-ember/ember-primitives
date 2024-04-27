@@ -1,7 +1,7 @@
 import { ExternalLink, service } from 'ember-primitives';
 import { colorScheme } from 'ember-primitives/color-scheme';
 
-import { Footer } from './footer';
+import { Header } from './header';
 import { Nav } from './nav';
 import { Prose } from './prose';
 
@@ -11,6 +11,14 @@ function removeAppShell() {
 
 function isDark() {
   return colorScheme.current === 'dark';
+}
+
+function syncBodyClass() {
+  if (isDark()) {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
 }
 
 const ReportingAnIssue = <template>
@@ -25,25 +33,15 @@ const ReportingAnIssue = <template>
 
       {{(removeAppShell)}}
 
-      {{#if (isDark)}}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-dark.css"
-        />
-      {{else}}
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/styles/atom-one-light.css"
-        />
-      {{/if}}
+      {{(syncBodyClass)}}
 
-      <main id="layout">
+      <Header />
+      <main
+        class="relative flex justify-center flex-auto w-full mx-auto max-w-8xl sm:px-2 lg:px-8 xl:px-12"
+      >
         <Nav />
-        <section>
-          <Prose />
-        </section>
+        <Prose />
       </main>
-      <Footer />
     {{else if page.hasError}}
       <h1>Oops!</h1>
       {{page.error}}

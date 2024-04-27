@@ -73,6 +73,27 @@ module.exports = function (defaults) {
             dest: 'api-docs.json',
           }),
         ],
+        module: {
+          rules: [
+            {
+              test: /\.(woff|woff2|eot|ttf|otf)$/,
+              use: ['file-loader'],
+            },
+            {
+              test: /.css$/i,
+              use: [
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    postcssOptions: {
+                      config: 'config/postcss.config.js',
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
       },
     },
   });

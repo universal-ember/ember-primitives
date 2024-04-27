@@ -100,8 +100,7 @@ section {
   > ul.typedoc-declaration-children
   > li
   > .typedoc-declaration {
-  border: 1px solid lightgray;
-  padding: 0.5rem;
+  @apply p-6 rounded-xl bg-sky-50 dark:bg-slate-800/60 dark:ring-1 dark:ring-slate-300/10;
 }
 
 .typedoc-component-arg {

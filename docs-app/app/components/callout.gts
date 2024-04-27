@@ -1,17 +1,20 @@
+import { LightBulb } from './icons';
+
 import type { TOC } from '@ember/component/template-only';
 
 export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
-  <div class="callout">
-    <span class="icon">✨</span>
-    <p class="text">
-      {{yield}}
-    </p>
+  <div
+    class="flex p-6 my-8 rounded-3xl bg-sky-50 dark:bg-slate-800/60 dark:ring-1 dark:ring-slate-300/10"
+  >
+    <LightBulb class="flex-none w-8 h-8" />
+    <div class="flex-auto min-w-0 ml-4">
+      <div
+        class="text-sky-800 [--tw-prose-background:theme(colors.sky.50)] prose-a:text-sky-900 dark:text-slate-50 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+      >
+        {{yield}}
+      </div>
+    </div>
   </div>
-
-  <style>
-    .callout { display: grid; grid-auto-flow: column; gap: 1rem; border: 1px solid #edc; padding:
-    1rem; border-left: 0.5rem solid #edc; } .callout > .icon {} .callout > .text { font-style:
-    italic; } .callout p { /* override prose styles */ margin: 0; }
-  </style>
 </template>;
+
 export default Callout;

@@ -3,13 +3,6 @@
 Enables usage of plain `<a>` tags.
 You no longer need to use a component to have single-page-app navigation 🎉.
 
-
-## Installation 
-
-```bash 
-pnpm add ember-primitives
-```
-
 ## Setup
 
 import `properLinks` and apply it to your Router.

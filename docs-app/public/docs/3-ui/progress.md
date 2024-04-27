@@ -139,11 +139,6 @@ const RandomProgress =
 
 * Provides context for assistive technology to read the progress of a task.
 
-## Installation
-
-```bash 
-pnpm add ember-primitives
-```
 
 ## Anatomy
 

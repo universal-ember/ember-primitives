@@ -69,12 +69,6 @@ import { Avatar } from 'ember-primitives';
 * Fallback accepts any content.
 * Optionally delay fallback rendering to avoid content flashing.
 
-## Installation
-
-```bash
-pnpm add ember-primitives
-```
-
 ## Anatomy
 
 ```js 

@@ -140,12 +140,6 @@ const Moon = <template>
 * Full keyboard navigation 
 * Can be controlled or uncontrolled
 
-## Installation 
-
-```bash 
-pnpm add ember-primitives
-```
-
 ## Anatomy
 
 

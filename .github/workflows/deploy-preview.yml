@@ -36,6 +36,7 @@ name: Deploy Preview
 # read-write repo token
 # access to secrets
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["CI"]
     types:

@@ -34,17 +34,32 @@
   },
   "volta": {
     "node": "20.12.2",
-    "pnpm": "8.15.6"
+    "pnpm": "9.0.6"
   },
   "pnpm": {
     "overrides": {
+      "@typescript-eslint/eslint-plugin": "^7.7.1",
+      "@typescript-eslint/parser": "^7.7.1",
+      "ember-element-helper": "0.8.6",
+      "ember-source": "5.8.0",
+      "tracked-toolbox": "2.0.0",
       "ember-cli-babel": "^8.2.0",
       "webpack": "^5.91.0"
     },
     "packageExtensions": {
       "@glimmer/component": {
-        "dependencies": {
-          "@glimmer/validator": ">= 0.44.0"
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@embroider/util": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@glint/template": {
+        "peerDependencies": {
+          "ember-source": "*"
         }
       },
       "ember-qunit": {
@@ -61,16 +76,6 @@
       "ember-repl": {
         "peerDependencies": {
           "reactiveweb": "*",
-          "ember-source": "*"
-        }
-      },
-      "@glint/template": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "@glimmer/component": {
-        "peerDependencies": {
           "ember-source": "*"
         }
       },
@@ -119,6 +124,7 @@
       "allowAny": [
         "typescript",
         "ember-source",
+        "ember-primitives",
         "@glimmer/compiler",
         "@glimmer/syntax"
       ],

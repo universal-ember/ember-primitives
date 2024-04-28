@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
+import { pascalCase, sentenceCase } from 'change-case';
 import { link } from 'ember-primitives/helpers';
 import { isLink } from 'ember-primitives/proper-links';
 import { GroupNav, PageNav } from 'kolay/components';
@@ -25,26 +26,28 @@ const titleize = (str: string) => {
   );
 };
 
-//function nameFor(x: Page) {
-//  // We defined componentName via json file
-//  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//  if ('componentName' in x) {
-//    return `${x.componentName}`;
-//  }
-//
-//  if (x.path.includes('/components/')) {
-//    return `<${pascalCase(x.name)} />`;
-//  }
-//
-//  return sentenceCase(x.name);
-//}
+function nameFor(x: Page) {
+  // We defined componentName via json file
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if ('componentName' in x) {
+    return `${x.componentName}`;
+  }
+
+  if (x.path.includes('/components/')) {
+    return `<${pascalCase(x.name)} />`;
+  }
+
+  return sentenceCase(x.name);
+}
 
 const asComponent = (str: string) => {
   return `<${str.split('.')[0]?.replaceAll(' ', '')} />`;
 };
 
-const isComponents = (str: string) => str === 'components';
 const unExct = (str: string) => str.replace(/\.md$/, '');
+const isComponents = (str: string) => str === 'components';
+const isLoneIndex = (pages: Page[]) =>
+  (pages.length === 1 && pages[0]?.name === 'index') || pages[0]?.name === 'intro';
 
 const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
@@ -69,21 +72,25 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
     {{/let}}
   </template>;
 
+
 const SideNav: TOC<{ Element: HTMLElement }> = <template>
   <aside>
     <PageNav @activeClass="main-nav-active" ...attributes>
       <:page as |page|>
-        {{#if (isComponents page.name)}}
-          {{asComponent (titleize page.name)}}
-        {{else}}
-          {{(titleize page.name)}}
-        {{/if}}
+        {{nameFor page}}
       </:page>
 
       <:collection as |collection|>
-        <h2 class="font-medium font-display text-slate-900 dark:text-white">
-          {{titleize collection.name}}
-        </h2>
+      {{log collection}}
+        {{#if (isLoneIndex collection.pages)}}
+          {{#each collection.pages as |page|}}
+            <SectionLink @name={{page.overriddenName}} @href={{page.path}} />
+          {{/each}}
+        {{else}}
+          <h2 class="font-medium font-display text-slate-900 dark:text-white">
+            {{titleize collection.name}}
+          </h2>
+        {{/if}}
       </:collection>
     </PageNav>
   </aside>
@@ -100,10 +107,6 @@ export class Nav extends Component {
 
     return path.split('/').filter(Boolean).map(titleize).join(' / ');
   }
-
-  isSelected = ({ path }: { path: string }) => {
-    return this.docs.selected?.path === path;
-  };
 
   closeNav = (event: Event) => {
     if (!isLink(event)) return;
@@ -134,7 +137,7 @@ export class Nav extends Component {
         class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 pointer-events-auto overflow-y-auto overflow-x-hidden overscroll-contain py-8 lg:py-16 pl-8 pr-8 xl:w-72 xl:pr-16 bg-slate-50 dark:bg-slate-800 lg:bg-transparent dark:lg:bg-transparent shadow-xl lg:shadow-none lg:pl-0.5 transition-transform lg:translate-x-0
           {{if this.ui.isNavOpen 'translate-x-0' '-translate-x-full'}}"
       >
-        <nav aria-label="Main Navigation" class="text-base lg:text-sm">
+        <nav aria-label="Main Navigation" class="text-base lg:text-sm" {{on 'click' this.closeNav}}>
           <SideNav />
         </nav>
       </div>

@@ -30,6 +30,7 @@
     "@shikijs/rehype": "^1.2.0",
     "@universal-ember/kolay-ui": "^0.0.4",
     "assert": "^2.0.0",
+    "change-case": "^5.4.4",
     "decorator-transforms": "^1.1.0",
     "ember-focus-trap": "^1.1.0",
     "ember-headless-form": "^1.0.0",

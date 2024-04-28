@@ -4,10 +4,9 @@ import { service } from '@ember/service';
 
 import { link } from 'ember-primitives/helpers';
 import { isLink } from 'ember-primitives/proper-links';
+import { GroupNav, PageNav } from 'kolay/components';
 
 import type { TOC } from '@ember/component/template-only';
-import type DocsService from 'docs-app/services/docs';
-import type { Page } from 'docs-app/services/types';
 import type UI from 'docs-app/services/ui';
 
 /**
@@ -26,14 +25,25 @@ const titleize = (str: string) => {
   );
 };
 
+//function nameFor(x: Page) {
+//  // We defined componentName via json file
+//  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//  if ('componentName' in x) {
+//    return `${x.componentName}`;
+//  }
+//
+//  if (x.path.includes('/components/')) {
+//    return `<${pascalCase(x.name)} />`;
+//  }
+//
+//  return sentenceCase(x.name);
+//}
+
 const asComponent = (str: string) => {
   return `<${str.split('.')[0]?.replaceAll(' ', '')} />`;
 };
 
 const isComponents = (str: string) => str === 'components';
-const isLoneIndex = (pages: Page[]) =>
-  (pages.length === 1 && pages[0]?.name === 'index.md') || pages[0]?.name === 'intro.md';
-
 const unExct = (str: string) => str.replace(/\.md$/, '');
 
 const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
@@ -59,31 +69,28 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
     {{/let}}
   </template>;
 
-const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
-  <template>
-    {{#let (link (unExct @href)) as |l|}}
-      <a
-        href={{unExct @href}}
-        class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
-          {{if
-            l.isActive
-            'font-semibold text-sky-500 before:bg-sky-500'
-            'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300'
-          }}"
-        {{on "click" l.handleClick}}
-        ...attributes
-      >
-        {{#if (isComponents @name)}}
-          {{asComponent (titleize @name)}}
+const SideNav: TOC<{ Element: HTMLElement }> = <template>
+  <aside>
+    <PageNav @activeClass="main-nav-active" ...attributes>
+      <:page as |page|>
+        {{#if (isComponents page.name)}}
+          {{asComponent (titleize page.name)}}
         {{else}}
-          {{(titleize @name)}}
+          {{(titleize page.name)}}
         {{/if}}
-      </a>
-    {{/let}}
-  </template>;
+      </:page>
+
+      <:collection as |collection|>
+        <h2 class="font-medium font-display text-slate-900 dark:text-white">
+          {{titleize collection.name}}
+        </h2>
+      </:collection>
+    </PageNav>
+  </aside>
+</template>;
 
 export class Nav extends Component {
-  @service declare docs: DocsService;
+  @service('kolay/docs') declare docs: DocsService;
   @service declare ui: UI;
 
   get humanSelected() {
@@ -128,35 +135,7 @@ export class Nav extends Component {
           {{if this.ui.isNavOpen 'translate-x-0' '-translate-x-full'}}"
       >
         <nav aria-label="Main Navigation" class="text-base lg:text-sm">
-          <ul role="list" class="space-y-9">
-            {{#each-in this.docs.grouped as |group pages|}}
-              <li>
-                {{#if (isLoneIndex pages)}}
-                  {{#each pages as |page|}}
-                    <SectionLink @name={{group}} @href={{page.path}} {{on "click" this.closeNav}} />
-                  {{/each}}
-                {{else}}
-                  <h2 class="font-medium font-display text-slate-900 dark:text-white">
-                    {{titleize group}}
-                  </h2>
-                  <ul
-                    role="list"
-                    class="mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800"
-                  >
-                    {{#each pages as |page|}}
-                      <li class="relative">
-                        <SubSectionLink
-                          @name={{page.name}}
-                          @href={{page.path}}
-                          {{on "click" this.closeNav}}
-                        />
-                      </li>
-                    {{/each}}
-                  </ul>
-                {{/if}}
-              </li>
-            {{/each-in}}
-          </ul>
+          <SideNav />
         </nav>
       </div>
       <div class="opacity-25 bg-slate-900"></div>

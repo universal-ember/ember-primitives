@@ -58,8 +58,6 @@ export default class Application extends Route {
         'ember-focus-trap/modifiers/focus-trap': import('ember-focus-trap/modifiers/focus-trap'),
         // @ts-expect-error - no types provided
         'ember-focus-trap': import('ember-focus-trap'),
-        'ember-velcro': import('ember-velcro'),
-        'ember-velcro/modifiers/velcro': import('ember-velcro/modifiers/velcro'),
 
         // utility
         'lorem-ipsum': import('lorem-ipsum')

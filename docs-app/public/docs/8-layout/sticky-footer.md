@@ -171,7 +171,7 @@ This component provides no accessibility patterns and using `<main>` / `<footer>
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="index" @name="StickyFooter" />

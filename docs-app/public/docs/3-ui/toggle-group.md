@@ -136,7 +136,7 @@ import { ToggleGroup } from 'ember-primitives';
 ## API Reference: `@type='single'` (default)
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="components/toggle-group" @name="SingleSignature" />
@@ -146,7 +146,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 ## API Reference: `@type='multi'` 
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="components/toggle-group" @name="MultiSignature" />
@@ -159,7 +159,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 ## API Reference: `Item`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="components/toggle-group" @name="ItemSignature" />

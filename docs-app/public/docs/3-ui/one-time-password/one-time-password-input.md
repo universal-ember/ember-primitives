@@ -102,7 +102,7 @@ Keyboard interactions try to mimic select interactions from a single input (arro
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="index" @name="OTPInput" />

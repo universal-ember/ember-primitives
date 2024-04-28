@@ -27,7 +27,7 @@ module.exports = async function (defaults) {
     variants = [{ name: 'deployed-dev-build', runtime: 'browser', optimizeForProduction }];
   }
 
-  return require('@embroider/compat').compatBuild(app, _Webpack, {
+  return require('@embroider/compat').compatBuild(app, Webpack, {
     extraPublicTrees: [],
     staticAddonTrees: true,
     staticAddonTestSupportTrees: true,

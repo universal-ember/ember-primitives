@@ -294,7 +294,7 @@ import { Accordion } from 'ember-primitives';
 <summary><h3>Accordion</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module='components/accordion' @name='Accordion' />
@@ -313,7 +313,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionItem</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module='index' @name='AccordionItemExternalSignature' />
@@ -333,7 +333,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionHeader</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module='index' @name='AccordionHeaderExternalSignature' />
@@ -353,7 +353,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionTrigger</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module='index' @name='AccordionTriggerExternalSignature' />
@@ -373,7 +373,7 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionContent</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module='index' @name='AccordionContentExternalSignature' />

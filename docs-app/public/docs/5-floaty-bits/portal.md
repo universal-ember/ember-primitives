@@ -64,7 +64,7 @@ import { PortalTargets, Portal, PORTALS } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="components/portal" @name="Signature" />

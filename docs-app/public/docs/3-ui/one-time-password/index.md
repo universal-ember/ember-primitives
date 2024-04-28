@@ -119,7 +119,7 @@ It is rendered within a fieldset to convey that all of the character inputs are 
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="index" @name="OTP" />

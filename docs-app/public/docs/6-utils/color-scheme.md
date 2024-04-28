@@ -104,7 +104,7 @@ function syncBodyClass() {
 ## API Reference
 
 ```gjs live no-shadow
-import { APIDocs } from 'docs-app/docs-support';
+import { APIDocs } from 'kolay';
 
 <template>
   <APIDocs @module="color-scheme" @name="colorScheme" />

@@ -1,7 +1,7 @@
 # Link
 
 ```gjs live no-shadow
-import { CommentQuery } from 'docs-app/docs-support';
+import { CommentQuery } from 'kolay';
 
 <template>
   <CommentQuery @module="components/link" @name="Link" />

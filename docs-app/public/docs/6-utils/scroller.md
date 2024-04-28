@@ -1,7 +1,7 @@
 # Scroller
 
 ```gjs live no-shadow
-import { CommentQuery } from 'docs-app/docs-support';
+import { CommentQuery } from 'kolay';
 
 <template>
   <CommentQuery @module="components/scroller" @name="Scroller" />
@@ -94,7 +94,7 @@ import { Scroller } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
   <ComponentSignature @module="components/scroller" @name="Scroller" />

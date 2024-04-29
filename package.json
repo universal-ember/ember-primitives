@@ -120,7 +120,6 @@
       "allowAny": [
         "typescript",
         "ember-source",
-        "ember-primitives",
         "@glimmer/compiler",
         "@glimmer/syntax"
       ],

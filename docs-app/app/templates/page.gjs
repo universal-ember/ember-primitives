@@ -19,7 +19,9 @@ export default Route(
     <Page>
 
       <:error as |error|>
-        <Error @error={{error}} />
+        <section>
+          <Error @error={{error}} />
+        </section>
       </:error>
 
       <:success as |prose|>
@@ -48,7 +50,7 @@ const ReportingAnIssue = <template>
 </template>;
 
 const Error = <template>
-  <div style="border: 1px solid red; padding: 1rem;">
+  <div class="dark:text-white text:slate-900" style="border: 1px solid red; padding: 1rem;">
     <h1>Oops!</h1>
     {{@error}}
 

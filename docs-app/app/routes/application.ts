@@ -26,11 +26,13 @@ export default class Application extends Route {
         import("shiki/langs/typescript.mjs"),
         import("shiki/langs/bash.mjs"),
         import("shiki/langs/css.mjs"),
+        import("shiki/langs/diff.mjs"),
         import("shiki/langs/html.mjs"),
         import("shiki/langs/glimmer-js.mjs"),
         import("shiki/langs/glimmer-ts.mjs"),
         import("shiki/langs/handlebars.mjs"),
         import("shiki/langs/jsonc.mjs"),
+        import("shiki/langs/markdown.mjs"),
       ],
       loadWasm: getWasm,
     });

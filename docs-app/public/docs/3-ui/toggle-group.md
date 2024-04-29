@@ -172,7 +172,7 @@ Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/rad
 
 As a caveat to using [tabster](https://tabster.io/), a "tabster-root" will need to be established separately if this component is used within a shadow-root, which escapes the parent-DOM's tabster instance.
 
-For more information, see [The Accessibility guide](/2-accessibility/intro.md).
+For more information, see [The Accessibility guide](/2-accessibility/index.md).
 
 ### Keyboard Interactions
 

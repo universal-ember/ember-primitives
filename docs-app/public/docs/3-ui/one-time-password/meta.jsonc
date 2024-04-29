@@ -1,0 +1,4 @@
+{
+  // default sort order provided by the filesystem: Alphabetical
+  "order": ["otp", "otp-input"],
+}

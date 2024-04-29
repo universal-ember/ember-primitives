@@ -104,7 +104,10 @@ An `alt` attribute is required, and in development, the UI will show an indicati
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/avatar" @name="Avatar" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/avatar" 
+    @name="Avatar" />
 </template>
 ```
 

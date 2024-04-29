@@ -179,7 +179,10 @@ Note that a progressbar is [required to have a name](https://developer.mozilla.o
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/progress" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/progress" 
+    @name="Signature" />
 </template>
 ```
 

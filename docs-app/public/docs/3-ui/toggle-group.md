@@ -139,7 +139,10 @@ import { ToggleGroup } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="SingleSignature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle-group" 
+    @name="SingleSignature" />
 </template>
 ```
 
@@ -149,7 +152,10 @@ import { ComponentSignature } from 'kolay';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="MultiSignature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle-group" 
+    @name="MultiSignature" />
 </template>
 ```
 
@@ -162,7 +168,10 @@ import { ComponentSignature } from 'kolay';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="ItemSignature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle-group" 
+    @name="ItemSignature" />
 </template>
 ```
 

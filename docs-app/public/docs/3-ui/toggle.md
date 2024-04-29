@@ -76,7 +76,11 @@ import { Toggle } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle" 
+    @name="Signature" 
+  />
 </template>
 ```
 

@@ -172,7 +172,10 @@ import { Switch } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/switch" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/switch" 
+    @name="Signature" />
 </template>
 ```
 

@@ -122,7 +122,10 @@ It is rendered within a fieldset to convey that all of the character inputs are 
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="index" @name="OTP" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/one-time-password/index" 
+    @name="OTP" />
 </template>
 ```
 ### State Attributes

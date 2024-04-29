@@ -297,7 +297,11 @@ import { Accordion } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='components/accordion' @name='Accordion' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='declarations/components/accordion' 
+    @name='Accordion' 
+  />
 </template>
 ```
 
@@ -316,7 +320,11 @@ import { ComponentSignature } from 'kolay';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionItemExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='index' 
+    @name='AccordionItemExternalSignature' 
+  />
 </template>
 ```
 
@@ -336,7 +344,11 @@ import { ComponentSignature } from 'kolay';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionHeaderExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='index' 
+    @name='AccordionHeaderExternalSignature' 
+  />
 </template>
 ```
 
@@ -356,7 +368,11 @@ import { ComponentSignature } from 'kolay';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionTriggerExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='index' 
+    @name='AccordionTriggerExternalSignature' 
+  />
 </template>
 ```
 
@@ -376,7 +392,10 @@ import { ComponentSignature } from 'kolay';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionContentExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='index' 
+    @name='AccordionContentExternalSignature' />
 </template>
 ```
 

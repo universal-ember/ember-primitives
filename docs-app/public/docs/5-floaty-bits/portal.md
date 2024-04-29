@@ -67,7 +67,11 @@ import { PortalTargets, Portal, PORTALS } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/portal" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/portal" 
+    @name="Signature" 
+  />
 </template>
 ```
 

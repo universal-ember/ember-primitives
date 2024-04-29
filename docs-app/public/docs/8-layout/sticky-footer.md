@@ -174,7 +174,11 @@ This component provides no accessibility patterns and using `<main>` / `<footer>
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="index" @name="StickyFooter" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/layout/sticky-footer" 
+    @name="StickyFooter" 
+  />
 </template>
 ```
 

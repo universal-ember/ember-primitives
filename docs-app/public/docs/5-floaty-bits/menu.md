@@ -113,7 +113,10 @@ Keep in mind that for the modifier to do its work, your custom component must us
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/menu" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="components/menu" 
+    @name="Signature" />
 </template>
 ```
 

@@ -97,7 +97,10 @@ import { Scroller } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/scroller" @name="Scroller" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="components/scroller" 
+    @name="Scroller" />
 </template>
 ```
 

@@ -105,7 +105,10 @@ Keyboard interactions try to mimic select interactions from a single input (arro
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="index" @name="OTPInput" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="index" 
+    @name="OTPInput" />
 </template>
 ```
 ### State Attributes

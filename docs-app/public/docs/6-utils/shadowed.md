@@ -43,6 +43,10 @@ import { Shadowed } from 'ember-primitives';
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/shadowed" @name="Shadowed" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/shadowed" 
+    @name="Shadowed" 
+  />
 </template>
 ```

@@ -219,7 +219,10 @@ const settings = cell(true);
 import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/popover" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/popover" 
+    @name="Signature" />
 </template>
 ```
 

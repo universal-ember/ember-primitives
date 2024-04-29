@@ -285,7 +285,16 @@ import { Modal } from 'ember-primitives';
 
 ## API Reference
 
-<ComponentSignature @module="components/dialog" @name="Signature" />
+```gjs live no-shadow`
+import { ComponentSignature } from 'kolay';
+
+<template>
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/dialog" 
+    @name="Signature" />
+</template>
+```
 
 ### State Attributes
 

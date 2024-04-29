@@ -1,10 +1,10 @@
 # Scroller
 
 ```gjs live no-shadow
-import { CommentQuery } from 'docs-app/docs-support';
+import { CommentQuery } from 'kolay';
 
 <template>
-  <CommentQuery @module="components/scroller" @name="Scroller" />
+  <CommentQuery @package="ember-primitives" @module="declarations/components/scroller" @name="Scroller" />
 </template>
 ```
 
@@ -94,10 +94,13 @@ import { Scroller } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/scroller" @name="Scroller" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/scroller" 
+    @name="Scroller" />
 </template>
 ```
 

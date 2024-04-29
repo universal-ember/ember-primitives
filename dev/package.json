@@ -25,10 +25,10 @@
     "@babel/core": "^7.23.9",
     "@babel/eslint-parser": "^7.23.10",
     "@nullvoxpopuli/eslint-configs": "^3.2.2",
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
     "eslint": "^8.56.0",
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "typescript": "^5.3.3"
   },
   "scripts": {

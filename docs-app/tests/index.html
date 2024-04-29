@@ -14,6 +14,7 @@
 
     {{content-for "head-footer"}} {{content-for "test-head-footer"}}
   </head>
+
   <body>
     {{content-for "body"}} {{content-for "test-body"}}
 
@@ -29,6 +30,10 @@
     <script src="{{rootURL}}assets/test-support.js"></script>
     <script src="{{rootURL}}assets/docs-app.js"></script>
     <script src="{{rootURL}}assets/tests.js"></script>
+
+    <script>
+      window.Buffer = globalThis.Buffer = { isBuffer: () => false };
+    </script>
 
     {{content-for "body-footer"}} {{content-for "test-body-footer"}}
   </body>

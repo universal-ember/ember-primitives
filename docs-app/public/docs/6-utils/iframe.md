@@ -4,17 +4,17 @@ Utilities for working with IFrames.
 
 
 ```gjs live no-shadow
-import { APIDocs } from 'docs-app/docs-support';
+import { APIDocs } from 'kolay';
 
 <template>
-  <APIDocs @module="iframe" @name="inIframe" />
+  <APIDocs @package="ember-primitives" @module="declarations/iframe" @name="inIframe" />
 </template>
 ```
 
 ```gjs live no-shadow
-import { APIDocs } from 'docs-app/docs-support';
+import { APIDocs } from 'kolay';
 
 <template>
-  <APIDocs @module="iframe" @name="notInIframe" />
+  <APIDocs @package="ember-primitives" @module="declarations/iframe" @name="notInIframe" />
 </template>
 ```

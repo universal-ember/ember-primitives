@@ -7,6 +7,6 @@ export default class NotHere extends Route {
   @service declare router: RouterService;
 
   beforeModel() {
-    this.router.replaceWith('/1-get-started/intro');
+    this.router.replaceWith('/1-get-started/index');
   }
 }

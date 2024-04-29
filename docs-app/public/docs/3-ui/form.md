@@ -164,10 +164,14 @@ Because this is a light wrapper around [`<form>`][mdn-form], accessibility is th
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/form" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/form" 
+    @name="Signature" 
+  />
 </template>
 ```
 

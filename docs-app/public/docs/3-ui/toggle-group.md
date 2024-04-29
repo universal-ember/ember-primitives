@@ -136,20 +136,26 @@ import { ToggleGroup } from 'ember-primitives';
 ## API Reference: `@type='single'` (default)
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="SingleSignature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle-group" 
+    @name="SingleSignature" />
 </template>
 ```
 
 ## API Reference: `@type='multi'` 
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="MultiSignature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle-group" 
+    @name="MultiSignature" />
 </template>
 ```
 
@@ -159,10 +165,13 @@ import { ComponentSignature } from 'docs-app/docs-support';
 ## API Reference: `Item`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/toggle-group" @name="ItemSignature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/toggle-group" 
+    @name="ItemSignature" />
 </template>
 ```
 
@@ -172,7 +181,7 @@ Uses [roving tabindex](https://www.w3.org/TR/wai-aria-practices-1.2/examples/rad
 
 As a caveat to using [tabster](https://tabster.io/), a "tabster-root" will need to be established separately if this component is used within a shadow-root, which escapes the parent-DOM's tabster instance.
 
-For more information, see [The Accessibility guide](/2-accessibility/intro.md).
+For more information, see [The Accessibility guide](/2-accessibility/index.md).
 
 ### Keyboard Interactions
 

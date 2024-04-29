@@ -110,10 +110,13 @@ Keep in mind that for the modifier to do its work, your custom component must us
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/menu" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/menu" 
+    @name="Signature" />
 </template>
 ```
 

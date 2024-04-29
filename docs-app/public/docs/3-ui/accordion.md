@@ -294,10 +294,14 @@ import { Accordion } from 'ember-primitives';
 <summary><h3>Accordion</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='components/accordion' @name='Accordion' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='declarations/components/accordion' 
+    @name='Accordion' 
+  />
 </template>
 ```
 
@@ -313,10 +317,14 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionItem</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionItemExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='declarations/components/accordion' 
+    @name='AccordionItemExternalSignature' 
+  />
 </template>
 ```
 
@@ -333,10 +341,14 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionHeader</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionHeaderExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='declarations/components/accordion' 
+    @name='AccordionHeaderExternalSignature' 
+  />
 </template>
 ```
 
@@ -353,10 +365,14 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionTrigger</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionTriggerExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='declarations/components/accordion' 
+    @name='AccordionTriggerExternalSignature' 
+  />
 </template>
 ```
 
@@ -373,10 +389,13 @@ import { ComponentSignature } from 'docs-app/docs-support';
 <summary><h3>AccordionContent</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module='index' @name='AccordionContentExternalSignature' />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module='declarations/components/accordion' 
+    @name='AccordionContentExternalSignature' />
 </template>
 ```
 

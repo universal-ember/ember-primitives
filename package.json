@@ -23,7 +23,7 @@
     "concurrently": "^8.2.2",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^2.0.2",
-    "release-plan": "^0.7.1",
+    "release-plan": "^0.9.0",
     "turbo": "^1.13.2",
     "typescript": "^5.4.5"
   },
@@ -34,18 +34,38 @@
   },
   "volta": {
     "node": "20.12.2",
-    "pnpm": "8.15.6"
+    "pnpm": "9.0.6"
   },
   "pnpm": {
     "overrides": {
-      "ember-async-data": "1.0.1",
-      "ember-compatibility-helpers": "1.2.7",
-      "ember-cli-babel": "^8.2.0"
+      "@embroider/util": "1.13.0",
+      "@typescript-eslint/eslint-plugin": "^7.7.1",
+      "@typescript-eslint/parser": "^7.7.1",
+      "ember-element-helper": ">= 0.8.6",
+      "ember-source": "^5.8.0",
+      "tracked-toolbox": "^2.0.0",
+      "ember-cli-babel": "^8.2.0",
+      "webpack": "^5.91.0"
     },
     "packageExtensions": {
       "@glimmer/component": {
-        "dependencies": {
-          "@glimmer/validator": ">= 0.44.0"
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@embroider/util": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@glint/template": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "@universal-ember/kolay-ui": {
+        "peerDependencies": {
+          "ember-source": "*"
         }
       },
       "ember-qunit": {
@@ -57,6 +77,42 @@
         "dependencies": {
           "ember-cached-decorator-polyfill": "*",
           "ember-async-data": "^1.0.1"
+        }
+      },
+      "ember-repl": {
+        "peerDependencies": {
+          "reactiveweb": "*",
+          "ember-source": "*"
+        }
+      },
+      "ember-element-helper": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-async-data": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-resources": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-cached-decorator-polyfill": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "ember-functions-as-helper-polyfill": {
+        "peerDependencies": {
+          "ember-source": "*"
+        }
+      },
+      "tracked-toolbox": {
+        "peerDependencies": {
+          "ember-source": "*"
         }
       }
     },

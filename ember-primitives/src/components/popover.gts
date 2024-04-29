@@ -12,7 +12,7 @@ import { TARGETS } from './portal-targets.gts';
 import type { Signature as FloatingUiComponentSignature } from '../floating-ui/component.ts';
 import type { Signature as HookSignature } from '../floating-ui/modifier.ts';
 import type { TOC } from '@ember/component/template-only';
-import type { ElementContext, Middleware, MiddlewareData } from '@floating-ui/dom';
+import type { ElementContext, Middleware } from '@floating-ui/dom';
 import type { ModifierLike, WithBoundArgs } from '@glint/template';
 
 export interface Signature {
@@ -144,10 +144,8 @@ interface AttachArrowSignature {
   Args: {
     Named: {
       arrowElement: ReturnType<typeof ArrowElement>;
-      data?: {
-        middlewareData?: MiddlewareData;
-        placement?: Placement;
-      };
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      data?: any;
     };
   };
 }

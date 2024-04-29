@@ -16,9 +16,9 @@ QUnit.config.urlConfig.push({
 });
 
 (async function loadManifest() {
-  let response = await fetch('/docs/manifest.json');
+  let response = await fetch('/kolay-manifest/manifest.json');
   let json = await response.json();
-  let pages = json.list.flat();
+  let pages = json.groups[0].list;
 
   // The accessibility page deliberately
   // has violations for demonstration

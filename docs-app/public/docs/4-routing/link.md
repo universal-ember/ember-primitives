@@ -1,7 +1,7 @@
 # Link
 
 ```gjs live no-shadow
-import { CommentQuery } from 'docs-app/docs-support';
+import { CommentQuery } from 'kolay';
 
 <template>
   <CommentQuery @module="components/link" @name="Link" />
@@ -78,10 +78,13 @@ import { Link } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/link" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/link" 
+    @name="Signature" />
 </template>
 ```
 

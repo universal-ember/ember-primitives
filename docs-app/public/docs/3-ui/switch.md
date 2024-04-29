@@ -169,10 +169,13 @@ import { Switch } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'docs-app/docs-support';
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature @module="components/switch" @name="Signature" />
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/switch" 
+    @name="Signature" />
 </template>
 ```
 

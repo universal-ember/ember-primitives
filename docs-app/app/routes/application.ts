@@ -67,6 +67,7 @@ export default class Application extends Route {
       },
       rehypePlugins: [
         [
+          // @ts-expect-error - shiki may have the wrong type, since the other plugins are fine
           rehypeShikiFromHighlighter,
           highlighter,
           {

@@ -1,6 +1,10 @@
 import { APIDocs as KolayAPIDocs, ComponentSignature as KolayComponentSignature } from 'kolay';
 
-export const APIDocs = <template>
+import type { TOC } from '@ember/component/template-only';
+
+export const APIDocs: TOC<{
+  Args: { declaration: string; name: string };
+}> = <template>
   <KolayAPIDocs
     @package="ember-primitives"
     @module="declarations/{{@declaration}}"
@@ -8,7 +12,9 @@ export const APIDocs = <template>
   />
 </template>;
 
-export const ComponentSignature = <template>
+export const ComponentSignature: TOC<{
+  Args: { declaration: string; name: string };
+}> = <template>
   <KolayComponentSignature
     @package="ember-primitives"
     @module="declarations/{{@declaration}}"

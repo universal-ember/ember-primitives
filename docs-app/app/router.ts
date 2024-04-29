@@ -15,5 +15,6 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
+  // @ts-expect-error - needs upstream fix in Kolay
   addRoutes(this);
 });

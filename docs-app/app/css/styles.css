@@ -47,9 +47,9 @@ textarea,
 
 nav[aria-label="Main Navigation"] {
   @apply text-base lg:text-sm;
-  
-  > ul { 
-    @apply space-y-9; 
+
+  > ul {
+    @apply space-y-9;
 
     h2 {
       @apply font-medium font-display text-slate-900 dark:text-white;

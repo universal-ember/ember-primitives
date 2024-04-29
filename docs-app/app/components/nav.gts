@@ -138,7 +138,7 @@ export class Nav extends Component {
               <SubSectionLink
                 @href={{x.page.path}}
                 @name={{nameFor x.page}}
-                {{on 'click' this.closeNav}}
+                {{on "click" this.closeNav}}
               />
             </:page>
 
@@ -147,7 +147,7 @@ export class Nav extends Component {
                 <SectionLink
                   @href={{unExct x.index.page.path}}
                   @name={{titleize x.collection.name}}
-                  {{on 'click' this.closeNav}}
+                  {{on "click" this.closeNav}}
                 />
               {{else}}
                 <h2>

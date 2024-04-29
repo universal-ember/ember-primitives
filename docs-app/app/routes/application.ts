@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-import rehypeShikiFromHighlighter from "@shikijs/rehype/core";
+import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
 import { Callout } from 'docs-app/components/callout';
-import { colorScheme } from "ember-primitives/color-scheme";
-import { getHighlighterCore } from "shiki/core";
-import getWasm from "shiki/wasm";
+import { colorScheme } from 'ember-primitives/color-scheme';
+import { getHighlighterCore } from 'shiki/core';
+import getWasm from 'shiki/wasm';
 
 import type { SetupService } from 'ember-primitives';
 import type { DocsService } from 'kolay';
@@ -20,26 +20,26 @@ export default class Application extends Route {
 
   async model() {
     const highlighter = await getHighlighterCore({
-      themes: [import("shiki/themes/github-dark.mjs"), import("shiki/themes/github-light.mjs")],
+      themes: [import('shiki/themes/github-dark.mjs'), import('shiki/themes/github-light.mjs')],
       langs: [
-        import("shiki/langs/javascript.mjs"),
-        import("shiki/langs/typescript.mjs"),
-        import("shiki/langs/bash.mjs"),
-        import("shiki/langs/css.mjs"),
-        import("shiki/langs/diff.mjs"),
-        import("shiki/langs/html.mjs"),
-        import("shiki/langs/glimmer-js.mjs"),
-        import("shiki/langs/glimmer-ts.mjs"),
-        import("shiki/langs/handlebars.mjs"),
-        import("shiki/langs/jsonc.mjs"),
-        import("shiki/langs/markdown.mjs"),
+        import('shiki/langs/javascript.mjs'),
+        import('shiki/langs/typescript.mjs'),
+        import('shiki/langs/bash.mjs'),
+        import('shiki/langs/css.mjs'),
+        import('shiki/langs/diff.mjs'),
+        import('shiki/langs/html.mjs'),
+        import('shiki/langs/glimmer-js.mjs'),
+        import('shiki/langs/glimmer-ts.mjs'),
+        import('shiki/langs/handlebars.mjs'),
+        import('shiki/langs/jsonc.mjs'),
+        import('shiki/langs/markdown.mjs'),
       ],
       loadWasm: getWasm,
     });
 
     await this.docs.setup({
-      apiDocs: import("kolay/api-docs:virtual"),
-      manifest: import("kolay/manifest:virtual"),
+      apiDocs: import('kolay/api-docs:virtual'),
+      manifest: import('kolay/manifest:virtual'),
       // Available directly within the markdown
       topLevelScope: {
         Callout,
@@ -62,17 +62,17 @@ export default class Application extends Route {
         'ember-focus-trap': import('ember-focus-trap'),
 
         // utility
-        'lorem-ipsum': import('lorem-ipsum')
+        'lorem-ipsum': import('lorem-ipsum'),
       },
       rehypePlugins: [
         [
           rehypeShikiFromHighlighter,
           highlighter,
           {
-            defaultColor: colorScheme.current === "dark" ? "dark" : "light",
+            defaultColor: colorScheme.current === 'dark' ? 'dark' : 'light',
             themes: {
-              light: "github-light",
-              dark: "github-dark",
+              light: 'github-light',
+              dark: 'github-dark',
             },
           },
         ],

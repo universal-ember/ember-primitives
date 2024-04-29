@@ -4,7 +4,7 @@ import EmberRouter from '@ember/routing/router';
 
 import config from 'docs-app/config/environment';
 import { properLinks } from 'ember-primitives/proper-links';
-import { addRoutes } from "kolay";
+import { addRoutes } from 'kolay';
 
 @properLinks({
   ignore: ['/tests'],

@@ -73,7 +73,7 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
     {{#let (link (unExct @href)) as |l|}}
       <a
         href={{unExct @href}}
-        class="block w-full pl-3.5 before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
+        class="block w-full before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
           {{if
             l.isActive
             'font-semibold text-sky-500 before:bg-sky-500'

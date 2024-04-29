@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
-import { pascalCase, sentenceCase } from 'change-case';
+import { sentenceCase } from 'change-case';
 import { link } from 'ember-primitives/helpers';
 import { isLink } from 'ember-primitives/proper-links';
 import { PageNav } from 'kolay/components';
@@ -62,7 +62,7 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
         {{#if (isComponents @name)}}
           {{asComponent (titleize @name)}}
         {{else}}
-          {{(titleize @name)}}
+          {{titleize @name}}
         {{/if}}
       </a>
     {{/let}}
@@ -85,7 +85,7 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
         {{#if (isComponents @name)}}
           {{asComponent (titleize @name)}}
         {{else}}
-          {{(titleize @name)}}
+          {{titleize @name}}
         {{/if}}
       </a>
     {{/let}}
@@ -135,19 +135,19 @@ export class Nav extends Component {
         <aside>
           <PageNav aria-label="Main Navigation">
             <:page as |x|>
-              <SubSectionLink 
-                @href={{x.page.path}} 
-                @name={{nameFor x.page}} 
-                {{on 'click' this.closeNav}} 
+              <SubSectionLink
+                @href={{x.page.path}}
+                @name={{nameFor x.page}}
+                {{on 'click' this.closeNav}}
               />
             </:page>
 
             <:collection as |x|>
               {{#if x.index}}
-                <SectionLink 
-                  @href={{unExct x.index.page.path}} 
-                  @name={{titleize x.collection.name}} 
-                  {{on 'click' this.closeNav}} 
+                <SectionLink
+                  @href={{unExct x.index.page.path}}
+                  @name={{titleize x.collection.name}}
+                  {{on 'click' this.closeNav}}
                 />
               {{else}}
                 <h2>

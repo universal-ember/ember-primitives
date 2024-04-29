@@ -128,8 +128,9 @@ export class Nav extends Component {
         class="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-slate-800 dark:block"
       />
       <div class="absolute bottom-0 right-0 hidden w-px top-28 bg-slate-800 dark:block" />
+      {{! changed from sticky to relative because the CSS with sticky in this component is not cross-browser compatible }}
       <div
-        class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 pointer-events-auto overflow-y-auto overflow-x-hidden overscroll-contain py-4 lg:py-4 pl-4 pr-8 xl:w-72 xl:pr-16 bg-slate-50 dark:bg-slate-800 lg:bg-transparent dark:lg:bg-transparent shadow-xl lg:shadow-none lg:pl-0.5 transition-transform lg:translate-x-0
+        class="relative top-[4.75rem] lg:top-0 -ml-0.5 h-[calc(100vh-4.75rem)] w-64 pointer-events-auto overflow-y-auto overflow-x-hidden overscroll-contain py-4 lg:py-4 pl-4 pr-8 xl:w-72 xl:pr-16 bg-slate-50 dark:bg-slate-800 lg:bg-transparent dark:lg:bg-transparent shadow-xl lg:shadow-none lg:pl-0.5 transition-transform lg:translate-x-0
           {{if this.ui.isNavOpen 'translate-x-0' '-translate-x-full'}}"
       >
         <aside>

@@ -84,7 +84,7 @@ export class OTPInput extends Component<{
     onChange?: (
       data: {
         /**
-         * The text from the collective <Input>
+         * The text from the collective `<Input>`
          *
          * `code` _may_ be shorter than `length`
          * if the user has not finished typing / pasting their code

@@ -7,7 +7,7 @@ Utilities for working with IFrames.
 import { APIDocs } from 'kolay';
 
 <template>
-  <APIDocs @module="iframe" @name="inIframe" />
+  <APIDocs @package="ember-primitives" @module="declarations/iframe" @name="inIframe" />
 </template>
 ```
 
@@ -15,6 +15,6 @@ import { APIDocs } from 'kolay';
 import { APIDocs } from 'kolay';
 
 <template>
-  <APIDocs @module="iframe" @name="notInIframe" />
+  <APIDocs @package="ember-primitives" @module="declarations/iframe" @name="notInIframe" />
 </template>
 ```

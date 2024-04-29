@@ -4,7 +4,7 @@
 import { CommentQuery } from 'kolay';
 
 <template>
-  <CommentQuery @module="components/scroller" @name="Scroller" />
+  <CommentQuery @package="ember-primitives" @module="declarations/components/scroller" @name="Scroller" />
 </template>
 ```
 
@@ -99,7 +99,7 @@ import { ComponentSignature } from 'kolay';
 <template>
   <ComponentSignature 
     @package="ember-primitives" 
-    @module="components/scroller" 
+    @module="declarations/components/scroller" 
     @name="Scroller" />
 </template>
 ```

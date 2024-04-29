@@ -110,7 +110,7 @@ _However_, the [example](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/e
 The behavior of trapping all focus is [proposed here](https://github.com/whatwg/html/issues/8339), and we are reminded that the ARIA patterns are _guidelines_.
 
 
-If you wish to follow this guideline, it can be achieved via the `{{focusTrap}}` modifier.
+If you wish to follow this guideline, it can be achieved via the `focusTrap` modifier.
 
 ```bash
 pnpm add ember-focus-trap
@@ -122,7 +122,7 @@ pnpm add ember-focus-trap
 import { Modal } from 'ember-primitives';
 
 import { on } from '@ember/modifier';
-import focusTrap from 'ember-focus-trap/modifiers/focus-trap';
+import { focusTrap } from 'ember-focus-trap';
 import { loremIpsum } from 'lorem-ipsum';
 
 
@@ -171,6 +171,7 @@ import { loremIpsum } from 'lorem-ipsum';
     dialog > div {
       display: grid;
       gap: 1rem;
+      padding: 1rem;
     }
     dialog::backdrop {
       backdrop-filter: blur(1px);
@@ -180,7 +181,7 @@ import { loremIpsum } from 'lorem-ipsum';
       justify-content: space-between;
     }
     dialog h2 {
-      margin: 0;
+      margin: 0 !important;
     }
 
     dialog main {
@@ -189,6 +190,9 @@ import { loremIpsum } from 'lorem-ipsum';
     form {
       display: grid;
       gap: 1rem; 
+    }
+    .glimdown-render {
+      button { border: 1px solid; padding: 0.5rem; }
     }
   </style>
 </template>
@@ -285,7 +289,7 @@ import { Modal } from 'ember-primitives';
 
 ## API Reference
 
-```gjs live no-shadow`
+```gjs live no-shadow
 import { ComponentSignature } from 'kolay';
 
 <template>

@@ -115,7 +115,7 @@ import { ComponentSignature } from 'kolay';
 <template>
   <ComponentSignature 
     @package="ember-primitives" 
-    @module="components/menu" 
+    @module="declarations/components/menu" 
     @name="Signature" />
 </template>
 ```

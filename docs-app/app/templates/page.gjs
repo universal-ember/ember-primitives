@@ -50,7 +50,10 @@ const ReportingAnIssue = <template>
 </template>;
 
 const Error = <template>
-  <div class="dark:text-white text:slate-900" style="border: 1px solid red; padding: 1rem;">
+  <div
+    class="dark:text-white text:slate-900"
+    style="border: 1px solid red; padding: 1rem; word-break: break-all;"
+  >
     <h1>Oops!</h1>
     {{@error}}
 

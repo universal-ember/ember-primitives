@@ -7,6 +7,8 @@ import { colorScheme } from 'ember-primitives/color-scheme';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
 
+import { APIDocs, ComponentSignature } from './api-docs';
+
 import type { SetupService } from 'ember-primitives';
 import type { DocsService } from 'kolay';
 
@@ -40,12 +42,11 @@ export default class Application extends Route {
     await this.docs.setup({
       apiDocs: import('kolay/api-docs:virtual'),
       manifest: import('kolay/manifest:virtual'),
-      // Available directly within the markdown
       topLevelScope: {
         Callout,
+        APIDocs,
+        ComponentSignature,
       },
-      // TODO: discover this at build time
-      // TODO: change all this to await imports
       resolve: {
         // ember-primitives
         'ember-primitives': import('ember-primitives'),

@@ -124,8 +124,9 @@ import { ComponentSignature } from 'kolay';
 <template>
   <ComponentSignature 
     @package="ember-primitives" 
-    @module="declarations/components/one-time-password/index" 
-    @name="OTP" />
+    @module="declarations/components/one-time-password/otp" 
+    @name="OTP" 
+  />
 </template>
 ```
 ### State Attributes

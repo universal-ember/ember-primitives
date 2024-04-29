@@ -103,7 +103,9 @@ const removeContent = () => content.splice(-1);
       position: sticky;
       bottom: -38px;
     }
-    footer.sticky-footer, footer.site-footer { border: 1px solid; background: white; }
+    footer.sticky-footer, footer.site-footer { 
+      border: 1px solid; background: #333; 
+    }
     footer.site-footer { height: 38px; position: absolute; bottom: 0; left: 0; right: 0; }
     .fake-window2 {
       padding-bottom: 38px;

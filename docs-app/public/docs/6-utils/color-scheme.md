@@ -103,16 +103,12 @@ function syncBodyClass() {
 
 ## API Reference
 
-```gjs live no-shadow
-import { APIDocs } from 'kolay';
-
-<template>
-  <APIDocs @module="color-scheme" @name="colorScheme" />
-  <APIDocs @module="color-scheme" @name="sync" />
-  <APIDocs @module="color-scheme" @name="prefers" />
-  <APIDocs @module="color-scheme" @name="localPreference" />
-  <APIDocs @module="color-scheme" @name="getColorScheme" />
-  <APIDocs @module="color-scheme" @name="setColorScheme" />
-  <APIDocs @module="color-scheme" @name="removeColorScheme" />
-</template>
+```hbs live
+<APIDocs @declaration="color-scheme" @name="colorScheme" />
+<APIDocs @declaration="color-scheme" @name="sync" />
+<APIDocs @declaration="color-scheme" @name="prefers" />
+<APIDocs @declaration="color-scheme" @name="localPreference" />
+<APIDocs @declaration="color-scheme" @name="getColorScheme" />
+<APIDocs @declaration="color-scheme" @name="setColorScheme" />
+<APIDocs @declaration="color-scheme" @name="removeColorScheme" />
 ```

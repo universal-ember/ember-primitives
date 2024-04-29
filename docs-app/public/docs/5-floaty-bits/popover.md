@@ -78,7 +78,6 @@ import { loremIpsum } from 'lorem-ipsum';
       overflow-y: auto;
       border: 1px solid;
       padding: 0.5rem;
-      color: #888;
     }
   </style>
 </template>
@@ -198,7 +197,6 @@ const settings = cell(true);
     }
     .main {
       padding: 0.5rem;
-      color: #888;
     }
     .site {
       max-height: 200px;

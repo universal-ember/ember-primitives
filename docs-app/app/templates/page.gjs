@@ -1,4 +1,3 @@
-import { modifier } from 'ember-modifier';
 import { ExternalLink, service } from 'ember-primitives';
 import Route from 'ember-route-template';
 import { Page } from 'kolay/components';
@@ -9,37 +8,51 @@ function removeLoader() {
   document.querySelector('#initial-loader')?.remove();
 }
 
-const resetScroll = modifier((element, [prose]) => {
-  prose;
-  element.scrollTo(0, 0);
-});
+function resetScroll() {
+  document.querySelector('html')?.scrollTo(0, 0);
+}
 
 export default Route(
   <template>
-    <Page>
+    <section
+      data-main-scroll-container
+      class="flex-auto max-w-2xl min-w-0 px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16"
+      ...attributes
+    >
+      <Article>
+        <Page>
+          {{! TODO: we need a pending state here
+                right now this is ignored, because the :pending
+                block doesn't exist.
+          }}
+          <:pending>
+            <div class="h-full w-full"></div>
+          </:pending>
 
-      <:error as |error|>
-        <section>
-          <Error @error={{error}} />
-        </section>
-      </:error>
+          <:error as |error|>
+            <section>
+              <Error @error={{error}} />
+            </section>
+          </:error>
 
-      <:success as |prose|>
-        <section
-          class="flex-auto max-w-2xl min-w-0 px-4 py-16 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16"
-          ...attributes
-          {{resetScroll prose}}
-        >
-          <Article>
+          <:success as |prose|>
             <prose />
             {{(removeLoader)}}
-          </Article>
-
-          <EditLink />
-        </section>
-      </:success>
-
-    </Page>
+            {{! this is probably really bad, and anti-patterny
+                but ember doesn't have a good way to have libraries
+                tie in to the URL without a bunch of setup -- which is maybe fine?
+                needs some experimenting -- there is a bit of a disconnect with
+                deriving data from the URL, and the timing of the model hooks.
+                It might be possible to have an afterModel hook wait until the page is
+                compiled.
+                (that's why we have async state, because we're compiling, not loading)
+            }}
+            {{resetScroll prose}}
+          </:success>
+        </Page>
+      </Article>
+      <EditLink />
+    </section>
   </template>
 );
 
@@ -51,6 +64,7 @@ const ReportingAnIssue = <template>
 
 const Error = <template>
   <div
+    data-page-error
     class="dark:text-white text:slate-900"
     style="border: 1px solid red; padding: 1rem; word-break: break-all;"
   >

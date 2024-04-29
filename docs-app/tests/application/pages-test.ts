@@ -55,6 +55,8 @@ module('Application | Pages', function (hooks) {
       await waitUntil(() => findAll('nav a').length !== 0);
       await checkA11y(assert, path, 'default');
 
+      assert.dom('[data-page-error]').doesNotExist();
+
       colorScheme.update('dark');
       await checkA11y(assert, path, 'dark');
 

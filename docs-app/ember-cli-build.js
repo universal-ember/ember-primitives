@@ -1,9 +1,34 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const sideWatch = require('@embroider/broccoli-side-watch');
+const path = require('path');
 
 module.exports = async function (defaults) {
+  // This package is published incorrectly or their docs are wrong
+  // findUp should be a named export.
+  const { packageUp } = await import('package-up');
+
+  async function watchLibraries(...libraries) {
+    const promises = libraries.map(async (libraryName) => {
+      let entry = require.resolve(libraryName);
+      let manifestPath = await packageUp({ cwd: entry });
+      let packagePath = path.dirname(manifestPath);
+      let manifest = require(manifestPath);
+      let toWatch = manifest.files.map((f) => path.join(packagePath, f));
+
+      return toWatch;
+    });
+
+    const paths = await Promise.all(promises);
+
+    return sideWatch('app', { watching: paths.flat() });
+  }
+
   const app = new EmberApp(defaults, {
+    trees: {
+      app: await watchLibraries('ember-primitives'),
+    },
     // Add options here
     'ember-cli-babel': {
       enableTypeScriptTransform: true,

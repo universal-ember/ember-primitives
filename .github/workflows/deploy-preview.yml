@@ -93,12 +93,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "${{ toJson(github.event) }}"
+      - run: echo "${{ toJson(github.event.workflow_run) }}"
 
   determinePR:
     # this job gates the others -- if the workflow_run request did not come from a PR,
     # exit as early as possible
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.event == 'pull_request' # || github.event.workflow_run.event == "dispatch"
+    if: github.event.workflow_run.event == 'pull_request' || github.event.inputs.prNum
     outputs:
       number: ${{ steps.number.outputs.pr-number }}
     steps:

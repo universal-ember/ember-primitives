@@ -79,6 +79,8 @@ export default Route(
         display: grid;
         grid-template-columns: max-content 1fr;
         gap: 2rem;
+        margin: 0 auto;
+        max-width: 90rem;
 
         main {
           max-width: 100%;

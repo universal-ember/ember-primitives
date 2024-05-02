@@ -82,6 +82,11 @@ export default Route(
         margin: 0 auto;
         max-width: 90rem;
 
+        aside {
+          max-height: 100dvh;
+          overflow-y: auto;
+        }
+
         main {
           max-width: 100%;
           display: flex;

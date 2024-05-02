@@ -8,7 +8,6 @@ import { isLink } from 'ember-primitives/proper-links';
 import { PageNav } from 'kolay/components';
 
 import type { TOC } from '@ember/component/template-only';
-import type UI from 'docs-app/services/ui';
 import type { DocsService, Page } from 'kolay';
 
 /**
@@ -72,7 +71,7 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
     {{#let (link @href) as |l|}}
       <a
         href={{@href}}
-        class="block w-full before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
+        class="block w-full before:pointer-events-none before:absolute before:-left-3 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
           {{if
             l.isActive
             'font-semibold text-sky-500 before:bg-sky-500'
@@ -90,9 +89,12 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
     {{/let}}
   </template>;
 
-export class Nav extends Component {
+export class Nav extends Component<{
+  Args: {
+    onClick: () => void;
+  }
+}> {
   @service('kolay/docs') declare docs: DocsService;
-  @service declare ui: UI;
 
   get humanSelected() {
     let path = this.docs.selected?.path;
@@ -105,7 +107,7 @@ export class Nav extends Component {
   closeNav = (event: Event) => {
     if (!isLink(event)) return;
 
-    this.ui.isNavOpen = false;
+    this.args.onClick?.();
   };
 
   /**
@@ -121,44 +123,30 @@ export class Nav extends Component {
    *  The links themselves remain the actual interactive elements.
    */
   <template>
-    <div class="relative inset-0 z-10 pointer-events-none lg:relative lg:block lg:flex-none">
-      <div class="absolute inset-y-0 right-0 w-[50vw] bg-slate-50 dark:hidden hidden lg:block" />
-      <div
-        class="absolute bottom-0 right-0 hidden w-px h-12 top-16 bg-gradient-to-t from-slate-800 dark:block"
-      />
-      <div class="absolute bottom-0 right-0 hidden w-px top-28 bg-slate-800 dark:block" />
-      {{! changed from sticky to relative because the CSS with sticky in this component is not cross-browser compatible }}
-      <div
-        class="sticky top-[4.75rem] -ml-0.5 h-[calc(100vh-4.75rem)] w-64 pointer-events-auto overflow-y-auto overflow-x-hidden overscroll-contain py-4 lg:py-4 pl-4 pr-8 xl:w-72 xl:pr-16 bg-slate-50 dark:bg-slate-800 lg:bg-transparent dark:lg:bg-transparent shadow-xl lg:shadow-none lg:pl-0.5 transition-transform lg:translate-x-0
-          {{if this.ui.isNavOpen 'translate-x-0' '-translate-x-full'}}"
-      >
-        <aside>
-          <PageNav aria-label="Main Navigation">
-            <:page as |x|>
-              <SubSectionLink
-                @href={{x.page.path}}
-                @name={{nameFor x.page}}
-                {{on "click" this.closeNav}}
-              />
-            </:page>
+    <aside>
+      <PageNav aria-label="Main Navigation">
+        <:page as |x|>
+          <SubSectionLink
+            @href={{x.page.path}}
+            @name={{nameFor x.page}}
+            {{on "click" this.closeNav}}
+          />
+        </:page>
 
-            <:collection as |x|>
-              {{#if x.index}}
-                <SectionLink
-                  @href={{x.index.page.path}}
-                  @name={{titleize x.collection.name}}
-                  {{on "click" this.closeNav}}
-                />
-              {{else}}
-                <h2>
-                  {{titleize x.collection.name}}
-                </h2>
-              {{/if}}
-            </:collection>
-          </PageNav>
-        </aside>
-      </div>
-      <div class="opacity-25 bg-slate-900"></div>
-    </div>
+        <:collection as |x|>
+          {{#if x.index}}
+            <SectionLink
+              @href={{x.index.page.path}}
+              @name={{titleize x.collection.name}}
+              {{on "click" this.closeNav}}
+            />
+          {{else}}
+            <h2>
+              {{titleize x.collection.name}}
+            </h2>
+          {{/if}}
+        </:collection>
+      </PageNav>
+    </aside>
   </template>
 }

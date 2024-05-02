@@ -44,19 +44,9 @@ export default Route(
         height: 100dvh;
         overflow: auto;
       }
-      .mobile-menu-wrapper__content,
-      .mobile-menu__tray {
-        background: none;
-      }
-
-      header {
-        border-bottom: 1px solid currentColor;
-      }
 
       header button.mobile-menu__toggle {
         padding: 0.25rem 0.5rem;
-        background: none;
-        color: currentColor;
         width: 48px;
         height: 44px;
         display: inline-flex;

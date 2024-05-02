@@ -37,6 +37,12 @@ name: Deploy Preview
 # access to secrets
 on:
   workflow_dispatch:
+    inputs:
+      prNum:
+        description: 'PR #'
+        required: true
+        type: string
+
   workflow_run:
     workflows: ["CI"]
     types:
@@ -83,11 +89,16 @@ jobs:
 # Does not checkout code, has access to secrets
 #################################################################
 
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{ github.event.workflow_run }}"
+
   determinePR:
     # this job gates the others -- if the workflow_run request did not come from a PR,
     # exit as early as possible
     runs-on: ubuntu-latest
-    if: github.event.workflow_run.event == 'pull_request'
+    if: github.event.workflow_run.event == 'pull_request' || github.event.workflow_run.event == "dispatch"
     outputs:
       number: ${{ steps.number.outputs.pr-number }}
     steps:

@@ -123,7 +123,7 @@ export class Nav extends Component<{
    *  The links themselves remain the actual interactive elements.
    */
   <template>
-    <aside>
+    <aside class="bg-white dark:bg-slate-900">
       <PageNav aria-label="Main Navigation">
         <:page as |x|>
           <SubSectionLink

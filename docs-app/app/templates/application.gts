@@ -14,7 +14,7 @@ export default Route(
     {{(syncBodyClass)}}
 
     <MenuWrapper as |mmw|>
-      <mmw.MobileMenu @mode="push" @maxWidth={{270}} as |mm|>
+      <mmw.MobileMenu @mode="push" @maxWidth={{300}} as |mm|>
         <Nav @onClick={{mm.actions.close}} />
       </mmw.MobileMenu>
 
@@ -88,13 +88,12 @@ export default Route(
         }
 
         main {
-          max-width: 100%;
+          max-width: 100dvw;
           display: flex;
           flex-direction: column;
           overflow-x: hidden;
         }
       }
-
 
       .mobile-menu__tray, .big-layout {
         overflow-x: hidden;

@@ -3,6 +3,7 @@ import 'ember-mobile-menu/themes/android';
 import { Header } from 'docs-app/components/header';
 import { Menu } from 'docs-app/components/icons';
 import { Nav } from 'docs-app/components/nav';
+// @ts-expect-error - no types are provided for ember-mobile-menu
 import MenuWrapper from 'ember-mobile-menu/components/mobile-menu-wrapper';
 import pageTitle from 'ember-page-title/helpers/page-title';
 import { colorScheme } from 'ember-primitives/color-scheme';

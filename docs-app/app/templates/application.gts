@@ -1,12 +1,12 @@
 import 'ember-mobile-menu/themes/android';
 
 import { Header } from 'docs-app/components/header';
-import { Nav } from 'docs-app/components/nav';
 import { Menu } from 'docs-app/components/icons';
+import { Nav } from 'docs-app/components/nav';
+import MenuWrapper from 'ember-mobile-menu/components/mobile-menu-wrapper';
 import pageTitle from 'ember-page-title/helpers/page-title';
 import { colorScheme } from 'ember-primitives/color-scheme';
 import Route from 'ember-route-template';
-import MenuWrapper from 'ember-mobile-menu/components/mobile-menu-wrapper';
 
 export default Route(
   <template>

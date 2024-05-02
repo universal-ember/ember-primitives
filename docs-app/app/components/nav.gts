@@ -92,7 +92,7 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
 export class Nav extends Component<{
   Args: {
     onClick: () => void;
-  }
+  };
 }> {
   @service('kolay/docs') declare docs: DocsService;
 

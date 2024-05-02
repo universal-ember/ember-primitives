@@ -42,14 +42,13 @@ const asComponent = (str: string) => {
   return `<${str.split('.')[0]?.replaceAll(' ', '')} />`;
 };
 
-const unExct = (str: string) => str.replace(/\.md$/, '');
 const isComponents = (str: string) => str === 'components';
 
 const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
-    {{#let (link (unExct @href)) as |l|}}
+    {{#let (link @href) as |l|}}
       <a
-        href={{unExct @href}}
+        href={{@href}}
         class="font-medium font-display
           {{if
             l.isActive
@@ -70,9 +69,9 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
 
 const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
-    {{#let (link (unExct @href)) as |l|}}
+    {{#let (link @href) as |l|}}
       <a
-        href={{unExct @href}}
+        href={{@href}}
         class="block w-full before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
           {{if
             l.isActive
@@ -146,7 +145,7 @@ export class Nav extends Component {
             <:collection as |x|>
               {{#if x.index}}
                 <SectionLink
-                  @href={{unExct x.index.page.path}}
+                  @href={{x.index.page.path}}
                   @name={{titleize x.collection.name}}
                   {{on "click" this.closeNav}}
                 />

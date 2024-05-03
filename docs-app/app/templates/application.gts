@@ -26,8 +26,8 @@ export default Route(
           </mmw.Toggle>
         </Header>
 
-        <div class="big-layout">
-          <Nav />
+        <div class="big-layout bg-white dark:bg-slate-900">
+          <Nav style="width: 300px;" />
 
           <main
             class="relative flex justify-center flex-auto w-full mx-auto max-w-8xl sm:px-2 lg:px-8 xl:px-12"

@@ -90,6 +90,7 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
   </template>;
 
 export class Nav extends Component<{
+  Element: HTMLElement;
   Args: {
     onClick?: () => void;
   };
@@ -123,7 +124,7 @@ export class Nav extends Component<{
    *  The links themselves remain the actual interactive elements.
    */
   <template>
-    <aside class="bg-white dark:bg-slate-900">
+    <aside class="bg-white dark:bg-slate-900" ...attributes>
       <PageNav aria-label="Main Navigation">
         <:page as |x|>
           <SubSectionLink

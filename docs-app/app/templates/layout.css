@@ -1,6 +1,6 @@
 .mobile-menu-wrapper {
   height: 100dvh;
-  overflow: hidden;
+  overflow: auto !important;
 
   /**
    * Set our theme-based background colors
@@ -24,7 +24,7 @@
 
     header {
       grid-area: header;
-      position: fixed;
+      /*position: fixed;*/
       left: 0;
       right: 0;
       top: 0;
@@ -32,13 +32,14 @@
     aside {
       grid-area: aside;
       width: 300px;
-      margin-top: 6.5rem;
+      /*margin-top: 6.5rem;*/
+      margin-top: 1.5rem;
     }
     main {
       grid-area: main;
       max-width: 60rem;
       display: grid;
-      margin-top: 5rem;
+      /*margin-top: 5rem;*/
     }
   }
 
@@ -85,6 +86,11 @@ header button.mobile-menu__toggle {
 }
 
 @media (max-width: 800px) {
+  .mobile-menu-wrapper .mobile-menu-wrapper__content {
+    grid-template-areas:
+      "header header header"
+      "main main main";
+  }
   .mobile-menu-wrapper__content aside {
     display: none;
   }

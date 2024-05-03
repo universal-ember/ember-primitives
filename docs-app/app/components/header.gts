@@ -24,7 +24,7 @@ const onWindowScroll = modifier(() => {
 
 export const Header: TOC<{ Blocks: { default: [] } }> = <template>
   <header
-    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none
+    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between px-4 py-5 transition duration-500
       {{if
         isScrolled.current
         'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'

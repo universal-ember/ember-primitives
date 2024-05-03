@@ -16,7 +16,7 @@ export default Route(
   <template>
     <section
       data-main-scroll-container
-      class="flex-auto max-w-2xl min-w-0 px-4 py-4 lg:max-w-none lg:pl-8 lg:pr-0 xl:px-16"
+      class="flex-auto max-w-2xl min-w-0 py-4 lg:max-w-none"
       ...attributes
     >
       <Article>

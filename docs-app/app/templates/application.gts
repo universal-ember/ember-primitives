@@ -1,4 +1,5 @@
 import 'ember-mobile-menu/themes/android';
+import './layout.css';
 
 import { Header } from 'docs-app/components/header';
 import { Menu } from 'docs-app/components/icons';
@@ -19,87 +20,20 @@ export default Route(
         <Nav @onClick={{mm.actions.close}} />
       </mmw.MobileMenu>
 
-      <mmw.Content>
+      <mmw.Content class="sm:px-2 lg:px-8 xl:px-12">
         <Header>
           <mmw.Toggle>
             <Menu class="w-6 h-6 stroke-slate-500" />
           </mmw.Toggle>
         </Header>
 
-        <div class="big-layout bg-white dark:bg-slate-900">
-          <Nav style="width: 300px;" />
+        <Nav />
 
-          <main
-            class="relative flex justify-center flex-auto w-full mx-auto max-w-8xl sm:px-2 lg:px-8 xl:px-12"
-          >
-            {{outlet}}
-          </main>
-        </div>
+        <main class="relative flex justify-center flex-auto w-full mx-auto max-w-8xl">
+          {{outlet}}
+        </main>
       </mmw.Content>
     </MenuWrapper>
-
-    {{!-- prettier-ignore --}}
-    <style>
-      .mobile-menu-wrapper {
-        height: 100dvh;
-        overflow: auto;
-      }
-
-      header button.mobile-menu__toggle {
-        padding: 0.25rem 0.5rem;
-        width: 48px;
-        height: 44px;
-        display: inline-flex;
-        align-self: center;
-        align-items: center;
-        justify-content: center;
-        margin: 0;
-      }
-
-      @media (min-width: 768px) {
-        header button.mobile-menu__toggle {
-          display: none;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .big-layout aside { display: none; }
-      }
-
-      .big-layout {
-        display: grid;
-        grid-template-columns: max-content 1fr;
-        gap: 2rem;
-        margin: 0 auto;
-        max-width: 90rem;
-
-        aside {
-          max-height: 100dvh;
-          overflow-y: auto;
-        }
-
-        main {
-          max-width: 100dvw;
-          display: flex;
-          flex-direction: column;
-          overflow-x: hidden;
-        }
-      }
-
-      .mobile-menu__tray, .big-layout {
-        overflow-x: hidden;
-
-        nav {
-          padding: 1rem;
-
-          ul {
-            padding-left: 0.5rem;
-            list-style: none;
-            line-height: 1.75rem;
-          }
-        }
-      }
-    </style>
   </template>
 );
 

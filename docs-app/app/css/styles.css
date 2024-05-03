@@ -14,6 +14,12 @@
 @import "./site/components.css";
 @import "./site/featured-demo.css";
 
+html,
+body {
+  overflow: hidden;
+  height: 100dvh;
+}
+
 @layer base {
   body {
     @apply font-sans text-gray-900 bg-white;

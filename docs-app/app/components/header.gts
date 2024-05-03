@@ -1,12 +1,11 @@
-import { on } from '@ember/modifier';
-import { get } from '@ember/object';
-
 import { modifier } from 'ember-modifier';
-import { ExternalLink, service } from 'ember-primitives';
+import { ExternalLink } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
-import { Flask, GitHub, Logo, Logomark, Menu } from './icons';
+import { Flask, GitHub, Logo, Logomark } from './icons';
 import { ThemeToggle } from './theme-toggle';
+
+import type { TOC } from '@ember/component/template-only';
 
 const isScrolled = cell(false);
 
@@ -23,24 +22,21 @@ const onWindowScroll = modifier(() => {
   };
 });
 
-export const Header = <template>
+export const Header: TOC<{ Blocks: { default: [] } }> = <template>
   <header
-    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 sm:px-6 lg:px-8 dark:shadow-none
+    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none
       {{if
         isScrolled.current
         'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
-        'dark:bg-transparent'
+        'dark:bg-slate-900/95'
       }}"
     {{onWindowScroll}}
   >
     <div class="flex mr-6 lg:hidden">
-      <ToggleNav />
+      {{yield}}
     </div>
     <div class="relative flex items-center flex-grow basis-0">
-      <a href="/" aria-label="Home page">
-        <Logomark class="h-9 w-28 lg:hidden" />
-        <Logo class="hidden w-auto h-9 fill-slate-700 lg:block dark:fill-sky-100" />
-      </a>
+      <LogoLink />
     </div>
     {{!
     If we ever have a search bar
@@ -54,6 +50,13 @@ export const Header = <template>
       <GitHubLink />
     </div>
   </header>
+</template>;
+
+const LogoLink = <template>
+  <a href="/" aria-label="Home page">
+    <Logomark class="h-9 w-28 lg:hidden" />
+    <Logo class="hidden w-auto h-9 fill-slate-700 lg:block dark:fill-sky-100" />
+  </a>
 </template>;
 
 const TestsLink = <template>
@@ -74,14 +77,4 @@ const GitHubLink = <template>
       class="w-6 h-6 fill-slate-400 group-hover:fill-slate-500 dark:group-hover:fill-slate-300"
     />
   </ExternalLink>
-</template>;
-
-const ToggleNav = <template>
-  <button
-    type="button"
-    aria-label="Toggle navigation"
-    {{on "click" (get (service "ui") "toggleNav")}}
-  >
-    <Menu class="w-6 h-6 stroke-slate-500" />
-  </button>
 </template>;

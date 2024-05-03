@@ -34,6 +34,7 @@
     "decorator-transforms": "^1.1.0",
     "ember-focus-trap": "^1.1.0",
     "ember-headless-form": "^1.0.0",
+    "ember-mobile-menu": "^5.1.0",
     "ember-modifier": "^4.1.0",
     "ember-primitives": "workspace:*",
     "ember-repl": "^4.1.1",

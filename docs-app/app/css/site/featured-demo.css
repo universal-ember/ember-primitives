@@ -1,10 +1,5 @@
 .featured-demo .glimdown-render {
   @apply w-full max-w-full p-20 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl max-h-80 text-slate-50;
-
-  button {
-    border: 1px solid;
-    padding: 0.25rem 0.5rem;
-  }
 }
 
 .featured-demo.auto-height .glimdown-render {

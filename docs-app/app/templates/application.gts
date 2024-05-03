@@ -1,7 +1,7 @@
 import 'ember-mobile-menu/themes/android';
 import './layout.css';
 
-import { Header, isScrolled } from 'docs-app/components/header';
+import { Header } from 'docs-app/components/header';
 import { Menu } from 'docs-app/components/icons';
 import { Nav } from 'docs-app/components/nav';
 // @ts-expect-error - no types are provided for ember-mobile-menu

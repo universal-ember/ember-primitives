@@ -86,12 +86,10 @@ header button.mobile-menu__toggle {
 }
 
 @media (max-width: 800px) {
-
   .mobile-menu-wrapper .mobile-menu-wrapper__content {
     grid-template-areas:
       "header header header"
-      "main main main"
-      ;
+      "main main main";
   }
   .mobile-menu-wrapper__content aside {
     display: none;

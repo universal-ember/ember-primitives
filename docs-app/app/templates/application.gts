@@ -10,7 +10,7 @@ import pageTitle from 'ember-page-title/helpers/page-title';
 import { colorScheme } from 'ember-primitives/color-scheme';
 import Route from 'ember-route-template';
 
-export default Route(
+const Application =
   <template>
     {{pageTitle "ember-primitives"}}
     {{(syncBodyClass)}}
@@ -20,22 +20,25 @@ export default Route(
         <Nav @onClick={{mm.actions.close}} />
       </mmw.MobileMenu>
 
-      <mmw.Content class="sm:px-2 lg:px-8 xl:px-12">
+      <mmw.Content>
         <Header>
           <mmw.Toggle>
             <Menu class="w-6 h-6 stroke-slate-500" />
           </mmw.Toggle>
         </Header>
 
-        <Nav />
+        <div class="outer-content">
+          <Nav />
 
-        <main class="relative flex justify-center flex-auto w-full mx-auto max-w-8xl">
-          {{outlet}}
-        </main>
+          <main class="relative grid justify-center flex-auto w-full mx-auto max-w-8xl">
+            {{outlet}}
+          </main>
+        </div>
       </mmw.Content>
     </MenuWrapper>
   </template>
-);
+
+export default Route(Application);
 
 function isDark() {
   return colorScheme.current === 'dark';

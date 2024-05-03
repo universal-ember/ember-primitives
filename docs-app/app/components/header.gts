@@ -24,7 +24,7 @@ const onWindowScroll = modifier(() => {
 
 export const Header: TOC<{ Blocks: { default: [] } }> = <template>
   <header
-    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between px-4 py-5 transition duration-500
+    class="sticky top-0 z-50 transition duration-500 shadow-md shadow-slate-900/5 dark:shadow-none bg-white/95
       {{if
         isScrolled.current
         'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
@@ -32,22 +32,24 @@ export const Header: TOC<{ Blocks: { default: [] } }> = <template>
       }}"
     {{onWindowScroll}}
   >
-    <div class="flex mr-6 lg:hidden">
-      {{yield}}
-    </div>
-    <div class="relative flex items-center flex-grow basis-0">
-      <LogoLink />
-    </div>
-    {{!
-    If we ever have a search bar
-      <div class="mr-6 -my-5 sm:mr-8 md:mr-0">
-          input here
+    <div class="outer-content flex flex-none flex-wrap items-center justify-between py-4">
+      <div class="flex mr-6 lg:hidden">
+        {{yield}}
       </div>
-    }}
-    <div class="relative flex justify-end gap-6 basis-0 sm:gap-8 md:flex-grow">
-      <ThemeToggle />
-      <TestsLink />
-      <GitHubLink />
+      <div class="relative flex items-center flex-grow basis-0">
+        <LogoLink />
+      </div>
+      {{!
+      If we ever have a search bar
+        <div class="mr-6 -my-5 sm:mr-8 md:mr-0">
+            input here
+        </div>
+      }}
+      <div class="relative flex justify-end gap-6 basis-0 sm:gap-8 md:flex-grow">
+        <ThemeToggle />
+        <TestsLink />
+        <GitHubLink />
+      </div>
     </div>
   </header>
 </template>;

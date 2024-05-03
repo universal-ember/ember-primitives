@@ -75,7 +75,7 @@ nav[aria-label="Main Navigation"] {
     }
 
     li {
-      @apply pl-3.5 relative;
+      @apply pl-4 relative;
     }
 
     > li {

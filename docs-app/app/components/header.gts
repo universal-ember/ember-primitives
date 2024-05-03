@@ -7,7 +7,7 @@ import { ThemeToggle } from './theme-toggle';
 
 import type { TOC } from '@ember/component/template-only';
 
-const isScrolled = cell(false);
+export const isScrolled = cell(false);
 
 const onWindowScroll = modifier(() => {
   function onScroll() {
@@ -24,12 +24,7 @@ const onWindowScroll = modifier(() => {
 
 export const Header: TOC<{ Blocks: { default: [] } }> = <template>
   <header
-    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between bg-white px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none
-      {{if
-        isScrolled.current
-        'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
-        'dark:bg-slate-900/95'
-      }}"
+    class="sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between px-4 py-5 transition duration-500 dark:shadow-none"
     {{onWindowScroll}}
   >
     <div class="flex mr-6 lg:hidden">

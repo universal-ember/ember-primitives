@@ -16,8 +16,8 @@
 
 html,
 body {
-  overflow: hidden;
-  height: 100dvh;
+  /*overflow: hidden;*/
+  /*height: 100dvh;*/
 }
 
 @layer base {
@@ -49,6 +49,15 @@ textarea,
 
 [role="switch"][name="color-scheme"]:focus-visible + label .ball {
   @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
+}
+
+.facade-header {
+  position: fixed;
+  z-index: 49;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem;
 }
 
 nav[aria-label="Main Navigation"] {

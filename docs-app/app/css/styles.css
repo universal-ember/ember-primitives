@@ -10,7 +10,7 @@
 *
 * Using both together is *very nice* 🎉
 */
-@import "./site/hljs-theme.css";
+@import "./site/shiki.css";
 @import "./site/components.css";
 @import "./site/featured-demo.css";
 

@@ -3,7 +3,6 @@ import { service } from '@ember/service';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
 import { Callout } from 'docs-app/components/callout';
-import { colorScheme } from 'ember-primitives/color-scheme';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
 
@@ -71,7 +70,8 @@ export default class Application extends Route {
           rehypeShikiFromHighlighter,
           highlighter,
           {
-            defaultColor: colorScheme.current === 'dark' ? 'dark' : 'light',
+            // Theme chosen by CSS variables in app/css/site/shiki.css
+            defaultColor: false,
             themes: {
               light: 'github-light',
               dark: 'github-dark',

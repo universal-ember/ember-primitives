@@ -58,33 +58,38 @@ module('<Link />', function (hooks) {
       <Link @href="/foo/a">a</Link>
       <Link @href="/foo/b">b</Link>
       <Link @href="/foo">Foo Home</Link>
+      <Link @href="/foo" @activeOnSubPaths={{true}} data-test-subpath>Foo Home Active On Subpaths</Link>
     `
     );
 
     await visit('/');
 
-    assert.dom('a').exists({ count: 3 });
+    assert.dom('a').exists({ count: 4 });
     assert.dom('[data-active]').exists({ count: 0 });
 
     await click('a[href="/foo"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('Foo Home');
+    assert.dom('[data-test-subpath][data-active]').exists();
 
     await click('a[href="/foo/a"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('a');
+    assert.dom('[data-test-subpath][data-active]').exists();
 
     await click('a[href="/foo/b"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('b');
+    assert.dom('[data-test-subpath][data-active]').exists();
 
     await click('a[href="/foo"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('Foo Home');
+    assert.dom('[data-test-subpath][data-active]').exists();
   });
 
   test('[data-active] with a custom rootURL', async function (assert) {

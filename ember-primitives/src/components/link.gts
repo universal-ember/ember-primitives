@@ -43,6 +43,35 @@ export interface Signature {
      *
      */
     includeActiveQueryParams?: true | string[];
+    /**
+     * When calculating the "active" state of the link, you may decide
+     * whether or not you want to consider sub paths to be active when
+     * child routes/urls are active.
+     *
+     * For example:
+     *
+     * ```gjs live preview
+     * import { Link } from 'ember-primitives';
+     *
+     * <template>
+     *   <Link @href="/forum/1" @activeOnSubPaths={{true}} as |a|>
+     *     ...
+     *   </Link>
+     * </template>
+     * ```
+     *
+     * the data-active state here will be "true" on
+     * - `/forum/1`
+     * - `/forum/1/posts`
+     * - `/forum/1/posts/comments`
+     * - `/forum/1/*etc*`
+     *
+     * if `@activeOnSubPaths` is set to false or left off
+     * the data-active state here will only be "true" on
+     * - `/forum/1`
+     *
+     */
+    activeOnSubPaths?: true;
   };
   Blocks: {
     default: [
@@ -103,6 +132,10 @@ export interface Signature {
          * configure the query params to be included if you wish
          * See: `@includeActiveQueryParams`
          *
+         * By default, only the exact route/url is considered for the `isActive` calculation,
+         * but you may configure sub routes/paths to also be considered active
+         * See: `@activeOnSubPaths`
+         *
          * Note that external links are never active.
          */
         isActive: boolean;
@@ -118,7 +151,7 @@ export interface Signature {
  * [mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
  */
 export const Link: TOC<Signature> = <template>
-  {{#let (link @href includeActiveQueryParams=@includeActiveQueryParams) as |l|}}
+  {{#let (link @href includeActiveQueryParams=@includeActiveQueryParams activeOnSubPaths=@activeOnSubPaths) as |l|}}
     {{#if l.isExternal}}
       <ExternalLink href={{@href}} ...attributes>
         {{yield (hash isExternal=true isActive=false)}}

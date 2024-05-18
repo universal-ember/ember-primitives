@@ -89,11 +89,11 @@ jobs:
 # Does not checkout code, has access to secrets
 #################################################################
 
-  debug:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "${{ toJson(github.event) }}"
-      - run: echo "${{ toJson(github.event.workflow_run) }}"
+  # debug:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "${{ toJson(github.event) }}"
+  #     - run: echo "${{ toJson(github.event.workflow_run) }}"
 
   determinePR:
     # this job gates the others -- if the workflow_run request did not come from a PR,

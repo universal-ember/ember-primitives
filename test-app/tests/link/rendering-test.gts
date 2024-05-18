@@ -58,33 +58,38 @@ module('<Link />', function (hooks) {
       <Link @href="/foo/a">a</Link>
       <Link @href="/foo/b">b</Link>
       <Link @href="/foo">Foo Home</Link>
+      <Link @href="/foo" @activeOnSubPaths={{true}} data-test-subpath>Foo Home Active On Subpaths</Link>
     `
     );
 
     await visit('/');
 
-    assert.dom('a').exists({ count: 3 });
+    assert.dom('a').exists({ count: 4 });
     assert.dom('[data-active]').exists({ count: 0 });
 
     await click('a[href="/foo"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('Foo Home');
+    assert.dom('[data-test-subpath][data-active]').exists();
 
     await click('a[href="/foo/a"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('a');
+    assert.dom('[data-test-subpath][data-active]').exists();
 
     await click('a[href="/foo/b"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('b');
+    assert.dom('[data-test-subpath][data-active]').exists();
 
     await click('a[href="/foo"]');
 
-    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').exists({ count: 2 });
     assert.dom('[data-active]').hasText('Foo Home');
+    assert.dom('[data-test-subpath][data-active]').exists();
   });
 
   test('[data-active] with a custom rootURL', async function (assert) {
@@ -190,6 +195,56 @@ module('<Link />', function (hooks) {
 
     assert.dom('[data-active]').exists({ count: 1 });
     assert.dom('[data-active]').hasText('Two');
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+  });
+
+  test('[data-active] work with some params and activeOnSubPaths', async function (assert) {
+    setupRouting(this.owner, function () {
+      this.route('foo', function () {
+        this.route('bar');
+      });
+      this.route('bar');
+    });
+
+    this.owner.register(
+      'template:application',
+      hbs`
+      <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}} @activeOnSubPaths={{true}} data-test-subpath>One</Link>
+      <Link id="one-child" @href="/foo/bar?hello=2&there=3" @includeActiveQueryParams={{array "hello"}} data-test-child>One Child</Link>
+      <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
+      <Link id="two-child" @href="/foo/bar?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two Child</Link>
+    `
+    );
+
+    await visit('/');
+
+    assert.dom('a').exists({ count: 4 });
+    assert.dom('[data-active]').exists({ count: 0 });
+
+    await click('#one');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('One');
+
+    await click('#one-child');
+
+    assert.dom('[data-active]').exists({ count: 2 });
+    assert.dom('[data-active][data-test-child]').exists({ count: 1 });
+    assert.dom('[data-active][data-test-subpath]').exists({ count: 1 });
+
+    await click('#two');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Two');
+
+    await click('#two-child');
+
+    assert.dom('[data-active]').exists({ count: 1 });
+    assert.dom('[data-active]').hasText('Two Child');
 
     await click('#one');
 

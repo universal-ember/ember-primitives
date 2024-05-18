@@ -11,6 +11,7 @@ export interface Signature {
     Positional: [href: string];
     Named: {
       includeActiveQueryParams?: boolean | string[];
+      activeOnSubPaths?: boolean;
     };
   };
   Return: {
@@ -25,7 +26,10 @@ export default class Link extends Helper<Signature> {
 
   compute(
     [href]: [href: string],
-    { includeActiveQueryParams = false }: { includeActiveQueryParams?: boolean | string[] }
+    {
+      includeActiveQueryParams = false,
+      activeOnSubPaths = false,
+    }: { includeActiveQueryParams?: boolean | string[]; activeOnSubPaths?: boolean }
   ) {
     assert('href was not passed in', href);
 
@@ -39,7 +43,7 @@ export default class Link extends Helper<Signature> {
     return {
       isExternal: isExternal(href),
       get isActive() {
-        return isActive(router, href, includeActiveQueryParams);
+        return isActive(router, href, includeActiveQueryParams, activeOnSubPaths);
       },
       handleClick,
     };
@@ -56,7 +60,12 @@ function isExternal(href: string) {
   return location.origin !== new URL(href).origin;
 }
 
-function isActive(router: RouterService, href: string, includeQueryParams?: boolean | string[]) {
+function isActive(
+  router: RouterService,
+  href: string,
+  includeQueryParams?: boolean | string[],
+  activeOnSubPaths?: boolean
+) {
   if (!includeQueryParams) {
     /**
      * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
@@ -65,8 +74,9 @@ function isActive(router: RouterService, href: string, includeQueryParams?: bool
 
     if (info) {
       let dynamicSegments = getParams(info);
+      let routeName = activeOnSubPaths ? info.name.replace(/\.index$/, '') : info.name;
 
-      return router.isActive(info.name, ...dynamicSegments);
+      return router.isActive(routeName, ...dynamicSegments);
     }
 
     return false;
@@ -80,7 +90,7 @@ function isActive(router: RouterService, href: string, includeQueryParams?: bool
 
   if (!currentPath) return false;
 
-  if (hrefPath !== currentPath) return false;
+  if (activeOnSubPaths ? !currentPath.startsWith(hrefPath) : hrefPath !== currentPath) return false;
 
   const currentQueryParams = router.currentRoute?.queryParams;
 

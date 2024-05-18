@@ -1,5 +1,36 @@
 # Changelog 
 
+## Release (2024-05-18)
+
+ember-primitives 0.17.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`, `test-app`
+  * [#312](https://github.com/universal-ember/ember-primitives/pull/312) Add Support for @activeOnSubPaths to Link component ([@rtablada](https://github.com/rtablada))
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#313](https://github.com/universal-ember/ember-primitives/pull/313) New `<form>` utility: `dataFromEvent` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `docs-app`, `ember-primitives`
+  * [#314](https://github.com/universal-ember/ember-primitives/pull/314) Better docs for form util ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`
+  * [#307](https://github.com/universal-ember/ember-primitives/pull/307) Dynamic Shiki Color Scheme ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#304](https://github.com/universal-ember/ember-primitives/pull/304) Fix scrolling and fix shadows in light mode  ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#300](https://github.com/universal-ember/ember-primitives/pull/300) Update docs app design ([@miguelcobain](https://github.com/miguelcobain))
+* `@nullvoxpopuli/dev`, `docs-app`
+  * [#303](https://github.com/universal-ember/ember-primitives/pull/303) Better nav (ember-mobile-menu, etc) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#257](https://github.com/universal-ember/ember-primitives/pull/257) Start using Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-primitives`
+  * [#298](https://github.com/universal-ember/ember-primitives/pull/298) add simple link helper ([@miguelcobain](https://github.com/miguelcobain))
+
+#### Committers: 3
+- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
+- Ryan Tablada ([@rtablada](https://github.com/rtablada))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-04-19)
 
 ember-primitives 0.16.0 (minor)

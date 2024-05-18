@@ -204,8 +204,8 @@ module('<Link />', function (hooks) {
 
   test('[data-active] work with some params and activeOnSubPaths', async function (assert) {
     setupRouting(this.owner, function () {
-      this.route('foo', function() {
-        this.route('bar')
+      this.route('foo', function () {
+        this.route('bar');
       });
       this.route('bar');
     });

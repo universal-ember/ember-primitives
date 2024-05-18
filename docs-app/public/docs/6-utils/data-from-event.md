@@ -1,14 +1,13 @@
 # Data from `<form>`
 
+A utility function for extracting the FormData as an object from the native `<form>` 
+element, allowing more ergonomic of usage of _The Platform_'s default form/fields usage.
+
 Each input within your `<form>` should have a `name` attribute.
 (or else the `<form>` element doesn't know what inputs are relevant)
 
 This will provide values for all types of controls/fields,
-- input
-  - text
-  - checkbox
-  - radio
-  - etc
+- input: text, checkbox, radio, etc
 - select
   - behavior is fixed from browser default behavior, where
     only the most recently selected value comes through in

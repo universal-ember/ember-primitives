@@ -2,12 +2,16 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.15.0",
-      "newVersion": "0.16.0",
+      "oldVersion": "0.16.0",
+      "newVersion": "0.17.0",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
         },
         {
           "impact": "patch",
@@ -17,5 +21,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-04-19)\n\nember-primitives 0.16.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#294](https://github.com/universal-ember/ember-primitives/pull/294) export menu signatures ([@miguelcobain](https://github.com/miguelcobain))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#293](https://github.com/universal-ember/ember-primitives/pull/293) use trigger modifier ([@miguelcobain](https://github.com/miguelcobain))\n\n#### :house: Internal\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#292](https://github.com/universal-ember/ember-primitives/pull/292) remove babel-plugin-ember-template-compilation overrides ([@miguelcobain](https://github.com/miguelcobain))\n\n#### Committers: 1\n- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))\n"
+  "description": "## Release (2024-05-18)\n\nember-primitives 0.17.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`, `test-app`\n  * [#312](https://github.com/universal-ember/ember-primitives/pull/312) Add Support for @activeOnSubPaths to Link component ([@rtablada](https://github.com/rtablada))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#313](https://github.com/universal-ember/ember-primitives/pull/313) New `<form>` utility: `dataFromEvent` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `docs-app`, `ember-primitives`\n  * [#314](https://github.com/universal-ember/ember-primitives/pull/314) Better docs for form util ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`\n  * [#307](https://github.com/universal-ember/ember-primitives/pull/307) Dynamic Shiki Color Scheme ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#304](https://github.com/universal-ember/ember-primitives/pull/304) Fix scrolling and fix shadows in light mode  ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#300](https://github.com/universal-ember/ember-primitives/pull/300) Update docs app design ([@miguelcobain](https://github.com/miguelcobain))\n* `@nullvoxpopuli/dev`, `docs-app`\n  * [#303](https://github.com/universal-ember/ember-primitives/pull/303) Better nav (ember-mobile-menu, etc) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`\n  * [#257](https://github.com/universal-ember/ember-primitives/pull/257) Start using Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#298](https://github.com/universal-ember/ember-primitives/pull/298) add simple link helper ([@miguelcobain](https://github.com/miguelcobain))\n\n#### Committers: 3\n- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))\n- Ryan Tablada ([@rtablada](https://github.com/rtablada))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

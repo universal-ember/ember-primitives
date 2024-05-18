@@ -10,42 +10,18 @@ type Data = { [key: string]: FormDataEntryValue | string[] };
 /**
  * A utility function for extracting the FormData as an object
  *
- * Each input within your `<form>` should have a `name` attribute.
- * (or else the `<form>` element doesn't know what inputs are relevant)
- *
- * This will provide values for all types of controls/fields,
- * - input
- *   - text
- *   - checkbox
- *   - radio
- *   - etc
- * - select
- *   - behavior is fixed from browser default behavior, where
- *     only the most recently selected value comes through in
- *     the FormData. This fix only affects `<select multiple>`
- *
- * Example:
- *
- * ```gjs
- * import { dataFromEvent } from 'ember-primitives/components/form';
- *
- * function handleSubmit(event) {
- *   event.preventDefault();
- *   // an object containing the key-value pairs of
- *   // the state of the form
- *   dataFromEvent(event);
- * }
- *
- * <template>
- *   <form onsubmit={{handleSubmit}}>
- *     <input type="text" name="firstName" />
- *     <button type="submit">Submit</button>
- *   </form>
- * </template>
- * ```
- *
  */
-export function dataFromEvent(event: { currentTarget: EventTarget | null }): {
+export function dataFromEvent(
+  /**
+   * The submit event from the event listener on the form.
+   * The currentTarget must be a `<form>`
+   *
+   *
+   * Each input within your `<form>` should have a `name` attribute.
+   * (or else the `<form>` element doesn't know what inputs are relevant)
+   */
+  event: { currentTarget: EventTarget | null }
+): {
   [name: string]: FormDataEntryValue | string[];
 } {
   assert(

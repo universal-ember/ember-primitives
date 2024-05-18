@@ -68,7 +68,7 @@ const Error = <template>
     class="dark:text-white text:slate-900"
     style="border: 1px solid red; padding: 1rem; word-break: break-all;"
   >
-    <h1>Oops!</h1>
+    <h1>Oops!</h1><br />
     {{@error}}
 
     <br />

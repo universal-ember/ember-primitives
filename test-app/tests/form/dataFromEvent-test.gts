@@ -1,3 +1,4 @@
+import { on } from '@ember/modifier';
 import { click, fillIn, render, select as choose } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -11,14 +12,14 @@ module('<Form /> | dataFromEvent()', function (hooks) {
     test('works with text inputs', async function (assert) {
       let data = {};
 
-      function handleSubmit(event) {
+      function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         data = dataFromEvent(event);
       }
 
       await render(
         <template>
-          <form onsubmit={{handleSubmit}}>
+          <form {{on "submit" handleSubmit}}>
             <input type="text" name="firstName" />
             <button type="submit">Submit</button>
           </form>
@@ -36,14 +37,14 @@ module('<Form /> | dataFromEvent()', function (hooks) {
     test('works with checkboxes', async function (assert) {
       let data = {};
 
-      function handleSubmit(event) {
+      function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         data = dataFromEvent(event);
       }
 
       await render(
         <template>
-          <form onsubmit={{handleSubmit}}>
+          <form {{on "submit" handleSubmit}}>
             <input type="checkbox" name="isHuman" />
             <button type="submit">Submit</button>
           </form>
@@ -65,14 +66,14 @@ module('<Form /> | dataFromEvent()', function (hooks) {
     test('checkboxes can have a custom value', async function (assert) {
       let data = {};
 
-      function handleSubmit(event) {
+      function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         data = dataFromEvent(event);
       }
 
       await render(
         <template>
-          <form onsubmit={{handleSubmit}}>
+          <form {{on "submit" handleSubmit}}>
             <input type="checkbox" value="yes" name="isHuman" />
             <button type="submit">Submit</button>
           </form>
@@ -94,14 +95,14 @@ module('<Form /> | dataFromEvent()', function (hooks) {
     test('works with radios', async function (assert) {
       let data = {};
 
-      function handleSubmit(event) {
+      function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         data = dataFromEvent(event);
       }
 
       await render(
         <template>
-          <form onsubmit={{handleSubmit}}>
+          <form {{on "submit" handleSubmit}}>
             {{! from MDN }}
             <fieldset>
               <legend>Select a maintenance drone:</legend>
@@ -143,14 +144,14 @@ module('<Form /> | dataFromEvent()', function (hooks) {
     test('works with single selection', async function (assert) {
       let data = {};
 
-      function handleSubmit(event) {
+      function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         data = dataFromEvent(event);
       }
 
       await render(
         <template>
-          <form onsubmit={{handleSubmit}}>
+          <form {{on "submit" handleSubmit}}>
             <select name="drone">
               <option value=""></option>
               <option value="huey">Huey</option>
@@ -177,14 +178,14 @@ module('<Form /> | dataFromEvent()', function (hooks) {
     test('works with multiple selection', async function (assert) {
       let data = {};
 
-      function handleSubmit(event) {
+      function handleSubmit(event: SubmitEvent) {
         event.preventDefault();
         data = dataFromEvent(event);
       }
 
       await render(
         <template>
-          <form onsubmit={{handleSubmit}}>
+          <form {{on "submit" handleSubmit}}>
             <select multiple name="drone">
               <option value=""></option>
               <option value="huey">Huey</option>

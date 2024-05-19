@@ -78,6 +78,9 @@ function handleSubmit(event) {
         button {
           border: 1px solid;
         }
+        input {
+          color: black;
+        }
       }
 
       pre {

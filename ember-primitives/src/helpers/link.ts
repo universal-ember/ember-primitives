@@ -52,7 +52,7 @@ export default class Link extends Helper<Signature> {
 
 export const link = Link;
 
-function isExternal(href: string) {
+export function isExternal(href: string) {
   if (!href) return false;
   if (href.startsWith('#')) return false;
   if (href.startsWith('/')) return false;
@@ -60,7 +60,7 @@ function isExternal(href: string) {
   return location.origin !== new URL(href).origin;
 }
 
-function isActive(
+export function isActive(
   router: RouterService,
   href: string,
   includeQueryParams?: boolean | string[],
@@ -109,7 +109,7 @@ function isActive(
 
 type RouteInfo = ReturnType<RouterService['recognize']>;
 
-function getParams(currentRouteInfo: RouteInfo) {
+export function getParams(currentRouteInfo: RouteInfo) {
   let params: Record<string, string | unknown | undefined>[] = [];
 
   while (currentRouteInfo?.parent) {

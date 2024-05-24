@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-05-24)
+
+ember-primitives 0.18.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#317](https://github.com/universal-ember/ember-primitives/pull/317) Export Link Compute Functions ([@rtablada](https://github.com/rtablada))
+
+#### Committers: 1
+- Ryan Tablada ([@rtablada](https://github.com/rtablada))
+
 ## Release (2024-05-18)
 
 ember-primitives 0.17.0 (minor)

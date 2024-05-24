@@ -1,7 +1,10 @@
+import { array } from '@ember/helper';
 import { click, visit } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
+
+import Link from 'ember-primitives/components/link';
+import Route from 'ember-route-template';
 
 import { setupRouting } from 'ember-primitives/test-support';
 
@@ -16,11 +19,13 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link @href="/foo">Foo</Link>
-      <Link @href="/bar">Bar</Link>
-      <Link @href="/">Home</Link>
-    `
+      Route(
+        <template>
+          <Link @href="/foo">Foo</Link>
+          <Link @href="/bar">Bar</Link>
+          <Link @href="/">Home</Link>
+        </template>
+      )
     );
 
     await visit('/');
@@ -54,12 +59,15 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link @href="/foo/a">a</Link>
-      <Link @href="/foo/b">b</Link>
-      <Link @href="/foo">Foo Home</Link>
-      <Link @href="/foo" @activeOnSubPaths={{true}} data-test-subpath>Foo Home Active On Subpaths</Link>
-    `
+      Route(
+        <template>
+          <Link @href="/foo/a">a</Link>
+          <Link @href="/foo/b">b</Link>
+          <Link @href="/foo">Foo Home</Link>
+          <Link @href="/foo" @activeOnSubPaths={{true}} data-test-subpath>Foo Home Active On
+            Subpaths</Link>
+        </template>
+      )
     );
 
     await visit('/');
@@ -104,11 +112,13 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link @href="/some-root/foo">Foo</Link>
-      <Link @href="/some-root/bar">Bar</Link>
-      <Link @href="/some-root/">Home</Link>
-    `
+      Route(
+        <template>
+          <Link @href="/some-root/foo">Foo</Link>
+          <Link @href="/some-root/bar">Bar</Link>
+          <Link @href="/some-root/">Home</Link>
+        </template>
+      )
     );
 
     await visit('/');
@@ -140,10 +150,12 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{true}}>One</Link>
-      <Link id="two" @href="/foo?hello=1&there=4" @includeActiveQueryParams={{true}}>Two</Link>
-    `
+      Route(
+        <template>
+          <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{true}}>One</Link>
+          <Link id="two" @href="/foo?hello=1&there=4" @includeActiveQueryParams={{true}}>Two</Link>
+        </template>
+      )
     );
 
     await visit('/');
@@ -175,10 +187,20 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}}>One</Link>
-      <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
-    `
+      Route(
+        <template>
+          <Link
+            id="one"
+            @href="/foo?hello=2&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >One</Link>
+          <Link
+            id="two"
+            @href="/foo?hello=1&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >Two</Link>
+        </template>
+      )
     );
 
     await visit('/');
@@ -212,12 +234,33 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}} @activeOnSubPaths={{true}} data-test-subpath>One</Link>
-      <Link id="one-child" @href="/foo/bar?hello=2&there=3" @includeActiveQueryParams={{array "hello"}} data-test-child>One Child</Link>
-      <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
-      <Link id="two-child" @href="/foo/bar?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two Child</Link>
-    `
+      Route(
+        <template>
+          <Link
+            id="one"
+            @href="/foo?hello=2&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+            @activeOnSubPaths={{true}}
+            data-test-subpath
+          >One</Link>
+          <Link
+            id="one-child"
+            @href="/foo/bar?hello=2&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+            data-test-child
+          >One Child</Link>
+          <Link
+            id="two"
+            @href="/foo?hello=1&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >Two</Link>
+          <Link
+            id="two-child"
+            @href="/foo/bar?hello=1&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >Two Child</Link>
+        </template>
+      )
     );
 
     await visit('/');
@@ -259,10 +302,12 @@ module('<Link />', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
-      <Link id="one" @href="/foo/1">One</Link>
-      <Link id="two" @href="/foo/2">Two</Link>
-    `
+      Route(
+        <template>
+          <Link id="one" @href="/foo/1">One</Link>
+          <Link id="two" @href="/foo/2">Two</Link>
+        </template>
+      )
     );
 
     await visit('/');

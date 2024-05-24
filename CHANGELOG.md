@@ -2,6 +2,17 @@
 
 ## Release (2024-05-24)
 
+ember-primitives 0.19.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`, `test-app`
+  * [#316](https://github.com/universal-ember/ember-primitives/pull/316) [Breaking]: Remove app-re-exports so that auto-import (classic) apps don't pull in the whole library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2024-05-24)
+
 ember-primitives 0.18.0 (minor)
 
 #### :rocket: Enhancement

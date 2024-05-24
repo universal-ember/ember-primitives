@@ -18,7 +18,8 @@ module('<Link />', function (hooks) {
     });
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
           <Link @href="/foo">Foo</Link>
           <Link @href="/bar">Bar</Link>
@@ -57,12 +58,14 @@ module('<Link />', function (hooks) {
     });
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
           <Link @href="/foo/a">a</Link>
           <Link @href="/foo/b">b</Link>
           <Link @href="/foo">Foo Home</Link>
-          <Link @href="/foo" @activeOnSubPaths={{true}} data-test-subpath>Foo Home Active On Subpaths</Link>
+          <Link @href="/foo" @activeOnSubPaths={{true}} data-test-subpath>Foo Home Active On
+            Subpaths</Link>
         </template>
       )
     );
@@ -108,7 +111,8 @@ module('<Link />', function (hooks) {
     );
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
           <Link @href="/some-root/foo">Foo</Link>
           <Link @href="/some-root/bar">Bar</Link>
@@ -145,7 +149,8 @@ module('<Link />', function (hooks) {
     });
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
           <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{true}}>One</Link>
           <Link id="two" @href="/foo?hello=1&there=4" @includeActiveQueryParams={{true}}>Two</Link>
@@ -181,10 +186,19 @@ module('<Link />', function (hooks) {
     });
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
-          <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}}>One</Link>
-          <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
+          <Link
+            id="one"
+            @href="/foo?hello=2&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >One</Link>
+          <Link
+            id="two"
+            @href="/foo?hello=1&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >Two</Link>
         </template>
       )
     );
@@ -219,12 +233,32 @@ module('<Link />', function (hooks) {
     });
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
-          <Link id="one" @href="/foo?hello=2&there=3" @includeActiveQueryParams={{array "hello"}} @activeOnSubPaths={{true}} data-test-subpath>One</Link>
-          <Link id="one-child" @href="/foo/bar?hello=2&there=3" @includeActiveQueryParams={{array "hello"}} data-test-child>One Child</Link>
-          <Link id="two" @href="/foo?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two</Link>
-          <Link id="two-child" @href="/foo/bar?hello=1&there=3" @includeActiveQueryParams={{array "hello"}}>Two Child</Link>
+          <Link
+            id="one"
+            @href="/foo?hello=2&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+            @activeOnSubPaths={{true}}
+            data-test-subpath
+          >One</Link>
+          <Link
+            id="one-child"
+            @href="/foo/bar?hello=2&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+            data-test-child
+          >One Child</Link>
+          <Link
+            id="two"
+            @href="/foo?hello=1&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >Two</Link>
+          <Link
+            id="two-child"
+            @href="/foo/bar?hello=1&there=3"
+            @includeActiveQueryParams={{array "hello"}}
+          >Two Child</Link>
         </template>
       )
     );
@@ -267,7 +301,8 @@ module('<Link />', function (hooks) {
     });
 
     this.owner.register(
-      'template:application', Route(
+      'template:application',
+      Route(
         <template>
           <Link id="one" @href="/foo/1">One</Link>
           <Link id="two" @href="/foo/2">Two</Link>

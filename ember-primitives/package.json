@@ -101,7 +101,10 @@
   "ember-addon": {
     "version": 2,
     "type": "addon",
-    "main": "addon-main.cjs"
+    "main": "addon-main.cjs",
+    "app-js": {
+      "./services/ember-primitives/setup.js": "./dist/_app_/services/ember-primitives/setup.js"
+    }
   },
   "exports": {
     ".": {

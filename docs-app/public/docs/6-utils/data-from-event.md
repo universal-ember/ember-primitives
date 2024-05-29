@@ -96,6 +96,20 @@ function handleSubmit(event) {
 
 </div>
 
+## Anatomy
+
+These are aliases of each other
+```js
+import { dataFrom } from 'form-data-utils';
+```
+and 
+```js
+import { dataFromEvent } from 'ember-primitives/components/form';
+```
+
+`form-data-utils` was extracted from `ember-primitives` -- the re-export is kept for convenience.
+
+
 ## API Reference
 
 ```gjs live no-shadow

@@ -126,6 +126,9 @@ importers:
       ember-route-template:
         specifier: ^1.0.3
         version: 1.0.3
+      form-data-utils:
+        specifier: ^0.4.1
+        version: 0.4.1
       hash:
         specifier: ^0.2.1
         version: 0.2.1
@@ -394,6 +397,9 @@ importers:
       ember-element-helper:
         specifier: '>= 0.8.6'
         version: 0.8.6(@babel/core@7.24.6)(@glint/environment-ember-loose@1.4.0(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glint/template@1.4.0(ember-source@5.8.0))(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))))(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
+      form-data-utils:
+        specifier: ^0.4.1
+        version: 0.4.1
       reactiveweb:
         specifier: ^1.2.2
         version: 1.2.3(@babel/core@7.24.6)(@ember/test-waiters@3.1.0(@babel/core@7.24.6))(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glimmer/tracking@1.1.2)(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
@@ -5321,6 +5327,9 @@ packages:
   form-data-encoder@2.1.4:
     resolution: {integrity: sha512-yDYSgNMraqvnxiEXO4hi88+YZxaHC6QKzb5N84iRCTDeRO7ZALpir/lVmf/uXUhnwUr2O4HU8s/n6x+yNjQkHw==}
     engines: {node: '>= 14.17'}
+
+  form-data-utils@0.4.1:
+    resolution: {integrity: sha512-B//piRNefbfSfbI6sTPKoJ6/QLvmiMjZW6dzyVgoSCMTR6x8xyDmKemZ/NaeYvL2nqziGTfc7CzfoU07QfI+WA==}
 
   form-data@3.0.1:
     resolution: {integrity: sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==}
@@ -15323,6 +15332,7 @@ snapshots:
       ember-modifier: 4.1.0(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
       ember-resources: 7.0.1(@babel/core@7.24.6)(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glimmer/tracking@1.1.2)(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
       ember-source: 5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0)
+      form-data-utils: 0.4.1
       reactiveweb: 1.2.3(@babel/core@7.24.6)(@ember/test-waiters@3.1.0(@babel/core@7.24.6))(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glimmer/tracking@1.1.2)(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
       tabster: 7.1.4
       tracked-built-ins: 3.3.0(@babel/core@7.24.6)
@@ -16470,6 +16480,8 @@ snapshots:
       signal-exit: 4.1.0
 
   form-data-encoder@2.1.4: {}
+
+  form-data-utils@0.4.1: {}
 
   form-data@3.0.1:
     dependencies:

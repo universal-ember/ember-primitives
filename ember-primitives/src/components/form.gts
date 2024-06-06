@@ -1,80 +1,20 @@
-import { assert } from '@ember/debug';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 
+import { dataFrom } from 'form-data-utils';
+
 import type { TOC } from '@ember/component/template-only';
 
-type FormDataEntryValue = NonNullable<ReturnType<FormData['get']>>;
-type Data = { [key: string]: FormDataEntryValue | string[] };
+type Data = ReturnType<typeof dataFrom>;
 
-/**
- * A utility function for extracting the FormData as an object
- *
- */
-export function dataFromEvent(
-  /**
-   * The submit event from the event listener on the form.
-   * The currentTarget must be a `<form>`
-   *
-   *
-   * Each input within your `<form>` should have a `name` attribute.
-   * (or else the `<form>` element doesn't know what inputs are relevant)
-   */
-  event: { currentTarget: EventTarget | null }
-): {
-  [name: string]: FormDataEntryValue | string[];
-} {
-  assert(
-    'An unexpected event was passed to formDataFrom in <Form>',
-    'currentTarget' in event && event.currentTarget instanceof HTMLFormElement
-  );
-
-  let form = event.currentTarget;
-  let formData = new FormData(form);
-  let data: Data = Object.fromEntries(formData.entries());
-
-  // Gather fields from the form, and set any missing
-  // values to undefined.
-  let fields = form.querySelectorAll('input,select');
-
-  for (let field of fields) {
-    let name = field.getAttribute('name');
-
-    // The field is probably invalid
-    if (!name) continue;
-
-    let hasSubmitted = name in data;
-
-    if (!hasSubmitted) data[name] = '';
-
-    // If the field is a `select`, we need to better
-    // handle the value, since only the most recently
-    // clicked will beb available
-    if (field instanceof HTMLSelectElement) {
-      if (field.hasAttribute('multiple')) {
-        let options = field.querySelectorAll('option');
-        let values = [];
-
-        for (let option of options) {
-          if (option.selected) {
-            values.push(option.value);
-          }
-        }
-
-        data[field.name] = values;
-      }
-    }
-  }
-
-  return data;
-}
+export const dataFromEvent = dataFrom;
 
 const handleInput = (
   onChange: (data: Data, eventType: 'input' | 'submit', event: Event) => void,
   event: Event | SubmitEvent,
   eventType: 'input' | 'submit' = 'input'
 ) => {
-  let data = dataFromEvent(event);
+  let data = dataFrom(event);
 
   onChange(data, eventType, event);
 };

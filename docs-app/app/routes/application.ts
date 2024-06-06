@@ -64,6 +64,7 @@ export default class Application extends Route {
 
         // utility
         'lorem-ipsum': import('lorem-ipsum'),
+        'form-data-utils': import('form-data-utils'),
       },
       rehypePlugins: [
         [

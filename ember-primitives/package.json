@@ -39,7 +39,7 @@
     "@embroider/addon-shim": "^1.8.7",
     "@embroider/macros": "1.16.1",
     "@floating-ui/dom": "^1.5.3",
-    "decorator-transforms": "^1.1.0",
+    "decorator-transforms": "^2.0.0",
     "ember-element-helper": ">= 0.8.6",
     "form-data-utils": "^0.4.1",
     "reactiveweb": "^1.2.2",

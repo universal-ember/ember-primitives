@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.18.0",
-      "newVersion": "0.19.0",
+      "oldVersion": "0.19.0",
+      "newVersion": "0.20.0",
       "constraints": [
         {
           "impact": "minor",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-05-24)\n\nember-primitives 0.19.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`, `test-app`\n  * [#316](https://github.com/universal-ember/ember-primitives/pull/316) [Breaking]: Remove app-re-exports so that auto-import (classic) apps don't pull in the whole library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-06-06)\n\nember-primitives 0.20.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`\n  * [#321](https://github.com/universal-ember/ember-primitives/pull/321) Consume form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

@@ -397,6 +397,9 @@ importers:
       ember-element-helper:
         specifier: '>= 0.8.6'
         version: 0.8.6(@babel/core@7.24.6)(@glint/environment-ember-loose@1.4.0(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glint/template@1.4.0(ember-source@5.8.0))(ember-cli-htmlbars@6.3.0)(ember-modifier@4.1.0(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))))(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
+      form-data-utils:
+        specifier: ^0.4.1
+        version: 0.4.1
       reactiveweb:
         specifier: ^1.2.2
         version: 1.2.3(@babel/core@7.24.6)(@ember/test-waiters@3.1.0(@babel/core@7.24.6))(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glimmer/tracking@1.1.2)(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
@@ -15329,6 +15332,7 @@ snapshots:
       ember-modifier: 4.1.0(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
       ember-resources: 7.0.1(@babel/core@7.24.6)(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glimmer/tracking@1.1.2)(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
       ember-source: 5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0)
+      form-data-utils: 0.4.1
       reactiveweb: 1.2.3(@babel/core@7.24.6)(@ember/test-waiters@3.1.0(@babel/core@7.24.6))(@glimmer/component@1.1.2(@babel/core@7.24.6)(ember-source@5.8.0))(@glimmer/tracking@1.1.2)(@glint/template@1.4.0(ember-source@5.8.0))(ember-source@5.8.0(@babel/core@7.24.6)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.91.0))
       tabster: 7.1.4
       tracked-built-ins: 3.3.0(@babel/core@7.24.6)

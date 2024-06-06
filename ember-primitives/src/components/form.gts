@@ -1,13 +1,11 @@
-import { assert } from '@ember/debug';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 
+import { dataFrom } from 'form-data-utils';
+
 import type { TOC } from '@ember/component/template-only';
 
-type FormDataEntryValue = NonNullable<ReturnType<FormData['get']>>;
-type Data = { [key: string]: FormDataEntryValue | string[] };
-
-import { dataFrom } from 'form-data-utils';
+type Data = ReturnType<typeof dataFrom>;
 
 export const dataFromEvent = dataFrom;
 

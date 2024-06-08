@@ -41,7 +41,7 @@
     "@floating-ui/dom": "^1.5.3",
     "decorator-transforms": "^2.0.0",
     "ember-element-helper": ">= 0.8.6",
-    "form-data-utils": "^0.4.1",
+    "form-data-utils": "^0.6.0",
     "reactiveweb": "^1.2.2",
     "tabster": "^7.1.0",
     "tracked-built-ins": "^3.2.0",

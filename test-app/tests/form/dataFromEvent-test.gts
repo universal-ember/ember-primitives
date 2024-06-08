@@ -27,7 +27,7 @@ module('<Form /> | dataFromEvent()', function (hooks) {
       );
 
       await click('button');
-      assert.deepEqual(data, { firstName: '' });
+      assert.deepEqual(data, { firstName: "" });
 
       await fillIn('[name=firstName]', 'foo');
       await click('button');
@@ -52,15 +52,15 @@ module('<Form /> | dataFromEvent()', function (hooks) {
       );
 
       await click('button');
-      assert.deepEqual(data, { isHuman: '' });
+      assert.deepEqual(data, { isHuman: false });
 
       await click('[name=isHuman]');
       await click('button');
-      assert.deepEqual(data, { isHuman: 'on' });
+      assert.deepEqual(data, { isHuman: true });
 
       await click('[name=isHuman]');
       await click('button');
-      assert.deepEqual(data, { isHuman: '' });
+      assert.deepEqual(data, { isHuman: false });
     });
 
     test('checkboxes can have a custom value', async function (assert) {
@@ -81,7 +81,7 @@ module('<Form /> | dataFromEvent()', function (hooks) {
       );
 
       await click('button');
-      assert.deepEqual(data, { isHuman: '' });
+      assert.deepEqual(data, { isHuman: null });
 
       await click('[name=isHuman]');
       await click('button');
@@ -89,7 +89,7 @@ module('<Form /> | dataFromEvent()', function (hooks) {
 
       await click('[name=isHuman]');
       await click('button');
-      assert.deepEqual(data, { isHuman: '' });
+      assert.deepEqual(data, { isHuman: null });
     });
 
     test('works with radios', async function (assert) {
@@ -164,7 +164,7 @@ module('<Form /> | dataFromEvent()', function (hooks) {
       );
 
       await click('button');
-      assert.deepEqual(data, { drone: '' });
+      assert.deepEqual(data, { drone: null });
 
       await choose('[name=drone]', 'huey');
       await click('button');

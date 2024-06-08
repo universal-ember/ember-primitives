@@ -27,7 +27,7 @@ module('<Form /> | dataFromEvent()', function (hooks) {
       );
 
       await click('button');
-      assert.deepEqual(data, { firstName: "" });
+      assert.deepEqual(data, { firstName: '' });
 
       await fillIn('[name=firstName]', 'foo');
       await click('button');

@@ -39,7 +39,7 @@
     "ember-primitives": "workspace:*",
     "ember-repl": "^4.1.1",
     "ember-route-template": "^1.0.3",
-    "form-data-utils": "^0.4.1",
+    "form-data-utils": "^0.6.0",
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.2.1",

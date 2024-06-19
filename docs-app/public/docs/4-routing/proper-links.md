@@ -29,8 +29,8 @@ Once `@properLinks` is installed and setup, you can use plain `<a>` tags for nav
 <template>
   <nav style="display: flex; gap: 0.5rem">
     <a href="/">Home</a> 
-    <a href="/3-components/link">Link docs</a> 
-    <a href="/3-components/external-link">ExternalLink docs</a> 
+    <a href="/4-routing/link">Link docs</a> 
+    <a href="/4-routing/external-link">ExternalLink docs</a> 
     <a href="https://developer.mozilla.org">MDN ➚</a> 
   </nav>
 </template>

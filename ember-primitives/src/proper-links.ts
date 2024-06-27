@@ -178,6 +178,20 @@ export function handle(
   if (location.origin !== url.origin) return;
 
   /**
+   * Hash-only links are handled by the browser, except for the case where the
+   * hash is being removed entirely, e.g. /foo#bar to /foo. In that case the
+   * browser will do a full page refresh which is not what we want. Instead
+   * we let the router handle such transitions. The current implementation of
+   * the Ember router will skip the transition in this case because the path
+   * is the same.
+   */
+  let [prehash, posthash] = url.href.split('#');
+
+  if (posthash !== undefined && prehash === location.href.split('#')[0]) {
+    return;
+  }
+
+  /**
    * We can optionally declare some paths as ignored,
    * or "let the browser do its default thing,
    * because there is other server-based routing to worry about"

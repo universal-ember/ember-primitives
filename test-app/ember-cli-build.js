@@ -51,11 +51,9 @@ module.exports = async function (defaults) {
     staticModifiers: true,
     staticComponents: true,
     staticEmberSource: true,
-    splitControllers: true,
-    splitRouteClasses: true,
-    implicitModulesStrategy: 'packageNames',
     packagerOptions: {
       webpackConfig: {
+        // Slow, but very nice
         devtool: 'source-map',
       },
     },

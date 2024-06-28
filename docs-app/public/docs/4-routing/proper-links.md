@@ -25,13 +25,14 @@ import `properLinks` and apply it to your Router.
 
 Once `@properLinks` is installed and setup, you can use plain `<a>` tags for navigation like this
 
-```gjs live preview 
+```gjs live preview
 <template>
-  <nav style="display: flex; gap: 0.5rem">
-    <a href="/">Home</a> 
-    <a href="/4-routing/link">Link docs</a> 
-    <a href="/4-routing/external-link">ExternalLink docs</a> 
-    <a href="https://developer.mozilla.org">MDN ➚</a> 
+  <nav id="example" style="display: flex; gap: 0.5rem">
+    <a href="/">Home</a>
+    <a href="#example">Link using a hash</a>
+    <a href="/4-routing/link">Link docs</a>
+    <a href="/4-routing/external-link">ExternalLink docs</a>
+    <a href="https://developer.mozilla.org">MDN ➚</a>
   </nav>
 </template>
 ```

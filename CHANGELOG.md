@@ -1,5 +1,29 @@
 # Changelog 
 
+## Release (2024-06-28)
+
+ember-primitives 0.21.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#336](https://github.com/universal-ember/ember-primitives/pull/336) Support hash-only transitions in proper-links ([@mmun](https://github.com/mmun))
+  * [#325](https://github.com/universal-ember/ember-primitives/pull/325) Upgrade form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `docs-app`
+  * [#331](https://github.com/universal-ember/ember-primitives/pull/331) fix broken links in proper-links.md ([@johanrd](https://github.com/johanrd))
+
+#### :house: Internal
+* Other
+  * [#335](https://github.com/universal-ember/ember-primitives/pull/335) Re-roll lock, pin macros ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`, `test-app`
+  * [#334](https://github.com/universal-ember/ember-primitives/pull/334) Get app watching working ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 3
+- Martin Muñoz ([@mmun](https://github.com/mmun))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- [@johanrd](https://github.com/johanrd)
+
 ## Release (2024-06-06)
 
 ember-primitives 0.20.0 (minor)

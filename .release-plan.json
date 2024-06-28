@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.19.0",
-      "newVersion": "0.20.0",
+      "oldVersion": "0.20.0",
+      "newVersion": "0.21.0",
       "constraints": [
         {
           "impact": "minor",
@@ -13,5 +13,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-06-06)\n\nember-primitives 0.20.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`\n  * [#321](https://github.com/universal-ember/ember-primitives/pull/321) Consume form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-06-28)\n\nember-primitives 0.21.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#336](https://github.com/universal-ember/ember-primitives/pull/336) Support hash-only transitions in proper-links ([@mmun](https://github.com/mmun))\n  * [#325](https://github.com/universal-ember/ember-primitives/pull/325) Upgrade form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `docs-app`\n  * [#331](https://github.com/universal-ember/ember-primitives/pull/331) fix broken links in proper-links.md ([@johanrd](https://github.com/johanrd))\n\n#### :house: Internal\n* Other\n  * [#335](https://github.com/universal-ember/ember-primitives/pull/335) Re-roll lock, pin macros ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `test-app`\n  * [#334](https://github.com/universal-ember/ember-primitives/pull/334) Get app watching working ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 3\n- Martin Muñoz ([@mmun](https://github.com/mmun))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n- [@johanrd](https://github.com/johanrd)\n"
 }

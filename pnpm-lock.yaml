@@ -396,7 +396,7 @@ importers:
         version: 1.16.5(@babel/core@7.24.7)(@glint/template@1.4.0(ember-source@5.9.0))
       '@floating-ui/dom':
         specifier: ^1.5.3
-        version: 1.6.7
+        version: 1.6.8
       decorator-transforms:
         specifier: ^2.0.0
         version: 2.0.0(@babel/core@7.24.7)
@@ -599,7 +599,7 @@ importers:
         version: 4.0.4(@embroider/core@3.4.14(@glint/template@1.4.0(ember-source@5.9.0)))(webpack@5.92.1)
       '@floating-ui/dom':
         specifier: ^1.5.3
-        version: 1.6.7
+        version: 1.6.8
       '@glimmer/component':
         specifier: ^1.1.2
         version: 1.1.2(@babel/core@7.24.7)(ember-source@5.9.0)
@@ -1660,11 +1660,20 @@ packages:
   '@floating-ui/core@1.6.4':
     resolution: {integrity: sha512-a4IowK4QkXl4SCWTGUR0INAfEOX3wtsYw3rKK5InQEHMGObkR8Xk44qYQD9P4r6HHw0iIfK6GUKECmY8sTkqRA==}
 
+  '@floating-ui/core@1.6.5':
+    resolution: {integrity: sha512-8GrTWmoFhm5BsMZOTHeGD2/0FLKLQQHvO/ZmQga4tKempYRLz8aqJGqXVuQgisnMObq2YZ2SgkwctN1LOOxcqA==}
+
   '@floating-ui/dom@1.6.7':
     resolution: {integrity: sha512-wmVfPG5o2xnKDU4jx/m4w5qva9FWHcnZ8BvzEe90D/RpwsJaTAVYPEPdQ8sbr/N8zZTAHlZUTQdqg8ZUbzHmng==}
 
+  '@floating-ui/dom@1.6.8':
+    resolution: {integrity: sha512-kx62rP19VZ767Q653wsP1XZCGIirkE09E0QUGNYTM/ttbbQHqcGPdSfWFxUyyNLc/W6aoJRBajOSXhP6GXjC0Q==}
+
   '@floating-ui/utils@0.2.4':
     resolution: {integrity: sha512-dWO2pw8hhi+WrXq1YJy2yCuWoL20PddgGaqTgVe4cOS9Q6qklXCiA1tJEqX6BEwRNSCP84/afac9hd4MS+zEUA==}
+
+  '@floating-ui/utils@0.2.5':
+    resolution: {integrity: sha512-sTcG+QZ6fdEUObICavU+aB3Mp8HY4n14wYHdxK4fXjPmv3PXZZeY5RaguJmGyeH/CJQhX3fqKUtS4qc1LoHwhQ==}
 
   '@fontsource/lexend@5.0.20':
     resolution: {integrity: sha512-up8jVBRNP7AMRb7MuRBU/Nh1qHqI1ZWIVfqO1fa4gzOwNEnXyPMfvNy4LV2zYqrS19MfTe5ic7kUKpohsVVsZg==}
@@ -11531,12 +11540,23 @@ snapshots:
     dependencies:
       '@floating-ui/utils': 0.2.4
 
+  '@floating-ui/core@1.6.5':
+    dependencies:
+      '@floating-ui/utils': 0.2.5
+
   '@floating-ui/dom@1.6.7':
     dependencies:
       '@floating-ui/core': 1.6.4
       '@floating-ui/utils': 0.2.4
 
+  '@floating-ui/dom@1.6.8':
+    dependencies:
+      '@floating-ui/core': 1.6.5
+      '@floating-ui/utils': 0.2.5
+
   '@floating-ui/utils@0.2.4': {}
+
+  '@floating-ui/utils@0.2.5': {}
 
   '@fontsource/lexend@5.0.20': {}
 

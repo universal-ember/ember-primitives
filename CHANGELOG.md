@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-08-12)
+
+ember-primitives 0.21.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#352](https://github.com/universal-ember/ember-primitives/pull/352) Add layout export (for StickyFooter) -- this was missing, but mentioned in the docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-06-28)
 
 ember-primitives 0.21.0 (minor)

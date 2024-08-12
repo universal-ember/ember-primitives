@@ -116,6 +116,10 @@
       "types": "./declarations/components/one-time-password/index.d.ts",
       "default": "./dist/components/one-time-password/index.js"
     },
+    "./layout/*": {
+      "types": "./declarations/components/layout/*.d.ts",
+      "default": "./dist/components/layout/*.js"
+    },
     "./*": {
       "types": "./declarations/*.d.ts",
       "default": "./dist/*.js"

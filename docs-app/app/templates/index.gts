@@ -15,10 +15,11 @@ export default Route(
       </header>
 
       <div class="h-full flex flex-col gap-8 justify-center items-center">
-        <h1 style="width: 66%; margin: 0 auto; filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
+        <h1 style="transform: translateY(-50%); width: 66%; margin: 0 auto; filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
           <Logo />
         </h1>
-        <Link href="/1-get-started/index.md" class="text-2xl">
+        <Link href="/1-get-started/index.md" class="text-2xl" style="color: white; text-shadow: 0px 3px 0px black;
+  font-size: 2.125rem;">
           Get Started ➤
         </Link>
       </div>
@@ -61,7 +62,7 @@ const Content = <template>
     <br><br>
 
     <div class="mx-auto" style="width: 66%">
-      <Article class="flex gap-8 justify-center" >
+      <Article class="flex gap-12 justify-between" >
         <div>
           <H2>Projects using...</H2>
 

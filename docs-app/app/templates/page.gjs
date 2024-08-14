@@ -63,30 +63,29 @@ export default Route(
   </template>
 );
 
-const Layout =
-  <template>
-    <MenuWrapper as |mmw|>
-      <mmw.MobileMenu @mode="push" @maxWidth={{300}} as |mm|>
-        <Nav @onClick={{mm.actions.close}} />
-      </mmw.MobileMenu>
+const Layout = <template>
+  <MenuWrapper as |mmw|>
+    <mmw.MobileMenu @mode="push" @maxWidth={{300}} as |mm|>
+      <Nav @onClick={{mm.actions.close}} />
+    </mmw.MobileMenu>
 
-      <mmw.Content>
-        <Header>
-          <mmw.Toggle>
-            <Menu class="w-6 h-6 stroke-slate-500" />
-          </mmw.Toggle>
-        </Header>
+    <mmw.Content>
+      <Header>
+        <mmw.Toggle>
+          <Menu class="w-6 h-6 stroke-slate-500" />
+        </mmw.Toggle>
+      </Header>
 
-        <div class="outer-content">
-          <Nav />
+      <div class="outer-content">
+        <Nav />
 
-          <main class="relative grid justify-center flex-auto w-full mx-auto max-w-8xl">
-            {{yield}}
-          </main>
-        </div>
-      </mmw.Content>
-    </MenuWrapper>
-  </template>;
+        <main class="relative grid justify-center flex-auto w-full mx-auto max-w-8xl">
+          {{yield}}
+        </main>
+      </div>
+    </mmw.Content>
+  </MenuWrapper>
+</template>;
 
 const ReportingAnIssue = <template>
   <ExternalLink href="https://github.com/universal-ember/ember-primitives/issues/new">
@@ -120,15 +119,24 @@ export const Article = <template>
   </article>
 </template>;
 
+export const Link = <template>
+  <ExternalLink
+    class="text-sm font-semibold dark:text-sky-400 no-underline shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))] hover:[--tw-prose-underline-size:6px] dark:[--tw-prose-background:theme(colors.slate.900)] dark:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))] dark:hover:[--tw-prose-underline-size:6px]"
+    ...attributes
+  >
+    {{yield}}
+  </ExternalLink>
+</template>;
+
 const EditLink = <template>
   {{#let (service "kolay/docs") as |docs|}}
     <div class="flex justify-end pt-6 mt-12 border-t border-slate-200 dark:border-slate-800">
-      <ExternalLink
-        class="edit-page flex text-sm font-semibold dark:text-sky-400 no-underline shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))] hover:[--tw-prose-underline-size:6px] dark:[--tw-prose-background:theme(colors.slate.900)] dark:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))] dark:hover:[--tw-prose-underline-size:6px]"
+      <Link
+        class="edit-page flex"
         href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{docs.selected.path}}.md"
       >
         Edit this page
-      </ExternalLink>
+      </Link>
     </div>
   {{/let}}
 </template>;

@@ -3,7 +3,7 @@ import { Logo } from 'docs-app/components/icons';
 import { Hero } from 'ember-primitives/layout/hero';
 import Route from 'ember-route-template';
 
-import { Article } from './page';
+import { Article, Link } from './page';
 
 import type { TOC } from '@ember/component/template-only';
 
@@ -14,31 +14,39 @@ export default Route(
         <TopRight />
       </header>
 
-      <div class="h-full flex justify-center items-center">
+      <div class="h-full flex flex-col gap-8 justify-center items-center">
         <h1 style="width: 66%; margin: 0 auto; filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
           <Logo />
         </h1>
+        <Link href="/1-get-started/index.md" class="text-2xl">
+          Get Started ➤
+        </Link>
       </div>
     </Hero>
 
   <style>
-.gradient-background {
-  background: linear-gradient(167deg,#1252e3,#485de5,#585de5);
-  background-size: 180% 180%;
-  animation: gradient-animation 6s ease infinite;
-}
+    .gradient-background {
+      background: linear-gradient(-45deg,#1252e3,#485de5,#7812e5,#e51285);
+      background-size: 400% 400%;
+      animation: gradient-animation 10s ease infinite;
+      transition: all 0.5s ease;
+    }
 
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+    body.dark .gradient-background {
+      background: linear-gradient(-45deg,#120083,#440075,#280055,#150035);
+    }
+
+    @keyframes gradient-animation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
   </style>
 
     <Content />
@@ -55,10 +63,21 @@ const Content = <template>
     <div class="mx-auto" style="width: 66%">
       <Article class="flex gap-8 justify-center" >
         <div>
-          <H2>Projects using ember-primitives</H2>
+          <H2>Projects using...</H2>
 
           <ul>
-            <li></li>
+            <li>
+              <Link href="https://limber.glimdown.com">REPL, Limber</Link>
+            </li>
+            <li>
+              <Link href="https://tutorial.glimdown.com">Tutorial</Link>
+            </li>
+            <li>
+                <Link href="https://game-of-life.nullvoxpopuli.com/">Conway's Game of Life</Link>
+            </li>
+            <li>
+              <Link href="https://majors.nullvoxpopuli.com/">Package Majors</Link>
+            </li>
           </ul>
         </div>
 
@@ -69,6 +88,22 @@ const Content = <template>
             <li>import only what you need</li>
             <li>pure data derivation</li>
             <li>no extra rendering</li>
+            <li>no unneeded DOM</li>
+            <li>be contextually aware</li>
+            <li>be flexible</li>
+            <li>use the latest technology</li>
+          </ul>
+        </div>
+
+        <div>
+          <H2>Features</H2>
+
+          <ul>
+            <li>Accessible, by default</li>
+            <li><Link href="https://tabster.io/">Tabster</Link> integration</li>
+            <li>Documented</li>
+            <li>Compatible with all CSS styles</li>
+            <li>Compatible with all design systems</li>
           </ul>
         </div>
       </Article>

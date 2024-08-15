@@ -65,7 +65,7 @@ export default Route(
     <br><br>
     <br><br>
 
-    <footer style="padding: 3rem; width: 66%;" class="mx-auto flex justify-between">
+    <footer style="padding: 3rem; width: 66%;" class="mx-auto flex-wrap flex justify-between">
       <div>
         <span class="dark:text-white text:slate-900">Related Projects</span>
         <nav>
@@ -128,7 +128,7 @@ const Content = <template>
     <br><br>
 
     <div class="mx-auto" style="width: 66%">
-      <Article class="flex gap-12 justify-between" >
+      <Article class="flex flex-wrap gap-12 justify-between" >
         <div>
           <H2>Projects using...</H2>
 

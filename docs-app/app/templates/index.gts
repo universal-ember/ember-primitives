@@ -12,7 +12,7 @@ import type { TOC } from '@ember/component/template-only';
 export default Route(
   <template>
     <Hero class="shadow-xl shadow-slate-900/5 gradient-background">
-      <header class="sticky top-0 z-50 p-4 flex items-center">
+      <header class="absolute md:sticky right-0 bottom-0 md:top-0 z-50 p-4 flex items-center">
         <TopRight />
       </header>
 

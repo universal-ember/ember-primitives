@@ -2,6 +2,21 @@
 
 ## Release (2024-08-15)
 
+ember-primitives 0.23.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2024-08-15)
+
 ember-primitives 0.22.0 (minor)
 
 #### :rocket: Enhancement

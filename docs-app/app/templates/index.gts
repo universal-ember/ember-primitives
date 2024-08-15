@@ -12,7 +12,7 @@ import type { TOC } from '@ember/component/template-only';
 export default Route(
   <template>
     <Hero class="shadow-xl shadow-slate-900/5 gradient-background">
-      <header class="sticky top-0 z-50 p-4 flex items-center">
+      <header class="absolute md:sticky right-0 bottom-0 md:top-0 z-50 p-4 flex items-center">
         <TopRight />
       </header>
 
@@ -65,7 +65,7 @@ export default Route(
     <br><br>
     <br><br>
 
-    <footer style="padding: 3rem; width: 66%;" class="mx-auto flex justify-between">
+    <footer style="padding: 3rem; width: 66%;" class="mx-auto gap-12 flex-wrap flex justify-between">
       <div>
         <span class="dark:text-white text:slate-900">Related Projects</span>
         <nav>
@@ -83,6 +83,11 @@ export default Route(
             <li>
               <Link href="https://github.com/nullVoxPopuli/form-data-utils">
                 form-data-utils
+              </Link>
+            </li>
+            <li>
+              <Link href="https://github.com/NullVoxPopuli/should-handle-link">
+                should-handle-link
               </Link>
             </li>
          </ul>
@@ -123,7 +128,7 @@ const Content = <template>
     <br><br>
 
     <div class="mx-auto" style="width: 66%">
-      <Article class="flex gap-12 justify-between" >
+      <Article class="flex flex-wrap gap-12 justify-between" >
         <div>
           <H2>Projects using...</H2>
 

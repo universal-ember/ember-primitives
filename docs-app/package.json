@@ -48,6 +48,7 @@
     "path-browserify": "^1.0.1",
     "reactiveweb": "^1.2.2",
     "shiki": "^1.2.0",
+    "should-handle-link": "^1.2.0",
     "tracked-built-ins": "^3.2.0"
   },
   "dependenciesMeta": {

@@ -96,6 +96,14 @@ function handleSubmit(event) {
 
 </div>
 
+## Setup
+
+```bash
+pnpm add form-data-utils
+```
+
+otherwise, this is included with ember-primitives when using the `<Form />` component.
+
 ## Anatomy
 
 These are aliases of each other

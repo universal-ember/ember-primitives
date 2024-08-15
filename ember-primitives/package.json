@@ -43,6 +43,7 @@
     "ember-element-helper": ">= 0.8.6",
     "form-data-utils": "^0.6.0",
     "reactiveweb": "^1.2.2",
+    "should-handle-link": "^1.0.0",
     "tabster": "^7.1.0",
     "tracked-built-ins": "^3.2.0",
     "tracked-toolbox": "^2.0.0"

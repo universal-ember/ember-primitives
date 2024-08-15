@@ -31,6 +31,9 @@ There is 1 BEM-style class on the element to enable further customization or sty
 .ember-primitives__hero__wrapper
 ```
 
+It has `position: relative` on it.
+So elements within can be sticky or absolutely positioned along the outside, if needed (such as for headers and footers).
+
 ## Accessibility
 
 This component provides no accessibility patterns and using `<main>` / `<footer>` or not is up to the use case of the `<Hero />` component.

@@ -4,8 +4,8 @@ import { service } from '@ember/service';
 
 import { sentenceCase } from 'change-case';
 import { link } from 'ember-primitives/helpers';
-import { isLink } from 'ember-primitives/proper-links';
 import { PageNav } from 'kolay/components';
+import { getAnchor } from 'should-handle-link';
 
 import type { TOC } from '@ember/component/template-only';
 import type { DocsService, Page } from 'kolay';
@@ -106,7 +106,7 @@ export class Nav extends Component<{
   }
 
   closeNav = (event: Event) => {
-    if (!isLink(event)) return;
+    if (!getAnchor(event)) return;
 
     this.args.onClick?.();
   };

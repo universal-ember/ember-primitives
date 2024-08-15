@@ -3,7 +3,7 @@ import { assert } from '@ember/debug';
 import { registerDestructor } from '@ember/destroyable';
 import { getOwner } from '@ember/owner';
 
-import { shouldHandle } from 'should-handle-link';
+import { getAnchor, shouldHandle } from 'should-handle-link';
 
 import type EmberRouter from '@ember/routing/router';
 import type RouterService from '@ember/routing/router-service';
@@ -75,7 +75,7 @@ export function setup(parent: object, ignore?: string[]) {
      * event.target may not be an anchor,
      * it may be a span, svg, img, or any number of elements nested in <a>...</a>
      */
-    let interactive = isLink(event);
+    let interactive = getAnchor(event);
 
     if (!interactive) return;
 
@@ -91,20 +91,6 @@ export function setup(parent: object, ignore?: string[]) {
   document.body.addEventListener('click', handler, false);
 
   registerDestructor(parent, () => document.body.removeEventListener('click', handler));
-}
-
-export function isLink(event: Event) {
-  /**
-   * Using composed path in case the link is removed from the DOM
-   * before the event handler evaluates
-   */
-  let composedPath = event.composedPath();
-
-  for (let element of composedPath) {
-    if (element instanceof HTMLAnchorElement) {
-      return element;
-    }
-  }
 }
 
 export function handle(

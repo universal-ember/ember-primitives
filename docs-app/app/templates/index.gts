@@ -65,7 +65,7 @@ export default Route(
     <br><br>
     <br><br>
 
-    <footer style="padding: 3rem; width: 66%;" class="mx-auto flex-wrap flex justify-between">
+    <footer style="padding: 3rem; width: 66%;" class="mx-auto gap-12 flex-wrap flex justify-between">
       <div>
         <span class="dark:text-white text:slate-900">Related Projects</span>
         <nav>

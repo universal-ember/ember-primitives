@@ -1,5 +1,5 @@
 export function install() {
-  installSocials()
+  installSocials();
 }
 
 export function installIcons(setName: string, set: string) {
@@ -24,7 +24,7 @@ export function installSocials() {
 /**
  * How to make a sprite Sheet?
  * 1. Copy SVG into the <svg> tag
- * 2. Rename <svg to <symbol 
+ * 2. Rename <svg to <symbol
  * 3. Add ID
  * 4. Add fill=currentColor to the symbol tag
  */

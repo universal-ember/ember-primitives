@@ -9,7 +9,7 @@ export const Hero: TOC<{
   Element: HTMLDivElement;
   Blocks: {
     default: [];
-  }
+  };
 }> = <template>
   <div class="ember-primitives__hero__wrapper" ...attributes>
     {{yield}}

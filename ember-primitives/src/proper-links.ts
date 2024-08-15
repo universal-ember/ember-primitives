@@ -8,6 +8,8 @@ import { shouldHandle } from 'should-handle-link';
 import type EmberRouter from '@ember/routing/router';
 import type RouterService from '@ember/routing/router-service';
 
+export { shouldHandle } from 'should-handle-link';
+
 type Constructor<T extends {} = {}> = { new (...args: any[]): T };
 
 export interface Options {

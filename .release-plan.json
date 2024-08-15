@@ -1,17 +1,17 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.21.0",
-      "newVersion": "0.21.1",
+      "impact": "minor",
+      "oldVersion": "0.21.1",
+      "newVersion": "0.22.0",
       "constraints": [
         {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-08-12)\n\nember-primitives 0.21.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#352](https://github.com/universal-ember/ember-primitives/pull/352) Add layout export (for StickyFooter) -- this was missing, but mentioned in the docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-08-15)\n\nember-primitives 0.22.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`\n  * [#354](https://github.com/universal-ember/ember-primitives/pull/354) Add hero layout ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

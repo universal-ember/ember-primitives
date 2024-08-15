@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-08-15)
+
+ember-primitives 0.22.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`
+  * [#354](https://github.com/universal-ember/ember-primitives/pull/354) Add hero layout ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-08-12)
 
 ember-primitives 0.21.1 (patch)

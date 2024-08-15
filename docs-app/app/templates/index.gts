@@ -85,6 +85,11 @@ export default Route(
                 form-data-utils
               </Link>
             </li>
+            <li>
+              <Link href="https://github.com/NullVoxPopuli/should-handle-link">
+                should-handle-link
+              </Link>
+            </li>
          </ul>
         </nav>
       </div>

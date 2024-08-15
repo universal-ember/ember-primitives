@@ -18,7 +18,7 @@ module('@properLinks', function () {
         let ignored: string[] = [];
         let simpleClickEvent = new MouseEvent('click');
 
-        assert.strictEqual(shouldHandle(url.href, anchor, ignored, simpleClickEvent), expected);
+        assert.strictEqual(shouldHandle(url.href, anchor, simpleClickEvent, ignored), expected);
       }
 
       assertShouldHandle(false, { location: '/foo', href: '/foo#bar' });

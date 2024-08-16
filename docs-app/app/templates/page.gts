@@ -95,30 +95,62 @@ const ReportingAnIssue = <template>
   </ExternalLink>
 </template>;
 
+const proseClasses = `
+  prose prose-slate max-w-none
+  dark:prose-invert dark:text-slate-400
+  prose-th:table-cell
+  prose-headings:inline-block
+  prose-headings:scroll-mt-28
+  prose-headings:font-display
+  prose-headings:font-normal
+  lg:prose-headings:scroll-mt-[8.5rem]
+  prose-h1:text-3xl
+
+  prose-lead:text-slate-500
+  dark:prose-lead:text-slate-400
+
+  prose-a:font-semibold
+  dark:prose-a:text-sky-400
+  prose-a:no-underline
+  prose-a:shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,2px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))]
+  hover:prose-a:[--tw-prose-underline-size:3px]
+  dark:[--tw-prose-background:theme(colors.slate.900)]
+  dark:prose-a:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))]
+  dark:hover:prose-a:[--tw-prose-underline-size:6px]
+  prose-pre:rounded-xl prose-pre:bg-slate-900
+  prose-pre:shadow-lg
+  dark:prose-pre:bg-slate-800/60
+  dark:prose-pre:shadow-none
+  dark:prose-pre:ring-1
+  dark:prose-pre:ring-slate-300/10
+  dark:prose-hr:border-slate-800
+  dark:prose-code:text-slate-50
+`;
+
 export const Article: TOC<{ Element: HTMLElement; Blocks: { default: [] }}> = <template>
-  <article
-    class="prose prose-slate max-w-none dark:prose-invert dark:text-slate-400 prose-headings:inline-block prose-th:table-cell prose-headings:scroll-mt-28 prose-h1:text-3xl prose-headings:font-display prose-headings:font-normal lg:prose-headings:scroll-mt-[8.5rem] prose-lead:text-slate-500 dark:prose-lead:text-slate-400 prose-a:font-semibold dark:prose-a:text-sky-400 prose-a:no-underline prose-a:shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))] hover:prose-a:[--tw-prose-underline-size:6px] dark:[--tw-prose-background:theme(colors.slate.900)] dark:prose-a:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))] dark:hover:prose-a:[--tw-prose-underline-size:6px] prose-pre:rounded-xl prose-pre:bg-slate-900 prose-pre:shadow-lg dark:prose-pre:bg-slate-800/60 dark:prose-pre:shadow-none dark:prose-pre:ring-1 dark:prose-pre:ring-slate-300/10 dark:prose-hr:border-slate-800 dark:prose-code:text-slate-50"
-    ...attributes
-  >
+  <article class={{proseClasses}} ...attributes>
     {{yield}}
   </article>
 </template>;
 
+const linkClasses = `
+  text-sm font-semibold
+  dark:text-sky-400
+  no-underline shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))]
+  hover:[--tw-prose-underline-size:6px]
+  dark:[--tw-prose-background:theme(colors.slate.900)]
+  dark:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))]
+  dark:hover:[--tw-prose-underline-size:6px]
+`;
+
 export const InternalLink: TOC<{ Element: HTMLAnchorElement, Blocks: { default: [] }}> = <template>
-  <a
-    class="text-sm font-semibold dark:text-sky-400 no-underline shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))] hover:[--tw-prose-underline-size:6px] dark:[--tw-prose-background:theme(colors.slate.900)] dark:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))] dark:hover:[--tw-prose-underline-size:6px]"
-    href="#"
-    ...attributes
-  >
+  <a class={{linkClasses}} href="#" ...attributes>
     {{yield}}
   </a>
 </template>;
 
 export const Link: TOC<{ Element: HTMLAnchorElement, Blocks: { default: [] }}> = <template>
-  <ExternalLink
-    class="text-sm font-semibold dark:text-sky-400 no-underline shadow-[inset_0_-2px_0_0_var(--tw-prose-background,#fff),inset_0_calc(-1*(var(--tw-prose-underline-size,4px)+2px))_0_0_var(--tw-prose-underline,theme(colors.sky.300))] hover:[--tw-prose-underline-size:6px] dark:[--tw-prose-background:theme(colors.slate.900)] dark:shadow-[inset_0_calc(-1*var(--tw-prose-underline-size,2px))_0_0_var(--tw-prose-underline,theme(colors.sky.800))] dark:hover:[--tw-prose-underline-size:6px]"
-    ...attributes
-  >
+  <ExternalLink class={{linkClasses}} ...attributes>
     {{yield}}
   </ExternalLink>
 </template>;

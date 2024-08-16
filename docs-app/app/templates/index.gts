@@ -17,13 +17,20 @@ export default Route(
       </header>
 
       <div class="h-full flex flex-col gap-8 justify-center items-center">
-        <h1 style="transform: translateY(-50%); width: 66%; margin: 0 auto; filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
-          <Logo />
-        </h1>
-        <InternalLink href="/1-get-started/index.md" class="text-2xl" style="color: white; text-shadow: 0px 3px 0px black;
-  font-size: 2.125rem;">
+        <div style="width: 66%; margin: 0 auto; transform: translateY(-20%);" class="grid gap-4">
+          <h1 style="filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
+            <Logo />
+          </h1>
+          <p class="italic text-white w-full md:w-1/2 mx-auto">
+            headless, stylessless, accessibility focused implementations of components, patterns, and utilities to help make building apps faster.
+          <br>
+          <strong>picking up where the framework left off.</strong>
+          </p>
+        </div>
+        <InternalLink href="/1-get-started/index.md" style="color: white; text-shadow: 0px 2px 0px black; transform: scale(2.5);">
           Get Started ➤
         </InternalLink>
+
       </div>
     </Hero>
 
@@ -57,38 +64,120 @@ export default Route(
     <br><br>
 
     <div class="flex justify-center items-center">
-      <InternalLink href="/1-get-started/index.md" class="text-2xl" style="font-size: 2.125rem;">
-        Get Started ➤
-      </InternalLink>
+      <GetStarted />
+    </div>
+
+    <br><br>
+
+    <div class="mx-auto" style="width: 66%">
+      <Article class="flex flex-wrap gap-12 justify-around" >
+
+        <div>
+          <H2>Building on the backs of giants.</H2>
+
+          <ul class="dark:text-white text:slate-900">
+            <li>
+              <strong><em style="text-transform: uppercase; letter-spacing: 0.5rem;">The Platform</em></strong><br>
+              When possible, the platform should be used instead of custom implementations. When applicable, the docs call out what and how to use each relevant part of the platform.
+            </li>
+            <li>
+              <Link href="https://floating-ui.com/">@floating-ui/dom</Link><br>
+              Used for positioning floating elements. Will be replaced by <Link href="https://w3c.github.io/csswg-drafts/css-anchor-position/">CSS Anchor Position</Link> when that lands.
+            </li>
+            <li>
+              <Link href="https://tabster.io/">tabster</Link><br>
+              Used for managing roving focus in menus or menu-like patterns.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <H2>Inspiration and code adapted from</H2>
+
+          <ul>
+            <li>
+              <Link href="https://primitives.solidjs.community/">
+                Solid primitives
+              </Link>
+            </li>
+            <li>
+              <Link href="https://www.radix-ui.com/primitives/docs/overview/introduction">
+                radix primitives
+              </Link>
+            </li>
+            <li>
+              <Link href="https://kobalte.dev/docs/core/overview/introduction">
+                Kobalte
+              </Link>
+            </li>
+            <li>
+              <Link href="https://svelte-ux.techniq.dev/">
+                Svelte UX
+              </Link>
+            </li>
+            <li>
+              <Link href="https://quasar.dev/">
+                Quasar
+              </Link>
+            </li>
+            <li>
+              <Link href="https://www.bits-ui.com/docs/introduction">
+                Bits UI
+              </Link>
+            </li>
+            <li>
+              <Link href="https://ariakit.org/">
+                AriaKit
+              </Link>
+            </li>
+            <li>
+              <Link href="https://react-spectrum.adobe.com/react-aria/">
+                React Aria
+              </Link>
+            </li>
+            <li>
+              <Link href="https://ui.shadcn.com/docs/components/accordion">
+                ShadCN
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+      </Article>
     </div>
 
     <br><br>
     <br><br>
 
+    <hr>
     <footer style="padding: 3rem; width: 66%;" class="mx-auto gap-12 flex-wrap flex justify-between">
       <div>
-        <span class="dark:text-white text:slate-900">Related Projects</span>
-        <nav>
+        <span class="dark:text-white text:slate-900">Dependencies / Projects used by ember-primitives that are worth looking at.</span>
+        <nav class="dark:text-white text:slate-900">
           <ul>
-            <li>
-              <Link href="https://github.com/universal-ember/test-support">
-                @universal-ember/test-support
-              </Link>
-            </li>
             <li>
               <Link href="https://github.com/universal-ember/reactiveweb">
                 reactiveweb
-              </Link>
+              </Link><br>
+              Reactive utilities used in some components.
             </li>
             <li>
               <Link href="https://github.com/nullVoxPopuli/form-data-utils">
                 form-data-utils
-              </Link>
+              </Link><br>
+            Utilities for working with <Link href="https://developer.mozilla.org/en-US/docs/Web/API/FormData">FormData</Link>.
             </li>
             <li>
               <Link href="https://github.com/NullVoxPopuli/should-handle-link">
                 should-handle-link
-              </Link>
+              </Link><br>
+              Utilities for managing native link clicks in single-page-apps.
+            </li>
+            <li>
+              <Link href="https://github.com/universal-ember/test-support">
+                @universal-ember/test-support
+              </Link><br>
+              Extra helpers for testing.
             </li>
          </ul>
         </nav>
@@ -103,11 +192,14 @@ export default Route(
 
 const Socials = <template>
   <div class="flex gap-3">
-    <ExternalLink href="https://x.com/nullvoxpopuli">
-      <XTwitter class="dark:fill-white fill-slate-900 h-6 w-6" />
-    </ExternalLink>
     <ExternalLink href="https://github.com/NullVoxPopuli/">
       <GitHub class="dark:fill-white fill-slate-900  h-6 w-6" />
+    </ExternalLink>
+    <ExternalLink href="http://discord.gg/cTvtmJhFNY">
+      <Discord class="dark:fill-white fill-slate-900  h-6 w-6" />
+    </ExternalLink>
+    <ExternalLink href="https://x.com/nullvoxpopuli">
+      <XTwitter class="dark:fill-white fill-slate-900 h-6 w-6" />
     </ExternalLink>
     <ExternalLink href="https://mastodon.coffee/@nullvoxpopuli">
       <Mastodon class="dark:fill-white fill-slate-900  h-6 w-6" />
@@ -118,10 +210,13 @@ const Socials = <template>
     <ExternalLink href="https://www.threads.net/@nullvoxpopuli">
       <Threads class="dark:fill-white fill-slate-900  h-6 w-6" />
     </ExternalLink>
-    <ExternalLink href="http://discord.gg/cTvtmJhFNY">
-      <Discord class="dark:fill-white fill-slate-900  h-6 w-6" />
-    </ExternalLink>
   </div>
+</template>;
+
+const GetStarted = <template>
+  <InternalLink href="/1-get-started/index.md" style="transform: scale(2.5);">
+    Get Started ➤
+  </InternalLink>
 </template>;
 
 const Content = <template>
@@ -152,7 +247,8 @@ const Content = <template>
           <H2>Goals</H2>
 
           <ul>
-            <li>import only what you need</li>
+            <li>high-quality components and utilities</li>
+            <li>pay for only what you import</li>
             <li>pure data derivation</li>
             <li>no extra rendering</li>
             <li>no unneeded DOM</li>

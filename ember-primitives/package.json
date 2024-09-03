@@ -59,7 +59,7 @@
     "@babel/plugin-transform-class-static-block": "^7.23.4",
     "@babel/plugin-transform-private-methods": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
-    "@ember/test-helpers": "^3.3.0",
+    "@ember/test-helpers": "^4.0.2",
     "@ember/test-waiters": "^3.1.0",
     "@embroider/addon-dev": "4.3.1",
     "@glimmer/component": "^1.1.2",
@@ -145,14 +145,14 @@
     "extends": "../package.json"
   },
   "peerDependencies": {
-    "@ember/test-helpers": "^3.2.0",
-    "@ember/test-waiters": "^3.0.2",
+    "@ember/test-helpers": ">= 3.2.0",
+    "@ember/test-waiters": ">= 3.0.2",
     "@glimmer/component": ">= 1.1.2",
     "@glimmer/tracking": ">= 1.1.2",
     "@glint/template": ">= 1.0.0",
     "ember-modifier": ">= 4.1.0",
     "ember-resources": ">= 6.1.0",
-    "ember-source": "^5.8.0"
+    "ember-source": ">= 5.8.0"
   },
   "peerDependenciesMeta": {
     "@ember/test-helpers": {

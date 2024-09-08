@@ -38,7 +38,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@embroider/macros": "1.16.5",
+      "@embroider/macros": "1.16.6",
       "@typescript-eslint/eslint-plugin": "^7.7.1",
       "@typescript-eslint/parser": "^7.7.1",
       "ember-element-helper": ">= 0.8.6",

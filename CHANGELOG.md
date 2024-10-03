@@ -1,5 +1,20 @@
 # Changelog 
 
+## Release (2024-10-03)
+
+ember-primitives 0.23.1 (patch)
+
+#### :house: Internal
+* Other
+  * [#370](https://github.com/universal-ember/ember-primitives/pull/370) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#364](https://github.com/universal-ember/ember-primitives/pull/364) Upgrade test-helpers to v4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`
+  * [#357](https://github.com/universal-ember/ember-primitives/pull/357) Page Updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-08-15)
 
 ember-primitives 0.23.0 (minor)

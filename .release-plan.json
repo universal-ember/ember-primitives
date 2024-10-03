@@ -1,21 +1,17 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.22.0",
-      "newVersion": "0.23.0",
+      "impact": "patch",
+      "oldVersion": "0.23.0",
+      "newVersion": "0.23.1",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
           "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-08-15)\n\nember-primitives 0.23.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-10-03)\n\nember-primitives 0.23.1 (patch)\n\n#### :house: Internal\n* Other\n  * [#370](https://github.com/universal-ember/ember-primitives/pull/370) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#364](https://github.com/universal-ember/ember-primitives/pull/364) Upgrade test-helpers to v4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`\n  * [#357](https://github.com/universal-ember/ember-primitives/pull/357) Page Updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

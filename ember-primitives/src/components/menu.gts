@@ -5,7 +5,7 @@ import { guidFor } from '@ember/object/internals';
 
 import { modifier as eModifier } from 'ember-modifier';
 import { cell } from 'ember-resources';
-import { getTabster, getTabsterAttribute, setTabsterAttribute, Types } from 'tabster';
+import { getTabster, getTabsterAttribute, MoverDirections, setTabsterAttribute } from 'tabster';
 
 import { Popover, type Signature as PopoverSignature } from './popover.gts';
 
@@ -19,7 +19,7 @@ type PopoverBlockParams = PopoverSignature['Blocks']['default'][0];
 const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
   {
     mover: {
-      direction: Types.MoverDirections.Both,
+      direction: MoverDirections.Both,
       cyclic: true,
     },
     deloser: {},

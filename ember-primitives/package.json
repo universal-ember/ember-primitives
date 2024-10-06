@@ -37,7 +37,7 @@
   "dependencies": {
     "@babel/runtime": "^7.24.1",
     "@embroider/addon-shim": "^1.8.7",
-    "@embroider/macros": "1.16.6",
+    "@embroider/macros": "1.16.7",
     "@floating-ui/dom": "^1.5.3",
     "decorator-transforms": "^2.0.0",
     "ember-element-helper": ">= 0.8.6",

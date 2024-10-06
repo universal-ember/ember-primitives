@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-10-06)
+
+ember-primitives 0.24.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#372](https://github.com/universal-ember/ember-primitives/pull/372) Upgrade tabster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-10-03)
 
 ember-primitives 0.23.1 (patch)

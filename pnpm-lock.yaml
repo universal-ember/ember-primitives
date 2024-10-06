@@ -104,7 +104,7 @@ importers:
         version: 5.4.4
       decorator-transforms:
         specifier: ^1.1.0
-        version: 1.2.1(@babel/core@7.25.2)
+        version: 2.2.2(@babel/core@7.25.2)
       ember-focus-trap:
         specifier: ^1.1.0
         version: 1.1.0(ember-source@5.10.2)
@@ -402,7 +402,7 @@ importers:
         version: 1.6.11
       decorator-transforms:
         specifier: ^2.0.0
-        version: 2.2.0(@babel/core@7.25.2)
+        version: 2.2.2(@babel/core@7.25.2)
       ember-element-helper:
         specifier: '>= 0.8.6'
         version: 0.8.6(@babel/core@7.25.2)(@glint/environment-ember-loose@1.4.0(@glimmer/component@1.1.2)(@glint/template@1.4.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.0(@babel/core@7.25.2)(ember-source@5.10.2)))(@glint/template@1.4.0)(ember-source@5.10.2)
@@ -875,6 +875,10 @@ packages:
     resolution: {integrity: sha512-FFWx5142D8h2Mgr/iPVGH5G7w6jDn4jUSpZTyDnQO0Yn7Ks2Kuz6Pci8H6MPCoUJegd/UZQ3tAvfLCxQSnWWwg==}
     engines: {node: '>=6.9.0'}
 
+  '@babel/helper-plugin-utils@7.25.7':
+    resolution: {integrity: sha512-eaPZai0PiqCi09pPs3pAFfl/zYgGaE6IdXtYvmf0qlcDTd3WCtO7JWCcRd64e0EQrcYgiHibEZnOGsSY4QSgaw==}
+    engines: {node: '>=6.9.0'}
+
   '@babel/helper-remap-async-to-generator@7.25.0':
     resolution: {integrity: sha512-NhavI2eWEIz/H9dbrG0TuOicDhNexze43i5z7lEqwYm0WEZVTwnPpA0EafUTP7+6/W79HWIP2cTe3Z5NiSTVpw==}
     engines: {node: '>=6.9.0'}
@@ -1012,6 +1016,12 @@ packages:
 
   '@babel/plugin-syntax-decorators@7.24.7':
     resolution: {integrity: sha512-Ui4uLJJrRV1lb38zg1yYTmRKmiZLiftDEvZN2iq3kd9kUFU+PttmzTbAFC2ucRk/XJmtek6G23gPsuZbhrT8fQ==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+
+  '@babel/plugin-syntax-decorators@7.25.7':
+    resolution: {integrity: sha512-oXduHo642ZhstLVYTe2z2GSJIruU0c/W3/Ghr6A5yGMsVrvdnxO1z+3pbTcT7f3/Clnt+1z8D/w1r1f1SHaCHw==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -4150,8 +4160,8 @@ packages:
   decorator-transforms@1.2.1:
     resolution: {integrity: sha512-UUtmyfdlHvYoX3VSG1w5rbvBQ2r5TX1JsE4hmKU9snleFymadA3VACjl6SRfi9YgBCSjBbfQvR1bs9PRW9yBKw==}
 
-  decorator-transforms@2.2.0:
-    resolution: {integrity: sha512-o+NZXfBpRQJCWZzdVN6nB0Bf4KnD0gZO8hSk80OktIoClvB1YmBZC6js2k34EFAwF+c+P3Q6vYmiDzGoXwp1OQ==}
+  decorator-transforms@2.2.2:
+    resolution: {integrity: sha512-NHCSJXOUQ29YFli1QzstXWo72EyASpoVx+s0YdkMwswpovf/iAJP580nD1tB0Ph9exvtbfWdVrSAloXrWVo1Xg==}
 
   deep-extend@0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
@@ -9812,6 +9822,8 @@ snapshots:
 
   '@babel/helper-plugin-utils@7.24.8': {}
 
+  '@babel/helper-plugin-utils@7.25.7': {}
+
   '@babel/helper-remap-async-to-generator@7.25.0(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
@@ -10041,6 +10053,11 @@ snapshots:
     dependencies:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
+
+  '@babel/plugin-syntax-decorators@7.25.7(@babel/core@7.25.2)':
+    dependencies:
+      '@babel/core': 7.25.2
+      '@babel/helper-plugin-utils': 7.25.7
 
   '@babel/plugin-syntax-dynamic-import@7.8.3(@babel/core@7.25.2)':
     dependencies:
@@ -10622,7 +10639,7 @@ snapshots:
   '@babel/plugin-transform-typescript@7.4.5(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/helper-plugin-utils': 7.24.8
+      '@babel/helper-plugin-utils': 7.25.7
       '@babel/plugin-syntax-typescript': 7.24.7(@babel/core@7.25.2)
 
   '@babel/plugin-transform-typescript@7.5.5(@babel/core@7.25.2)':
@@ -10986,7 +11003,7 @@ snapshots:
       '@embroider/addon-shim': 1.8.9
       '@embroider/macros': 1.16.7(@babel/core@7.25.2)(@glint/template@1.4.0)
       '@simple-dom/interface': 1.4.0
-      decorator-transforms: 2.2.0(@babel/core@7.25.2)
+      decorator-transforms: 2.2.2(@babel/core@7.25.2)
       dom-element-descriptors: 0.5.1
       ember-source: 5.10.2(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.93.0)
     transitivePeerDependencies:
@@ -14328,14 +14345,14 @@ snapshots:
 
   decorator-transforms@1.2.1(@babel/core@7.25.2):
     dependencies:
-      '@babel/plugin-syntax-decorators': 7.24.7(@babel/core@7.25.2)
+      '@babel/plugin-syntax-decorators': 7.25.7(@babel/core@7.25.2)
       babel-import-util: 2.1.1
     transitivePeerDependencies:
       - '@babel/core'
 
-  decorator-transforms@2.2.0(@babel/core@7.25.2):
+  decorator-transforms@2.2.2(@babel/core@7.25.2):
     dependencies:
-      '@babel/plugin-syntax-decorators': 7.24.7(@babel/core@7.25.2)
+      '@babel/plugin-syntax-decorators': 7.25.7(@babel/core@7.25.2)
       babel-import-util: 3.0.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -15143,7 +15160,7 @@ snapshots:
   ember-modifier@4.2.0(@babel/core@7.25.2)(ember-source@5.10.2):
     dependencies:
       '@embroider/addon-shim': 1.8.9
-      decorator-transforms: 2.2.0(@babel/core@7.25.2)
+      decorator-transforms: 2.2.2(@babel/core@7.25.2)
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-string-utils: 1.1.0
     optionalDependencies:
@@ -15198,7 +15215,7 @@ snapshots:
       '@floating-ui/dom': 1.6.10
       '@glimmer/component': 1.1.2(@babel/core@7.25.2)(ember-source@5.10.2)
       '@glimmer/tracking': 1.1.2
-      decorator-transforms: 2.2.0(@babel/core@7.25.2)
+      decorator-transforms: 2.2.2(@babel/core@7.25.2)
       ember-element-helper: 0.8.6(@babel/core@7.25.2)(@glint/environment-ember-loose@1.4.0(@glimmer/component@1.1.2)(@glint/template@1.4.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.0(@babel/core@7.25.2)(ember-source@5.10.2)))(@glint/template@1.4.0)(ember-source@5.10.2)
       ember-modifier: 4.2.0(@babel/core@7.25.2)(ember-source@5.10.2)
       ember-resources: 7.0.2(@babel/core@7.25.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.4.0)(ember-source@5.10.2)
@@ -15243,7 +15260,7 @@ snapshots:
       change-case: 5.4.4
       common-tags: 1.8.2
       content-tag: 1.2.2
-      decorator-transforms: 2.2.0(@babel/core@7.25.2)
+      decorator-transforms: 2.2.2(@babel/core@7.25.2)
       ember-resources: 7.0.2(@babel/core@7.25.2)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.4.0)(ember-source@5.10.2)
       ember-source: 5.10.2(@glimmer/component@1.1.2)(@glint/template@1.4.0)(rsvp@4.8.5)(webpack@5.93.0)
       line-column: 1.0.2
@@ -19549,7 +19566,7 @@ snapshots:
   remove-types@1.0.0:
     dependencies:
       '@babel/core': 7.25.2
-      '@babel/plugin-syntax-decorators': 7.24.7(@babel/core@7.25.2)
+      '@babel/plugin-syntax-decorators': 7.25.7(@babel/core@7.25.2)
       '@babel/plugin-transform-typescript': 7.25.2(@babel/core@7.25.2)
       prettier: 2.8.8
     transitivePeerDependencies:

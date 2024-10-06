@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { hash } from '@ember/helper';
 
-import { getTabsterAttribute, Types } from 'tabster';
+import { getTabsterAttribute, MoverDirections } from 'tabster';
 import { TrackedSet } from 'tracked-built-ins';
 // The consumer will need to provide types for tracked-toolbox.
 // Or.. better yet, we PR to trakcked-toolbox to provide them
@@ -17,7 +17,7 @@ import type { ComponentLike } from '@glint/template';
 const TABSTER_CONFIG = getTabsterAttribute(
   {
     mover: {
-      direction: Types.MoverDirections.Both,
+      direction: MoverDirections.Both,
       cyclic: true,
     },
   },

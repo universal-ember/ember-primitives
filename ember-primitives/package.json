@@ -44,7 +44,7 @@
     "form-data-utils": "^0.6.0",
     "reactiveweb": "^1.2.2",
     "should-handle-link": "^1.2.0",
-    "tabster": "^7.1.0",
+    "tabster": "^8.0.0",
     "tracked-built-ins": "^3.2.0",
     "tracked-toolbox": "^2.0.0"
   },

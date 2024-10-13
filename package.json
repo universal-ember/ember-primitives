@@ -50,7 +50,7 @@
       ]
     },
     "overrides": {
-      "@embroider/macros": "1.16.7",
+      "@embroider/macros": "1.16.9",
       "@typescript-eslint/eslint-plugin": "^7.7.1",
       "@typescript-eslint/parser": "^7.7.1",
       "ember-cli-babel": "^8.2.0",

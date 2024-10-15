@@ -44,7 +44,7 @@ function nameFor(x: Page) {
     return `${x.componentName}`;
   }
 
-  return sentenceCase(x.name);
+  return x.title ? x.title : sentenceCase(x.name);
 }
 
 const asComponent = (str: string) => {

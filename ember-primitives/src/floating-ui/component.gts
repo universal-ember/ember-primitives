@@ -78,12 +78,15 @@ export default class Velcro extends Component<Signature> {
       as |loop|
     }}
       {{#let (if this.hook (modifier loop this.hook)) as |loopWithHook|}}
+        {{! reference }}
+        {{! floating}}
+        {{! extra }}
         {{! @glint-nocheck -- Excessively deep, possibly infinite }}
         {{yield
+          (modifier ref this.setHook)
+          loopWithHook
           (hash
-            hook=(modifier ref this.setHook)
             setHook=this.setHook
-            loop=loopWithHook
             data=this.velcroData
           )
         }}

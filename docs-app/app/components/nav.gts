@@ -10,6 +10,15 @@ import { getAnchor } from 'should-handle-link';
 import type { TOC } from '@ember/component/template-only';
 import type { DocsService, Page } from 'kolay';
 
+
+function fixWords(text: string) {
+  switch (text.toLowerCase()) {
+  case 'ui': return "UI";
+  case 'iframe': return 'IFrame';
+  default: return text;
+}
+}
+
 /**
  * Converts 1-2-hyphenated-thing
  * to
@@ -22,6 +31,7 @@ const titleize = (str: string) => {
       .filter(Boolean)
       .filter((text) => !text.match(/^[\d]+$/))
       .map((text) => `${text[0]?.toLocaleUpperCase()}${text.slice(1, text.length)}`)
+      .map((text) => fixWords(text))
       .join(' ')
       .split('.')[0] || ''
   );

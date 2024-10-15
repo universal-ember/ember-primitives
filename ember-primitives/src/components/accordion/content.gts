@@ -5,7 +5,7 @@ import { getDataState } from './item.gts';
 import type { AccordionContentExternalSignature } from './public.ts';
 
 interface Signature extends AccordionContentExternalSignature {
-  Args: AccordionContentExternalSignature['Args'] & {
+  Args: {
     isExpanded: boolean;
     value: string;
     disabled?: boolean;

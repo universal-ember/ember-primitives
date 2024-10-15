@@ -1,4 +1,5 @@
 {
+  "name": "ember-primitives-root",
   "version": "0.0.0",
   "private": true,
   "repository": {
@@ -28,10 +29,11 @@
     "typescript": "^5.4.5"
   },
   "engines": {
-    "node": ">= 18.*",
+    "node": ">= 20.*",
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
+  "packageManager": "pnpm@9.11.0",
   "volta": {
     "node": "20.17.0",
     "pnpm": "9.11.0"

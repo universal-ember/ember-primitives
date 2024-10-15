@@ -67,6 +67,8 @@ import { floatingUI } from 'ember-primitives/floating-ui';
 
 </div>
 
+Note that in this demo thare are _two_ sets of ids. One pair for the floating behavior, and another pair for the [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) wiring.  The component below handles the floating id, but to avoid needing to maintain _unique_ pairs of ids for each floating-ui you may be interested in the [Popover](/5-floaty-bits/popover.md) component (which also includes arrow support).
+
 
 ```gjs no-shadow
 import { ModifierSignature } from 'kolay';
@@ -129,6 +131,8 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
 ```
 
 </div>
+
+Note that this demo has to main a unique id/target for the popover behavior. If you'd like to not have to manage ids at all, you may be interested in the [Popover](/5-floaty-bits/popover.md) component (which also includes arrow support).
 
 ```gjs live no-shadow
 import { ComponentSignature } from 'kolay';

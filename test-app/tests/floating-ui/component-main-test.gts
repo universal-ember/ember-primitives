@@ -40,20 +40,20 @@ module('Integration | Component | floating-ui', function (hooks) {
     });
   });
 
-  test('it renders with setHook', async function (assert) {
+  test('it renders with setReference', async function (assert) {
     let hookModifier = modifier(
       (
         element: HTMLElement | SVGElement,
-        [setHook]: [(element: HTMLElement | SVGElement) => void]
+        [setReference]: [(element: HTMLElement | SVGElement) => void]
       ) => {
-        setHook(element);
+        setReference(element);
       }
     );
 
     await render(
       <template>
         <FloatingUI as |velcro|>
-          <div id="hook" {{hookModifier velcro.setHook}} style="width: 200px; height: 40px">
+          <div id="hook" {{hookModifier velcro.setReference}} style="width: 200px; height: 40px">
             {{velcro.data.rects.reference.width}}
             {{velcro.data.rects.reference.height}}
           </div>

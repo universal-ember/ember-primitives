@@ -76,10 +76,10 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        hook: FloatingUiComponentSignature['Blocks']['default'][0]['hook'];
-        setHook: FloatingUiComponentSignature['Blocks']['default'][0]['setHook'];
-        Content: WithBoundArgs<typeof Content, 'loop'>;
-        data: FloatingUiComponentSignature['Blocks']['default'][0]['data'];
+        reference: FloatingUiComponentSignature['Blocks']['default'][0];
+        setReference: FloatingUiComponentSignature['Blocks']['default'][2]['setReference'];
+        Content: WithBoundArgs<typeof Content, 'floating'>;
+        data: FloatingUiComponentSignature['Blocks']['default'][2]['data'];
         arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
       },
     ];
@@ -225,7 +225,7 @@ export const Popover: TOC<Signature> = <template>
       {{yield
         (hash
           reference=reference
-          setHook=extra.setHook
+          setReference=extra.setReference
           Content=(component Content floating=floating inline=@inline)
           data=extra.data
           arrow=(modifier attachArrow arrowElement=arrowElement data=extra.data)

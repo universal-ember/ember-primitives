@@ -39,7 +39,7 @@ export interface Signature {
         arrow: PopoverBlockParams['arrow'];
         trigger: WithBoundArgs<
           typeof trigger,
-          'triggerElement' | 'contentId' | 'isOpen' | 'setHook'
+          'triggerElement' | 'contentId' | 'isOpen' | 'setReference'
         >;
         Trigger: WithBoundArgs<typeof Trigger, 'triggerModifier'>;
         Content: WithBoundArgs<
@@ -187,7 +187,7 @@ interface PrivateTriggerModifierSignature {
       triggerElement: Cell<HTMLElement>;
       isOpen: Cell<boolean>;
       contentId: string;
-      setHook: PopoverBlockParams['setHook'];
+      setReference: PopoverBlockParams['setReference'];
     };
   };
 }
@@ -197,7 +197,7 @@ export interface TriggerModifierSignature {
 }
 
 const trigger = eModifier<PrivateTriggerModifierSignature>(
-  (element, _: [], { triggerElement, isOpen, contentId, setHook }) => {
+  (element, _: [], { triggerElement, isOpen, contentId, setReference }) => {
     element.setAttribute('aria-haspopup', 'menu');
 
     if (isOpen.current) {
@@ -215,7 +215,7 @@ const trigger = eModifier<PrivateTriggerModifierSignature>(
     element.addEventListener('click', onTriggerClick);
 
     triggerElement.current = element;
-    setHook(element);
+    setReference(element);
 
     return () => {
       element.removeEventListener('click', onTriggerClick);
@@ -228,7 +228,7 @@ interface PrivateTriggerSignature {
   Args: {
     triggerModifier: WithBoundArgs<
       typeof trigger,
-      'triggerElement' | 'contentId' | 'isOpen' | 'setHook'
+      'triggerElement' | 'contentId' | 'isOpen' | 'setReference'
     >;
   };
   Blocks: { default: [] };
@@ -270,7 +270,7 @@ export class Menu extends Component<Signature> {
             triggerElement=triggerEl
             isOpen=isOpen
             contentId=this.contentId
-            setHook=p.setHook
+            setReference=p.setReference
           )
           as |triggerModifier|
         }}

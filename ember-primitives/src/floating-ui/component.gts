@@ -4,7 +4,7 @@ import { hash } from '@ember/helper';
 
 import { modifier as eModifier } from 'ember-modifier';
 
-import VelcroModifier from './modifier.ts';
+import FloatingUIModifier from './modifier.ts';
 
 import type { Signature as ModifierSignature } from './modifier.ts';
 import type { MiddlewareState } from '@floating-ui/dom';
@@ -13,7 +13,7 @@ import type { ModifierLike } from '@glint/template';
 
 type ModifierArgs = ModifierSignature['Args']['Named'];
 
-interface HookSignature {
+interface ReferenceSignature {
   Element: HTMLElement | SVGElement;
 }
 
@@ -29,10 +29,10 @@ export interface Signature {
   };
   Blocks: {
     default: [
-      velcro: {
-        hook: ModifierLike<HookSignature>;
-        setHook: (element: HTMLElement | SVGElement) => void;
-        loop?: WithBoundArgs<WithBoundPositionals<typeof VelcroModifier, 1>, keyof ModifierArgs>;
+      reference: ModifierLike<ReferenceSignature>,
+      floating: undefined | WithBoundArgs<WithBoundPositionals<typeof FloatingUIModifier, 1>, keyof ModifierArgs>,
+      util: {
+        setReference: (element: HTMLElement | SVGElement) => void;
         data?: MiddlewareState;
       },
     ];
@@ -50,22 +50,22 @@ const ref = eModifier<{
   fn(element);
 });
 
-export default class Velcro extends Component<Signature> {
-  @tracked hook?: HTMLElement | SVGElement = undefined;
+export default class FloatingUI extends Component<Signature> {
+  @tracked reference?: HTMLElement | SVGElement = undefined;
 
   // set by VelcroModifier
-  @tracked velcroData?: MiddlewareState = undefined;
+  @tracked data?: MiddlewareState = undefined;
 
-  setVelcroData: ModifierArgs['setVelcroData'] = (data) => (this.velcroData = data);
+  setData: ModifierArgs['setVelcroData'] = (data) => (this.data = data);
 
-  setHook = (element: HTMLElement | SVGElement) => {
-    this.hook = element;
+  setReference = (element: HTMLElement | SVGElement) => {
+    this.reference = element;
   };
 
   <template>
     {{#let
       (modifier
-        VelcroModifier
+        FloatingUIModifier
         flipOptions=@flipOptions
         hideOptions=@hideOptions
         middleware=@middleware
@@ -73,21 +73,18 @@ export default class Velcro extends Component<Signature> {
         placement=@placement
         shiftOptions=@shiftOptions
         strategy=@strategy
-        setVelcroData=this.setVelcroData
+        setVelcroData=this.setData
       )
       as |loop|
     }}
-      {{#let (if this.hook (modifier loop this.hook)) as |loopWithHook|}}
-        {{! reference }}
-        {{! floating}}
-        {{! extra }}
+      {{#let (if this.floating (modifier loop this.floating)) as |floating|}}
         {{! @glint-nocheck -- Excessively deep, possibly infinite }}
         {{yield
-          (modifier ref this.setHook)
-          loopWithHook
+          (modifier ref this.setReference)
+          floating
           (hash
-            setHook=this.setHook
-            data=this.velcroData
+            setReference=this.setReference
+            data=this.data
           )
         }}
       {{/let}}

@@ -6,7 +6,7 @@ import { anchorTo } from 'ember-primitives/floating-ui';
 
 import { addDataAttributes, findElement, resetTestingContainerDimensions } from './test-helpers';
 
-module('Integration | Modifier | anchorTo', function (hooks) {
+module('floating-ui | anchorTo', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {

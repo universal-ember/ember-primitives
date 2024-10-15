@@ -7,7 +7,7 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
 
 import { findElement, resetTestingContainerDimensions } from './test-helpers';
 
-module('Integration | Component | floating-ui', function (hooks) {
+module('floating-ui | component (main)', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {

@@ -4,7 +4,7 @@ import { registerDestructor } from '@ember/destroyable';
 import { autoUpdate, computePosition, flip, hide, offset, shift } from '@floating-ui/dom';
 import Modifier from 'ember-modifier';
 
-import { velcroData } from './middleware.ts';
+import { exposeMetadata } from './middleware.ts';
 
 import type {
   FlipOptions,
@@ -28,12 +28,12 @@ export interface Signature {
       shiftOptions?: ShiftOptions;
       hideOptions?: HideOptions;
       middleware?: Middleware[];
-      setVelcroData?: Middleware['fn'];
+      setData?: Middleware['fn'];
     };
   };
 }
 
-export default class VelcroModifier extends Modifier<Signature> {
+export class AnchorTo extends Modifier<Signature> {
   modify(
     floatingElement: Signature['Element'],
     [_referenceElement]: Signature['Args']['Positional'],
@@ -44,7 +44,7 @@ export default class VelcroModifier extends Modifier<Signature> {
       flipOptions,
       shiftOptions,
       middleware = [],
-      setVelcroData,
+      setData: setData,
     }: Signature['Args']['Named']
   ) {
     const referenceElement: null | HTMLElement | SVGElement =
@@ -84,7 +84,7 @@ export default class VelcroModifier extends Modifier<Signature> {
           ...middleware,
           hide({ strategy: 'referenceHidden' }),
           hide({ strategy: 'escaped' }),
-          velcroData(),
+          exposeMetadata(),
         ],
         placement,
         strategy,
@@ -99,7 +99,7 @@ export default class VelcroModifier extends Modifier<Signature> {
         visibility: referenceHidden ? 'hidden' : 'visible',
       });
 
-      setVelcroData?.(middlewareData['metadata']);
+      setData?.(middlewareData['metadata']);
     };
 
     update();

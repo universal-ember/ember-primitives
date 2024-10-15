@@ -1,6 +1,6 @@
 import type { Middleware } from '@floating-ui/dom';
 
-export function velcroData(): Middleware {
+export function exposeMetadata(): Middleware {
   return {
     name: 'metadata',
     fn: (data) => {

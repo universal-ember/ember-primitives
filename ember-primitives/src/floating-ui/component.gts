@@ -4,7 +4,7 @@ import { hash } from '@ember/helper';
 
 import { modifier as eModifier } from 'ember-modifier';
 
-import FloatingUIModifier from './modifier.ts';
+import { AnchorTo } from './modifier.ts';
 
 import type { Signature as ModifierSignature } from './modifier.ts';
 import type { MiddlewareState } from '@floating-ui/dom';
@@ -32,7 +32,7 @@ export interface Signature {
       reference: ModifierLike<ReferenceSignature>,
       floating:
         | undefined
-        | WithBoundArgs<WithBoundPositionals<typeof FloatingUIModifier, 1>, keyof ModifierArgs>,
+        | WithBoundArgs<WithBoundPositionals<typeof AnchorTo, 1>, keyof ModifierArgs>,
       util: {
         setReference: (element: HTMLElement | SVGElement) => void;
         data?: MiddlewareState;
@@ -58,7 +58,7 @@ export default class FloatingUI extends Component<Signature> {
   // set by VelcroModifier
   @tracked data?: MiddlewareState = undefined;
 
-  setData: ModifierArgs['setVelcroData'] = (data) => (this.data = data);
+  setData: ModifierArgs['setData'] = (data) => (this.data = data);
 
   setReference = (element: HTMLElement | SVGElement) => {
     this.reference = element;
@@ -67,7 +67,7 @@ export default class FloatingUI extends Component<Signature> {
   <template>
     {{#let
       (modifier
-        FloatingUIModifier
+        AnchorTo
         flipOptions=@flipOptions
         hideOptions=@hideOptions
         middleware=@middleware
@@ -75,11 +75,11 @@ export default class FloatingUI extends Component<Signature> {
         placement=@placement
         shiftOptions=@shiftOptions
         strategy=@strategy
-        setVelcroData=this.setData
+        setData=this.setData
       )
-      as |loop|
+      as |prewiredAnchorTo|
     }}
-      {{#let (if this.floating (modifier loop this.floating)) as |floating|}}
+      {{#let (if this.reference (modifier prewiredAnchorTo this.reference)) as |floating|}}
         {{! @glint-nocheck -- Excessively deep, possibly infinite }}
         {{yield
           (modifier ref this.setReference)

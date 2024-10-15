@@ -8,7 +8,6 @@ export interface AccordionTriggerExternalSignature {
   Blocks: {
     default: [];
   };
-  Args: {};
 }
 
 export interface AccordionContentExternalSignature {
@@ -16,7 +15,6 @@ export interface AccordionContentExternalSignature {
   Blocks: {
     default: [];
   };
-  Args: {};
 }
 
 export interface AccordionHeaderExternalSignature {
@@ -35,7 +33,6 @@ export interface AccordionHeaderExternalSignature {
       },
     ];
   };
-  Args: {};
 }
 
 export interface AccordionItemExternalSignature {

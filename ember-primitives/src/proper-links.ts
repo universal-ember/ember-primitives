@@ -10,7 +10,7 @@ import type RouterService from '@ember/routing/router-service';
 
 export { shouldHandle } from 'should-handle-link';
 
-type Constructor<T extends {} = {}> = { new (...args: any[]): T };
+type Constructor<T extends object = object> = { new (...args: any[]): T };
 
 export interface Options {
   ignore?: string[];
@@ -18,20 +18,20 @@ export interface Options {
 
 export function properLinks(
   options: Options
-): <Instance extends {}, Klass = { new (...args: any[]): Instance }>(klass: Klass) => Klass;
+): <Instance extends object, Klass = { new (...args: any[]): Instance }>(klass: Klass) => Klass;
 
-export function properLinks<Instance extends {}, Klass = { new (...args: any[]): Instance }>(
+export function properLinks<Instance extends object, Klass = { new (...args: any[]): Instance }>(
   klass: Klass
 ): Klass;
 /**
  * @internal
  */
-export function properLinks<Instance extends {}, Klass = { new (...args: any[]): Instance }>(
+export function properLinks<Instance extends object, Klass = { new (...args: any[]): Instance }>(
   options: Options,
   klass: Klass
 ): Klass;
 
-export function properLinks<Instance extends {}, Klass = { new (...args: any[]): Instance }>(
+export function properLinks<Instance extends object, Klass = { new (...args: any[]): Instance }>(
   ...args: [Options] | [Klass] | [Options, Klass]
 ): Klass | ((klass: Klass) => Klass) {
   let options: Options = {};

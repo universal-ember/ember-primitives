@@ -1,8 +1,9 @@
-import copy from "rollup-plugin-copy";
-import { babel } from "@rollup/plugin-babel";
 import { Addon } from "@embroider/addon-dev/rollup";
+
+import { babel } from "@rollup/plugin-babel";
 import { execaCommand } from "execa";
 import { fixBadDeclarationOutput } from "fix-bad-declaration-output";
+import copy from "rollup-plugin-copy";
 
 const addon = new Addon({
   srcDir: "src",
@@ -37,19 +38,19 @@ export default {
          * Generate the types (these include /// <reference types="ember-source/types"
          * but our consumers may not be using those, or have a new enough ember-source that provides them.
          */
-        console.log("Building types");
+        console.info("Building types");
         await execaCommand(`pnpm glint --declaration`, { stdio: "inherit" });
         /**
          * https://github.com/microsoft/TypeScript/issues/56571#
          * README: https://github.com/NullVoxPopuli/fix-bad-declaration-output
          */
-        console.log("Fixing types");
+        console.info("Fixing types");
         await fixBadDeclarationOutput("declarations/**/*.d.ts", [
           ["TypeScript#56571", { types: "all" }],
           "Glint#628",
           "Glint#697",
         ]);
-        console.log("⚠️ Dangerously (but neededly) fixed bad declaration output from typescript");
+        console.info("⚠️ Dangerously (but neededly) fixed bad declaration output from typescript");
       },
     },
   ],

@@ -4,7 +4,7 @@ import { hash } from '@ember/helper';
 
 import { modifier as eModifier } from 'ember-modifier';
 
-import { AnchorTo } from './modifier.ts';
+import { anchorTo } from './modifier.ts';
 
 import type { Signature as ModifierSignature } from './modifier.ts';
 import type { MiddlewareState } from '@floating-ui/dom';
@@ -32,7 +32,7 @@ export interface Signature {
       reference: ModifierLike<ReferenceSignature>,
       floating:
         | undefined
-        | WithBoundArgs<WithBoundPositionals<typeof AnchorTo, 1>, keyof ModifierArgs>,
+        | WithBoundArgs<WithBoundPositionals<typeof anchorTo, 1>, keyof ModifierArgs>,
       util: {
         setReference: (element: HTMLElement | SVGElement) => void;
         data?: MiddlewareState;
@@ -67,7 +67,7 @@ export default class FloatingUI extends Component<Signature> {
   <template>
     {{#let
       (modifier
-        AnchorTo
+        anchorTo
         flipOptions=@flipOptions
         hideOptions=@hideOptions
         middleware=@middleware

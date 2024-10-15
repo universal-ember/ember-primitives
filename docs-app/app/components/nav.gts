@@ -10,6 +10,10 @@ import { getAnchor } from 'should-handle-link';
 import type { TOC } from '@ember/component/template-only';
 import type { DocsService, Page } from 'kolay';
 
+type CustomPage = Page & {
+  title?: string;
+};
+
 function fixWords(text: string) {
   switch (text.toLowerCase()) {
     case 'ui':
@@ -40,13 +44,13 @@ const titleize = (str: string) => {
 };
 
 function nameFor(x: Page) {
-  // We defined componentName via json file
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if ('componentName' in x) {
     return `${x.componentName}`;
   }
 
-  return x.title ? x.title : sentenceCase(x.name);
+  let page = x as CustomPage;
+
+  return page.title ? page.title : sentenceCase(page.name);
 }
 
 const asComponent = (str: string) => {

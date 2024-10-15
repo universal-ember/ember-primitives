@@ -20,19 +20,19 @@ export interface Signature {
     /**
      * See the Floating UI's [flip docs](https://floating-ui.com/docs/flip) for possible values.
      *
-     * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
+     * This argument is forwarded to the `<FloatingUI>` component.
      */
     flipOptions?: HookSignature['Args']['Named']['flipOptions'];
     /**
      * Array of one or more objects to add to Floating UI's list of [middleware](https://floating-ui.com/docs/middleware)
      *
-     * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
+     * This argument is forwarded to the `<FloatingUI>` component.
      */
     middleware?: HookSignature['Args']['Named']['middleware'];
     /**
      * See the Floating UI's [offset docs](https://floating-ui.com/docs/offset) for possible values.
      *
-     * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
+     * This argument is forwarded to the `<FloatingUI>` component.
      */
     offsetOptions?: HookSignature['Args']['Named']['offsetOptions'];
     /**
@@ -46,13 +46,13 @@ export interface Signature {
      *
      * And may optionally have `-start` or `-end` added to adjust position along the side.
      *
-     * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
+     * This argument is forwarded to the `<FloatingUI>` component.
      */
     placement?: `${'top' | 'bottom' | 'left' | 'right'}${'' | '-start' | '-end'}`;
     /**
      * See the Floating UI's [shift docs](https://floating-ui.com/docs/shift) for possible values.
      *
-     * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
+     * This argument is forwarded to the `<FloatingUI>` component.
      */
     shiftOptions?: HookSignature['Args']['Named']['shiftOptions'];
     /**
@@ -60,7 +60,7 @@ export interface Signature {
      *
      * Pros and cons of each strategy are explained on [Floating UI's Docs](https://floating-ui.com/docs/computePosition#strategy)
      *
-     * This argument is forwarded to `ember-velcro`'s `<Velcro>` component.
+     * This argument is forwarded to the `<FloatingUI>` component.
      */
     strategy?: HookSignature['Args']['Named']['strategy'];
 

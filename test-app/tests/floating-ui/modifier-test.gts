@@ -2,11 +2,11 @@ import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import { floatingUI } from 'ember-primitives/floating-ui';
+import { anchorTo } from 'ember-primitives/floating-ui';
 
 import { addDataAttributes, findElement, resetTestingContainerDimensions } from './test-helpers';
 
-module('Integration | Modifier | floatingUI', function (hooks) {
+module('Integration | Modifier | anchorTo', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -17,7 +17,7 @@ module('Integration | Modifier | floatingUI', function (hooks) {
     await render(
       <template>
         <div id="reference">Reference</div>
-        <div {{floatingUI "#reference"}}></div>
+        <div {{anchorTo "#reference"}}></div>
       </template>
     );
 
@@ -31,7 +31,7 @@ module('Integration | Modifier | floatingUI', function (hooks) {
       await render(
         <template>
           <div id="velcro-reference">Velcro reference</div>
-          <div id="velcro" {{floatingUI "#velcro-reference" middleware=middleware}}>Velcro</div>
+          <div id="velcro" {{anchorTo "#velcro-reference" middleware=middleware}}>Velcro</div>
         </template>
       );
 
@@ -44,7 +44,7 @@ module('Integration | Modifier | floatingUI', function (hooks) {
           <div id="velcro-reference">Velcro reference</div>
           <div
             id="velcro"
-            {{floatingUI "#velcro-reference" placement="bottom-start" middleware=middleware}}
+            {{anchorTo "#velcro-reference" placement="bottom-start" middleware=middleware}}
           >Velcro</div>
         </template>
       );
@@ -60,7 +60,7 @@ module('Integration | Modifier | floatingUI', function (hooks) {
       await render(
         <template>
           <div id="velcro-reference">Velcro reference</div>
-          <div id="velcro" {{floatingUI "#velcro-reference" middleware=middleware}}>Velcro</div>
+          <div id="velcro" {{anchorTo "#velcro-reference" middleware=middleware}}>Velcro</div>
         </template>
       );
 
@@ -73,7 +73,7 @@ module('Integration | Modifier | floatingUI', function (hooks) {
           <div id="velcro-reference">Velcro reference</div>
           <div
             id="velcro"
-            {{floatingUI "#velcro-reference" strategy="absolute" middleware=middleware}}
+            {{anchorTo "#velcro-reference" strategy="absolute" middleware=middleware}}
           >Velcro</div>
         </template>
       );
@@ -93,13 +93,13 @@ module('Integration | Modifier | floatingUI', function (hooks) {
           <div style="display: flex">
             <div>
               <div id="velcro-reference">Velcro reference</div>
-              <div id="velcro1" {{floatingUI "#velcro-reference"}}>Velcro</div>
+              <div id="velcro1" {{anchorTo "#velcro-reference"}}>Velcro</div>
             </div>
             <div>
               <div>velcroReference</div>
               <div
                 id="velcro2"
-                {{floatingUI
+                {{anchorTo
                   "#velcro-reference"
                   offsetOptions=offsetDistance
                   placement="bottom-start"
@@ -129,13 +129,13 @@ module('Integration | Modifier | floatingUI', function (hooks) {
           {{! render 2 Velcro's atop the other, pass one a skidding offset and compare the left values }}
           <div>
             <div id="velcro-reference">Velcro reference</div>
-            <div id="velcro1" {{floatingUI "#velcro-reference"}}>Velcro</div>
+            <div id="velcro1" {{anchorTo "#velcro-reference"}}>Velcro</div>
           </div>
           <div>
             <div id="velcro-reference2">velcroReference</div>
             <div
               id="velcro2"
-              {{floatingUI "#velcro-reference2" offsetOptions=offsetOptions}}
+              {{anchorTo "#velcro-reference2" offsetOptions=offsetOptions}}
             >Velcro</div>
           </div>
         </template>

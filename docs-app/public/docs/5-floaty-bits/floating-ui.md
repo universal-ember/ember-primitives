@@ -18,7 +18,7 @@ pnpm add ember-primitives
 ```
 
 
-## `{{floatingUI}}`
+## `{{anchorTo}}`
 
 The main modifier for creating floating UIs with any elements.
 
@@ -28,11 +28,11 @@ Requires you to maintain a unique ID for every invocation.
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { floatingUI } from 'ember-primitives/floating-ui';
+import { anchorTo } from 'ember-primitives/floating-ui';
 
 <template>
   <button id="reference" popovertarget="floating">Click the reference element</button>
-  <menu popover id="floating" {{floatingUI "#reference"}}>Here is <br> floating element</menu>
+  <menu popover id="floating" {{anchorTo "#reference"}}>Here is <br> floating element</menu>
 
   <style>
     menu#floating {

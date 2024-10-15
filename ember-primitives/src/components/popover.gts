@@ -97,7 +97,7 @@ function getElementTag(tagName: undefined | string) {
 const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
-    loop: ModifierLike<{ Element: HTMLElement }>;
+    floating: ModifierLike<{ Element: HTMLElement }>;
     inline?: boolean;
     /**
      * By default the popover content is wrapped in a div.
@@ -122,7 +122,7 @@ const Content: TOC<{
             https://github.com/tildeio/ember-element-helper/issues/91
             https://github.com/typed-ember/glint/issues/610
       }}
-      <El {{@loop}} ...attributes>
+      <El {{@floating}} ...attributes>
         {{yield}}
       </El>
     {{else}}
@@ -131,7 +131,7 @@ const Content: TOC<{
               https://github.com/tildeio/ember-element-helper/issues/91
               https://github.com/typed-ember/glint/issues/610
         }}
-        <El {{@loop}} ...attributes>
+        <El {{@floating}} ...attributes>
           {{yield}}
         </El>
       </Portal>
@@ -220,15 +220,15 @@ export const Popover: TOC<Signature> = <template>
       @flipOptions={{flipOptions @flipOptions}}
       @shiftOptions={{@shiftOptions}}
       @offsetOptions={{@offsetOptions}}
-      as |fui|
+      as |reference floating extra|
     >
       {{yield
         (hash
-          hook=fui.hook
-          setHook=fui.setHook
-          Content=(component Content loop=fui.loop inline=@inline)
-          data=fui.data
-          arrow=(modifier attachArrow arrowElement=arrowElement data=fui.data)
+          reference=reference
+          setHook=extra.setHook
+          Content=(component Content floating=floating inline=@inline)
+          data=extra.data
+          arrow=(modifier attachArrow arrowElement=arrowElement data=extra.data)
         )
       }}
     </FloatingUI>

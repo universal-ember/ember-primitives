@@ -32,7 +32,7 @@ import { loremIpsum } from 'lorem-ipsum';
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
-      <div class="hook" {{p.hook}}>
+      <div class="hook" {{p.reference}}>
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
       </div>
@@ -110,7 +110,7 @@ const settings = cell(true);
             <span>My App</span>
 
             <Popover @offsetOptions={{8}} as |p|>
-              <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
+              <button class="hook" {{p.reference}} {{on 'click' settings.toggle}}>
                 Settings
               </button>
               {{#if settings.current}}

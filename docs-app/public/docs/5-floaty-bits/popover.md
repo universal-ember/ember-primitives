@@ -1,19 +1,13 @@
 # Popover
 
-Popovers are built with [ember-velcro][gh-e-velcro], which is an ergonomic wrapper around [Floating UI][docs-floating], the successor to older (and more clunky) [Popper.JS][docs-popper]. 
+Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. 
 
-
-<!--
-The goal of a popover is to provide additional behavioral functionality to make interacting with floaty bits easier:
-- focus trapping (TODO)
-- focus returning (TODO) 
--->
 
 The `<Popover>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
-[gh-e-velcro]: https://github.com/CrowdStrike/ember-velcro
+[docs-floating-ui]: /5-floaty-bits/floating-ui.md
 [docs-floating]: https://floating-ui.com/
 [docs-popper]: https://popper.js.org/
 [docs-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
@@ -32,7 +26,7 @@ import { loremIpsum } from 'lorem-ipsum';
     {{loremIpsum (hash count=1 units="paragraphs")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
-      <div class="hook" {{p.hook}}>
+      <div class="hook" {{p.reference}}>
         the hook / anchor of the popover.
         <br> it sticks the boundary of this element.
       </div>
@@ -110,7 +104,7 @@ const settings = cell(true);
             <span>My App</span>
 
             <Popover @offsetOptions={{8}} as |p|>
-              <button class="hook" {{p.hook}} {{on 'click' settings.toggle}}>
+              <button class="hook" {{p.reference}} {{on 'click' settings.toggle}}>
                 Settings
               </button>
               {{#if settings.current}}
@@ -124,7 +118,7 @@ const settings = cell(true);
                       things<br>
 
                       <Popover @placement="left" @offsetOptions={{16}} as |pp|>
-                        <button {{pp.hook}}>view profile</button>
+                        <button {{pp.reference}}>view profile</button>
 
                         <pp.Content class="floatybit">
                           View or edit your profile settings

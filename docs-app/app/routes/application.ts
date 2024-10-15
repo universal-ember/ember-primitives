@@ -6,7 +6,7 @@ import { Callout } from 'docs-app/components/callout';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
 
-import { APIDocs, ComponentSignature } from './api-docs';
+import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
 
 import type { SetupService } from 'ember-primitives';
 import type { DocsService } from 'kolay';
@@ -45,6 +45,7 @@ export default class Application extends Route {
         Callout,
         APIDocs,
         ComponentSignature,
+        ModifierSignature,
       },
       resolve: {
         // ember-primitives
@@ -65,6 +66,7 @@ export default class Application extends Route {
         // utility
         'lorem-ipsum': import('lorem-ipsum'),
         'form-data-utils': import('form-data-utils'),
+        kolay: import('kolay'),
       },
       rehypePlugins: [
         [

@@ -1,10 +1,9 @@
 import { assert } from '@ember/debug';
-import { registerDestructor } from '@ember/destroyable';
 
 import { autoUpdate, computePosition, flip, hide, offset, shift } from '@floating-ui/dom';
-import Modifier from 'ember-modifier';
+import { modifier as eModifier } from 'ember-modifier';
 
-import { velcroData } from './middleware.ts';
+import { exposeMetadata } from './middleware.ts';
 
 import type {
   FlipOptions,
@@ -17,26 +16,92 @@ import type {
 } from '@floating-ui/dom';
 
 export interface Signature {
+  /**
+   *
+   */
   Element: HTMLElement;
   Args: {
-    Positional: [referenceElement: string | HTMLElement | SVGElement];
+    Positional: [
+      /**
+       * What do use as the reference element.
+       * Can be a selector or element instance.
+       *
+       * Example:
+       * ```gjs
+       * import { anchorTo } from 'ember-primitives/floating-ui';
+       *
+       * <template>
+       *   <div id="reference">...</div>
+       *   <div {{anchorTo "#reference"}}> ... </div>
+       * </template>
+       * ```
+       */
+      referenceElement: string | HTMLElement | SVGElement,
+    ];
     Named: {
+      /**
+       * This is the type of CSS position property to use.
+       * By default this is 'fixed', but can also be 'absolute'.
+       *
+       * See: [The strategy docs](https://floating-ui.com/docs/computePosition#strategy)
+       */
       strategy?: Strategy;
+      /**
+       * Options to pass to the [offset middleware](https://floating-ui.com/docs/offset)
+       */
       offsetOptions?: OffsetOptions;
+      /**
+       * Where to place the floating element relative to its reference element.
+       * The default is 'bottom'.
+       *
+       * See: [The placement docs](https://floating-ui.com/docs/computePosition#placement)
+       */
       placement?: Placement;
+      /**
+       * Options to pass to the [flip middleware](https://floating-ui.com/docs/flip)
+       */
       flipOptions?: FlipOptions;
+      /**
+       * Options to pass to the [shift middleware](https://floating-ui.com/docs/shift)
+       */
       shiftOptions?: ShiftOptions;
+      /**
+       * Options to pass to the [hide middleware](https://floating-ui.com/docs/hide)
+       */
       hideOptions?: HideOptions;
+      /**
+       * Additional middleware to pass to FloatingUI.
+       *
+       * See: [The middleware docs](https://floating-ui.com/docs/middleware)
+       */
       middleware?: Middleware[];
-      setVelcroData?: Middleware['fn'];
+      /**
+       * A callback for when data changes about the position / placement / etc
+       * of the floating element.
+       */
+      setData?: Middleware['fn'];
     };
   };
 }
 
-export default class VelcroModifier extends Modifier<Signature> {
-  modify(
-    floatingElement: Signature['Element'],
-    [_referenceElement]: Signature['Args']['Positional'],
+/**
+ * A modifier to apply to the _floating_ element.
+ * This is what will anchor to the reference element.
+ *
+ * Example
+ * ```gjs
+ * import { anchorTo } from 'ember-primitives/floating-ui';
+ *
+ * <template>
+ *   <button id="my-button"> ... </button>
+ *   <menu {{anchorTo "#my-button"}}> ... </menu>
+ * </template>
+ * ```
+ */
+export const anchorTo = eModifier<Signature>(
+  (
+    floatingElement,
+    [_referenceElement],
     {
       strategy = 'fixed',
       offsetOptions = 0,
@@ -44,9 +109,9 @@ export default class VelcroModifier extends Modifier<Signature> {
       flipOptions,
       shiftOptions,
       middleware = [],
-      setVelcroData,
-    }: Signature['Args']['Named']
-  ) {
+      setData,
+    }
+  ) => {
     const referenceElement: null | HTMLElement | SVGElement =
       typeof _referenceElement === 'string'
         ? document.querySelector(_referenceElement)
@@ -84,7 +149,7 @@ export default class VelcroModifier extends Modifier<Signature> {
           ...middleware,
           hide({ strategy: 'referenceHidden' }),
           hide({ strategy: 'escaped' }),
-          velcroData(),
+          exposeMetadata(),
         ],
         placement,
         strategy,
@@ -99,13 +164,18 @@ export default class VelcroModifier extends Modifier<Signature> {
         visibility: referenceHidden ? 'hidden' : 'visible',
       });
 
-      setVelcroData?.(middlewareData['metadata']);
+      setData?.(middlewareData['metadata']);
     };
 
     update();
 
     let cleanup = autoUpdate(referenceElement, floatingElement, update);
 
-    registerDestructor(this, cleanup);
+    /**
+     * in the function-modifier manager, teardown of the previous modifier
+     * occurs before setup of the next
+     * https://github.com/ember-modifier/ember-modifier/blob/main/ember-modifier/src/-private/function-based/modifier-manager.ts#L58
+     */
+    return cleanup;
   }
-}
+);

@@ -6,7 +6,7 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
 
 import { resetTestingContainerDimensions } from './test-helpers';
 
-module('Integration | Component | floating-ui (strict mode)', function (hooks) {
+module('floating-ui (strict mode)', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -16,14 +16,14 @@ module('Integration | Component | floating-ui (strict mode)', function (hooks) {
   test('it renders', async function (assert) {
     await render(
       <template>
-        <FloatingUI as |velcro|>
-          <div id="hook" {{velcro.hook}} style="width: 200px; height: 40px">
-            {{velcro.data.rects.reference.width}}
-            {{velcro.data.rects.reference.height}}
+        <FloatingUI as |reference floating util|>
+          <div id="hook" {{reference}} style="width: 200px; height: 40px">
+            {{util.data.rects.reference.width}}
+            {{util.data.rects.reference.height}}
           </div>
-          <div id="loop" {{velcro.loop}} style="width: 200px; height: 400px">
-            {{velcro.data.rects.floating.width}}
-            {{velcro.data.rects.floating.height}}
+          <div id="loop" {{floating}} style="width: 200px; height: 400px">
+            {{util.data.rects.floating.width}}
+            {{util.data.rects.floating.height}}
           </div>
         </FloatingUI>
       </template>

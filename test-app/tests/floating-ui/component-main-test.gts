@@ -7,7 +7,7 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
 
 import { findElement, resetTestingContainerDimensions } from './test-helpers';
 
-module('Integration | Component | floating-ui', function (hooks) {
+module('floating-ui | component (main)', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(function () {
@@ -17,14 +17,14 @@ module('Integration | Component | floating-ui', function (hooks) {
   test('it renders', async function (assert) {
     await render(
       <template>
-        <FloatingUI as |velcro|>
-          <div id="hook" {{velcro.hook}} style="width: 200px; height: 40px">
-            {{velcro.data.rects.reference.width}}
-            {{velcro.data.rects.reference.height}}
+        <FloatingUI as |reference floating util|>
+          <div id="hook" {{reference}} style="width: 200px; height: 40px">
+            {{util.data.rects.reference.width}}
+            {{util.data.rects.reference.height}}
           </div>
-          <div id="loop" {{velcro.loop}} style="width: 200px; height: 400px">
-            {{velcro.data.rects.floating.width}}
-            {{velcro.data.rects.floating.height}}
+          <div id="loop" {{floating}} style="width: 200px; height: 400px">
+            {{util.data.rects.floating.width}}
+            {{util.data.rects.floating.height}}
           </div>
         </FloatingUI>
       </template>
@@ -40,26 +40,26 @@ module('Integration | Component | floating-ui', function (hooks) {
     });
   });
 
-  test('it renders with setHook', async function (assert) {
+  test('it renders with setReference', async function (assert) {
     let hookModifier = modifier(
       (
         element: HTMLElement | SVGElement,
-        [setHook]: [(element: HTMLElement | SVGElement) => void]
+        [setReference]: [(element: HTMLElement | SVGElement) => void]
       ) => {
-        setHook(element);
+        setReference(element);
       }
     );
 
     await render(
       <template>
-        <FloatingUI as |velcro|>
-          <div id="hook" {{hookModifier velcro.setHook}} style="width: 200px; height: 40px">
-            {{velcro.data.rects.reference.width}}
-            {{velcro.data.rects.reference.height}}
+        <FloatingUI as |reference floating util|>
+          <div id="hook" {{hookModifier util.setReference}} style="width: 200px; height: 40px">
+            {{util.data.rects.reference.width}}
+            {{util.data.rects.reference.height}}
           </div>
-          <div id="loop" {{velcro.loop}} style="width: 200px; height: 400px">
-            {{velcro.data.rects.floating.width}}
-            {{velcro.data.rects.floating.height}}
+          <div id="loop" {{floating}} style="width: 200px; height: 400px">
+            {{util.data.rects.floating.width}}
+            {{util.data.rects.floating.height}}
           </div>
         </FloatingUI>
       </template>
@@ -79,13 +79,13 @@ module('Integration | Component | floating-ui', function (hooks) {
     test('it yields the MiddlewareState', async function (assert) {
       await render(
         <template>
-          <FloatingUI as |velcro|>
-            <div id="hook" {{velcro.hook}}>
-              {{#each-in velcro.data as |key|}}
+          <FloatingUI as |reference floating util|>
+            <div id="hook" {{reference}}>
+              {{#each-in util.data as |key|}}
                 {{key}}
               {{/each-in}}
             </div>
-            <div id="loop" {{velcro.loop}}>VelcroElement</div>
+            <div id="loop" {{floating}}>VelcroElement</div>
           </FloatingUI>
         </template>
       );
@@ -101,13 +101,13 @@ module('Integration | Component | floating-ui', function (hooks) {
     test('it has expected included middleware defined', async function (assert) {
       await render(
         <template>
-          <FloatingUI as |velcro|>
-            <div id="hook" {{velcro.hook}}>
-              {{#each-in velcro.data.middlewareData as |key|}}
+          <FloatingUI as |reference floating util|>
+            <div id="hook" {{reference}}>
+              {{#each-in util.data.middlewareData as |key|}}
                 {{key}}
               {{/each-in}}
             </div>
-            <div id="loop" {{velcro.loop}}>VelcroElement</div>
+            <div id="loop" {{floating}}>VelcroElement</div>
           </FloatingUI>
         </template>
       );
@@ -120,9 +120,9 @@ module('Integration | Component | floating-ui', function (hooks) {
     test('has default value', async function (assert) {
       await render(
         <template>
-          <FloatingUI as |velcro|>
-            <div {{velcro.hook}}>velcroReference</div>
-            <div id="loop" {{velcro.loop}}>{{velcro.data.placement}}</div>
+          <FloatingUI as |reference floating util|>
+            <div {{reference}}>velcroReference</div>
+            <div id="loop" {{floating}}>{{util.data.placement}}</div>
           </FloatingUI>
         </template>
       );
@@ -133,9 +133,9 @@ module('Integration | Component | floating-ui', function (hooks) {
     test('has argument value', async function (assert) {
       await render(
         <template>
-          <FloatingUI @placement="bottom-start" as |velcro|>
-            <div {{velcro.hook}}>velcroReference</div>
-            <div id="loop" {{velcro.loop}}>{{velcro.data.placement}}</div>
+          <FloatingUI @placement="bottom-start" as |reference floating util|>
+            <div {{reference}}>velcroReference</div>
+            <div id="loop" {{floating}}>{{util.data.placement}}</div>
           </FloatingUI>
         </template>
       );
@@ -148,9 +148,9 @@ module('Integration | Component | floating-ui', function (hooks) {
     test('has default value', async function (assert) {
       await render(
         <template>
-          <FloatingUI as |velcro|>
-            <div {{velcro.hook}}>velcroReference</div>
-            <div id="loop" {{velcro.loop}}>{{velcro.data.strategy}}</div>
+          <FloatingUI as |reference floating util|>
+            <div {{reference}}>velcroReference</div>
+            <div id="loop" {{floating}}>{{util.data.strategy}}</div>
           </FloatingUI>
         </template>
       );
@@ -162,9 +162,9 @@ module('Integration | Component | floating-ui', function (hooks) {
     test('has argument value', async function (assert) {
       await render(
         <template>
-          <FloatingUI @strategy="absolute" as |velcro|>
-            <div {{velcro.hook}}>velcroReference</div>
-            <div id="loop" {{velcro.loop}}>{{velcro.data.strategy}}</div>
+          <FloatingUI @strategy="absolute" as |reference floating util|>
+            <div {{reference}}>velcroReference</div>
+            <div id="loop" {{floating}}>{{util.data.strategy}}</div>
           </FloatingUI>
         </template>
       );
@@ -183,13 +183,17 @@ module('Integration | Component | floating-ui', function (hooks) {
           {{! render 2 Velcro's side by side, pass one a distance offset and compare the top values }}
           {{! template-lint-disable no-inline-styles }}
           <div style="display: flex">
-            <FloatingUI @placement="bottom-start" as |velcro|>
-              <div {{velcro.hook}}>velcroReference</div>
-              <div id="velcro1" {{velcro.loop}}>Velcro</div>
+            <FloatingUI @placement="bottom-start" as |reference floating|>
+              <div {{reference}}>velcroReference</div>
+              <div id="velcro1" {{floating}}>Velcro</div>
             </FloatingUI>
-            <FloatingUI @offsetOptions={{offsetDistance}} @placement="bottom-start" as |velcro|>
-              <div {{velcro.hook}}>velcroReference</div>
-              <div id="velcro2" {{velcro.loop}}>Velcro</div>
+            <FloatingUI
+              @offsetOptions={{offsetDistance}}
+              @placement="bottom-start"
+              as |reference floating|
+            >
+              <div {{reference}}>velcroReference</div>
+              <div id="velcro2" {{floating}}>Velcro</div>
             </FloatingUI>
           </div>
         </template>
@@ -212,13 +216,13 @@ module('Integration | Component | floating-ui', function (hooks) {
       await render(
         <template>
           {{! render 2 Velcro's atop the other, pass one a skidding offset and compare the left values }}
-          <FloatingUI as |velcro|>
-            <div {{velcro.hook}}>velcroReference</div>
-            <div id="velcro1" {{velcro.loop}}>Velcro</div>
+          <FloatingUI as |reference floating|>
+            <div {{reference}}>velcroReference</div>
+            <div id="velcro1" {{floating}}>Velcro</div>
           </FloatingUI>
-          <FloatingUI @offsetOptions={{offsetOptions}} as |velcro|>
-            <div {{velcro.hook}}>velcroReference</div>
-            <div id="velcro2" {{velcro.loop}}>Velcro</div>
+          <FloatingUI @offsetOptions={{offsetOptions}} as |reference floating|>
+            <div {{reference}}>velcroReference</div>
+            <div id="velcro2" {{floating}}>Velcro</div>
           </FloatingUI>
         </template>
       );

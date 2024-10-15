@@ -30,7 +30,9 @@ export interface Signature {
   Blocks: {
     default: [
       reference: ModifierLike<ReferenceSignature>,
-      floating: undefined | WithBoundArgs<WithBoundPositionals<typeof FloatingUIModifier, 1>, keyof ModifierArgs>,
+      floating:
+        | undefined
+        | WithBoundArgs<WithBoundPositionals<typeof FloatingUIModifier, 1>, keyof ModifierArgs>,
       util: {
         setReference: (element: HTMLElement | SVGElement) => void;
         data?: MiddlewareState;
@@ -82,10 +84,7 @@ export default class FloatingUI extends Component<Signature> {
         {{yield
           (modifier ref this.setReference)
           floating
-          (hash
-            setReference=this.setReference
-            data=this.data
-          )
+          (hash setReference=this.setReference data=this.data)
         }}
       {{/let}}
     {{/let}}

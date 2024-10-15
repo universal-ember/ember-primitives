@@ -10,13 +10,15 @@ import { getAnchor } from 'should-handle-link';
 import type { TOC } from '@ember/component/template-only';
 import type { DocsService, Page } from 'kolay';
 
-
 function fixWords(text: string) {
   switch (text.toLowerCase()) {
-  case 'ui': return "UI";
-  case 'iframe': return 'IFrame';
-  default: return text;
-}
+    case 'ui':
+      return 'UI';
+    case 'iframe':
+      return 'IFrame';
+    default:
+      return text;
+  }
 }
 
 /**

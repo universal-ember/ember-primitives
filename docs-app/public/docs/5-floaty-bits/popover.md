@@ -124,7 +124,7 @@ const settings = cell(true);
                       things<br>
 
                       <Popover @placement="left" @offsetOptions={{16}} as |pp|>
-                        <button {{pp.hook}}>view profile</button>
+                        <button {{pp.reference}}>view profile</button>
 
                         <pp.Content class="floatybit">
                           View or edit your profile settings

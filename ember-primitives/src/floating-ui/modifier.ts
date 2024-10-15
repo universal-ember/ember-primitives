@@ -105,6 +105,11 @@ export const anchorTo = eModifier<Signature>(
 
     let cleanup = autoUpdate(referenceElement, floatingElement, update);
 
+    /**
+     * in the function-modifier manager, teardown of the previous modifier
+     * occurs before setup of the next
+     * https://github.com/ember-modifier/ember-modifier/blob/main/ember-modifier/src/-private/function-based/modifier-manager.ts#L58
+     */
     return cleanup;
   }
 );

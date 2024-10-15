@@ -1,8 +1,7 @@
 import { assert } from '@ember/debug';
-import { registerDestructor } from '@ember/destroyable';
 
 import { autoUpdate, computePosition, flip, hide, offset, shift } from '@floating-ui/dom';
-import Modifier from 'ember-modifier';
+import { modifier as eModifier } from 'ember-modifier';
 
 import { exposeMetadata } from './middleware.ts';
 
@@ -33,10 +32,10 @@ export interface Signature {
   };
 }
 
-export class AnchorTo extends Modifier<Signature> {
-  modify(
-    floatingElement: Signature['Element'],
-    [_referenceElement]: Signature['Args']['Positional'],
+export const anchorTo = eModifier<Signature>(
+  (
+    floatingElement,
+    [_referenceElement],
     {
       strategy = 'fixed',
       offsetOptions = 0,
@@ -44,9 +43,9 @@ export class AnchorTo extends Modifier<Signature> {
       flipOptions,
       shiftOptions,
       middleware = [],
-      setData: setData,
-    }: Signature['Args']['Named']
-  ) {
+      setData,
+    }
+  ) => {
     const referenceElement: null | HTMLElement | SVGElement =
       typeof _referenceElement === 'string'
         ? document.querySelector(_referenceElement)
@@ -106,6 +105,6 @@ export class AnchorTo extends Modifier<Signature> {
 
     let cleanup = autoUpdate(referenceElement, floatingElement, update);
 
-    registerDestructor(this, cleanup);
+    return cleanup;
   }
-}
+);

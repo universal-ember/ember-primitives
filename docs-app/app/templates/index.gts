@@ -22,7 +22,7 @@ export default Route(
             <Logo />
           </h1>
           <p class="italic text-white w-full md:w-1/2 mx-auto">
-            headless, stylessless, accessibility focused implementations of components, patterns, and utilities to help make building apps faster.
+            headless, styleless, accessibility focused implementations of components, patterns, and utilities to help make building apps faster.
           <br>
           <strong>picking up where the framework left off.</strong>
           </p>

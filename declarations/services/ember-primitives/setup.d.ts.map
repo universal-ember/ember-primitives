@@ -1,0 +1,1 @@
+{"version":3,"file":"setup.d.ts","sourceRoot":"","sources":["../../../src/services/ember-primitives/setup.ts"],"names":[],"mappings":"AACA,OAAO,OAAO,MAAM,gBAAgB,CAAC;AAIrC;;GAEG;AACH,eAAO,MAAM,UAAU,eAAyC,CAAC;AAEjE,MAAM,CAAC,OAAO,OAAO,oBAAqB,SAAQ,OAAO;;IACvD;;OAEG;IACH,KAAK,kCAGF;QACD;;;;;;;;;;WAUG;QACH,OAAO,CAAC,EAAE,OAAO,CAAC;QAClB,cAAc,CAAC,EAAE,OAAO,CAAC;KAC1B,UAeC;CAMH"}

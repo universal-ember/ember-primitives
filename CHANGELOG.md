@@ -2,6 +2,17 @@
 
 ## Release (2024-10-16)
 
+
+
+#### :memo: Documentation
+* `docs-app`
+  * [#388](https://github.com/universal-ember/ember-primitives/pull/388) Update index.gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2024-10-16)
+
 ember-primitives 0.25.0 (minor)
 
 #### :rocket: Enhancement

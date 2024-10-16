@@ -11,9 +11,9 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "ember-apply": "^2.11.1",
-    "execa": "^8.0.1",
+    "execa": "^9.4.0",
     "fs-extra": "^11.2.0",
-    "latest-version": "^8.0.0"
+    "latest-version": "^9.0.0"
   },
   "engines": {
     "node": ">= 20"

@@ -1,5 +1,6 @@
 import { assert as debugAssert } from '@ember/debug';
 import { fn } from '@ember/helper';
+import { on } from '@ember/modifier';
 import {
   click,
   find,
@@ -350,5 +351,73 @@ module('Rendering | menu', function (hooks) {
     await click('.trigger');
 
     assert.dom('.trigger').hasText('open');
+  });
+
+  test('using stopPropagation={{true}} stopps the click event from bubbling (trigger component)', async function (assert) {
+    let didReachParent = false;
+
+    function parentClick() {
+      didReachParent = true;
+    }
+
+    await render(
+      <template>
+        <PortalTargets />
+
+        <div {{on "click" parentClick}}>
+          <Menu as |m|>
+            <m.Trigger class="trigger" @stopPropagation={{true}}>
+              Trigger
+            </m.Trigger>
+
+            <m.Content class="content" as |c|>
+              <c.Item>Item 1</c.Item>
+              <c.Item>Item 2</c.Item>
+              <c.Separator />
+              <c.Item>Item 3</c.Item>
+            </m.Content>
+          </Menu>
+        </div>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.notOk(didReachParent);
+  });
+
+  test('using stopPropagation={{true}} stopps the click event from bubbling (trigger modifier)', async function (assert) {
+    let didReachParent = false;
+
+    function parentClick() {
+      didReachParent = true;
+    }
+
+    await render(
+      <template>
+        <PortalTargets />
+
+        <div {{on "click" parentClick}}>
+          <Menu as |m|>
+            <button type="button" class="trigger" {{m.trigger stopPropagation=true}}>
+              Trigger
+            </button>
+
+            <m.Content class="content" as |c|>
+              <c.Item>Item 1</c.Item>
+              <c.Item>Item 2</c.Item>
+              <c.Separator />
+              <c.Item>Item 3</c.Item>
+            </m.Content>
+          </Menu>
+        </div>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.notOk(didReachParent);
   });
 });

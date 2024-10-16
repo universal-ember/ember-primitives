@@ -2,6 +2,17 @@
 
 ## Release (2024-10-16)
 
+ember-primitives 0.25.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`, `test-app`
+  * [#385](https://github.com/universal-ember/ember-primitives/pull/385) add preventDefault arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))
+
+#### Committers: 1
+- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
+
+## Release (2024-10-16)
+
 ember-primitives 0.24.0 (minor)
 
 #### :rocket: Enhancement

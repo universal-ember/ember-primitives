@@ -364,7 +364,7 @@ module('Rendering | menu', function (hooks) {
       <template>
         <PortalTargets />
 
-        <div {{on "click" parentClick}}>
+        <button type="button" {{on "click" parentClick}}>
           <Menu as |m|>
             <m.Trigger class="trigger" @stopPropagation={{true}}>
               Trigger
@@ -377,7 +377,7 @@ module('Rendering | menu', function (hooks) {
               <c.Item>Item 3</c.Item>
             </m.Content>
           </Menu>
-        </div>
+        </button>
       </template>
     );
 
@@ -398,7 +398,7 @@ module('Rendering | menu', function (hooks) {
       <template>
         <PortalTargets />
 
-        <div {{on "click" parentClick}}>
+        <button type="button" {{on "click" parentClick}}>
           <Menu as |m|>
             <button type="button" class="trigger" {{m.trigger stopPropagation=true}}>
               Trigger
@@ -411,7 +411,7 @@ module('Rendering | menu', function (hooks) {
               <c.Item>Item 3</c.Item>
             </m.Content>
           </Menu>
-        </div>
+        </button>
       </template>
     );
 

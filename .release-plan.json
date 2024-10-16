@@ -1,17 +1,8 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.24.0",
-      "newVersion": "0.25.0",
-      "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        }
-      ],
-      "pkgJSONPath": "./ember-primitives/package.json"
+      "oldVersion": "0.25.0"
     }
   },
-  "description": "## Release (2024-10-16)\n\nember-primitives 0.25.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`, `test-app`\n  * [#385](https://github.com/universal-ember/ember-primitives/pull/385) add preventDefault arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))\n\n#### Committers: 1\n- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))\n"
+  "description": "## Release (2024-10-16)\n\n\n\n#### :memo: Documentation\n* `docs-app`\n  * [#388](https://github.com/universal-ember/ember-primitives/pull/388) Update index.gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

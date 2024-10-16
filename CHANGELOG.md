@@ -1,5 +1,26 @@
 # Changelog 
 
+## Release (2024-10-16)
+
+ember-primitives 0.24.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`, `test-app`
+  * [#383](https://github.com/universal-ember/ember-primitives/pull/383) add stopPropagation arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#380](https://github.com/universal-ember/ember-primitives/pull/380) [Breaking] Document and solidify the public API of FloatingUI ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`
+  * [#372](https://github.com/universal-ember/ember-primitives/pull/372) Upgrade tabster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#384](https://github.com/universal-ember/ember-primitives/pull/384) Upgrade more devdeps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#382](https://github.com/universal-ember/ember-primitives/pull/382) Upgrade dev deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-10-03)
 
 ember-primitives 0.23.1 (patch)

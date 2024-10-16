@@ -1,6 +1,6 @@
 # Floating UI
 
-The `FloatingUI` component (and modifier) provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc. 
+The `FloatingUI` component provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc). 
 
 <Callout>
 
@@ -17,76 +17,9 @@ See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) 
 pnpm add ember-primitives
 ```
 
-
-## `{{anchorTo}}`
-
-The main modifier for creating floating UIs with any elements.
-
-Requires you to maintain a unique ID for every invocation. 
-
-
-<div class="featured-demo">
-
-```gjs live preview no-shadow
-import { anchorTo } from 'ember-primitives/floating-ui';
-
-<template>
-  <button id="reference" popovertarget="floating">Click the reference element</button>
-  <menu popover id="floating" {{anchorTo "#reference"}}>Here is <br> floating element</menu>
-
-  <style>
-    menu#floating {
-      width: max-content;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #222;
-      color: white;
-      font-weight: bold;
-      padding: 2rem;
-      border-radius: 4px;
-      font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
-      z-index: 10;
-    }
-    button#reference {
-      padding: 0.5rem;
-      border: 1px solid;
-      display: inline-block;
-      background: white;
-      color: black;
-      border-radius: 0.25rem;
-
-      &:hover {
-        background: #ddd;
-      }
-    }
-  </style>
-</template>
-```
-
-</div>
-
-Note that in this demo thare are _two_ sets of ids. One pair for the floating behavior, and another pair for the [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) wiring.  The component below handles the floating id, but to avoid needing to maintain _unique_ pairs of ids for each floating-ui you may be interested in the [Popover](/5-floaty-bits/popover.md) component (which also includes arrow support).
-
-### API Reference for `{{anchorTo}}`
-
-```gjs live no-shadow
-import { ModifierSignature } from 'kolay';
-
-<template>
-  <ModifierSignature 
-    @package="ember-primitives" 
-    @module="declarations/floating-ui/modifier" 
-    @name="Signature"
-  />
-</template>
-```
-
-
 ## `<FloatingUI>`
 
-This component takes the above modifier and abstracts away the need to manage the `id`-relationship between reference and floating elements -- since every ID on the page needs to be unique, it is useful to have this automatically managed for you.
+This component takes the [`archorTo` modifier](/5-floaty-bits/anchor-to.md) and abstracts away the need to manage the `id`-relationship between reference and floating elements -- since every ID on the page needs to be unique, it is useful to have this automatically managed for you.
 
 This component has no DOM of its own, but provides two modifiers to attach to both reference and floating elements.
 

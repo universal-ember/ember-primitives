@@ -1,10 +1,14 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.23.0",
-      "newVersion": "0.23.1",
+      "impact": "minor",
+      "oldVersion": "0.23.1",
+      "newVersion": "0.24.0",
       "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :house: Internal"
@@ -13,5 +17,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-10-03)\n\nember-primitives 0.23.1 (patch)\n\n#### :house: Internal\n* Other\n  * [#370](https://github.com/universal-ember/ember-primitives/pull/370) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#364](https://github.com/universal-ember/ember-primitives/pull/364) Upgrade test-helpers to v4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`\n  * [#357](https://github.com/universal-ember/ember-primitives/pull/357) Page Updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-10-16)\n\nember-primitives 0.24.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`, `test-app`\n  * [#383](https://github.com/universal-ember/ember-primitives/pull/383) add stopPropagation arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#380](https://github.com/universal-ember/ember-primitives/pull/380) [Breaking] Document and solidify the public API of FloatingUI ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`\n  * [#372](https://github.com/universal-ember/ember-primitives/pull/372) Upgrade tabster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`\n  * [#384](https://github.com/universal-ember/ember-primitives/pull/384) Upgrade more devdeps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#382](https://github.com/universal-ember/ember-primitives/pull/382) Upgrade dev deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

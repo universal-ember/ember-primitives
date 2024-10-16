@@ -54,7 +54,6 @@ export interface Signature {
 
 export interface SeparatorSignature {
   Element: HTMLDivElement;
-  Args: {};
   Blocks: { default: [] };
 }
 
@@ -160,7 +159,6 @@ interface PrivateContentSignature {
 
 export interface ContentSignature {
   Element: PrivateContentSignature['Element'];
-  Args: {};
   Blocks: PrivateContentSignature['Blocks'];
 }
 
@@ -244,7 +242,6 @@ interface PrivateTriggerSignature {
 
 export interface TriggerSignature {
   Element: PrivateTriggerSignature['Element'];
-  Args: {};
   Blocks: PrivateTriggerSignature['Blocks'];
 }
 

@@ -38,7 +38,7 @@
     ".github/workflows/push-dish.yml",
     ".github/workflows/deploy-preview.yml"
   ],
-  "pipeline": {
+  "tasks": {
     /////////////////////////////////////////////////
     /////////////////////////////////////////////////
     //

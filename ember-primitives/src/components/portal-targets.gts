@@ -44,8 +44,7 @@ export function findNearestTarget(origin: Element, name: string) {
 }
 
 export interface Signature {
-  Args: {};
-  Blocks: {};
+  Element: null;
 }
 
 export const PortalTargets: TOC<Signature> = <template>

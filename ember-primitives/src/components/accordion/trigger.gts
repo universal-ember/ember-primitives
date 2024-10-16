@@ -6,7 +6,7 @@ import type { AccordionTriggerExternalSignature } from './public.ts';
 import type { TOC } from '@ember/component/template-only';
 
 interface Signature extends AccordionTriggerExternalSignature {
-  Args: AccordionTriggerExternalSignature['Args'] & {
+  Args: {
     isExpanded: boolean;
     value: string;
     disabled?: boolean;

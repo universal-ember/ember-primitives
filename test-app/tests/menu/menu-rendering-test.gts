@@ -492,4 +492,144 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.content').exists({ count: 1 });
     assert.ok(didReachParent);
   });
+
+  test('using preventDefault={{true}} calls preventDefault() on the event (trigger component)', async function (assert) {
+    let wasDefaultPrevented = false;
+
+    function parentClick(ev: MouseEvent) {
+      wasDefaultPrevented = ev.defaultPrevented;
+    }
+
+    await render(
+      <template>
+        <PortalTargets />
+
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "click" parentClick}}>
+          <Menu as |m|>
+            <m.Trigger class="trigger" @preventDefault={{true}}>
+              Trigger
+            </m.Trigger>
+
+            <m.Content class="content" as |c|>
+              <c.Item>Item 1</c.Item>
+              <c.Item>Item 2</c.Item>
+              <c.Separator />
+              <c.Item>Item 3</c.Item>
+            </m.Content>
+          </Menu>
+        </div>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.ok(wasDefaultPrevented);
+  });
+
+  test('using preventDefault={{true}} calls preventDefault() on the event (trigger modifier)', async function (assert) {
+    let wasDefaultPrevented = false;
+
+    function parentClick(ev: MouseEvent) {
+      wasDefaultPrevented = ev.defaultPrevented;
+    }
+
+    await render(
+      <template>
+        <PortalTargets />
+
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "click" parentClick}}>
+          <Menu as |m|>
+            <button type="button" class="trigger" {{m.trigger preventDefault=true}}>
+              Trigger
+            </button>
+
+            <m.Content class="content" as |c|>
+              <c.Item>Item 1</c.Item>
+              <c.Item>Item 2</c.Item>
+              <c.Separator />
+              <c.Item>Item 3</c.Item>
+            </m.Content>
+          </Menu>
+        </div>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.ok(wasDefaultPrevented);
+  });
+
+  test('using preventDefault={{false}} does not call preventDefault() on the event (trigger component)', async function (assert) {
+    let wasDefaultPrevented = false;
+
+    function parentClick(ev: MouseEvent) {
+      wasDefaultPrevented = ev.defaultPrevented;
+    }
+
+    await render(
+      <template>
+        <PortalTargets />
+
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "click" parentClick}}>
+          <Menu as |m|>
+            <m.Trigger class="trigger" @preventDefault={{false}}>
+              Trigger
+            </m.Trigger>
+
+            <m.Content class="content" as |c|>
+              <c.Item>Item 1</c.Item>
+              <c.Item>Item 2</c.Item>
+              <c.Separator />
+              <c.Item>Item 3</c.Item>
+            </m.Content>
+          </Menu>
+        </div>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.notOk(wasDefaultPrevented);
+  });
+
+  test('using preventDefault={{false}} does not call preventDefault() on the event (trigger modifier)', async function (assert) {
+    let wasDefaultPrevented = false;
+
+    function parentClick(ev: MouseEvent) {
+      wasDefaultPrevented = ev.defaultPrevented;
+    }
+
+    await render(
+      <template>
+        <PortalTargets />
+
+        {{! template-lint-disable no-invalid-interactive }}
+        <div {{on "click" parentClick}}>
+          <Menu as |m|>
+            <button type="button" class="trigger" {{m.trigger preventDefault=false}}>
+              Trigger
+            </button>
+
+            <m.Content class="content" as |c|>
+              <c.Item>Item 1</c.Item>
+              <c.Item>Item 2</c.Item>
+              <c.Separator />
+              <c.Item>Item 3</c.Item>
+            </m.Content>
+          </Menu>
+        </div>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.notOk(wasDefaultPrevented);
+  });
 });

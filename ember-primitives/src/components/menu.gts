@@ -187,6 +187,7 @@ interface PrivateTriggerModifierSignature {
       contentId: string;
       setReference: PopoverBlockParams['setReference'];
       stopPropagation?: boolean;
+      preventDefault?: boolean;
     };
   };
 }
@@ -196,7 +197,11 @@ export interface TriggerModifierSignature {
 }
 
 const trigger = eModifier<PrivateTriggerModifierSignature>(
-  (element, _: [], { triggerElement, isOpen, contentId, setReference, stopPropagation }) => {
+  (
+    element,
+    _: [],
+    { triggerElement, isOpen, contentId, setReference, stopPropagation, preventDefault }
+  ) => {
     element.setAttribute('aria-haspopup', 'menu');
 
     if (isOpen.current) {
@@ -212,6 +217,10 @@ const trigger = eModifier<PrivateTriggerModifierSignature>(
     const onTriggerClick = (event: MouseEvent) => {
       if (stopPropagation) {
         event.stopPropagation();
+      }
+
+      if (preventDefault) {
+        event.preventDefault();
       }
 
       isOpen.toggle();
@@ -236,6 +245,7 @@ interface PrivateTriggerSignature {
       'triggerElement' | 'contentId' | 'isOpen' | 'setReference'
     >;
     stopPropagation?: boolean;
+    preventDefault?: boolean;
   };
   Blocks: { default: [] };
 }
@@ -246,7 +256,11 @@ export interface TriggerSignature {
 }
 
 const Trigger: TOC<PrivateTriggerSignature> = <template>
-  <button type="button" {{@triggerModifier stopPropagation=@stopPropagation}} ...attributes>
+  <button
+    type="button"
+    {{@triggerModifier stopPropagation=@stopPropagation preventDefault=@preventDefault}}
+    ...attributes
+  >
     {{yield}}
   </button>
 </template>;

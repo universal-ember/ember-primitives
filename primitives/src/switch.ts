@@ -1,4 +1,6 @@
 import { html, LitElement } from 'lit';
+import { createContext, consume, provide } from '@lit/context';
+import { property } from 'lit/decorators.js';
 
 let i = 0;
 function uniqueId() {
@@ -6,29 +8,18 @@ function uniqueId() {
   return `primitiveId-${i}`;
 }
 
-function getContext(startAt) {
-  let node;
-  while ((node = startAt)) {
-    let parent = node.parentElement;
-    if (!parent) return;
-
-    if (parent.tagName === 'primitive-switch') {
-      return parent;
-    }
-  }
-}
-
+const stateContext = createContext('switch-state');
 /**
  * emits "change" event
  */
-class Switch extends HTMLElement {
+class Switch extends LitElement {
   static properties = {
     checked: { type: Boolean },
   };
 
-  id = uniqueId();
+  @provide({ context: stateContext }) id = uniqueId();
 
-  handleChange = (event) => {
+  handleChange = (event: Event) => {
     this.dispatchEvent(
       new CustomEvent('change', {
         detail: {
@@ -45,9 +36,9 @@ class Switch extends HTMLElement {
 }
 
 class Control extends HTMLElement {
-  get id() {
-    return getContext(this).id;
-  }
+  @consume({ context: stateContext })
+  @property({ attribute: false })
+  declare id: string;
 
   constructor() {
     super();
@@ -63,9 +54,9 @@ class Control extends HTMLElement {
 }
 
 class Label extends HTMLElement {
-  get id() {
-    return getContext(this).id;
-  }
+  @consume({ context: stateContext })
+  @property({ attribute: false })
+  declare id: string;
 
   constructor() {
     super();

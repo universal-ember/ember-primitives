@@ -1,0 +1,13 @@
+{
+  "name":"@nullvoxpopuli/primitives",
+  "dependencies":{"lit":"^3.2.1"},
+  "files": ["src"],
+  "exports": {
+    ".": {
+      "default": "./src/index.js"
+    },
+    "./*": {
+      "default": "./src/*"
+    }
+  }
+}

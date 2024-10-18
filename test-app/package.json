@@ -26,6 +26,7 @@
     "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
   },
   "dependencies": {
+    "@nullvoxpopuli/primitives": "workspace:*",
     "ember-primitives": "workspace:*",
     "ember-resources": "^7.0.0",
     "ember-route-template": "^1.0.3",

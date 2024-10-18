@@ -12,7 +12,7 @@ module.exports = async function (defaults) {
       app: (() => {
         let sideWatch = require('@embroider/broccoli-side-watch');
 
-        let paths = ['ember-primitives'].map((libraryName) => {
+        let paths = ['ember-primitives', '@nullvoxpopuli/primitives'].map((libraryName) => {
           let entry = require.resolve(libraryName);
           let { packageJson, path: packageJsonPath } = readPackageUpSync({ cwd: entry });
           let packagePath = path.dirname(packageJsonPath);
@@ -27,7 +27,7 @@ module.exports = async function (defaults) {
               if (!fs.existsSync(p)) return false;
               if (!fs.lstatSync(p).isDirectory()) return false;
 
-              return !p.endsWith('/src');
+              return true;
             });
 
           return toWatch;

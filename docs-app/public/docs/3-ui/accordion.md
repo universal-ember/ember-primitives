@@ -13,8 +13,8 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
 
 ```gjs live preview
 // No imports needed!
-// Though, as a TODO: for this component, we'll soon have a multi-details 
-// management wrapper in case you want only one `<details>` open at a time.
+// If you need only one open a time, use the "name" attribute
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#name
 
 <template>
   <div class="demo">

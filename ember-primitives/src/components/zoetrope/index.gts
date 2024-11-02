@@ -86,12 +86,6 @@ export class Zoetrope extends Component<Signature> {
   @tracked scrollWidth = 0;
   @tracked offsetWidth = 0;
 
-  constructor(owner: unknown, args: Signature['Args']) {
-    super(owner, args);
-
-    this.waiterToken = testWaiter.beginAsync();
-  }
-
   private setCSSVariables = modifier(
     (element: HTMLElement, _: unknown, { gap, offset }: { gap: number; offset: number }) => {
       if (gap) element.style.setProperty('--zoetrope-gap', `${gap}px`);
@@ -100,6 +94,8 @@ export class Zoetrope extends Component<Signature> {
   );
 
   private configureScroller = modifier((element: HTMLElement) => {
+    this.waiterToken = testWaiter.beginAsync();
+
     this.scrollerElement = element;
     this.currentlyScrolled = element.scrollLeft;
 
@@ -112,8 +108,6 @@ export class Zoetrope extends Component<Signature> {
 
     element.addEventListener('scroll', this.scrollListener, { passive: true });
     element.addEventListener('keydown', this.tabListener);
-
-    testWaiter.endAsync(this.waiterToken);
 
     return () => {
       element.removeEventListener('scroll', this.scrollListener);
@@ -179,7 +173,13 @@ export class Zoetrope extends Component<Signature> {
   }
 
   get canScroll() {
-    return this.scrollWidth > this.offsetWidth + this.offset;
+    const result = this.scrollWidth > this.offsetWidth + this.offset;
+
+    if (this.waiterToken) {
+      testWaiter.endAsync(this.waiterToken);
+    }
+
+    return result;
   }
 
   get cannotScrollLeft() {

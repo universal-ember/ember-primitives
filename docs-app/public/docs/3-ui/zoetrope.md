@@ -1,6 +1,6 @@
 # Zoetrope
 
-A slider element built using browser native scrolling.
+A slider style element built using browser native scrolling to create netflix style carousels.
 
 <div class="hidden">
 ```gjs live preview

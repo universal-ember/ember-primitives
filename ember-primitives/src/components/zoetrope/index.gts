@@ -20,7 +20,7 @@ export interface Signature {
 
     /**
      * The distance from the edge of the container to the first and last item, this allows
-     * the contents to overflow the container
+     * the contents to visually overflow the container
      */
     offset?: number;
 

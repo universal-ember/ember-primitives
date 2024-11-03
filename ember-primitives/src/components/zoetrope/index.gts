@@ -80,7 +80,6 @@ const DEFAULT_GAP = 8;
 const DEFAULT_OFFSET = 0;
 
 export class Zoetrope extends Component<Signature> {
-  private waiterToken: unknown;
   @tracked scrollerElement: HTMLElement | null = null;
   @tracked currentlyScrolled = 0;
   @tracked scrollWidth = 0;
@@ -93,9 +92,12 @@ export class Zoetrope extends Component<Signature> {
     }
   );
 
-  private configureScroller = modifier((element: HTMLElement) => {
-    this.waiterToken = testWaiter.beginAsync();
+  scrollerWaiter = testWaiter.beginAsync();
+  noScrollWaiter = () => {
+    testWaiter.endAsync(this.scrollerWaiter);
+  };
 
+  private configureScroller = modifier((element: HTMLElement) => {
     this.scrollerElement = element;
     this.currentlyScrolled = element.scrollLeft;
 
@@ -108,6 +110,10 @@ export class Zoetrope extends Component<Signature> {
 
     element.addEventListener('scroll', this.scrollListener, { passive: true });
     element.addEventListener('keydown', this.tabListener);
+
+    requestAnimationFrame(() => {
+      testWaiter.endAsync(this.scrollerWaiter);
+    });
 
     return () => {
       element.removeEventListener('scroll', this.scrollListener);
@@ -174,10 +180,6 @@ export class Zoetrope extends Component<Signature> {
 
   get canScroll() {
     const result = this.scrollWidth > this.offsetWidth + this.offset;
-
-    if (this.waiterToken) {
-      testWaiter.endAsync(this.waiterToken);
-    }
 
     return result;
   }
@@ -368,6 +370,8 @@ export class Zoetrope extends Component<Signature> {
         <div class="zoetrope-scroller" {{this.configureScroller}}>
           {{yield to="content"}}
         </div>
+      {{else}}
+        {{(this.noScrollWaiter)}}
       {{/if}}
     </section>
   </template>

@@ -92,8 +92,6 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    await Promise.resolve();
-
     assert.dom('.zoetrope-controls').doesNotExist();
   });
 

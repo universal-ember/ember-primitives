@@ -215,6 +215,42 @@ import { on } from "@ember/modifier";
 
 </div>
 
+## Scroll Behavior
+
+The component takes a `@scrollBehavior` argument that can be used to control the scroll behavior. The default value is `smooth`.
+
+<div class="featured-demo auto-height">
+
+```gjs live preview no-shadow
+import { Zoetrope } from "ember-primitives";
+
+<template>
+  <Zoetrope @gap={{8}} @offset={{40}} @scrollBehavior="instant">
+    <:header>
+      <h2>Instant Scroll</h2>
+    </:header>
+
+    <:content>
+      <a href="#" class="card">1</a>
+      <a href="#" class="card">2</a>
+      <a href="#" class="card">3</a>
+      <a href="#" class="card">4</a>
+      <a href="#" class="card">5</a>
+      <a href="#" class="card">6</a>
+      <a href="#" class="card">7</a>
+      <a href="#" class="card">8</a>
+      <a href="#" class="card">9</a>
+      <a href="#" class="card">10</a>
+      <a href="#" class="card">11</a>
+      <a href="#" class="card">12</a>
+    </:content>
+
+  </Zoetrope>
+</template>
+```
+
+</div>
+
 ## Anatomy
 
 ```js

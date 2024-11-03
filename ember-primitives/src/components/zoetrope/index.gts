@@ -31,6 +31,11 @@ export interface Signature {
   };
   Blocks: {
     /**
+     * The header block is where the header content is placed.
+     */
+    header: [];
+
+    /**
      * The content block is where the items that will be scrolled are placed.
      */
     content: [];
@@ -66,11 +71,6 @@ export interface Signature {
         scrollRight: () => void;
       },
     ];
-
-    /**
-     * The header block is where the header content is placed.
-     */
-    header: [];
   };
   Element: HTMLElement;
 }

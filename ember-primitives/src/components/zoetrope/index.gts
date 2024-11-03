@@ -334,12 +334,12 @@ export class Zoetrope extends Component<Signature> {
 
   <template>
     <section
-      class="zoetrope"
+      class="ember-primitives__zoetrope"
       {{this.setCSSVariables gap=this.gap offset=this.offset}}
       ...attributes
     >
       {{#if (has-block "header")}}
-        <div class="zoetrope-header">
+        <div class="ember-primitives__zoetrope__header">
           {{yield to="header"}}
         </div>
       {{/if}}
@@ -357,7 +357,7 @@ export class Zoetrope extends Component<Signature> {
         }}
       {{else}}
         {{#if this.canScroll}}
-          <div class="zoetrope-controls">
+          <div class="ember-primitives__zoetrope__controls">
             <button
               type="button"
               {{on "click" this.scrollLeft}}
@@ -373,7 +373,7 @@ export class Zoetrope extends Component<Signature> {
         {{/if}}
       {{/if}}
       {{#if (has-block "content")}}
-        <div class="zoetrope-scroller" {{this.configureScroller}}>
+        <div class="ember-primitives__zoetrope__scroller" {{this.configureScroller}}>
           {{yield to="content"}}
         </div>
       {{else}}

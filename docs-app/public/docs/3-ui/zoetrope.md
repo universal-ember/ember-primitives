@@ -96,8 +96,9 @@ import { Zoetrope } from "ember-primitives";
   </Zoetrope>
 
   <style>
-    /* some basic button styles */ .zoetrope-controls button { background: #fff; padding: 0.5rem;
-    border-radius: 0.25rem; color: #333; } .zoetrope-controls button:disabled { opacity: 0.5; }
+    /* some basic button styles */ .ember-primitives__zoetrope__controls button { background: #fff;
+    padding: 0.5rem; border-radius: 0.25rem; color: #333; } .ember-primitives__zoetrope__controls
+    button:disabled { opacity: 0.5; }
   </style>
 </template>
 ```
@@ -113,7 +114,7 @@ import { Zoetrope } from "ember-primitives";
 
 ## Custom Controls
 
-You can pass your own control buttons to the zoetrope component. Use the `.zoetrope-controls` class to place them in the default position, or style them as you wish.
+You can pass your own control buttons to the zoetrope component. Use the `.ember-primitives__zoetrope__controls` class to place them in the default position, or style them as you wish.
 
 <div class="featured-demo auto-height">
 
@@ -128,7 +129,7 @@ import { on } from "@ember/modifier";
     </:header>
 
     <:controls as |z|>
-      <div class="zoetrope-controls">
+      <div class="ember-primitives__zoetrope__controls">
         <button
           type="button"
           {{on "click" z.scrollLeft}}

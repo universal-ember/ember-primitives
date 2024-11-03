@@ -1,11 +1,11 @@
-.zoetrope {
+.ember-primitives__zoetrope {
   display: flex;
   flex-wrap: wrap;
   position: relative;
   width: 100%;
 }
 
-.zoetrope-header {
+.ember-primitives__zoetrope__header {
   align-items: center;
   display: flex;
   flex: 1;
@@ -13,14 +13,14 @@
   padding-left: var(--zoetrope-offset, 0);
 }
 
-.zoetrope-controls {
+.ember-primitives__zoetrope__controls {
   align-items: center;
   display: flex;
   padding-right: var(--zoetrope-offset, 0);
   gap: 4px;
 }
 
-.zoetrope-scroller {
+.ember-primitives__zoetrope__scroller {
   display: flex;
   flex-flow: row nowrap;
   gap: var(--zoetrope-gap, 8px);

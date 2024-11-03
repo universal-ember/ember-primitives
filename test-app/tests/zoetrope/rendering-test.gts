@@ -26,6 +26,31 @@ module('<Zoetrope />', function (hooks) {
     assert.dom('.ember-primitives__zoetrope a').exists();
   });
 
+  test('can count visible items', async function (assert) {
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements}}
+        <style>
+          .ember-primitives__zoetrope {width: 400px;} a {width: 100px; display: block;}
+        </style>
+
+        <Zoetrope>
+          <:content>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+          </:content>
+        </Zoetrope>
+      </template>
+    );
+
+    assert.strictEqual(z.visibleItemCount(), 2);
+  });
+
   test('gap is applied to cards', async function (assert) {
     await render(
       <template>

@@ -129,7 +129,7 @@ module('<Zoetrope />', function (hooks) {
           .zoetrope {width: 400px;} a {width: 200px; display: block;}
         </style>
 
-        <Zoetrope @scrollBehavior="instant">
+        <Zoetrope>
           <:header>
             <h1>Header</h1>
           </:header>
@@ -155,7 +155,7 @@ module('<Zoetrope />', function (hooks) {
           .zoetrope {width: 400px;} a {width: 200px; display: block;}
         </style>
 
-        <Zoetrope @scrollBehavior="instant">
+        <Zoetrope>
           <:header>
             <h1>Header</h1>
           </:header>
@@ -170,9 +170,6 @@ module('<Zoetrope />', function (hooks) {
 
     // scroll right first so we can scroll left
     await click('.zoetrope-controls button:last-child');
-    // need to give the browser time to run scroll event listener and update currentlyScrolled property
-    await new Promise(requestAnimationFrame);
-
     // now scroll left
     await click('.zoetrope-controls button:first-child');
 

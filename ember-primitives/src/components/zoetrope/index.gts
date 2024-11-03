@@ -5,6 +5,7 @@ import { tracked } from '@glimmer/tracking';
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { buildWaiter, waitForPromise } from '@ember/test-waiters';
+import { isTesting, macroCondition } from '@embroider/macros';
 
 import { modifier } from 'ember-modifier';
 
@@ -74,8 +75,7 @@ export interface Signature {
   Element: HTMLElement;
 }
 
-let testWaiter = buildWaiter('ember-primitive:zoetrope-waiter');
-
+const testWaiter = buildWaiter('ember-primitive:zoetrope-waiter');
 const DEFAULT_GAP = 8;
 const DEFAULT_OFFSET = 0;
 
@@ -179,9 +179,7 @@ export class Zoetrope extends Component<Signature> {
   }
 
   get canScroll() {
-    const result = this.scrollWidth > this.offsetWidth + this.offset;
-
-    return result;
+    return this.scrollWidth > this.offsetWidth + this.offset;
   }
 
   get cannotScrollLeft() {
@@ -193,6 +191,10 @@ export class Zoetrope extends Component<Signature> {
   }
 
   get scrollBehavior(): ScrollBehavior {
+    if (macroCondition(isTesting())) {
+      return 'instant';
+    }
+
     return this.args.scrollBehavior || 'smooth';
   }
 

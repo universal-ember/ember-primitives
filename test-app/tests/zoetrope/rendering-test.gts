@@ -6,7 +6,7 @@ import { Zoetrope } from 'ember-primitives';
 
 import { ZoetropeHelper } from 'ember-primitives/test-support';
 
-const z = new ZoetropeHelper();
+const zoetrope = new ZoetropeHelper();
 
 module('<Zoetrope />', function (hooks) {
   setupRenderingTest(hooks);
@@ -48,7 +48,7 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    assert.strictEqual(z.visibleItemCount(), 2);
+    assert.strictEqual(zoetrope.visibleItemCount(), 2);
   });
 
   test('gap is applied to cards', async function (assert) {
@@ -169,7 +169,7 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    await z.scrollRight();
+    await zoetrope.scrollRight();
 
     assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 208);
   });
@@ -196,9 +196,9 @@ module('<Zoetrope />', function (hooks) {
     );
 
     // scroll right first so we can scroll left
-    await z.scrollRight();
+    await zoetrope.scrollRight();
     // now scroll left
-    await z.scrollLeft();
+    await zoetrope.scrollLeft();
 
     assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 0);
   });

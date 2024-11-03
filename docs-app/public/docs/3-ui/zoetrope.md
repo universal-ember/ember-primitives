@@ -310,7 +310,7 @@ Use the `ZoetropeHelper` class to interact with the zoetrope component in your t
 
 It has the following methods:
 
-- `visibleItems()`: Returns the visible items as a DOM collection.
+- `visibleItems()`: Returns the visible items as an array of DOM items.
 - `visibleItemCount()`: Returns the count of visible items.
 - `scrollLeft()`: Scrolls the zoetrope component to the left.
 - `scrollRight()`: Scrolls the zoetrope component to the right.
@@ -344,7 +344,7 @@ module("<Zoetrope />", function (hooks) {
       </template>,
     );
 
-    const visibleItemsAsDOMCollection = zoetrope.visibleItems();
+    const visibleItemsArray = zoetrope.visibleItems();
 
     assert.strictEqual(zoetrope.visibleItemCount(), 2);
 

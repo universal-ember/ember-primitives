@@ -19,6 +19,7 @@ A slider style element built using browser native scrolling to create netflix st
 ```
 </div>
 
+<div data-tabster='{"uncontrolled": {}}'>
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
@@ -297,3 +298,5 @@ import { ComponentSignature } from "kolay";
   />
 </template>
 ```
+
+</div>

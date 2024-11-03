@@ -1,3 +1,4 @@
+import { on } from '@ember/modifier';
 import { click, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -31,7 +32,7 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .ember-primitives__zoetrope {width: 400px;} a {width: 100px; display: block;}
+          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
         </style>
 
         <Zoetrope>
@@ -221,5 +222,41 @@ module('<Zoetrope />', function (hooks) {
     );
 
     assert.dom('.my-controls').exists();
+  });
+
+  test('can navigate with custom controls', async function (assert) {
+    await render(
+      <template>
+        {{! template-lint-disable no-forbidden-elements}}
+        <style>
+          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
+        </style>
+
+        <Zoetrope>
+          <:controls as |z|>
+            <div class="my-controls">
+              <button type="button" {{on "click" z.scrollLeft}}>Left</button>
+              <button type="button" {{on "click" z.scrollRight}}>Right</button>
+            </div>
+          </:controls>
+          <:content>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+          </:content>
+        </Zoetrope>
+      </template>
+    );
+
+    await click('.my-controls button:last-child');
+
+    assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 208);
+
+    await click('.my-controls button:first-child');
+
+    assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 0);
   });
 });

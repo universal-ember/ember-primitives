@@ -23,8 +23,8 @@ export class ZoetropeHelper {
       `${this.parentSelector} .ember-primitives__zoetrope__scroller > *`
     );
 
-    let firstFullyVisibleItemIndex = -1;
-    let lastFullyVisibleItemIndex = -1;
+    let firstVisibleItemIndex = -1;
+    let lastVisibleItemIndex = -1;
 
     for (let i = 0; i < zoetropeContent.length; i++) {
       const item = zoetropeContent[i]!;
@@ -32,20 +32,17 @@ export class ZoetropeHelper {
       const parentRect = item.parentElement!.getBoundingClientRect();
 
       if (rect.right >= parentRect?.left && rect.left <= parentRect?.right) {
-        if (firstFullyVisibleItemIndex === -1) {
-          firstFullyVisibleItemIndex = i;
+        if (firstVisibleItemIndex === -1) {
+          firstVisibleItemIndex = i;
         }
 
-        lastFullyVisibleItemIndex = i;
-      } else if (firstFullyVisibleItemIndex !== -1) {
+        lastVisibleItemIndex = i;
+      } else if (firstVisibleItemIndex !== -1) {
         break;
       }
     }
 
-    return Array.from(zoetropeContent).slice(
-      firstFullyVisibleItemIndex,
-      lastFullyVisibleItemIndex + 1
-    );
+    return Array.from(zoetropeContent).slice(firstVisibleItemIndex, lastVisibleItemIndex + 1);
   }
 
   visibleItemCount() {

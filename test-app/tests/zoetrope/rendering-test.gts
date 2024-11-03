@@ -1,4 +1,3 @@
-import { renderSettled } from '@ember/renderer';
 import { click, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -119,8 +118,6 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    await renderSettled();
-
     assert.dom('.zoetrope-controls').exists();
   });
 
@@ -144,8 +141,6 @@ module('<Zoetrope />', function (hooks) {
         </Zoetrope>
       </template>
     );
-
-    await renderSettled();
 
     await click('.zoetrope-controls button:last-child');
 
@@ -173,12 +168,10 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    await renderSettled();
-
     // scroll right first so we can scroll left
     await click('.zoetrope-controls button:last-child');
     // need to give the browser time to run scroll event listener and update currentlyScrolled property
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    await new Promise(requestAnimationFrame);
 
     // now scroll left
     await click('.zoetrope-controls button:first-child');

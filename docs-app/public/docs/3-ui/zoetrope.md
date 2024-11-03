@@ -301,3 +301,56 @@ import { ComponentSignature } from "kolay";
 ```
 
 </div>
+
+## Test Support
+
+We provide a test support module that can be used to interact with the zoetrope component in your tests.
+
+Use the `ZoetropeHelper` class to interact with the zoetrope component in your tests. It takes an optional `selector` argument that can be used to target a specific zoetrope component.
+
+It has the following methods:
+
+- `visibleItems()`: Returns the visible items as a DOM collection.
+- `visibleItemCount()`: Returns the count of visible items.
+- `scrollLeft()`: Scrolls the zoetrope component to the left.
+- `scrollRight()`: Scrolls the zoetrope component to the right.
+
+```gjs no-shadow
+import { render } from "@ember/test-helpers";
+import { module, test } from "qunit";
+import { setupRenderingTest } from "ember-qunit";
+
+import { Zoetrope } from "ember-primitives";
+
+import { ZoetropeHelper } from "ember-primitives/test-support";
+
+// setup helper
+const zoetrope = new ZoetropeHelper();
+
+module("<Zoetrope />", function (hooks) {
+  setupRenderingTest(hooks);
+
+  test("basic usage renders", async function (assert) {
+    await render(
+      <template>
+        <Zoetrope>
+          <:content>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+            <a href="#">Card</a>
+          </:content>
+        </Zoetrope>
+      </template>,
+    );
+
+    const visibleItemsAsDOMCollection = zoetrope.visibleItems();
+
+    assert.strictEqual(zoetrope.visibleItemCount(), 2);
+
+    await zoetrope.scrollRight();
+
+    await zoetrope.scrollLeft();
+  });
+});
+```

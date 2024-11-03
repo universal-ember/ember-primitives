@@ -4,7 +4,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { hash } from '@ember/helper';
 import { on } from '@ember/modifier';
-import { buildWaiter } from '@ember/test-waiters';
+import { buildWaiter, waitForPromise } from '@ember/test-waiters';
 
 import { modifier } from 'ember-modifier';
 
@@ -236,6 +236,8 @@ export class Zoetrope extends Component<Signature> {
       left: rect.left,
       behavior: this.scrollBehavior,
     });
+
+    waitForPromise(new Promise(requestAnimationFrame));
   };
 
   scrollRight = () => {
@@ -268,6 +270,8 @@ export class Zoetrope extends Component<Signature> {
       left: rect.left,
       behavior: this.scrollBehavior,
     });
+
+    waitForPromise(new Promise(requestAnimationFrame));
   };
 
   private findOverflowingElement() {

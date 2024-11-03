@@ -4,6 +4,10 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { Zoetrope } from 'ember-primitives';
 
+import { ZoetropeHelper } from 'ember-primitives/test-support';
+
+const z = new ZoetropeHelper();
+
 module('<Zoetrope />', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -18,8 +22,8 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    assert.dom('.zoetrope').exists();
-    assert.dom('.zoetrope a').exists();
+    assert.dom('.ember-primitives__zoetrope').exists();
+    assert.dom('.ember-primitives__zoetrope a').exists();
   });
 
   test('gap is applied to cards', async function (assert) {
@@ -35,7 +39,7 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    assert.dom('.zoetrope-scroller').hasStyle({ gap: '10px' });
+    assert.dom('.ember-primitives__zoetrope__scroller').hasStyle({ gap: '10px' });
   });
 
   test('offset is applied to cards', async function (assert) {
@@ -52,7 +56,7 @@ module('<Zoetrope />', function (hooks) {
     );
 
     assert
-      .dom('.zoetrope-scroller')
+      .dom('.ember-primitives__zoetrope__scroller')
       .hasStyle({ paddingLeft: '40px' })
       .hasStyle({ paddingRight: '40px' });
   });
@@ -73,7 +77,7 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    assert.dom('.zoetrope-header').hasText('Header');
+    assert.dom('.ember-primitives__zoetrope__header').hasText('Header');
   });
 
   test('no controls visible if no need to scroll', async function (assert) {
@@ -92,7 +96,7 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    assert.dom('.zoetrope-controls').doesNotExist();
+    assert.dom('.ember-primitives__zoetrope__controls').doesNotExist();
   });
 
   test('controls visible if scrolling required', async function (assert) {
@@ -116,7 +120,7 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    assert.dom('.zoetrope-controls').exists();
+    assert.dom('.ember-primitives__zoetrope__controls').exists();
   });
 
   test('can scroll right', async function (assert) {
@@ -124,7 +128,7 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .zoetrope {width: 400px;} a {width: 200px; display: block;}
+          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
         </style>
 
         <Zoetrope>
@@ -140,9 +144,9 @@ module('<Zoetrope />', function (hooks) {
       </template>
     );
 
-    await click('.zoetrope-controls button:last-child');
+    await z.scrollRight();
 
-    assert.dom('.zoetrope-scroller').hasProperty('scrollLeft', 208);
+    assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 208);
   });
 
   test('can scroll left', async function (assert) {
@@ -150,7 +154,7 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .zoetrope {width: 400px;} a {width: 200px; display: block;}
+          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
         </style>
 
         <Zoetrope>
@@ -167,11 +171,11 @@ module('<Zoetrope />', function (hooks) {
     );
 
     // scroll right first so we can scroll left
-    await click('.zoetrope-controls button:last-child');
+    await z.scrollRight();
     // now scroll left
-    await click('.zoetrope-controls button:first-child');
+    await z.scrollLeft();
 
-    assert.dom('.zoetrope-scroller').hasProperty('scrollLeft', 0);
+    assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 0);
   });
 
   test('can provide own controls', async function (assert) {

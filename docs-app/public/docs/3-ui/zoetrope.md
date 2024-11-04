@@ -294,7 +294,7 @@ import { ComponentSignature } from "kolay";
 <template>
   <ComponentSignature
     @package="ember-primitives"
-    @module="declarations/components/zoetrope"
+    @module="declarations/components/zoetrope/types"
     @name="Signature"
   />
 </template>

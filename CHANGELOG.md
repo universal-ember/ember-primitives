@@ -2,6 +2,22 @@
 
 ## Release (2024-11-04)
 
+ember-primitives 0.26.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `docs-app`
+  * [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 2
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2024-11-04)
+
 ember-primitives 0.26.0 (minor)
 
 #### :rocket: Enhancement

@@ -1,17 +1,17 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.25.0",
-      "newVersion": "0.26.0",
+      "impact": "patch",
+      "oldVersion": "0.26.0",
+      "newVersion": "0.26.1",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-11-04)\n\nember-primitives 0.26.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#394](https://github.com/universal-ember/ember-primitives/pull/394) Zoetrope component ([@evoactivity](https://github.com/evoactivity))\n\n#### :memo: Documentation\n* `docs-app`\n  * [#388](https://github.com/universal-ember/ember-primitives/pull/388) Update index.gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-11-04)\n\nember-primitives 0.26.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `docs-app`\n  * [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 2\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

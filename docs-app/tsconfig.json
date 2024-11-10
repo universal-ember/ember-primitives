@@ -1,28 +1,24 @@
 {
   "extends": "@tsconfig/ember/tsconfig.json",
+  "include": [
+    "app", "tests", "types"
+  ],
   "glint": {
     "environment": ["ember-loose", "ember-template-imports"]
   },
   "compilerOptions": {
-    // Have to use this because the glimmer types just *don't*
-    // work with pnpm and being pre v1. if we were to make them post-v1, we could maybe make progress,
-    // but there are too many scenarios where the wrong glimmer-vm dep is used for type checking,
-    // when it shouldn't be used at all (like, it's a dependency of a tool).
-    //
-    // TODO: remove this
     "skipLibCheck": true,
     "noEmit": true,
+    "noEmitOnError": false,
     "declaration": false,
     "declarationMap": false,
-    // The combination of `baseUrl` with `paths` allows Ember's classic package
-    // layout, which is not resolvable with the Node resolution algorithm, to
-    // work with TypeScript.
-    "baseUrl": ".",
     "paths": {
       "docs-app/tests/*": ["tests/*"],
       "docs-app/*": ["app/*"],
       "*": ["types/*"]
-    }
-  },
-  "include": ["app/**/*", "tests/**/*", "types/**/*"]
+    },
+    "types": [
+      "ember-source/types"
+    ]
+  }
 }

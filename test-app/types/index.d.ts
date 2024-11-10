@@ -1,5 +1,7 @@
-import 'ember-source/types';
-import 'ember-source/types/preview';
+/// <reference types="@embroider/core/virtual" />
+//
+// import 'ember-source/types';
+// import 'ember-source/types/preview';
 import '@glint/environment-ember-loose';
 
 import type { HelperLike } from '@glint/template';

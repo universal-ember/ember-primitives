@@ -1,5 +1,4 @@
 *.md
-app/templates/*.gts
 # unconventional js
 /blueprints/*/files/
 /vendor/

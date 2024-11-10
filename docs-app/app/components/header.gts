@@ -1,8 +1,9 @@
+import { Flask, GitHub } from '@universal-ember/docs-support/icons';
 import { modifier } from 'ember-modifier';
 import { ExternalLink } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
-import { Flask, GitHub, Logo, Logomark } from './icons';
+import { Logo, Logomark } from './icons';
 import { ThemeToggle } from './theme-toggle';
 
 import type { TOC } from '@ember/component/template-only';

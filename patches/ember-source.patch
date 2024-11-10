@@ -7,7 +7,7 @@ index 0d6541a86dd7d7197239e5180bfc8fa2f3133a1e..3e51c813f2032e62edacf8a6789eca05
    },
    "peerDependencies": {
 -    "@glimmer/component": "^1.1.2"
-+    "@glimmer/component": "^1.1.2 || ^2.0.0"
++    "@glimmer/component": "^2.0.0"
    },
    "engines": {
      "node": ">= 18.*"

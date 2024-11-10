@@ -78,6 +78,7 @@
     "@glint/environment-ember-template-imports": "1.4.1-unstable.34c4510",
     "@glint/template": "1.4.1-unstable.34c4510",
     "@nullvoxpopuli/eslint-configs": "^4.3.0",
+    "@rollup/plugin-babel": "^6.0.4",
     "@tailwindcss/typography": "^0.5.15",
     "@tsconfig/ember": "^3.0.5",
     "@types/babel__core": "^7.20.5",

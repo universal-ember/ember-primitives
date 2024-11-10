@@ -38,8 +38,6 @@ export default class Application extends Route {
     });
 
     await this.docs.setup({
-      apiDocs: import('kolay/api-docs:virtual'),
-      manifest: import('kolay/manifest:virtual'),
       topLevelScope: {
         Callout,
         APIDocs,

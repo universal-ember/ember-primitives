@@ -189,11 +189,10 @@ module('<Progress />', function (hooks) {
     ['array'],
     {},
     Math.sqrt(-1),
-  ]) {
+  ] as number[] /* lies for TS */) {
     test(`invalid value of ${value} is passed`, async function (assert) {
       await render(
         <template>
-          {{! @glint-ignore }}
           <Progress @value={{value}} as |x|>
             <div id="value">{{x.value}}</div>
             <div id="percent">{{x.percent}}</div>
@@ -221,7 +220,6 @@ module('<Progress />', function (hooks) {
     test(`invalid max of ${value} is passed`, async function (assert) {
       await render(
         <template>
-          {{! @glint-ignore }}
           <Progress @value={{10}} @max={{value}} as |x|>
             <div id="value">{{x.value}}</div>
             <div id="percent">{{x.percent}}</div>

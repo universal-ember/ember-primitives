@@ -1,14 +1,10 @@
 import { OopsError, PageLayout } from '@universal-ember/docs-support';
 import { Header } from 'docs-app/components/header';
-import { Nav } from 'docs-app/components/nav';
 import { ExternalLink, service } from 'ember-primitives';
 import Route from 'ember-route-template';
 
 const DocsPage = <template>
   <PageLayout>
-    <:nav as |n|>
-      <Nav @onClick={{n.close}} />
-    </:nav>
     <:header as |Toggle|>
       <Header>
         <Toggle />

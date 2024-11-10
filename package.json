@@ -52,6 +52,7 @@
       ]
     },
     "overrides": {
+      "@glimer/component": "^2.0.0",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",
       "ember-source": "^5.12.0",
@@ -59,45 +60,22 @@
       "webpack": "^5.95.0"
     },
     "packageExtensions": {
-      "@embroider/util": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "@glimmer/component": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "@glint/template": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "ember-async-data": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "ember-cached-decorator-polyfill": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "ember-element-helper": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "ember-functions-as-helper-polyfill": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
+      "@embroider/util": {},
+      "@glimmer/component": {},
+      "@glint/template": {},
+      "ember-async-data": {},
+      "ember-cached-decorator-polyfill": {},
+      "ember-element-helper": {},
+      "ember-functions-as-helper-polyfill": {},
       "ember-headless-form": {
         "dependencies": {
           "ember-async-data": "^1.0.1",
           "ember-cached-decorator-polyfill": "*"
+        }
+      },
+      "ember-modify-based-class-resource": {
+        "peerDependencies": {
+          "@glimmer/component": "^2.0.0"
         }
       },
       "ember-qunit": {
@@ -105,22 +83,18 @@
           "@ember/test-helpers": "^2.7.0 || >= 3.0.0"
         }
       },
-      "ember-repl": {
+      "ember-source": {
         "peerDependencies": {
-          "ember-source": "*",
-          "reactiveweb": "*"
+          "@glimmer/component": "^2.0.0"
         }
       },
-      "ember-resources": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      },
-      "tracked-toolbox": {
-        "peerDependencies": {
-          "ember-source": "*"
-        }
-      }
+      "ember-repl": {},
+      "ember-resources": {},
+      "tracked-toolbox": {}
+    },
+    "patchedDependencies": {
+      "ember-mobile-menu": "patches/ember-mobile-menu.patch",
+      "ember-source": "patches/ember-source.patch"
     }
   }
 }

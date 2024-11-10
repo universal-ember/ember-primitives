@@ -393,7 +393,7 @@ importers:
         version: 7.26.0
       '@embroider/addon-shim':
         specifier: ^1.8.7
-        version: 1.8.9
+        version: 1.9.0
       '@embroider/macros':
         specifier: 1.16.9
         version: 1.16.9(@babel/core@7.25.8)(@glint/template@1.5.0)
@@ -1498,6 +1498,10 @@ packages:
 
   '@embroider/addon-shim@1.8.9':
     resolution: {integrity: sha512-qyN64T1jMHZ99ihlk7VFHCWHYZHLE1DOdHi0J7lmn5waV1DoW7gD8JLi1i7FregzXtKhbDc7shyEmTmWPTs8MQ==}
+    engines: {node: 12.* || 14.* || >= 16}
+
+  '@embroider/addon-shim@1.9.0':
+    resolution: {integrity: sha512-fMzayl/licUL8VRAy4qXROKcYvHwUbV8aTh4m97L5/MRuVpxbcAy92DGGTqx5OBKCSQN3gMg+sUKeE6AviefpQ==}
     engines: {node: 12.* || 14.* || >= 16}
 
   '@embroider/babel-loader-9@3.1.1':
@@ -10792,6 +10796,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@embroider/addon-shim@1.9.0':
+    dependencies:
+      '@embroider/shared-internals': 2.8.1
+      broccoli-funnel: 3.0.8
+      common-ancestor-path: 1.0.1
+      semver: 7.6.3
+    transitivePeerDependencies:
+      - supports-color
+
   '@embroider/babel-loader-9@3.1.1(@embroider/core@3.4.19(@glint/template@1.5.0))(supports-color@8.1.1)(webpack@5.95.0)':
     dependencies:
       '@babel/core': 7.25.8(supports-color@8.1.1)
@@ -14680,7 +14693,7 @@ snapshots:
 
   ember-element-helper@0.8.6(@babel/core@7.25.8)(@glint/environment-ember-loose@1.5.0(@glimmer/component@1.1.2)(@glint/template@1.5.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.0(@babel/core@7.25.8)(ember-source@5.12.0)))(@glint/template@1.5.0)(ember-source@5.12.0):
     dependencies:
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       '@embroider/util': 1.13.2(@babel/core@7.25.8)(@glint/environment-ember-loose@1.5.0(@glimmer/component@1.1.2)(@glint/template@1.5.0)(ember-cli-htmlbars@6.3.0)(ember-modifier@4.2.0(@babel/core@7.25.8)(ember-source@5.12.0)))(@glint/template@1.5.0)(ember-source@5.12.0)
       ember-source: 5.12.0(@glimmer/component@1.1.2)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)
     transitivePeerDependencies:
@@ -20352,7 +20365,7 @@ snapshots:
 
   tracked-toolbox@2.0.0(@babel/core@7.25.8)(ember-source@5.12.0):
     dependencies:
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.25.8)
     optionalDependencies:
       ember-source: 5.12.0(@glimmer/component@1.1.2)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)

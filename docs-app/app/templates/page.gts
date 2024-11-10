@@ -24,7 +24,7 @@ const DocsPage = <template>
     <:editLink as |Link|>
       {{#let (service "kolay/docs") as |docs|}}
         <Link
-          href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{docs.selected.path}}.md"
+          @href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{docs.selected.path}}.md"
         >
           Edit this page
         </Link>

@@ -1,7 +1,14 @@
 import { Article, H2, IndexPage, InternalLink, Link, Text } from '@universal-ember/docs-support';
+import {
+  BlueSky,
+  Discord,
+  GitHub,
+  Mastodon,
+  Threads,
+  XTwitter,
+} from '@universal-ember/docs-support/icons';
 import { TopRight } from 'docs-app/components/header';
 import { Logo } from 'docs-app/components/icons';
-import { BlueSky, Discord, GitHub, Mastodon, Threads, XTwitter } from 'docs-app/components/icons';
 import { ExternalLink } from 'ember-primitives/components/external-link';
 import Route from 'ember-route-template';
 

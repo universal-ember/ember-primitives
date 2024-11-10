@@ -2,8 +2,8 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
-import { Callout } from 'docs-app/components/callout';
 import { setupTabster } from 'ember-primitives/tabster';
+import { Callout } from '@universal-ember/docs-support';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
 

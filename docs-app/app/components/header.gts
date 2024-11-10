@@ -1,10 +1,10 @@
+import { ThemeToggle } from '@universal-ember/docs-support';
 import { Flask, GitHub } from '@universal-ember/docs-support/icons';
 import { modifier } from 'ember-modifier';
 import { ExternalLink } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { Logo, Logomark } from './icons';
-import { ThemeToggle } from './theme-toggle';
 
 import type { TOC } from '@ember/component/template-only';
 

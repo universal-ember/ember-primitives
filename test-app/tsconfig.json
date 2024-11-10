@@ -11,9 +11,9 @@
     "declaration": false,
     "declarationMap": false,
     "paths": {
-      "test-app/tests/*": ["tests/*"],
-      "test-app/*": ["app/*"],
-      "*": ["types/*"]
+      "test-app/tests/*": ["./tests/*"],
+      "test-app/*": ["./app/*"],
+      "*": ["./types/*"]
     },
     "types": ["ember-source/types"]
   }

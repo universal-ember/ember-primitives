@@ -102,7 +102,8 @@
     },
     "patchedDependencies": {
       "ember-mobile-menu": "patches/ember-mobile-menu.patch",
-      "ember-source": "patches/ember-source.patch"
+      "ember-source": "patches/ember-source.patch",
+      "ember-headless-form": "patches/ember-headless-form.patch"
     }
   }
 }

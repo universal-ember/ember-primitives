@@ -1,7 +1,4 @@
 import 'decorator-transforms/globals';
-import './css/styles.css';
-import 'inter-ui/inter-variable-latin.css';
-import '@fontsource/lexend';
 
 import Application from '@ember/application';
 import compatModules from '@embroider/virtual/compat-modules';

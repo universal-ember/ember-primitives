@@ -40,7 +40,7 @@ const aliasPlugin = {
 
 const optimization = optimizeDeps();
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(async ({ mode }) => {
   return {
     resolve: {
       extensions,
@@ -81,6 +81,12 @@ export default defineConfig(({ mode }) => {
       },
     },
 
+    css: {
+      // postcss: await import("./config/postcss.config.mjs"),
+      postcss: {
+        plugins: ["postcss-import", await import("./config/tailwind.config.mjs"), "autoprefixer"],
+      },
+    },
     esbuild: {
       supported: {
         "top-level-await": true,

@@ -10,6 +10,7 @@ import {
 } from "@embroider/vite";
 
 import { babel } from "@rollup/plugin-babel";
+import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
 
 const extensions = [".mjs", ".gjs", ".js", ".mts", ".gts", ".ts", ".hbs", ".json"];
@@ -20,10 +21,10 @@ const aliasPlugin = {
     // Intercept import paths called "env" so esbuild doesn't attempt
     // to map them to a file system location. Tag them with the "env-ns"
     // namespace to reserve them for this plugin.
-    build.onResolve({ filter: /^kolay.*:virtual$/ }, (args) => ({
-      path: args.path,
-      external: true,
-    }));
+    // build.onResolve({ filter: /^kolay.*:virtual$/ }, (args) => ({
+    //   path: args.path,
+    //   external: true,
+    // }));
 
     build.onResolve({ filter: /ember-template-compiler/ }, () => ({
       path: "ember-source/dist/ember-template-compiler",
@@ -48,6 +49,16 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
+      kolay({
+        src: "public/docs",
+        groups: [
+          {
+            name: "Runtime",
+            src: "./node_modules/kolay/docs",
+          },
+        ],
+        packages: ["kolay", "ember-primitives", "ember-resources"],
+      }),
       hbs(),
       templateTag(),
       scripts(),

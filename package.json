@@ -67,15 +67,6 @@
       "ember-cached-decorator-polyfill": {},
       "ember-element-helper": {},
       "ember-functions-as-helper-polyfill": {},
-      "ember-headless-form": {
-        "peerDependencies": {
-          "@glimmer/component": "^2.0.0"
-        },
-        "dependencies": {
-          "ember-async-data": "^1.0.1",
-          "ember-cached-decorator-polyfill": "*"
-        }
-      },
       "ember-mobile-menu": {
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"
@@ -102,8 +93,7 @@
     },
     "patchedDependencies": {
       "ember-mobile-menu": "patches/ember-mobile-menu.patch",
-      "ember-source": "patches/ember-source.patch",
-      "ember-headless-form": "patches/ember-headless-form.patch"
+      "ember-source": "patches/ember-source.patch"
     }
   }
 }

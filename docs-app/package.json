@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@shikijs/rehype": "^1.2.0",
-    "@universal-ember/docs-support": "github:universal-ember/docs-support#1200c44",
+    "@universal-ember/docs-support": "github:universal-ember/docs-support#c7f6318",
     "assert": "^2.0.0",
     "change-case": "^5.4.4",
     "decorator-transforms": "^2.3.0",

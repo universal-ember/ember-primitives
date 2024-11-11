@@ -82,10 +82,11 @@ export default defineConfig(async ({ mode }) => {
     },
 
     css: {
+      postcss: "./config/postcss.config.mjs",
       // postcss: await import("./config/postcss.config.mjs"),
-      postcss: {
-        plugins: ["postcss-import", await import("./config/tailwind.config.mjs"), "autoprefixer"],
-      },
+      // postcss: {
+      //   plugins: ["postcss-import", await import("./config/tailwind.config.mjs"), "autoprefixer"],
+      // },
     },
     esbuild: {
       supported: {

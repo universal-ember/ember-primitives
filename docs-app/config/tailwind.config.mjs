@@ -1,8 +1,9 @@
 import { join } from "node:path";
-import { config } from "@universal-ember/docs-support/tailwind";
+import { config as docsSupport } from "@universal-ember/docs-support/tailwind";
 
 const appRoot = join(import.meta.dirname, "../");
+const config = await docsSupport(appRoot, {
+  packages: ["@universal-ember/docs-support"],
+});
 
-const ourConfig = config(appRoot);
-console.log({ ourConfig})
-export default ourConfig;
+export default config;

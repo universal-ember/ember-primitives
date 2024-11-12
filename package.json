@@ -54,6 +54,7 @@
     },
     "overrides": {
       "@glimer/component": "^2.0.0",
+      "@glint/template": "^1.5.0",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",

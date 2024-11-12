@@ -26,7 +26,7 @@
     "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
   },
   "dependencies": {
-    "ember-primitives": "workspace:*",
+    "ember-primitives": "workspace:^",
     "ember-resources": "^7.0.0",
     "ember-route-template": "^1.0.3",
     "qunit-assertions-extra": "^1.0.3"
@@ -54,7 +54,7 @@
     "@glint/core": "1.4.1-unstable.34c4510",
     "@glint/environment-ember-loose": "1.4.1-unstable.34c4510",
     "@glint/environment-ember-template-imports": "1.4.1-unstable.34c4510",
-    "@glint/template": "1.4.1-unstable.34c4510",
+    "@glint/template": "^1.5.0",
     "@nullvoxpopuli/eslint-configs": "^4.3.0",
     "@rollup/plugin-babel": "^6.0.4",
     "@tsconfig/ember": "^3.0.5",

@@ -27,7 +27,7 @@
     "_syncPnpm": "pnpm sync-dependencies-meta-injected"
   },
   "dependencies": {
-    "@shikijs/rehype": "^1.2.0",
+    "@shikijs/rehype": "^1.22.2",
     "@universal-ember/docs-support": "github:universal-ember/docs-support#5893b18",
     "assert": "^2.0.0",
     "change-case": "^5.4.4",
@@ -46,7 +46,7 @@
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
     "reactiveweb": "^1.2.2",
-    "shiki": "^1.2.0",
+    "shiki": "^1.22.2",
     "should-handle-link": "^1.2.2",
     "tracked-built-ins": "^3.2.0"
   },

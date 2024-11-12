@@ -8,18 +8,33 @@ import {
   scripts,
   templateTag,
 } from "@embroider/vite";
+import { createRequire } from "node:module";
 
 import { babel } from "@rollup/plugin-babel";
 import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
+
+const require = createRequire(import.meta.url);
 
 const extensions = [".mjs", ".gjs", ".js", ".mts", ".gts", ".ts", ".hbs", ".json"];
 
 const aliasPlugin = {
   name: "deal-with-weird-pre-official-runtime-compiler",
   setup(build) {
+    // Intercept import paths called "env" so esbuild doesn't attempt
+    // to map them to a file system location. Tag them with the "env-ns"
+    // namespace to reserve them for this plugin.
+    build.onResolve({ filter: /^kolay.*:virtual$/ }, (args) => ({
+      path: args.path,
+      external: true,
+    }));
+
     build.onResolve({ filter: /ember-template-compiler/ }, () => ({
-      path: "ember-source/dist/ember-template-compiler",
+      path: require.resolve("ember-source/dist/ember-template-compiler"),
+    }));
+
+    build.onResolve({ filter: /content-tag$/ }, () => ({
+      path: "content-tag",
       external: true,
     }));
   },
@@ -38,6 +53,7 @@ export default defineConfig(async ({ mode }) => {
     plugins: [
       kolay({
         src: "public/docs",
+        groups: [],
         packages: ["ember-primitives"],
       }),
       hbs(),
@@ -55,7 +71,6 @@ export default defineConfig(async ({ mode }) => {
     ],
     optimizeDeps: {
       ...optimization,
-      exclude: ["content-tag", "ember-repl", "kolay"],
       esbuildOptions: {
         ...optimization.esbuildOptions,
         target: "esnext",
@@ -79,6 +94,7 @@ export default defineConfig(async ({ mode }) => {
     },
     build: {
       outDir: "dist",
+      target: "esnext",
       rollupOptions: {
         input: {
           main: "index.html",

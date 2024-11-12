@@ -31,6 +31,7 @@
     "@universal-ember/docs-support": "github:universal-ember/docs-support#5893b18",
     "assert": "^2.0.0",
     "change-case": "^5.4.4",
+    "content-tag": "^3.0.0",
     "decorator-transforms": "^2.3.0",
     "ember-focus-trap": "^1.1.0",
     "ember-mobile-menu": "^5.1.0",

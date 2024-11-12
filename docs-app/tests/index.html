@@ -34,13 +34,13 @@
     <script type="module">
       window.Buffer = globalThis.Buffer = { isBuffer: () => false };
 
-      let response = await fetch('/kolay-manifest/manifest.json');
+      let response = await fetch("/kolay-manifest/manifest.json");
       let json = await response.json();
       let pages = json.groups[0].list;
 
       // The accessibility page deliberately
       // has violations for demonstration
-      window.__pages__ = pages.filter(page => !page.path.includes('accessibility'));
+      window.__pages__ = pages.filter((page) => !page.path.includes("accessibility"));
     </script>
     <script type="module">
       import { start } from "./test-helper";

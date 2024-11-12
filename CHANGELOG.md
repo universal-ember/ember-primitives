@@ -1,5 +1,27 @@
 # Changelog 
 
+## Release (2024-11-12)
+
+ember-primitives 0.26.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#406](https://github.com/universal-ember/ember-primitives/pull/406) Fix peerDependency range for ember-source. Was accidentally bumped to >= 5.12, should be >= 4.12 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `docs-app`
+  * [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))
+
+#### :house: Internal
+* `ember-primitives`
+  * [#398](https://github.com/universal-ember/ember-primitives/pull/398) Prepare Release ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### Committers: 3
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- [@github-actions[bot]](https://github.com/apps/github-actions)
+
 ## Release (2024-11-04)
 
 ember-primitives 0.26.1 (patch)

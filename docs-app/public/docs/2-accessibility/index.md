@@ -54,7 +54,10 @@ import{ setupTabster } from 'ember-primitives/tabster';
 
 export default class Application extends Route {
   async beforeModel() {
-    await setupTabster();
+    // the 'this' is passed so that tabster is cleaned up
+    // when the route (or in this case: application)
+    // is destroyed  or unmounted
+    await setupTabster(this);
   }
 }
 ```
@@ -62,9 +65,9 @@ export default class Application extends Route {
 This is customizable, in case your application already uses tabster -- you may pass options to the `setup()` method:
 ```ts
 // To use your own tabster
-await setupTabster({ tabster: myTabsterCoreInstance });
+await setupTabster(this, { tabster: myTabsterCoreInstance });
 // To specify your own "tabster root" 
-await setupTabster({ setTabsterRoot: false });
+await setupTabster(this, { setTabsterRoot: false });
 ```
 
 The tabster root is an element which which tells tabster to pay attention for tabster-using features.

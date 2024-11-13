@@ -15,16 +15,11 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { Menu, PortalTargets } from 'ember-primitives';
 
-import type { SetupService } from 'ember-primitives';
+import { setupTabster } from 'ember-primitives/test-support';
 
 module('Rendering | menu', function (hooks) {
   setupRenderingTest(hooks);
-
-  hooks.beforeEach(async function () {
-    let primitivesService = this.owner.lookup('service:ember-primitives/setup') as SetupService;
-
-    primitivesService.setup();
-  });
+  setupTabster(hooks);
 
   // due to the way tabster works, we have to wait a bit for the focus to be correctly set
   function waitForFocus(selector: string) {

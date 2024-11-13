@@ -1,4 +1,5 @@
 /// <reference types="@embroider/core/virtual" />
+import 'kolay/virtual';
 //
 // import 'ember-source/types';
 // import 'ember-source/types/preview';

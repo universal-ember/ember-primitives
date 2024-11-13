@@ -38,4 +38,3 @@ export { Toggle } from './components/toggle.gts';
 export { ToggleGroup } from './components/toggle-group.gts';
 export { Zoetrope } from './components/zoetrope.ts';
 export * from './helpers.ts';
-export type { default as SetupService } from './services/ember-primitives/setup.ts';

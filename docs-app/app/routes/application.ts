@@ -3,20 +3,19 @@ import { service } from '@ember/service';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
 import { Callout } from 'docs-app/components/callout';
+import { setupTabster } from 'ember-primitives/tabster';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
 
 import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
 
-import type { SetupService } from 'ember-primitives';
 import type { DocsService } from 'kolay';
 
 export default class Application extends Route {
   @service('kolay/docs') declare docs: DocsService;
-  @service('ember-primitives/setup') declare primitives: SetupService;
 
-  beforeModel() {
-    this.primitives.setup();
+  async beforeModel() {
+    await setupTabster(this);
   }
 
   async model() {

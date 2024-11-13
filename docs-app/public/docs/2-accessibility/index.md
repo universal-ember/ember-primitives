@@ -44,20 +44,20 @@ This only happens during development, and in production, the CSS that applies th
 
 ## Keyboard Support
 
-ember-primitives uses _The Platform_ where possible and implements W3C recommendations for patterns where _The Platform_ does not provide solutions. To help lift the burden of maintenance for keyboard support implementation, ember-primitives uses [tabster](https://tabster.io/) for adding that additional keyboard support.
+ember-primitives uses _The Platform_ where possible and implements W3C recommendations for patterns where _The Platform_ does not provide solutions. To help lift the burden of maintenance for keyboard support implementation, ember-primitives uses [tabster](https://tabster.io/) for adding that additional keyboard support. Using tabster is optional, and is not included in your build if you don't use the below setup instructions (for example, if you had a different keyboard manager in your project and wanted to use that)
 
-This keyboard support is enabled by default but does require initialization. You can initialize keyboard support in your application router by calling the `setup()` method on the `ember-primitives/setup` service:
+This keyboard support is enabled by default but does require initialization. You can initialize keyboard support in your application router by calling the `setupTabster()` function:
 ```ts
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-
-import type { SetupService } from 'ember-primitives';
+import{ setupTabster } from 'ember-primitives/tabster';
 
 export default class Application extends Route {
-  @service('ember-primitives/setup') declare primitives: SetupService;
-
-  beforeModel() {
-    this.primitives.setup();
+  async beforeModel() {
+    // the 'this' is passed so that tabster is cleaned up
+    // when the route (or in this case: application)
+    // is destroyed  or unmounted
+    await setupTabster(this);
   }
 }
 ```
@@ -65,9 +65,9 @@ export default class Application extends Route {
 This is customizable, in case your application already uses tabster -- you may pass options to the `setup()` method:
 ```ts
 // To use your own tabster
-this.primitives.setup({ tabster: myTabsterCoreInstance });
+await setupTabster(this, { tabster: myTabsterCoreInstance });
 // To specify your own "tabster root" 
-this.primitives.setup({ setTabsterRoot: false });
+await setupTabster(this, { setTabsterRoot: false });
 ```
 
 The tabster root is an element which which tells tabster to pay attention for tabster-using features.

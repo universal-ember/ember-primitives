@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-11-13)
+
+ember-primitives 0.27.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#407](https://github.com/universal-ember/ember-primitives/pull/407) [Breaking] Make tabster not required. new import for setting up tabster, and it's async. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-11-12)
 
 ember-primitives 0.26.2 (patch)

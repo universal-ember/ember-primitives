@@ -1,21 +1,17 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.26.1",
-      "newVersion": "0.26.2",
+      "impact": "minor",
+      "oldVersion": "0.26.2",
+      "newVersion": "0.27.0",
       "constraints": [
         {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-11-12)\n\nember-primitives 0.26.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#406](https://github.com/universal-ember/ember-primitives/pull/406) Fix peerDependency range for ember-source. Was accidentally bumped to >= 5.12, should be >= 4.12 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `docs-app`\n  * [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#398](https://github.com/universal-ember/ember-primitives/pull/398) Prepare Release ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### Committers: 3\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n- [@github-actions[bot]](https://github.com/apps/github-actions)\n"
+  "description": "## Release (2024-11-13)\n\nember-primitives 0.27.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#407](https://github.com/universal-ember/ember-primitives/pull/407) [Breaking] Make tabster not required. new import for setting up tabster, and it's async. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

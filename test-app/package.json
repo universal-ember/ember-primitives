@@ -20,9 +20,9 @@
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
-    "start": "pnpm _syncPnpm && concurrently 'ember serve' 'pnpm _syncPnpm --watch' --names 'tests serve,tests sync deps'",
-    "test": "ember test",
-    "test:ember": "ember test",
+    "start": "pnpm _syncPnpm && concurrently 'vite' 'pnpm _syncPnpm --watch' --names 'tests serve,tests sync deps'",
+    "test": "vite build --mode test && ember test --path dist",
+    "test:ember": "vite build --mode test && ember test --path dist",
     "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
   },
   "dependencies": {

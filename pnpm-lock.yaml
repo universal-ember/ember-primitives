@@ -105,8 +105,8 @@ importers:
         specifier: ^1.22.2
         version: 1.22.2
       '@universal-ember/docs-support':
-        specifier: github:universal-ember/docs-support#5893b18
-        version: https://codeload.github.com/universal-ember/docs-support/tar.gz/5893b18(@babel/core@7.25.8)(@ember/test-helpers@4.0.4(@babel/core@7.25.8)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)))(@glimmer/compiler@0.92.4)(@glimmer/component@2.0.0)(@glimmer/syntax@0.92.3)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0))(typescript@5.6.3)(webpack-sources@3.2.3)(webpack@5.95.0)
+        specifier: github:universal-ember/docs-support#e5bcbb0
+        version: https://codeload.github.com/universal-ember/docs-support/tar.gz/e5bcbb0(@babel/core@7.25.8)(@ember/test-helpers@4.0.4(@babel/core@7.25.8)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)))(@glimmer/compiler@0.92.4)(@glimmer/component@2.0.0)(@glimmer/syntax@0.92.3)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0))(typescript@5.6.3)(webpack-sources@3.2.3)(webpack@5.95.0)
       assert:
         specifier: ^2.0.0
         version: 2.1.0
@@ -3076,8 +3076,8 @@ packages:
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  '@universal-ember/docs-support@https://codeload.github.com/universal-ember/docs-support/tar.gz/5893b18':
-    resolution: {tarball: https://codeload.github.com/universal-ember/docs-support/tar.gz/5893b18}
+  '@universal-ember/docs-support@https://codeload.github.com/universal-ember/docs-support/tar.gz/e5bcbb0':
+    resolution: {tarball: https://codeload.github.com/universal-ember/docs-support/tar.gz/e5bcbb0}
     version: 0.0.0
     peerDependencies:
       ember-source: ^5.12.0
@@ -12854,7 +12854,7 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@universal-ember/docs-support@https://codeload.github.com/universal-ember/docs-support/tar.gz/5893b18(@babel/core@7.25.8)(@ember/test-helpers@4.0.4(@babel/core@7.25.8)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)))(@glimmer/compiler@0.92.4)(@glimmer/component@2.0.0)(@glimmer/syntax@0.92.3)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0))(typescript@5.6.3)(webpack-sources@3.2.3)(webpack@5.95.0)':
+  '@universal-ember/docs-support@https://codeload.github.com/universal-ember/docs-support/tar.gz/e5bcbb0(@babel/core@7.25.8)(@ember/test-helpers@4.0.4(@babel/core@7.25.8)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)))(@glimmer/compiler@0.92.4)(@glimmer/component@2.0.0)(@glimmer/syntax@0.92.3)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0))(typescript@5.6.3)(webpack-sources@3.2.3)(webpack@5.95.0)':
     dependencies:
       '@embroider/addon-shim': 1.9.0
       '@fontsource/lexend': 5.1.1

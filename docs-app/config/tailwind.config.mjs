@@ -6,4 +6,8 @@ const config = await docsSupport(appRoot, {
   packages: ["@universal-ember/docs-support"],
 });
 
-export default config;
+// console.log(config);
+
+export default {
+  ...config,
+};

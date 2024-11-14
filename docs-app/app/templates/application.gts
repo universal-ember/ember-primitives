@@ -1,28 +1,13 @@
-import 'ember-mobile-menu/themes/android';
-import './layout.css';
-
+import { Shell } from '@universal-ember/docs-support';
 import pageTitle from 'ember-page-title/helpers/page-title';
-import { colorScheme } from 'ember-primitives/color-scheme';
 import Route from 'ember-route-template';
 
-const Application =
+export default Route(
   <template>
-    {{pageTitle "ember-primitives"}}
-    {{(syncBodyClass)}}
+    <Shell>
+      {{pageTitle "ember-primitives"}}
 
-    {{outlet}}
+      {{outlet}}
+    </Shell>
   </template>
-
-export default Route(Application);
-
-function isDark() {
-  return colorScheme.current === 'dark';
-}
-
-function syncBodyClass() {
-  if (isDark()) {
-    document.body.classList.add('dark');
-  } else {
-    document.body.classList.remove('dark');
-  }
-}
+);

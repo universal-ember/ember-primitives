@@ -1,0 +1,13 @@
+diff --git a/package.json b/package.json
+index 0d6541a86dd7d7197239e5180bfc8fa2f3133a1e..3e51c813f2032e62edacf8a6789eca051c10c7b9 100644
+--- a/package.json
++++ b/package.json
+@@ -168,7 +168,7 @@
+     }
+   },
+   "peerDependencies": {
+-    "@glimmer/component": "^1.1.2"
++    "@glimmer/component": "^2.0.0"
+   },
+   "engines": {
+     "node": ">= 18.*"

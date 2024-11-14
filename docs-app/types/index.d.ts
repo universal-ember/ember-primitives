@@ -1,5 +1,8 @@
-import 'ember-source/types';
-import 'ember-source/types/preview';
+/// <reference types="@embroider/core/virtual" />
+import 'kolay/virtual';
+//
+// import 'ember-source/types';
+// import 'ember-source/types/preview';
 import 'ember-cached-decorator-polyfill';
 import '@glint/environment-ember-loose';
 

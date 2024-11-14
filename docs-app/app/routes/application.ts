@@ -1,19 +1,15 @@
 import Route from '@ember/routing/route';
-import { service } from '@ember/service';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
-import { Callout } from 'docs-app/components/callout';
+import { Callout } from '@universal-ember/docs-support';
 import { setupTabster } from 'ember-primitives/tabster';
+import { setupKolay } from 'kolay/setup';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
 
 import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
 
-import type { DocsService } from 'kolay';
-
 export default class Application extends Route {
-  @service('kolay/docs') declare docs: DocsService;
-
   async beforeModel() {
     await setupTabster(this);
   }
@@ -37,9 +33,7 @@ export default class Application extends Route {
       loadWasm: getWasm,
     });
 
-    await this.docs.setup({
-      apiDocs: import('kolay/api-docs:virtual'),
-      manifest: import('kolay/manifest:virtual'),
+    const manifest = await setupKolay(this, {
       topLevelScope: {
         Callout,
         APIDocs,
@@ -55,7 +49,6 @@ export default class Application extends Route {
 
         // community libraries
         'ember-resources': import('ember-resources'),
-        'ember-headless-form': import('ember-headless-form'),
         'reactiveweb/remote-data': import('reactiveweb/remote-data'),
         // @ts-expect-error - no types provided
         'ember-focus-trap/modifiers/focus-trap': import('ember-focus-trap/modifiers/focus-trap'),
@@ -69,7 +62,6 @@ export default class Application extends Route {
       },
       rehypePlugins: [
         [
-          // @ts-expect-error - shiki may have the wrong type, since the other plugins are fine
           rehypeShikiFromHighlighter,
           highlighter,
           {
@@ -84,6 +76,6 @@ export default class Application extends Route {
       ],
     });
 
-    return { manifest: this.docs.manifest };
+    return { manifest };
   }
 }

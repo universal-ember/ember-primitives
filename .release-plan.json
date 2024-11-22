@@ -1,17 +1,21 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.26.2",
-      "newVersion": "0.27.0",
+      "impact": "patch",
+      "oldVersion": "0.27.0",
+      "newVersion": "0.27.1",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2024-11-13)\n\nember-primitives 0.27.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#407](https://github.com/universal-ember/ember-primitives/pull/407) [Breaking] Make tabster not required. new import for setting up tabster, and it's async. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2024-11-22)\n\nember-primitives 0.27.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#415](https://github.com/universal-ember/ember-primitives/pull/415) Remove included app styles ([@evoactivity](https://github.com/evoactivity))\n\n#### :memo: Documentation\n* `docs-app`\n  * [#411](https://github.com/universal-ember/ember-primitives/pull/411) Make tabster loading parallel ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#410](https://github.com/universal-ember/ember-primitives/pull/410) Try to make font loading faster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#412](https://github.com/universal-ember/ember-primitives/pull/412) Use published version of docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`\n  * [#401](https://github.com/universal-ember/ember-primitives/pull/401) Use components from docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

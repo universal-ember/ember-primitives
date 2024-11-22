@@ -37,9 +37,4 @@
     flex-shrink: 0;
     scroll-snap-align: start;
   }
-
-  &:focus {
-    outline: 1px dotted var(--ekto-colors-focus);
-    outline-offset: -1px;
-  }
 }

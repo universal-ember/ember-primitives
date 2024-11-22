@@ -1,5 +1,25 @@
 # Changelog 
 
+## Release (2024-11-22)
+
+ember-primitives 0.27.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#415](https://github.com/universal-ember/ember-primitives/pull/415) Remove included app styles ([@evoactivity](https://github.com/evoactivity))
+
+#### :memo: Documentation
+* `docs-app`
+  * [#411](https://github.com/universal-ember/ember-primitives/pull/411) Make tabster loading parallel ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#410](https://github.com/universal-ember/ember-primitives/pull/410) Try to make font loading faster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#412](https://github.com/universal-ember/ember-primitives/pull/412) Use published version of docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#401](https://github.com/universal-ember/ember-primitives/pull/401) Use components from docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-11-13)
 
 ember-primitives 0.27.0 (minor)

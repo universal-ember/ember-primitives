@@ -419,7 +419,7 @@ importers:
         version: 1.16.9(@babel/core@7.25.8)(@glint/template@1.5.0)
       '@floating-ui/dom':
         specifier: ^1.5.3
-        version: 1.6.11
+        version: 1.6.12
       decorator-transforms:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.25.8)
@@ -628,7 +628,7 @@ importers:
         version: 0.2.1-unstable.c51ca2b(@embroider/core@3.4.16-unstable.c51ca2b(@glint/template@1.5.0))(@glint/template@1.5.0)(rollup@4.25.0)(vite@5.4.11(@types/node@22.7.5)(terser@5.34.1))
       '@floating-ui/dom':
         specifier: ^1.5.3
-        version: 1.6.11
+        version: 1.6.12
       '@glimmer/component':
         specifier: ^2.0.0
         version: 2.0.0
@@ -2008,6 +2008,9 @@ packages:
 
   '@floating-ui/dom@1.6.11':
     resolution: {integrity: sha512-qkMCxSR24v2vGkhYDo/UzxfJN3D4syqSjyuTFz6C7XcpU1pASPRieNI0Kj5VP3/503mOfYiGY891ugBX1GlABQ==}
+
+  '@floating-ui/dom@1.6.12':
+    resolution: {integrity: sha512-NP83c0HjokcGVEMeoStg317VD9W7eDlGK7457dMBANbKA6GJZdc7rjujdgqzTaz93jkGgc5P/jeWbaCHnMNc+w==}
 
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
@@ -11533,6 +11536,11 @@ snapshots:
       '@floating-ui/utils': 0.2.8
 
   '@floating-ui/dom@1.6.11':
+    dependencies:
+      '@floating-ui/core': 1.6.8
+      '@floating-ui/utils': 0.2.8
+
+  '@floating-ui/dom@1.6.12':
     dependencies:
       '@floating-ui/core': 1.6.8
       '@floating-ui/utils': 0.2.8

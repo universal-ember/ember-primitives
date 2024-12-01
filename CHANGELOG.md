@@ -1,5 +1,10 @@
 # Changelog 
 
+
+
+
+
+
 ## Release (2024-11-22)
 
 ember-primitives 0.27.1 (patch)

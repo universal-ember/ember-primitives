@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2024-12-15)
+
+ember-primitives 0.27.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#420](https://github.com/universal-ember/ember-primitives/pull/420) Widen @glint/template range to include unstable ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-11-22)
 
 ember-primitives 0.27.1 (patch)

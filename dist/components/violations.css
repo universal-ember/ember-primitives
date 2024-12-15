@@ -1,0 +1,105 @@
+span[data-prim-avatar]:has(img[alt="__missing__"])::after,
+[aria-label="__missing__"] {
+  border: red;
+}
+label [aria-label="__missing__"] {
+  border: unset;
+}
+
+/**
+ * ExternalLink
+ */
+a[href='##missing##'],
+/**
+ * Avatar
+ */
+span[data-prim-avatar]:has(img[alt='__missing__'])::after,
+/**
+ * Switch
+ */
+div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"] {
+  position: relative;
+  border: 1px solid black;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+  min-width: 10px;
+}
+
+:is(
+  /**
+   * ExternalLink
+   */
+  a[href='##missing##'],
+  /**
+   * Avatar
+   */
+  span[data-prim-avatar]:has(img[alt='__missing__'])::after,
+  /**
+   * Switch
+   */
+  div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
+)::after {
+  color: red;
+  position: absolute;
+  font-size: 0.75rem;
+  font-family: monospace;
+  background: black;
+  padding: 0.125rem 0.25rem;
+  display: flex;
+  border-radius: 0.125rem;
+  transform: translate(0.5rem, 1rem);
+  left: 0;
+  bottom: 0;
+  width: max-content;
+  z-index: 10000000000000000;
+}
+
+a[href="##missing##"]::after {
+  content: "empty href";
+}
+
+span[data-prim-avatar]:has(img[alt="__missing__"])::after {
+  content: "missing alt";
+}
+
+div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]::after {
+  content: "missing label";
+}
+
+@media (prefers-color-scheme: light) {
+  :is(
+      a[href="##missing##"],
+      span[data-prim-avatar]:has(img[alt="__missing__"]),
+      div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
+    ) {
+    border-color: black;
+  }
+  :is(
+      a[href="##missing##"],
+      span[data-prim-avatar]:has(img[alt="__missing__"]),
+      div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
+    ):after {
+    background: white;
+    border: 1px solid black;
+    color: darkred;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :is(
+      a[href="##missing##"],
+      span[data-prim-avatar]:has(img[alt="__missing__"]),
+      div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
+    ) {
+    border-color: red;
+  }
+  :is(
+      a[href="##missing##"],
+      span[data-prim-avatar]:has(img[alt="__missing__"]),
+      div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
+    ):after {
+    background: #222;
+    border: 1px solid red;
+    color: red;
+  }
+}

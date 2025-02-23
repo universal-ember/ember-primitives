@@ -1,17 +1,8 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.27.1",
-      "newVersion": "0.27.2",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        }
-      ],
-      "pkgJSONPath": "./ember-primitives/package.json"
+      "oldVersion": "0.27.2"
     }
   },
-  "description": "## Release (2024-12-15)\n\nember-primitives 0.27.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#420](https://github.com/universal-ember/ember-primitives/pull/420) Widen @glint/template range to include unstable ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "\n\n\n\n"
 }

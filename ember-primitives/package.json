@@ -45,7 +45,7 @@
     "reactiveweb": "^1.2.2",
     "should-handle-link": "^1.2.2",
     "tabster": "^8.2.0",
-    "tracked-built-ins": "^3.2.0",
+    "tracked-built-ins": "^4.0.0",
     "tracked-toolbox": "^2.0.0"
   },
   "devDependencies": {

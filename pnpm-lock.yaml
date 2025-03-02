@@ -160,7 +160,7 @@ importers:
         version: 1.0.1
       reactiveweb:
         specifier: ^1.2.2
-        version: 1.3.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
+        version: 1.4.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       shiki:
         specifier: ^1.22.2
         version: 1.22.2
@@ -431,7 +431,7 @@ importers:
         version: 0.6.0
       reactiveweb:
         specifier: ^1.2.2
-        version: 1.3.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
+        version: 1.4.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       should-handle-link:
         specifier: ^1.2.2
         version: 1.3.0
@@ -8234,8 +8234,8 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  reactiveweb@1.3.0:
-    resolution: {integrity: sha512-+HIF4nW2iiHrZYvMyaFJopL/ljEW8e8s9HS+I6kAtSeJqtJtox577qviywU8ffHRmHPZP4owTlSWg3F4nAj4Vg==}
+  reactiveweb@1.4.0:
+    resolution: {integrity: sha512-Me8I5TKBL+72PHV7tadyzXBlWwMgNcwq3WwmIhSJPhE3egNLM1o5ZGhs8+dE9B1ucx4HgbOEuqZ1WvDESioxdQ==}
     peerDependencies:
       '@ember/test-waiters': '>= 3.1.0'
       ember-source: ^5.12.0
@@ -11985,11 +11985,11 @@ snapshots:
   '@npmcli/fs@1.1.1':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.7.1
+      semver: 7.6.3
 
   '@npmcli/fs@3.1.1':
     dependencies:
-      semver: 7.7.1
+      semver: 7.6.3
 
   '@npmcli/git@5.0.8':
     dependencies:
@@ -14820,7 +14820,7 @@ snapshots:
   ember-async-data@1.0.3(@babel/core@7.25.8)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)):
     dependencies:
       '@ember/test-waiters': 3.1.0(@babel/core@7.25.8)
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       ember-source: 5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)
     transitivePeerDependencies:
       - '@babel/core'
@@ -15408,7 +15408,7 @@ snapshots:
       ember-resources: 7.0.2(@babel/core@7.25.8)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       ember-source: 5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)(webpack@5.95.0)
       form-data-utils: 0.6.0
-      reactiveweb: 1.3.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
+      reactiveweb: 1.4.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       should-handle-link: 1.3.0
       tabster: 8.2.0
       tracked-built-ins: 3.4.0(@babel/core@7.25.8)
@@ -15925,7 +15925,7 @@ snapshots:
   eslint-compat-utils@0.5.1(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
-      semver: 7.7.1
+      semver: 7.6.3
 
   eslint-config-prettier@9.1.0(eslint@8.57.1):
     dependencies:
@@ -17846,7 +17846,7 @@ snapshots:
       globby: 14.0.2
       json5: 2.2.3
       package-up: 5.0.0
-      reactiveweb: 1.3.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
+      reactiveweb: 1.4.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       send: 1.1.0
       tracked-built-ins: 3.4.0(@babel/core@7.25.8)
       typedoc: 0.26.9(typescript@5.6.3)
@@ -18769,7 +18769,7 @@ snapshots:
       make-fetch-happen: 13.0.1
       nopt: 7.2.1
       proc-log: 4.2.0
-      semver: 7.7.1
+      semver: 7.6.3
       tar: 6.2.1
       which: 4.0.0
     transitivePeerDependencies:
@@ -19559,12 +19559,12 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  reactiveweb@1.3.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)):
+  reactiveweb@1.4.0(@babel/core@7.25.8)(@ember/test-waiters@3.1.0(@babel/core@7.25.8))(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5)):
     dependencies:
       '@ember/test-waiters': 3.1.0(@babel/core@7.25.8)
-      '@embroider/addon-shim': 1.8.9
-      '@embroider/macros': 1.16.9(@babel/core@7.25.8)(@glint/template@1.5.0)
-      decorator-transforms: 1.2.1(@babel/core@7.25.8)
+      '@embroider/addon-shim': 1.9.0
+      '@embroider/macros': 1.16.11(@babel/core@7.25.8)(@glint/template@1.5.0)
+      decorator-transforms: 2.3.0(@babel/core@7.25.8)
       ember-async-data: 1.0.3(@babel/core@7.25.8)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       ember-cached-decorator-polyfill: 1.0.2(@babel/core@7.25.8)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
       ember-resources: 7.0.2(@babel/core@7.25.8)(@glimmer/component@2.0.0)(@glimmer/tracking@1.1.2)(@glint/template@1.5.0)(ember-source@5.12.0(patch_hash=megfyte46tz5iqzv4cgneyd5gy)(@glimmer/component@2.0.0)(@glint/template@1.5.0)(rsvp@4.8.5))
@@ -21101,7 +21101,7 @@ snapshots:
 
   typescript-auto-import-cache@0.3.5:
     dependencies:
-      semver: 7.7.1
+      semver: 7.6.3
 
   typescript-eslint@8.14.0(eslint@8.57.1)(typescript@5.6.3):
     dependencies:
@@ -21388,7 +21388,7 @@ snapshots:
   volar-service-typescript@0.0.62(@volar/language-service@2.4.0-alpha.16):
     dependencies:
       path-browserify: 1.0.1
-      semver: 7.7.1
+      semver: 7.6.3
       typescript-auto-import-cache: 0.3.5
       vscode-languageserver-textdocument: 1.0.12
       vscode-nls: 5.2.0

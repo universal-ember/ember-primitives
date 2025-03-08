@@ -82,6 +82,11 @@ import { ComponentSignature } from 'kolay';
 </template>
 ```
 
+## References
+
+- [Positioning Anchored Popovers](https://hidde.blog/positioning-anchored-popovers/)
+- [Floating UI Documentation](https://floating-ui.com/)
+
 ## Comparison to similar projects
 
 Similar projects include:

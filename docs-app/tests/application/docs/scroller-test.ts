@@ -4,16 +4,16 @@ import QUnit, { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
 function buttonByText(text: string) {
-  let searchFor = text.trim();
-  let allButtons = findAll('button');
-  let found = allButtons.find((button) => button.innerText.includes(searchFor));
+  const searchFor = text.trim();
+  const allButtons = findAll('button');
+  const found = allButtons.find((button) => button.innerText.includes(searchFor));
 
   assert(`Did not find button with text ${text}`, found);
 
   return found;
 }
 
-function getScrollPosition(element?: Element | null | undefined) {
+function getScrollPosition(element?: Element | null  ) {
   assert('Could not find scroller', element);
 
   return {
@@ -22,13 +22,13 @@ function getScrollPosition(element?: Element | null | undefined) {
   };
 }
 
-function getLeft(element?: Element | null | undefined) {
+function getLeft(element?: Element | null  ) {
   assert('Could not find scroller', element);
 
   return element.scrollWidth - element.clientWidth;
 }
 
-function getTop(element?: Element | null | undefined) {
+function getTop(element?: Element | null  ) {
   assert('Could not find scroller', element);
 
   return element.scrollHeight - element.clientHeight;
@@ -42,8 +42,8 @@ async function rafSettled() {
 }
 
 function isCloseEnough(actual: { x: number; y: number }, expected: { x: number; y: number }) {
-  let xDelta = actual.x - expected.x;
-  let yDelta = actual.y - expected.y;
+  const xDelta = actual.x - expected.x;
+  const yDelta = actual.y - expected.y;
 
   QUnit.assert.ok(xDelta < 5 || xDelta > -5, `|x| delta is < 5`);
   QUnit.assert.ok(yDelta < 5 || yDelta > -5, `|y| delta is < 5`);
@@ -56,17 +56,17 @@ module('Docs: Scroller', function (hooks) {
     await visit('/6-utils/scroller');
     await waitUntil(() => find('.glimdown-render'));
 
-    let left = buttonByText('⬅️ ');
-    let down = buttonByText('⬇️ ');
-    let up = buttonByText('⬆️ ');
-    let right = buttonByText('➡️ ');
+    const left = buttonByText('⬅️ ');
+    const down = buttonByText('⬇️ ');
+    const up = buttonByText('⬆️ ');
+    const right = buttonByText('➡️ ');
 
-    let scroller = find('.demo .container');
+    const scroller = find('.demo .container');
 
     assert.deepEqual(getScrollPosition(scroller), { x: 0, y: 0 });
 
-    let maxLeft = getLeft(scroller);
-    let maxTop = getTop(scroller);
+    const maxLeft = getLeft(scroller);
+    const maxTop = getTop(scroller);
 
     await click(right);
     await rafSettled();

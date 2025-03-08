@@ -34,7 +34,7 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
       }
     }
 
-    let message = `no a11y errors found for ${path} using the ${theme} theme` + `\n\n` + errorText;
+    const message = `no a11y errors found for ${path} using the ${theme} theme` + `\n\n` + errorText;
 
     if (window.location.search.includes('debugA11yAudit')) {
       console.error(errorText);
@@ -47,9 +47,9 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
 module('Application | Pages', function (hooks) {
   setupApplicationTest(hooks);
 
-  for (let page of pages) {
+  for (const page of pages) {
     test(`${page.path}`, async function (assert) {
-      let path = page.path.replace('.md', '');
+      const path = page.path.replace('.md', '');
 
       await visit(path);
       await waitUntil(() => findAll('nav a').length !== 0);

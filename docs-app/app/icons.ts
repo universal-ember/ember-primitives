@@ -3,11 +3,11 @@ export function install() {
 }
 
 export function installIcons(setName: string, set: string) {
-  let id = `icon-set__${setName}`;
-  let existing = document.getElementById(id);
+  const id = `icon-set__${setName}`;
+  const existing = document.getElementById(id);
 
   if (!existing) {
-    let div = document.createElement('div');
+    const div = document.createElement('div');
 
     div.innerHTML = set;
 

@@ -1,8 +1,9 @@
-import { OopsError, PageLayout } from '@universal-ember/docs-support';
 import { GitHubLink, TestsLink } from 'docs-app/components/header';
 import { Logo, Logomark } from 'docs-app/components/icons';
 import { ExternalLink, service } from 'ember-primitives';
 import Route from 'ember-route-template';
+
+import { OopsError, PageLayout } from '@universal-ember/docs-support';
 
 export default Route(
   <template>

@@ -1,4 +1,5 @@
 import { join } from "node:path";
+
 import { config as docsSupport } from "@universal-ember/docs-support/tailwind";
 
 const appRoot = join(import.meta.dirname, "../");

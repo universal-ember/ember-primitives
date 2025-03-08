@@ -1,11 +1,12 @@
 import Route from '@ember/routing/route';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
-import { Callout } from '@universal-ember/docs-support';
 import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { getHighlighterCore } from 'shiki/core';
 import getWasm from 'shiki/wasm';
+
+import { Callout } from '@universal-ember/docs-support';
 
 import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
 

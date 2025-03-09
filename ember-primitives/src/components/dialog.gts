@@ -14,8 +14,6 @@ import { localCopy } from "tracked-toolbox";
 import type { TOC } from "@ember/component/template-only";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
 
-const not = (x: boolean | undefined): boolean => !x;
-
 const DialogElement: TOC<{
   Element: HTMLDialogElement;
   Args: {
@@ -35,7 +33,7 @@ const DialogElement: TOC<{
   };
   Blocks: { default: [] };
 }> = <template>
-  <dialog ...attributes inert={{not @open}} open={{@open}} {{on "close" @onClose}} {{@register}}>
+  <dialog ...attributes open={{@open}} {{on "close" @onClose}} {{@register}}>
     {{yield}}
   </dialog>
 </template>;

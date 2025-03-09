@@ -20,7 +20,7 @@ const returnValue = cell('');
 
 <template>
   <Modal @onClose={{returnValue.set}} as |m|>
-    <button {{on 'click' m.open}}>Open Modal</button>
+    <button {{on 'click' m.open}} {{m.focusOnClose}}>Open Modal</button>
 
     <br><br>
     isOpen: {{m.isOpen}}<br>
@@ -314,6 +314,8 @@ Once the dialog is open, the browser will focus on the first button (in this cas
 The dialog element handles ESC (escape) key events automatically, hence reducing the burdens and efforts required to provide an effortless experience for users while working with dialogs.
 
 However, if you want to add an animation effect on _closing_ and opening dialog programmatically, note that you will lose this built-in feature support and have to implement the tab navigation focus yourself.
+
+When the dialog is closed, you can refocus the opening button when the `{{m.focusOnClose}}` modifier is applied to that button.
 
 
 ## References

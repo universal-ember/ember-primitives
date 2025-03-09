@@ -20,7 +20,7 @@ const returnValue = cell('');
 
 <template>
   <Modal @onClose={{returnValue.set}} as |m|>
-    <button {{on 'click' m.open}}>Open Modal</button>
+    <button {{on 'click' m.open}} {{m.focusOnClose}}>Open Modal</button>
 
     <br><br>
     isOpen: {{m.isOpen}}<br>

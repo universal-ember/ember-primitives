@@ -4,7 +4,7 @@ import { assert } from "@ember/debug";
 import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
-import { modifier } from "ember-modifier";
+import { modifier as eModifier } from "ember-modifier";
 // temp
 //  https://github.com/tracked-tools/tracked-toolbox/issues/38
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -13,6 +13,8 @@ import { localCopy } from "tracked-toolbox";
 
 import type { TOC } from "@ember/component/template-only";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
+
+const not = (x: boolean | undefined): boolean => !x;
 
 const DialogElement: TOC<{
   Element: HTMLDialogElement;
@@ -33,7 +35,7 @@ const DialogElement: TOC<{
   };
   Blocks: { default: [] };
 }> = <template>
-  <dialog ...attributes open={{@open}} {{on "close" @onClose}} {{@register}}>
+  <dialog ...attributes inert={{not @open}} open={{@open}} {{on "close" @onClose}} {{@register}}>
     {{yield}}
   </dialog>
 </template>;
@@ -65,19 +67,42 @@ export interface Signature {
          * Represents the open state of the `<dialog>` element.
          */
         isOpen: boolean;
+
         /**
          * Closes the `<dialog>` element
          * Will throw an error if `Dialog` is not rendered.
          */
         close: () => void;
+
         /**
          * Opens the `<dialog>` element.
          * Will throw an error if `Dialog` is not rendered.
          */
         open: () => void;
+
+        /**
+         * This modifier should be applied to the button that opens the Dialog so that it can be re-focused when the dialog closes.
+         *
+         * Example:
+         *
+         * ```gjs
+         * <template>
+         *   <Modal as |m|>
+         *     <button {{m.focusOnClose}} {{on "click" m.open}}>Open</button>
+         *
+         *     <m.Dialog>...</m.Dialog>
+         *   </Modal>
+         * </template>
+         * ```
+         */
+        focusOnClose: ModifierLike<{ Element: HTMLElement }>;
+
         /**
          * This is the `<dialog>` element (with some defaults pre-wired).
          * This is required to be rendered.
+         *
+         * The underlying `<dialog>` element is declared `inert` when closed to prevent accidental focus/outline
+         * highlighting for keyboard users.
          */
         Dialog: WithBoundArgs<typeof DialogElement, "onClose" | "register" | "open">;
       },
@@ -92,6 +117,7 @@ class ModalDialog extends Component<Signature> {
         isOpen=this.isOpen
         open=this.open
         close=this.close
+        focusOnClose=this.refocus
         Dialog=(component DialogElement open=@open onClose=this.handleClose register=this.register)
       )
     }}
@@ -110,9 +136,20 @@ class ModalDialog extends Component<Signature> {
     this._isOpen = val;
   }
 
+  #lastIsOpen = false;
+  refocus = eModifier((element) => {
+    assert(`focusOnClose is only valid on a HTMLElement`, element instanceof HTMLElement);
+
+    if (!this.isOpen && this.#lastIsOpen) {
+      element.focus();
+    }
+
+    this.#lastIsOpen = this.isOpen;
+  });
+
   @tracked declare dialogElement: HTMLDialogElement | undefined;
 
-  register = modifier((element: HTMLDialogElement) => {
+  register = eModifier((element: HTMLDialogElement) => {
     /**
      * This is very sad.
      *

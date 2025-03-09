@@ -5,6 +5,7 @@ import { properLinks } from '../proper-links.ts';
 
 import type Owner from '@ember/owner';
 import type { DSLCallback } from '@ember/routing/lib/dsl';
+import type RouterService from '@ember/routing/router-service';
 
 /**
  * Allows setting up routes in tests without the need to scaffold routes in the actual app,
@@ -53,6 +54,6 @@ export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL
   (iKnowWhatIMDoing as any).setupRouter();
 }
 
-export function getRouter(owner: Owner) {
+export function getRouter(owner: Owner): RouterService {
   return owner.lookup('service:router');
 }

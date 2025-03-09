@@ -1,5 +1,6 @@
 /* global out */
 import { tracked } from '@glimmer/tracking';
+import { assert as debugAssert } from '@ember/debug';
 import { on } from '@ember/modifier';
 import { click, find, render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -19,6 +20,14 @@ module('Rendering | dialog', function (hooks) {
     //       TODO: consider how to tie the waiter system to the dialog close status
     await new Promise((resolve) => requestAnimationFrame(resolve));
     await settled();
+  }
+
+  function assertFind(selector: string) {
+    const el = find(selector);
+
+    debugAssert(`Expected ${selector} to exist`, el);
+
+    return el;
   }
 
   module('preferred usage', function () {
@@ -51,7 +60,7 @@ module('Rendering | dialog', function (hooks) {
         <template>
           <Modal as |m|>
             <out>{{m.isOpen}}</out>
-            <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
+            <button id="open" type="button" {{on "click" m.open}} {{m.focusOnClose}}>Open Dialog</button>
             <m.Dialog>
               content
               <button id="close" type="button" {{on "click" m.close}}>Close Dialog</button>
@@ -70,6 +79,7 @@ module('Rendering | dialog', function (hooks) {
       await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
 
+      assert.strictEqual(document.activeElement, assertFind('#open'));
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
     });
@@ -79,7 +89,7 @@ module('Rendering | dialog', function (hooks) {
         <template>
           <Modal as |m|>
             <out>{{m.isOpen}}</out>
-            <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
+            <button id="open" type="button" {{on "click" m.open}} {{m.focusOnClose}}>Open Dialog</button>
             <m.Dialog>
               content
             </m.Dialog>
@@ -97,6 +107,7 @@ module('Rendering | dialog', function (hooks) {
 
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
+      assert.strictEqual(document.activeElement, assertFind('#open'));
     });
 
     test('@onClose is called', async function (assert) {
@@ -106,7 +117,7 @@ module('Rendering | dialog', function (hooks) {
         <template>
           <Modal @onClose={{handleClose}} as |m|>
             <out>{{m.isOpen}}</out>
-            <button id="open" type="button" {{on "click" m.open}}>Open Dialog</button>
+            <button id="open" type="button" {{on "click" m.open}} {{m.focusOnClose}}>Open Dialog</button>
             <m.Dialog>
               content
               <form method="dialog">
@@ -123,20 +134,29 @@ module('Rendering | dialog', function (hooks) {
       assert.verifySteps(['closed '], 'no reason given');
 
       await click('#open');
+      assert.notEqual(document.activeElement, assertFind('#open'));
+
       await click('[value=confirmBtn]');
       await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
       assert.verifySteps(['closed confirmBtn'], 'a reason given');
+      assert.strictEqual(document.activeElement, assertFind('#open'));
 
       await click('#open');
+      assert.notEqual(document.activeElement, assertFind('#open'));
+
       await close();
       assert.verifySteps(['closed '], 'no reason given');
+      assert.strictEqual(document.activeElement, assertFind('#open'));
 
       await click('#open');
+      assert.notEqual(document.activeElement, assertFind('#open'));
+
       await click('[value=resetBtn]');
       await new Promise((resolve) => requestAnimationFrame(resolve));
       await settled();
       assert.verifySteps(['closed '], 'a reason given');
+      assert.strictEqual(document.activeElement, assertFind('#open'));
     });
   });
 
@@ -146,7 +166,7 @@ module('Rendering | dialog', function (hooks) {
         <template>
           <Modal @open={{true}} as |m|>
             <out>{{m.isOpen}}</out>
-            <button type="button" {{on "click" m.open}}>Open Dialog</button>
+            <button id="open" type="button" {{on "click" m.open}} {{m.focusOnClose}}>Open Dialog</button>
             <m.Dialog> content </m.Dialog>
           </Modal>
         </template>
@@ -154,18 +174,22 @@ module('Rendering | dialog', function (hooks) {
 
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
+      assert.notEqual(document.activeElement, assertFind('#open'));
 
       await close();
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
+      assert.strictEqual(document.activeElement, assertFind('#open'));
 
       await click('button');
       assert.dom('dialog').hasStyle({ display: 'block' });
       assert.dom('out').hasText('true');
+      assert.notEqual(document.activeElement, assertFind('#open'));
 
       await close();
       assert.dom('dialog').hasStyle({ display: 'none' });
       assert.dom('out').hasText('false');
+      assert.strictEqual(document.activeElement, assertFind('#open'));
     });
 
     test('@open can change, as will the dialog state', async function (assert) {

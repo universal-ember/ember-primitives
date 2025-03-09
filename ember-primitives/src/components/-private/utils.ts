@@ -4,7 +4,7 @@
  */
 export function toggleWithFallback(
   uncontrolledToggle: (...args: unknown[]) => void,
-   
+
   controlledToggle?: (...args: any[]) => void,
   ...args: unknown[]
 ) {

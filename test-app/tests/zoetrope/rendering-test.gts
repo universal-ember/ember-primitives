@@ -32,7 +32,13 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
+          .ember-primitives__zoetrope {
+            width: 400px;
+          }
+          a {
+            width: 200px;
+            display: block;
+          }
         </style>
 
         <Zoetrope>
@@ -141,7 +147,10 @@ module('<Zoetrope />', function (hooks) {
 
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          a {width: 100%; display: block;}
+          a {
+            width: 100%;
+            display: block;
+          }
         </style>
       </template>
     );
@@ -154,7 +163,13 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
+          .ember-primitives__zoetrope {
+            width: 400px;
+          }
+          a {
+            width: 200px;
+            display: block;
+          }
         </style>
 
         <Zoetrope>
@@ -180,7 +195,13 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
+          .ember-primitives__zoetrope {
+            width: 400px;
+          }
+          a {
+            width: 200px;
+            display: block;
+          }
         </style>
 
         <Zoetrope>
@@ -229,7 +250,13 @@ module('<Zoetrope />', function (hooks) {
       <template>
         {{! template-lint-disable no-forbidden-elements}}
         <style>
-          .ember-primitives__zoetrope {width: 400px;} a {width: 200px; display: block;}
+          .ember-primitives__zoetrope {
+            width: 400px;
+          }
+          a {
+            width: 200px;
+            display: block;
+          }
         </style>
 
         <Zoetrope>

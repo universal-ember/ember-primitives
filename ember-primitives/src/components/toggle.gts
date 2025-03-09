@@ -8,7 +8,6 @@ import { toggleWithFallback } from "./-private/utils.ts";
 
 import type { TOC } from "@ember/component/template-only";
 
- 
 export interface Signature<Value = any> {
   Element: HTMLButtonElement;
   Args: {

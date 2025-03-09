@@ -29,8 +29,8 @@ importers:
   .:
     devDependencies:
       '@glint/core':
-        specifier: ^1.5.0
-        version: 1.5.2(typescript@5.8.2)
+        specifier: unstable
+        version: 1.4.1-unstable.130d85f(typescript@5.8.2)
       '@nullvoxpopuli/dev':
         specifier: workspace:*
         version: link:dev

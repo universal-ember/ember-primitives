@@ -92,7 +92,7 @@ const Item: TOC<ItemSignature> = <template>
   <button
     type="button"
     role="menuitem"
-    {{! @glint-ignore !}}
+    {{! @glint-expect-error !}}
     {{(if @onSelect (modifier on "click" @onSelect))}}
     {{on "pointermove" focusOnHover}}
     ...attributes

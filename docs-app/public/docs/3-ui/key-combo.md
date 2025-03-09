@@ -75,6 +75,8 @@ This is an extremely thin wrapper around [`kbd`][mdn-kbd], so accessibility is t
 
 ## API Reference
 
+There are two components in this module
+
 ### `<KeyCombo>`
 
 ```gjs live no-shadow
@@ -87,6 +89,13 @@ import { ComponentSignature } from 'kolay';
     @name="KeyComboSignature" />
 </template>
 ```
+
+#### Classes
+
+For styling with a stylesheet
+
+- `ember-primitives__key-combination`
+- `ember-primitives__key-combination__separator`
 
 ### `<Key>`
 
@@ -101,4 +110,10 @@ import { ComponentSignature } from 'kolay';
 </template>
 ```
 
-### Classes
+#### Classes
+
+For styling with a stylesheet
+
+- `ember-primitives__key`
+
+

@@ -21,7 +21,7 @@ import type { service } from './helpers/service';
 // import type MyComponent from './components/my-component';
 
 // Remove this once entries have been added! 👇
- 
+
 export default interface Registry {
   // components
   Accordion: typeof Accordion;

@@ -8,7 +8,7 @@ import { anchorTo } from './modifier.ts';
 
 import type { Signature as ModifierSignature } from './modifier.ts';
 import type { MiddlewareState } from '@floating-ui/dom';
-import type { ModifierLike,WithBoundArgs, WithBoundPositionals  } from '@glint/template';
+import type { ModifierLike, WithBoundArgs, WithBoundPositionals } from '@glint/template';
 
 type ModifierArgs = ModifierSignature['Args']['Named'];
 

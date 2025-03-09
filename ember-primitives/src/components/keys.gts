@@ -5,19 +5,19 @@ const isNotLast = (collection: unknown[], index: number) => !isLast(collection, 
 const isMac = navigator.userAgent.indexOf("Mac OS") >= 0;
 
 function split(str: string) {
-  let keys = str.split("+").map((x) => x.trim());
+  const keys = str.split("+").map((x) => x.trim());
 
   return keys;
 }
 
 function getKeys(keys: string[] | string, mac?: string[] | string) {
-  let normalKeys = Array.isArray(keys) ? keys : split(keys);
+  const normalKeys = Array.isArray(keys) ? keys : split(keys);
 
   if (!mac) {
     return normalKeys;
   }
 
-  let normalMac = Array.isArray(mac) ? mac : split(mac);
+  const normalMac = Array.isArray(mac) ? mac : split(mac);
 
   return isMac ? normalMac : normalKeys;
 }

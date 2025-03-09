@@ -315,6 +315,8 @@ The dialog element handles ESC (escape) key events automatically, hence reducing
 
 However, if you want to add an animation effect on _closing_ and opening dialog programmatically, note that you will lose this built-in feature support and have to implement the tab navigation focus yourself.
 
+When the dialog is closed, you can refocus the opening button when the `{{m.focusOnClose}}` modifier is applied to that button.
+
 
 ## References
 

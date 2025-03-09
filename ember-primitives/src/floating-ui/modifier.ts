@@ -164,11 +164,13 @@ export const anchorTo = eModifier<Signature>(
         visibility: referenceHidden ? 'hidden' : 'visible',
       });
 
-      setData?.(middlewareData['metadata']);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      void setData?.(middlewareData['metadata']);
     };
 
-    update();
+    void update();
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     const cleanup = autoUpdate(referenceElement, floatingElement, update);
 
     /**

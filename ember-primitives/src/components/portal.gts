@@ -1,9 +1,9 @@
-import { modifier } from 'ember-modifier';
-import { cell } from 'ember-resources';
+import { modifier } from "ember-modifier";
+import { cell } from "ember-resources";
 
-import { findNearestTarget, type TARGETS } from './portal-targets.gts';
+import { findNearestTarget, type TARGETS } from "./portal-targets.gts";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 type Targets = (typeof TARGETS)[keyof typeof TARGETS];
 
@@ -26,13 +26,13 @@ export interface Signature {
 }
 
 const anchor = modifier(
-  (element: Element, [to, update]: [string, ReturnType<typeof ElementValue>['set']]) => {
+  (element: Element, [to, update]: [string, ReturnType<typeof ElementValue>["set"]]) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const found = findNearestTarget(element, to);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     update(found);
-  }
+  },
 );
 
 const ElementValue = () => cell<Element | ShadowRoot>();

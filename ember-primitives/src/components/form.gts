@@ -1,18 +1,18 @@
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
+import { fn } from "@ember/helper";
+import { on } from "@ember/modifier";
 
-import { dataFrom } from 'form-data-utils';
+import { dataFrom } from "form-data-utils";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 type Data = ReturnType<typeof dataFrom>;
 
 export const dataFromEvent = dataFrom;
 
 const handleInput = (
-  onChange: (data: Data, eventType: 'input' | 'submit', event: Event) => void,
+  onChange: (data: Data, eventType: "input" | "submit", event: Event) => void,
   event: Event | SubmitEvent,
-  eventType: 'input' | 'submit' = 'input'
+  eventType: "input" | "submit" = "input",
 ) => {
   const data = dataFrom(event);
 
@@ -20,11 +20,11 @@ const handleInput = (
 };
 
 const handleSubmit = (
-  onChange: (data: Data, eventType: 'input' | 'submit', event: Event | SubmitEvent) => void,
-  event: SubmitEvent
+  onChange: (data: Data, eventType: "input" | "submit", event: Event | SubmitEvent) => void,
+  event: SubmitEvent,
 ) => {
   event.preventDefault();
-  handleInput(onChange, event, 'submit');
+  handleInput(onChange, event, "submit");
 };
 
 export interface Signature {
@@ -45,11 +45,11 @@ export interface Signature {
       /**
        * Indicates whether the `onChange` function was called from the `input` or `submit` event handlers.
        */
-      eventType: 'input' | 'submit',
+      eventType: "input" | "submit",
       /**
        * The raw event, if needed.
        */
-      event: Event | SubmitEvent
+      event: Event | SubmitEvent,
     ) => void;
   };
   Blocks: {

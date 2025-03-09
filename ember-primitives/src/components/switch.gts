@@ -1,14 +1,14 @@
-import { fn, hash } from '@ember/helper';
-import { on } from '@ember/modifier';
+import { fn, hash } from "@ember/helper";
+import { on } from "@ember/modifier";
 
-import { cell } from 'ember-resources';
+import { cell } from "ember-resources";
 
-import { uniqueId } from '../utils.ts';
-import { Label } from './-private/typed-elements.gts';
-import { toggleWithFallback } from './-private/utils.ts';
+import { uniqueId } from "../utils.ts";
+import { Label } from "./-private/typed-elements.gts";
+import { toggleWithFallback } from "./-private/utils.ts";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 export interface Signature {
   Element: HTMLInputElement;
@@ -42,7 +42,7 @@ export interface Signature {
          * </template>
          * ```
          */
-        Control: WithBoundArgs<typeof Checkbox, 'checked' | 'id' | 'onChange'>;
+        Control: WithBoundArgs<typeof Checkbox, "checked" | "id" | "onChange">;
         /**
          * The Switch element requires a label, and this label already has
          * the association to the Control by setting the `for` attribute to the `id` of the Control
@@ -57,7 +57,7 @@ export interface Signature {
          * </template>
          * ```
          */
-        Label: WithBoundArgs<typeof Label, 'for'>;
+        Label: WithBoundArgs<typeof Label, "for">;
       },
     ];
   };

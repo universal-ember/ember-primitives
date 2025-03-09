@@ -1,18 +1,18 @@
-import Component from '@glimmer/component';
-import { cached } from '@glimmer/tracking';
-import { hash } from '@ember/helper';
+import Component from "@glimmer/component";
+import { cached } from "@glimmer/tracking";
+import { hash } from "@ember/helper";
 
-import { getTabsterAttribute, MoverDirections } from 'tabster';
-import { TrackedSet } from 'tracked-built-ins';
+import { getTabsterAttribute, MoverDirections } from "tabster";
+import { TrackedSet } from "tracked-built-ins";
 // The consumer will need to provide types for tracked-toolbox.
 // Or.. better yet, we PR to trakcked-toolbox to provide them
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { localCopy } from 'tracked-toolbox';
+import { localCopy } from "tracked-toolbox";
 
-import { Toggle } from './toggle.gts';
+import { Toggle } from "./toggle.gts";
 
-import type { ComponentLike } from '@glint/template';
+import type { ComponentLike } from "@glint/template";
 
 const TABSTER_CONFIG = getTabsterAttribute(
   {
@@ -21,7 +21,7 @@ const TABSTER_CONFIG = getTabsterAttribute(
       cyclic: true,
     },
   },
-  true
+  true,
 );
 
 export interface ItemSignature<Value = any> {
@@ -112,7 +112,7 @@ export interface MultiSignature<Value = any> {
 interface PrivateSingleSignature<Value = any> {
   Element: HTMLDivElement;
   Args: {
-    type?: 'single';
+    type?: "single";
 
     /**
      * Optionally set the initial toggle state
@@ -140,7 +140,7 @@ interface PrivateSingleSignature<Value = any> {
 interface PrivateMultiSignature<Value = any> {
   Element: HTMLDivElement;
   Args: {
-    type: 'multi';
+    type: "multi";
     /**
      * Optionally set the initial toggle state
      */
@@ -164,8 +164,8 @@ interface PrivateMultiSignature<Value = any> {
   };
 }
 
-function isMulti(x: 'single' | 'multi' | undefined): x is 'multi' {
-  return x === 'multi';
+function isMulti(x: "single" | "multi" | undefined): x is "multi" {
+  return x === "multi";
 }
 
 export class ToggleGroup<Value = any> extends Component<
@@ -196,7 +196,8 @@ export class ToggleGroup<Value = any> extends Component<
 }
 
 class SingleToggleGroup<Value = any> extends Component<SingleSignature<Value>> {
-  @localCopy('args.value') activePressed?: Value;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  @localCopy("args.value") activePressed?: Value;
 
   handleToggle = (value: Value) => {
     if (this.activePressed === value) {

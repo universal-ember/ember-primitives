@@ -1,10 +1,10 @@
-import { hash } from '@ember/helper';
+import { hash } from "@ember/helper";
 
-import { ReactiveImage } from 'reactiveweb/image';
-import { WaitUntil } from 'reactiveweb/wait-until';
+import { ReactiveImage } from "reactiveweb/image";
+import { WaitUntil } from "reactiveweb/wait-until";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 const Fallback: TOC<{
   Blocks: { default: [] };
@@ -66,14 +66,14 @@ export const Avatar: TOC<{
         /**
          * The image to render. It will only render when it has loaded.
          */
-        Image: WithBoundArgs<typeof Image, 'src' | 'isLoaded'>;
+        Image: WithBoundArgs<typeof Image, "src" | "isLoaded">;
         /**
          * An element that renders when the image hasn't loaded.
          * This means whilst it's loading, or if there was an error.
          * If you notice a flash during loading,
          * you can provide a delayMs prop to delay its rendering so it only renders for those with slower connections.
          */
-        Fallback: WithBoundArgs<typeof Fallback, 'isLoaded'>;
+        Fallback: WithBoundArgs<typeof Fallback, "isLoaded">;
         /**
          * true while the image is loading
          */

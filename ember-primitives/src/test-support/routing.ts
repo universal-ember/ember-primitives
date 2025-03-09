@@ -5,7 +5,6 @@ import { properLinks } from '../proper-links.ts';
 
 import type Owner from '@ember/owner';
 import type { DSLCallback } from '@ember/routing/lib/dsl';
-import type RouterService from '@ember/routing/router-service';
 
 /**
  * Allows setting up routes in tests without the need to scaffold routes in the actual app,
@@ -49,7 +48,8 @@ export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL
   const iKnowWhatIMDoing = owner.lookup('router:main');
 
   // We need a public testing API for this sort of stuff
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   (iKnowWhatIMDoing as any).setupRouter();
 }
 

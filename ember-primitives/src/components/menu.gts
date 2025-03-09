@@ -1,20 +1,20 @@
-import Component from '@glimmer/component';
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-import { guidFor } from '@ember/object/internals';
+import Component from "@glimmer/component";
+import { hash } from "@ember/helper";
+import { on } from "@ember/modifier";
+import { guidFor } from "@ember/object/internals";
 
-import { modifier as eModifier } from 'ember-modifier';
-import { cell } from 'ember-resources';
-import { getTabster, getTabsterAttribute, MoverDirections, setTabsterAttribute } from 'tabster';
+import { modifier as eModifier } from "ember-modifier";
+import { cell } from "ember-resources";
+import { getTabster, getTabsterAttribute, MoverDirections, setTabsterAttribute } from "tabster";
 
-import { Popover, type Signature as PopoverSignature } from './popover.gts';
+import { Popover, type Signature as PopoverSignature } from "./popover.gts";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 type Cell<V> = ReturnType<typeof cell<V>>;
-type PopoverArgs = PopoverSignature['Args'];
-type PopoverBlockParams = PopoverSignature['Blocks']['default'][0];
+type PopoverArgs = PopoverSignature["Args"];
+type PopoverBlockParams = PopoverSignature["Blocks"]["default"][0];
 
 const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
   {
@@ -24,7 +24,7 @@ const TABSTER_CONFIG_CONTENT = getTabsterAttribute(
     },
     deloser: {},
   },
-  true
+  true,
 );
 
 const TABSTER_CONFIG_TRIGGER = {
@@ -36,15 +36,15 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        arrow: PopoverBlockParams['arrow'];
+        arrow: PopoverBlockParams["arrow"];
         trigger: WithBoundArgs<
           typeof trigger,
-          'triggerElement' | 'contentId' | 'isOpen' | 'setReference'
+          "triggerElement" | "contentId" | "isOpen" | "setReference"
         >;
-        Trigger: WithBoundArgs<typeof Trigger, 'triggerModifier'>;
+        Trigger: WithBoundArgs<typeof Trigger, "triggerModifier">;
         Content: WithBoundArgs<
           typeof Content,
-          'triggerElement' | 'contentId' | 'isOpen' | 'PopoverContent'
+          "triggerElement" | "contentId" | "isOpen" | "PopoverContent"
         >;
         isOpen: boolean;
       },
@@ -132,17 +132,17 @@ const installContent = eModifier<{
 
   // listen for the escape key
   function onDocumentKeydown(e: KeyboardEvent) {
-    if (isOpen.current && e.key === 'Escape') {
+    if (isOpen.current && e.key === "Escape") {
       isOpen.current = false;
     }
   }
 
-  document.addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener("click", onDocumentClick);
+  document.addEventListener("keydown", onDocumentKeydown);
 
   return () => {
-    document.removeEventListener('click', onDocumentClick);
-    document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener("click", onDocumentClick);
+    document.removeEventListener("keydown", onDocumentKeydown);
   };
 });
 
@@ -152,14 +152,14 @@ interface PrivateContentSignature {
     triggerElement: Cell<HTMLElement>;
     contentId: string;
     isOpen: Cell<boolean>;
-    PopoverContent: PopoverBlockParams['Content'];
+    PopoverContent: PopoverBlockParams["Content"];
   };
   Blocks: { default: [{ Item: typeof Item; Separator: typeof Separator }] };
 }
 
 export interface ContentSignature {
-  Element: PrivateContentSignature['Element'];
-  Blocks: PrivateContentSignature['Blocks'];
+  Element: PrivateContentSignature["Element"];
+  Blocks: PrivateContentSignature["Blocks"];
 }
 
 const Content: TOC<PrivateContentSignature> = <template>
@@ -185,7 +185,7 @@ interface PrivateTriggerModifierSignature {
       triggerElement: Cell<HTMLElement>;
       isOpen: Cell<boolean>;
       contentId: string;
-      setReference: PopoverBlockParams['setReference'];
+      setReference: PopoverBlockParams["setReference"];
       stopPropagation?: boolean;
       preventDefault?: boolean;
     };
@@ -193,23 +193,23 @@ interface PrivateTriggerModifierSignature {
 }
 
 export interface TriggerModifierSignature {
-  Element: PrivateTriggerModifierSignature['Element'];
+  Element: PrivateTriggerModifierSignature["Element"];
 }
 
 const trigger = eModifier<PrivateTriggerModifierSignature>(
   (
     element,
     _: [],
-    { triggerElement, isOpen, contentId, setReference, stopPropagation, preventDefault }
+    { triggerElement, isOpen, contentId, setReference, stopPropagation, preventDefault },
   ) => {
-    element.setAttribute('aria-haspopup', 'menu');
+    element.setAttribute("aria-haspopup", "menu");
 
     if (isOpen.current) {
-      element.setAttribute('aria-controls', contentId);
-      element.setAttribute('aria-expanded', 'true');
+      element.setAttribute("aria-controls", contentId);
+      element.setAttribute("aria-expanded", "true");
     } else {
-      element.removeAttribute('aria-controls');
-      element.setAttribute('aria-expanded', 'false');
+      element.removeAttribute("aria-controls");
+      element.setAttribute("aria-expanded", "false");
     }
 
     setTabsterAttribute(element, TABSTER_CONFIG_TRIGGER);
@@ -226,16 +226,16 @@ const trigger = eModifier<PrivateTriggerModifierSignature>(
       isOpen.toggle();
     };
 
-    element.addEventListener('click', onTriggerClick);
+    element.addEventListener("click", onTriggerClick);
 
     triggerElement.current = element;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     setReference(element);
 
     return () => {
-      element.removeEventListener('click', onTriggerClick);
+      element.removeEventListener("click", onTriggerClick);
     };
-  }
+  },
 );
 
 interface PrivateTriggerSignature {
@@ -243,7 +243,7 @@ interface PrivateTriggerSignature {
   Args: {
     triggerModifier: WithBoundArgs<
       typeof trigger,
-      'triggerElement' | 'contentId' | 'isOpen' | 'setReference'
+      "triggerElement" | "contentId" | "isOpen" | "setReference"
     >;
     stopPropagation?: boolean;
     preventDefault?: boolean;
@@ -252,8 +252,8 @@ interface PrivateTriggerSignature {
 }
 
 export interface TriggerSignature {
-  Element: PrivateTriggerSignature['Element'];
-  Blocks: PrivateTriggerSignature['Blocks'];
+  Element: PrivateTriggerSignature["Element"];
+  Blocks: PrivateTriggerSignature["Blocks"];
 }
 
 const Trigger: TOC<PrivateTriggerSignature> = <template>

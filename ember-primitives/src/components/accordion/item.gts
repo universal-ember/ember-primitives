@@ -1,17 +1,17 @@
-import Component from '@glimmer/component';
-import { hash } from '@ember/helper';
+import Component from "@glimmer/component";
+import { hash } from "@ember/helper";
 
-import Content from './content.gts';
-import Header from './header.gts';
+import Content from "./content.gts";
+import Header from "./header.gts";
 
-import type { AccordionItemExternalSignature } from './public.ts';
+import type { AccordionItemExternalSignature } from "./public.ts";
 
 export function getDataState(isExpanded: boolean): string {
-  return isExpanded ? 'open' : 'closed';
+  return isExpanded ? "open" : "closed";
 }
 
 interface Signature extends AccordionItemExternalSignature {
-  Args: AccordionItemExternalSignature['Args'] & {
+  Args: AccordionItemExternalSignature["Args"] & {
     selectedValue?: string | string[];
     disabled?: boolean;
     toggleItem: (value: string) => void;

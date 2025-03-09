@@ -1,7 +1,7 @@
-import { modifier } from 'ember-modifier';
-import { cell } from 'ember-resources';
+import { modifier } from "ember-modifier";
+import { cell } from "ember-resources";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 const Shadow = () => {
   const shadow = cell<Element>();
@@ -11,8 +11,8 @@ const Shadow = () => {
       return shadow.current;
     },
     attach: modifier((element: Element) => {
-      const shadowRoot = element.attachShadow({ mode: 'open' });
-      const div = document.createElement('div');
+      const shadowRoot = element.attachShadow({ mode: "open" });
+      const div = document.createElement("div");
 
       // ember-source 5.6 broke the ability to in-element
       // natively into a shadowroot.
@@ -31,7 +31,7 @@ const Shadow = () => {
 // index.html has the production-fingerprinted references to these links
 // Ideally, we'd have some pre-processor scan everything for references to
 // assets in public, but idk how to set that up
-const getStyles = () => [...document.querySelectorAll('link')].map((link) => link.href);
+const getStyles = () => [...document.querySelectorAll("link")].map((link) => link.href);
 
 /**
  * style + native @import

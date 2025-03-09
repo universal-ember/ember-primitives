@@ -1,8 +1,8 @@
-import Component from '@glimmer/component';
+import Component from "@glimmer/component";
 
-import { getDataState } from './item.gts';
+import { getDataState } from "./item.gts";
 
-import type { AccordionContentExternalSignature } from './public.ts';
+import type { AccordionContentExternalSignature } from "./public.ts";
 
 interface Signature extends AccordionContentExternalSignature {
   Args: {

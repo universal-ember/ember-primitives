@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { assert } from '@ember/debug';
 import { registerDestructor } from '@ember/destroyable';
 import { getOwner } from '@ember/owner';
@@ -44,6 +43,7 @@ export function properLinks<Instance extends object, Klass = { new (...args: any
   } else if (args.length === 1) {
     if (typeof args[0] === 'object') {
       // TODO: how to get first arg type correct?
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return (klass: Klass) => properLinks(args[0] as any, klass);
     } else {
       klass = args[0];
@@ -58,6 +58,7 @@ export function properLinks<Instance extends object, Klass = { new (...args: any
     // SAFETY: we literally do not care about the args' type here,
     //         because we just call super
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
 
       setup(this, ignore);

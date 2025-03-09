@@ -12,6 +12,12 @@ export default [
     },
   },
   {
+    files: ["**/*.{ts,gts}"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+  {
     files: ["*.{js,cjs}"],
     rules: {
       "n/no-unsupported-features": "off",

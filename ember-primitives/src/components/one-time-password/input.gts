@@ -1,8 +1,8 @@
-import Component from '@glimmer/component';
-import { warn } from '@ember/debug';
-import { isDestroyed, isDestroying } from '@ember/destroyable';
-import { on } from '@ember/modifier';
-import { buildWaiter } from '@ember/test-waiters';
+import Component from "@glimmer/component";
+import { warn } from "@ember/debug";
+import { isDestroyed, isDestroying } from "@ember/destroyable";
+import { on } from "@ember/modifier";
+import { buildWaiter } from "@ember/test-waiters";
 
 import {
   autoAdvance,
@@ -10,10 +10,10 @@ import {
   handleNavigation,
   handlePaste,
   selectAll,
-} from './utils.ts';
+} from "./utils.ts";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 const DEFAULT_LENGTH = 6;
 
@@ -25,7 +25,7 @@ function labelFor(inputIndex: number, labelFn: undefined | ((index: number) => s
   return `Please enter OTP character ${inputIndex + 1}`;
 }
 
-const waiter = buildWaiter('ember-primitives:OTPInput:handleChange');
+const waiter = buildWaiter("ember-primitives:OTPInput:handleChange");
 
 const Fields: TOC<{
   /**
@@ -98,7 +98,7 @@ export class OTPInput extends Component<{
       /**
        * The last input event received
        */
-      event: Event
+      event: Event,
     ) => void;
   };
   Blocks: {
@@ -108,7 +108,7 @@ export class OTPInput extends Component<{
      *
      * This is how you can add custom validation to each input field.
      */
-    default?: [fields: WithBoundArgs<typeof Fields, 'fields' | 'handleChange' | 'labelFn'>];
+    default?: [fields: WithBoundArgs<typeof Fields, "fields" | "handleChange" | "labelFn">];
   };
 }> {
   /**
@@ -143,7 +143,7 @@ export class OTPInput extends Component<{
 
       if (value === undefined) {
         warn(`Value could not be determined for the OTP field. was it removed from the DOM?`, {
-          id: 'ember-primitives.OTPInput.missing-value',
+          id: "ember-primitives.OTPInput.missing-value",
         });
 
         return;

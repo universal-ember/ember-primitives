@@ -1,18 +1,18 @@
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { assert } from '@ember/debug';
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { assert } from "@ember/debug";
+import { hash } from "@ember/helper";
+import { on } from "@ember/modifier";
 
-import { modifier } from 'ember-modifier';
+import { modifier } from "ember-modifier";
 // temp
 //  https://github.com/tracked-tools/tracked-toolbox/issues/38
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-import { localCopy } from 'tracked-toolbox';
+import { localCopy } from "tracked-toolbox";
 
-import type { TOC } from '@ember/component/template-only';
-import type { ModifierLike, WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { ModifierLike, WithBoundArgs } from "@glint/template";
 
 const DialogElement: TOC<{
   Element: HTMLDialogElement;
@@ -79,7 +79,7 @@ export interface Signature {
          * This is the `<dialog>` element (with some defaults pre-wired).
          * This is required to be rendered.
          */
-        Dialog: WithBoundArgs<typeof DialogElement, 'onClose' | 'register' | 'open'>;
+        Dialog: WithBoundArgs<typeof DialogElement, "onClose" | "register" | "open">;
       },
     ];
   };
@@ -98,7 +98,7 @@ class ModalDialog extends Component<Signature> {
   </template>
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  @localCopy('args.open') declare _isOpen: boolean;
+  @localCopy("args.open") declare _isOpen: boolean;
 
   get isOpen() {
     /**
@@ -136,14 +136,14 @@ class ModalDialog extends Component<Signature> {
    */
   close = () => {
     assert(
-      'Cannot call `close` on <Dialog> without rendering the dialog element.',
-      this.dialogElement
+      "Cannot call `close` on <Dialog> without rendering the dialog element.",
+      this.dialogElement,
     );
 
     /**
      * If the element is already closed, don't run all this again
      */
-    if (!this.dialogElement.hasAttribute('open')) {
+    if (!this.dialogElement.hasAttribute("open")) {
       return;
     }
 
@@ -162,14 +162,14 @@ class ModalDialog extends Component<Signature> {
    */
   handleClose = () => {
     assert(
-      'Cannot call `handleDialogClose` on <Dialog> without rendering the dialog element. This is likely a bug in ember-primitives. Please open an issue <3',
-      this.dialogElement
+      "Cannot call `handleDialogClose` on <Dialog> without rendering the dialog element. This is likely a bug in ember-primitives. Please open an issue <3",
+      this.dialogElement,
     );
 
     this.isOpen = false;
     this.args.onClose?.(this.dialogElement.returnValue);
     // the return value ends up staying... which is annoying
-    this.dialogElement.returnValue = '';
+    this.dialogElement.returnValue = "";
   };
 
   /**
@@ -177,14 +177,14 @@ class ModalDialog extends Component<Signature> {
    */
   open = () => {
     assert(
-      'Cannot call `open` on <Dialog> without rendering the dialog element.',
-      this.dialogElement
+      "Cannot call `open` on <Dialog> without rendering the dialog element.",
+      this.dialogElement,
     );
 
     /**
      * If the element is already open, don't run all this again
      */
-    if (this.dialogElement.hasAttribute('open')) {
+    if (this.dialogElement.hasAttribute("open")) {
       return;
     }
 

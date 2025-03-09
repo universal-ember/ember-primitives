@@ -1,9 +1,9 @@
-import { on } from '@ember/modifier';
+import { on } from "@ember/modifier";
 
-import { getDataState } from './item.gts';
+import { getDataState } from "./item.gts";
 
-import type { AccordionTriggerExternalSignature } from './public.ts';
-import type { TOC } from '@ember/component/template-only';
+import type { AccordionTriggerExternalSignature } from "./public.ts";
+import type { TOC } from "@ember/component/template-only";
 
 interface Signature extends AccordionTriggerExternalSignature {
   Args: {

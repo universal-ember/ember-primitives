@@ -1,17 +1,17 @@
-import './styles.css';
+import "./styles.css";
 
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-import { buildWaiter, waitForPromise } from '@ember/test-waiters';
-import { isTesting, macroCondition } from '@embroider/macros';
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { hash } from "@ember/helper";
+import { on } from "@ember/modifier";
+import { buildWaiter, waitForPromise } from "@ember/test-waiters";
+import { isTesting, macroCondition } from "@embroider/macros";
 
-import { modifier } from 'ember-modifier';
+import { modifier } from "ember-modifier";
 
-import type { ScrollBehavior, Signature } from './types.ts';
+import type { ScrollBehavior, Signature } from "./types.ts";
 
-const testWaiter = buildWaiter('ember-primitive:zoetrope-waiter');
+const testWaiter = buildWaiter("ember-primitive:zoetrope-waiter");
 const DEFAULT_GAP = 8;
 const DEFAULT_OFFSET = 0;
 
@@ -23,9 +23,9 @@ export class Zoetrope extends Component<Signature> {
 
   private setCSSVariables = modifier(
     (element: HTMLElement, _: unknown, { gap, offset }: { gap: number; offset: number }) => {
-      if (gap) element.style.setProperty('--zoetrope-gap', `${gap}px`);
-      if (offset) element.style.setProperty('--zoetrope-offset', `${offset}px`);
-    }
+      if (gap) element.style.setProperty("--zoetrope-gap", `${gap}px`);
+      if (offset) element.style.setProperty("--zoetrope-offset", `${offset}px`);
+    },
   );
 
   scrollerWaiter = testWaiter.beginAsync();
@@ -44,16 +44,16 @@ export class Zoetrope extends Component<Signature> {
 
     zoetropeResizeObserver.observe(element);
 
-    element.addEventListener('scroll', this.scrollListener, { passive: true });
-    element.addEventListener('keydown', this.tabListener);
+    element.addEventListener("scroll", this.scrollListener, { passive: true });
+    element.addEventListener("keydown", this.tabListener);
 
     requestAnimationFrame(() => {
       testWaiter.endAsync(this.scrollerWaiter);
     });
 
     return () => {
-      element.removeEventListener('scroll', this.scrollListener);
-      element.removeEventListener('keydown', this.tabListener);
+      element.removeEventListener("scroll", this.scrollListener);
+      element.removeEventListener("keydown", this.tabListener);
 
       zoetropeResizeObserver.unobserve(element);
     };
@@ -67,7 +67,7 @@ export class Zoetrope extends Component<Signature> {
       return;
     }
 
-    if (key !== 'Tab') {
+    if (key !== "Tab") {
       return;
     }
 
@@ -128,10 +128,10 @@ export class Zoetrope extends Component<Signature> {
 
   get scrollBehavior(): ScrollBehavior {
     if (macroCondition(isTesting())) {
-      return 'instant';
+      return "instant";
     }
 
-    return this.args.scrollBehavior || 'smooth';
+    return this.args.scrollBehavior || "smooth";
   }
 
   scrollLeft = () => {
@@ -175,7 +175,7 @@ export class Zoetrope extends Component<Signature> {
       behavior: this.scrollBehavior,
     });
 
-    waitForPromise(new Promise(requestAnimationFrame));
+    void waitForPromise(new Promise(requestAnimationFrame));
   };
 
   scrollRight = () => {
@@ -209,7 +209,7 @@ export class Zoetrope extends Component<Signature> {
       behavior: this.scrollBehavior,
     });
 
-    waitForPromise(new Promise(requestAnimationFrame));
+    void waitForPromise(new Promise(requestAnimationFrame));
   };
 
   private findOverflowingElement() {
@@ -323,7 +323,7 @@ export default Zoetrope;
 
 function getRelativeBoundingClientRect(childElement: Element, parentElement: Element) {
   if (!childElement || !parentElement) {
-    throw new Error('Both childElement and parentElement must be provided');
+    throw new Error("Both childElement and parentElement must be provided");
   }
 
   // Get the bounding rect of the child and parent elements

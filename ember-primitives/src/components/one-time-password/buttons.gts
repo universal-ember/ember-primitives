@@ -1,16 +1,16 @@
-import { assert } from '@ember/debug';
-import { on } from '@ember/modifier';
+import { assert } from "@ember/debug";
+import { on } from "@ember/modifier";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 const reset = (event: Event) => {
-  assert('[BUG]: reset called without an event.target', event.target instanceof HTMLElement);
+  assert("[BUG]: reset called without an event.target", event.target instanceof HTMLElement);
 
-  const form = event.target.closest('form');
+  const form = event.target.closest("form");
 
   assert(
-    'Form is missing. Cannot use <Reset> without being contained within a <form>',
-    form instanceof HTMLFormElement
+    "Form is missing. Cannot use <Reset> without being contained within a <form>",
+    form instanceof HTMLFormElement,
   );
 
   form.reset();

@@ -76,6 +76,7 @@ export function isActive(
       const dynamicSegments = getParams(info);
       const routeName = activeOnSubPaths ? info.name.replace(/\.index$/, '') : info.name;
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return router.isActive(routeName, ...dynamicSegments);
     }
 
@@ -110,7 +111,7 @@ export function isActive(
 type RouteInfo = ReturnType<RouterService['recognize']>;
 
 export function getParams(currentRouteInfo: RouteInfo) {
-  let params: Record<string, string | unknown | undefined>[] = [];
+  let params: Record<string, unknown>[] = [];
 
   while (currentRouteInfo?.parent) {
     const currentParams = currentRouteInfo.params;
@@ -119,5 +120,6 @@ export function getParams(currentRouteInfo: RouteInfo) {
     currentRouteInfo = currentRouteInfo.parent;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return params.map(Object.values).flat();
 }

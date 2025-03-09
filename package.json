@@ -34,10 +34,10 @@
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@9.15.7",
   "volta": {
     "node": "22.14.0",
-    "pnpm": "9.15.0"
+    "pnpm": "9.15.7"
   },
   "pnpm": {
     "peerDependencyRules": {

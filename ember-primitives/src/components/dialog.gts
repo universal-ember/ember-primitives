@@ -98,9 +98,6 @@ export interface Signature {
         /**
          * This is the `<dialog>` element (with some defaults pre-wired).
          * This is required to be rendered.
-         *
-         * The underlying `<dialog>` element is declared `inert` when closed to prevent accidental focus/outline
-         * highlighting for keyboard users.
          */
         Dialog: WithBoundArgs<typeof DialogElement, "onClose" | "register" | "open">;
       },

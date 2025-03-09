@@ -1,17 +1,16 @@
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { hash } from '@ember/helper';
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { hash } from "@ember/helper";
 
-import { modifier as eModifier } from 'ember-modifier';
+import { modifier as eModifier } from "ember-modifier";
 
-import { anchorTo } from './modifier.ts';
+import { anchorTo } from "./modifier.ts";
 
-import type { Signature as ModifierSignature } from './modifier.ts';
-import type { MiddlewareState } from '@floating-ui/dom';
-import type { WithBoundArgs, WithBoundPositionals } from '@glint/template';
-import type { ModifierLike } from '@glint/template';
+import type { Signature as ModifierSignature } from "./modifier.ts";
+import type { MiddlewareState } from "@floating-ui/dom";
+import type { ModifierLike } from "@glint/template";
 
-type ModifierArgs = ModifierSignature['Args']['Named'];
+type ModifierArgs = ModifierSignature["Args"]["Named"];
 
 interface ReferenceSignature {
   Element: HTMLElement | SVGElement;
@@ -24,37 +23,37 @@ export interface Signature {
      *
      * See: [The middleware docs](https://floating-ui.com/docs/middleware)
      */
-    middleware?: ModifierArgs['middleware'];
+    middleware?: ModifierArgs["middleware"];
     /**
      * Where to place the floating element relative to its reference element.
      * The default is 'bottom'.
      *
      * See: [The placement docs](https://floating-ui.com/docs/computePosition#placement)
      */
-    placement?: ModifierArgs['placement'];
+    placement?: ModifierArgs["placement"];
     /**
      * This is the type of CSS position property to use.
      * By default this is 'fixed', but can also be 'absolute'.
      *
      * See: [The strategy docs](https://floating-ui.com/docs/computePosition#strategy)
      */
-    strategy?: ModifierArgs['strategy'];
+    strategy?: ModifierArgs["strategy"];
     /**
      * Options to pass to the [flip middleware](https://floating-ui.com/docs/flip)
      */
-    flipOptions?: ModifierArgs['flipOptions'];
+    flipOptions?: ModifierArgs["flipOptions"];
     /**
      * Options to pass to the [hide middleware](https://floating-ui.com/docs/hide)
      */
-    hideOptions?: ModifierArgs['hideOptions'];
+    hideOptions?: ModifierArgs["hideOptions"];
     /**
      * Options to pass to the [shift middleware](https://floating-ui.com/docs/shift)
      */
-    shiftOptions?: ModifierArgs['shiftOptions'];
+    shiftOptions?: ModifierArgs["shiftOptions"];
     /**
      * Options to pass to the [offset middleware](https://floating-ui.com/docs/offset)
      */
-    offsetOptions?: ModifierArgs['offsetOptions'];
+    offsetOptions?: ModifierArgs["offsetOptions"];
   };
   Blocks: {
     default: [
@@ -93,7 +92,12 @@ export interface Signature {
        */
       floating:
         | undefined
-        | WithBoundArgs<WithBoundPositionals<typeof anchorTo, 1>, keyof ModifierArgs>,
+        | ModifierLike<{
+            Element: HTMLElement;
+            Args: {
+              Named: ModifierArgs;
+            };
+          }>,
       /**
        * Special utilities for advanced usage
        */
@@ -121,7 +125,7 @@ const ref = eModifier<{
     Positional: [setRef: (element: HTMLElement | SVGElement) => void];
   };
 }>((element: HTMLElement | SVGElement, positional) => {
-  let fn = positional[0];
+  const fn = positional[0];
 
   fn(element);
 });
@@ -148,7 +152,7 @@ export class FloatingUI extends Component<Signature> {
   @tracked reference?: HTMLElement | SVGElement = undefined;
   @tracked data?: MiddlewareState = undefined;
 
-  setData: ModifierArgs['setData'] = (data) => (this.data = data);
+  setData: ModifierArgs["setData"] = (data) => (this.data = data);
 
   setReference = (element: HTMLElement | SVGElement) => {
     this.reference = element;

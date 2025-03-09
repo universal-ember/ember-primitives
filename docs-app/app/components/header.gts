@@ -1,5 +1,6 @@
-import { Flask, GitHub } from '@universal-ember/docs-support/icons';
 import { ExternalLink } from 'ember-primitives';
+
+import { Flask, GitHub } from '@universal-ember/docs-support/icons';
 
 export const TestsLink = <template>
   <ExternalLink href="/tests" class="group" aria-label="Tests">

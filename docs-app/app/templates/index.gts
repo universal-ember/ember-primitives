@@ -1,3 +1,8 @@
+import { GitHubLink, TestsLink } from 'docs-app/components/header';
+import { Logo } from 'docs-app/components/icons';
+import { ExternalLink } from 'ember-primitives/components/external-link';
+import Route from 'ember-route-template';
+
 import {
   Article,
   H2,
@@ -15,10 +20,6 @@ import {
   Threads,
   XTwitter,
 } from '@universal-ember/docs-support/icons';
-import { GitHubLink, TestsLink } from 'docs-app/components/header';
-import { Logo } from 'docs-app/components/icons';
-import { ExternalLink } from 'ember-primitives/components/external-link';
-import Route from 'ember-route-template';
 
 export default Route(
   <template>

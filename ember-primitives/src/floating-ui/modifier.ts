@@ -140,8 +140,8 @@ export const anchorTo = eModifier<Signature>(
       left: '0',
     });
 
-    let update = async () => {
-      let { middlewareData, x, y } = await computePosition(referenceElement, floatingElement, {
+    const update = async () => {
+      const { middlewareData, x, y } = await computePosition(referenceElement, floatingElement, {
         middleware: [
           offset(offsetOptions),
           flip(flipOptions),
@@ -155,7 +155,7 @@ export const anchorTo = eModifier<Signature>(
         strategy,
       });
 
-      let referenceHidden = middlewareData.hide?.referenceHidden;
+      const referenceHidden = middlewareData.hide?.referenceHidden;
 
       Object.assign(floatingElement.style, {
         top: `${y}px`,
@@ -164,12 +164,14 @@ export const anchorTo = eModifier<Signature>(
         visibility: referenceHidden ? 'hidden' : 'visible',
       });
 
-      setData?.(middlewareData['metadata']);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      void setData?.(middlewareData['metadata']);
     };
 
-    update();
+    void update();
 
-    let cleanup = autoUpdate(referenceElement, floatingElement, update);
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    const cleanup = autoUpdate(referenceElement, floatingElement, update);
 
     /**
      * in the function-modifier manager, teardown of the previous modifier

@@ -30,14 +30,14 @@ if (process.env['DEBUG']) {
 async function run() {
   switch (command) {
     case 'prettier:fix':
-      return execaCommand(`pnpm prettier -w . ` + `--cache --cache-strategy content`, {
+      return execaCommand(`pnpm prettier -w . `, {
         cwd,
         stdio: 'inherit',
       });
     case 'prettier':
       return execaCommand(`pnpm prettier -c .`, { cwd, stdio: 'inherit' });
     case 'js:fix':
-      return execaCommand(`pnpm eslint . ` + `--fix --cache --cache-strategy content`, {
+      return execaCommand(`pnpm eslint . ` + `--fix`, {
         cwd,
         stdio: 'inherit',
       });

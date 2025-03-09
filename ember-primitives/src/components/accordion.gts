@@ -1,22 +1,22 @@
-import Component from '@glimmer/component';
-import { assert } from '@ember/debug';
-import { hash } from '@ember/helper';
+import Component from "@glimmer/component";
+import { assert } from "@ember/debug";
+import { hash } from "@ember/helper";
 
 // temp
 //  https://github.com/tracked-tools/tracked-toolbox/issues/38
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { localCopy } from 'tracked-toolbox';
+import { localCopy } from "tracked-toolbox";
 
-import AccordionItem from './accordion/item.gts';
+import AccordionItem from "./accordion/item.gts";
 
-import type { WithBoundArgs } from '@glint/template';
+import type { WithBoundArgs } from "@glint/template";
 
 type AccordionSingleArgs = {
   /**
    * The type of accordion. If `single`, only one item can be selected at a time. If `multiple`, multiple items can be selected at a time.
    */
-  type: 'single';
+  type: "single";
   /**
    * Whether the accordion is disabled. When `true`, all items cannot be expanded or collapsed.
    */
@@ -60,7 +60,7 @@ type AccordionMultipleArgs = {
   /**
    * The type of accordion. If `single`, only one item can be selected at a time. If `multiple`, multiple items can be selected at a time.
    */
-  type: 'multiple';
+  type: "multiple";
   /**
    * Whether the accordion is disabled. When `true`, all items cannot be expanded or collapsed.
    */
@@ -74,7 +74,7 @@ type AccordionMultipleArgs = {
       /**
        * A callback that is called when the selected values change. To be used in a controlled fashion in conjunction with `value`.
        */
-      onValueChange: (value?: string[] | undefined) => void;
+      onValueChange: (value?: string[]) => void;
       /**
        * Not available in a controlled fashion.
        */
@@ -105,7 +105,7 @@ export class Accordion extends Component<{
         /**
          * The AccordionItem component.
          */
-        Item: WithBoundArgs<typeof AccordionItem, 'selectedValue' | 'toggleItem' | 'disabled'>;
+        Item: WithBoundArgs<typeof AccordionItem, "selectedValue" | "toggleItem" | "disabled">;
       },
     ];
   };
@@ -125,7 +125,8 @@ export class Accordion extends Component<{
     </div>
   </template>
 
-  @localCopy('args.defaultValue') declare _internallyManagedValue?: string | string[];
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  @localCopy("args.defaultValue") declare _internallyManagedValue?: string | string[];
 
   get selectedValue() {
     return this.args.value ?? this._internallyManagedValue;
@@ -136,18 +137,18 @@ export class Accordion extends Component<{
       return;
     }
 
-    if (this.args.type === 'single') {
+    if (this.args.type === "single") {
       this.toggleItemSingle(value);
-    } else if (this.args.type === 'multiple') {
+    } else if (this.args.type === "multiple") {
       this.toggleItemMultiple(value);
     }
   };
 
   toggleItemSingle = (value: string) => {
-    assert('Cannot call `toggleItemSingle` when `disabled` is true.', !this.args.disabled);
+    assert("Cannot call `toggleItemSingle` when `disabled` is true.", !this.args.disabled);
     assert(
-      'Cannot call `toggleItemSingle` when `type` is not `single`.',
-      this.args.type === 'single'
+      "Cannot call `toggleItemSingle` when `type` is not `single`.",
+      this.args.type === "single",
     );
 
     if (value === this.selectedValue && !this.args.collapsible) {
@@ -164,10 +165,10 @@ export class Accordion extends Component<{
   };
 
   toggleItemMultiple = (value: string) => {
-    assert('Cannot call `toggleItemMultiple` when `disabled` is true.', !this.args.disabled);
+    assert("Cannot call `toggleItemMultiple` when `disabled` is true.", !this.args.disabled);
     assert(
-      'Cannot call `toggleItemMultiple` when `type` is not `multiple`.',
-      this.args.type === 'multiple'
+      "Cannot call `toggleItemMultiple` when `type` is not `multiple`.",
+      this.args.type === "multiple",
     );
 
     const currentValues = (this.selectedValue as string[] | undefined) ?? [];

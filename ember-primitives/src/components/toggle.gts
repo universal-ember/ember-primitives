@@ -1,14 +1,13 @@
 // import Component from '@glimmer/component';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
+import { fn } from "@ember/helper";
+import { on } from "@ember/modifier";
 
-import { cell } from 'ember-resources';
+import { cell } from "ember-resources";
 
-import { toggleWithFallback } from './-private/utils.ts';
+import { toggleWithFallback } from "./-private/utils.ts";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Signature<Value = any> {
   Element: HTMLButtonElement;
   Args: {
@@ -41,7 +40,7 @@ export interface Signature<Value = any> {
     /**
      * When controlling state in a wrapping component, this function can be used in conjunction with `@value` to determine if this `<Toggle>` should appear pressed.
      */
-    isPressed?: (value?: Value | undefined) => boolean;
+    isPressed?: (value?: Value) => boolean;
   };
   Blocks: {
     default: [
@@ -58,7 +57,7 @@ export interface Signature<Value = any> {
 function isPressed(
   pressed?: boolean,
   value?: unknown,
-  isPressed?: (value?: unknown) => boolean
+  isPressed?: (value?: unknown) => boolean,
 ): boolean {
   if (!value) return Boolean(pressed);
   if (!isPressed) return Boolean(pressed);

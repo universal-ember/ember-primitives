@@ -173,7 +173,7 @@ module('Rendering | dialog', function (hooks) {
         @tracked open = false;
       }
 
-      let state = new Controlled();
+      const state = new Controlled();
 
       await render(
         <template>

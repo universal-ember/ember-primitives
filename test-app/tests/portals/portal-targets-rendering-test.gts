@@ -13,7 +13,7 @@ module('Rendering | <PortalTargets>', function (hooks) {
   test('just divs', async function (assert) {
     await render(<template><PortalTargets /></template>);
 
-    for (let name of Object.values(PORTALS)) {
+    for (const name of Object.values(PORTALS)) {
       assert.dom(`[data-portal-name="${name}"]`).exists();
     }
   });
@@ -58,7 +58,7 @@ module('Rendering | findNearestTarget', function (hooks) {
         </template>
       );
 
-      let origin = find('#origin');
+      const origin = find('#origin');
 
       assert.throws(() => {
         debugAssert(`[BUG]`, origin);
@@ -76,7 +76,7 @@ module('Rendering | findNearestTarget', function (hooks) {
       </template>
     );
 
-    let origin = find('#origin');
+    const origin = find('#origin');
 
     debugAssert(`[BUG]`, origin);
     assert.ok(findNearestTarget(origin, PORTALS.popover));
@@ -96,8 +96,8 @@ module('Rendering | findNearestTarget', function (hooks) {
       </template>
     );
 
-    let origin = find('#origin');
-    let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
+    const origin = find('#origin');
+    const nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
 
     debugAssert(`[BUG]: origin`, origin);
     debugAssert(`[BUG]: nestedTarget`, nestedTarget);
@@ -123,8 +123,8 @@ module('Rendering | findNearestTarget', function (hooks) {
       </template>
     );
 
-    let origin = find('#origin');
-    let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
+    const origin = find('#origin');
+    const nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
 
     debugAssert(`[BUG]: origin`, origin);
     debugAssert(`[BUG]: nestedTarget`, nestedTarget);
@@ -150,8 +150,8 @@ module('Rendering | findNearestTarget', function (hooks) {
       </template>
     );
 
-    let origin = find('#origin');
-    let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
+    const origin = find('#origin');
+    const nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
 
     debugAssert(`[BUG]: origin`, origin);
     debugAssert(`[BUG]: nestedTarget`, nestedTarget);
@@ -175,8 +175,8 @@ module('Rendering | findNearestTarget', function (hooks) {
       </template>
     );
 
-    let origin = find('#origin');
-    let nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
+    const origin = find('#origin');
+    const nestedTarget = find(`#pretend-modal [data-portal-name=${PORTALS.popover}]`);
 
     debugAssert(`[BUG]: origin`, origin);
     debugAssert(`[BUG]: nestedTarget`, nestedTarget);

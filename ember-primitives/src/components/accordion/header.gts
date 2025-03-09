@@ -1,10 +1,10 @@
-import { hash } from '@ember/helper';
+import { hash } from "@ember/helper";
 
-import { getDataState } from './item.gts';
-import Trigger from './trigger.gts';
+import { getDataState } from "./item.gts";
+import Trigger from "./trigger.gts";
 
-import type { AccordionHeaderExternalSignature } from './public.ts';
-import type { TOC } from '@ember/component/template-only';
+import type { AccordionHeaderExternalSignature } from "./public.ts";
+import type { TOC } from "@ember/component/template-only";
 
 interface Signature extends AccordionHeaderExternalSignature {
   Args: {

@@ -1,19 +1,19 @@
-import { hash } from '@ember/helper';
+import { hash } from "@ember/helper";
 
-import { arrow } from '@floating-ui/dom';
-import { element } from 'ember-element-helper';
-import { modifier as eModifier } from 'ember-modifier';
-import { cell } from 'ember-resources';
+import { arrow } from "@floating-ui/dom";
+import { element } from "ember-element-helper";
+import { modifier as eModifier } from "ember-modifier";
+import { cell } from "ember-resources";
 
-import { FloatingUI } from '../floating-ui.ts';
-import { Portal } from './portal.gts';
-import { TARGETS } from './portal-targets.gts';
+import { FloatingUI } from "../floating-ui.ts";
+import { Portal } from "./portal.gts";
+import { TARGETS } from "./portal-targets.gts";
 
-import type { Signature as FloatingUiComponentSignature } from '../floating-ui/component.ts';
-import type { Signature as HookSignature } from '../floating-ui/modifier.ts';
-import type { TOC } from '@ember/component/template-only';
-import type { ElementContext, Middleware } from '@floating-ui/dom';
-import type { ModifierLike, WithBoundArgs } from '@glint/template';
+import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.ts";
+import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
+import type { TOC } from "@ember/component/template-only";
+import type { ElementContext, Middleware } from "@floating-ui/dom";
+import type { ModifierLike, WithBoundArgs } from "@glint/template";
 
 export interface Signature {
   Args: {
@@ -22,19 +22,19 @@ export interface Signature {
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
-    flipOptions?: HookSignature['Args']['Named']['flipOptions'];
+    flipOptions?: HookSignature["Args"]["Named"]["flipOptions"];
     /**
      * Array of one or more objects to add to Floating UI's list of [middleware](https://floating-ui.com/docs/middleware)
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
-    middleware?: HookSignature['Args']['Named']['middleware'];
+    middleware?: HookSignature["Args"]["Named"]["middleware"];
     /**
      * See the Floating UI's [offset docs](https://floating-ui.com/docs/offset) for possible values.
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
-    offsetOptions?: HookSignature['Args']['Named']['offsetOptions'];
+    offsetOptions?: HookSignature["Args"]["Named"]["offsetOptions"];
     /**
      * One of the possible [`placements`](https://floating-ui.com/docs/computeposition#placement). The default is 'bottom'.
      *
@@ -48,13 +48,13 @@ export interface Signature {
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
-    placement?: `${'top' | 'bottom' | 'left' | 'right'}${'' | '-start' | '-end'}`;
+    placement?: `${"top" | "bottom" | "left" | "right"}${"" | "-start" | "-end"}`;
     /**
      * See the Floating UI's [shift docs](https://floating-ui.com/docs/shift) for possible values.
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
-    shiftOptions?: HookSignature['Args']['Named']['shiftOptions'];
+    shiftOptions?: HookSignature["Args"]["Named"]["shiftOptions"];
     /**
      * CSS position property, either `fixed` or `absolute`.
      *
@@ -62,7 +62,7 @@ export interface Signature {
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
-    strategy?: HookSignature['Args']['Named']['strategy'];
+    strategy?: HookSignature["Args"]["Named"]["strategy"];
 
     /**
      * By default, the popover is portaled.
@@ -76,18 +76,18 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        reference: FloatingUiComponentSignature['Blocks']['default'][0];
-        setReference: FloatingUiComponentSignature['Blocks']['default'][2]['setReference'];
-        Content: WithBoundArgs<typeof Content, 'floating'>;
-        data: FloatingUiComponentSignature['Blocks']['default'][2]['data'];
-        arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
+        reference: FloatingUiComponentSignature["Blocks"]["default"][0];
+        setReference: FloatingUiComponentSignature["Blocks"]["default"][2]["setReference"];
+        Content: WithBoundArgs<typeof Content, "floating">;
+        data: FloatingUiComponentSignature["Blocks"]["default"][2]["data"];
+        arrow: ModifierLike<{ Element: HTMLElement }>;
       },
     ];
   };
 }
 
 function getElementTag(tagName: undefined | string) {
-  return tagName || 'div';
+  return tagName || "div";
 }
 
 /**
@@ -144,58 +144,66 @@ interface AttachArrowSignature {
   Args: {
     Named: {
       arrowElement: ReturnType<typeof ArrowElement>;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data?: any;
+      data:
+        | undefined
+        | {
+            placement: string;
+            middlewareData?: {
+              arrow?: { x?: number; y?: number };
+            };
+          };
     };
   };
 }
 
 const arrowSides = {
-  top: 'bottom',
-  right: 'left',
-  bottom: 'top',
-  left: 'right',
+  top: "bottom",
+  right: "left",
+  bottom: "top",
+  left: "right",
 };
 
-type Direction = 'top' | 'bottom' | 'left' | 'right';
-type Placement = `${Direction}${'' | '-start' | '-end'}`;
+type Direction = "top" | "bottom" | "left" | "right";
+type Placement = `${Direction}${"" | "-start" | "-end"}`;
 
-const attachArrow = eModifier<AttachArrowSignature>((element, _: [], named) => {
-  if (element === named.arrowElement.current) {
-    if (!named.data) return;
-    if (!named.data.middlewareData) return;
+const attachArrow: ModifierLike<AttachArrowSignature> = eModifier<AttachArrowSignature>(
+  (element, _: [], named) => {
+    if (element === named.arrowElement.current) {
+      if (!named.data) return;
+      if (!named.data.middlewareData) return;
 
-    let { arrow } = named.data.middlewareData;
-    let { placement } = named.data;
+      const { arrow } = named.data.middlewareData;
+      const { placement } = named.data;
 
-    if (!arrow) return;
-    if (!placement) return;
+      if (!arrow) return;
+      if (!placement) return;
 
-    let { x: arrowX, y: arrowY } = arrow;
-    let otherSide = (placement as Placement).split('-')[0] as Direction;
-    let staticSide = arrowSides[otherSide];
+      const { x: arrowX, y: arrowY } = arrow;
+      const otherSide = (placement as Placement).split("-")[0] as Direction;
+      const staticSide = arrowSides[otherSide];
 
-    Object.assign(named.arrowElement.current.style, {
-      left: arrowX != null ? `${arrowX}px` : '',
-      top: arrowY != null ? `${arrowY}px` : '',
-      right: '',
-      bottom: '',
-      [staticSide]: '-4px',
-    });
+      Object.assign(named.arrowElement.current.style, {
+        left: arrowX != null ? `${arrowX}px` : "",
+        top: arrowY != null ? `${arrowY}px` : "",
+        right: "",
+        bottom: "",
+        [staticSide]: "-4px",
+      });
 
-    return;
-  }
+      return;
+    }
 
-  (async () => {
-    await Promise.resolve();
-    named.arrowElement.set(element);
-  })();
-});
+    void (async () => {
+      await Promise.resolve();
+      named.arrowElement.set(element);
+    })();
+  },
+);
 
 const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
 
 function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
-  let result = [...(middleware || [])];
+  const result = [...(middleware || [])];
 
   if (element) {
     result.push(arrow({ element }));
@@ -204,9 +212,9 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
   return result;
 }
 
-function flipOptions(options: HookSignature['Args']['Named']['flipOptions']) {
+function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
   return {
-    elementContext: 'reference' as ElementContext,
+    elementContext: "reference" as ElementContext,
     ...options,
   };
 }
@@ -222,15 +230,17 @@ export const Popover: TOC<Signature> = <template>
       @offsetOptions={{@offsetOptions}}
       as |reference floating extra|
     >
-      {{yield
-        (hash
-          reference=reference
-          setReference=extra.setReference
-          Content=(component Content floating=floating inline=@inline)
-          data=extra.data
-          arrow=(modifier attachArrow arrowElement=arrowElement data=extra.data)
-        )
-      }}
+      {{#let (modifier attachArrow arrowElement=arrowElement data=extra.data) as |arrow|}}
+        {{yield
+          (hash
+            reference=reference
+            setReference=extra.setReference
+            Content=(component Content floating=floating inline=@inline)
+            data=extra.data
+            arrow=arrow
+          )
+        }}
+      {{/let}}
     </FloatingUI>
   {{/let}}
 </template>;

@@ -1,8 +1,8 @@
-import Component from '@glimmer/component';
-import { isDestroyed, isDestroying } from '@ember/destroyable';
-import { hash } from '@ember/helper';
+import Component from "@glimmer/component";
+import { isDestroyed, isDestroying } from "@ember/destroyable";
+import { hash } from "@ember/helper";
 
-import { modifier } from 'ember-modifier';
+import { modifier } from "ember-modifier";
 
 /**
  * Utility component for helping with scrolling in any direction within
@@ -114,7 +114,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         top: this.withinElement.scrollHeight,
-        behavior: 'auto',
+        behavior: "auto",
       });
     });
   };
@@ -129,7 +129,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         top: 0,
-        behavior: 'auto',
+        behavior: "auto",
       });
     });
   };
@@ -144,7 +144,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         left: 0,
-        behavior: 'auto',
+        behavior: "auto",
       });
     });
   };
@@ -159,7 +159,7 @@ export class Scroller extends Component<{
 
       this.withinElement.scrollTo({
         left: this.withinElement.scrollWidth,
-        behavior: 'auto',
+        behavior: "auto",
       });
     });
   };

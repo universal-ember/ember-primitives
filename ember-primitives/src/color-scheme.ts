@@ -9,7 +9,7 @@ let callbacks: Set<(colorScheme: string) => void> = new Set();
 async function runCallbacks(theme: string) {
   await Promise.resolve();
 
-  for (let callback of callbacks.values()) {
+  for (const callback of callbacks.values()) {
     callback(theme);
   }
 }
@@ -24,7 +24,7 @@ export const colorScheme = {
   update: (value: string) => {
     colorScheme.current = value;
 
-    waitForPromise(runCallbacks(value));
+    void waitForPromise(runCallbacks(value));
   },
 
   on: {
@@ -79,7 +79,7 @@ export function sync() {
    * If local prefs are set, then we don't care what prefers-color-scheme is
    */
   if (localPreference.isSet()) {
-    let pref = localPreference.read();
+    const pref = localPreference.read();
 
     if (pref === 'dark') {
       setColorScheme('dark');
@@ -130,7 +130,7 @@ export const localPreference = {
  * For the given element, returns the `color-scheme` of that element.
  */
 export function getColorScheme(element?: HTMLElement) {
-  let style = styleOf(element);
+  const style = styleOf(element);
 
   return style.getPropertyValue('color-scheme');
 }
@@ -158,7 +158,7 @@ export function setColorScheme(...args: [string] | [HTMLElement, string]): void 
  * Removes the `color-scheme` from the given element
  */
 export function removeColorScheme(element?: HTMLElement) {
-  let style = styleOf(element);
+  const style = styleOf(element);
 
   style.removeProperty('color-scheme');
 }

@@ -1,6 +1,6 @@
-import './sticky-footer.css';
+import "./sticky-footer.css";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 export const StickyFooter: TOC<{
   /**

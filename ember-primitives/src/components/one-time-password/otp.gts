@@ -1,30 +1,31 @@
-import { assert } from '@ember/debug';
-import { fn, hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-import { buildWaiter } from '@ember/test-waiters';
+import { assert } from "@ember/debug";
+import { fn, hash } from "@ember/helper";
+import { on } from "@ember/modifier";
+import { buildWaiter } from "@ember/test-waiters";
 
-import { Reset, Submit } from './buttons.gts';
-import { OTPInput } from './input.gts';
+import { Reset, Submit } from "./buttons.gts";
+import { OTPInput } from "./input.gts";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
-let waiter = buildWaiter('ember-primitives:OTP:handleAutoSubmitAttempt');
+const waiter = buildWaiter("ember-primitives:OTP:handleAutoSubmitAttempt");
 
 const handleFormSubmit = (submit: (data: { code: string }) => void, event: SubmitEvent) => {
   event.preventDefault();
 
   assert(
-    '[BUG]: handleFormSubmit was not attached to a form. Please open an issue.',
-    event.currentTarget instanceof HTMLFormElement
+    "[BUG]: handleFormSubmit was not attached to a form. Please open an issue.",
+    event.currentTarget instanceof HTMLFormElement,
   );
 
-  let formData = new FormData(event.currentTarget);
+  const formData = new FormData(event.currentTarget);
 
-  let code = '';
+  let code = "";
 
-  for (let [key, value] of formData.entries()) {
-    if (key.startsWith('code')) {
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith("code")) {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-base-to-string
       code += value;
     }
   }
@@ -37,27 +38,27 @@ const handleFormSubmit = (submit: (data: { code: string }) => void, event: Submi
 function handleChange(
   autoSubmit: boolean | undefined,
   data: { code: string; complete: boolean },
-  event: Event
+  event: Event,
 ) {
   if (!autoSubmit) return;
   if (!data.complete) return;
 
   assert(
-    '[BUG]: event target is not a known element type',
-    event.target instanceof HTMLElement || event.target instanceof SVGElement
+    "[BUG]: event target is not a known element type",
+    event.target instanceof HTMLElement || event.target instanceof SVGElement,
   );
 
-  const form = event.target.closest('form');
+  const form = event.target.closest("form");
 
-  assert('[BUG]: Cannot handle event when <OTP> Inputs are not rendered within their <form>', form);
+  assert("[BUG]: Cannot handle event when <OTP> Inputs are not rendered within their <form>", form);
 
   const token = waiter.beginAsync();
-  let finished = () => {
+  const finished = () => {
     waiter.endAsync(token);
-    form.removeEventListener('submit', finished);
+    form.removeEventListener("submit", finished);
   };
 
-  form.addEventListener('submit', finished);
+  form.addEventListener("submit", finished);
 
   // NOTE: when calling .submit() the submit event handlers are not run
   form.requestSubmit();
@@ -102,7 +103,7 @@ export const OTP: TOC<{
         /**
          * The collective input field that the OTP code will be typed/pasted in to
          */
-        Input: WithBoundArgs<typeof OTPInput, 'length' | 'onChange'>;
+        Input: WithBoundArgs<typeof OTPInput, "length" | "onChange">;
         /**
          * Button with `type="submit"` to submit the form
          */

@@ -1,8 +1,8 @@
-import Component from '@glimmer/component';
-import { warn } from '@ember/debug';
-import { isDestroyed, isDestroying } from '@ember/destroyable';
-import { on } from '@ember/modifier';
-import { buildWaiter } from '@ember/test-waiters';
+import Component from "@glimmer/component";
+import { warn } from "@ember/debug";
+import { isDestroyed, isDestroying } from "@ember/destroyable";
+import { on } from "@ember/modifier";
+import { buildWaiter } from "@ember/test-waiters";
 
 import {
   autoAdvance,
@@ -10,10 +10,10 @@ import {
   handleNavigation,
   handlePaste,
   selectAll,
-} from './utils.ts';
+} from "./utils.ts";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 const DEFAULT_LENGTH = 6;
 
@@ -25,7 +25,7 @@ function labelFor(inputIndex: number, labelFn: undefined | ((index: number) => s
   return `Please enter OTP character ${inputIndex + 1}`;
 }
 
-let waiter = buildWaiter('ember-primitives:OTPInput:handleChange');
+const waiter = buildWaiter("ember-primitives:OTPInput:handleChange");
 
 const Fields: TOC<{
   /**
@@ -98,7 +98,7 @@ export class OTPInput extends Component<{
       /**
        * The last input event received
        */
-      event: Event
+      event: Event,
     ) => void;
   };
   Blocks: {
@@ -108,7 +108,7 @@ export class OTPInput extends Component<{
      *
      * This is how you can add custom validation to each input field.
      */
-    default?: [fields: WithBoundArgs<typeof Fields, 'fields' | 'handleChange' | 'labelFn'>];
+    default?: [fields: WithBoundArgs<typeof Fields, "fields" | "handleChange" | "labelFn">];
   };
 }> {
   /**
@@ -139,11 +139,11 @@ export class OTPInput extends Component<{
       if (isDestroyed(this) || isDestroying(this)) return;
       if (!this.args.onChange) return;
 
-      let value = getCollectiveValue(event.target, this.length);
+      const value = getCollectiveValue(event.target, this.length);
 
       if (value === undefined) {
         warn(`Value could not be determined for the OTP field. was it removed from the DOM?`, {
-          id: 'ember-primitives.OTPInput.missing-value',
+          id: "ember-primitives.OTPInput.missing-value",
         });
 
         return;
@@ -153,7 +153,7 @@ export class OTPInput extends Component<{
     });
   };
 
-  #token: unknown | undefined;
+  #token: unknown;
   #frame: number | undefined;
 
   get length() {
@@ -164,7 +164,7 @@ export class OTPInput extends Component<{
     // We only need to iterate a number of times,
     // so we don't care about the actual value or
     // referential integrity here
-    return new Array(this.length);
+    return new Array<undefined>(this.length);
   }
 
   <template>
@@ -181,9 +181,17 @@ export class OTPInput extends Component<{
       {{/let}}
 
       <style>
-        .ember-primitives__sr-only { position: absolute; width: 1px; height: 1px; padding: 0;
-        margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width:
-        0; }
+        .ember-primitives__sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          white-space: nowrap;
+          border-width: 0;
+        }
       </style>
     </fieldset>
   </template>

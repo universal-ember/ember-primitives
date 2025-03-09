@@ -14,7 +14,7 @@ module('@properLinks', function (hooks) {
 
   hooks.beforeEach(function (assert) {
     assertCurrentURL = async (href: string) => {
-      let router = getRouter(this.owner);
+      const router = getRouter(this.owner);
 
       assert.strictEqual(router.currentURL, href);
     };
@@ -46,7 +46,7 @@ module('@properLinks', function (hooks) {
 
     assert.dom('a').exists({ count: 2 });
 
-    let router = getRouter(this.owner);
+    const router = getRouter(this.owner);
 
     assert.strictEqual(router.currentURL, '/');
 
@@ -75,7 +75,7 @@ module('@properLinks', function (hooks) {
 
     assert.dom('a').exists({ count: 3 });
 
-    let router = getRouter(this.owner);
+    const router = getRouter(this.owner);
 
     assert.strictEqual(router.currentURL, '/');
 
@@ -110,7 +110,7 @@ module('@properLinks', function (hooks) {
 
     assert.dom('a').exists({ count: 2 });
 
-    let router = getRouter(this.owner);
+    const router = getRouter(this.owner);
 
     assert.strictEqual(router.currentURL, '/');
 

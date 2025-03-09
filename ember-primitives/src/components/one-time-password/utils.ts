@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 
 function getInputs(current: HTMLInputElement) {
-  let fieldset = current.closest('fieldset');
+  const fieldset = current.closest('fieldset');
 
   assert('[BUG]: fieldset went missing', fieldset);
 
@@ -9,14 +9,14 @@ function getInputs(current: HTMLInputElement) {
 }
 
 function nextInput(current: HTMLInputElement) {
-  let inputs = getInputs(current);
-  let currentIndex = inputs.indexOf(current);
+  const inputs = getInputs(current);
+  const currentIndex = inputs.indexOf(current);
 
   return inputs[currentIndex + 1];
 }
 
 export function selectAll(event: Event) {
-  let target = event.target;
+  const target = event.target;
 
   assert(`selectAll is only meant for use with input elements`, target instanceof HTMLInputElement);
 
@@ -24,14 +24,14 @@ export function selectAll(event: Event) {
 }
 
 export function handlePaste(event: Event) {
-  let target = event.target;
+  const target = event.target;
 
   assert(
     `handlePaste is only meant for use with input elements`,
     target instanceof HTMLInputElement
   );
 
-  let clipboardData = (event as ClipboardEvent).clipboardData;
+  const clipboardData = (event as ClipboardEvent).clipboardData;
 
   assert(
     `Could not get clipboardData while handling the paste event on OTP. Please report this issue on the ember-primitives repo with a reproduction. Thanks!`,
@@ -44,7 +44,7 @@ export function handlePaste(event: Event) {
   // multiple text fields
   event.preventDefault();
 
-  let value = clipboardData.getData('Text');
+  const value = clipboardData.getData('Text');
   const digits = value;
   let i = 0;
   let currElement: HTMLInputElement | null = target;
@@ -52,7 +52,7 @@ export function handlePaste(event: Event) {
   while (currElement) {
     currElement.value = digits[i++] || '';
 
-    let next = nextInput(currElement);
+    const next = nextInput(currElement);
 
     if (next instanceof HTMLInputElement) {
       currElement = next;
@@ -79,11 +79,11 @@ export function handleNavigation(event: KeyboardEvent) {
 }
 
 function focusLeft(event: Pick<Event, 'target'>) {
-  let target = event.target;
+  const target = event.target;
 
   assert(`only allowed on input elements`, target instanceof HTMLInputElement);
 
-  let input = previousInput(target);
+  const input = previousInput(target);
 
   input?.focus();
   requestAnimationFrame(() => {
@@ -92,11 +92,11 @@ function focusLeft(event: Pick<Event, 'target'>) {
 }
 
 function focusRight(event: Pick<Event, 'target'>) {
-  let target = event.target;
+  const target = event.target;
 
   assert(`only allowed on input elements`, target instanceof HTMLInputElement);
 
-  let input = nextInput(target);
+  const input = nextInput(target);
 
   input?.focus();
   requestAnimationFrame(() => {
@@ -117,7 +117,7 @@ function handleBackspace(event: KeyboardEvent) {
    */
   event.preventDefault();
 
-  let target = event.target;
+  const target = event.target;
 
   if (target && 'value' in target) {
     if (target.value === '') {
@@ -131,8 +131,8 @@ function handleBackspace(event: KeyboardEvent) {
 }
 
 function previousInput(current: HTMLInputElement) {
-  let inputs = getInputs(current);
-  let currentIndex = inputs.indexOf(current);
+  const inputs = getInputs(current);
+  const currentIndex = inputs.indexOf(current);
 
   return inputs[currentIndex - 1];
 }
@@ -143,7 +143,7 @@ export const autoAdvance = (event: Event) => {
     event.target instanceof HTMLInputElement
   );
 
-  let value = event.target.value;
+  const value = event.target.value;
 
   if (value.length === 0) return;
 
@@ -180,7 +180,7 @@ export function getCollectiveValue(elementTarget: EventTarget | null, length: nu
 
   assert(`[BUG]: somehow the input fields were rendered without a parent element`, parent);
 
-  let elements = parent.querySelectorAll('input');
+  const elements = parent.querySelectorAll('input');
 
   let value = '';
 
@@ -189,7 +189,7 @@ export function getCollectiveValue(elementTarget: EventTarget | null, length: nu
     elements.length === length
   );
 
-  for (let element of elements) {
+  for (const element of elements) {
     assert(
       '[BUG]: how did the queried elements become a non-input element?',
       element instanceof HTMLInputElement

@@ -27,7 +27,7 @@ module.exports = {
       {
         runtime: {
           // requires package.json#exports
-          // eslint-disable-next-line n/no-missing-require
+
           import: require.resolve('decorator-transforms/runtime-esm'),
         },
       },

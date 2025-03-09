@@ -1,4 +1,4 @@
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 export const Div: TOC<{ Element: HTMLDivElement; Blocks: { default: [] } }> = <template>
   <div ...attributes>{{yield}}</div>

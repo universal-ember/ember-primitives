@@ -1,6 +1,6 @@
-import './hero.css';
+import "./hero.css";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 export const Hero: TOC<{
   /**

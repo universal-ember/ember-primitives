@@ -8,7 +8,7 @@ import { OTP } from 'ember-primitives';
 import { fillOTP } from 'ember-primitives/test-support';
 
 function getInputs() {
-  let inputs = find('fieldset')?.querySelectorAll('input');
+  const inputs = find('fieldset')?.querySelectorAll('input');
 
   if (!inputs) return [];
 
@@ -25,7 +25,7 @@ module('Rendering | <OTP>', function (hooks) {
   setupRenderingTest(hooks);
 
   test('@length can be adjusted', async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>
@@ -45,7 +45,7 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test('@length={{6}} is the default', async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>
@@ -65,7 +65,7 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test(`The Input's <Fields> can be used`, async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>
@@ -84,7 +84,7 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test('@autoSubmit works', async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>
@@ -101,7 +101,7 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test('@autoSubmit with incomplete input does submit', async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>
@@ -118,7 +118,7 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test('@autoSubmit={{false}} is the default', async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>
@@ -139,7 +139,7 @@ module('Rendering | <OTP>', function (hooks) {
   });
 
   test('<Reset> clears the inputs', async function (assert) {
-    let step = ({ code }: { code: string }) => assert.step(code);
+    const step = ({ code }: { code: string }) => assert.step(code);
 
     await render(
       <template>

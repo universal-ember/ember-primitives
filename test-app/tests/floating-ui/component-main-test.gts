@@ -41,7 +41,7 @@ module('floating-ui | component (main)', function (hooks) {
   });
 
   test('it renders with setReference', async function (assert) {
-    let hookModifier = modifier(
+    const hookModifier = modifier(
       (
         element: HTMLElement | SVGElement,
         [setReference]: [(element: HTMLElement | SVGElement) => void]
@@ -176,7 +176,7 @@ module('floating-ui | component (main)', function (hooks) {
 
   module('@offsetOptions', function () {
     test('can pass in distance', async function (assert) {
-      let offsetDistance = 10;
+      const offsetDistance = 10;
 
       await render(
         <template>
@@ -199,8 +199,8 @@ module('floating-ui | component (main)', function (hooks) {
         </template>
       );
 
-      let velcro1 = findElement('#velcro1');
-      let velcro2 = findElement('#velcro2');
+      const velcro1 = findElement('#velcro1');
+      const velcro2 = findElement('#velcro2');
 
       assert.strictEqual(
         velcro1.getBoundingClientRect().top + offsetDistance,
@@ -209,9 +209,9 @@ module('floating-ui | component (main)', function (hooks) {
     });
 
     test('can pass in skidding', async function (assert) {
-      let offsetSkidding = 10;
+      const offsetSkidding = 10;
 
-      let offsetOptions = { crossAxis: offsetSkidding };
+      const offsetOptions = { crossAxis: offsetSkidding };
 
       await render(
         <template>
@@ -227,8 +227,8 @@ module('floating-ui | component (main)', function (hooks) {
         </template>
       );
 
-      let velcro1 = findElement('#velcro1');
-      let velcro2 = findElement('#velcro2');
+      const velcro1 = findElement('#velcro1');
+      const velcro2 = findElement('#velcro2');
 
       assert.strictEqual(
         velcro1.getBoundingClientRect().left + offsetSkidding,

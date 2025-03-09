@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { assert } from '@ember/debug';
 import { registerDestructor } from '@ember/destroyable';
 import { getOwner } from '@ember/owner';
@@ -39,18 +38,19 @@ export function properLinks<Instance extends object, Klass = { new (...args: any
   let klass: undefined | Klass = undefined;
 
   if (args.length === 2) {
-    options = args[0] as Options;
-    klass = args[1] as Klass;
+    options = args[0];
+    klass = args[1];
   } else if (args.length === 1) {
     if (typeof args[0] === 'object') {
       // TODO: how to get first arg type correct?
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return (klass: Klass) => properLinks(args[0] as any, klass);
     } else {
       klass = args[0];
     }
   }
 
-  let ignore = options.ignore || [];
+  const ignore = options.ignore || [];
 
   assert(`klass was not defined. possibile incorrect arity given to properLinks`, klass);
 
@@ -58,6 +58,7 @@ export function properLinks<Instance extends object, Klass = { new (...args: any
     // SAFETY: we literally do not care about the args' type here,
     //         because we just call super
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
 
       setup(this, ignore);
@@ -75,15 +76,15 @@ export function setup(parent: object, ignore?: string[]) {
      * event.target may not be an anchor,
      * it may be a span, svg, img, or any number of elements nested in <a>...</a>
      */
-    let interactive = getAnchor(event);
+    const interactive = getAnchor(event);
 
     if (!interactive) return;
 
-    let owner = getOwner(parent);
+    const owner = getOwner(parent);
 
     assert('owner is not present', owner);
 
-    let routerService = owner.lookup('service:router');
+    const routerService = owner.lookup('service:router');
 
     handle(routerService, interactive, ignore ?? [], event);
   };
@@ -103,11 +104,11 @@ export function handle(
     return;
   }
 
-  let url = new URL(element.href);
+  const url = new URL(element.href);
 
-  let fullHref = `${url.pathname}${url.search}${url.hash}`;
+  const fullHref = `${url.pathname}${url.search}${url.hash}`;
 
-  let rootURL = router.rootURL;
+  const rootURL = router.rootURL;
 
   let withoutRootURL = fullHref.slice(rootURL.length);
 
@@ -119,7 +120,7 @@ export function handle(
   }
 
   try {
-    let routeInfo = router.recognize(fullHref);
+    const routeInfo = router.recognize(fullHref);
 
     if (routeInfo) {
       event.preventDefault();

@@ -116,11 +116,14 @@ jobs:
       fail-fast: true
       matrix:
         typescript-scenario:
-          - typescript@5.2
-          - typescript@5.3
-          - typescript@5.4
+          # TS < 5.4 doesn't have es2023
+          # - typescript@5.2
+          # - typescript@5.3
+          # - typescript@5.4
           - typescript@5.5
           - typescript@5.6
+          - typescript@5.7
+          - typescript@5.8
 
     steps:
       - uses: wyvox/action@v1
@@ -131,7 +134,7 @@ jobs:
         run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
         working-directory: ./test-app
       - name: 'Type checking'
-        run: pnpm turbo --filter 'test-app' lint:types
+        run: pnpm --filter 'test-app' lint:types
 
   docs-tests:
     name: "Docs' Tests"

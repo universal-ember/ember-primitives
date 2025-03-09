@@ -1,5 +1,5 @@
 // I reject this lint
-/* eslint-disable ember/routes-segments-snake-case */
+
 import EmberRouter from '@ember/routing/router';
 
 import config from 'docs-app/config/environment';

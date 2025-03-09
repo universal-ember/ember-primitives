@@ -1,8 +1,8 @@
-import Component from '@glimmer/component';
-import { hash } from '@ember/helper';
+import Component from "@glimmer/component";
+import { hash } from "@ember/helper";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 export interface Signature {
   Element: HTMLDivElement;
@@ -26,7 +26,7 @@ export interface Signature {
          * The indicator element with some state applied.
          * This can be used to style the progress of bar.
          */
-        Indicator: WithBoundArgs<typeof Indicator, 'value' | 'max' | 'percent'>;
+        Indicator: WithBoundArgs<typeof Indicator, "value" | "max" | "percent">;
         /**
          * The value as a percent of how far along the indicator should be
          * positioned, between 0 and 100.
@@ -47,7 +47,7 @@ export interface Signature {
   };
 }
 
-type ProgressState = 'indeterminate' | 'complete' | 'loading';
+type ProgressState = "indeterminate" | "complete" | "loading";
 
 const DEFAULT_MAX = 100;
 
@@ -55,14 +55,14 @@ const DEFAULT_MAX = 100;
  * Non-negative, non-NaN, non-Infinite, positive, rational
  */
 function isValidProgressNumber(value: number | undefined | null): value is number {
-  if (typeof value !== 'number') return false;
+  if (typeof value !== "number") return false;
   if (!Number.isFinite(value)) return false;
 
   return value >= 0;
 }
 
 function progressState(value: number | undefined | null, maxValue: number): ProgressState {
-  return value == null ? 'indeterminate' : value === maxValue ? 'complete' : 'loading';
+  return value == null ? "indeterminate" : value === maxValue ? "complete" : "loading";
 }
 
 function getMax(userMax: number | undefined | null): number {
@@ -70,7 +70,7 @@ function getMax(userMax: number | undefined | null): number {
 }
 
 function getValue(userValue: number | undefined | null, maxValue: number): number {
-  let max = getMax(maxValue);
+  const max = getMax(maxValue);
 
   if (!isValidProgressNumber(userValue)) {
     return 0;

@@ -13,7 +13,7 @@ module('<Progress />', function (hooks) {
       @tracked value = 0;
     }
 
-    let state = new State();
+    const state = new State();
 
     await render(
       <template>
@@ -25,8 +25,8 @@ module('<Progress />', function (hooks) {
       </template>
     );
 
-    let progressBar = '[role="progressbar"]';
-    let indicator = `${progressBar} > [data-state]`;
+    const progressBar = '[role="progressbar"]';
+    const indicator = `${progressBar} > [data-state]`;
 
     assert.dom(progressBar).exists();
     assert.dom(indicator).exists();
@@ -67,7 +67,7 @@ module('<Progress />', function (hooks) {
       @tracked max = 1000;
     }
 
-    let state = new State();
+    const state = new State();
 
     await render(
       <template>
@@ -79,8 +79,8 @@ module('<Progress />', function (hooks) {
       </template>
     );
 
-    let progressBar = '[role="progressbar"]';
-    let indicator = `${progressBar} > [data-state]`;
+    const progressBar = '[role="progressbar"]';
+    const indicator = `${progressBar} > [data-state]`;
 
     assert.dom(progressBar).exists();
     assert.dom(indicator).exists();
@@ -121,7 +121,7 @@ module('<Progress />', function (hooks) {
       @tracked max = 1000;
     }
 
-    let state = new State();
+    const state = new State();
 
     await render(
       <template>
@@ -133,8 +133,8 @@ module('<Progress />', function (hooks) {
       </template>
     );
 
-    let progressBar = '[role="progressbar"]';
-    let indicator = `${progressBar} > [data-state]`;
+    const progressBar = '[role="progressbar"]';
+    const indicator = `${progressBar} > [data-state]`;
 
     assert.dom(progressBar).exists();
     assert.dom(indicator).exists();
@@ -176,7 +176,7 @@ module('<Progress />', function (hooks) {
     assert.dom('#percent').hasText('66.67');
   });
 
-  for (let value of [
+  for (const value of [
     undefined,
     null,
     'string',
@@ -201,8 +201,8 @@ module('<Progress />', function (hooks) {
         </template>
       );
 
-      let progressBar = '[role="progressbar"]';
-      let indicator = `${progressBar} > [data-state]`;
+      const progressBar = '[role="progressbar"]';
+      const indicator = `${progressBar} > [data-state]`;
 
       assert.dom(progressBar).exists();
       assert.dom(indicator).exists();
@@ -228,8 +228,8 @@ module('<Progress />', function (hooks) {
         </template>
       );
 
-      let progressBar = '[role="progressbar"]';
-      let indicator = `${progressBar} > [data-state]`;
+      const progressBar = '[role="progressbar"]';
+      const indicator = `${progressBar} > [data-state]`;
 
       assert.dom(progressBar).exists();
       assert.dom(indicator).exists();

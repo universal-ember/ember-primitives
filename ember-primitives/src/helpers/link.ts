@@ -70,21 +70,22 @@ export function isActive(
     /**
      * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
      */
-    let info = router.recognize(href);
+    const info = router.recognize(href);
 
     if (info) {
-      let dynamicSegments = getParams(info);
-      let routeName = activeOnSubPaths ? info.name.replace(/\.index$/, '') : info.name;
+      const dynamicSegments = getParams(info);
+      const routeName = activeOnSubPaths ? info.name.replace(/\.index$/, '') : info.name;
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return router.isActive(routeName, ...dynamicSegments);
     }
 
     return false;
   }
 
-  let url = new URL(href, location.origin);
-  let hrefQueryParams = new URLSearchParams(url.searchParams);
-  let hrefPath = url.pathname;
+  const url = new URL(href, location.origin);
+  const hrefQueryParams = new URLSearchParams(url.searchParams);
+  const hrefPath = url.pathname;
 
   const currentPath = router.currentURL?.split('?')[0];
 
@@ -110,14 +111,15 @@ export function isActive(
 type RouteInfo = ReturnType<RouterService['recognize']>;
 
 export function getParams(currentRouteInfo: RouteInfo) {
-  let params: Record<string, string | unknown | undefined>[] = [];
+  let params: Record<string, unknown>[] = [];
 
   while (currentRouteInfo?.parent) {
-    let currentParams = currentRouteInfo.params;
+    const currentParams = currentRouteInfo.params;
 
     params = currentParams ? [currentParams, ...params] : params;
     currentRouteInfo = currentRouteInfo.parent;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return params.map(Object.values).flat();
 }

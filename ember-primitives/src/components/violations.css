@@ -68,10 +68,10 @@ div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="swi
 
 @media (prefers-color-scheme: light) {
   :is(
-      a[href="##missing##"],
-      span[data-prim-avatar]:has(img[alt="__missing__"]),
-      div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
-    ) {
+    a[href="##missing##"],
+    span[data-prim-avatar]:has(img[alt="__missing__"]),
+    div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
+  ) {
     border-color: black;
   }
   :is(
@@ -87,10 +87,10 @@ div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="swi
 
 @media (prefers-color-scheme: dark) {
   :is(
-      a[href="##missing##"],
-      span[data-prim-avatar]:has(img[alt="__missing__"]),
-      div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
-    ) {
+    a[href="##missing##"],
+    span[data-prim-avatar]:has(img[alt="__missing__"]),
+    div[data-prim-switch]:has(input[role="switch"]):not(:has(label)) input[role="switch"]
+  ) {
     border-color: red;
   }
   :is(

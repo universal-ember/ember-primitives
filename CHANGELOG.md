@@ -2,6 +2,17 @@
 
 ## Release (2025-03-09)
 
+ember-primitives 0.28.1 (patch)
+
+#### :bug: Bug Fix
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#438](https://github.com/universal-ember/ember-primitives/pull/438) Add focusOnClose modifier for the modal button ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-03-09)
+
 ember-primitives 0.28.0 (minor)
 
 #### :rocket: Enhancement

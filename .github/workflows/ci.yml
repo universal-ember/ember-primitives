@@ -116,9 +116,10 @@ jobs:
       fail-fast: true
       matrix:
         typescript-scenario:
-          - typescript@5.2
-          - typescript@5.3
-          - typescript@5.4
+          # TS < 5.4 doesn't have es2023
+          # - typescript@5.2
+          # - typescript@5.3
+          # - typescript@5.4
           - typescript@5.5
           - typescript@5.6
           - typescript@5.7

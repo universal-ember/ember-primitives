@@ -1,22 +1,41 @@
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 const isLast = (collection: unknown[], index: number) => index === collection.length - 1;
 const isNotLast = (collection: unknown[], index: number) => !isLast(collection, index);
-const isMac = navigator.userAgent.indexOf('Mac OS') >= 0;
-const getKeys = (keys: string[], mac: string[]) => (isMac ? mac ?? keys : keys);
+const isMac = navigator.userAgent.indexOf("Mac OS") >= 0;
 
-export const KeyCombo: TOC<{
+function split(str: string) {
+  let keys = str.split("+").map((x) => x.trim());
+
+  return keys;
+}
+
+function getKeys(keys: string[] | string, mac?: string[] | string) {
+  let normalKeys = Array.isArray(keys) ? keys : split(keys);
+
+  if (!mac) {
+    return normalKeys;
+  }
+
+  let normalMac = Array.isArray(mac) ? mac : split(mac);
+
+  return isMac ? normalMac : normalKeys;
+}
+
+export interface KeyComboSignature {
   Element: HTMLElement;
   Args: {
-    keys: string[];
-    mac: string[];
+    keys: string[] | string;
+    mac?: string[] | string;
   };
-}> = <template>
+}
+
+export const KeyCombo: TOC<KeyComboSignature> = <template>
   <span class="ember-primitives__key-combination" ...attributes>
     {{#let (getKeys @keys @mac) as |keys|}}
       {{#each keys as |key i|}}
         <Key>{{key}}</Key>
-        {{#if (isNotLast @keys i)}}
+        {{#if (isNotLast keys i)}}
           <span class="ember-primitives__key-combination__separator">+</span>
         {{/if}}
       {{/each}}
@@ -24,9 +43,11 @@ export const KeyCombo: TOC<{
   </span>
 </template>;
 
-export const Key: TOC<{
+export interface KeySignature {
   Element: HTMLElement;
   Blocks: { default?: [] };
-}> = <template>
-  <span class="ember-primitives__key" ...attributes>{{yield}}</span>
+}
+
+export const Key: TOC<KeySignature> = <template>
+  <kbd class="ember-primitives__key" ...attributes>{{yield}}</kbd>
 </template>;

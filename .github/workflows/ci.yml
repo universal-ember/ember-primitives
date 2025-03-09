@@ -121,6 +121,8 @@ jobs:
           - typescript@5.4
           - typescript@5.5
           - typescript@5.6
+          - typescript@5.7
+          - typescript@5.8
 
     steps:
       - uses: wyvox/action@v1

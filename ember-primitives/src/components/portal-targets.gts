@@ -24,7 +24,7 @@ export function findNearestTarget(origin: Element, name: string) {
   }
 
   if (macroCondition(isDevelopingApp())) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
     (window as any).prime0 = origin;
   }
 

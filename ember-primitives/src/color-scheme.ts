@@ -24,7 +24,7 @@ export const colorScheme = {
   update: (value: string) => {
     colorScheme.current = value;
 
-    waitForPromise(runCallbacks(value));
+    void waitForPromise(runCallbacks(value));
   },
 
   on: {

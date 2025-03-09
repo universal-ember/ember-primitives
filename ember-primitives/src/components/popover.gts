@@ -80,7 +80,7 @@ export interface Signature {
         setReference: FloatingUiComponentSignature['Blocks']['default'][2]['setReference'];
         Content: WithBoundArgs<typeof Content, 'floating'>;
         data: FloatingUiComponentSignature['Blocks']['default'][2]['data'];
-        arrow: WithBoundArgs<ModifierLike<AttachArrowSignature>, 'arrowElement' | 'data'>;
+        arrow: ModifierLike<{ Element: HTMLElement }>;
       },
     ];
   };
@@ -144,8 +144,14 @@ interface AttachArrowSignature {
   Args: {
     Named: {
       arrowElement: ReturnType<typeof ArrowElement>;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      data?: any;
+      data:
+        | undefined
+        | {
+            placement: string;
+            middlewareData?: {
+              arrow?: { x?: number; y?: number };
+            };
+          };
     };
   };
 }
@@ -160,37 +166,39 @@ const arrowSides = {
 type Direction = 'top' | 'bottom' | 'left' | 'right';
 type Placement = `${Direction}${'' | '-start' | '-end'}`;
 
-const attachArrow = eModifier<AttachArrowSignature>((element, _: [], named) => {
-  if (element === named.arrowElement.current) {
-    if (!named.data) return;
-    if (!named.data.middlewareData) return;
+const attachArrow: ModifierLike<AttachArrowSignature> = eModifier<AttachArrowSignature>(
+  (element, _: [], named) => {
+    if (element === named.arrowElement.current) {
+      if (!named.data) return;
+      if (!named.data.middlewareData) return;
 
-    const { arrow } = named.data.middlewareData;
-    const { placement } = named.data;
+      const { arrow } = named.data.middlewareData;
+      const { placement } = named.data;
 
-    if (!arrow) return;
-    if (!placement) return;
+      if (!arrow) return;
+      if (!placement) return;
 
-    const { x: arrowX, y: arrowY } = arrow;
-    const otherSide = (placement as Placement).split('-')[0] as Direction;
-    const staticSide = arrowSides[otherSide];
+      const { x: arrowX, y: arrowY } = arrow;
+      const otherSide = (placement as Placement).split('-')[0] as Direction;
+      const staticSide = arrowSides[otherSide];
 
-    Object.assign(named.arrowElement.current.style, {
-      left: arrowX != null ? `${arrowX}px` : '',
-      top: arrowY != null ? `${arrowY}px` : '',
-      right: '',
-      bottom: '',
-      [staticSide]: '-4px',
-    });
+      Object.assign(named.arrowElement.current.style, {
+        left: arrowX != null ? `${arrowX}px` : '',
+        top: arrowY != null ? `${arrowY}px` : '',
+        right: '',
+        bottom: '',
+        [staticSide]: '-4px',
+      });
 
-    return;
+      return;
+    }
+
+    void (async () => {
+      await Promise.resolve();
+      named.arrowElement.set(element);
+    })();
   }
-
-  (async () => {
-    await Promise.resolve();
-    named.arrowElement.set(element);
-  })();
-});
+);
 
 const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
 
@@ -222,15 +230,17 @@ export const Popover: TOC<Signature> = <template>
       @offsetOptions={{@offsetOptions}}
       as |reference floating extra|
     >
-      {{yield
-        (hash
-          reference=reference
-          setReference=extra.setReference
-          Content=(component Content floating=floating inline=@inline)
-          data=extra.data
-          arrow=(modifier attachArrow arrowElement=arrowElement data=extra.data)
-        )
-      }}
+      {{#let (modifier attachArrow arrowElement=arrowElement data=extra.data) as |arrow|}}
+        {{yield
+          (hash
+            reference=reference
+            setReference=extra.setReference
+            Content=(component Content floating=floating inline=@inline)
+            data=extra.data
+            arrow=arrow
+          )
+        }}
+      {{/let}}
     </FloatingUI>
   {{/let}}
 </template>;

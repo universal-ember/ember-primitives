@@ -5,6 +5,8 @@ import { findNearestTarget, type TARGETS } from './portal-targets.gts';
 
 import type { TOC } from '@ember/component/template-only';
 
+type Targets = (typeof TARGETS)[keyof typeof TARGETS];
+
 export interface Signature {
   Args: {
     /**
@@ -12,7 +14,8 @@ export interface Signature {
      * This is the value of the `data-portal-name` attribute
      * of the element you wish to render in to.
      */
-    to: (typeof TARGETS)[keyof typeof TARGETS] | (string & {});
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    to: Targets | (string & {});
   };
   Blocks: {
     /**
@@ -24,8 +27,10 @@ export interface Signature {
 
 const anchor = modifier(
   (element: Element, [to, update]: [string, ReturnType<typeof ElementValue>['set']]) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const found = findNearestTarget(element, to);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     update(found);
   }
 );

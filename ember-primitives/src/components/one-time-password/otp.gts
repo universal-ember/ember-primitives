@@ -25,6 +25,7 @@ const handleFormSubmit = (submit: (data: { code: string }) => void, event: Submi
 
   for (const [key, value] of formData.entries()) {
     if (key.startsWith('code')) {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-base-to-string
       code += value;
     }
   }

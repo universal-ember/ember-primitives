@@ -153,7 +153,7 @@ export class OTPInput extends Component<{
     });
   };
 
-  #token: unknown | undefined;
+  #token: unknown;
   #frame: number | undefined;
 
   get length() {
@@ -164,7 +164,7 @@ export class OTPInput extends Component<{
     // We only need to iterate a number of times,
     // so we don't care about the actual value or
     // referential integrity here
-    return new Array(this.length);
+    return new Array<undefined>(this.length);
   }
 
   <template>

@@ -74,7 +74,7 @@ type AccordionMultipleArgs = {
       /**
        * A callback that is called when the selected values change. To be used in a controlled fashion in conjunction with `value`.
        */
-      onValueChange: (value?: string[]  ) => void;
+      onValueChange: (value?: string[]) => void;
       /**
        * Not available in a controlled fashion.
        */
@@ -125,6 +125,7 @@ export class Accordion extends Component<{
     </div>
   </template>
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @localCopy('args.defaultValue') declare _internallyManagedValue?: string | string[];
 
   get selectedValue() {

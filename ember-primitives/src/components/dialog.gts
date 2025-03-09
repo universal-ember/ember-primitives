@@ -8,7 +8,7 @@ import { modifier } from 'ember-modifier';
 // temp
 //  https://github.com/tracked-tools/tracked-toolbox/issues/38
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-expect-error
 import { localCopy } from 'tracked-toolbox';
 
 import type { TOC } from '@ember/component/template-only';
@@ -97,6 +97,7 @@ class ModalDialog extends Component<Signature> {
     }}
   </template>
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @localCopy('args.open') declare _isOpen: boolean;
 
   get isOpen() {
@@ -123,7 +124,7 @@ class ModalDialog extends Component<Signature> {
      * This has to be an async / delayed a bit, so that
      * the tracking frame can exit, and we don't infinite loop
      */
-    (async () => {
+    void (async () => {
       await Promise.resolve();
 
       this.dialogElement = element;

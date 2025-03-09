@@ -1,5 +1,24 @@
 # Changelog 
 
+## Release (2025-03-09)
+
+ember-primitives 0.28.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#436](https://github.com/universal-ember/ember-primitives/pull/436) Create `<Key>`, `<KeyCombo>` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#437](https://github.com/universal-ember/ember-primitives/pull/437) Upgrade lint dependencies, widen ember-source peer ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#437](https://github.com/universal-ember/ember-primitives/pull/437) Upgrade lint dependencies, widen ember-source peer ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-12-15)
 
 ember-primitives 0.27.2 (patch)

@@ -27,7 +27,7 @@ module.exports = {
       {
         runtime: {
           // requires package.json#exports
-           
+
           import: require.resolve('decorator-transforms/runtime-esm'),
         },
       },

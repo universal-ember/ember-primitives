@@ -63,7 +63,7 @@ module('Rendering | menu', function (hooks) {
 
     assert.dom('.content').exists({ count: 1 });
 
-    let content = find('.content');
+    const content = find('.content');
 
     debugAssert(`There must be a content element with id set`, content?.id);
 
@@ -119,7 +119,7 @@ module('Rendering | menu', function (hooks) {
 
     assert.dom('.content').exists({ count: 1 });
 
-    let content = find('.content');
+    const content = find('.content');
 
     debugAssert(`There must be a content element with id set`, content?.id);
 

@@ -19,7 +19,7 @@ import { OTPInput } from 'ember-primitives';
 import { fillOTP } from 'ember-primitives/test-support';
 
 function getInputs() {
-  let inputs = find('fieldset')?.querySelectorAll('input');
+  const inputs = find('fieldset')?.querySelectorAll('input');
 
   if (!inputs) return [];
 
@@ -37,7 +37,7 @@ function isSelected(input: HTMLInputElement) {
     return false;
   }
 
-  let selectionLength = input.selectionEnd - input.selectionStart;
+  const selectionLength = input.selectionEnd - input.selectionStart;
 
   return input.value.length === selectionLength;
 }
@@ -87,7 +87,7 @@ module('Rendering | <OTPInput>', function (hooks) {
   });
 
   test('@onChange is called (and debounced)', async function (assert) {
-    let step = ({ code, complete }: { code: string; complete: boolean }) =>
+    const step = ({ code, complete }: { code: string; complete: boolean }) =>
       assert.step(`${code}:${complete}`);
 
     await render(<template><OTPInput @onChange={{step}} /></template>);
@@ -110,8 +110,8 @@ module('Rendering | <OTPInput>', function (hooks) {
   test('@labelFn, by default, provides a predictable, default english label', async function (assert) {
     await render(<template><OTPInput /></template>);
 
-    let inputs = findAll('input');
-    let labels = findAll('label');
+    const inputs = findAll('input');
+    const labels = findAll('label');
 
     assert.strictEqual(
       inputs.length,
@@ -125,12 +125,12 @@ module('Rendering | <OTPInput>', function (hooks) {
   });
 
   test('@labelFn can be specified to override the aria-label', async function (assert) {
-    let label = (i: number) => `OTP#${i}`;
+    const label = (i: number) => `OTP#${i}`;
 
     await render(<template><OTPInput @labelFn={{label}} /></template>);
 
-    let inputs = findAll('input');
-    let labels = findAll('label');
+    const inputs = findAll('input');
+    const labels = findAll('label');
 
     assert.strictEqual(
       inputs.length,
@@ -148,14 +148,14 @@ module('Rendering | <OTPInput>', function (hooks) {
 
     assert.strictEqual(readValue(), '');
 
-    let inputs = getInputs() as [
+    const inputs = getInputs() as [
       HTMLInputElement,
       HTMLInputElement,
       HTMLInputElement,
       HTMLInputElement,
     ];
 
-    for (let input of inputs) {
+    for (const input of inputs) {
       assert.notEqual(document.activeElement, input);
     }
 
@@ -175,7 +175,7 @@ module('Rendering | <OTPInput>', function (hooks) {
   test('ArrowRight: moving to the right: arrow keys correctly change focus', async function (assert) {
     await render(<template><OTPInput /></template>);
 
-    let inputs = getInputs();
+    const inputs = getInputs();
 
     debugAssert('Missing Input', inputs[0]);
     debugAssert('Missing Input', inputs[1]);
@@ -195,7 +195,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     );
 
     for (let i = 0; i < 5; i++) {
-      let current = inputs[i];
+      const current = inputs[i];
 
       debugAssert('Incorrect index', current);
       await triggerKeyEvent(current, 'keydown', 'ArrowRight');
@@ -219,7 +219,7 @@ module('Rendering | <OTPInput>', function (hooks) {
   test('ArrowLeft: moving to the left: arrow keys correctly change focus', async function (assert) {
     await render(<template><OTPInput /></template>);
 
-    let inputs = getInputs();
+    const inputs = getInputs();
 
     debugAssert('Missing Input', inputs[0]);
     debugAssert('Missing Input', inputs[1]);
@@ -235,7 +235,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.strictEqual(document.activeElement, inputs[5], `Can't go more right, we're at the end`);
 
     for (let i = 5; i > 0; i--) {
-      let current = inputs[i];
+      const current = inputs[i];
 
       debugAssert('Incorrect index', current);
       await triggerKeyEvent(current, 'keydown', 'ArrowLeft');
@@ -259,14 +259,14 @@ module('Rendering | <OTPInput>', function (hooks) {
   // Apparently we can't test paste :(
   // https://stackoverflow.com/questions/51395393/how-to-trigger-paste-event-manually-in-javascript
   skip('pasting into a field fills subsequent fields', async function (assert) {
-    let step = ({ code, complete }: { code: string; complete: boolean }) =>
+    const step = ({ code, complete }: { code: string; complete: boolean }) =>
       assert.step(`${code}:${complete}`);
 
     await render(<template><OTPInput @onChange={{step}} /></template>);
 
     assert.strictEqual(readValue(), '');
 
-    let inputs = getInputs() as [HTMLInputElement];
+    const inputs = getInputs() as [HTMLInputElement];
 
     await triggerEvent(inputs[0], 'paste', {
       clipboardData: { getData: () => '123456' },
@@ -281,7 +281,7 @@ module('Rendering | <OTPInput>', function (hooks) {
 
     assert.strictEqual(readValue(), '');
 
-    let inputs = getInputs() as [
+    const inputs = getInputs() as [
       HTMLInputElement,
       HTMLInputElement,
       HTMLInputElement,
@@ -323,7 +323,7 @@ module('Rendering | <OTPInput>', function (hooks) {
 
     assert.strictEqual(readValue(), '123456');
 
-    let inputs = getInputs();
+    const inputs = getInputs();
 
     debugAssert('Missing Input', inputs[0]);
     debugAssert('Missing Input', inputs[1]);

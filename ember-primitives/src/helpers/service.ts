@@ -14,7 +14,7 @@ export interface Signature<Key extends keyof Registry> {
 
 export default class GetService<Key extends keyof Registry> extends Helper<Signature<Key>> {
   compute(positional: [Key]): Registry[Key] & Service {
-    let owner = getOwner(this);
+    const owner = getOwner(this);
 
     assert(`Could not get owner.`, owner);
 

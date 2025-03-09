@@ -70,7 +70,7 @@ function getMax(userMax: number | undefined | null): number {
 }
 
 function getValue(userValue: number | undefined | null, maxValue: number): number {
-  let max = getMax(maxValue);
+  const max = getMax(maxValue);
 
   if (!isValidProgressNumber(userValue)) {
     return 0;

@@ -78,8 +78,8 @@ importers:
         specifier: ^7.25.8
         version: 7.25.8
       '@nullvoxpopuli/eslint-configs':
-        specifier: ^5.0.2
-        version: 5.0.2(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
+        specifier: ^5.1.1
+        version: 5.1.1(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
       eslint:
         specifier: ^9.22.0
         version: 9.22.0(jiti@1.21.6)
@@ -214,8 +214,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       '@nullvoxpopuli/eslint-configs':
-        specifier: ^5.0.2
-        version: 5.0.2(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
+        specifier: ^5.1.1
+        version: 5.1.1(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
       '@rollup/plugin-babel':
         specifier: ^6.0.4
         version: 6.0.4(@babel/core@7.25.8)(@types/babel__core@7.20.5)(rollup@4.25.0)
@@ -464,8 +464,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       '@nullvoxpopuli/eslint-configs':
-        specifier: ^5.0.2
-        version: 5.0.2(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
+        specifier: ^5.1.1
+        version: 5.1.1(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
       '@rollup/plugin-babel':
         specifier: ^6.0.4
         version: 6.0.4(@babel/core@7.25.8)(@types/babel__core@7.20.5)(rollup@4.25.0)
@@ -588,8 +588,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       '@nullvoxpopuli/eslint-configs':
-        specifier: ^5.0.2
-        version: 5.0.2(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
+        specifier: ^5.1.1
+        version: 5.1.1(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)
       '@rollup/plugin-babel':
         specifier: ^6.0.4
         version: 6.0.4(@babel/core@7.25.8)(@types/babel__core@7.20.5)(rollup@4.25.0)
@@ -2362,8 +2362,8 @@ packages:
     resolution: {integrity: sha512-9ApYM/3+rBt9V80aYg6tZfzj3UWdiYyCt7gJUD1VJKvWF5nwKDSICXbYIQbspFTq6TOpbsEtIC0LArB8d9PFmg==}
     engines: {node: ^16.14.0 || >=18.0.0}
 
-  '@nullvoxpopuli/eslint-configs@5.0.2':
-    resolution: {integrity: sha512-CQmt5SGk0O2M3F9D1/GjIc7JR1i7h+HeyJBS3LfcRedJSo7L6DRmUtYSmw6Gc2InqgVteN+oJB8PV9INImgVRw==}
+  '@nullvoxpopuli/eslint-configs@5.1.1':
+    resolution: {integrity: sha512-v60saXlAWJbJExf2xwLp7mWy8M+EOURFBQALvL845HQrPHZne5ZKs66mmiqH4iwUPLeuP3SV0MDuPA0sERfKEQ==}
     engines: {node: '>= v22.14.0'}
     peerDependencies:
       '@babel/core': ^7.22.10
@@ -12380,7 +12380,7 @@ snapshots:
 
   '@npmcli/fs@3.1.1':
     dependencies:
-      semver: 7.7.1
+      semver: 7.6.3
 
   '@npmcli/git@5.0.8':
     dependencies:
@@ -12437,7 +12437,7 @@ snapshots:
       - bluebird
       - supports-color
 
-  '@nullvoxpopuli/eslint-configs@5.0.2(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)':
+  '@nullvoxpopuli/eslint-configs@5.1.1(@babel/core@7.25.8)(@babel/eslint-parser@7.26.8(@babel/core@7.25.8)(eslint@9.22.0(jiti@1.21.6)))(@babel/plugin-proposal-decorators@7.25.7(@babel/core@7.25.8))(eslint@9.22.0(jiti@1.21.6))(prettier@3.3.3)(typescript@5.6.3)':
     dependencies:
       '@babel/core': 7.25.8
       '@eslint/js': 9.22.0
@@ -19455,7 +19455,7 @@ snapshots:
       make-fetch-happen: 13.0.1
       nopt: 7.2.1
       proc-log: 4.2.0
-      semver: 7.7.1
+      semver: 7.6.3
       tar: 6.2.1
       which: 4.0.0
     transitivePeerDependencies:

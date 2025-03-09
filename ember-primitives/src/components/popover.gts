@@ -165,15 +165,15 @@ const attachArrow = eModifier<AttachArrowSignature>((element, _: [], named) => {
     if (!named.data) return;
     if (!named.data.middlewareData) return;
 
-    let { arrow } = named.data.middlewareData;
-    let { placement } = named.data;
+    const { arrow } = named.data.middlewareData;
+    const { placement } = named.data;
 
     if (!arrow) return;
     if (!placement) return;
 
-    let { x: arrowX, y: arrowY } = arrow;
-    let otherSide = (placement as Placement).split('-')[0] as Direction;
-    let staticSide = arrowSides[otherSide];
+    const { x: arrowX, y: arrowY } = arrow;
+    const otherSide = (placement as Placement).split('-')[0] as Direction;
+    const staticSide = arrowSides[otherSide];
 
     Object.assign(named.arrowElement.current.style, {
       left: arrowX != null ? `${arrowX}px` : '',
@@ -195,7 +195,7 @@ const attachArrow = eModifier<AttachArrowSignature>((element, _: [], named) => {
 const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
 
 function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
-  let result = [...(middleware || [])];
+  const result = [...(middleware || [])];
 
   if (element) {
     result.push(arrow({ element }));

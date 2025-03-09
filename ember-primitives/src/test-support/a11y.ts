@@ -18,7 +18,7 @@ export function setupTabster(hooks: {
   beforeEach: (callback: () => void | Promise<void>) => unknown;
 }) {
   hooks.beforeEach(function (this: { owner: object }) {
-    let owner = this.owner;
+    const owner = this.owner;
 
     assert(
       `Test does not have an owner, be sure to use setupRenderingTest, setupTest, or setupApplicationTest (from ember-qunit (or similar))`,

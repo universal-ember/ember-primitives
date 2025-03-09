@@ -227,7 +227,7 @@ class MultiToggleGroup<Value = any> extends Component<MultiSignature<Value>> {
    */
   @cached
   get activePressed(): TrackedSet<Value> {
-    let value = this.args.value;
+    const value = this.args.value;
 
     if (!value) {
       return new TrackedSet();

@@ -13,7 +13,7 @@ function buttonByText(text: string) {
   return found;
 }
 
-function getScrollPosition(element?: Element | null  ) {
+function getScrollPosition(element?: Element | null) {
   assert('Could not find scroller', element);
 
   return {
@@ -22,13 +22,13 @@ function getScrollPosition(element?: Element | null  ) {
   };
 }
 
-function getLeft(element?: Element | null  ) {
+function getLeft(element?: Element | null) {
   assert('Could not find scroller', element);
 
   return element.scrollWidth - element.clientWidth;
 }
 
-function getTop(element?: Element | null  ) {
+function getTop(element?: Element | null) {
   assert('Could not find scroller', element);
 
   return element.scrollHeight - element.clientHeight;

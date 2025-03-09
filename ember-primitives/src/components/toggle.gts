@@ -41,7 +41,7 @@ export interface Signature<Value = any> {
     /**
      * When controlling state in a wrapping component, this function can be used in conjunction with `@value` to determine if this `<Toggle>` should appear pressed.
      */
-    isPressed?: (value?: Value | undefined) => boolean;
+    isPressed?: (value?: Value  ) => boolean;
   };
   Blocks: {
     default: [

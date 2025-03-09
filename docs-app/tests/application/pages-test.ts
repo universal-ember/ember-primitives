@@ -6,6 +6,7 @@ import { colorScheme } from 'ember-primitives/color-scheme';
 
 import { a11yAudit } from 'ember-a11y-testing/test-support';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
 const pages: { path: string }[] = (window as any).__pages__;
 
 /**
@@ -34,7 +35,8 @@ async function checkA11y(assert: Assert, path: string, theme: string) {
       }
     }
 
-    const message = `no a11y errors found for ${path} using the ${theme} theme` + `\n\n` + errorText;
+    const message =
+      `no a11y errors found for ${path} using the ${theme} theme` + `\n\n` + errorText;
 
     if (window.location.search.includes('debugA11yAudit')) {
       console.error(errorText);

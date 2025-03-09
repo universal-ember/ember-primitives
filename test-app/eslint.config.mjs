@@ -1,10 +1,11 @@
 // eslint.config.js
-import { configs } from "@nullvoxpopuli/eslint-configs";
+import { configs, disableTypedLints } from "@nullvoxpopuli/eslint-configs";
 
 const config = configs.ember(import.meta.dirname);
 
 export default [
   ...config,
+  disableTypedLints.forTests,
   {
     files: ["tests/**/*"],
     rules: {

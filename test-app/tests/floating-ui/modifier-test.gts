@@ -25,7 +25,7 @@ module('floating-ui | anchorTo', function (hooks) {
   });
 
   module('@placement', function () {
-    let middleware = [addDataAttributes()];
+    const middleware = [addDataAttributes()];
 
     test('has default value', async function (assert) {
       await render(
@@ -54,7 +54,7 @@ module('floating-ui | anchorTo', function (hooks) {
   });
 
   module('@strategy', function () {
-    let middleware = [addDataAttributes()];
+    const middleware = [addDataAttributes()];
 
     test('has default value', async function (assert) {
       await render(
@@ -84,7 +84,7 @@ module('floating-ui | anchorTo', function (hooks) {
 
   module('@offsetOptions', function () {
     test('can pass in distance', async function (assert) {
-      let offsetDistance = 10;
+      const offsetDistance = 10;
 
       await render(
         <template>
@@ -110,8 +110,8 @@ module('floating-ui | anchorTo', function (hooks) {
         </template>
       );
 
-      let velcro1 = findElement('#velcro1');
-      let velcro2 = findElement('#velcro2');
+      const velcro1 = findElement('#velcro1');
+      const velcro2 = findElement('#velcro2');
 
       assert.strictEqual(
         velcro1.getBoundingClientRect().top + offsetDistance,
@@ -120,9 +120,9 @@ module('floating-ui | anchorTo', function (hooks) {
     });
 
     test('can pass in skidding', async function (assert) {
-      let offsetSkidding = 10;
+      const offsetSkidding = 10;
 
-      let offsetOptions = { crossAxis: offsetSkidding };
+      const offsetOptions = { crossAxis: offsetSkidding };
 
       await render(
         <template>
@@ -141,8 +141,8 @@ module('floating-ui | anchorTo', function (hooks) {
         </template>
       );
 
-      let velcro1 = findElement('#velcro1');
-      let velcro2 = findElement('#velcro2');
+      const velcro1 = findElement('#velcro1');
+      const velcro2 = findElement('#velcro2');
 
       assert.strictEqual(
         velcro1.getBoundingClientRect().left + offsetSkidding,

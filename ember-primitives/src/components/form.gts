@@ -14,7 +14,7 @@ const handleInput = (
   event: Event | SubmitEvent,
   eventType: 'input' | 'submit' = 'input'
 ) => {
-  let data = dataFrom(event);
+  const data = dataFrom(event);
 
   onChange(data, eventType, event);
 };

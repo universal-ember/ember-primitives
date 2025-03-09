@@ -70,11 +70,11 @@ export function isActive(
     /**
      * is Active doesn't understand `href`, so we have to convert to RouteInfo-esque
      */
-    let info = router.recognize(href);
+    const info = router.recognize(href);
 
     if (info) {
-      let dynamicSegments = getParams(info);
-      let routeName = activeOnSubPaths ? info.name.replace(/\.index$/, '') : info.name;
+      const dynamicSegments = getParams(info);
+      const routeName = activeOnSubPaths ? info.name.replace(/\.index$/, '') : info.name;
 
       return router.isActive(routeName, ...dynamicSegments);
     }
@@ -82,9 +82,9 @@ export function isActive(
     return false;
   }
 
-  let url = new URL(href, location.origin);
-  let hrefQueryParams = new URLSearchParams(url.searchParams);
-  let hrefPath = url.pathname;
+  const url = new URL(href, location.origin);
+  const hrefQueryParams = new URLSearchParams(url.searchParams);
+  const hrefPath = url.pathname;
 
   const currentPath = router.currentURL?.split('?')[0];
 
@@ -113,7 +113,7 @@ export function getParams(currentRouteInfo: RouteInfo) {
   let params: Record<string, string | unknown | undefined>[] = [];
 
   while (currentRouteInfo?.parent) {
-    let currentParams = currentRouteInfo.params;
+    const currentParams = currentRouteInfo.params;
 
     params = currentParams ? [currentParams, ...params] : params;
     currentRouteInfo = currentRouteInfo.parent;

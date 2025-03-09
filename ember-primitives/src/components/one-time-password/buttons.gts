@@ -6,7 +6,7 @@ import type { TOC } from '@ember/component/template-only';
 const reset = (event: Event) => {
   assert('[BUG]: reset called without an event.target', event.target instanceof HTMLElement);
 
-  let form = event.target.closest('form');
+  const form = event.target.closest('form');
 
   assert(
     'Form is missing. Cannot use <Reset> without being contained within a <form>',

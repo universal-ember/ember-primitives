@@ -34,7 +34,7 @@ module('color-scheme', function (hooks) {
   });
 
   test('colorScheme on/off update', async function (assert) {
-    let callback = (theme: string) => assert.step(theme);
+    const callback = (theme: string) => assert.step(theme);
 
     colorScheme.on.update(callback);
 
@@ -66,7 +66,7 @@ module('color-scheme', function (hooks) {
   });
 
   test('get/set/remove ColorScheme on an element', function (assert) {
-    let el = document.createElement('div');
+    const el = document.createElement('div');
 
     assert.strictEqual(getColorScheme(el), '');
 

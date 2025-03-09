@@ -11,7 +11,7 @@ QUnit.config.urlConfig.push({
   label: 'Log a11y violations',
 });
 
-export async function start() {
+export function start() {
   setApplication(Application.create(config.APP));
 
   setup(QUnit.assert);

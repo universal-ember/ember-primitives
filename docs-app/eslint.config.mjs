@@ -1,5 +1,5 @@
 // eslint.config.js
-import { configs } from '@nullvoxpopuli/eslint-configs';
+import { configs } from "@nullvoxpopuli/eslint-configs";
 
 const config = configs.ember(import.meta.dirname);
 
@@ -9,15 +9,15 @@ export default [
   // see: https://eslint.org/docs/user-guide/configuring/configuration-files#how-do-overrides-work
 
   {
-    files: ['**/*.ts', '**/*.gts'],
+    files: ["**/*.ts", "**/*.gts"],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
   {
-    files: ['*.{js,cjs}'],
+    files: ["*.{js,cjs}"],
     rules: {
-      'n/no-unsupported-features': 'off',
+      "n/no-unsupported-features": "off",
     },
   },
 ];

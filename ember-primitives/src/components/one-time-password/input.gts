@@ -25,7 +25,7 @@ function labelFor(inputIndex: number, labelFn: undefined | ((index: number) => s
   return `Please enter OTP character ${inputIndex + 1}`;
 }
 
-let waiter = buildWaiter('ember-primitives:OTPInput:handleChange');
+const waiter = buildWaiter('ember-primitives:OTPInput:handleChange');
 
 const Fields: TOC<{
   /**
@@ -139,7 +139,7 @@ export class OTPInput extends Component<{
       if (isDestroyed(this) || isDestroying(this)) return;
       if (!this.args.onChange) return;
 
-      let value = getCollectiveValue(event.target, this.length);
+      const value = getCollectiveValue(event.target, this.length);
 
       if (value === undefined) {
         warn(`Value could not be determined for the OTP field. was it removed from the DOM?`, {

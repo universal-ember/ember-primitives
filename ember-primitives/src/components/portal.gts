@@ -24,7 +24,7 @@ export interface Signature {
 
 const anchor = modifier(
   (element: Element, [to, update]: [string, ReturnType<typeof ElementValue>['set']]) => {
-    let found = findNearestTarget(element, to);
+    const found = findNearestTarget(element, to);
 
     update(found);
   }

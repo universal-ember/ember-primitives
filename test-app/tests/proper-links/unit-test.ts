@@ -9,14 +9,14 @@ module('@properLinks', function () {
         expected: boolean,
         { location, href }: { location: string; href: string }
       ) {
-        let url = new URL(location, 'https://example.com');
+        const url = new URL(location, 'https://example.com');
 
-        let anchor = document.createElement('a');
+        const anchor = document.createElement('a');
 
         anchor.href = new URL(href, url).href;
 
-        let ignored: string[] = [];
-        let simpleClickEvent = new MouseEvent('click');
+        const ignored: string[] = [];
+        const simpleClickEvent = new MouseEvent('click');
 
         assert.strictEqual(shouldHandle(url.href, anchor, simpleClickEvent, ignored), expected);
       }

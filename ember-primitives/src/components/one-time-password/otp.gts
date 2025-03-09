@@ -9,7 +9,7 @@ import { OTPInput } from './input.gts';
 import type { TOC } from '@ember/component/template-only';
 import type { WithBoundArgs } from '@glint/template';
 
-let waiter = buildWaiter('ember-primitives:OTP:handleAutoSubmitAttempt');
+const waiter = buildWaiter('ember-primitives:OTP:handleAutoSubmitAttempt');
 
 const handleFormSubmit = (submit: (data: { code: string }) => void, event: SubmitEvent) => {
   event.preventDefault();
@@ -19,11 +19,11 @@ const handleFormSubmit = (submit: (data: { code: string }) => void, event: Submi
     event.currentTarget instanceof HTMLFormElement
   );
 
-  let formData = new FormData(event.currentTarget);
+  const formData = new FormData(event.currentTarget);
 
   let code = '';
 
-  for (let [key, value] of formData.entries()) {
+  for (const [key, value] of formData.entries()) {
     if (key.startsWith('code')) {
       code += value;
     }
@@ -52,7 +52,7 @@ function handleChange(
   assert('[BUG]: Cannot handle event when <OTP> Inputs are not rendered within their <form>', form);
 
   const token = waiter.beginAsync();
-  let finished = () => {
+  const finished = () => {
     waiter.endAsync(token);
     form.removeEventListener('submit', finished);
   };

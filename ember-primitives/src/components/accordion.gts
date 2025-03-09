@@ -74,7 +74,7 @@ type AccordionMultipleArgs = {
       /**
        * A callback that is called when the selected values change. To be used in a controlled fashion in conjunction with `value`.
        */
-      onValueChange: (value?: string[] | undefined) => void;
+      onValueChange: (value?: string[]  ) => void;
       /**
        * Not available in a controlled fashion.
        */

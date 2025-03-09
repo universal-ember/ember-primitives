@@ -20,14 +20,14 @@ export function addDataAttributes(): Middleware {
 
 // testing containers transforms give Floating UI's logic some challenges
 export function resetTestingContainerDimensions() {
-  let element = document.querySelector('#ember-testing');
+  const element = document.querySelector('#ember-testing');
 
   assert(
     'Could not find #ember-testing. This utility is only valid in tests.',
     element instanceof HTMLElement
   );
 
-  let style = element.style;
+  const style = element.style;
 
   // reset test container scale so values returned by getBoundingClientRect are accurate
   Object.assign(style, {
@@ -38,7 +38,7 @@ export function resetTestingContainerDimensions() {
 }
 
 export function findElement(selector: string) {
-  let element = find(selector);
+  const element = find(selector);
 
   assert(`Could not find element with '${selector}'`, element);
   assert(

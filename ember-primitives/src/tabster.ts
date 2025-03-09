@@ -39,8 +39,8 @@ export async function setupTabster(
     return;
   }
 
-  let existing = getTabster(window);
-  let primitivesTabster = existing ?? createTabster(window);
+  const existing = getTabster(window);
+  const primitivesTabster = existing ?? createTabster(window);
 
   getMover(primitivesTabster);
   getDeloser(primitivesTabster);

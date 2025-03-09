@@ -46,7 +46,7 @@ export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL
   owner.register('router:main', TestRouter);
 
   // eslint-disable-next-line ember/no-private-routing-service
-  let iKnowWhatIMDoing = owner.lookup('router:main');
+  const iKnowWhatIMDoing = owner.lookup('router:main');
 
   // We need a public testing API for this sort of stuff
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,5 +54,5 @@ export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL
 }
 
 export function getRouter(owner: Owner) {
-  return owner.lookup('service:router') as RouterService;
+  return owner.lookup('service:router');
 }

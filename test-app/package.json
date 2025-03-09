@@ -54,7 +54,7 @@
     "@glint/environment-ember-loose": "1.4.1-unstable.34c4510",
     "@glint/environment-ember-template-imports": "1.4.1-unstable.34c4510",
     "@glint/template": "^1.5.0",
-    "@nullvoxpopuli/eslint-configs": "^5.0.1",
+    "@nullvoxpopuli/eslint-configs": "^5.0.2",
     "@rollup/plugin-babel": "^6.0.4",
     "@tsconfig/ember": "^3.0.5",
     "@types/eslint__js": "^8.42.3",

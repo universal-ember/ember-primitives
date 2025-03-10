@@ -2,7 +2,7 @@
   "extends": "@tsconfig/ember/tsconfig.json",
   "include": ["src/**/*"],
   "glint": {
-    "environment": ["ember-loose", "ember-template-imports"]
+    "environment": ["ember-template-imports"]
   },
   "compilerOptions": {
     "skipLibCheck": true,

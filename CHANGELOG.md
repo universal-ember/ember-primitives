@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-03-10)
+
+ember-primitives 0.28.2 (patch)
+
+#### :house: Internal
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#441](https://github.com/universal-ember/ember-primitives/pull/441) Upgrade deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-03-09)
 
 ember-primitives 0.28.1 (patch)

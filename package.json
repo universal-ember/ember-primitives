@@ -19,10 +19,7 @@
     "test": "turbo run test --output-logs errors-only"
   },
   "devDependencies": {
-    "@glint/core": "1.4.1-unstable.130d85f",
-    "@glint/environment-ember-template-imports": "1.4.1-unstable.130d85f",
-    "@glint/environment-ember-loose": "1.4.1-unstable.130d85f",
-    "@glint/template": "1.4.1-unstable.130d85f",
+    "@glint/core": "unstable",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.1.0",
     "ember-primitives": "workspace:^",
@@ -37,10 +34,10 @@
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@10.6.2",
   "volta": {
     "node": "22.14.0",
-    "pnpm": "9.15.0"
+    "pnpm": "10.6.2"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -57,10 +54,6 @@
     },
     "overrides": {
       "@glimer/component": "^2.0.0",
-      "@glint/core": "1.4.1-unstable.130d85f",
-      "@glint/environment-ember-template-imports": "1.4.1-unstable.130d85f",
-      "@glint/environment-ember-loose": "1.4.1-unstable.130d85f",
-      "@glint/template": "1.4.1-unstable.130d85f",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",

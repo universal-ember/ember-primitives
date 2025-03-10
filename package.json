@@ -58,7 +58,7 @@
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",
-      "ember-source": "^5.12.0",
+      "ember-source": "^6.2.0",
       "tracked-toolbox": "^2.0.0",
       "webpack": "^5.95.0"
     },
@@ -95,8 +95,7 @@
       "tracked-toolbox": {}
     },
     "patchedDependencies": {
-      "ember-mobile-menu": "patches/ember-mobile-menu.patch",
-      "ember-source": "patches/ember-source.patch"
+      "ember-mobile-menu": "patches/ember-mobile-menu.patch"
     }
   }
 }

@@ -2,7 +2,6 @@ import { classicEmberSupport, ember, extensions } from "@embroider/vite";
 
 import { babel } from "@rollup/plugin-babel";
 import { kolay } from "kolay/vite";
-import info from "unplugin-info/vite";
 import { defineConfig } from "vite";
 
 const validator = `${process.cwd()}/node_modules/ember-source/dist/packages/@glimmer/validator/index.js`;
@@ -28,7 +27,6 @@ export default defineConfig((/* { mode } */) => {
       },
     },
     plugins: [
-      info(),
       classicEmberSupport(),
       ember(),
       kolay({

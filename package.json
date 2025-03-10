@@ -34,10 +34,10 @@
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@10.6.2",
   "volta": {
     "node": "22.14.0",
-    "pnpm": "9.15.0"
+    "pnpm": "10.6.2"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -54,13 +54,12 @@
     },
     "overrides": {
       "@glimer/component": "^2.0.0",
-      "@glint/template": "^1.5.0",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",
-      "ember-source": "^5.12.0",
-      "tracked-toolbox": "^2.0.0",
-      "webpack": "^5.95.0"
+      "reactiveweb": "^1.4.0",
+      "ember-source": "^6.4.0-alpha.5",
+      "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {
       "@embroider/util": {},
@@ -95,8 +94,7 @@
       "tracked-toolbox": {}
     },
     "patchedDependencies": {
-      "ember-mobile-menu": "patches/ember-mobile-menu.patch",
-      "ember-source": "patches/ember-source.patch"
+      "ember-mobile-menu": "patches/ember-mobile-menu.patch"
     }
   }
 }

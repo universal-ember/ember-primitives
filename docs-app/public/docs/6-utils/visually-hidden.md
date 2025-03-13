@@ -33,6 +33,13 @@ Using the attribute
 <span visually-hidden>...</span>
 ```
 
+the `visually-hidden` attribute becomes available after importing the component (below), or including this import somewherer in your app:
+
+```js 
+import 'ember-primitives/styles.css';
+```
+
+
 Using the component:
 
 ```js 

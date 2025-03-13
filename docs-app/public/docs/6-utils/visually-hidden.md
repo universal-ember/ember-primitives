@@ -1,6 +1,8 @@
 # VisuallyHidden
 
-Hides content from the screen in an accessible way
+Hides content from the screen in an accessible way.
+
+Can be used as an attribute, `visually-hidden` on any element, or a Component. 
 
 ## Example
 
@@ -8,7 +10,9 @@ Hides content from the screen in an accessible way
 import { VisuallyHidden } from 'ember-primitives';
 
 <template>
-  Visually seen
+  Visually <span visually-hidden>secrets!</span>
+  seen
+
   <VisuallyHidden>
     This is visually hidden 
   </VisuallyHidden>
@@ -19,8 +23,17 @@ import { VisuallyHidden } from 'ember-primitives';
 ## Features
 
 - Visually hides content while preserving it for assistive technology.
+- Just an attribute on any element, component optional.
 
 ## Anatomy
+
+Using the attribute
+
+```hbs
+<span visually-hidden>...</span>
+```
+
+Using the component:
 
 ```js 
 import { VisuallyHidden } from 'ember-primitives';

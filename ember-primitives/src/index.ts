@@ -37,5 +37,6 @@ export { Shadowed } from './components/shadowed.gts';
 export { Switch } from './components/switch.gts';
 export { Toggle } from './components/toggle.gts';
 export { ToggleGroup } from './components/toggle-group.gts';
+export { VisuallyHidden } from './components/visually-hidden.gts';
 export { Zoetrope } from './components/zoetrope.ts';
 export * from './helpers.ts';

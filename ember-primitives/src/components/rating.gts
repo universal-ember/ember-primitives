@@ -115,6 +115,11 @@ interface Signature {
     onChange?: (value: number) => void;
   };
 }
+
+function lte(a: number, b: number) {
+  return a <= b;
+}
+
 export class Rating extends Component<Signature> {
   @tracked rating = this.args.value ?? 0;
   icon = this.args.icon ?? "★";

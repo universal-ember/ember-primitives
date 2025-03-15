@@ -4,6 +4,9 @@ import { babel } from "@rollup/plugin-babel";
 import { defineConfig } from "vite";
 
 export default defineConfig(() => ({
+  optimizeDeps: {
+    exclude: ["ember-primitives"],
+  },
   plugins: [
     classicEmberSupport(),
     ember(),

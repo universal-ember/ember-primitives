@@ -1,5 +1,26 @@
 # Changelog 
 
+## Release (2025-03-20)
+
+ember-primitives 0.29.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`
+  * [#445](https://github.com/universal-ember/ember-primitives/pull/445) Use visually-hidden as an attribute on any element ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#443](https://github.com/universal-ember/ember-primitives/pull/443) VisuallyHidden ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#448](https://github.com/universal-ember/ember-primitives/pull/448) Add CSS exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#441](https://github.com/universal-ember/ember-primitives/pull/441) Upgrade deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-03-09)
 
 ember-primitives 0.28.1 (patch)

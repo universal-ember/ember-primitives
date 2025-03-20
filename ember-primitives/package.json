@@ -113,6 +113,9 @@
       "types": "./declarations/*.d.ts",
       "default": "./dist/*.js"
     },
+    "./*.css": {
+      "default": "./dist/*.css"
+    },
     "./test-support": {
       "types": "./declarations/test-support/index.d.ts",
       "default": "./dist/test-support/index.js"

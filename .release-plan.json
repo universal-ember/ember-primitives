@@ -1,17 +1,25 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.28.0",
-      "newVersion": "0.28.1",
+      "impact": "minor",
+      "oldVersion": "0.28.1",
+      "newVersion": "0.29.0",
       "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
         {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-03-09)\n\nember-primitives 0.28.1 (patch)\n\n#### :bug: Bug Fix\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#438](https://github.com/universal-ember/ember-primitives/pull/438) Add focusOnClose modifier for the modal button ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-03-20)\n\nember-primitives 0.29.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`\n  * [#445](https://github.com/universal-ember/ember-primitives/pull/445) Use visually-hidden as an attribute on any element ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#443](https://github.com/universal-ember/ember-primitives/pull/443) VisuallyHidden ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#448](https://github.com/universal-ember/ember-primitives/pull/448) Add CSS exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#441](https://github.com/universal-ember/ember-primitives/pull/441) Upgrade deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

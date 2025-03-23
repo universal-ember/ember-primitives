@@ -120,7 +120,7 @@
     "qunit-dom": "^3.2.1",
     "read-package-up": "^11.0.0",
     "tailwindcss": "^3.4.14",
-    "typedoc": "^0.27.9",
+    "typedoc": "^0.28.0",
     "typescript": "^5.3.3",
     "vite": "^6.2.1",
     "webpack": "^5.95.0"

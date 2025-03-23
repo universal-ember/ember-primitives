@@ -171,7 +171,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
-      - run: pnpm ember build
+      - run: pnpm build:dev # should be prod. it is prod. but the script is named wrong
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}
         uses: cloudflare/pages-action@v1.5.0

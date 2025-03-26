@@ -1,7 +1,13 @@
+import "./rating.css";
+
 import Component from "@glimmer/component";
-import { cached, tracked } from "@glimmer/tracking";
+import { cached } from "@glimmer/tracking";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { localCopy } from "tracked-toolbox";
 
 import type { ComponentLike } from "@glint/template";
 
@@ -37,7 +43,7 @@ interface StringIcons {
    *
    * Defaults to "☆";
    */
-  icon: string;
+  icon?: string;
 
   /**
    * The symbol to use for the half-selected variant of the icon
@@ -74,7 +80,7 @@ interface StringIcons {
 }
 
 interface Signature {
-  Args: (ComponentIcons | StringIcons) & {
+  Args: /* ComponentIcons | */ StringIcons & {
     /**
      * How to describe each icon
      */
@@ -120,11 +126,36 @@ function lte(a: number, b: number) {
   return a <= b;
 }
 
+function percentSelected(a: number, b: number) {
+  const diff = b - a;
+
+  if (diff < 0) return 0;
+  if (diff > 1) return 100;
+
+  const percent = diff * 100;
+
+  return percent;
+}
+
+function isString(x: unknown) {
+  return typeof x === "string";
+}
+
 export class Rating extends Component<Signature> {
-  @tracked rating = this.args.value ?? 0;
-  icon = this.args.icon ?? "★";
-  iconEmpty = this.args.iconEmpty ?? "☆";
-  iconColor = this.args.iconColor ?? "gold";
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  @localCopy("args.value") declare _value: number;
+
+  get value() {
+    return this._value ?? 0;
+  }
+
+  get icon() {
+    return this.args.icon ?? "☆";
+  }
+
+  get iconSelected() {
+    return this.args.iconSelected ?? "★";
+  }
 
   @cached
   get stars() {
@@ -136,24 +167,30 @@ export class Rating extends Component<Signature> {
       return;
     }
 
-    this.rating = value;
+    if (value === this._value) {
+      this._value = 0;
+    } else {
+      this._value = value;
+    }
 
     this.args.onChange?.(value);
   };
 
   <template>
-    <div class="rating-component">
+    <div class="ember-primitives__rating">
       {{#each this.stars as |star|}}
         <span
-          class="rating-icon"
-          style="cursor: {{if @readonly 'default' 'pointer'}}; font-size: {{@size}}; color: {{if
-            (lte star this.rating)
-            this.iconColor
-            'lightgray'
-          }};"
-          {{on "click" (fn this.setRating star)}}
+          class="ember-primitives__rating__icon"
+          data-number={{star}}
+          data-percent-selected={{percentSelected star this.value}}
+          data-selected={{lte star this.value}}
+          data-readonly={{@readonly}}
+          {{! @glint-expect-error }}
+          {{(unless @readonly (modifier on "click" (fn this.setRating star)))}}
         >
-          {{if (lte star this.rating) this.icon this.iconEmpty}}
+          {{#if (isString this.icon)}}
+            {{if (lte star this.value) this.iconSelected this.icon}}
+          {{/if}}
         </span>
       {{/each}}
     </div>

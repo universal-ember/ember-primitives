@@ -103,7 +103,7 @@
     "ember-source": "^6.4.0-alpha.5",
     "ember-template-lint": "^7.0.1",
     "ember-welcome-page": "^7.0.2",
-    "eslint": "^9.22.0",
+    "eslint": "^9.23.0",
     "file-loader": "^6.2.0",
     "globals": "^16.0.0",
     "globby": "^14.0.0",
@@ -119,10 +119,10 @@
     "qunit-assertions-extra": "^1.0.3",
     "qunit-dom": "^3.2.1",
     "read-package-up": "^11.0.0",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^4.0.17",
     "typedoc": "^0.28.1",
     "typescript": "^5.3.3",
-    "vite": "^6.2.1",
+    "vite": "^6.2.3",
     "webpack": "^5.95.0"
   },
   "engines": {

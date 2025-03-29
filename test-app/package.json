@@ -80,7 +80,7 @@
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^7.0.1",
     "ember-try": "^4.0.0",
-    "eslint": "^9.22.0",
+    "eslint": "^9.23.0",
     "globals": "^16.0.0",
     "loader.js": "^4.7.0",
     "pnpm-sync-dependencies-meta-injected": "0.0.14",
@@ -89,12 +89,12 @@
     "qunit": "^2.22.0",
     "qunit-dom": "^3.2.1",
     "read-package-up": "^11.0.0",
-    "stylelint": "^16.10.0",
+    "stylelint": "^16.17.0",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-prettier": "^5.0.0",
     "tracked-built-ins": "^4.0.0",
     "typescript": "^5.3.3",
-    "vite": "^6.2.1",
+    "vite": "^6.2.3",
     "webpack": "^5.95.0"
   },
   "engines": {

@@ -3,6 +3,7 @@ import { cached } from "@glimmer/tracking";
 import { fn, hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
+import { element } from "ember-element-helper";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import { localCopy } from "tracked-toolbox";
@@ -139,20 +140,22 @@ const Item: TOC<{
     readonly: boolean | undefined;
   };
 }> = <template>
-  <button
-    class="ember-primitives__rating__icon"
-    aria-label="{{@value}} of {{@total}} stars"
-    data-number={{@value}}
-    data-percent-selected={{@percentSelected}}
-    data-selected={{@isSelected}}
-    data-readonly={{@readonly}}
-    {{! @glint-expect-error }}
-    {{(unless @readonly (modifier on "click" @onClick))}}
-  >
-    {{#if (isString @icon)}}
-      {{if @isSelected @iconSelected @icon}}
-    {{/if}}
-  </button>
+  {{#let (element @tagName) as |Element|}}
+    <Element
+      class="ember-primitives__rating__item"
+      aria-label="{{@value}} of {{@total}} stars"
+      data-number={{@value}}
+      data-percent-selected={{@percentSelected}}
+      data-selected={{Boolean @isSelected}}
+      data-readonly={{Boolean @readonly}}
+      {{! @glint-expect-error }}
+      {{(unless @readonly (modifier on "click" @onClick))}}
+    >
+      {{#if (isString @icon)}}
+        {{if @isSelected @iconSelected @icon}}
+      {{/if}}
+    </Element>
+  {{/let}}
 </template>;
 
 export class RatingState extends Component<StateSignature> {
@@ -161,14 +164,6 @@ export class RatingState extends Component<StateSignature> {
 
   get value() {
     return this._value ?? 0;
-  }
-
-  get icon() {
-    return this.args.icon ?? "☆";
-  }
-
-  get iconSelected() {
-    return this.args.iconSelected ?? "★";
   }
 
   @cached
@@ -195,17 +190,11 @@ export class RatingState extends Component<StateSignature> {
       class="ember-primitives__rating"
       data-total={{this.stars.length}}
       data-value={{this.value}}
+      ...attributes
     >
-      {{#each this.stars as |star|}}
-        {{yield
-          (hash
-            onClick=(fn this.setRating star)
-            number=star
-            percentSelected=(percentSelected star this.value)
-            isSelected=(lte star this.value)
-          )
-        }}
-      {{/each}}
+      {{yield
+        (hash stars=this.stars total=this.stars.length onClick=this.setRating value=this.value)
+      }}
     </div>
   </template>
 }
@@ -248,22 +237,47 @@ export interface Signature {
   };
 }
 
-export const Rating: TOC<Signature> = <template>
-  <RatingState
-    @max={{@max}}
-    @value={{@value}}
-    @readonly={{@readonly}}
-    @disabled={{@disabled}}
-    @onChange={{@onChange}}
-    as |r|
-  >
-    <span visually-hidden>Rated {{r.value}} out of {{r.total}}</span>
+export class Rating extends Component<Signature> {
+  get icon() {
+    return this.args.icon ?? "☆";
+  }
 
-    {{#each r.stars as |star|}}
-      <span>{{star}}</span>
-    {{/each}}
-  </RatingState>
-</template>;
+  get iconSelected() {
+    return this.args.iconSelected ?? "★";
+  }
+
+  <template>
+    <RatingState
+      @max={{@max}}
+      @value={{@value}}
+      @readonly={{@readonly}}
+      @disabled={{@disabled}}
+      @onChange={{@onChange}}
+      ...attributes
+      as |r|
+    >
+      <span visually-hidden class="ember-primitives__rating__label">Rated
+        {{r.value}}
+        out of
+        {{r.total}}</span>
+
+      {{#each r.stars as |star|}}
+        <Item
+          @tagName="span"
+          {{! State }}
+          @value={{star}}
+          @total={{r.total}}
+          @readonly={{true}}
+          @percentSelected={{percentSelected star r.value}}
+          @isSelected={{lte star r.value}}
+          {{! Visuals }}
+          @icon={{this.icon}}
+          @iconSelected={{this.iconSelected}}
+        />
+      {{/each}}
+    </RatingState>
+  </template>
+}
 
 export interface ControlSignature {
   Element: HTMLDivElement;

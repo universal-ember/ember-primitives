@@ -3,21 +3,25 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { Rating } from 'ember-primitives';
+import { rating as createTestHelper } from 'ember-primitives/test-support';
 
-const star = '.ember-primitives__rating__icon';
+const star = '.ember-primitives__rating__item';
 const selected = `[data-selected]`;
 const readonly = `[data-readonly]`;
 
 module('<Rating>', function (hooks) {
   setupRenderingTest(hooks);
 
+  const rating = createTestHelper();
+
   test('defaults', async function (assert) {
     await render(<template><Rating /></template>);
+    await this.pauseTest();
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
     assert.dom(star + readonly).doesNotExist();
-    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+    assert.dom(rating.stars).hasText('☆ ☆ ☆ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).exists({ count: 3 });

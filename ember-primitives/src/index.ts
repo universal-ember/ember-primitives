@@ -32,7 +32,7 @@ export { Portal } from './components/portal.gts';
 export { PortalTargets } from './components/portal-targets.gts';
 export { TARGETS as PORTALS } from './components/portal-targets.gts';
 export { Progress } from './components/progress.gts';
-export { RatingControl,RatingState } from './components/rating.gts';
+export { Rating, RatingControl } from './components/rating.gts';
 export { Scroller } from './components/scroller.gts';
 export { Shadowed } from './components/shadowed.gts';
 export { Switch } from './components/switch.gts';

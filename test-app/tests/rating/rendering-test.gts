@@ -17,15 +17,19 @@ module('<Rating>', function (hooks) {
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
     assert.dom(star + readonly).doesNotExist();
+    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).exists({ count: 3 });
+    assert.dom().hasText('★ ★ ★ ☆ ☆');
 
     await click(`${star}[data-number="5"]`);
     assert.dom(star + selected).exists({ count: 5 });
+    assert.dom().hasText('★ ★ ★ ★ ★');
 
     await click(`${star}[data-number="1"]`);
     assert.dom(star + selected).exists({ count: 1 });
+    assert.dom().hasText('★ ☆ ☆ ☆ ☆');
   });
 
   test('toggles', async function (assert) {
@@ -33,11 +37,46 @@ module('<Rating>', function (hooks) {
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
+    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).exists({ count: 3 });
+    assert.dom().hasText('★ ★ ★ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).doesNotExist();
+    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+  });
+
+  test('@icon (string)', async function (assert) {
+    await render(<template><Rating @icon="x" /></template>);
+
+    assert.dom(star).exists({ count: 5 });
+    assert.dom(star + selected).doesNotExist();
+    assert.dom().hasText('x x x x x');
+
+    await click(`${star}[data-number="3"]`);
+    assert.dom(star + selected).exists({ count: 3 });
+    assert.dom().hasText('★ ★ ★ x x');
+
+    await click(`${star}[data-number="3"]`);
+    assert.dom(star + selected).doesNotExist();
+    assert.dom().hasText('x x x x x');
+  });
+
+  test('@iconSelected (string)', async function (assert) {
+    await render(<template><Rating @iconSelected="x" /></template>);
+
+    assert.dom(star).exists({ count: 5 });
+    assert.dom(star + selected).doesNotExist();
+    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+
+    await click(`${star}[data-number="3"]`);
+    assert.dom(star + selected).exists({ count: 3 });
+    assert.dom().hasText('x x x ☆ ☆');
+
+    await click(`${star}[data-number="3"]`);
+    assert.dom(star + selected).doesNotExist();
+    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
   });
 });

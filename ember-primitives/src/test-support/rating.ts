@@ -82,7 +82,7 @@ class RatingPageObject {
   }
 
   get isReadonly() {
-    throw new Error(`Not implemented`);
+    return this.#starElements.every((x) => x.hasAttribute('data-readonly'));
   }
 
   async select(stars: number) {

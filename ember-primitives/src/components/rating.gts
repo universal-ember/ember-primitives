@@ -33,11 +33,6 @@ type ComponentIcons =
        * The component to use for selected icons
        */
       iconSelected: ComponentLike;
-
-      /**
-       * The component to use for half-selected icons
-       */
-      iconHalf?: ComponentLike;
     };
 
 interface StringIcons {
@@ -130,6 +125,10 @@ function isString(x: unknown) {
   return typeof x === "string";
 }
 
+function shouldClick(isReadonly: boolean, isDisabled: boolean) {
+  return !isReadonly && !isDisabled;
+}
+
 const Item: TOC<{
   Args: StringIcons & {
     value: number;
@@ -140,22 +139,39 @@ const Item: TOC<{
     readonly: boolean | undefined;
   };
 }> = <template>
-  {{#let (element @tagName) as |Element|}}
-    <Element
-      class="ember-primitives__rating__item"
-      aria-label="{{@value}} of {{@total}} stars"
-      data-number={{@value}}
-      data-percent-selected={{@percentSelected}}
-      data-selected={{Boolean @isSelected}}
-      data-readonly={{Boolean @readonly}}
-      {{! @glint-expect-error }}
-      {{(unless @readonly (modifier on "click" @onClick))}}
-    >
-      {{#if (isString @icon)}}
+  {{#if (isString @icon)}}
+    {{#let (element @tagName) as |Element|}}
+      <Element
+        class="ember-primitives__rating__item"
+        aria-label="{{@value}} of {{@total}} stars"
+        data-number={{@value}}
+        data-percent-selected={{@percentSelected}}
+        data-selected={{Boolean @isSelected}}
+        data-readonly={{Boolean @readonly}}
+        data-disabled={{Boolean @disabled}}
+        {{! @glint-expect-error }}
+        {{(if (shouldClick @readonly @disabled) (modifier on "click" @onClick))}}
+      >
+
         {{if @isSelected @iconSelected @icon}}
-      {{/if}}
-    </Element>
-  {{/let}}
+
+      </Element>
+    {{/let}}
+  {{else}}
+    {{#let (component (if @isSelected @iconSelected @icon)) as |CustomItem|}}
+      <CustomItem
+        class="ember-primitives__rating__item"
+        aria-label="{{@value}} of {{@total}} stars"
+        data-number={{@value}}
+        data-percent-selected={{@percentSelected}}
+        data-selected={{Boolean @isSelected}}
+        data-readonly={{Boolean @readonly}}
+        data-disabled={{Boolean @disabled}}
+        {{! @glint-expect-error }}
+        {{(if (shouldClick @readonly @disabled) (modifier on "click" @onClick))}}
+      />
+    {{/let}}
+  {{/if}}
 </template>;
 
 export class RatingState extends Component<StateSignature> {
@@ -200,7 +216,8 @@ export class RatingState extends Component<StateSignature> {
 }
 
 export interface Signature {
-  Args: /* ComponentIcons | */ StringIcons & {
+  Element: HTMLDivElement;
+  Args: (ComponentIcons | StringIcons) & {
     /**
      * The number of stars/whichever-icon to show
      *
@@ -263,7 +280,7 @@ export class Rating extends Component<Signature> {
 
       {{#each r.stars as |star|}}
         <Item
-          @tagName="span"
+          @tagName="button"
           {{! State }}
           @value={{star}}
           @total={{r.total}}
@@ -291,8 +308,8 @@ export interface ControlSignature {
   Blocks: {
     default: [
       star: {
-        Label: ComponentLike<{}>;
-        Button: ComponentLike<{}>;
+        Label: ComponentLike<{ Element: HTMLDivElement }>;
+        Button: ComponentLike<{ Element: HTMLButtonElement }>;
         number: number;
         isSelected: boolean;
         percentSelected: boolean;

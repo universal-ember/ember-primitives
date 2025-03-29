@@ -3,12 +3,21 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { Rating } from 'ember-primitives';
+
 import { rating as createTestHelper } from 'ember-primitives/test-support';
 
 const star = '.ember-primitives__rating__item';
 const selected = `[data-selected]`;
 const readonly = `[data-readonly]`;
 
+/**
+ * NOTE: these tests directly touch the DOM because I have to test
+ *       that the implementation of both the component and the test helpers
+ *       do what I expect.
+ *
+ *       Consumers of this component should not interact with the DOM.
+ *       It is private api.
+ */
 module('<Rating>', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -16,22 +25,21 @@ module('<Rating>', function (hooks) {
 
   test('defaults', async function (assert) {
     await render(<template><Rating /></template>);
-    await this.pauseTest();
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
     assert.dom(star + readonly).doesNotExist();
     assert.dom(rating.stars).hasText('☆ ☆ ☆ ☆ ☆');
 
-    await click(`${star}[data-number="3"]`);
+    await rating.select(3);
     assert.dom(star + selected).exists({ count: 3 });
     assert.dom().hasText('★ ★ ★ ☆ ☆');
 
-    await click(`${star}[data-number="5"]`);
+    await rating.select(5);
     assert.dom(star + selected).exists({ count: 5 });
     assert.dom().hasText('★ ★ ★ ★ ★');
 
-    await click(`${star}[data-number="1"]`);
+    await rating.select(1);
     assert.dom(star + selected).exists({ count: 1 });
     assert.dom().hasText('★ ☆ ☆ ☆ ☆');
   });

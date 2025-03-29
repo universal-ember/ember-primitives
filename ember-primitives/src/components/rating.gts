@@ -267,7 +267,7 @@ export class Rating extends Component<Signature> {
           {{! State }}
           @value={{star}}
           @total={{r.total}}
-          @readonly={{true}}
+          @readonly={{@readonly}}
           @percentSelected={{percentSelected star r.value}}
           @isSelected={{lte star r.value}}
           {{! Visuals }}

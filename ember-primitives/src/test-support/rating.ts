@@ -29,7 +29,7 @@ const selectors = {
  * Even as you build a design system, the DOM should not be exposed to your consumers.
  */
 export function rating(selector?: string) {
-  let root = `${selector ?? ''}${selectors.root}`;
+  const root = `${selector ?? ''}${selectors.root}`;
 
   return new RatingPageObject(root);
 }
@@ -42,7 +42,7 @@ class RatingPageObject {
   }
 
   get #rootElement() {
-    let element = find(this.#root);
+    const element = find(this.#root);
 
     assert(`Could not find element for the <Rating> component. Was it rendered?`, element);
 
@@ -50,7 +50,7 @@ class RatingPageObject {
   }
 
   get #labelElement() {
-    let element = find(`${this.#root} ${selectors.label}`);
+    const element = find(`${this.#root} ${selectors.label}`);
 
     assert(`Could not find the label for the <Rating> component. Was it rendered?`, element);
 
@@ -62,21 +62,21 @@ class RatingPageObject {
   }
 
   get #starElements() {
-    let elements = findAll(`${this.#root} ${selectors.item}`);
+    const elements = findAll(`${this.#root} ${selectors.item}`);
 
     return elements as HTMLElement[];
   }
 
   get stars() {
-    return this.#starElements.map((x) => x.textContent).join(' ');
+    return this.#starElements.map((x) => x.textContent?.trim() || '').join(' ');
   }
 
   get value() {
-    let value = this.#rootElement.getAttribute(`data-value`);
+    const value = this.#rootElement.getAttribute(`data-value`);
 
     assert(`data-value attribute is missing on element '${this.#root}'`, value);
 
-    let number = parseInt(value, 10);
+    const number = parseInt(value, 10);
 
     return number;
   }
@@ -86,9 +86,9 @@ class RatingPageObject {
   }
 
   async select(stars: number) {
-    let root = this.#rootElement;
+    const root = this.#rootElement;
 
-    let star = root.querySelector(`[data-number=${stars}]`);
+    const star = root.querySelector(`[data-number="${stars}"]`);
 
     assert(
       `Could not find item/star in <Rating> with value '${stars}'. Is the number (${stars}) correct and in-range for this component?`,

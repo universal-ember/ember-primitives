@@ -119,7 +119,7 @@
     "qunit-assertions-extra": "^1.0.3",
     "qunit-dom": "^3.2.1",
     "read-package-up": "^11.0.0",
-    "tailwindcss": "^4.0.17",
+    "tailwindcss": "^3.4.14",
     "typedoc": "^0.28.1",
     "typescript": "^5.3.3",
     "vite": "^6.2.3",

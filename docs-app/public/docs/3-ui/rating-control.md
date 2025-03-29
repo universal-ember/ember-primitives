@@ -29,3 +29,5 @@ import { ComponentSignature } from 'kolay';
     @name="RatingControl" />
 </template>
 ```
+
+### State Attributes

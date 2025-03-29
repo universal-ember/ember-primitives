@@ -62,13 +62,8 @@ interface StringIcons {
   iconSelected?: string;
 }
 
-interface Signature {
-  Args: /* ComponentIcons | */ StringIcons & {
-    /**
-     * How to describe each icon
-     */
-    iconAriaLabel?: string | undefined;
-
+export interface StateSignature {
+  Args: {
     /**
      * The number of stars/whichever-icon to show
      *
@@ -105,8 +100,8 @@ interface Signature {
   };
   Blocks: {
     default: [
-      data: {
-        Item: ComponentLike;
+      item: {
+        onClick: () => void;
         number: number;
         percentSelected: number;
         isSelected: boolean;
@@ -160,7 +155,7 @@ const Item: TOC<{
   </button>
 </template>;
 
-export class Rating extends Component<Signature> {
+export class RatingState extends Component<StateSignature> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @localCopy("args.value") declare _value: number;
 
@@ -202,42 +197,75 @@ export class Rating extends Component<Signature> {
       data-value={{this.value}}
     >
       {{#each this.stars as |star|}}
-        {{#if (has-block)}}
-          {{yield
-            (hash
-              Item=(component
-                Item
-                value=star
-                total=this.stars.length
-                percentSelected=(percentSelected star this.value)
-                isSelected=(lte star this.value)
-                onClick=(fn this.setRating star)
-                icon=this.icon
-                iconSelected=this.iconSelected
-              )
-              number=star
-              percentSelected=(percentSelected star this.value)
-              isSelected=(lte star this.value)
-            )
-          }}
-        {{else}}
-          <Item
-            @value={{star}}
-            @total={{this.stars.length}}
-            @percentSelected={{percentSelected star this.value}}
-            @isSelected={{lte star this.value}}
-            @readonly={{@readonly}}
-            @onClick={{fn this.setRating star}}
-            @icon={{this.icon}}
-            @iconSelected={{this.iconSelected}}
-          />
-        {{/if}}
+        {{yield
+          (hash
+            onClick=(fn this.setRating star)
+            number=star
+            percentSelected=(percentSelected star this.value)
+            isSelected=(lte star this.value)
+          )
+        }}
       {{/each}}
     </div>
   </template>
 }
 
-interface ControlSignature {
+export interface Signature {
+  Args: /* ComponentIcons | */ StringIcons & {
+    /**
+     * The number of stars/whichever-icon to show
+     *
+     * Defaults to 5
+     */
+    max?: number;
+
+    /**
+     * The current number of stars/whichever-icon to show as selected
+     *
+     * Defaults to 0
+     */
+    value?: number;
+
+    /**
+     * Prevents click events on the icons and sets aria-readonly.
+     *
+     * Also sets data-readonly=true on the wrapping element
+     */
+    readonly?: boolean;
+
+    /**
+     * Prevents click events on the icons and sets aria-disabled
+     *
+     * Also sets data-disabled=true on the wrapping element
+     */
+    disabled?: boolean;
+
+    /**
+     * Callback when the selected rating changes.
+     * Can include half-ratings if the iconHalf argument is passed.
+     */
+    onChange?: (value: number) => void;
+  };
+}
+
+export const Rating: TOC<Signature> = <template>
+  <RatingState
+    @max={{@max}}
+    @value={{@value}}
+    @readonly={{@readonly}}
+    @disabled={{@disabled}}
+    @onChange={{@onChange}}
+    as |r|
+  >
+    <span visually-hidden>Rated {{r.value}} out of {{r.total}}</span>
+
+    {{#each r.stars as |star|}}
+      <span>{{star}}</span>
+    {{/each}}
+  </RatingState>
+</template>;
+
+export interface ControlSignature {
   Element: HTMLDivElement;
   Args: {
     max?: number;
@@ -260,7 +288,13 @@ interface ControlSignature {
 
 export const RatingControl: TOC<ControlSignature> = <template>
   <div ...attributes>
-    <Rating @max={{@max}} @value={{@value}} @readonly={{@readonly}} @disabled={{@disabled}} as |r|>
+    <RatingState
+      @max={{@max}}
+      @value={{@value}}
+      @readonly={{@readonly}}
+      @disabled={{@disabled}}
+      as |r|
+    >
       {{#let (uniqueId) as |id|}}
         {{yield
           (hash
@@ -272,6 +306,6 @@ export const RatingControl: TOC<ControlSignature> = <template>
           )
         }}
       {{/let}}
-    </Rating>
+    </RatingState>
   </div>
 </template>;

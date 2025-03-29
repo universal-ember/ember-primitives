@@ -29,19 +29,19 @@ module('<Rating>', function (hooks) {
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
     assert.dom(star + readonly).doesNotExist();
-    assert.dom(rating.stars).hasText('☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
 
     await rating.select(3);
     assert.dom(star + selected).exists({ count: 3 });
-    assert.dom().hasText('★ ★ ★ ☆ ☆');
+    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
 
     await rating.select(5);
     assert.dom(star + selected).exists({ count: 5 });
-    assert.dom().hasText('★ ★ ★ ★ ★');
+    assert.strictEqual(rating.stars, '★ ★ ★ ★ ★');
 
     await rating.select(1);
     assert.dom(star + selected).exists({ count: 1 });
-    assert.dom().hasText('★ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.stars, '★ ☆ ☆ ☆ ☆');
   });
 
   test('toggles', async function (assert) {
@@ -49,15 +49,15 @@ module('<Rating>', function (hooks) {
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
-    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).exists({ count: 3 });
-    assert.dom().hasText('★ ★ ★ ☆ ☆');
+    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).doesNotExist();
-    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
   });
 
   test('@icon (string)', async function (assert) {
@@ -65,15 +65,15 @@ module('<Rating>', function (hooks) {
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
-    assert.dom().hasText('x x x x x');
+    assert.strictEqual(rating.stars, 'x x x x x');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).exists({ count: 3 });
-    assert.dom().hasText('★ ★ ★ x x');
+    assert.strictEqual(rating.stars, '★ ★ ★ x x');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).doesNotExist();
-    assert.dom().hasText('x x x x x');
+    assert.strictEqual(rating.stars, 'x x x x x');
   });
 
   test('@iconSelected (string)', async function (assert) {
@@ -81,14 +81,14 @@ module('<Rating>', function (hooks) {
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
-    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).exists({ count: 3 });
-    assert.dom().hasText('x x x ☆ ☆');
+    assert.strictEqual(rating.stars, 'x x x ☆ ☆');
 
     await click(`${star}[data-number="3"]`);
     assert.dom(star + selected).doesNotExist();
-    assert.dom().hasText('☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
   });
 });

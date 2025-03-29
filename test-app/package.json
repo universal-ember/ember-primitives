@@ -75,7 +75,7 @@
     "ember-page-title": "^9.0.1",
     "ember-qunit": "^8.0.2",
     "ember-resolver": "^13.0.2",
-    "ember-source": "^6.4.0-alpha.5",
+    "ember-source": "6.5.0-alpha.2",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^7.0.1",
     "ember-try": "^4.0.0",

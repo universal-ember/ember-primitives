@@ -59,7 +59,7 @@
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",
       "reactiveweb": "^1.4.0",
-      "ember-source": "^6.4.0-alpha.5",
+      "ember-source": "6.5.0-alpha.2",
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {
@@ -70,11 +70,6 @@
       "ember-cached-decorator-polyfill": {},
       "ember-element-helper": {},
       "ember-functions-as-helper-polyfill": {},
-      "ember-mobile-menu": {
-        "peerDependencies": {
-          "@glimmer/component": "^2.0.0"
-        }
-      },
       "ember-modify-based-class-resource": {
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"
@@ -93,9 +88,6 @@
       "ember-repl": {},
       "ember-resources": {},
       "tracked-toolbox": {}
-    },
-    "patchedDependencies": {
-      "ember-mobile-menu": "patches/ember-mobile-menu.patch"
     }
   }
 }

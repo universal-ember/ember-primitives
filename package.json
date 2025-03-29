@@ -54,6 +54,7 @@
     },
     "overrides": {
       "@glimer/component": "^2.0.0",
+      "babel-plugin-ember-template-compilation": "^2.4.0",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",

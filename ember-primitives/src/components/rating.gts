@@ -1,14 +1,13 @@
-import "./rating.css";
-
 import Component from "@glimmer/component";
 import { cached } from "@glimmer/tracking";
-import { fn } from "@ember/helper";
+import { fn, hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import { localCopy } from "tracked-toolbox";
 
+import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike } from "@glint/template";
 
 type ComponentIcons =
@@ -57,7 +56,7 @@ interface StringIcons {
    *
    * Defaults to "★";
    */
-  iconSelected: string;
+  iconSelected?: string;
 
   /**
    * Color of unselected icons.
@@ -120,6 +119,16 @@ interface Signature {
      */
     onChange?: (value: number) => void;
   };
+  Blocks: {
+    default: [
+      data: {
+        Item: ComponentLike;
+        number: number;
+        percentSelected: number;
+        isSelected: boolean;
+      },
+    ];
+  };
 }
 
 function lte(a: number, b: number) {
@@ -140,6 +149,31 @@ function percentSelected(a: number, b: number) {
 function isString(x: unknown) {
   return typeof x === "string";
 }
+
+const Item: TOC<{
+  Args: StringIcons & {
+    value: number;
+    total: number;
+    percentSelected: number;
+    isSelected: boolean;
+    readonly: boolean | undefined;
+  };
+}> = <template>
+  <button
+    class="ember-primitives__rating__icon"
+    aria-label="{{@value}} of {{@total}} stars"
+    data-number={{@value}}
+    data-percent-selected={{@percentSelected}}
+    data-selected={{@isSelected}}
+    data-readonly={{@readonly}}
+    {{! @glint-expect-error }}
+    {{(unless @readonly (modifier on "click" @onClick))}}
+  >
+    {{#if (isString @icon)}}
+      {{if @isSelected @iconSelected @icon}}
+    {{/if}}
+  </button>
+</template>;
 
 export class Rating extends Component<Signature> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -177,21 +211,42 @@ export class Rating extends Component<Signature> {
   };
 
   <template>
-    <div class="ember-primitives__rating">
+    <div
+      class="ember-primitives__rating"
+      data-total={{this.stars.length}}
+      data-value={{this.value}}
+    >
       {{#each this.stars as |star|}}
-        <span
-          class="ember-primitives__rating__icon"
-          data-number={{star}}
-          data-percent-selected={{percentSelected star this.value}}
-          data-selected={{lte star this.value}}
-          data-readonly={{@readonly}}
-          {{! @glint-expect-error }}
-          {{(unless @readonly (modifier on "click" (fn this.setRating star)))}}
-        >
-          {{#if (isString this.icon)}}
-            {{if (lte star this.value) this.iconSelected this.icon}}
-          {{/if}}
-        </span>
+        {{#if (has-block)}}
+          {{yield
+            (hash
+              Item=(component
+                Item
+                value=star
+                total=this.stars.length
+                percentSelected=(percentSelected star this.value)
+                isSelected=(lte star this.value)
+                onClick=(fn this.setRating star)
+                icon=this.icon
+                iconSelected=this.iconSelected
+              )
+              number=star
+              percentSelected=(percentSelected star this.value)
+              isSelected=(lte star this.value)
+            )
+          }}
+        {{else}}
+          <Item
+            @value={{star}}
+            @total={{this.stars.length}}
+            @percentSelected={{percentSelected star this.value}}
+            @isSelected={{lte star this.value}}
+            @readonly={{@readonly}}
+            @onClick={{fn this.setRating star}}
+            @icon={{this.icon}}
+            @iconSelected={{this.iconSelected}}
+          />
+        {{/if}}
       {{/each}}
     </div>
   </template>

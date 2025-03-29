@@ -7,6 +7,8 @@ import { on } from "@ember/modifier";
 // @ts-expect-error
 import { localCopy } from "tracked-toolbox";
 
+import { uniqueId } from "../utils.ts";
+
 import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike } from "@glint/template";
 
@@ -57,25 +59,6 @@ interface StringIcons {
    * Defaults to "★";
    */
   iconSelected?: string;
-
-  /**
-   * Color of unselected icons.
-   *
-   * Default to
-   */
-  color?: string;
-
-  /**
-   * Color of the half-icons.
-   *
-   * Default's to the @selectedColor
-   */
-  colorHalf?: string;
-
-  /**
-   * Color of selected icons.
-   */
-  colorSelected?: string;
 }
 
 interface Signature {
@@ -155,6 +138,7 @@ const Item: TOC<{
     value: number;
     total: number;
     percentSelected: number;
+    onClick: () => void;
     isSelected: boolean;
     readonly: boolean | undefined;
   };
@@ -251,3 +235,18 @@ export class Rating extends Component<Signature> {
     </div>
   </template>
 }
+
+interface ControlSignature {
+  Element: HTMLDivElement;
+  Args: {};
+}
+
+export const RatingControl: TOC<ControlSignature> = <template>
+  <div ...attributes>
+    {{#let (uniqueId) as |id|}}
+      <Rating as |r|>
+        {{yield (hash Label=(component Label for=id))}}
+      </Rating>
+    {{/let}}
+  </div>
+</template>;

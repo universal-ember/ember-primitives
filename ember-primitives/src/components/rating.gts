@@ -8,6 +8,7 @@ import { on } from "@ember/modifier";
 import { localCopy } from "tracked-toolbox";
 
 import { uniqueId } from "../utils.ts";
+import { Label } from "./-private/typed-elements.gts";
 
 import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike } from "@glint/template";
@@ -94,7 +95,7 @@ interface Signature {
      *
      * Also sets data-disabled=true on the wrapping element
      */
-    disable?: boolean;
+    disabled?: boolean;
 
     /**
      * Callback when the selected rating changes.
@@ -238,15 +239,39 @@ export class Rating extends Component<Signature> {
 
 interface ControlSignature {
   Element: HTMLDivElement;
-  Args: {};
+  Args: {
+    max?: number;
+    value?: number;
+    readonly?: boolean;
+    disabled?: boolean;
+  };
+  Blocks: {
+    default: [
+      star: {
+        Label: ComponentLike<{}>;
+        Button: ComponentLike<{}>;
+        number: number;
+        isSelected: boolean;
+        percentSelected: boolean;
+      },
+    ];
+  };
 }
 
 export const RatingControl: TOC<ControlSignature> = <template>
   <div ...attributes>
-    {{#let (uniqueId) as |id|}}
-      <Rating as |r|>
-        {{yield (hash Label=(component Label for=id))}}
-      </Rating>
-    {{/let}}
+    <Rating @max={{@max}} @value={{@value}} @readonly={{@readonly}} @disabled={{@disabled}} as |r|>
+      {{#let (uniqueId) as |id|}}
+        {{yield
+          (hash
+            Button=(component r.Button id=id)
+            Label=(component Label for=id)
+            number=r.number
+            isSelected=r.isSelected
+            percentSelected=r.percentSelected
+          )
+        }}
+      {{/let}}
+    </Rating>
   </div>
 </template>;

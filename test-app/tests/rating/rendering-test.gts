@@ -6,6 +6,7 @@ import { Rating } from 'ember-primitives';
 
 import { rating as createTestHelper } from 'ember-primitives/test-support';
 
+const label = '.ember-primitives__rating__label';
 const star = '.ember-primitives__rating__item';
 const selected = `[data-selected]`;
 const readonly = `[data-readonly]`;
@@ -112,6 +113,12 @@ module('<Rating>', function (hooks) {
     await render(<template><Rating /></template>);
 
     assert.dom(star).exists({ count: 5 });
+    assert.dom('[name]').exists({ count: 5 });
+    assert.dom('[type="radio"]').exists({ count: 5 });
+    assert.dom('[readonly]').doesNotExist();
+    assert.dom('[visually-hidden]').exists({ count: 5 });
+    assert.dom('[aria-hidden]').exists({ count: 5 });
+
     assert.dom(star + selected).doesNotExist();
     assert.dom(star + readonly).doesNotExist();
     assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
@@ -223,5 +230,42 @@ module('<Rating>', function (hooks) {
     assert.dom(star + selected).doesNotExist();
     assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
     assert.strictEqual(rating.starTexts, '() () () () ()');
+  });
+
+  test('@readonly={{true}}', async function (assert) {
+    await render(<template><Rating @readonly={{true}} /></template>);
+
+    assert.strictEqual(rating.value, 0);
+    assert.strictEqual(rating.isReadonly, true, 'is readonly');
+    assert.dom(label).doesNotExist();
+
+    await rating.select(3);
+    assert.strictEqual(rating.value, 0);
+  });
+
+  test('@interactive={{false}}', async function (assert) {
+    await render(<template><Rating @interactive={{false}} /></template>);
+
+    assert.strictEqual(rating.value, 0);
+    assert.strictEqual(rating.isReadonly, true, 'is readonly');
+    assert.strictEqual(rating.label, 'Rated 0 out of 5');
+
+    await rating.select(3);
+    assert.strictEqual(rating.value, 0);
+  });
+
+  test('<:label> (legend)', async function (assert) {
+    await render(
+      <template>
+        <Rating>
+          <:label>
+            A Label!
+          </:label>
+        </Rating>
+      </template>
+    );
+
+    assert.dom('legend').exists();
+    assert.dom('legend').hasText('A Label!');
   });
 });

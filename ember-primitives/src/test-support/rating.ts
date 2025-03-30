@@ -66,7 +66,7 @@ class RatingPageObject {
   }
 
   get label() {
-    return this.#labelElement.textContent;
+    return this.#labelElement.textContent?.replaceAll(/\s+/g, ' ').trim();
   }
 
   get #starElements() {

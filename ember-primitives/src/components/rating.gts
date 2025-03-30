@@ -1,9 +1,9 @@
 import Component from "@glimmer/component";
 import { cached } from "@glimmer/tracking";
-import { fn, hash } from "@ember/helper";
+import { assert } from "@ember/debug";
+import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
-import { element } from "ember-element-helper";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import { localCopy } from "tracked-toolbox";
@@ -11,7 +11,6 @@ import { localCopy } from "tracked-toolbox";
 import { uniqueId } from "../utils.ts";
 import { Label } from "./-private/typed-elements.gts";
 
-import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike } from "@glint/template";
 
 type ComponentIcons = {
@@ -69,14 +68,17 @@ export interface StateSignature {
   };
   Blocks: {
     default: [
-      item: {
-        onClick: () => void;
-        number: number;
-        percentSelected: number;
-        isSelected: boolean;
+      internalApi: {
+        stars: number[];
+        value: number;
+        total: number;
+        handleInput: (event: Event) => void;
+      },
+      publicApi: {
+        value: number;
+        total: number;
       },
     ];
-    legend: [];
   };
 }
 
@@ -97,10 +99,6 @@ function percentSelected(a: number, b: number) {
 
 function isString(x: unknown) {
   return typeof x === "string";
-}
-
-function shouldClick(isReadonly: boolean, isDisabled: boolean) {
-  return !isReadonly && !isDisabled;
 }
 
 export class RatingState extends Component<StateSignature> {
@@ -131,29 +129,30 @@ export class RatingState extends Component<StateSignature> {
   };
 
   handleInput = (event: Event) => {
-    let selected = event.target?.value;
-    let num = parseFloat(selected);
+    assert(
+      "[BUG]: must be on an element that has input events",
+      event.target !== null && "value" in event.target,
+    );
+
+    const selected = event.target?.value;
+
+    assert("[BUG]: value from input must be a string.", typeof selected === "string");
+
+    const num = parseFloat(selected);
 
     this.setRating(num);
   };
 
   <template>
-    <fieldset
-      class="ember-primitives__rating"
-      data-total={{this.stars.length}}
-      data-value={{this.value}}
-      {{on "input" this.handleInput}}
-      ...attributes
-    >
-      {{yield
-        (hash stars=this.stars total=this.stars.length onClick=this.setRating value=this.value)
-      }}
-    </fieldset>
+    {{yield
+      (hash stars=this.stars total=this.stars.length handleInput=this.handleInput value=this.value)
+      (hash total=this.stars.length value=this.value)
+    }}
   </template>
 }
 
 export interface Signature {
-  Element: HTMLDivElement;
+  Element: HTMLElement;
   Args: (ComponentIcons | StringIcons) & {
     /**
      * The number of stars/whichever-icon to show
@@ -191,9 +190,27 @@ export interface Signature {
      */
     onChange?: (value: number) => void;
   };
+
+  Blocks: {
+    label: [
+      state: {
+        /**
+         * The current rating
+         */
+        value: number;
+
+        /**
+         * The maximum rating
+         */
+        total: number;
+      },
+    ];
+  };
 }
 
 export class Rating extends Component<Signature> {
+  name = `rating-${uniqueId()}`;
+
   get icon() {
     return this.args.icon ?? "★";
   }
@@ -203,7 +220,15 @@ export class Rating extends Component<Signature> {
   }
 
   get isChangeable() {
-    return this.args.readonly || !this.isInteractive;
+    return (this.args.readonly ?? false) || this.isInteractive;
+  }
+
+  get isReadonly() {
+    return !this.isChangeable;
+  }
+
+  get needsDescription() {
+    return !this.isInteractive;
   }
 
   /**
@@ -215,26 +240,36 @@ export class Rating extends Component<Signature> {
     <RatingState
       @max={{@max}}
       @value={{@value}}
-      @readonly={{this.isChangeable}}
+      @readonly={{this.isReadonly}}
       @onChange={{@onChange}}
-      ...attributes
-      as |r|
+      as |r publicState|
     >
-      {{#if (has-block "legend")}}
-        <legend>
-          {{yield to="legend"}}
-        </legend>
-      {{/if}}
+      <fieldset
+        class="ember-primitives__rating"
+        data-total={{r.total}}
+        data-value={{r.value}}
+        {{on "input" r.handleInput}}
+        ...attributes
+      >
 
-      {{#unless @interactive}}
-        <span visually-hidden class="ember-primitives__rating__label">Rated
-          {{r.value}}
-          out of
-          {{r.total}}</span>
-      {{/unless}}
+        {{#if this.needsDescription}}
+          {{#if (has-block "label")}}
+            {{yield publicState to="label"}}
+          {{else}}
+            <span visually-hidden class="ember-primitives__rating__label">Rated
+              {{r.value}}
+              out of
+              {{r.total}}</span>
+          {{/if}}
+        {{else}}
+          {{#if (has-block "label")}}
+            <legend>
+              {{yield publicState to="label"}}
+            </legend>
+          {{/if}}
+        {{/if}}
 
-      <div class="ember-primitives__rating__items">
-        {{#let (uniqueId) as |name|}}
+        <div class="ember-primitives__rating__items">
           {{#each r.stars as |star|}}
             {{#let (uniqueId) as |id|}}
               <span
@@ -242,9 +277,9 @@ export class Rating extends Component<Signature> {
                 data-number={{star}}
                 data-percent-selected={{percentSelected star r.value}}
                 data-selected={{lte star r.value}}
-                data-readonly={{Boolean @readonly}}
+                data-readonly={{this.isReadonly}}
               >
-                <Label @for="input-{{id}}">
+                <Label @for="input-{{id}}" tabindex={{if this.isChangeable "0"}}>
                   <span visually-hidden>{{star}} star</span>
                   <span aria-hidden="true">
                     {{#if (isString this.icon)}}
@@ -254,8 +289,7 @@ export class Rating extends Component<Signature> {
                         @value={{star}}
                         @isSelected={{lte star r.value}}
                         @percentSelected={{percentSelected star r.value}}
-                        @readonly={{Boolean @readonly}}
-                        ...attributes
+                        @readonly={{this.isReadonly}}
                       />
                     {{/if}}
 
@@ -265,23 +299,27 @@ export class Rating extends Component<Signature> {
                 <input
                   id="input-{{id}}"
                   type="radio"
-                  name="rating-{{name}}"
+                  name={{this.name}}
                   value={{star}}
-                  readonly={{Boolean @readonly}}
-                  aria-label="{{star}} of {{@total}} stars"
+                  readonly={{this.isReadonly}}
+                  aria-label="{{star}} of {{r.total}} stars"
                   {{on "click" toggleableRadio}}
-                  ...attributes
                 />
               </span>
             {{/let}}
           {{/each}}
-        {{/let}}
-      </div>
+        </div>
+      </fieldset>
     </RatingState>
   </template>
 }
 
 function toggleableRadio(event: Event) {
+  assert(
+    "[BUG]: toggleableRadio is only usable on input elements",
+    event.target instanceof HTMLInputElement,
+  );
+
   if (event.target.checked) {
     event.target.checked = false;
   }

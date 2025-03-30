@@ -12,11 +12,11 @@ import { Rating } from 'ember-primitives';
 
 <template>
   <Rating @value={{2}}>
-    <:legend>Rate me</:legend>
+    <:label>Rate me</:label>
   </Rating>
 
   <style>
-    .ember-primitives__rating {
+    .ember-primitives__rating__items {
       width: fit-content;
       display: grid;
       gap: 0.5rem;
@@ -58,46 +58,72 @@ import { Rating } from 'ember-primitives';
 <details><summary>non-interactive (display-only) mode</summary>
 <div class="featured-demo">
 
-```gjs live preview no-shadow
+```gjs live preview 
 import { Rating } from 'ember-primitives';
 
 <template>
-  <Rating id="demo2" @interactive={{false}} />
+  <Rating @value={{2}} @interactive={{false}} />
+  <Rating @value={{4}} @interactive={{false}}>
+    <:label as |rating|>
+      {{rating.value}} of {{rating.total}}
+    </:label>
+  </Rating>
+  {{!--
+  <Rating @value={{3}} @interactive={{false}} as |rating|>
+    <rating.Stars />
+    <rating.Label as |state|>
+      {{state.value}} of {{state.total}}
+    </rating.Label>
+  </Rating>
+  --}}
 
   <style>
-    #demo2 {
-      .ember-primitives__rating {
-        display: grid;
-        gap: 0.5rem;
-        grid-auto-flow: column;
-        justify-content: center;
-        align-items: center;
-        height: 4rem;
+    fieldset { border: none; padding: 0; }
+    .ember-primitives__rating {
+      width: fit-content;
+      display: grid;
+      gap: 0.5rem;
+      grid-auto-flow: column;
+      justify-content: center;
+      align-items: center;
+      height: 4rem;
+    }
+
+    input { color: black; }
+
+    .ember-primitives__rating__item {
+        font-size: 3rem;
+        line-height: 3rem;
+        transition: all 0.1s;
+        transform-origin: center;
+        aspect-ratio: 1 / 1;
+        cursor: pointer;
+        user-select: none;
+
+      input {
+          display: none;
       }
 
-        input { color: black; }
+      &[data-selected] {
+        color: gold;
+      }
+    } 
 
-      .ember-primitives__rating__item {
-          font-size: 3rem;
-          line-height: 3rem;
-          transition: all 0.1s;
-          transform-origin: center;
-          aspect-ratio: 1 / 1;
-          cursor: pointer;
-          user-select: none;
+    .ember-primitives__rating__item:hover {
+        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+    } 
 
-        input {
-            display: none;
-        }
-
-        &[data-selected] {
-          color: gold;
-        }
-      } 
-
-      .ember-primitives__rating__item:hover {
-          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-      } 
+    [visually-hidden] {
+      position: absolute;
+      border: 0;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      word-wrap: normal;
     }
   </style>
 </template>
@@ -236,6 +262,7 @@ import { ComponentSignature } from 'kolay';
 ### Classes
 
 - `ember-primitives__rating`
+- `ember-primitives__rating__items`
 - `ember-primitives__rating__item`
 - `ember-primitives__rating__label`
 

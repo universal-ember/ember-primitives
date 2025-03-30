@@ -248,7 +248,6 @@ export class Rating extends Component<Signature> {
                   <span visually-hidden>{{star}} star</span>
                   <span aria-hidden="true">
                     {{#if (isString this.icon)}}
-                      {{log "string" this.icon}}
                       {{this.icon}}
                     {{else}}
                       <this.icon

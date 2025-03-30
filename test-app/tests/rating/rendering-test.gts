@@ -23,67 +23,89 @@ module('<Rating>', function (hooks) {
 
   const rating = createTestHelper();
 
-  test('consumer example', async function (assert) {
-    await render(<template><Rating /></template>);
+  module('edges', function () {
+    test('does not allow negative values', async function (assert) {
+      await render(<template><Rating /></template>);
 
-    assert.strictEqual(rating.value, 0);
-    assert.strictEqual(rating.isReadonly, false);
+      await assert.rejects(rating.select(-1), /Is the number \(-1\) correct/);
+    });
 
-    await rating.select(3);
-    assert.strictEqual(rating.value, 3);
-    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
+    test('does not allow values over the maximum', async function (assert) {
+      await render(<template><Rating /></template>);
 
-    // Toggle
-    await rating.select(3);
-    assert.strictEqual(rating.value, 0);
-    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+      await assert.rejects(rating.select(6), /Is the number \(6\) correct/);
+    });
+
+    test('errors when wrong or incorrect thing rendered', async function (assert) {
+      assert.throws(() => rating.value, /Could not find the root element/);
+      await assert.rejects(rating.select(), /Could not find the root element/);
+      assert.throws(() => rating.stars, /There are no stars/);
+    });
   });
 
-  test('consumer example (multiple)', async function (assert) {
-    await render(
-      <template>
-        <Rating data-test-first />
-        <Rating data-test-second />
-      </template>
-    );
+  module('examples', function () {
+    test('consumer example', async function (assert) {
+      await render(<template><Rating /></template>);
 
-    const first = createTestHelper('[data-test-first]');
-    const second = createTestHelper('[data-test-second]');
+      assert.strictEqual(rating.value, 0);
+      assert.strictEqual(rating.isReadonly, false);
 
-    assert.strictEqual(first.value, 0, 'first Rating has no selection');
-    assert.strictEqual(second.value, 0, 'second Rating has no selection');
+      await rating.select(3);
+      assert.strictEqual(rating.value, 3);
+      assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
 
-    await first.select(3);
-    assert.strictEqual(first.value, 3, 'first Rating now has 3 stars');
-    assert.strictEqual(second.value, 0, 'second Rating is still unchanged');
+      // Toggle
+      await rating.select(3);
+      assert.strictEqual(rating.value, 0);
+      assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+    });
 
-    await second.select(4);
-    assert.strictEqual(second.value, 4, 'second Rating now has 4 stars');
-    assert.strictEqual(first.value, 3, 'first Rating is still unchanged (at 3)');
+    test('consumer example (multiple)', async function (assert) {
+      await render(
+        <template>
+          <Rating data-test-first />
+          <Rating data-test-second />
+        </template>
+      );
 
-    // Toggle First
-    await first.select(3);
-    assert.strictEqual(first.value, 0, 'first Rating is toggled from 3 to 0');
-    assert.strictEqual(second.value, 4, 'second Rating is still unchanged (at 4)');
+      const first = createTestHelper('[data-test-first]');
+      const second = createTestHelper('[data-test-second]');
 
-    // Toggle Second
-    await second.select(4);
-    assert.strictEqual(second.value, 0, 'second Rating is toggled from 4 to 0');
-    assert.strictEqual(first.value, 0, 'first Rating is still unchanged (at 0)');
-  });
+      assert.strictEqual(first.value, 0, 'first Rating has no selection');
+      assert.strictEqual(second.value, 0, 'second Rating has no selection');
 
-  test('What not to do', async function (assert) {
-    await render(<template><Rating /></template>);
+      await first.select(3);
+      assert.strictEqual(first.value, 3, 'first Rating now has 3 stars');
+      assert.strictEqual(second.value, 0, 'second Rating is still unchanged');
 
-    assert.dom(`[data-selected]`).doesNotExist();
-    assert.dom(`[data-readonly]`).doesNotExist();
+      await second.select(4);
+      assert.strictEqual(second.value, 4, 'second Rating now has 4 stars');
+      assert.strictEqual(first.value, 3, 'first Rating is still unchanged (at 3)');
 
-    await click(`[data-number="3"] input`);
-    assert.dom(`[data-selected]`).exists({ count: 3 });
+      // Toggle First
+      await first.select(3);
+      assert.strictEqual(first.value, 0, 'first Rating is toggled from 3 to 0');
+      assert.strictEqual(second.value, 4, 'second Rating is still unchanged (at 4)');
 
-    // Toggle
-    await click(`[data-number="3"] input`);
-    assert.dom(`[data-selected]`).doesNotExist();
+      // Toggle Second
+      await second.select(4);
+      assert.strictEqual(second.value, 0, 'second Rating is toggled from 4 to 0');
+      assert.strictEqual(first.value, 0, 'first Rating is still unchanged (at 0)');
+    });
+
+    test('What not to do', async function (assert) {
+      await render(<template><Rating /></template>);
+
+      assert.dom(`[data-selected]`).doesNotExist();
+      assert.dom(`[data-readonly]`).doesNotExist();
+
+      await click(`[data-number="3"] input`);
+      assert.dom(`[data-selected]`).exists({ count: 3 });
+
+      // Toggle
+      await click(`[data-number="3"] input`);
+      assert.dom(`[data-selected]`).doesNotExist();
+    });
   });
 
   test('defaults', async function (assert) {
@@ -140,6 +162,38 @@ module('<Rating>', function (hooks) {
     assert.dom(star + selected).doesNotExist();
     assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
     assert.strictEqual(rating.starTexts, 'x x x x x');
+  });
+
+  test('@max=7 (number)', async function (assert) {
+    await render(<template><Rating @max={{7}} /></template>);
+
+    assert.dom(star).exists({ count: 7 });
+    assert.dom(star + selected).doesNotExist();
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆ ☆ ☆');
+
+    await rating.select(3);
+    assert.dom(star + selected).exists({ count: 3 });
+    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆ ☆ ☆');
+
+    await rating.select(7);
+    assert.dom(star + selected).exists({ count: 7 });
+    assert.strictEqual(rating.stars, '★ ★ ★ ★ ★ ★ ★');
+  });
+
+  test('@max=7 (string)', async function (assert) {
+    await render(<template><Rating @max="7" /></template>);
+
+    assert.dom(star).exists({ count: 7 });
+    assert.dom(star + selected).doesNotExist();
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆ ☆ ☆');
+
+    await rating.select(3);
+    assert.dom(star + selected).exists({ count: 3 });
+    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆ ☆ ☆');
+
+    await rating.select(7);
+    assert.dom(star + selected).exists({ count: 7 });
+    assert.strictEqual(rating.stars, '★ ★ ★ ★ ★ ★ ★');
   });
 
   test('@icon (component)', async function (assert) {

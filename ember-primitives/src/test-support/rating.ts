@@ -72,11 +72,16 @@ class RatingPageObject {
   get #starElements() {
     const elements = findAll(`${this.#root} ${selectors.item}`);
 
+    assert(
+      `There are no stars/items. Is the <Rating> component misconfigured?`,
+      elements.length > 0
+    );
+
     return elements as HTMLElement[];
   }
 
   get stars() {
-    let elements = this.#starElements;
+    const elements = this.#starElements;
 
     return elements
       .map((x) => (x.hasAttribute('data-selected') ? stars.selected : stars.unselected))
@@ -84,7 +89,7 @@ class RatingPageObject {
   }
 
   get starTexts() {
-    let elements = this.#starElements;
+    const elements = this.#starElements;
 
     return elements.map((x) => x.querySelector('[aria-hidden]')?.textContent?.trim()).join(' ');
   }
@@ -108,10 +113,15 @@ class RatingPageObject {
 
     const star = root.querySelector(`[data-number="${stars}"] input`);
 
-    assert(
-      `Could not find item/star in <Rating> with value '${stars}'. Is the number (${stars}) correct and in-range for this component?`,
-      star
-    );
+    if (!star) {
+      const available = [...root.querySelectorAll('[data-number]')].map((x) =>
+        x.getAttribute('data-number')
+      );
+
+      assert(
+        `Could not find item/star in <Rating> with value '${stars}'. Is the number (${stars}) correct and in-range for this component? The found available values are ${available.join(', ')}`
+      );
+    }
 
     await click(star);
   }

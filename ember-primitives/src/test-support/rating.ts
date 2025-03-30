@@ -44,7 +44,10 @@ class RatingPageObject {
   get #rootElement() {
     const element = find(this.#root);
 
-    assert(`Could not find element for the <Rating> component. Was it rendered?`, element);
+    assert(
+      `Could not find the root element for the <Rating> component. Used the selector \`${this.#root}\`. Was it rendered?`,
+      element
+    );
 
     return element;
   }
@@ -88,7 +91,7 @@ class RatingPageObject {
   async select(stars: number) {
     const root = this.#rootElement;
 
-    const star = root.querySelector(`[data-number="${stars}"]`);
+    const star = root.querySelector(`[data-number="${stars}"] input`);
 
     assert(
       `Could not find item/star in <Rating> with value '${stars}'. Is the number (${stars}) correct and in-range for this component?`,

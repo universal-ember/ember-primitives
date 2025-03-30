@@ -2,6 +2,8 @@
 
 Ratings are used for displaying a score within a given range.
 
+When interactive, the underlying implementation is a radio button for maximum accessibility.
+
 
 <div class="featured-demo">
 
@@ -9,7 +11,11 @@ Ratings are used for displaying a score within a given range.
 import { Rating } from 'ember-primitives';
 
 <template>
-  <Rating />
+  <Rating as |r|>
+    <pre>
+      Value: {{r.value}}
+    </pre>
+  </Rating>
 
   <style>
     .ember-primitives__rating {
@@ -21,6 +27,8 @@ import { Rating } from 'ember-primitives';
       height: 4rem;
     }
 
+      input { color: black; }
+
     .ember-primitives__rating__item {
         font-size: 3rem;
         line-height: 3rem;
@@ -29,6 +37,14 @@ import { Rating } from 'ember-primitives';
         aspect-ratio: 1 / 1;
         cursor: pointer;
         user-select: none;
+
+      input {
+          display: none;
+      }
+
+      &[data-selected] {
+        color: gold;
+      }
     } 
 
     .ember-primitives__rating__item:hover {
@@ -39,6 +55,8 @@ import { Rating } from 'ember-primitives';
 ```
 
 </div>
+
+<details><summary>Custom Component / Icons</summary>
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
@@ -86,6 +104,55 @@ const Selected = <template>
 ```
 
 </div>
+</details>
+<details><summary>Fractional Ratings</summary>
+<div class="featured-demo">
+
+```gjs live preview no-shadow
+import { Rating } from 'ember-primitives';
+
+const Star = <template>
+    <div class="item">
+        <span class="icon">★</span>
+        <div class="overlay" style="var --percent: {{@percentSelected}};"></div>
+    </div>
+  </template>;
+
+<template>
+  <Rating id="demo3" @icon={{Star}} @iconSelected={{Star}} />
+
+  <style>
+    #demo3 {
+      .ember-primitives__rating {
+        display: grid;
+        gap: 0.5rem;
+        grid-auto-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
+      }
+
+      .ember-primitives__rating__item {
+          font-size: 3rem;
+          line-height: 3rem;
+          transition: all 0.1s;
+          transform-origin: center;
+          aspect-ratio: 1 / 1;
+          cursor: pointer;
+          user-select: none;
+          font-family: monospace;
+      } 
+
+      .ember-primitives__rating__item:hover {
+          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+      } 
+    }
+  </style>
+</template>
+```
+
+</div>
+</details>
 
 ## Features
 

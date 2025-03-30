@@ -14,48 +14,28 @@ import { Label } from "./-private/typed-elements.gts";
 import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike } from "@glint/template";
 
-type ComponentIcons =
-  | {
-      /**
-       * It's possible to completely manage the state of an individual Icon yourself
-       * by passing a component that has ...attributes on its outer element and receives
-       * a @selected argument which represents the selected state. 0 for unselected, 1 for selected.
-       */
-      icon: ComponentLike<{ Element: HTMLElement; Args: { selected: number } }>;
-    }
-  | {
-      /**
-       * The component to use for unselected icons
-       */
-      icon: ComponentLike;
-
-      /**
-       * The component to use for selected icons
-       */
-      iconSelected: ComponentLike;
-    };
+type ComponentIcons = {
+  /**
+   * It's possible to completely manage the state of an individual Icon yourself
+   * by passing a component that has ...attributes on its outer element and receives
+   * a @isSelected argument which is true for selected and false for unselected.
+   *
+   * There is also argument passed which is the percent-amount of selection if you want fractional ratings, @selectedPercent
+   */
+  icon: ComponentLike<{
+    Element: HTMLElement;
+    Args: { isDisabled: boolean; selectedPercent: number; value: number; readonly: boolean };
+  }>;
+};
 
 interface StringIcons {
   /**
    * The symbol to use for an unselected variant of the icon
    *
-   * Defaults to "☆";
+   * Defaults to "★";
+   *  Can change color when selected.
    */
   icon?: string;
-
-  /**
-   * The symbol to use for the half-selected variant of the icon
-   *
-   * Defaults to undefined, disallowing non-integer ratings.
-   */
-  iconHalf?: string;
-
-  /**
-   * The symbol to use for an selected variant of the icon
-   *
-   * Defaults to "★";
-   */
-  iconSelected?: string;
 }
 
 export interface StateSignature {
@@ -103,6 +83,7 @@ export interface StateSignature {
         isSelected: boolean;
       },
     ];
+    legend: [];
   };
 }
 
@@ -128,55 +109,6 @@ function isString(x: unknown) {
 function shouldClick(isReadonly: boolean, isDisabled: boolean) {
   return !isReadonly && !isDisabled;
 }
-
-const Item: TOC<{
-  Args: StringIcons & {
-    value: number;
-    total: number;
-    percentSelected: number;
-    onClick: () => void;
-    isSelected: boolean;
-    readonly: boolean | undefined;
-  };
-}> = <template>
-  {{#if (isString @icon)}}
-    {{#let (element @tagName) as |Element|}}
-      <Element
-        class="ember-primitives__rating__item"
-        aria-label="{{@value}} of {{@total}} stars"
-        data-number={{@value}}
-        data-percent-selected={{@percentSelected}}
-        data-selected={{Boolean @isSelected}}
-        data-readonly={{Boolean @readonly}}
-        data-disabled={{Boolean @disabled}}
-        {{! @glint-expect-error }}
-        {{(if (shouldClick @readonly @disabled) (modifier on "click" @onClick))}}
-      >
-
-        {{if @isSelected @iconSelected @icon}}
-
-      </Element>
-    {{/let}}
-  {{else}}
-    {{#let (component (if @isSelected @iconSelected @icon)) as |CustomItem|}}
-      <CustomItem
-        @value={{@value}}
-        @isSelected={{@isSelected}}
-        @readonly={{@readonly}}
-        @disabled={{@disabled}}
-        class="ember-primitives__rating__item"
-        aria-label="{{@value}} of {{@total}} stars"
-        data-number={{@value}}
-        data-percent-selected={{@percentSelected}}
-        data-selected={{Boolean @isSelected}}
-        data-readonly={{Boolean @readonly}}
-        data-disabled={{Boolean @disabled}}
-        {{! @glint-expect-error }}
-        {{(if (shouldClick @readonly @disabled) (modifier on "click" @onClick))}}
-      />
-    {{/let}}
-  {{/if}}
-</template>;
 
 export class RatingState extends Component<StateSignature> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -205,17 +137,25 @@ export class RatingState extends Component<StateSignature> {
     this.args.onChange?.(value);
   };
 
+  handleInput = (event: Event) => {
+    let selected = event.target?.value;
+    let num = parseFloat(selected);
+
+    this.setRating(num);
+  };
+
   <template>
-    <div
+    <fieldset
       class="ember-primitives__rating"
       data-total={{this.stars.length}}
       data-value={{this.value}}
+      {{on "input" this.handleInput}}
       ...attributes
     >
       {{yield
         (hash stars=this.stars total=this.stars.length onClick=this.setRating value=this.value)
       }}
-    </div>
+    </fieldset>
   </template>
 }
 
@@ -260,13 +200,14 @@ export interface Signature {
 
 export class Rating extends Component<Signature> {
   get icon() {
-    return this.args.icon ?? "☆";
+    return this.args.icon ?? "★";
   }
 
-  get iconSelected() {
-    return this.args.iconSelected ?? "★";
-  }
-
+  /**
+   * TODO: when in read-only mode, we may want to use `inert`
+   *       to disable interactivity on the fieldset
+   *
+   */
   <template>
     <RatingState
       @max={{@max}}
@@ -277,71 +218,70 @@ export class Rating extends Component<Signature> {
       ...attributes
       as |r|
     >
+      {{#if (has-block "legend")}}
+        <legend>
+          {{yield to="legend"}}
+        </legend>
+      {{/if}}
+
+      {{yield (hash value=r.value)}}
+
       <span visually-hidden class="ember-primitives__rating__label">Rated
         {{r.value}}
         out of
         {{r.total}}</span>
 
-      {{#each r.stars as |star|}}
-        <Item
-          @tagName="button"
-          {{! State }}
-          @value={{star}}
-          @total={{r.total}}
-          @readonly={{@readonly}}
-          @onClick={{fn r.onClick star}}
-          @percentSelected={{percentSelected star r.value}}
-          @isSelected={{lte star r.value}}
-          {{! Visuals }}
-          @icon={{this.icon}}
-          @iconSelected={{this.iconSelected}}
-        />
-      {{/each}}
+      <div class="ember-primitives__rating__items">
+        {{#let (uniqueId) as |name|}}
+          {{#each r.stars as |star|}}
+            {{#let (uniqueId) as |id|}}
+              <span
+                class="ember-primitives__rating__item"
+                data-number={{star}}
+                data-percent-selected={{percentSelected star r.value}}
+                data-selected={{lte star r.value}}
+                data-readonly={{Boolean @readonly}}
+                data-disabled={{Boolean @disabled}}
+              >
+                <Label @for={{id}}>
+                  <span visually-hidden>{{star}} star</span>
+                  <span aria-hidden="true">
+                    {{#if (isString this.icon)}}
+                      {{if @isSelected this.iconSelected this.icon}}
+                    {{else}}
+                      <this.icon
+                        @value={{star}}
+                        @isSelected={{lte star r.value}}
+                        @percentSelected={{percentSelected star r.value}}
+                        @readonly={{Boolean @readonly}}
+                        @isDisabled={{Boolean @disabled}}
+                        ...attributes
+                      />
+                    {{/if}}
+
+                  </span>
+                </Label>
+
+                <input
+                  id={{id}}
+                  type="radio"
+                  name="rating-{{name}}"
+                  value={{star}}
+                  aria-label="{{star}} of {{@total}} stars"
+                  {{on "click" toggleableRadio}}
+                  ...attributes
+                />
+              </span>
+            {{/let}}
+          {{/each}}
+        {{/let}}
+      </div>
     </RatingState>
   </template>
 }
 
-export interface ControlSignature {
-  Element: HTMLDivElement;
-  Args: {
-    max?: number;
-    value?: number;
-    readonly?: boolean;
-    disabled?: boolean;
-  };
-  Blocks: {
-    default: [
-      star: {
-        Label: ComponentLike<{ Element: HTMLDivElement }>;
-        Button: ComponentLike<{ Element: HTMLButtonElement }>;
-        number: number;
-        isSelected: boolean;
-        percentSelected: boolean;
-      },
-    ];
-  };
+function toggleableRadio(event: Event) {
+  if (event.target.checked) {
+    event.target.checked = false;
+  }
 }
-
-export const RatingControl: TOC<ControlSignature> = <template>
-  <div ...attributes>
-    <RatingState
-      @max={{@max}}
-      @value={{@value}}
-      @readonly={{@readonly}}
-      @disabled={{@disabled}}
-      as |r|
-    >
-      {{#let (uniqueId) as |id|}}
-        {{yield
-          (hash
-            Button=(component r.Button id=id)
-            Label=(component Label for=id)
-            number=r.number
-            isSelected=r.isSelected
-            percentSelected=r.percentSelected
-          )
-        }}
-      {{/let}}
-    </RatingState>
-  </div>
-</template>;

@@ -62,13 +62,6 @@ export interface StateSignature {
     readonly?: boolean;
 
     /**
-     * Prevents click events on the icons and sets aria-disabled
-     *
-     * Also sets data-disabled=true on the wrapping element
-     */
-    disabled?: boolean;
-
-    /**
      * Callback when the selected rating changes.
      * Can include half-ratings if the iconHalf argument is passed.
      */
@@ -184,11 +177,13 @@ export interface Signature {
     readonly?: boolean;
 
     /**
-     * Prevents click events on the icons and sets aria-disabled
+     * Toggles the ability to interact with the rating component.
+     * When `true` (the default), the Rating component can be as a form input
+     * to gather user feedback.
      *
-     * Also sets data-disabled=true on the wrapping element
+     * When false, only the `@value` will be shown, and it cannot be changed.
      */
-    disabled?: boolean;
+    interactive?: boolean;
 
     /**
      * Callback when the selected rating changes.
@@ -203,6 +198,14 @@ export class Rating extends Component<Signature> {
     return this.args.icon ?? "★";
   }
 
+  get isInteractive() {
+    return this.args.interactive ?? true;
+  }
+
+  get isChangeable() {
+    return this.args.readonly || !this.isInteractive;
+  }
+
   /**
    * TODO: when in read-only mode, we may want to use `inert`
    *       to disable interactivity on the fieldset
@@ -212,8 +215,7 @@ export class Rating extends Component<Signature> {
     <RatingState
       @max={{@max}}
       @value={{@value}}
-      @readonly={{@readonly}}
-      @disabled={{@disabled}}
+      @readonly={{this.isChangeable}}
       @onChange={{@onChange}}
       ...attributes
       as |r|
@@ -224,12 +226,12 @@ export class Rating extends Component<Signature> {
         </legend>
       {{/if}}
 
-      {{yield (hash value=r.value)}}
-
-      <span visually-hidden class="ember-primitives__rating__label">Rated
-        {{r.value}}
-        out of
-        {{r.total}}</span>
+      {{#unless @interactive}}
+        <span visually-hidden class="ember-primitives__rating__label">Rated
+          {{r.value}}
+          out of
+          {{r.total}}</span>
+      {{/unless}}
 
       <div class="ember-primitives__rating__items">
         {{#let (uniqueId) as |name|}}
@@ -241,20 +243,19 @@ export class Rating extends Component<Signature> {
                 data-percent-selected={{percentSelected star r.value}}
                 data-selected={{lte star r.value}}
                 data-readonly={{Boolean @readonly}}
-                data-disabled={{Boolean @disabled}}
               >
-                <Label @for={{id}}>
+                <Label @for="input-{{id}}">
                   <span visually-hidden>{{star}} star</span>
                   <span aria-hidden="true">
                     {{#if (isString this.icon)}}
-                      {{if @isSelected this.iconSelected this.icon}}
+                      {{log "string" this.icon}}
+                      {{this.icon}}
                     {{else}}
                       <this.icon
                         @value={{star}}
                         @isSelected={{lte star r.value}}
                         @percentSelected={{percentSelected star r.value}}
                         @readonly={{Boolean @readonly}}
-                        @isDisabled={{Boolean @disabled}}
                         ...attributes
                       />
                     {{/if}}
@@ -263,10 +264,11 @@ export class Rating extends Component<Signature> {
                 </Label>
 
                 <input
-                  id={{id}}
+                  id="input-{{id}}"
                   type="radio"
                   name="rating-{{name}}"
                   value={{star}}
+                  readonly={{Boolean @readonly}}
                   aria-label="{{star}} of {{@total}} stars"
                   {{on "click" toggleableRadio}}
                   ...attributes

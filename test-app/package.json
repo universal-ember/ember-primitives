@@ -33,7 +33,7 @@
   },
   "dependenciesMeta": {
     "ember-primitives": {
-      "injected": true
+      "injected": false
     }
   },
   "devDependencies": {

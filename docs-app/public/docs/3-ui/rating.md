@@ -11,14 +11,13 @@ When interactive, the underlying implementation is a radio button for maximum ac
 import { Rating } from 'ember-primitives';
 
 <template>
-  <Rating as |r|>
-    <pre>
-      Value: {{r.value}}
-    </pre>
+  <Rating @value={{2}}>
+    <:legend>Rate me</:legend>
   </Rating>
 
   <style>
     .ember-primitives__rating {
+      width: fit-content;
       display: grid;
       gap: 0.5rem;
       grid-auto-flow: column;
@@ -56,22 +55,68 @@ import { Rating } from 'ember-primitives';
 
 </div>
 
+<details><summary>non-interactive (display-only) mode</summary>
+<div class="featured-demo">
+
+```gjs live preview no-shadow
+import { Rating } from 'ember-primitives';
+
+<template>
+  <Rating id="demo2" @interactive={{false}} />
+
+  <style>
+    #demo2 {
+      .ember-primitives__rating {
+        display: grid;
+        gap: 0.5rem;
+        grid-auto-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
+      }
+
+        input { color: black; }
+
+      .ember-primitives__rating__item {
+          font-size: 3rem;
+          line-height: 3rem;
+          transition: all 0.1s;
+          transform-origin: center;
+          aspect-ratio: 1 / 1;
+          cursor: pointer;
+          user-select: none;
+
+        input {
+            display: none;
+        }
+
+        &[data-selected] {
+          color: gold;
+        }
+      } 
+
+      .ember-primitives__rating__item:hover {
+          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+      } 
+    }
+  </style>
+</template>
+```
+
+</div>
+</details>
 <details><summary>Custom Component / Icons</summary>
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
 import { Rating } from 'ember-primitives';
 
-const Empty = <template>
-  <div ...attributes>( )</div>
-</template>;
-
 const Selected = <template>
   <div ...attributes>(x)</div>
 </template>;
 
 <template>
-  <Rating id="demo2" @icon={{Empty}} @iconSelected={{Selected}} />
+  <Rating id="demo3" @icon={{Selected}} />
 
   <style>
     #demo2 {
@@ -119,10 +164,10 @@ const Star = <template>
   </template>;
 
 <template>
-  <Rating id="demo3" @icon={{Star}} @iconSelected={{Star}} />
+  <Rating id="demo4" @icon={{Star}} @iconSelected={{Star}} />
 
   <style>
-    #demo3 {
+    #demo4 {
       .ember-primitives__rating {
         display: grid;
         gap: 0.5rem;

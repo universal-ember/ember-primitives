@@ -19,6 +19,11 @@ const selectors = {
   },
 };
 
+const stars = {
+  selected: '★',
+  unselected: '☆',
+};
+
 /**
  * Test utility for interacting with the
  * Rating component.
@@ -71,7 +76,17 @@ class RatingPageObject {
   }
 
   get stars() {
-    return this.#starElements.map((x) => x.textContent?.trim() || '').join(' ');
+    let elements = this.#starElements;
+
+    return elements
+      .map((x) => (x.hasAttribute('data-selected') ? stars.selected : stars.unselected))
+      .join(' ');
+  }
+
+  get starTexts() {
+    let elements = this.#starElements;
+
+    return elements.map((x) => x.querySelector('[aria-hidden]')?.textContent?.trim()).join(' ');
   }
 
   get value() {

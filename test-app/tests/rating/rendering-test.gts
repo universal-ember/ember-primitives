@@ -78,24 +78,12 @@ module('<Rating>', function (hooks) {
     assert.dom(`[data-selected]`).doesNotExist();
     assert.dom(`[data-readonly]`).doesNotExist();
 
-    await click(`[data-number="3"]`);
+    await click(`[data-number="3"] input`);
     assert.dom(`[data-selected]`).exists({ count: 3 });
-    assert.strictEqual(
-      findAll('button')
-        .map((x) => x.textContent.trim())
-        .join(' '),
-      '★ ★ ★ ☆ ☆'
-    );
 
     // Toggle
-    await click(`[data-number="3"]`);
+    await click(`[data-number="3"] input`);
     assert.dom(`[data-selected]`).doesNotExist();
-    assert.strictEqual(
-      findAll('button')
-        .map((x) => x.textContent.trim())
-        .join(' '),
-      '☆ ☆ ☆ ☆ ☆'
-    );
   });
 
   test('defaults', async function (assert) {
@@ -140,53 +128,46 @@ module('<Rating>', function (hooks) {
 
     assert.dom(star).exists({ count: 5 });
     assert.dom(star + selected).doesNotExist();
-    assert.strictEqual(rating.stars, 'x x x x x');
-
-    await rating.select(3);
-    assert.dom(star + selected).exists({ count: 3 });
-    assert.strictEqual(rating.stars, '★ ★ ★ x x');
-
-    await rating.select(3);
-    assert.dom(star + selected).doesNotExist();
-    assert.strictEqual(rating.stars, 'x x x x x');
-  });
-
-  test('@icon + @iconSelected (component)', async function (assert) {
-    const Empty = <template>
-      <div ...attributes>()</div>
-    </template>;
-    const Selected = <template>
-      <div ...attributes>(x)</div>
-    </template>;
-
-    await render(<template><Rating @icon={{Empty}} @iconSelected={{Selected}} /></template>);
-
-    assert.dom(star).exists({ count: 5 });
-    assert.dom(star + selected).doesNotExist();
-    assert.strictEqual(rating.stars, '() () () () ()');
-
-    await rating.select(3);
-    assert.dom(star + selected).exists({ count: 3 });
-    assert.strictEqual(rating.stars, '(x) (x) (x) () ()');
-
-    await rating.select(3);
-    assert.dom(star + selected).doesNotExist();
-    assert.strictEqual(rating.stars, '() () () () ()');
-  });
-
-  test('@iconSelected (string)', async function (assert) {
-    await render(<template><Rating @iconSelected="x" /></template>);
-
-    assert.dom(star).exists({ count: 5 });
-    assert.dom(star + selected).doesNotExist();
     assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.starTexts, 'x x x x x');
 
     await rating.select(3);
     assert.dom(star + selected).exists({ count: 3 });
-    assert.strictEqual(rating.stars, 'x x x ☆ ☆');
+    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
+    assert.strictEqual(rating.starTexts, 'x x x x x');
 
     await rating.select(3);
     assert.dom(star + selected).doesNotExist();
     assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.starTexts, 'x x x x x');
+  });
+
+  test('@icon (component)', async function (assert) {
+    const Icon = <template>
+      <div ...attributes>
+        {{#if @isSelected}}
+          (x)
+        {{else}}
+          ()
+        {{/if}}
+      </div>
+    </template>;
+
+    await render(<template><Rating @icon={{Icon}} /></template>);
+
+    assert.dom(star).exists({ count: 5 });
+    assert.dom(star + selected).doesNotExist();
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.starTexts, '() () () () ()');
+
+    await rating.select(3);
+    assert.dom(star + selected).exists({ count: 3 });
+    assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
+    assert.strictEqual(rating.starTexts, '(x) (x) (x) () ()');
+
+    await rating.select(3);
+    assert.dom(star + selected).doesNotExist();
+    assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+    assert.strictEqual(rating.starTexts, '() () () () ()');
   });
 });

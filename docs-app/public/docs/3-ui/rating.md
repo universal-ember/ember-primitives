@@ -45,7 +45,7 @@ import { Rating } from 'ember-primitives';
 import { Rating } from 'ember-primitives';
 
 const Empty = <template>
-  <div ...attributes>()</div>
+  <div ...attributes>( )</div>
 </template>;
 
 const Selected = <template>
@@ -53,31 +53,34 @@ const Selected = <template>
 </template>;
 
 <template>
-  <Rating @icon={{Empty}} @iconSelected={{Selected}} />
+  <Rating id="demo2" @icon={{Empty}} @iconSelected={{Selected}} />
 
   <style>
-    .ember-primitives__rating {
-      display: grid;
-      gap: 0.5rem;
-      grid-auto-flow: column;
-      justify-content: center;
-      align-items: center;
-      height: 4rem;
+    #demo2 {
+      .ember-primitives__rating {
+        display: grid;
+        gap: 0.5rem;
+        grid-auto-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
+      }
+
+      .ember-primitives__rating__item {
+          font-size: 3rem;
+          line-height: 3rem;
+          transition: all 0.1s;
+          transform-origin: center;
+          aspect-ratio: 1 / 1;
+          cursor: pointer;
+          user-select: none;
+          font-family: monospace;
+      } 
+
+      .ember-primitives__rating__item:hover {
+          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+      } 
     }
-
-    .ember-primitives__rating__item {
-        font-size: 3rem;
-        line-height: 3rem;
-        transition: all 0.1s;
-        transform-origin: center;
-        aspect-ratio: 1 / 1;
-        cursor: pointer;
-        user-select: none;
-    } 
-
-    .ember-primitives__rating__item:hover {
-        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-    } 
   </style>
 </template>
 ```

@@ -160,6 +160,10 @@ const Item: TOC<{
   {{else}}
     {{#let (component (if @isSelected @iconSelected @icon)) as |CustomItem|}}
       <CustomItem
+        @value={{@value}}
+        @isSelected={{@isSelected}}
+        @readonly={{@readonly}}
+        @disabled={{@disabled}}
         class="ember-primitives__rating__item"
         aria-label="{{@value}} of {{@total}} stars"
         data-number={{@value}}

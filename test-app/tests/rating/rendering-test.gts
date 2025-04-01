@@ -187,9 +187,20 @@ module('<Rating>', function (hooks) {
   test('fractional', async function (assert) {
     const Icon = <template>{{@percentSelected}}</template>;
 
-    await render(<template><Rating @icon={{Icon}} /></template>);
+    await render(
+      <template>
+        <Rating as |rating|>
+          <input type="number" name={{rating.name}} />
+          <rating.Stars @icon={{Icon}} />
+        </Rating>
+      </template>
+    );
 
     await rating.select(2.5);
+    assert.strictEqual(rating.value, 2.5);
+
+    await rating.select(0.25);
+    assert.strictEqual(rating.value, 0.25);
   });
 
   test('@max=7 (number)', async function (assert) {

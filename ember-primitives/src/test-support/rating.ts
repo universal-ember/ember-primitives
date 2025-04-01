@@ -1,5 +1,5 @@
 import { assert } from '@ember/debug';
-import { click, find, findAll } from '@ember/test-helpers';
+import { click, fillIn, find, findAll } from '@ember/test-helpers';
 
 const selectors = {
   root: '.ember-primitives__rating',
@@ -99,7 +99,7 @@ class RatingPageObject {
 
     assert(`data-value attribute is missing on element '${this.#root}'`, value);
 
-    const number = parseInt(value, 10);
+    const number = parseFloat(value);
 
     return number;
   }
@@ -113,16 +113,30 @@ class RatingPageObject {
 
     const star = root.querySelector(`[data-number="${stars}"] input`);
 
-    if (!star) {
-      const available = [...root.querySelectorAll('[data-number]')].map((x) =>
-        x.getAttribute('data-number')
-      );
-
-      assert(
-        `Could not find item/star in <Rating> with value '${stars}'. Is the number (${stars}) correct and in-range for this component? The found available values are ${available.join(', ')}`
-      );
+    if (star) {
+      await click(star);
+      return;
     }
 
-    await click(star);
+    /**
+     * When we don't have an input, we require an input --
+     * which is also the only way we can choose non-integer values.
+     *
+     * Should be able to be a number input or range input.
+     */
+    const input = root.querySelector('input[type="number"], input[type="range"]');
+
+    if (input) {
+      await fillIn(input, `${stars}`);
+      return;
+    }
+
+    const available = [...root.querySelectorAll('[data-number]')].map((x) =>
+      x.getAttribute('data-number')
+    );
+
+    assert(
+      `Could not find item/star in <Rating> with value '${stars}' (or a number or range input with the same "name" value). Is the number (${stars}) correct and in-range for this component? The found available values are ${available.join(', ')}.`
+    );
   }
 }

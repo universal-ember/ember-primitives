@@ -1,4 +1,4 @@
-import { click, findAll, render } from '@ember/test-helpers';
+import { click, find, findAll, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -10,6 +10,7 @@ const label = '.ember-primitives__rating__label';
 const star = '.ember-primitives__rating__item';
 const selected = `[data-selected]`;
 const readonly = `[data-readonly]`;
+const checked = ` [checked]`;
 
 /**
  * NOTE: these tests directly touch the DOM because I have to test
@@ -120,19 +121,23 @@ module('<Rating>', function (hooks) {
     assert.dom('[aria-hidden]').exists({ count: 5 });
 
     assert.dom(star + selected).doesNotExist();
-    assert.dom(star + readonly).doesNotExist();
+    assert.dom(star + checked).doesNotExist();
+    assert.dom(star + readonly).doesNotExist('no checked radios');
     assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
 
     await rating.select(3);
     assert.dom(star + selected).exists({ count: 3 });
+    assert.dom('input[value="3"]').isChecked('checked radio has 3 for value');
     assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
 
     await rating.select(5);
     assert.dom(star + selected).exists({ count: 5 });
+    assert.dom('input[value="5"]').isChecked('checked radio has 5 for value');
     assert.strictEqual(rating.stars, '★ ★ ★ ★ ★');
 
     await rating.select(1);
     assert.dom(star + selected).exists({ count: 1 });
+    assert.dom('input[value="1"]').isChecked('checked radio has 1 for value');
     assert.strictEqual(rating.stars, '★ ☆ ☆ ☆ ☆');
   });
 
@@ -190,7 +195,7 @@ module('<Rating>', function (hooks) {
     await render(
       <template>
         <Rating as |rating|>
-          <input type="number" name={{rating.name}} />
+          <input type="number" name={{rating.name}} oninput={{rating.handleInput}} />
           <rating.Stars @icon={{Icon}} />
         </Rating>
       </template>

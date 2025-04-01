@@ -116,6 +116,7 @@ export class RatingState extends Component<StateSignature> {
   }
 
   setRating = (value: number) => {
+    console.log("eh", value);
     if (this.args.readonly) {
       return;
     }
@@ -141,12 +142,25 @@ export class RatingState extends Component<StateSignature> {
 
     const num = parseFloat(selected);
 
+    if (isNaN(num)) {
+      // something went wrong.
+      // Since we're using event delegation,
+      // this could be from an unrelated input
+      return;
+    }
+
     this.setRating(num);
   };
 
   <template>
     {{yield
-      (hash stars=this.stars total=this.stars.length handleInput=this.handleInput value=this.value)
+      (hash
+        stars=this.stars
+        total=this.stars.length
+        handleInput=this.handleInput
+        setRating=this.setRating
+        value=this.value
+      )
       (hash total=this.stars.length value=this.value)
     }}
   </template>
@@ -178,7 +192,7 @@ export const Stars: TOC<{
           data-selected={{lte star @currentValue}}
           data-readonly={{@isReadonly}}
         >
-          <Label @for="input-{{id}}" tabindex={{if @isChangeable "0"}}>
+          <Label @for="input-{{id}}" tabindex="{{if @isReadonly '-1' '0'}}">
             <span visually-hidden>{{star}} star</span>
             <span aria-hidden="true">
               {{#if (isString @icon)}}
@@ -201,8 +215,8 @@ export const Stars: TOC<{
             name={{@name}}
             value={{star}}
             readonly={{@isReadonly}}
+            checked={{lte star @currentValue}}
             aria-label="{{star}} of {{@total}} stars"
-            {{on "click" toggleableRadio}}
           />
         </span>
       {{/let}}
@@ -310,7 +324,7 @@ export class Rating extends Component<Signature> {
         data-total={{r.total}}
         data-value={{r.value}}
         data-readonly={{this.isReadonly}}
-        {{on "input" r.handleInput}}
+        {{on "click" r.handleInput}}
         ...attributes
       >
         {{#let
@@ -321,6 +335,8 @@ export class Rating extends Component<Signature> {
             isReadonly=this.isReadonly
             name=this.name
             total=r.total
+            set=r.setRating
+            handleInput=r.handleInput
             currentValue=r.value
           )
           as |RatingStars|
@@ -363,15 +379,4 @@ export class Rating extends Component<Signature> {
       </fieldset>
     </RatingState>
   </template>
-}
-
-function toggleableRadio(event: Event) {
-  assert(
-    "[BUG]: toggleableRadio is only usable on input elements",
-    event.target instanceof HTMLInputElement,
-  );
-
-  if (event.target.checked) {
-    event.target.checked = false;
-  }
 }

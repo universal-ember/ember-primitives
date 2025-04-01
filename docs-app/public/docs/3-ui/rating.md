@@ -4,6 +4,11 @@ Ratings are used for displaying a score within a given range.
 
 When interactive, the underlying implementation is a radio button for maximum accessibility.
 
+TODO:
+- demos should have radio buttons invisible, 
+  and overlayed the labels (for keyboard)
+- input binding is still weird in the demos
+  - probably need to do more in-depth event filtering
 
 <div class="featured-demo">
 
@@ -194,7 +199,7 @@ const Star = <template>
 <template>
   <Rating id="demo4" as |rating|>
     {{rating.value}} of {{rating.total}}<br>
-    <input type="number" min=0 max={{rating.max}} step="0.25"><br>
+    <input type="number" min=0 max={{rating.max}} step="0.25" name={{rating.name}} oninput><br>
     <rating.Stars @icon={{Star}} />
   </Rating>
 
@@ -259,6 +264,37 @@ const Star = <template>
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       word-wrap: normal;
+    }
+  </style>
+</template>
+```
+
+</div>
+</details>
+<details><summary>No Styles</summary>
+<div class="featured-demo">
+
+```gjs live preview
+import { Rating } from 'ember-primitives';
+
+const Star = <template>
+    <div class="item">
+        <span class="icon">★</span>
+        <div class="overlay" style="--percent: {{@percentSelected}}%;"></div>
+    </div>
+  </template>;
+
+<template>
+  <Rating as |rating|>
+    {{rating.value}} of {{rating.total}}<br>
+    <rating.Stars @icon={{Star}} />
+  </Rating>
+
+  <style>
+    /* just layout, since we don't want to use all the vertical space */
+    .ember-primitives__rating__items {
+      display: flex;
+      gap: 1rem;
     }
   </style>
 </template>

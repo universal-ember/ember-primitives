@@ -220,7 +220,9 @@ export class Rating extends Component<Signature> {
   }
 
   get isChangeable() {
-    return (this.args.readonly ?? false) || this.isInteractive;
+    let readonly = this.args.readonly ?? false;
+
+    return !readonly && this.isInteractive;
   }
 
   get isReadonly() {
@@ -248,6 +250,7 @@ export class Rating extends Component<Signature> {
         class="ember-primitives__rating"
         data-total={{r.total}}
         data-value={{r.value}}
+        data-readonly={{this.isReadonly}}
         {{on "input" r.handleInput}}
         ...attributes
       >

@@ -26,7 +26,7 @@ import { Rating } from 'ember-primitives';
       height: 4rem;
     }
 
-      input { color: black; }
+    input { color: black; }
 
     .ember-primitives__rating__item {
         font-size: 3rem;
@@ -137,15 +137,18 @@ import { Rating } from 'ember-primitives';
 ```gjs live preview no-shadow
 import { Rating } from 'ember-primitives';
 
-const Selected = <template>
-  <div ...attributes>(x)</div>
+const Icon = <template>
+  <div ...attributes style={{if @isSelected "transform:rotate(180deg)"}}>
+    {{@value}}
+  </div>
 </template>;
 
+
 <template>
-  <Rating id="demo3" @icon={{Selected}} />
+  <Rating id="demo3" @icon={{Icon}} />
 
   <style>
-    #demo2 {
+    #demo3 {
       .ember-primitives__rating {
         display: grid;
         gap: 0.5rem;
@@ -155,18 +158,17 @@ const Selected = <template>
         height: 4rem;
       }
 
-      .ember-primitives__rating__item {
-          font-size: 3rem;
-          line-height: 3rem;
+      .ember-primitives__rating__item label {
+          font-size: 2rem;
+          line-height: 2rem;
           transition: all 0.1s;
           transform-origin: center;
-          aspect-ratio: 1 / 1;
           cursor: pointer;
           user-select: none;
           font-family: monospace;
       } 
 
-      .ember-primitives__rating__item:hover {
+      .ember-primitives__rating__item label:hover {
           transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
       } 
     }
@@ -179,22 +181,23 @@ const Selected = <template>
 <details><summary>Fractional Ratings</summary>
 <div class="featured-demo">
 
-```gjs live preview no-shadow
+```gjs live preview
 import { Rating } from 'ember-primitives';
 
 const Star = <template>
     <div class="item">
         <span class="icon">★</span>
-        <div class="overlay" style="var --percent: {{@percentSelected}};"></div>
+        <div class="overlay" style="--percent: {{@percentSelected}}%;"></div>
     </div>
   </template>;
 
 <template>
-  <Rating id="demo4" @icon={{Star}} @iconSelected={{Star}} />
+  <Rating id="demo4" @icon={{Star}} />
 
   <style>
     #demo4 {
-      .ember-primitives__rating {
+      .ember-primitives__rating__items {
+        width: fit-content;
         display: grid;
         gap: 0.5rem;
         grid-auto-flow: column;
@@ -202,6 +205,8 @@ const Star = <template>
         align-items: center;
         height: 4rem;
       }
+
+      input { color: black; }
 
       .ember-primitives__rating__item {
           font-size: 3rem;
@@ -211,12 +216,45 @@ const Star = <template>
           aspect-ratio: 1 / 1;
           cursor: pointer;
           user-select: none;
-          font-family: monospace;
+
+        input {
+            display: none;
+        }
+
+        &[data-selected] {
+          color: gold;
+        }
       } 
 
       .ember-primitives__rating__item:hover {
           transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
       } 
+
+      .ember-primitives__rating__item .item {
+          position: relative;
+      }
+      .overlay {
+          width: var(--percent);
+          height: 100%;
+          background: red;
+          position: absolute;
+          top: 0;
+          mix-blend-mode: color;
+      }
+    }
+
+    fieldset { border: none; }
+    [visually-hidden] {
+      position: absolute;
+      border: 0;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      word-wrap: normal;
     }
   </style>
 </template>

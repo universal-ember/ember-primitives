@@ -171,6 +171,27 @@ module('<Rating>', function (hooks) {
     assert.strictEqual(rating.starTexts, 'x x x x x');
   });
 
+  test('fractional (numbers)', async function (assert) {
+    const step = (x: string | undefined) => assert.step(`${x}`);
+    const Icon = <template>{{step @percentSelected}}</template>;
+
+    await render(<template><Rating @icon={{Icon}} /></template>);
+
+    assert.verifySteps(['0', '0', '0', '0', '0']);
+
+    await rating.select(2);
+
+    assert.verifySteps(['100', '100', '0', '0', '0']);
+  });
+
+  test('fractional', async function (assert) {
+    const Icon = <template>{{@percentSelected}}</template>;
+
+    await render(<template><Rating @icon={{Icon}} /></template>);
+
+    await rating.select(2.5);
+  });
+
   test('@max=7 (number)', async function (assert) {
     await render(<template><Rating @max={{7}} /></template>);
 

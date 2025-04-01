@@ -91,6 +91,7 @@ function percentSelected(a: number, b: number) {
 
   if (diff < 0) return 0;
   if (diff > 1) return 100;
+  if (a === b) return 100;
 
   const percent = diff * 100;
 
@@ -150,6 +151,64 @@ export class RatingState extends Component<StateSignature> {
     }}
   </template>
 }
+
+export const Stars: TOC<{
+  Args: {
+    // Configuration
+    stars: number[];
+    icon: string | ComponentLike;
+    isReadonly: boolean;
+    isChangeable: boolean;
+
+    // HTML Boilerplate
+    name: string;
+
+    // State
+    currentValue: number;
+    total: number;
+  };
+}> = <template>
+  <div class="ember-primitives__rating__items">
+    {{#each @stars as |star|}}
+      {{#let (uniqueId) as |id|}}
+        <span
+          class="ember-primitives__rating__item"
+          data-number={{star}}
+          data-percent-selected={{percentSelected star @currentValue}}
+          data-selected={{lte star @currentValue}}
+          data-readonly={{@isReadonly}}
+        >
+          <Label @for="input-{{id}}" tabindex={{if @isChangeable "0"}}>
+            <span visually-hidden>{{star}} star</span>
+            <span aria-hidden="true">
+              {{#if (isString @icon)}}
+                {{@icon}}
+              {{else}}
+                <@icon
+                  @value={{star}}
+                  @isSelected={{lte star @currentValue}}
+                  @percentSelected={{percentSelected star @currentValue}}
+                  @readonly={{@isReadonly}}
+                />
+              {{/if}}
+
+            </span>
+          </Label>
+
+          <input
+            id="input-{{id}}"
+            type="radio"
+            name={{@name}}
+            value={{star}}
+            readonly={{@isReadonly}}
+            aria-label="{{star}} of {{@total}} stars"
+            {{on "click" toggleableRadio}}
+          />
+        </span>
+      {{/let}}
+    {{/each}}
+  </div>
+</template>;
 
 export interface Signature {
   Element: HTMLElement;
@@ -254,64 +313,53 @@ export class Rating extends Component<Signature> {
         {{on "input" r.handleInput}}
         ...attributes
       >
+        {{#let
+          (component
+            Stars
+            stars=r.stars
+            icon=this.icon
+            isReadonly=this.isReadonly
+            name=this.name
+            total=r.total
+            currentValue=r.value
+          )
+          as |RatingStars|
+        }}
 
-        {{#if this.needsDescription}}
-          {{#if (has-block "label")}}
-            {{yield publicState to="label"}}
+          {{#if (has-block "default")}}
+            {{yield
+              (hash
+                max=r.total
+                total=r.total
+                value=r.value
+                name=this.name
+                isReadonly=this.isReadonly
+                isChangeable=this.isChangeable
+                Stars=RatingStars
+              )
+            }}
           {{else}}
-            <span visually-hidden class="ember-primitives__rating__label">Rated
-              {{r.value}}
-              out of
-              {{r.total}}</span>
+            {{#if this.needsDescription}}
+              {{#if (has-block "label")}}
+                {{yield publicState to="label"}}
+              {{else}}
+                <span visually-hidden class="ember-primitives__rating__label">Rated
+                  {{r.value}}
+                  out of
+                  {{r.total}}</span>
+              {{/if}}
+            {{else}}
+              {{#if (has-block "label")}}
+                <legend>
+                  {{yield publicState to="label"}}
+                </legend>
+              {{/if}}
+            {{/if}}
+
+            <RatingStars />
           {{/if}}
-        {{else}}
-          {{#if (has-block "label")}}
-            <legend>
-              {{yield publicState to="label"}}
-            </legend>
-          {{/if}}
-        {{/if}}
+        {{/let}}
 
-        <div class="ember-primitives__rating__items">
-          {{#each r.stars as |star|}}
-            {{#let (uniqueId) as |id|}}
-              <span
-                class="ember-primitives__rating__item"
-                data-number={{star}}
-                data-percent-selected={{percentSelected star r.value}}
-                data-selected={{lte star r.value}}
-                data-readonly={{this.isReadonly}}
-              >
-                <Label @for="input-{{id}}" tabindex={{if this.isChangeable "0"}}>
-                  <span visually-hidden>{{star}} star</span>
-                  <span aria-hidden="true">
-                    {{#if (isString this.icon)}}
-                      {{this.icon}}
-                    {{else}}
-                      <this.icon
-                        @value={{star}}
-                        @isSelected={{lte star r.value}}
-                        @percentSelected={{percentSelected star r.value}}
-                        @readonly={{this.isReadonly}}
-                      />
-                    {{/if}}
-
-                  </span>
-                </Label>
-
-                <input
-                  id="input-{{id}}"
-                  type="radio"
-                  name={{this.name}}
-                  value={{star}}
-                  readonly={{this.isReadonly}}
-                  aria-label="{{star}} of {{r.total}} stars"
-                  {{on "click" toggleableRadio}}
-                />
-              </span>
-            {{/let}}
-          {{/each}}
-        </div>
       </fieldset>
     </RatingState>
   </template>

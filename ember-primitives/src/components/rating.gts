@@ -87,7 +87,7 @@ function lte(a: number, b: number) {
 }
 
 function percentSelected(a: number, b: number) {
-  const diff = b - a;
+  const diff = b + 1 - a;
 
   if (diff < 0) return 0;
   if (diff > 1) return 100;

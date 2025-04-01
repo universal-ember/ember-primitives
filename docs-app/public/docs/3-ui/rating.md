@@ -194,7 +194,7 @@ const Star = <template>
 <template>
   <Rating id="demo4" as |rating|>
     {{rating.value}} of {{rating.total}}<br>
-    <input value={{rating.value}} type="number" min=0 max={{rating.max}} step="0.25"><br>
+    <input type="number" min=0 max={{rating.max}} step="0.25"><br>
     <rating.Stars @icon={{Star}} />
   </Rating>
 

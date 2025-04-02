@@ -95,17 +95,14 @@ import { Rating } from 'ember-primitives';
       {{rating.value}} of {{rating.total}}
     </:label>
   </Rating>
-  {{!--
   <Rating @value={{3}} @interactive={{false}} as |rating|>
     <rating.Stars />
-    <rating.Label as |state|>
-      {{state.value}} of {{state.total}}
-    </rating.Label>
+    {{rating.value}} of {{rating.total}}
   </Rating>
-  --}}
 
   <style>
-    fieldset { border: none; padding: 0; }
+    @import "/demo-support/utilities.css";
+
     .ember-primitives__rating {
       width: fit-content;
       display: grid;
@@ -115,8 +112,6 @@ import { Rating } from 'ember-primitives';
       align-items: center;
       height: 4rem;
     }
-
-    input { color: black; }
 
     .ember-primitives__rating__item {
         font-size: 3rem;
@@ -139,19 +134,6 @@ import { Rating } from 'ember-primitives';
     .ember-primitives__rating__item:hover {
         transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
     } 
-
-    [visually-hidden] {
-      position: absolute;
-      border: 0;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      word-wrap: normal;
-    }
   </style>
 </template>
 ```
@@ -161,7 +143,7 @@ import { Rating } from 'ember-primitives';
 <details><summary>Custom Component / Icons</summary>
 <div class="featured-demo">
 
-```gjs live preview no-shadow
+```gjs live preview 
 import { Rating } from 'ember-primitives';
 
 const Icon = <template>
@@ -172,34 +154,67 @@ const Icon = <template>
 
 
 <template>
-  <Rating id="demo3" @icon={{Icon}} />
+  <Rating @icon={{Icon}} />
 
   <style>
-    #demo3 {
-      .ember-primitives__rating {
-        display: grid;
-        gap: 0.5rem;
-        grid-auto-flow: column;
-        justify-content: center;
-        align-items: center;
-        height: 4rem;
+    @import "/demo-support/utilities.css";
+
+    .ember-primitives__rating__items {
+      width: fit-content;
+      display: grid;
+      gap: 0.5rem;
+      grid-auto-flow: column;
+      justify-content: center;
+      align-items: center;
+      height: 4rem;
+    }
+
+    .ember-primitives__rating__item {
+      font-size: 3rem;
+      line-height: 1em;
+      transition: all 0.1s;
+      transform-origin: center;
+      aspect-ratio: 1 / 1;
+      user-select: none;
+      width: 3rem;
+      text-align: center;
+      border-radius: 1.5rem;
+
+      label:hover {
+        cursor: pointer;
       }
 
-      .ember-primitives__rating__item label {
-          font-size: 2rem;
-          line-height: 2rem;
-          transition: all 0.1s;
-          transform-origin: center;
-          cursor: pointer;
-          user-select: none;
-          font-family: monospace;
-      } 
+      &:has(input:focus-visible) {
+        --tw-ring-opacity: 1;
+        --tw-ring-offset-color: #000;
+        --tw-ring-offset-width: 2px;
+        --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
 
-      .ember-primitives__rating__item label:hover {
-          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-      } 
-    }
-  </style>
+      input {
+        appearance: none;
+        position: absolute;
+
+        &:focus-visible, &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+
+      &[data-selected] {
+        color: gold;
+      }
+    } 
+
+    .ember-primitives__rating__item:hover {
+        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+    } 
+    </style>
 </template>
 ```
 

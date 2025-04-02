@@ -117,6 +117,7 @@ export class RatingState extends Component<StateSignature> {
 
   setRating = (value: number) => {
     console.log("eh", value);
+
     if (this.args.readonly) {
       return;
     }
@@ -192,7 +193,7 @@ export const Stars: TOC<{
           data-selected={{lte star @currentValue}}
           data-readonly={{@isReadonly}}
         >
-          <Label @for="input-{{id}}" tabindex="{{if @isReadonly '-1' '0'}}">
+          <Label @for="input-{{id}}">
             <span visually-hidden>{{star}} star</span>
             <span aria-hidden="true">
               {{#if (isString @icon)}}
@@ -293,7 +294,7 @@ export class Rating extends Component<Signature> {
   }
 
   get isChangeable() {
-    let readonly = this.args.readonly ?? false;
+    const readonly = this.args.readonly ?? false;
 
     return !readonly && this.isInteractive;
   }
@@ -306,11 +307,6 @@ export class Rating extends Component<Signature> {
     return !this.isInteractive;
   }
 
-  /**
-   * TODO: when in read-only mode, we may want to use `inert`
-   *       to disable interactivity on the fieldset
-   *
-   */
   <template>
     <RatingState
       @max={{@max}}

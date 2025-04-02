@@ -4,23 +4,23 @@ Ratings are used for displaying a score within a given range.
 
 When interactive, the underlying implementation is a radio button for maximum accessibility.
 
-TODO:
-- demos should have radio buttons invisible, 
-  and overlayed the labels (for keyboard)
-- input binding is still weird in the demos
-  - probably need to do more in-depth event filtering
-
 <div class="featured-demo">
 
-```gjs live preview no-shadow
+```gjs live preview
 import { Rating } from 'ember-primitives';
+import { cell } from 'ember-resources';
+
+const capturedValue = cell(2);
 
 <template>
-  <Rating @value={{2}}>
+  Current Value: {{capturedValue.current}}<br><hr>
+  <Rating @value={{capturedValue.current}} @onChange={{capturedValue.set}}>
     <:label>Rate me</:label>
   </Rating>
 
   <style>
+    @import "/demo-support/utilities.css";
+
     .ember-primitives__rating__items {
       width: fit-content;
       display: grid;
@@ -31,19 +31,41 @@ import { Rating } from 'ember-primitives';
       height: 4rem;
     }
 
-    input { color: black; }
-
     .ember-primitives__rating__item {
-        font-size: 3rem;
-        line-height: 3rem;
-        transition: all 0.1s;
-        transform-origin: center;
-        aspect-ratio: 1 / 1;
+      font-size: 3rem;
+      line-height: 1em;
+      transition: all 0.1s;
+      transform-origin: center;
+      aspect-ratio: 1 / 1;
+      user-select: none;
+      width: 3rem;
+      text-align: center;
+      border-radius: 1.5rem;
+
+      label:hover {
         cursor: pointer;
-        user-select: none;
+      }
+
+      &:has(input:focus-visible) {
+        --tw-ring-opacity: 1;
+        --tw-ring-offset-color: #000;
+        --tw-ring-offset-width: 2px;
+        --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
 
       input {
-          display: none;
+        appearance: none;
+        position: absolute;
+
+        &:focus-visible, &:focus {
+          outline: none;
+          box-shadow: none;
+        }
       }
 
       &[data-selected] {
@@ -314,6 +336,13 @@ const Star = <template>
 Keyboard users can always change the star rating as every variant of the component has individually selectable elements.
 
 Screen reader users will have a summary of the state of the component read to them as "Rated $Current of $Total"
+
+### Keyboard
+
+Using this component works the same as a radio group. 
+- Tab to focus the group as a whole
+- Arrow keys to select
+- Space toggles
 
 ## Testing
 

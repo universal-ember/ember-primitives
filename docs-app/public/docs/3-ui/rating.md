@@ -234,14 +234,15 @@ const Star = <template>
   </template>;
 
 <template>
-  <Rating id="demo4" as |rating|>
+  <Rating as |rating|>
     {{rating.value}} of {{rating.total}}<br>
-    <input type="number" min=0 max={{rating.max}} step="0.25" name={{rating.name}} oninput><br>
-    <rating.Stars @icon={{Star}} />
+    <div class="box">
+      <rating.Range step="0.25" />
+      <rating.Stars @icon={{Star}} />
+    </div>
   </Rating>
 
   <style>
-    #demo4 {
       .ember-primitives__rating__items {
         width: fit-content;
         display: grid;
@@ -252,7 +253,21 @@ const Star = <template>
         height: 4rem;
       }
 
-      input { color: black; }
+      .box {
+        position: relative;
+        width: fit-content;
+
+        input[type=range] {
+          position: absolute;
+          z-index: 10;
+          height: 3.5rem;
+          width: 100%;
+        }
+
+        .ember-primitives__rating__items {
+          pointer-events: none;
+        }
+      }
 
       .ember-primitives__rating__item {
           font-size: 3rem;
@@ -287,7 +302,6 @@ const Star = <template>
           top: 0;
           mix-blend-mode: color;
       }
-    }
 
     fieldset { border: none; }
     [visually-hidden] {

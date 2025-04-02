@@ -116,8 +116,6 @@ export class RatingState extends Component<StateSignature> {
   }
 
   setRating = (value: number) => {
-    console.log("eh", value);
-
     if (this.args.readonly) {
       return;
     }
@@ -131,11 +129,17 @@ export class RatingState extends Component<StateSignature> {
     this.args.onChange?.(value);
   };
 
-  handleInput = (event: Event) => {
-    assert(
-      "[BUG]: must be on an element that has input events",
-      event.target !== null && "value" in event.target,
-    );
+  /**
+   * Click events are captured by
+   * - radio changes (mouse and keyboard)
+   *   - but only range clicks
+   */
+  handleClick = (event: Event) => {
+    // Since we're doing event delegation on a click, we want to make sure
+    // we don't do anything on other elements
+    let isValid = event.target !== null && "value" in event.target;
+
+    if (!isValid) return;
 
     const selected = event.target?.value;
 
@@ -153,12 +157,21 @@ export class RatingState extends Component<StateSignature> {
     this.setRating(num);
   };
 
+  /**
+   * Only attached to a range element, if present.
+   * Range elements don't fire click events on keyboard usage, like radios do
+   */
+  handleChange = (event: Event) => {
+    this.handleClick(event);
+  };
+
   <template>
     {{yield
       (hash
         stars=this.stars
         total=this.stars.length
-        handleInput=this.handleInput
+        handleClick=this.handleClick
+        handleChange=this.handleChange
         setRating=this.setRating
         value=this.value
       )
@@ -223,6 +236,17 @@ export const Stars: TOC<{
       {{/let}}
     {{/each}}
   </div>
+</template>;
+
+const RatingRange = <template>
+  <input
+    ...attributes
+    name={{@name}}
+    type="range"
+    max={{@max}}
+    value={{@value}}
+    {{on "change" @handleChange}}
+  />
 </template>;
 
 export interface Signature {
@@ -320,7 +344,7 @@ export class Rating extends Component<Signature> {
         data-total={{r.total}}
         data-value={{r.value}}
         data-readonly={{this.isReadonly}}
-        {{on "click" r.handleInput}}
+        {{on "click" r.handleClick}}
         ...attributes
       >
         {{#let
@@ -332,7 +356,6 @@ export class Rating extends Component<Signature> {
             name=this.name
             total=r.total
             set=r.setRating
-            handleInput=r.handleInput
             currentValue=r.value
           )
           as |RatingStars|
@@ -348,6 +371,9 @@ export class Rating extends Component<Signature> {
                 isReadonly=this.isReadonly
                 isChangeable=this.isChangeable
                 Stars=RatingStars
+                Range=(component
+                  RatingRange max=r.total value=r.value name=this.name handleChange=r.handleChange
+                )
               )
             }}
           {{else}}

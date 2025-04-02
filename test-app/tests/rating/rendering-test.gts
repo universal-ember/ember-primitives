@@ -195,7 +195,7 @@ module('<Rating>', function (hooks) {
     await render(
       <template>
         <Rating as |rating|>
-          <input type="number" name={{rating.name}} oninput={{rating.handleInput}} />
+          <rating.Range step="0.25" />
           <rating.Stars @icon={{Icon}} />
         </Rating>
       </template>

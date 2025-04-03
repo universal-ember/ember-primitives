@@ -229,7 +229,6 @@ import { Rating } from 'ember-primitives';
 const Star = <template>
     <div class="item">
         <span class="icon">★</span>
-        <div class="overlay" style="--percent: {{@percentSelected}}%;"></div>
     </div>
   </template>;
 
@@ -239,11 +238,32 @@ const Star = <template>
     <div class="box">
       <rating.Range step="0.25" />
       <rating.Stars @icon={{Star}} />
+      <div class="overlay" style="--percent: calc({{rating.value}} / {{rating.total}} * 100%);"></div>
     </div>
   </Rating>
 
   <style>
+    @import "/demo-support/utilities.css";
+
+
+    .box {
+      position: relative;
+      width: fit-content;
+
+      input[type=range] {
+        position: absolute;
+        z-index: 10;
+        height: 3.5rem;
+        width: 100%;
+      }
+
+      .ember-primitives__rating__items,
+      label, input[type="radio"] {
+        pointer-events: none;
+      }
+
       .ember-primitives__rating__items {
+        z-index: 2;
         width: fit-content;
         display: grid;
         gap: 0.5rem;
@@ -251,48 +271,12 @@ const Star = <template>
         justify-content: center;
         align-items: center;
         height: 4rem;
-      }
 
-      .box {
-        position: relative;
-        width: fit-content;
-
-        input[type=range] {
-          position: absolute;
-          z-index: 10;
-          height: 3.5rem;
-          width: 100%;
-        }
-
-        .ember-primitives__rating__items {
-          pointer-events: none;
-        }
-      }
-
-      .ember-primitives__rating__item {
-          font-size: 3rem;
-          line-height: 3rem;
-          transition: all 0.1s;
-          transform-origin: center;
-          aspect-ratio: 1 / 1;
-          cursor: pointer;
-          user-select: none;
-
-        input {
-            display: none;
-        }
-
-        &[data-selected] {
-          color: gold;
-        }
-      } 
-
-      .ember-primitives__rating__item:hover {
-          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-      } 
-
-      .ember-primitives__rating__item .item {
-          position: relative;
+    .item {
+        background-clip: text;
+        color: white;
+        background: red;
+    }
       }
       .overlay {
           width: var(--percent);
@@ -300,22 +284,25 @@ const Star = <template>
           background: red;
           position: absolute;
           top: 0;
-          mix-blend-mode: color;
+          z-index: 1;
+          background: gold;
       }
-
-    fieldset { border: none; }
-    [visually-hidden] {
-      position: absolute;
-      border: 0;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      word-wrap: normal;
     }
+
+    .ember-primitives__rating__item {
+        font-size: 3rem;
+        line-height: 3rem;
+        transition: all 0.1s;
+        transform-origin: center;
+        aspect-ratio: 1 / 1;
+        cursor: pointer;
+        user-select: none;
+
+      input {
+          display: none;
+      }
+    } 
+
   </style>
 </template>
 ```
@@ -331,7 +318,6 @@ import { Rating } from 'ember-primitives';
 const Star = <template>
     <div class="item">
         <span class="icon">★</span>
-        <div class="overlay" style="--percent: {{@percentSelected}}%;"></div>
     </div>
   </template>;
 

@@ -129,23 +129,10 @@ export class RatingState extends Component<StateSignature> {
     this.args.onChange?.(value);
   };
 
-  /**
-   * Click events are captured by
-   * - radio changes (mouse and keyboard)
-   *   - but only range clicks
-   */
-  handleClick = (event: Event) => {
-    // Since we're doing event delegation on a click, we want to make sure
-    // we don't do anything on other elements
-    let isValid = event.target !== null && "value" in event.target;
+  setFromString = (value: unknown) => {
+    assert("[BUG]: value from input must be a string.", typeof value === "string");
 
-    if (!isValid) return;
-
-    const selected = event.target?.value;
-
-    assert("[BUG]: value from input must be a string.", typeof selected === "string");
-
-    const num = parseFloat(selected);
+    const num = parseFloat(value);
 
     if (isNaN(num)) {
       // something went wrong.
@@ -158,11 +145,35 @@ export class RatingState extends Component<StateSignature> {
   };
 
   /**
+   * Click events are captured by
+   * - radio changes (mouse and keyboard)
+   *   - but only range clicks
+   */
+  handleClick = (event: Event) => {
+    // Since we're doing event delegation on a click, we want to make sure
+    // we don't do anything on other elements
+    let isValid =
+      event.target !== null &&
+      "value" in event.target &&
+      event.target.name === this.args.name &&
+      event.target.type === "radio";
+
+    if (!isValid) return;
+
+    const selected = event.target?.value;
+
+    this.setFromString(selected);
+  };
+
+  /**
    * Only attached to a range element, if present.
    * Range elements don't fire click events on keyboard usage, like radios do
    */
   handleChange = (event: Event) => {
-    this.handleClick(event);
+    let isValid = event.target !== null && "value" in event.target;
+    if (!isValid) return;
+
+    this.setFromString(event.target.value);
   };
 
   <template>
@@ -335,6 +346,7 @@ export class Rating extends Component<Signature> {
     <RatingState
       @max={{@max}}
       @value={{@value}}
+      @name={{this.name}}
       @readonly={{this.isReadonly}}
       @onChange={{@onChange}}
       as |r publicState|

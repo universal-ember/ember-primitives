@@ -10,6 +10,7 @@ import { localCopy } from "tracked-toolbox";
 
 import { uniqueId } from "../utils.ts";
 
+import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike } from "@glint/template";
 
 type ComponentIcons = {
@@ -36,51 +37,6 @@ interface StringIcons {
   icon?: string;
 }
 
-export interface StateSignature {
-  Args: {
-    /**
-     * The number of stars/whichever-icon to show
-     *
-     * Defaults to 5
-     */
-    max?: number;
-
-    /**
-     * The current number of stars/whichever-icon to show as selected
-     *
-     * Defaults to 0
-     */
-    value?: number;
-
-    /**
-     * Prevents click events on the icons and sets aria-readonly.
-     *
-     * Also sets data-readonly=true on the wrapping element
-     */
-    readonly?: boolean;
-
-    /**
-     * Callback when the selected rating changes.
-     * Can include half-ratings if the iconHalf argument is passed.
-     */
-    onChange?: (value: number) => void;
-  };
-  Blocks: {
-    default: [
-      internalApi: {
-        stars: number[];
-        value: number;
-        total: number;
-        handleInput: (event: Event) => void;
-      },
-      publicApi: {
-        value: number;
-        total: number;
-      },
-    ];
-  };
-}
-
 function lte(a: number, b: number) {
   return a <= b;
 }
@@ -101,7 +57,31 @@ function isString(x: unknown) {
   return typeof x === "string";
 }
 
-export class RatingState extends Component<StateSignature> {
+export class RatingState extends Component<{
+  Args: {
+    max: number | undefined;
+    value: number | undefined;
+    name: string;
+    readonly: boolean;
+    onChange?: (value: number) => void;
+  };
+  Blocks: {
+    default: [
+      internalApi: {
+        stars: number[];
+        value: number;
+        total: number;
+        handleClick: (event: Event) => void;
+        handleChange: (event: Event) => void;
+        setRating: (num: number) => void;
+      },
+      publicApi: {
+        value: number;
+        total: number;
+      },
+    ];
+  };
+}> {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   @localCopy("args.value") declare _value: number;
 
@@ -152,8 +132,7 @@ export class RatingState extends Component<StateSignature> {
     // Since we're doing event delegation on a click, we want to make sure
     // we don't do anything on other elements
     const isValid =
-      event.target !== null &&
-      "value" in event.target &&
+      event.target instanceof HTMLInputElement &&
       event.target.name === this.args.name &&
       event.target.type === "radio";
 
@@ -195,9 +174,12 @@ export const Stars: TOC<{
   Args: {
     // Configuration
     stars: number[];
-    icon: string | ComponentLike;
+    icon:
+      | string
+      | ComponentLike<{
+          Args: { value: number; readonly: boolean; isSelected: boolean; percentSelected: number };
+        }>;
     isReadonly: boolean;
-    isChangeable: boolean;
 
     // HTML Boilerplate
     name: string;
@@ -247,7 +229,15 @@ export const Stars: TOC<{
   </div>
 </template>;
 
-const RatingRange = <template>
+const RatingRange: TOC<{
+  Element: HTMLInputElement;
+  Args: {
+    name: string;
+    max: number;
+    value: number;
+    handleChange: (event: Event) => void;
+  };
+}> = <template>
   <input
     ...attributes
     name={{@name}}
@@ -367,7 +357,6 @@ export class Rating extends Component<Signature> {
             isReadonly=this.isReadonly
             name=this.name
             total=r.total
-            set=r.setRating
             currentValue=r.value
           )
           as |RatingStars|

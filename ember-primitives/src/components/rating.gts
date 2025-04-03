@@ -9,7 +9,6 @@ import { on } from "@ember/modifier";
 import { localCopy } from "tracked-toolbox";
 
 import { uniqueId } from "../utils.ts";
-import { Label } from "./-private/typed-elements.gts";
 
 import type { ComponentLike } from "@glint/template";
 

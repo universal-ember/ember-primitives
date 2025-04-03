@@ -115,6 +115,7 @@ class RatingPageObject {
 
     if (star) {
       await click(star);
+
       return;
     }
 
@@ -128,6 +129,7 @@ class RatingPageObject {
 
     if (input) {
       await fillIn(input, `${stars}`);
+
       return;
     }
 

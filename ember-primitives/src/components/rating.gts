@@ -152,7 +152,7 @@ export class RatingState extends Component<StateSignature> {
   handleClick = (event: Event) => {
     // Since we're doing event delegation on a click, we want to make sure
     // we don't do anything on other elements
-    let isValid =
+    const isValid =
       event.target !== null &&
       "value" in event.target &&
       event.target.name === this.args.name &&
@@ -170,7 +170,8 @@ export class RatingState extends Component<StateSignature> {
    * Range elements don't fire click events on keyboard usage, like radios do
    */
   handleChange = (event: Event) => {
-    let isValid = event.target !== null && "value" in event.target;
+    const isValid = event.target !== null && "value" in event.target;
+
     if (!isValid) return;
 
     this.setFromString(event.target.value);
@@ -217,7 +218,7 @@ export const Stars: TOC<{
           data-selected={{lte star @currentValue}}
           data-readonly={{@isReadonly}}
         >
-          <Label @for="input-{{id}}">
+          <label for="input-{{id}}">
             <span visually-hidden>{{star}} star</span>
             <span aria-hidden="true">
               {{#if (isString @icon)}}
@@ -230,9 +231,8 @@ export const Stars: TOC<{
                   @readonly={{@isReadonly}}
                 />
               {{/if}}
-
             </span>
-          </Label>
+          </label>
 
           <input
             id="input-{{id}}"
@@ -241,7 +241,6 @@ export const Stars: TOC<{
             value={{star}}
             readonly={{@isReadonly}}
             checked={{lte star @currentValue}}
-            aria-label="{{star}} of {{@total}} stars"
           />
         </span>
       {{/let}}
@@ -356,6 +355,8 @@ export class Rating extends Component<Signature> {
         data-total={{r.total}}
         data-value={{r.value}}
         data-readonly={{this.isReadonly}}
+        {{! We use event delegation, this isn't a primary interactive -- we're capturing events from inputs }}
+        {{! template-lint-disable no-invalid-interactive }}
         {{on "click" r.handleClick}}
         ...attributes
       >
@@ -373,7 +374,7 @@ export class Rating extends Component<Signature> {
           as |RatingStars|
         }}
 
-          {{#if (has-block "default")}}
+          {{#if (has-block)}}
             {{yield
               (hash
                 max=r.total

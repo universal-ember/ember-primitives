@@ -1,18 +1,14 @@
 import { uniqueId } from "../../utils.ts";
 import { isString, lte, percentSelected } from "./utils.ts";
 
+import type { ComponentIcons, StringIcons } from "./public-types.ts";
 import type { TOC } from "@ember/component/template-only";
-import type { ComponentLike } from "@glint/template";
 
 export const Stars: TOC<{
   Args: {
     // Configuration
     stars: number[];
-    icon:
-      | string
-      | ComponentLike<{
-          Args: { value: number; readonly: boolean; isSelected: boolean; percentSelected: number };
-        }>;
+    icon: StringIcons["icon"] | ComponentIcons["icon"];
     isReadonly: boolean;
 
     // HTML Boilerplate

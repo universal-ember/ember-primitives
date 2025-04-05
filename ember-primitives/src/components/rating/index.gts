@@ -59,16 +59,40 @@ export interface Signature {
   Blocks: {
     default: [
       rating: {
+        /**
+         * The maximum rating
+         */
         max: number;
+        /**
+         * The maxium rating
+         */
         total: number;
+        /**
+         * The current rating
+         */
         value: number;
+        /**
+         * The name shared by the field group
+         */
         name: string;
+        /**
+         * If the rating can be changed
+         */
         isReadonly: boolean;
+        /**
+         * If the rating can be changed
+         */
         isChangeable: boolean;
+        /**
+         * The stars / items radio group
+         */
         Stars: WithBoundArgs<
           typeof Stars,
           "stars" | "icon" | "isReadonly" | "name" | "total" | "currentValue"
         >;
+        /**
+         * Input range for adjusting the rating via fractional means
+         */
         Range: WithBoundArgs<typeof RatingRange, "max" | "value" | "name" | "handleChange">;
       },
     ];

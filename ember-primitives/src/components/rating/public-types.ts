@@ -15,19 +15,19 @@ export interface ComponentIcons {
     Element: HTMLElement;
     Args: {
       /**
-       *
+       * Is this item selected?
        */
-      isDisabled: boolean;
+      isSelected: boolean;
       /**
-       *
+       * How much % of this item is selected?
        */
-      selectedPercent: number;
+      percentSelected: number;
       /**
-       *
+       * Which number of item is this item within the overall rating group.
        */
       value: number;
       /**
-       *
+       * Should this be marked as readonly
        */
       readonly: boolean;
     };

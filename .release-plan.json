@@ -2,16 +2,12 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.28.1",
-      "newVersion": "0.29.0",
+      "oldVersion": "0.29.0",
+      "newVersion": "0.30.0",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
         },
         {
           "impact": "patch",
@@ -21,5 +17,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-03-20)\n\nember-primitives 0.29.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`\n  * [#445](https://github.com/universal-ember/ember-primitives/pull/445) Use visually-hidden as an attribute on any element ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#443](https://github.com/universal-ember/ember-primitives/pull/443) VisuallyHidden ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#448](https://github.com/universal-ember/ember-primitives/pull/448) Add CSS exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#441](https://github.com/universal-ember/ember-primitives/pull/441) Upgrade deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-04-05)\n\nember-primitives 0.30.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#444](https://github.com/universal-ember/ember-primitives/pull/444) Rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* Other\n  * [#455](https://github.com/universal-ember/ember-primitives/pull/455) [Breaking]: Require babel-plugin-ember-template-compilation 2.4.0+ ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`\n  * [#454](https://github.com/universal-ember/ember-primitives/pull/454) Upgrade more deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#453](https://github.com/universal-ember/ember-primitives/pull/453) Upgrade some deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

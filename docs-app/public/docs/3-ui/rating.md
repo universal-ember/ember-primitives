@@ -272,11 +272,72 @@ Using this component works the same as a radio group.
 
 ## Testing
 
-```ts
+```gts
 import * as primitiveHelpers from 'ember-primitives/test-support';
 
 const rating = primitiveHelpers.rating();
+
+
+test('example', async function (assert) {
+  await render(
+    <template>
+      <Rating />
+    </template>
+  );
+
+  assert.strictEqual(rating.value, 0);
+  assert.strictEqual(rating.isReadonly, false);
+
+  await rating.select(3);
+  assert.strictEqual(rating.value, 3);
+  assert.strictEqual(rating.stars, '★ ★ ★ ☆ ☆');
+
+  // Toggle
+  await rating.select(3);
+  assert.strictEqual(rating.value, 0);
+  assert.strictEqual(rating.stars, '☆ ☆ ☆ ☆ ☆');
+});
 ```
+
+<details><summary>Multiple on a page</summary>
+
+```gts
+test('multiple', async function (assert) {
+  await render(
+    <template>
+      <Rating data-test-first />
+      <Rating data-test-second />
+    </template>
+  );
+
+  const first = createTestHelper('[data-test-first]');
+  const second = createTestHelper('[data-test-second]');
+
+  assert.strictEqual(first.value, 0, 'first Rating has no selection');
+  assert.strictEqual(second.value, 0, 'second Rating has no selection');
+
+  await first.select(3);
+  assert.strictEqual(first.value, 3, 'first Rating now has 3 stars');
+  assert.strictEqual(second.value, 0, 'second Rating is still unchanged');
+
+  await second.select(4);
+  assert.strictEqual(second.value, 4, 'second Rating now has 4 stars');
+  assert.strictEqual(first.value, 3, 'first Rating is still unchanged (at 3)');
+
+  // Toggle First
+  await first.select(3);
+  assert.strictEqual(first.value, 0, 'first Rating is toggled from 3 to 0');
+  assert.strictEqual(second.value, 4, 'second Rating is still unchanged (at 4)');
+
+  // Toggle Second
+  await second.select(4);
+  assert.strictEqual(second.value, 0, 'second Rating is toggled from 4 to 0');
+  assert.strictEqual(first.value, 0, 'first Rating is still unchanged (at 0)');
+});
+```
+
+</details>
+
 
 
 ## API Reference
@@ -292,23 +353,35 @@ import { ComponentSignature } from 'kolay';
 </template>
 ```
 
-### Classes
+### Classes & Attributes
 
-- `ember-primitives__rating`
-- `ember-primitives__rating__items`
-- `ember-primitives__rating__item`
-- `ember-primitives__rating__label`
+All these classes do nothing on their own, but offer a way for folks authoring CSS to set their styles. 
 
-### State Attributes
+- `.ember-primitives__rating`
 
-#### The root element
+    This is the class on the root-level element, the `<fieldset>`. This element has some data attributes representing the overall state of the rating component. 
 
-- `data-total`
-- `data-value`
+    - `[data-total]` number.
+    - `[data-value]` number.
+    - `[data-readonly]` boolean.
 
-#### Each Item
 
-- `data-number`
-- `data-selected`
-- `data-readonly`
-- `data-disabled`
+- `.ember-primitives__rating__items`
+
+    The wrapping element around all of the individual items (stars by default). This is placed on a `div`.
+
+- `.ember-primitives__rating__item`
+
+    Each item (star by default) is wrapped in a `span` with tihs class. This element also has the some data-attributes representing the state of an individual item / star. 
+
+    - `[data-number]` number. Which numer of the total this item is.
+    - `[data-selected]` boolean.
+    - `[data-readonly]` boolean.
+    - `[data-disabled]` boolean.
+
+    Every item underneath this element with the `*item` class has unique elements or other selectors. Generally DOM is private API for JavaScript access, but styling with CSS may need access to both the `label` and the `input`.
+
+- `.ember-primitives__rating__label`
+
+    This is the class used by default when no `<:label>` block/slot is provided. It says "Rated $Value of $Total", but is visually hidden, as sighted users can see the star rating visuals. This class is not used for any other reason. 
+

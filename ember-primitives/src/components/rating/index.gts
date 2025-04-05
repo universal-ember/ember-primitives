@@ -11,7 +11,13 @@ import type { ComponentIcons, StringIcons } from "./public-types.ts";
 import type { WithBoundArgs } from "@glint/template";
 
 export interface Signature {
-  Element: HTMLElement;
+  /*
+   * The element all passed attributes / modifiers are applied to.
+   *
+   * This is a `<fieldset>`, becaues the rating elements are
+   * powered by a group of radio buttons.
+   */
+  Element: HTMLFieldSetElement;
   Args: (ComponentIcons | StringIcons) & {
     /**
      * The number of stars/whichever-icon to show

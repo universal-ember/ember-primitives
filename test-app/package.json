@@ -22,8 +22,7 @@
     "lint:types": "glint",
     "start": "pnpm _syncPnpm && concurrently 'vite' 'pnpm _syncPnpm --watch' --names 'tests serve,tests sync deps'",
     "test": "vite build --mode test && ember test --path dist",
-    "test:ember": "vite build --mode test && ember test --path dist",
-    "_syncPnpm": "DEBUG=sync-pnpm pnpm sync-dependencies-meta-injected"
+    "test:ember": "vite build --mode test && ember test --path dist"
   },
   "dependencies": {
     "ember-primitives": "workspace:^",
@@ -48,10 +47,10 @@
     "@embroider/vite": "alpha",
     "@floating-ui/dom": "^1.5.3",
     "@glimmer/component": "^2.0.0",
-    "@glint/core": "1.4.1-unstable.66abd90",
-    "@glint/environment-ember-loose": "1.4.1-unstable.66abd90",
-    "@glint/environment-ember-template-imports": "^1.5.2",
-    "@glint/template": "1.4.1-unstable.66abd90",
+    "@glint/core": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-loose": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
+    "@glint/template": "1.5.2",
     "@nullvoxpopuli/eslint-configs": "^5.1.1",
     "@rollup/plugin-babel": "^6.0.4",
     "@tsconfig/ember": "^3.0.5",
@@ -82,7 +81,6 @@
     "eslint": "^9.23.0",
     "globals": "^16.0.0",
     "loader.js": "^4.7.0",
-    "pnpm-sync-dependencies-meta-injected": "0.0.14",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^2.0.4",
     "qunit": "^2.22.0",

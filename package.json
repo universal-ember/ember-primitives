@@ -19,7 +19,10 @@
     "test": "turbo run test --output-logs errors-only"
   },
   "devDependencies": {
-    "@glint/core": "1.4.1-unstable.66abd90",
+    "@babel/core": "^7.26.10",
+    "@glint/core": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-loose": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.1.0",
     "ember-primitives": "workspace:^",
@@ -53,7 +56,9 @@
       ]
     },
     "overrides": {
-      "@glimer/component": "^2.0.0",
+      "@glint/environment-ember-loose": "1.4.1-unstable.5564fc2",
+      "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
+      "@glimmer/component": "^2.0.0",
       "babel-plugin-ember-template-compilation": "^2.4.0",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",

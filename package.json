@@ -19,7 +19,10 @@
     "test": "turbo run test --output-logs errors-only"
   },
   "devDependencies": {
-    "@glint/core": "unstable",
+    "@babel/core": "^7.26.10",
+    "@glint/core": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-loose": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.1.0",
     "ember-primitives": "workspace:^",
@@ -53,13 +56,15 @@
       ]
     },
     "overrides": {
-      "@glimer/component": "^2.0.0",
+      "@glint/environment-ember-loose": "1.4.1-unstable.5564fc2",
+      "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
+      "@glimmer/component": "^2.0.0",
       "babel-plugin-ember-template-compilation": "^2.4.0",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",
       "reactiveweb": "^1.4.0",
-      "ember-source": "^6.4.0-alpha.5",
+      "ember-source": "6.5.0-alpha.2",
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {
@@ -70,11 +75,6 @@
       "ember-cached-decorator-polyfill": {},
       "ember-element-helper": {},
       "ember-functions-as-helper-polyfill": {},
-      "ember-mobile-menu": {
-        "peerDependencies": {
-          "@glimmer/component": "^2.0.0"
-        }
-      },
       "ember-modify-based-class-resource": {
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"
@@ -93,9 +93,6 @@
       "ember-repl": {},
       "ember-resources": {},
       "tracked-toolbox": {}
-    },
-    "patchedDependencies": {
-      "ember-mobile-menu": "patches/ember-mobile-menu.patch"
     }
   }
 }

@@ -89,16 +89,19 @@ export interface ItemSignature {
 }
 
 const Item: TOC<ItemSignature> = <template>
-  <button
-    type="button"
-    role="menuitem"
-    {{! @glint-expect-error !}}
-    {{(if @onSelect (modifier on "click" @onSelect))}}
-    {{on "pointermove" focusOnHover}}
-    ...attributes
-  >
-    {{yield}}
-  </button>
+  {{! @glint-expect-error }}
+  {{#let (if @onSelect (modifier on "click" @onSelect)) as |maybeClick|}}
+    <button
+      type="button"
+      role="menuitem"
+      {{! @glint-expect-error }}
+      {{maybeClick}}
+      {{on "pointermove" focusOnHover}}
+      ...attributes
+    >
+      {{yield}}
+    </button>
+  {{/let}}
 </template>;
 
 const installContent = eModifier<{

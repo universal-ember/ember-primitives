@@ -37,7 +37,7 @@
   "dependencies": {
     "@babel/runtime": "^7.27.0",
     "@embroider/addon-shim": "^1.9.0",
-    "@embroider/macros": "^1.16.12",
+    "@embroider/macros": "^1.17.1",
     "@floating-ui/dom": "^1.5.3",
     "decorator-transforms": "^2.3.0",
     "ember-element-helper": ">= 0.8.6",
@@ -60,7 +60,7 @@
     "@babel/preset-typescript": "^7.27.0",
     "@ember/test-helpers": "^5.2.0",
     "@ember/test-waiters": "^4.1.0",
-    "@embroider/addon-dev": "8.0.1",
+    "@embroider/addon-dev": "^7.0.1",
     "@glimmer/component": "^2.0.0",
     "@glimmer/tracking": "^1.1.2",
     "@glint/core": "1.5.2",
@@ -139,12 +139,12 @@
   "peerDependencies": {
     "@ember/test-helpers": ">= 3.2.0",
     "@ember/test-waiters": ">= 3.0.2",
-    "@glimmer/component": ">= 1.1.2",
+    "@glimmer/component": "^2.0.0",
     "@glimmer/tracking": ">= 1.1.2",
     "@glint/template": ">= 1.0.0",
     "ember-modifier": ">= 4.1.0",
     "ember-resources": ">= 6.1.0",
-    "ember-source": "^6.4.0-alpha.5"
+    "ember-source": "6.5.0-alpha.2"
   },
   "peerDependenciesMeta": {
     "@ember/test-helpers": {

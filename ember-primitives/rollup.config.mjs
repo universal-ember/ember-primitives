@@ -21,8 +21,8 @@ export default {
     babel({ extensions, babelHelpers: "inline" }),
     addon.gjs(),
     addon.keepAssets(["**/*.css"]),
-    addon.clean(),
     addon.declarations("declarations"),
+    addon.clean(),
     copy({
       targets: [
         { src: "../README.md", dest: "." },

@@ -21,7 +21,7 @@
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "glint",
-    "start": "pnpm _syncPnpm && concurrently 'pnpm vite' 'pnpm _syncPnpm --watch' --names 'docs serve,docs sync deps'",
+    "start": "pnpm vite",
     "test": "vite build --mode test && ember test --path dist",
     "test:ember": "vite build --mode test && ember test --path dist"
   },

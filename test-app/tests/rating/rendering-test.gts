@@ -6,6 +6,18 @@ import { Rating } from 'ember-primitives';
 
 import { rating as createTestHelper } from 'ember-primitives/test-support';
 
+import type { TOC } from '@ember/component/template-only';
+
+interface IconSignature {
+  Element: HTMLElement;
+  Args: {
+    isSelected: boolean;
+    percentSelected: number;
+    value: number;
+    readonly: boolean;
+  };
+}
+
 const label = '.ember-primitives__rating__label';
 const star = '.ember-primitives__rating__item';
 const selected = `[data-selected]`;
@@ -40,6 +52,7 @@ module('<Rating>', function (hooks) {
 
     test('errors when wrong or incorrect thing rendered', async function (assert) {
       assert.throws(() => rating.value, /Could not find the root element/);
+      // @ts-expect-error
       await assert.rejects(rating.select(), /Could not find the root element/);
       assert.throws(() => rating.stars, /There are no stars/);
     });
@@ -177,8 +190,8 @@ module('<Rating>', function (hooks) {
   });
 
   test('fractional (numbers)', async function (assert) {
-    const step = (x: string | undefined) => assert.step(`${x}`);
-    const Icon = <template>{{step @percentSelected}}</template>;
+    const step = (x: number | undefined) => assert.step(`${x}`);
+    const Icon: TOC<IconSignature> = <template>{{step @percentSelected}}</template>;
 
     await render(<template><Rating @icon={{Icon}} /></template>);
 
@@ -190,7 +203,7 @@ module('<Rating>', function (hooks) {
   });
 
   test('fractional', async function (assert) {
-    const Icon = <template>{{@percentSelected}}</template>;
+    const Icon: TOC<IconSignature> = <template>{{@percentSelected}}</template>;
 
     await render(
       <template>
@@ -225,7 +238,7 @@ module('<Rating>', function (hooks) {
   });
 
   test('@max=7 (string)', async function (assert) {
-    await render(<template><Rating @max="7" /></template>);
+    await render(<template><Rating @max={{7}} /></template>);
 
     assert.dom(star).exists({ count: 7 });
     assert.dom(star + selected).doesNotExist();
@@ -241,7 +254,7 @@ module('<Rating>', function (hooks) {
   });
 
   test('@icon (component)', async function (assert) {
-    const Icon = <template>
+    const Icon: TOC<IconSignature> = <template>
       <div ...attributes>
         {{#if @isSelected}}
           (x)

@@ -1,5 +1,24 @@
 # Changelog 
 
+## Release (2025-04-05)
+
+ember-primitives 0.30.0 (minor)
+
+#### :rocket: Enhancement
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#444](https://github.com/universal-ember/ember-primitives/pull/444) Rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* Other
+  * [#455](https://github.com/universal-ember/ember-primitives/pull/455) [Breaking]: Require babel-plugin-ember-template-compilation 2.4.0+ ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  * [#454](https://github.com/universal-ember/ember-primitives/pull/454) Upgrade more deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `docs-app`, `ember-primitives`, `test-app`
+  * [#453](https://github.com/universal-ember/ember-primitives/pull/453) Upgrade some deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-03-20)
 
 ember-primitives 0.29.0 (minor)

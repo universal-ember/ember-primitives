@@ -64,7 +64,7 @@
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": ">= 0.8.6",
       "reactiveweb": "^1.4.0",
-      "ember-source": "6.5.0-alpha.2",
+      "ember-source": "6.5.0-alpha.4",
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {

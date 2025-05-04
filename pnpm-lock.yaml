@@ -9098,8 +9098,8 @@ packages:
       '@volar/language-service':
         optional: true
 
-  vscode-html-languageservice@5.3.3:
-    resolution: {integrity: sha512-AK/jJM0VIWRrlfqkDBMZxNMnxYT5I2uoMVRoNJ5ePSplnSaT9mbYjqJlxxeLvUrOW7MEH0vVIDzU48u44QZE0w==}
+  vscode-html-languageservice@5.4.0:
+    resolution: {integrity: sha512-9/cbc90BSYCghmHI7/VbWettHZdC7WYpz2g5gBK6UDUI1MkZbM773Q12uAYJx9jzAiNHPpyo6KzcwmcnugncAQ==}
 
   vscode-json-languageservice@4.2.1:
     resolution: {integrity: sha512-xGmv9QIWs2H8obGbWg+sIPI/3/pFgj/5OWBhNzs00BkYQ9UaB2F6JJaGB/2/YOZJ3BvLXQTC4Q7muqU25QgAhA==}
@@ -21345,7 +21345,7 @@ snapshots:
 
   volar-service-html@0.0.64(@volar/language-service@2.4.12):
     dependencies:
-      vscode-html-languageservice: 5.3.3
+      vscode-html-languageservice: 5.4.0
       vscode-languageserver-textdocument: 1.0.12
       vscode-uri: 3.1.0
     optionalDependencies:
@@ -21362,7 +21362,7 @@ snapshots:
     optionalDependencies:
       '@volar/language-service': 2.4.12
 
-  vscode-html-languageservice@5.3.3:
+  vscode-html-languageservice@5.4.0:
     dependencies:
       '@vscode/l10n': 0.0.18
       vscode-languageserver-textdocument: 1.0.12

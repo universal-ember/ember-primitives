@@ -2,6 +2,18 @@
 
 ## Release (2025-05-07)
 
+* ember-primitives 0.31.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#474](https://github.com/universal-ember/ember-primitives/pull/474) Update dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#472](https://github.com/universal-ember/ember-primitives/pull/472) Add new helper: bodyClass ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-05-07)
+
 * ember-primitives 0.30.1 (patch)
 
 #### :bug: Bug Fix

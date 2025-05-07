@@ -15,6 +15,6 @@
       "docs-app/*": ["./app/*"],
       "*": ["./types/*"]
     },
-    "types": ["ember-source/types"]
+    "types": ["ember-source/types", "kolay/virtual", "@embroider/core/virtual"]
   }
 }

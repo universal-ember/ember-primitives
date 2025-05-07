@@ -19,18 +19,18 @@
     "test": "turbo run test --output-logs errors-only"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.10",
+    "@babel/core": "^7.27.1",
     "@glint/core": "1.5.2",
-    "@glint/environment-ember-loose": "1.4.1-unstable.5564fc2",
-    "@glint/environment-ember-template-imports": "1.5.2",
+    "@glint/environment-ember-loose": "1.5.2",
+    "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.1.0",
     "ember-primitives": "workspace:^",
     "prettier": "^3.2.5",
-    "prettier-plugin-ember-template-tag": "^2.0.4",
+    "prettier-plugin-ember-template-tag": "^2.0.5",
     "release-plan": "^0.16.0",
     "turbo": "^2.2.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">= 20.*",

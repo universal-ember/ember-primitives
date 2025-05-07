@@ -140,11 +140,9 @@
     "@ember/test-helpers": ">= 3.2.0",
     "@ember/test-waiters": ">= 3.0.2",
     "@glimmer/component": "^2.0.0",
-    "@glimmer/tracking": ">= 1.1.2",
     "@glint/template": ">= 1.0.0",
     "ember-modifier": ">= 4.1.0",
-    "ember-resources": ">= 6.1.0",
-    "ember-source": "6.5.0-alpha.2"
+    "ember-resources": ">= 6.1.0"
   },
   "peerDependenciesMeta": {
     "@ember/test-helpers": {

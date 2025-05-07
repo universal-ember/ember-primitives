@@ -45,7 +45,7 @@
     "kolay": "^3.2.0",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
-    "reactiveweb": "^1.4.0",
+    "reactiveweb": "^1.4.2",
     "shiki": "^1.22.2",
     "should-handle-link": "^1.2.2",
     "tracked-built-ins": "^4.0.0"

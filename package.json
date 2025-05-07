@@ -74,6 +74,11 @@
       "ember-async-data": {},
       "ember-cached-decorator-polyfill": {},
       "ember-element-helper": {},
+      "ember-mobile-menu": {
+        "dependencies": {
+          "ember-cached-decorator-polyfill": null
+        }
+      },
       "ember-functions-as-helper-polyfill": {},
       "ember-modify-based-class-resource": {
         "peerDependencies": {

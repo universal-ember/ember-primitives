@@ -1,21 +1,18 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.29.0",
-      "newVersion": "0.30.0",
+      "impact": "patch",
+      "oldVersion": "0.30.0",
+      "newVersion": "0.30.1",
+      "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-04-05)\n\nember-primitives 0.30.0 (minor)\n\n#### :rocket: Enhancement\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#444](https://github.com/universal-ember/ember-primitives/pull/444) Rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* Other\n  * [#455](https://github.com/universal-ember/ember-primitives/pull/455) [Breaking]: Require babel-plugin-ember-template-compilation 2.4.0+ ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`\n  * [#454](https://github.com/universal-ember/ember-primitives/pull/454) Upgrade more deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `docs-app`, `ember-primitives`, `test-app`\n  * [#453](https://github.com/universal-ember/ember-primitives/pull/453) Upgrade some deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-05-07)\n\n* ember-primitives 0.30.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#471](https://github.com/universal-ember/ember-primitives/pull/471) Remove unneeded peers ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

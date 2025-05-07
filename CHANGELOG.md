@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-05-07)
+
+* ember-primitives 0.30.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#471](https://github.com/universal-ember/ember-primitives/pull/471) Remove unneeded peers ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-04-05)
 
 ember-primitives 0.30.0 (minor)

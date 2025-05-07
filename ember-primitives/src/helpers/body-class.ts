@@ -57,10 +57,27 @@ function updateBodyClass() {
   previousRegistrations = toAdd;
 }
 
+export interface Signature {
+  Args: {
+    Positional: [
+      /**
+       * a space-delimited list of classes to apply when this helper is called.
+       *
+       * When the helper is removed from rendering, the clasess will be removed as well.
+       */
+      classes: string,
+    ];
+  };
+  /**
+   * This helper returns nothing, as it is a side-effect that mutates and manages external state.
+   */
+  Return: undefined;
+}
+
 export default class BodyClass extends Helper {
   localId = id++;
 
-  compute([classes]: [string]) {
+  compute([classes]: [string]): undefined {
     const classNames = classes ? classes.split(/\s+/) : [];
 
     registrations.set(this.localId, classNames);

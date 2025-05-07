@@ -3,9 +3,10 @@
  * - https://github.com/ef4/ember-set-body-class/blob/master/tests/acceptance/test-bleed-test.js
  * - https://github.com/ef4/ember-set-body-class/blob/master/tests/acceptance/index-test.js
  */
-import { settled, click, fillIn, render, visit } from '@ember/test-helpers';
+import { click, fillIn, render, settled, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest, setupRenderingTest } from 'ember-qunit';
+
 import { bodyClass } from 'ember-primitives/helpers/body-class';
 import { cell } from 'ember-resources';
 
@@ -24,7 +25,7 @@ module('bodyClass | CSS class bleeding between tests', function (hooks) {
   });
 
   test('adds and removes the class when the helper is unrendered', async function (assert) {
-    let show = cell(true);
+    const show = cell(true);
 
     assert.dom(document.body).hasNoClass('foo');
     await render(
@@ -46,7 +47,7 @@ module('bodyClass | CSS class bleeding between tests', function (hooks) {
   });
 
   test('the class value is reactive', async function (assert) {
-    let show = cell('foo');
+    const show = cell('foo');
 
     assert.dom(document.body).hasNoClass('foo');
     assert.dom(document.body).hasNoClass('bar');
@@ -68,7 +69,7 @@ module('bodyClass | CSS class bleeding between tests', function (hooks) {
   });
 
   test('two helpers try to add the same class', async function (assert) {
-    let show = cell(true);
+    const show = cell(true);
 
     assert.dom(document.body).hasNoClass('foo');
     await render(
@@ -97,7 +98,7 @@ module('bodyClass | CSS class bleeding between tests', function (hooks) {
    * the original foo class will be removed
    */
   module('existing body class', function (hooks) {
-    let preExisting = 'test-body-class-foo';
+    const preExisting = 'test-body-class-foo';
 
     hooks.beforeEach(function () {
       document.body.classList.add(preExisting);
@@ -117,7 +118,7 @@ module('bodyClass | CSS class bleeding between tests', function (hooks) {
     });
 
     test('using bodyClass with the pre-existing class removes the pre-existing class', async function (assert) {
-      let show = cell(true);
+      const show = cell(true);
 
       assert.dom(document.body).hasClass(preExisting);
       await render(

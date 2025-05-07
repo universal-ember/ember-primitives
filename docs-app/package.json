@@ -57,6 +57,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
+    "@ember/app-tsconfig": "^1.0.3",
     "@ember/optional-features": "^2.2.0",
     "@ember/string": "^4.0.0",
     "@ember/test-helpers": "^5.2.0",

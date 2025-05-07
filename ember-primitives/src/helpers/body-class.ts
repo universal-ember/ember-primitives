@@ -74,7 +74,7 @@ export interface Signature {
   Return: undefined;
 }
 
-export default class BodyClass extends Helper {
+export default class BodyClass extends Helper<Signature> {
   localId = id++;
 
   compute([classes]: [string]): undefined {

@@ -101,8 +101,8 @@ importers:
         specifier: ^1.22.2
         version: 1.29.2
       '@universal-ember/docs-support':
-        specifier: ^0.6.2
-        version: 0.6.2(7c602b257306a215abe9e34c160f9d4b)
+        specifier: ^0.6.3
+        version: 0.6.3(7c602b257306a215abe9e34c160f9d4b)
       assert:
         specifier: ^2.0.0
         version: 2.1.0
@@ -2891,8 +2891,8 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@universal-ember/docs-support@0.6.2':
-    resolution: {integrity: sha512-aF42vEMuNQgEv3opw4HzpQx5+PD+8Am6BPgbr85ED1ZhJ67Bdcz2XeZFJH9yjKS4xlU8ahaMyqY/t3dFRufGYw==}
+  '@universal-ember/docs-support@0.6.3':
+    resolution: {integrity: sha512-/Io0T+DJb5dgHQS7yprhCQ9FIiESEpT1x/kv2HOm9FFD5BAG48xqTYjyavGUAg7uq1eFZDDIbK3VZMesoohNQA==}
 
   '@volar/kit@2.4.12':
     resolution: {integrity: sha512-f9JE8oy9C2rBcCWxUYKUF23hOXz4mwgVXFjk7nHhxzplaoVjEOsKpBm8NI2nBH7Cwu8DRxDwBsbIxMl/8wlLxw==}
@@ -8748,9 +8748,6 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  tailwindcss@4.1.5:
-    resolution: {integrity: sha512-nYtSPfWGDiWgCkwQG/m+aX83XCwf62sBgg3bIlNiiOcggnS1x3uVRDAuyelBFL+vJdOPPCGElxv9DjHJjRHiVA==}
-
   tap-parser@7.0.0:
     resolution: {integrity: sha512-05G8/LrzqOOFvZhhAk32wsGiPZ1lfUrl+iV7+OkKgfofZxiceZWMHkKmow71YsyVQ8IvGBP2EjcIjE5gL4l5lA==}
     hasBin: true
@@ -12995,14 +12992,6 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.17
 
-  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.5)':
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 4.1.5
-
   '@timhall/ansi-colors@5.0.0': {}
 
   '@timhall/cli@0.5.0':
@@ -13296,11 +13285,11 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@universal-ember/docs-support@0.6.2(7c602b257306a215abe9e34c160f9d4b)':
+  '@universal-ember/docs-support@0.6.3(7c602b257306a215abe9e34c160f9d4b)':
     dependencies:
-      '@embroider/addon-shim': 1.9.0
+      '@embroider/addon-shim': 1.10.0
       '@fontsource/lexend': 5.2.5
-      '@tailwindcss/typography': 0.5.16(tailwindcss@4.1.5)
+      '@tailwindcss/typography': 0.5.16(tailwindcss@3.4.17)
       change-case: 5.4.4
       decorator-transforms: 2.3.0(@babel/core@7.26.9)
       ember-mobile-menu: 5.3.0(cd005b2f6c8af4c07f2baa9c4d384ebc)
@@ -13312,7 +13301,7 @@ snapshots:
       package-up: 5.0.0
       read-package-up: 11.0.0
       should-handle-link: 1.3.0
-      tailwindcss: 4.1.5
+      tailwindcss: 3.4.17
     transitivePeerDependencies:
       - '@babel/core'
       - '@ember/test-helpers'
@@ -13325,6 +13314,7 @@ snapshots:
       - '@glint/template'
       - ember-source
       - supports-color
+      - ts-node
       - typescript
       - webpack
 
@@ -21151,8 +21141,6 @@ snapshots:
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
-
-  tailwindcss@4.1.5: {}
 
   tap-parser@7.0.0:
     dependencies:

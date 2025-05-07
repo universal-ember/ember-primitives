@@ -223,7 +223,7 @@ importers:
         version: 6.0.4(3fd35a0170c2f8b842edd6c7603b86b1)
       '@tailwindcss/typography':
         specifier: ^0.5.15
-        version: 0.5.16(tailwindcss@4.1.5)
+        version: 0.5.16(tailwindcss@3.4.17)
       '@tsconfig/ember':
         specifier: ^3.0.5
         version: 3.0.9
@@ -348,8 +348,8 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       tailwindcss:
-        specifier: ^4.1.5
-        version: 4.1.5
+        specifier: ^3.4.14
+        version: 3.4.17
       typedoc:
         specifier: ^0.28.1
         version: 0.28.1(typescript@5.8.3)
@@ -381,7 +381,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.27.1)
       ember-element-helper:
-        specifier: ^0.8.7
+        specifier: '>= 0.8.6'
         version: 0.8.7(d73c493cdb119ae3bbe170c3225b395d)
       form-data-utils:
         specifier: ^0.6.0
@@ -8956,9 +8956,6 @@ packages:
     engines: {node: '>=14.0.0'}
     hasBin: true
 
-  tailwindcss@4.1.5:
-    resolution: {integrity: sha512-nYtSPfWGDiWgCkwQG/m+aX83XCwf62sBgg3bIlNiiOcggnS1x3uVRDAuyelBFL+vJdOPPCGElxv9DjHJjRHiVA==}
-
   tap-parser@7.0.0:
     resolution: {integrity: sha512-05G8/LrzqOOFvZhhAk32wsGiPZ1lfUrl+iV7+OkKgfofZxiceZWMHkKmow71YsyVQ8IvGBP2EjcIjE5gL4l5lA==}
     hasBin: true
@@ -12510,14 +12507,6 @@ snapshots:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.17
-
-  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.5)':
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 4.1.5
 
   '@timhall/ansi-colors@5.0.0': {}
 
@@ -20500,8 +20489,6 @@ snapshots:
       sucrase: 3.35.0
     transitivePeerDependencies:
       - ts-node
-
-  tailwindcss@4.1.5: {}
 
   tap-parser@7.0.0:
     dependencies:

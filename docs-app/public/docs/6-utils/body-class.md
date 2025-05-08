@@ -27,3 +27,7 @@ import { HelperSignature } from 'kolay';
     @name="Signature" />
 </template>
 ```
+
+## Reference
+
+- originally from [set-body-class](https://github.com/ef4/ember-set-body-class)

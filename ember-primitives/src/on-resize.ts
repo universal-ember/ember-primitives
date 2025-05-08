@@ -1,7 +1,9 @@
-import { assert, warn } from '@ember/debug';
+import { assert } from '@ember/debug';
 import { registerDestructor } from '@ember/destroyable';
 
-import Modifier from 'ember-modifier';
+import Modifier, { type ArgsFor } from 'ember-modifier';
+
+import type Owner from '@ember/owner';
 
 export interface Signature {
   Element: Element;
@@ -11,28 +13,35 @@ export interface Signature {
 }
 
 class OnResize extends Modifier<Signature> {
-  callback = null;
-  element = null;
+  #callback: ((entry: ResizeObserverEntry) => void) | null = null;
+  #element: Element | null = null;
 
-  constructor(...args) {
-    super(...args);
+  #resizeObserver: ResizeObserverManager = new ResizeObserverManager();
+
+  constructor(owner: Owner, args: ArgsFor<Signature>) {
+    super(owner, args);
 
     registerDestructor(this, () => {
-      this.resizeObserver.unobserve(this.element, this.callback);
+      if (this.#element && this.#callback) {
+        this.#resizeObserver.unobserve(this.#element, this.#callback);
+      }
     });
   }
 
-  modify(element, [callback]) {
+  modify(element: Element, [callback]: [callback: (entry: ResizeObserverEntry) => void]) {
     assert(
-      `{{onResize}}: callback must be a function, but was ${callback}`,
+      `{{onResize}}: callback must be a function, but was ${callback as unknown as string}`,
       typeof callback === 'function'
     );
 
-    this.resizeObserver.observe(element, callback);
-    this.resizeObserver.unobserve(this.element, this.callback);
+    if (this.#element && this.#callback) {
+      this.#resizeObserver.unobserve(this.#element, this.#callback);
+    }
 
-    this.callback = callback;
-    this.element = element;
+    this.#resizeObserver.observe(element, callback);
+
+    this.#callback = callback;
+    this.#element = element;
   }
 }
 
@@ -43,16 +52,27 @@ const errorMessages = [
   'ResizeObserver loop completed with undelivered notifications.',
 ];
 
-export default class ResizeObserverService {
+class ResizeObserverManager {
   #callbacks = new WeakMap<Element, Set<(entry: ResizeObserverEntry) => unknown>>();
-  #observer = new ResizeObserver(this.handleResize);
+
+  #handleResize = (entries: ResizeObserverEntry[]) => {
+    for (const entry of entries) {
+      const callbacks = this.#callbacks.get(entry.target);
+
+      if (callbacks) {
+        for (const callback of callbacks) {
+          callback(entry);
+        }
+      }
+    }
+  };
+  #observer = new ResizeObserver(this.#handleResize);
 
   constructor() {
     ignoreROError();
 
     registerDestructor(this, () => {
       this.#observer?.disconnect();
-      this.#callbacks = undefined;
     });
   }
 
@@ -100,18 +120,6 @@ export default class ResizeObserverService {
       this.#observer.unobserve(element);
     }
   }
-
-  handleResize = (entries: ResizeObserverEntry[]) => {
-    for (const entry of entries) {
-      const callbacks = this.#callbacks.get(entry.target);
-
-      if (callbacks) {
-        for (const callback of callbacks) {
-          callback(entry);
-        }
-      }
-    }
-  };
 }
 
 /**

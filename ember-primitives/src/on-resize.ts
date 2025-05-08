@@ -1,0 +1,141 @@
+import { assert, warn } from '@ember/debug';
+import { registerDestructor } from '@ember/destroyable';
+
+import Modifier from 'ember-modifier';
+
+export interface Signature {
+  Element: Element;
+  Args: {
+    Positional: [callback: (entry: ResizeObserverEntry) => void];
+  };
+}
+
+class OnResize extends Modifier<Signature> {
+  callback = null;
+  element = null;
+
+  constructor(...args) {
+    super(...args);
+
+    registerDestructor(this, () => {
+      this.resizeObserver.unobserve(this.element, this.callback);
+    });
+  }
+
+  modify(element, [callback]) {
+    assert(
+      `{{onResize}}: callback must be a function, but was ${callback}`,
+      typeof callback === 'function'
+    );
+
+    this.resizeObserver.observe(element, callback);
+    this.resizeObserver.unobserve(this.element, this.callback);
+
+    this.callback = callback;
+    this.element = element;
+  }
+}
+
+export const onResize = OnResize;
+
+const errorMessages = [
+  'ResizeObserver loop limit exceeded',
+  'ResizeObserver loop completed with undelivered notifications.',
+];
+
+export default class ResizeObserverService {
+  #callbacks = new WeakMap<Element, Set<(entry: ResizeObserverEntry) => unknown>>();
+  #observer = new ResizeObserver(this.handleResize);
+
+  constructor() {
+    ignoreROError();
+
+    registerDestructor(this, () => {
+      this.#observer?.disconnect();
+      this.#callbacks = undefined;
+    });
+  }
+
+  /**
+   * Initiate the observing of the `element` or add an additional `callback`
+   * if the `element` is already observed.
+   *
+   * @param {object} element
+   * @param {function} callback The `callback` is called whenever the size of
+   *    the `element` changes. It is called with `ResizeObserverEntry` object
+   *    for the particular `element`.
+   */
+  observe(element: Element, callback: (entry: ResizeObserverEntry) => unknown) {
+    const callbacks = this.#callbacks.get(element);
+
+    if (callbacks) {
+      callbacks.add(callback);
+    } else {
+      this.#callbacks.set(element, new Set([callback]));
+      this.#observer.observe(element);
+    }
+  }
+
+  /**
+   * End the observing of the `element` or just remove the provided `callback`.
+   *
+   * It will unobserve the `element` if the `callback` is not provided
+   * or there are no more callbacks left for this `element`.
+   *
+   * @param {object} element
+   * @param {function?} callback - The `callback` to remove from the listeners
+   *   of the `element` size changes.
+   */
+  unobserve(element: Element, callback: (entry: ResizeObserverEntry) => unknown) {
+    const callbacks = this.#callbacks.get(element);
+
+    if (!callbacks) {
+      return;
+    }
+
+    callbacks.delete(callback);
+
+    if (!callback || !callbacks.size) {
+      this.#callbacks.delete(element);
+      this.#observer.unobserve(element);
+    }
+  }
+
+  handleResize = (entries: ResizeObserverEntry[]) => {
+    for (const entry of entries) {
+      const callbacks = this.#callbacks.get(entry.target);
+
+      if (callbacks) {
+        for (const callback of callbacks) {
+          callback(entry);
+        }
+      }
+    }
+  };
+}
+
+/**
+ * Ignores "ResizeObserver loop limit exceeded" error in Ember tests.
+ *
+ * This "error" is safe to ignore as it is just a warning message,
+ * telling that the "looping" observation will be skipped in the current frame,
+ * and will be delivered in the next one.
+ *
+ * For some reason, it is fired as an `error` event at `window` failing Ember
+ * tests and exploding Sentry with errors that must be ignored.
+ */
+export default function ignoreROError() {
+  if (typeof window.onerror !== 'function') {
+    return;
+  }
+
+  const onError = window.onerror;
+
+  window.onerror = (message, ...args) => {
+    if (errorMessages.includes(message)) {
+      return true;
+    } else {
+      onError(message, ...args);
+    }
+  };
+}

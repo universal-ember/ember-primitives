@@ -35,12 +35,15 @@ module('{{onResize}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('has initial callback on render', async function (assert) {
-    let element: Element = undefined;
-
     function handleResize(entry: ResizeObserverEntry) {
       assert.step('called');
       assert.ok(entry instanceof ResizeObserverEntry, 'is expected type');
-      assert.strictEqual(element, entry.target.element, 'element is correct');
+
+      const element = find('[data-test]');
+
+      assert.ok(element, 'element exists');
+      assert.ok(entry.target, 'entry.target is set');
+      assert.strictEqual(element, entry.target, 'element is correct');
       assert.strictEqual(entry.contentRect.height, 100);
       assert.strictEqual(entry.contentRect.width, 100);
     }
@@ -52,8 +55,6 @@ module('{{onResize}}', function (hooks) {
         </div>
       </template>
     );
-
-    element = find('[data-test]');
 
     await delay();
     assert.verifySteps(['called']);
@@ -117,6 +118,41 @@ module('{{onResize}}', function (hooks) {
     assert.verifySteps(['called: 0 x 0']);
   });
 
+  test('changing the callback', async function (assert) {
+    let element: Element = undefined;
+    const createCallback = (id) => (entry: ResizeObserverEntry) => {
+      const { height, width } = entry.contentRect;
+
+      assert.step(`${id} called: ${width} x ${height}`);
+    };
+
+    class State {
+      @tracked handleResize1 = createCallback(1);
+    }
+
+    const state = new State();
+
+    await render(
+      <template>
+        <div style="width: 100px; height: 100px;" data-test {{onResize state.handleResize1}}>
+          Resize me
+        </div>
+      </template>
+    );
+
+    element = find('[data-test]');
+
+    await delay();
+    assert.verifySteps(['1 called: 100 x 100']);
+
+    await setSize(element, { width: 50 });
+    assert.verifySteps(['1 called: 50 x 100']);
+
+    state.handleResize1 = createCallback(2);
+    await setSize(element, { width: 20 });
+    assert.verifySteps(['2 called: 20 x 100']);
+  });
+
   test('using multiple modifiers for the same element', async function (assert) {
     let element: Element = undefined;
     const createCallback = (id) => (entry: ResizeObserverEntry) => {
@@ -158,42 +194,6 @@ module('{{onResize}}', function (hooks) {
     assert.verifySteps(['3 called: 20 x 100', '2 called: 20 x 100']);
   });
 
-  test('changing the callback', async function (assert) {
-    const callback1 = sinon.spy().named('callback1');
-    const callback2 = sinon.spy().named('callback2');
-
-    this.onResize = callback1;
-
-    await render(hbs`
-      <div
-        style="width: 100px;"
-        data-test
-        {{on-resize this.onResize}}
-      >
-        Resize me
-      </div>
-    `);
-
-    const element = find('[data-test]');
-
-    await delay();
-
-    assert.spy(callback1).calledOnce();
-    assert.spy(callback2).notCalled();
-
-    callback1.resetHistory();
-    this.set('onResize', callback2);
-    await delay();
-
-    assert.spy(callback1).notCalled();
-    assert.spy(callback2).notCalled();
-
-    await setSize(element, { width: 50 });
-
-    assert.spy(callback1).notCalled();
-    assert.spy(callback2).calledOnce();
-  });
-
   module('handling errors', function (hooks) {
     hooks.afterEach(function () {
       resetOnerror();
@@ -205,17 +205,19 @@ module('{{onResize}}', function (hooks) {
       setupOnerror((error) => {
         assert.equal(
           error.message,
-          'Assertion Failed: on-resize-modifier: callback must be a function, but was [object Object]'
+          'Assertion Failed: {{onResize}}: callback must be a function, but was [object Object]'
         );
       });
 
-      this.callback = {};
+      const callback = {};
 
-      await render(hbs`
-        <div data-test {{on-resize this.callback}}>
-          Resize me
-        </div>
-      `);
+      await render(
+        <template>
+          <div data-test {{onResize callback}}>
+            Resize me
+          </div>
+        </template>
+      );
     });
 
     test('throws if a callback is not provided', async function (assert) {
@@ -224,27 +226,38 @@ module('{{onResize}}', function (hooks) {
       setupOnerror((error) => {
         assert.equal(
           error.message,
-          'Assertion Failed: on-resize-modifier: callback must be a function, but was undefined'
+          'Assertion Failed: {{onResize}}: callback must be a function, but was undefined'
         );
       });
 
-      await render(hbs`
-        <div data-test {{on-resize}}>
-          Resize me
-        </div>
-      `);
+      await render(
+        <template>
+          <div data-test {{onResize}}>
+            Resize me
+          </div>
+        </template>
+      );
     });
   });
 
   test('prevents ResizeObserver loop limit related errors', async function (assert) {
     assert.expect(0);
-    this.onResize = () => this.set('showText', true);
 
-    await render(hbs`
-      <div {{on-resize this.onResize}}>
-        {{if this.showText "Trigger ResizeObserver again"}}
-      </div>
-    `);
+    class State {
+      @tracked showText = true;
+    }
+
+    const state = new State();
+
+    const handleResize = () => (state.showtext = true);
+
+    await render(
+      <template>
+        <div {{onResize handleResize}}>
+          {{if state.showText "Trigger ResizeObserver again"}}
+        </div>
+      </template>
+    );
 
     delay();
   });

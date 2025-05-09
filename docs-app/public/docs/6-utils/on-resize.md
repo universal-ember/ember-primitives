@@ -11,9 +11,22 @@ function handleResize({ target, contentRect: { width, height } }: ResizeObserver
 }
 
 <template>
-  <div {{on-resize this.handleResize}}>
+  <div {{onResize handleResize}}>
     Resize me
   </div>
+</template>
+```
+
+## API Reference
+
+```gjs live no-shadow
+import { ModifierSignature } from 'kolay';
+
+<template>
+  <ModifierSignature 
+    @package="ember-primitives" 
+    @module="declarations/on-resize" 
+    @name="Signature" />
 </template>
 ```
 

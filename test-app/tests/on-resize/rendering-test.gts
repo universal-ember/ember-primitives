@@ -13,19 +13,23 @@ async function delay(ms = 50) {
   await settled();
 }
 
-function setStyle(el, key, value) {
-  el.style[key] = value;
+function setStyle(el: Element | null, key: string, value: string | number) {
+  if (el instanceof HTMLElement) {
+    Object.assign(el.style, { [key]: value });
+  }
 
   return delay(50);
 }
 
-function setSize(el, { width, height }) {
-  if (width !== undefined) {
-    el.style.width = `${width}px`;
-  }
+function setSize(el: Element | null, { width, height }: { width?: number; height?: number }) {
+  if (el instanceof HTMLElement) {
+    if (width !== undefined) {
+      el.style.width = `${width}px`;
+    }
 
-  if (height !== undefined) {
-    el.style.height = `${height}px`;
+    if (height !== undefined) {
+      el.style.height = `${height}px`;
+    }
   }
 
   return delay(50);
@@ -61,8 +65,6 @@ module('{{onResize}}', function (hooks) {
   });
 
   test('callback is called on resize events', async function (assert) {
-    let element: Element = undefined;
-
     function handleResize(entry: ResizeObserverEntry) {
       const { height, width } = entry.contentRect;
 
@@ -77,7 +79,7 @@ module('{{onResize}}', function (hooks) {
       </template>
     );
 
-    element = find('[data-test]');
+    const element = find('[data-test]');
 
     await delay();
     assert.verifySteps(['called: 100 x 100']);
@@ -93,8 +95,6 @@ module('{{onResize}}', function (hooks) {
   });
 
   test('setting element `display` to `none`', async function (assert) {
-    let element: Element = undefined;
-
     function handleResize(entry: ResizeObserverEntry) {
       const { height, width } = entry.contentRect;
 
@@ -109,7 +109,7 @@ module('{{onResize}}', function (hooks) {
       </template>
     );
 
-    element = find('[data-test]');
+    const element = find('[data-test]');
 
     await delay();
     assert.verifySteps(['called: 100 x 100']);
@@ -119,8 +119,7 @@ module('{{onResize}}', function (hooks) {
   });
 
   test('changing the callback', async function (assert) {
-    let element: Element = undefined;
-    const createCallback = (id) => (entry: ResizeObserverEntry) => {
+    const createCallback = (id: number) => (entry: ResizeObserverEntry) => {
       const { height, width } = entry.contentRect;
 
       assert.step(`${id} called: ${width} x ${height}`);
@@ -140,7 +139,7 @@ module('{{onResize}}', function (hooks) {
       </template>
     );
 
-    element = find('[data-test]');
+    const element = find('[data-test]');
 
     await delay();
     assert.verifySteps(['1 called: 100 x 100']);
@@ -154,8 +153,7 @@ module('{{onResize}}', function (hooks) {
   });
 
   test('using multiple modifiers for the same element', async function (assert) {
-    let element: Element = undefined;
-    const createCallback = (id) => (entry: ResizeObserverEntry) => {
+    const createCallback = (id: number) => (entry: ResizeObserverEntry) => {
       const { height, width } = entry.contentRect;
 
       assert.step(`${id} called: ${width} x ${height}`);
@@ -181,7 +179,7 @@ module('{{onResize}}', function (hooks) {
       </template>
     );
 
-    element = find('[data-test]');
+    const element = find('[data-test]');
 
     await delay();
     assert.verifySteps(['1 called: 100 x 100', '2 called: 100 x 100']);
@@ -213,6 +211,7 @@ module('{{onResize}}', function (hooks) {
 
       await render(
         <template>
+          {{! @glint-expect-error - deliberate incorrect type }}
           <div data-test {{onResize callback}}>
             Resize me
           </div>
@@ -232,6 +231,7 @@ module('{{onResize}}', function (hooks) {
 
       await render(
         <template>
+          {{! @glint-expect-error - deliberate missing args}}
           <div data-test {{onResize}}>
             Resize me
           </div>
@@ -249,7 +249,7 @@ module('{{onResize}}', function (hooks) {
 
     const state = new State();
 
-    const handleResize = () => (state.showtext = true);
+    const handleResize = () => (state.showText = true);
 
     await render(
       <template>

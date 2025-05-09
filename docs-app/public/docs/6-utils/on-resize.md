@@ -21,19 +21,15 @@ import { onResize } from 'ember-primitives/on-resize';
 import { cell } from 'ember-resources';
 
 const inner = cell();
-const outer = cell();
 
 function handleResize(entry) {
-  const { width, left, right, 
-          height, top, bottom } = entry.contentRect;
+  const { width, height } = entry.contentRect;
 
   inner.current = `${width} x ${height}`;
-  outer.current = `${width + left + right} x ${height + top + bottom }`;
 }
 
 <template>
   Inner Dimensions: {{inner.current}}<br>
-  Outer Dimensions: {{outer.current}}
 
   <div class="resizable" {{onResize handleResize}}>
     Resize me
@@ -41,7 +37,7 @@ function handleResize(entry) {
   
   <style>
     .resizable {
-      border: 1px black dashed;
+      border: 2px black dashed;
       resize: both;
       overflow: auto;
       padding: 0.5rem;

@@ -139,11 +139,13 @@ export default function ignoreROError() {
 
   const onError = window.onerror;
 
-  window.onerror = (message, ...args) => {
-    if (errorMessages.includes(message)) {
-      return true;
-    } else {
-      onError(message, ...args);
+  window.onerror = (...args) => {
+    const [message] = args;
+
+    if (typeof message === 'string') {
+      if (errorMessages.includes(message)) return true;
     }
+
+    onError(...args);
   };
 }

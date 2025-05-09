@@ -1,61 +1,93 @@
-import { find, render, resetOnerror, setupOnerror } from '@ember/test-helpers';
+import { later } from '@ember/runloop';
+import { find, render, resetOnerror, settled, setupOnerror } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import hbs from 'htmlbars-inline-precompile';
-import sinon from 'sinon';
+import { onResize } from 'ember-primitives/on-resize';
 
-import { delay, setSize, setStyle } from '../../utils';
+async function delay(ms = 50) {
+  await new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+  await settled();
+}
 
-module('Integration | Modifier | on-resize', function (hooks) {
+function setStyle(el, key, value) {
+  el.style[key] = value;
+
+  return delay(50);
+}
+
+function setSize(el, { width, height }) {
+  if (width !== undefined) {
+    el.style.width = `${width}px`;
+  }
+
+  if (height !== undefined) {
+    el.style.height = `${height}px`;
+  }
+
+  return delay(50);
+}
+
+module('{{onResize}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it works', async function (assert) {
-    this.onResize = sinon.spy().named('onResize');
+  test('has initial callback on render', async function (assert) {
+    let element: Element = undefined;
 
-    await render(hbs`
-      <div
-        style="width: 100px; height: 100px;"
-        data-test
-        {{on-resize this.onResize}}
-      >
-        Resize me
-      </div>
-    `);
+    function handleResize(entry: ResizeObserverEntry) {
+      assert.step('called');
+      assert.ok(entry instanceof ResizeObserverEntry, 'is expected type');
+      assert.strictEqual(element, entry.target.element, 'element is correct');
+      assert.strictEqual(entry.contentRect.height, 100);
+      assert.strictEqual(entry.contentRect.width, 100);
+    }
 
-    const element = find('[data-test]');
+    await render(
+      <template>
+        <div style="width: 100px; height: 100px;" data-test {{onResize handleResize}}>
+          Resize me
+        </div>
+      </template>
+    );
+
+    element = find('[data-test]');
 
     await delay();
+    assert.verifySteps(['called']);
+  });
 
-    assert
-      .spy(this.onResize)
-      .calledOnce('called onResize on insert')
-      .calledWithExactly([sinon.match.instanceOf(ResizeObserverEntry)])
-      .calledWithExactly([sinon.match({ target: element })])
-      .calledWithExactly([sinon.match({ contentRect: sinon.match({ height: 100, width: 100 }) })]);
+  test('callback is called on resize events', async function (assert) {
+    let element: Element = undefined;
 
-    this.onResize.resetHistory();
+    function handleResize(entry: ResizeObserverEntry) {
+      const { height, width } = entry.contentRect;
+
+      assert.step(`called: ${width} x ${height}`);
+    }
+
+    await render(
+      <template>
+        <div style="width: 100px; height: 100px;" data-test {{onResize handleResize}}>
+          Resize me
+        </div>
+      </template>
+    );
+
+    element = find('[data-test]');
+
+    await delay();
+    assert.verifySteps(['called: 100 x 100']);
+
     await setSize(element, { width: 50 });
+    assert.verifySteps(['called: 50 x 100']);
 
-    assert
-      .spy(this.onResize)
-      .calledOnce('called onResize on width change')
-      .calledWithExactly([sinon.match({ target: element })])
-      .calledWithExactly([sinon.match({ contentRect: sinon.match({ height: 100, width: 50 }) })]);
-
-    this.onResize.resetHistory();
     await setSize(element, { height: 50 });
+    assert.verifySteps(['called: 50 x 50']);
 
-    assert
-      .spy(this.onResize)
-      .calledOnce('called onResize on height change')
-      .calledWithExactly([sinon.match({ target: element })])
-      .calledWithExactly([sinon.match({ contentRect: sinon.match({ height: 50, width: 50 }) })]);
-
-    this.onResize.resetHistory();
     await setSize(element, { width: 50 });
-
-    assert.spy(this.onResize).notCalled('did not call onResize when size is not changed');
+    assert.verifySteps([], 'did not call onResize when size is not changed');
   });
 
   test('setting element `display` to `none`', async function (assert) {

@@ -1,3 +1,4 @@
+import { tracked } from '@glimmer/tracking';
 import { later } from '@ember/runloop';
 import { find, render, resetOnerror, settled, setupOnerror } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -91,75 +92,70 @@ module('{{onResize}}', function (hooks) {
   });
 
   test('setting element `display` to `none`', async function (assert) {
-    this.onResize = sinon.spy().named('onResize');
+    let element: Element = undefined;
 
-    await render(hbs`
-      <div
-        style="width: 100px"
-        data-test
-        {{on-resize this.onResize}}
-      >
-        Resize me
-      </div>
-    `);
+    function handleResize(entry: ResizeObserverEntry) {
+      const { height, width } = entry.contentRect;
 
-    const element = find('[data-test]');
+      assert.step(`called: ${width} x ${height}`);
+    }
+
+    await render(
+      <template>
+        <div style="width: 100px; height: 100px;" data-test {{onResize handleResize}}>
+          Resize me
+        </div>
+      </template>
+    );
+
+    element = find('[data-test]');
 
     await delay();
+    assert.verifySteps(['called: 100 x 100']);
 
-    assert.spy(this.onResize).called();
-
-    this.onResize.resetHistory();
     await setStyle(element, 'display', 'none');
-
-    assert
-      .spy(this.onResize)
-      .calledOnce()
-      .calledWithExactly([sinon.match({ target: element })])
-      .calledWithExactly([sinon.match({ contentRect: sinon.match({ height: 0, width: 0 }) })]);
+    assert.verifySteps(['called: 0 x 0']);
   });
 
   test('using multiple modifiers for the same element', async function (assert) {
-    const callback1 = sinon.spy().named('callback1');
-    const callback2 = sinon.spy().named('callback2');
-    const callback3 = sinon.spy().named('callback3');
+    let element: Element = undefined;
+    const createCallback = (id) => (entry: ResizeObserverEntry) => {
+      const { height, width } = entry.contentRect;
 
-    this.onResize1 = callback1;
-    this.onResize2 = callback2;
+      assert.step(`${id} called: ${width} x ${height}`);
+    };
 
-    await render(hbs`
-      <div
-        style="width: 100px;"
-        data-test
-        {{on-resize this.onResize1}}
-        {{on-resize this.onResize2}}
-      >
-        Resize me
-      </div>
-    `);
+    class State {
+      @tracked handleResize1 = createCallback(1);
+      @tracked handleResize2 = createCallback(2);
+    }
 
-    const element = find('[data-test]');
+    const state = new State();
+
+    await render(
+      <template>
+        <div
+          style="width: 100px; height: 100px;"
+          data-test
+          {{onResize state.handleResize1}}
+          {{onResize state.handleResize2}}
+        >
+          Resize me
+        </div>
+      </template>
+    );
+
+    element = find('[data-test]');
 
     await delay();
+    assert.verifySteps(['1 called: 100 x 100', '2 called: 100 x 100']);
 
-    assert.spy(callback1).calledOnce();
-    assert.spy(callback2).calledOnce();
-
-    callback1.resetHistory();
-    callback2.resetHistory();
     await setSize(element, { width: 50 });
+    assert.verifySteps(['1 called: 50 x 100', '2 called: 50 x 100']);
 
-    assert.spy(callback1).calledOnce();
-    assert.spy(callback2).calledOnce();
-
-    this.set('onResize1', callback3);
-    callback1.resetHistory();
-    callback2.resetHistory();
+    state.handleResize1 = createCallback(3);
     await setSize(element, { width: 20 });
-
-    assert.spy(callback1).notCalled();
-    assert.spy(callback2).calledOnce();
-    assert.spy(callback3).calledOnce();
+    assert.verifySteps(['3 called: 20 x 100', '2 called: 20 x 100']);
   });
 
   test('changing the callback', async function (assert) {

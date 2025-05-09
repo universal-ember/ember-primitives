@@ -20,16 +20,20 @@ pnpm add ember-primitives
 import { onResize } from 'ember-primitives/on-resize';
 import { cell } from 'ember-resources';
 
-const dimensions = cell();
+const inner = cell();
+const outer = cell();
 
 function handleResize(entry) {
-  const { contentRect: { width, height } } = entry;
+  const { width, left, right, 
+          height, top, bottom } = entry.contentRect;
 
-  dimensions.current = `${width} x ${height}`;
+  inner.current = `${width} x ${height}`;
+  outer.current = `${width + left + right} x ${height + top + bottom }`;
 }
 
 <template>
-  Dimensions: {{dimensions.current}}
+  Inner Dimensions: {{inner.current}}<br>
+  Outer Dimensions: {{outer.current}}
 
   <div class="resizable" {{onResize handleResize}}>
     Resize me

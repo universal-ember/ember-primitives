@@ -6,9 +6,20 @@ import Modifier, { type ArgsFor } from 'ember-modifier';
 import type Owner from '@ember/owner';
 
 export interface Signature {
+  /**
+   * Any element that is resizable can have onResize attached
+   */
   Element: Element;
   Args: {
-    Positional: [callback: (entry: ResizeObserverEntry) => void];
+    Positional: [
+      /**
+       * The ResizeObserver callback will only receive
+       * one entry per resize event.
+       *
+       * See: [ResizeObserverEntry](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry)
+       */
+      callback: (entry: ResizeObserverEntry) => void,
+    ];
   };
 }
 

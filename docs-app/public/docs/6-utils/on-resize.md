@@ -1,21 +1,52 @@
 # on-resize
 
+Utility for efficiently interacting with a [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) on any element.
+No matter how many times `{{onResize}}` is used within your application, only one `ResizeObserver` will exist.
+
+This utility also handles the ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
+
+
+## Setup
+
+```bash 
+pnpm add ember-primitives
+```
+
 ## Usage
 
-```gts
-import { onResize } from 'ember-primitives/on-resize';
+<div class="featured-demo">
 
-function handleResize({ target, contentRect: { width, height } }: ResizeObserverEntry) {
-  target.classList.toggle('large', width > 1200);
-  target.classList.toggle('portrait', height > width);
+```gjs live preview
+import { onResize } from 'ember-primitives/on-resize';
+import { cell } from 'ember-resources';
+
+const dimensions = cell();
+
+function handleResize(entry) {
+  const { contentRect: { width, height } } = entry;
+
+  dimensions.current = `${width} x ${height}`;
 }
 
 <template>
-  <div {{onResize handleResize}}>
+  Dimensions: {{dimensions.current}}
+
+  <div class="resizable" {{onResize handleResize}}>
     Resize me
   </div>
+  
+  <style>
+    .resizable {
+      border: 1px black dashed;
+      resize: both;
+      overflow: auto;
+      padding: 0.5rem;
+    }
+  </style>
 </template>
 ```
+
+</div>
 
 ## API Reference
 

@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-05-09)
+
+* ember-primitives 0.32.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#475](https://github.com/universal-ember/ember-primitives/pull/475) New util: {{onResize}} modifier ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-05-07)
 
 * ember-primitives 0.31.0 (minor)

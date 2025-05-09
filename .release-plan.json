@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.30.1",
-      "newVersion": "0.31.0",
+      "oldVersion": "0.31.0",
+      "newVersion": "0.32.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -14,5 +14,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-05-07)\n\n* ember-primitives 0.31.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#474](https://github.com/universal-ember/ember-primitives/pull/474) Update dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#472](https://github.com/universal-ember/ember-primitives/pull/472) Add new helper: bodyClass ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-05-09)\n\n* ember-primitives 0.32.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#475](https://github.com/universal-ember/ember-primitives/pull/475) New util: {{onResize}} modifier ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

@@ -1,0 +1,1 @@
+{"version":3,"file":"external-link.d.ts","sourceRoot":"","sources":["../../src/components/external-link.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,gCAAgC,CAAC;AAE1D,eAAO,MAAM,YAAY,EAAE,GAAG,CAAC;IAC7B,OAAO,EAAE,iBAAiB,CAAC;IAC3B,MAAM,EAAE;QACN,OAAO,EAAE,EAAE,CAAC;KACb,CAAC;CACH,CAYC,CAAC;AAEH,eAAe,YAAY,CAAC"}

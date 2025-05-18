@@ -8,7 +8,7 @@ settings:
 
 overrides:
   '@glint/environment-ember-loose': 1.5.2
-  '@glint/environment-ember-template-imports': 1.4.1-unstable.5564fc2
+  '@glint/environment-ember-template-imports': 1.5.2
   '@glimmer/component': ^2.0.0
   babel-plugin-ember-template-compilation: ^2.4.0
   ember-primitives: workspace:^
@@ -34,8 +34,8 @@ importers:
         specifier: 1.5.2
         version: 1.5.2(3b643dad9c6ff48568d16705ed12264a)
       '@glint/environment-ember-template-imports':
-        specifier: 1.4.1-unstable.5564fc2
-        version: 1.4.1-unstable.5564fc2(21e549c4df330233fdbdc9029f578f98)
+        specifier: 1.5.2
+        version: 1.5.2(6bab3310438d5c1f957f7e0f53a208c4)
       '@nullvoxpopuli/dev':
         specifier: workspace:*
         version: link:dev
@@ -213,8 +213,8 @@ importers:
         specifier: 1.5.2
         version: 1.5.2(3b643dad9c6ff48568d16705ed12264a)
       '@glint/environment-ember-template-imports':
-        specifier: 1.4.1-unstable.5564fc2
-        version: 1.4.1-unstable.5564fc2(21e549c4df330233fdbdc9029f578f98)
+        specifier: 1.5.2
+        version: 1.5.2(6bab3310438d5c1f957f7e0f53a208c4)
       '@glint/template':
         specifier: 1.5.2
         version: 1.5.2
@@ -454,8 +454,8 @@ importers:
         specifier: 1.5.2
         version: 1.5.2(3b643dad9c6ff48568d16705ed12264a)
       '@glint/environment-ember-template-imports':
-        specifier: 1.4.1-unstable.5564fc2
-        version: 1.4.1-unstable.5564fc2(21e549c4df330233fdbdc9029f578f98)
+        specifier: 1.5.2
+        version: 1.5.2(6bab3310438d5c1f957f7e0f53a208c4)
       '@glint/template':
         specifier: ^1.5.2
         version: 1.5.2
@@ -572,8 +572,8 @@ importers:
         specifier: 1.5.2
         version: 1.5.2(3b643dad9c6ff48568d16705ed12264a)
       '@glint/environment-ember-template-imports':
-        specifier: 1.4.1-unstable.5564fc2
-        version: 1.4.1-unstable.5564fc2(21e549c4df330233fdbdc9029f578f98)
+        specifier: 1.5.2
+        version: 1.5.2(6bab3310438d5c1f957f7e0f53a208c4)
       '@glint/template':
         specifier: 1.5.2
         version: 1.5.2
@@ -2306,12 +2306,24 @@ packages:
       ember-modifier:
         optional: true
 
-  '@glint/environment-ember-template-imports@1.4.1-unstable.5564fc2':
-    resolution: {integrity: sha512-UWYenEN9Vx2TmbuCYeRLVyGvArv4HOKVyDlvBW/I52tFc+JH1Zz/Y3OZfTGyIkTlYgBgr3lOeMNwkUBJeWJT8g==}
+  '@glint/environment-ember-template-imports@1.5.2':
+    resolution: {integrity: sha512-f/asPRUr2YWtwYWlvl67JC6PIlihIiFnEtvESvMnblsDyJPpzJmVFGGlVujCOkajLwbkX9DDEw7fydn64He8Qw==}
     peerDependencies:
-      '@glint/core': 1.4.1-unstable.5564fc2
       '@glint/environment-ember-loose': 1.5.2
-      '@glint/template': 1.4.1-unstable.5564fc2
+      '@glint/template': ^1.5.2
+      '@types/ember__component': ^4.0.10
+      '@types/ember__helper': ^4.0.1
+      '@types/ember__modifier': ^4.0.3
+      '@types/ember__routing': ^4.0.12
+    peerDependenciesMeta:
+      '@types/ember__component':
+        optional: true
+      '@types/ember__helper':
+        optional: true
+      '@types/ember__modifier':
+        optional: true
+      '@types/ember__routing':
+        optional: true
 
   '@glint/template@1.5.2':
     resolution: {integrity: sha512-fA9FoHCmWsWkoOKWshsOQlS0WCAM7NwwoaeSTHuz5yHvBZmmtkgx3t2SPOTJs85/hWTNVzYC/Gthw7xDUR3BlQ==}
@@ -12006,12 +12018,11 @@ snapshots:
       ember-cli-htmlbars: 6.3.0
       ember-modifier: 4.2.0(04e8023f3ca43d3087166ad638d637f6)
 
-  '@glint/environment-ember-template-imports@1.4.1-unstable.5564fc2(21e549c4df330233fdbdc9029f578f98)':
+  '@glint/environment-ember-template-imports@1.5.2(6bab3310438d5c1f957f7e0f53a208c4)':
     dependencies:
-      '@glint/core': 1.5.2(typescript@5.8.3)
       '@glint/environment-ember-loose': 1.5.2(3b643dad9c6ff48568d16705ed12264a)
       '@glint/template': 1.5.2
-      content-tag: 3.1.3
+      content-tag: 2.0.3
 
   '@glint/template@1.5.2': {}
 

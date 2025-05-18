@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-05-18)
+
+
+
+#### :memo: Documentation
+* [#479](https://github.com/universal-ember/ember-primitives/pull/479) Update docs-support again ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* [#477](https://github.com/universal-ember/ember-primitives/pull/477) Docs support upgrade ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-05-09)
 
 * ember-primitives 0.32.0 (minor)

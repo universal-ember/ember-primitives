@@ -38,13 +38,13 @@ importers:
         version: 1.5.2(6bab3310438d5c1f957f7e0f53a208c4)
       '@nullvoxpopuli/dev':
         specifier: workspace:*
-        version: link:dev
+        version: file:dev
       concurrently:
         specifier: ^9.1.0
         version: 9.1.2
       ember-primitives:
         specifier: workspace:^
-        version: link:ember-primitives
+        version: file:ember-primitives(8f418d2678974a0ad0cbd320fd20a977)
       prettier:
         specifier: ^3.2.5
         version: 3.5.3
@@ -126,7 +126,7 @@ importers:
         version: 4.2.0(04e8023f3ca43d3087166ad638d637f6)
       ember-primitives:
         specifier: workspace:^
-        version: link:../ember-primitives
+        version: file:ember-primitives(8f418d2678974a0ad0cbd320fd20a977)
       ember-repl:
         specifier: ^6.0.0
         version: 6.0.0(757930fe95fb16540b529d3e3c04248d)
@@ -515,7 +515,7 @@ importers:
     dependencies:
       ember-primitives:
         specifier: workspace:^
-        version: link:../ember-primitives
+        version: file:ember-primitives(8f418d2678974a0ad0cbd320fd20a977)
       ember-resources:
         specifier: ^7.0.4
         version: 7.0.4(66f74e868a8b4139936a1451b8a3fb0b)
@@ -2481,6 +2481,11 @@ packages:
   '@npmcli/run-script@7.0.4':
     resolution: {integrity: sha512-9ApYM/3+rBt9V80aYg6tZfzj3UWdiYyCt7gJUD1VJKvWF5nwKDSICXbYIQbspFTq6TOpbsEtIC0LArB8d9PFmg==}
     engines: {node: ^16.14.0 || >=18.0.0}
+
+  '@nullvoxpopuli/dev@file:dev':
+    resolution: {directory: dev, type: directory}
+    engines: {node: '>= 20'}
+    hasBin: true
 
   '@nullvoxpopuli/eslint-configs@5.1.1':
     resolution: {integrity: sha512-v60saXlAWJbJExf2xwLp7mWy8M+EOURFBQALvL845HQrPHZne5ZKs66mmiqH4iwUPLeuP3SV0MDuPA0sERfKEQ==}
@@ -4754,6 +4759,10 @@ packages:
     peerDependencies:
       ember-source: 6.5.0-beta.1
 
+  ember-element-helper@0.8.8:
+    resolution: {integrity: sha512-3slTltQV5ke53t3YVP2GYoswsQ6y+lhuVzKmt09tbEx91DapG8I/xa8W5OA0StvcQlavL3/vHrz/vCQEFs8bBA==}
+    engines: {node: 14.* || 16.* || >= 18}
+
   ember-eslint-parser@0.5.9:
     resolution: {integrity: sha512-IW4/3cEiFp49M2LiKyzi7VcT1egogOe8UxQ9eUKTooenC7Q4qNhzTD6rOZ8j51m8iJC+8hCzjbNCa3K4CN0Hhg==}
     engines: {node: '>=16.0.0'}
@@ -5307,6 +5316,10 @@ packages:
 
   execa@9.5.2:
     resolution: {integrity: sha512-EHlpxMCpHWSAh1dgS6bVeoLAXGnJNdR93aabr4QCGbzOM73o5XmRfM/e5FUqsw3aagP8S8XEWUWFAxnRBnAF0Q==}
+    engines: {node: ^18.19.0 || >=20.5.0}
+
+  execa@9.5.3:
+    resolution: {integrity: sha512-QFNnTvU3UjgWFy8Ef9iDHvIdcgZ344ebkwYx4/KLbR+CKQA4xBaHzv+iRpp86QfMHP8faFQLh8iOc57215y4Rg==}
     engines: {node: ^18.19.0 || >=20.5.0}
 
   exit@0.1.2:
@@ -6083,6 +6096,10 @@ packages:
 
   human-signals@8.0.0:
     resolution: {integrity: sha512-/1/GPCpDUCCYwlERiYjxoczfP0zfvZMU/OWgQPMya9AbAE24vseigFdhAMObpc8Q4lc/kjutPfUddDYyAmejnA==}
+    engines: {node: '>=18.18.0'}
+
+  human-signals@8.0.1:
+    resolution: {integrity: sha512-eKCa6bwnJhvxj14kZk5NCPc6Hb6BdsU9DZcOnmQKSnO1VKrfV0zCvtttPZUsBvjmNDn8rpcJfpwSYnHBjc95MQ==}
     engines: {node: '>=18.18.0'}
 
   humanize-ms@1.2.1:
@@ -12239,6 +12256,17 @@ snapshots:
       - bluebird
       - supports-color
 
+  '@nullvoxpopuli/dev@file:dev':
+    dependencies:
+      chalk: 5.4.1
+      ember-apply: 2.15.0
+      execa: 9.5.3
+      fs-extra: 11.3.0
+      latest-version: 9.0.0
+    transitivePeerDependencies:
+      - bluebird
+      - supports-color
+
   '@nullvoxpopuli/eslint-configs@5.1.1(722e459a53108c347530e33e44090f9b)':
     dependencies:
       '@babel/core': 7.27.1
@@ -15132,6 +15160,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  ember-element-helper@0.8.8:
+    dependencies:
+      '@embroider/addon-shim': 1.10.0
+    transitivePeerDependencies:
+      - supports-color
+
   ember-eslint-parser@0.5.9(01f28679b224b936f9dba168b71533b1):
     dependencies:
       '@babel/core': 7.27.1
@@ -15262,7 +15296,7 @@ snapshots:
       '@floating-ui/dom': 1.7.0
       '@glimmer/component': 2.0.0
       decorator-transforms: 2.3.0(@babel/core@7.27.1)
-      ember-element-helper: 0.8.7(d73c493cdb119ae3bbe170c3225b395d)
+      ember-element-helper: 0.8.8
       ember-modifier: 4.2.0(04e8023f3ca43d3087166ad638d637f6)
       ember-resources: 7.0.4(66f74e868a8b4139936a1451b8a3fb0b)
       form-data-utils: 0.6.0
@@ -16031,6 +16065,21 @@ snapshots:
       figures: 6.1.0
       get-stream: 9.0.1
       human-signals: 8.0.0
+      is-plain-obj: 4.1.0
+      is-stream: 4.0.1
+      npm-run-path: 6.0.0
+      pretty-ms: 9.2.0
+      signal-exit: 4.1.0
+      strip-final-newline: 4.0.0
+      yoctocolors: 2.1.1
+
+  execa@9.5.3:
+    dependencies:
+      '@sindresorhus/merge-streams': 4.0.0
+      cross-spawn: 7.0.6
+      figures: 6.1.0
+      get-stream: 9.0.1
+      human-signals: 8.0.1
       is-plain-obj: 4.1.0
       is-stream: 4.0.1
       npm-run-path: 6.0.0
@@ -17127,6 +17176,8 @@ snapshots:
   human-signals@5.0.0: {}
 
   human-signals@8.0.0: {}
+
+  human-signals@8.0.1: {}
 
   humanize-ms@1.2.1:
     dependencies:

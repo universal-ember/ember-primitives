@@ -22,7 +22,7 @@
     "@babel/core": "^7.27.1",
     "@glint/core": "1.5.2",
     "@glint/environment-ember-loose": "1.5.2",
-    "@glint/environment-ember-template-imports": "1.4.1-unstable.5564fc2",
+    "@glint/environment-ember-template-imports": "1.5.2",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.1.0",
     "ember-primitives": "workspace:^",

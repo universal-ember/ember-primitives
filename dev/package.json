@@ -11,7 +11,7 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "ember-apply": "^2.11.1",
-    "execa": "^9.5.1",
+    "execa": "^9.5.3",
     "fs-extra": "^11.2.0",
     "latest-version": "^9.0.0"
   },
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
-    "@nullvoxpopuli/eslint-configs": "^5.1.1",
+    "@nullvoxpopuli/eslint-configs": "^5.1.2",
     "eslint": "^9.26.0",
     "prettier": "^3.2.5",
     "typescript": "^5.8.3"

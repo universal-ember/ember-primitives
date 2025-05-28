@@ -56,6 +56,7 @@ export default class Application extends Route {
           'ember-focus-trap': import('ember-focus-trap'),
 
           // utility
+          '@ember/test-waiters': import('@ember/test-waiters'),
           'lorem-ipsum': import('lorem-ipsum'),
           'form-data-utils': import('form-data-utils'),
           kolay: import('kolay'),

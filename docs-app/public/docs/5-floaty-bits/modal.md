@@ -240,6 +240,83 @@ export default class RouteableModal extends Component {
 }
 ```
 
+### Using an external trigger
+
+To use an external trigger, you have to use a side-effect to do it, like so: 
+
+<div class="featured-demo">
+
+```gjs live preview no-shadow
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { Modal } from "ember-primitives";
+import { waitForPromise } from "@ember/test-waiters";
+
+import { loremIpsum } from "lorem-ipsum";
+
+export default class ExternalTrigger extends Component {
+  @tracked _isOpen = false;
+
+  openModal = () => {
+    this._isOpen = true;
+  };
+
+  closeModal = () => {
+    this._isOpen = false;
+  };
+
+  <template>
+    <button onclick={{this.openModal}}>Open Modal</button>
+
+    <br /><br />
+    isOpen :
+    {{this._isOpen}}
+
+    <ModalWrapper @isOpen={{this._isOpen}} @onClose={{this.closeModal}} as |m|>
+
+      {{loremIpsum 1}}
+
+      <button onclick={{m.close}}>Close</button>
+    </ModalWrapper>
+  </template>
+}
+
+const ModalWrapper = <template>
+  <Modal @onClose={{@onClose}} as |m|>
+    {{(sideEffect toggle @isOpen m)}}
+
+    <m.Dialog>
+      {{yield m}}
+    </m.Dialog>
+  </Modal>
+</template>;
+
+function toggle(wantsOpen, { open, close, isOpen }) {
+  if (wantsOpen) {
+    if (isOpen) return;
+    open();
+    return;
+  }
+
+  if (!isOpen) return;
+
+  close();
+}
+
+function sideEffect(func, ...args) {
+  waitForPromise(
+    (async () => {
+      // auto tracking is synchronous.
+      // This detaches from tracking frames.
+      await Promise.resolve();
+      func(...args);
+    })(),
+  );
+}
+```
+
+</div>
+
 ## Enabling automatic body-scroll lock
 
 You'll need page-wide CSS similar to this:

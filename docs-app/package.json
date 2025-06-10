@@ -71,7 +71,7 @@
     "@glint/core": "1.5.2",
     "@glint/environment-ember-loose": "1.5.2",
     "@glint/environment-ember-template-imports": "1.5.2",
-    "@glint/template": "1.5.2",
+    "@glint/template": "1.4.1-unstable.4151d64",
     "@nullvoxpopuli/eslint-configs": "^5.1.2",
     "@rollup/plugin-babel": "^6.0.4",
     "@tailwindcss/typography": "^0.5.15",

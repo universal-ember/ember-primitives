@@ -7,6 +7,7 @@ settings:
   injectWorkspacePackages: true
 
 overrides:
+  '@glint/template': 1.4.1-unstable.4151d64
   '@glint/environment-ember-loose': 1.5.2
   '@glint/environment-ember-template-imports': 1.5.2
   '@glimmer/component': ^2.0.0
@@ -1851,7 +1852,7 @@ packages:
     resolution: {integrity: sha512-LruhfoDv2itpk0fA0IC76Sxjcnq/7BC6txpQo40hOko8Dn6OxwQfxkPIbZGV0Cz7df+iX+VJrcYzNIvlc3w2EQ==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
-      '@glint/template': ^1.0.2
+      '@glint/template': 1.4.1-unstable.4151d64
       ember-source: 6.5.0-beta.1
     peerDependenciesMeta:
       '@glint/template':
@@ -1914,7 +1915,7 @@ packages:
     resolution: {integrity: sha512-2oGZh0m1byBYQFWEa8b2cvHJB2LzaF3DdMCLCqcRAccABMROt1G3sultnNCT30NhfdGWMEsJOT3Jm4nFxXmTRw==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
-      '@glint/template': ^1.0.0
+      '@glint/template': 1.4.1-unstable.4151d64
     peerDependenciesMeta:
       '@glint/template':
         optional: true
@@ -1923,7 +1924,7 @@ packages:
     resolution: {integrity: sha512-AUrmHQdixczIU3ouv/+HzWxwYVsw/NwssZxAQnXfBDJ3d3/CRtAvGRu3JhY6OT3AAPFwfa2WT66tB5jeAa7r5g==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
-      '@glint/template': ^1.0.0
+      '@glint/template': 1.4.1-unstable.4151d64
     peerDependenciesMeta:
       '@glint/template':
         optional: true
@@ -1932,7 +1933,7 @@ packages:
     resolution: {integrity: sha512-KanP80XxNK4bmQ1HKTcUjy/cdCt9n7knPMLK1vzHdOFymACHo+GbhgUjXjYdOCuBTv+ZwcjL2P2XDmBcYS9r8g==}
     engines: {node: 12.* || 14.* || >= 16}
     peerDependencies:
-      '@glint/template': ^1.0.0
+      '@glint/template': 1.4.1-unstable.4151d64
     peerDependenciesMeta:
       '@glint/template':
         optional: true
@@ -2286,7 +2287,7 @@ packages:
     resolution: {integrity: sha512-AuYRwZbQZW13WMW9tmyYqSGHLBXbdXn+HqdRDAG1qHItnjON4uv6sJVQUrnadlMT3G2AVRjL6jtfnwHs3t2Kuw==}
     peerDependencies:
       '@glimmer/component': ^2.0.0
-      '@glint/template': ^1.5.2
+      '@glint/template': 1.4.1-unstable.4151d64
       '@types/ember__array': ^4.0.2
       '@types/ember__component': ^4.0.10
       '@types/ember__controller': ^4.0.2
@@ -2314,7 +2315,7 @@ packages:
     resolution: {integrity: sha512-f/asPRUr2YWtwYWlvl67JC6PIlihIiFnEtvESvMnblsDyJPpzJmVFGGlVujCOkajLwbkX9DDEw7fydn64He8Qw==}
     peerDependencies:
       '@glint/environment-ember-loose': 1.5.2
-      '@glint/template': ^1.5.2
+      '@glint/template': 1.4.1-unstable.4151d64
       '@types/ember__component': ^4.0.10
       '@types/ember__helper': ^4.0.1
       '@types/ember__modifier': ^4.0.3
@@ -4920,7 +4921,7 @@ packages:
     engines: {node: 16.* || >= 18}
     peerDependencies:
       '@glimmer/tracking': ^1.1.2
-      '@glint/template': '>= 1.0.0'
+      '@glint/template': 1.4.1-unstable.4151d64
       ember-source: 6.5.0-beta.1
     peerDependenciesMeta:
       '@glint/template':
@@ -4996,7 +4997,7 @@ packages:
       '@ember/test-helpers': '>= 3.2.0'
       '@ember/test-waiters': '>= 3.0.2'
       '@glimmer/component': ^2.0.0
-      '@glint/template': '>= 1.0.0'
+      '@glint/template': 1.4.1-unstable.4151d64
       ember-modifier: '>= 4.1.0'
       ember-resources: '>= 6.1.0'
     peerDependenciesMeta:
@@ -5016,7 +5017,7 @@ packages:
     peerDependencies:
       '@glimmer/compiler': '>= 0.86.0'
       '@glimmer/syntax': '>= 0.86.0'
-      '@glint/template': 1.4.1-unstable.0e0d936
+      '@glint/template': 1.4.1-unstable.4151d64
       webpack: '>= 5.92.0'
     peerDependenciesMeta:
       '@glimmer/compiler':
@@ -5038,7 +5039,7 @@ packages:
     resolution: {integrity: sha512-x/KJrfQCq8hrnOHDzdpSteUXdeqP4iAjeS4xWTxxtWDeP2KqOZYpAz4CvigzzBktWGZByPp+Y1Ysvlvl99SnFA==}
     peerDependencies:
       '@glimmer/component': ^2.0.0
-      '@glint/template': '>= 1.0.0'
+      '@glint/template': 1.4.1-unstable.4151d64
     peerDependenciesMeta:
       '@glimmer/component':
         optional: true
@@ -6801,7 +6802,7 @@ packages:
     resolution: {integrity: sha512-hPQtmzQmjwzp4eXKyyGbNg4MaHTt2d/iP5XcCWuNXY5HTU9/qfdTKNdkNaRvnX5rlxOqrnwk9EXT06c9OQkW1g==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@glint/template': '*'
+      '@glint/template': 1.4.1-unstable.4151d64
 
   ky@1.7.5:
     resolution: {integrity: sha512-HzhziW6sc5m0pwi5M196+7cEBtbt0lCYi67wNsiwMUmz833wloE0gbzJPWKs1gliFKQb34huItDQX97LyOdPdA==}

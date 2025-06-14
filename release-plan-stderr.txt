@@ -1,0 +1,6 @@
+# Unlabeled Changes
+
+* [#488](https://github.com/universal-ember/ember-primitives/pull/488) Add doc to use external trigger with Modal ([@pulien](https://github.com/pulien))
+
+
+*Cannot plan release until the above changes are labeled*.

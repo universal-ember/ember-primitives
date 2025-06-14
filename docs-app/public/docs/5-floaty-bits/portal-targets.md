@@ -48,3 +48,23 @@ const isOpen = cell(false);
   {{/if}}
 </template>
  ```
+
+
+## Anatomy
+
+```js 
+import { PortalTargets } from 'ember-primitives';
+```
+
+or for non-tree-shaking environments:
+```js 
+import { PortalTargets } from 'ember-primitives/components/portal-targets';
+```
+
+```gjs 
+import { PortalTargets } from 'ember-primitives/components/portal-targets';
+
+<template>
+  <PortalTargets />
+</template>
+```

@@ -75,10 +75,10 @@ div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="swi
     border-color: black;
   }
   :is(
-      a[href="##missing##"],
-      span[data-prim-avatar]:has(img[alt="__missing__"]),
-      div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
-    ):after {
+    a[href="##missing##"],
+    span[data-prim-avatar]:has(img[alt="__missing__"]),
+    div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
+  ):after {
     background: white;
     border: 1px solid black;
     color: darkred;
@@ -94,10 +94,10 @@ div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="swi
     border-color: red;
   }
   :is(
-      a[href="##missing##"],
-      span[data-prim-avatar]:has(img[alt="__missing__"]),
-      div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
-    ):after {
+    a[href="##missing##"],
+    span[data-prim-avatar]:has(img[alt="__missing__"]),
+    div[data-prim-switch]:not(:has(label)):has(input[role="switch"]) input[role="switch"]
+  ):after {
     background: #222;
     border: 1px solid red;
     color: red;

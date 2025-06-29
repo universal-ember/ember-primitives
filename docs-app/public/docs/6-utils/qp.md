@@ -41,7 +41,22 @@ import { HelperSignature } from 'kolay';
   <HelperSignature 
     @package="ember-primitives" 
     @module="declarations/qp" 
-    @name="Signature" />
+    @name="qp" />
+</template>
+```
+
+### `{{withQP 'qp-name' value}}`
+
+Grabs a query-param off the current route from the router service.
+
+```gjs live no-shadow
+import { HelperSignature } from 'kolay';
+
+<template>
+  <HelperSignature 
+    @package="ember-primitives" 
+    @module="declarations/qp" 
+    @name="withQP" />
 </template>
 ```
 

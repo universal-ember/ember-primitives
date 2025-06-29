@@ -4,13 +4,24 @@ import { service } from '@ember/service';
 
 import type RouterService from '@ember/routing/router-service';
 
-export interface Signature {
+interface Signature {
   Args: {
     Positional: [string];
   };
   Return: string | undefined;
 }
 
+/**
+ * Grabs a query-param off the current route from the router service.
+ *
+ * ```gjs
+ * import { qp } from 'ember-primitives/qp';
+ *
+ * <template>
+ *  {{qp "query-param"}}
+ * </template>
+ * ```
+ */
 export class qp extends Helper<Signature> {
   @service declare router: RouterService;
 
@@ -22,9 +33,19 @@ export class qp extends Helper<Signature> {
 }
 
 /**
+ * Returns a string for use as an `href` on `<a>` tags, updated with the passed query param
  *
+ * ```gjs
+ * import { withQP } from 'ember-primitives/qp';
+ *
+ * <template>
+ *   <a href={{withQP "foo" "2"}}>
+ *     ...
+ *   </a>
+ * </template>
+ * ```
  */
-export class updateQP extends Helper<{ Args: { Positional: [string, string] }; Return: string }> {
+export class withQP extends Helper<{ Args: { Positional: [string, string] }; Return: string }> {
   @service declare router: RouterService;
 
   compute([qpName, nextValue]: [string, string]) {

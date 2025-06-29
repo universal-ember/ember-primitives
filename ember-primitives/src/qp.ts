@@ -11,7 +11,7 @@ export interface Signature {
   Return: string | undefined;
 }
 
-class QP extends Helper<Signature> {
+export class qp extends Helper<Signature> {
   @service declare router: RouterService;
 
   compute([name]: [string]): string | undefined {
@@ -21,7 +21,25 @@ class QP extends Helper<Signature> {
   }
 }
 
-export const qp = QP;
+/**
+ *
+ */
+export class updateQP extends Helper<{ Args: { Positional: [string, string] }; Return: string }> {
+  @service declare router: RouterService;
+
+  compute([qpName, nextValue]: [string, string]) {
+    const existing = this.router.currentURL;
+
+    assert('A queryParam name is required', qpName);
+    assert('There is no currentURL', existing);
+
+    const url = new URL(existing, location.origin);
+
+    url.searchParams.set(qpName, nextValue);
+
+    return url.href;
+  }
+}
 
 /**
  * Cast a query-param string value to a boolean

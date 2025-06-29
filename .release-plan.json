@@ -2,17 +2,21 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.31.0",
-      "newVersion": "0.32.0",
+      "oldVersion": "0.32.0",
+      "newVersion": "0.33.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-05-09)\n\n* ember-primitives 0.32.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#475](https://github.com/universal-ember/ember-primitives/pull/475) New util: {{onResize}} modifier ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-06-29)\n\n* ember-primitives 0.33.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#494](https://github.com/universal-ember/ember-primitives/pull/494) Add query-param utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* [#488](https://github.com/universal-ember/ember-primitives/pull/488) Add doc to use external trigger with Modal ([@pulien](https://github.com/pulien))\n* [#479](https://github.com/universal-ember/ember-primitives/pull/479) Update docs-support again ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* [#477](https://github.com/universal-ember/ember-primitives/pull/477) Docs support upgrade ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* Other\n  * [#495](https://github.com/universal-ember/ember-primitives/pull/495) Widen test support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`\n  * [#487](https://github.com/universal-ember/ember-primitives/pull/487) Mass upgrades ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n- [@pulien](https://github.com/pulien)\n"
 }

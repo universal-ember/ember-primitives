@@ -52,7 +52,7 @@ import { Key, KeyCombo } from 'ember-primitives';
 
 or for non-tree-shaking environments:
 ```js 
-import { Key, KeyCombo } from 'ember-primitives/components/progress';
+import { Key, KeyCombo } from 'ember-primitives/components/key';
 ```
 
 

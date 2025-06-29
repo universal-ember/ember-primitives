@@ -1,5 +1,28 @@
 # Changelog 
 
+## Release (2025-06-29)
+
+* ember-primitives 0.33.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#494](https://github.com/universal-ember/ember-primitives/pull/494) Add query-param utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* [#488](https://github.com/universal-ember/ember-primitives/pull/488) Add doc to use external trigger with Modal ([@pulien](https://github.com/pulien))
+* [#479](https://github.com/universal-ember/ember-primitives/pull/479) Update docs-support again ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* [#477](https://github.com/universal-ember/ember-primitives/pull/477) Docs support upgrade ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* Other
+  * [#495](https://github.com/universal-ember/ember-primitives/pull/495) Widen test support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`
+  * [#487](https://github.com/universal-ember/ember-primitives/pull/487) Mass upgrades ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- [@pulien](https://github.com/pulien)
+
 ## Release (2025-05-09)
 
 * ember-primitives 0.32.0 (minor)

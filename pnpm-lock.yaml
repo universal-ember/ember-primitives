@@ -15182,7 +15182,7 @@ snapshots:
     dependencies:
       ansi-to-html: 0.6.15
       broccoli-stew: 3.0.0
-      debug: 4.4.0
+      debug: 4.4.1
       execa: 4.1.0
       fs-extra: 9.1.0
       resolve: 1.22.10
@@ -20509,7 +20509,7 @@ snapshots:
 
   stagehand@1.0.1:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
 

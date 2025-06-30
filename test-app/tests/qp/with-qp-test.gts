@@ -1,4 +1,5 @@
 import Controller from '@ember/controller';
+import { assert as debugAssert } from '@ember/debug';
 import { find, visit } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
@@ -14,7 +15,7 @@ module('withQP', function (hooks) {
       'template:application',
       Route(
         <template>
-          <a href={{withQP "foo" 2}}>link</a>
+          <a href={{withQP "foo" "2"}}>link</a>
         </template>
       )
     );
@@ -27,7 +28,11 @@ module('withQP', function (hooks) {
 
     await visit('/');
 
-    const url = new URL(find('a').getAttribute('href'));
+    const href = find('a')?.getAttribute('href');
+
+    debugAssert('missing href', href);
+
+    const url = new URL(href);
 
     assert.strictEqual(url.search, '?foo=2');
   });

@@ -1,4 +1,4 @@
-# qp 
+# Query Params 
 
 Utilities for accessing query-params without the need for creating a class-component, or injecting the [router service][router-service].
 
@@ -10,29 +10,21 @@ Utilities for accessing query-params without the need for creating a class-compo
 pnpm add ember-primitives
 ```
 
-## Usage
-
-```gjs
-import { qp, castToBoolean } 'ember-primitives/qp'; 
-
-<template>
-  {{qp "the-query-param-name"}} <- is a string
-
-  {{#if (castToBoolean (qp 'some-qp'))}}
-    ...
-  {{/if}}
-</template>
-```
-
-
-
 ## API Reference
 
-There are two exports from `ember-primitives/qp`
+There are a few exports from `ember-primitives/qp`
 
 ### `{{qp 'qp-name'}}`
 
 Grabs a query-param off the current route from the router service.
+
+```gjs
+import { qp } from 'ember-primitives/qp';
+
+<template>
+ {{qp "query-param"}}
+</template>
+```
 
 ```gjs live no-shadow
 import { HelperSignature } from 'kolay';
@@ -47,7 +39,17 @@ import { HelperSignature } from 'kolay';
 
 ### `{{withQP 'qp-name' value}}`
 
-Grabs a query-param off the current route from the router service.
+Returns a string for use as an `href` on `<a>` tags, updated with the passed query param
+
+```gjs
+import { withQP } from 'ember-primitives/qp';
+
+<template>
+  <a href={{withQP "foo" "2"}}>
+    ...
+  </a>
+</template>
+```
 
 ```gjs live no-shadow
 import { HelperSignature } from 'kolay';

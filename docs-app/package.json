@@ -42,7 +42,7 @@
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.2.1",
-    "kolay": "^3.7.2",
+    "kolay": "^3.8.0",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
     "reactiveweb": "^1.4.2",

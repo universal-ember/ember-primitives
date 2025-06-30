@@ -146,7 +146,7 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2(highlight.js@11.11.1)
       kolay:
-        specifier: ^3.7.2
+        specifier: ^3.8.0
         version: 3.8.0(267078c0d240a439e23ced42d549a20f)
       lorem-ipsum:
         specifier: ^2.0.8
@@ -21185,7 +21185,7 @@ snapshots:
 
   unplugin@2.3.4:
     dependencies:
-      acorn: 8.14.1
+      acorn: 8.15.0
       picomatch: 4.0.2
       webpack-virtual-modules: 0.6.2
 

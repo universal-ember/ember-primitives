@@ -65,6 +65,16 @@ export class withQP extends Helper<{ Args: { Positional: [string, string] }; Ret
 /**
  * Cast a query-param string value to a boolean
  *
+ * ```gjs
+ * import { castToBoolean, qp } from 'ember-primitives/qp';
+ *
+ * <template>
+ *  {{#if (castToBoolean (qp 'the-qp'))}}
+ *    ...
+ *  {{/if}}
+ * </template>
+ * ```
+ *
  * The following values are considered "false"
  * - undefined
  * - ""

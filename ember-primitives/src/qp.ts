@@ -4,14 +4,25 @@ import { service } from '@ember/service';
 
 import type RouterService from '@ember/routing/router-service';
 
-export interface Signature {
+interface Signature {
   Args: {
     Positional: [string];
   };
   Return: string | undefined;
 }
 
-class QP extends Helper<Signature> {
+/**
+ * Grabs a query-param off the current route from the router service.
+ *
+ * ```gjs
+ * import { qp } from 'ember-primitives/qp';
+ *
+ * <template>
+ *  {{qp "query-param"}}
+ * </template>
+ * ```
+ */
+export class qp extends Helper<Signature> {
   @service declare router: RouterService;
 
   compute([name]: [string]): string | undefined {
@@ -21,10 +32,48 @@ class QP extends Helper<Signature> {
   }
 }
 
-export const qp = QP;
+/**
+ * Returns a string for use as an `href` on `<a>` tags, updated with the passed query param
+ *
+ * ```gjs
+ * import { withQP } from 'ember-primitives/qp';
+ *
+ * <template>
+ *   <a href={{withQP "foo" "2"}}>
+ *     ...
+ *   </a>
+ * </template>
+ * ```
+ */
+export class withQP extends Helper<{ Args: { Positional: [string, string] }; Return: string }> {
+  @service declare router: RouterService;
+
+  compute([qpName, nextValue]: [string, string]) {
+    const existing = this.router.currentURL;
+
+    assert('A queryParam name is required', qpName);
+    assert('There is no currentURL', existing);
+
+    const url = new URL(existing, location.origin);
+
+    url.searchParams.set(qpName, nextValue);
+
+    return url.href;
+  }
+}
 
 /**
  * Cast a query-param string value to a boolean
+ *
+ * ```gjs
+ * import { castToBoolean, qp } from 'ember-primitives/qp';
+ *
+ * <template>
+ *  {{#if (castToBoolean (qp 'the-qp'))}}
+ *    ...
+ *  {{/if}}
+ * </template>
+ * ```
  *
  * The following values are considered "false"
  * - undefined

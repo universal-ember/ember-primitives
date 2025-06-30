@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-06-30)
+
+* ember-primitives 0.34.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#496](https://github.com/universal-ember/ember-primitives/pull/496) Update QP utility for generating an href with an updated queryParam ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-06-29)
 
 * ember-primitives 0.33.0 (minor)

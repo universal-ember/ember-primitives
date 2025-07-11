@@ -31,15 +31,3 @@ const useBootstrap = cell(false);
 </template>
 ```
 
-## API Reference
-
-```gjs live no-shadow
-import { HelperSignature } from 'kolay';
-
-<template>
-  <HelperSignature 
-    @package="ember-primitives" 
-    @module="declarations/head" 
-    @name="Signature" />
-</template>
-```

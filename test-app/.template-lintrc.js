@@ -9,6 +9,7 @@ module.exports = {
     {
       files: ['tests/**/*'],
       rules: {
+        'no-forbidden-elements': 'off',
         'no-action-on-submit-button': 'off',
         'require-input-label': 'off',
       },

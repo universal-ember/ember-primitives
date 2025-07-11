@@ -5,7 +5,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { InHead } from 'ember-primitives/head';
 import { cell } from 'ember-resources';
 
-function findInHead(selector) {
+function findInHead(selector: string) {
   return document.head.querySelector(selector);
 }
 

@@ -42,6 +42,7 @@ export default class Application extends Route {
         resolve: {
           // ember-primitives
           'ember-primitives': import('ember-primitives'),
+          'ember-primitives/head': import('ember-primitives/head'),
           'ember-primitives/floating-ui': import('ember-primitives/floating-ui'),
           'ember-primitives/on-resize': import('ember-primitives/on-resize'),
           'ember-primitives/color-scheme': import('ember-primitives/color-scheme'),

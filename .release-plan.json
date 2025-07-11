@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.33.0",
-      "newVersion": "0.34.0",
+      "oldVersion": "0.34.0",
+      "newVersion": "0.35.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -14,5 +14,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-06-30)\n\n* ember-primitives 0.34.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#496](https://github.com/universal-ember/ember-primitives/pull/496) Update QP utility for generating an href with an updated queryParam ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-07-11)\n\n* ember-primitives 0.35.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#502](https://github.com/universal-ember/ember-primitives/pull/502) New utility component: In-head ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

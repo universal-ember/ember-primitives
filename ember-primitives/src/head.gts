@@ -1,5 +1,7 @@
+import type { TOC } from "@ember/component/template-only";
+
 export interface Signature {
-  Blockes: {
+  Blocks: {
     /**
      * Content to render in to the `<head>` element
      */

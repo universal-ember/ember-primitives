@@ -11,7 +11,7 @@ interface LoadSignature {
   Blocks: {
     loading: [];
     error: [reason: unknown];
-    success?: [component: ComponentLike];
+    success?: [component: ComponentLike<any>];
   };
 }
 

@@ -13,6 +13,7 @@ module.exports = {
         'no-forbidden-elements': 'off',
         'no-action-on-submit-button': 'off',
         'require-input-label': 'off',
+        'no-shadowed-elements': false,
       },
     },
   ],

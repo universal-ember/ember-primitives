@@ -10,7 +10,12 @@ import type { ComponentLike } from "@glint/template";
 interface LoadSignature {
   Blocks: {
     loading: [];
-    error: [reason: unknown];
+    error: [
+      {
+        original: unknown;
+        reason: string;
+      },
+    ];
     success?: [component: ComponentLike<any>];
   };
 }

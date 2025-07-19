@@ -30,6 +30,7 @@ module('Rendering | load', function (hooks) {
 
     assert.verifySteps(['success']);
     assert.dom().hasText('hi');
+    // @ts-expect-error
     assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
   });
 
@@ -56,6 +57,7 @@ module('Rendering | load', function (hooks) {
 
     assert.verifySteps(['success']);
     assert.dom().hasText('hi');
+    // @ts-expect-error
     assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
   });
 
@@ -83,6 +85,7 @@ module('Rendering | load', function (hooks) {
 
     assert.verifySteps(['loading', 'success']);
     assert.dom().hasText('hi');
+    // @ts-expect-error
     assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
   });
 
@@ -115,6 +118,7 @@ module('Rendering | load', function (hooks) {
 
     assert.verifySteps(['loading', 'success']);
     assert.dom().hasText('hi');
+    // @ts-expect-error
     assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
   });
 });

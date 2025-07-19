@@ -14,7 +14,7 @@ overrides:
   ember-primitives: workspace:^
   ember-cli-babel: ^8.2.0
   ember-element-helper: '>= 0.8.6'
-  reactiveweb: ^1.4.2
+  reactiveweb: ^1.8.0
   ember-source: 6.5.0-beta.1
   tracked-toolbox: ^2.0.0
 
@@ -155,8 +155,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       reactiveweb:
-        specifier: ^1.4.2
-        version: 1.6.2(4bc9f24db55e0833d73899f747efdf90)
+        specifier: ^1.8.0
+        version: 1.8.0(4bc9f24db55e0833d73899f747efdf90)
       shiki:
         specifier: ^3.4.2
         version: 3.7.0
@@ -390,8 +390,8 @@ importers:
         specifier: ^0.6.0
         version: 0.6.0
       reactiveweb:
-        specifier: ^1.4.2
-        version: 1.6.2(4bc9f24db55e0833d73899f747efdf90)
+        specifier: ^1.8.0
+        version: 1.8.0(4bc9f24db55e0833d73899f747efdf90)
       should-handle-link:
         specifier: ^1.2.2
         version: 1.3.0
@@ -7670,8 +7670,8 @@ packages:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
     hasBin: true
 
-  reactiveweb@1.6.2:
-    resolution: {integrity: sha512-8WFolGcpwBfMSmfwckIwsJTysChpfHRNJ7NTgojJRhRssaVE/gVtZmk21/kgT+cwea6K3XbWpnOfglblBt8T7w==}
+  reactiveweb@1.8.0:
+    resolution: {integrity: sha512-cj2vQhS3a4/5swQXgCO79BdtxqJkhUmgu+BqOSt3O6vFzsNHLJf8oCoODxSJHLRZ5mnie2+OxoqGTx/LfhSFYA==}
     peerDependencies:
       '@ember/test-waiters': '>= 3.1.0'
 
@@ -14419,7 +14419,7 @@ snapshots:
       ember-modifier: 4.2.2(@babel/core@7.27.7)
       ember-resources: 7.0.6(d4e9daf0601d9470755ac3cb7ce55c11)
       form-data-utils: 0.6.0
-      reactiveweb: 1.6.2(4bc9f24db55e0833d73899f747efdf90)
+      reactiveweb: 1.8.0(4bc9f24db55e0833d73899f747efdf90)
       should-handle-link: 1.3.0
       tabster: 8.5.6
       tracked-built-ins: 4.0.0(@babel/core@7.27.7)
@@ -16754,7 +16754,7 @@ snapshots:
       globby: 14.1.0
       json5: 2.2.3
       package-up: 5.0.0
-      reactiveweb: 1.6.2(4bc9f24db55e0833d73899f747efdf90)
+      reactiveweb: 1.8.0(4bc9f24db55e0833d73899f747efdf90)
       send: 1.2.0
       tracked-built-ins: 4.0.0(@babel/core@7.27.7)
       typedoc: 0.28.4(typescript@5.8.3)
@@ -18440,7 +18440,7 @@ snapshots:
       minimist: 1.2.8
       strip-json-comments: 2.0.1
 
-  reactiveweb@1.6.2(4bc9f24db55e0833d73899f747efdf90):
+  reactiveweb@1.8.0(4bc9f24db55e0833d73899f747efdf90):
     dependencies:
       '@ember/test-waiters': 4.1.0(a6fa8d0f1f3c894a01569e258197c230)
       '@embroider/addon-shim': 1.10.0

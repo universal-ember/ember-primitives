@@ -1,98 +1,13 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
-import type { ComponentLike } from "@glint/template";
-import { waitForPromise } from "@ember/test-waiters";
-
-// Have to use these until min ember version is like 6.3 or something
-import { precompileTemplate } from "@ember/template-compilation";
 import { setComponentTemplate } from "@ember/component";
 import templateOnly from "@ember/component/template-only";
-import { cell } from "ember-resources";
+// Have to use these until min ember version is like 6.3 or something
+import { precompileTemplate } from "@ember/template-compilation";
+
+import { getPromiseState } from "reactiveweb/get-promise-state";
 
 import type Owner from "@ember/owner";
-
-interface State<Value> {
-  isLoading: boolean;
-  error: undefined | null | string;
-  component: Value | undefined;
-}
-
-type Invokable<Value> = (() => Value) | (() => Promise<Value>);
-const promiseCache = new WeakMap<Invokable<unknown>, State<unknown>>();
-
-class StateImpl<Value> implements State<Value> {
-  /**
-   * @private
-   */
-  @tracked _isLoading: undefined | boolean;
-  /**
-   * @private
-   */
-  @tracked _error: undefined | null | string;
-  /**
-   * @private
-   */
-  @tracked _component: undefined | Value;
-
-  #fn: Invokable<Value>;
-  #initial: Partial<State<Value>>;
-
-  constructor(fn: Invokable<Value>, initial: Partial<State<Value>>) {
-    this.#fn = fn;
-    this.#initial = initial;
-
-    this.#ensure();
-  }
-
-  #promise: unknown;
-  #ensure() {
-    if (this.#promise !== undefined) return;
-    let maybePromise = this.#fn();
-
-    if (typeof maybePromise === "object" && maybePromise !== null && "then" in maybePromise) {
-      this.#promise = waitForPromise(
-        maybePromise
-          .then((component) => (this._component = component))
-          .catch((error) => (this._error = error))
-          .finally(() => (this._isLoading = false)),
-      );
-      return;
-    }
-
-    this._isLoading = false;
-    this._component = maybePromise;
-    this.#promise = false;
-  }
-
-  get isLoading() {
-    return this._isLoading ?? this.#initial.isLoading ?? false;
-  }
-  get error() {
-    return this._error ?? this.#initial.error;
-  }
-  get component() {
-    return this._component ?? this.#initial.component;
-  }
-}
-
-function getPromiseState<Value>(fn: Value | Invokable<Value>): State<Value> {
-  if (typeof fn !== "function") {
-    return {
-      isLoading: false,
-      error: null,
-      component: fn,
-    };
-  }
-
-  let existing = promiseCache.get(fn as Invokable<Value>);
-  if (existing) return existing as State<Value>;
-
-  let state = new StateImpl(fn as Invokable<Value>, { isLoading: true });
-
-  promiseCache.set(fn as Invokable<Value>, state);
-
-  return state;
-}
+import type { ComponentLike } from "@glint/template";
 
 /**
  * The `<Throw />` component is used to throw an error in a template.
@@ -121,8 +36,6 @@ export class Throw<E> extends Component<{
   <template></template>
 }
 
-const and = (a: unknown, b: unknown) => a && b;
-
 interface LoadSignature {
   Blocks: {
     loading: [];
@@ -131,19 +44,19 @@ interface LoadSignature {
   };
 }
 
-export function load<Value>(fn: Value | Invokable<Value>): ComponentLike<LoadSignature> {
+export function load<Value>(
+  fn: Value | Promise<Value> | (() => Promise<Value>) | (() => Value),
+): ComponentLike<LoadSignature> {
   return setComponentTemplate(
     precompileTemplate(
       `{{#let (getPromiseState fn) as |state|}}
-{{log state}}
-{{log state.component}}
   {{#if state.isLoading}}
     {{yield to="loading"}}
   {{else if state.error}}
     {{yield state.error to="error"}}
-  {{else if state.component}}
+  {{else if state.resolved}}
     {{#if (has-block "success")}}
-      {{yield state.component to="success"}}
+      {{yield state.resolved to="success"}}
     {{else}}
       <state.component />
     {{/if}}
@@ -156,7 +69,7 @@ export function load<Value>(fn: Value | Invokable<Value>): ComponentLike<LoadSig
          * does not allow defining things in this scope object,
          * we _have_ to use the shorthand.
          */
-        scope: () => ({ fn, and, getPromiseState }),
+        scope: () => ({ fn, getPromiseState }),
       },
     ),
     templateOnly(),

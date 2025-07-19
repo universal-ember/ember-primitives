@@ -1,10 +1,10 @@
+import { getRootElement, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { render, getRootElement } from '@ember/test-helpers';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { load } from 'ember-primitives/load';
 
-module('Rendering | load', async function (hooks) {
+module('Rendering | load', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it works with no function', async function (assert) {
@@ -20,9 +20,9 @@ module('Rendering | load', async function (hooks) {
           <:error>
             {{step "error"}}
           </:error>
-          <:success as |component|>
+          <:success as |comp|>
             {{step "success"}}
-            <component />
+            <comp />
           </:success>
         </Loader>
       </template>
@@ -90,6 +90,7 @@ module('Rendering | load', async function (hooks) {
     const Hi = <template>hi</template>;
     const Loader = load(async () => {
       await new Promise((resolve) => setTimeout(() => resolve(), 100));
+
       return Hi;
     });
 

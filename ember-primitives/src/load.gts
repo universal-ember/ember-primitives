@@ -408,6 +408,7 @@ import Component from "@glimmer/component";
 import { precompileTemplate } from "@ember/template-compilation";
 import { setComponentTemplate } from "@ember/component";
 import templateOnly from "@ember/component/template-only";
+import { cell } from "ember-resources";
 
 import type Owner from "@ember/owner";
 
@@ -455,21 +456,27 @@ function getPromiseState<Value>(valueOrFn: Value | (() => Value) | (() => Promis
         value ||= valueOrFn();
 
         if ("then" in value) {
-          return;
+          let isLoading = cell(true);
+          value.then(() => (isLoading.current = false));
+          return isLoading.current;
         }
         return false;
       }
       if (key === "error") {
         value ||= valueOrFn();
         if ("then" in value) {
-          return;
+          let error = cell(null);
+          value.catch((e) => (error.current = e));
+          return error.current;
         }
         return null;
       }
       if (key === "component") {
         value ||= valueOrFn();
         if ("then" in value) {
-          return;
+          let component = cell();
+          value.then((result) => (component.current = result));
+          return component.current;
         }
 
         return value;

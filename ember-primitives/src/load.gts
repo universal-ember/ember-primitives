@@ -1,4 +1,3 @@
-import Component from "@glimmer/component";
 import { setComponentTemplate } from "@ember/component";
 import templateOnly from "@ember/component/template-only";
 // Have to use these until min ember version is like 6.3 or something
@@ -6,35 +5,7 @@ import { precompileTemplate } from "@ember/template-compilation";
 
 import { getPromiseState } from "reactiveweb/get-promise-state";
 
-import type Owner from "@ember/owner";
 import type { ComponentLike } from "@glint/template";
-
-/**
- * The `<Throw />` component is used to throw an error in a template.
- *
- * That's all it does. So don't use it unless the application should
- * throw an error if it reaches this point in the template.
- *
- * ```hbs
- * <Throw @error={{anError}} />
- * ```
- *
- * @class <Throw />
- * @public
- */
-export class Throw<E> extends Component<{
-  Args: {
-    error: E;
-  };
-}> {
-  constructor(owner: Owner, args: { error: E }) {
-    super(owner, args);
-    // this error is opaque (user supplied) so we don't validate it
-    // as an Error instance.
-    throw this.args.error;
-  }
-  <template></template>
-}
 
 interface LoadSignature {
   Blocks: {
@@ -44,6 +15,26 @@ interface LoadSignature {
   };
 }
 
+/**
+ * Loads a value / promise / function providing state for the lifetime of that value / promise / function.
+ *
+ * Can be used for manual bundle splitting via await importing components.
+ *
+ * @example
+ * ```gjs
+ * import { load } from 'ember-primitives/load';
+ *
+ * const Loader = load(() => import('./routes/sub-route.gts'));
+ *
+ * <template>
+ *   <Loader>
+ *     <:loading> ... loading ... </:loading>
+ *     <:error as |error|> ... error! {{error.reason}} </:error>
+ *     <:success as |component|> <component /> </:success>
+ *   </Loader>
+ * </template>
+ * ```
+ */
 export function load<Value>(
   fn: Value | Promise<Value> | (() => Promise<Value>) | (() => Value),
 ): ComponentLike<LoadSignature> {

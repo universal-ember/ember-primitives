@@ -7,8 +7,8 @@ import { load } from 'ember-primitives/load';
 module('Rendering | load', async function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it works with no promise', async function (assert) {
-    const Loader = load(() => <template>hi</template>);
+  test('it works with no function', async function (assert) {
+    const Loader = load(<template>hi</template>);
     const step = (msg: string) => assert.step(msg);
 
     await render(
@@ -17,7 +17,7 @@ module('Rendering | load', async function (hooks) {
           <:loading>
             {{step "loading"}}
           </:loading>
-          <:error as |reason|>
+          <:error>
             {{step "error"}}
           </:error>
           <:success as |component|>
@@ -33,9 +33,8 @@ module('Rendering | load', async function (hooks) {
     assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
   });
 
-  test('it works with a promise', async function (assert) {
-    const Hi = <template>hi</template>;
-    const Loader = load(() => Promise.resolve(Hi));
+  test('it works with no promise', async function (assert) {
+    const Loader = load(() => <template>hi</template>);
     const step = (msg: string) => assert.step(msg);
 
     await render(
@@ -44,7 +43,7 @@ module('Rendering | load', async function (hooks) {
           <:loading>
             {{step "loading"}}
           </:loading>
-          <:error as |reason|>
+          <:error>
             {{step "error"}}
           </:error>
           <:success as |component|>
@@ -56,6 +55,64 @@ module('Rendering | load', async function (hooks) {
     );
 
     assert.verifySteps(['success']);
+    assert.dom().hasText('hi');
+    assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
+  });
+
+  test('it works with a resolved promise', async function (assert) {
+    const Hi = <template>hi</template>;
+    const Loader = load(() => Promise.resolve(Hi));
+    const step = (msg: string) => assert.step(msg);
+
+    await render(
+      <template>
+        <Loader>
+          <:loading>
+            {{step "loading"}}
+          </:loading>
+          <:error>
+            {{step "error"}}
+          </:error>
+          <:success as |component|>
+            {{step "success"}}
+            <component />
+          </:success>
+        </Loader>
+      </template>
+    );
+
+    assert.verifySteps(['loading', 'success']);
+    assert.dom().hasText('hi');
+    assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
+  });
+
+  test('it works with a promise', async function (assert) {
+    const Hi = <template>hi</template>;
+    const Loader = load(async () => {
+      await new Promise((resolve) => setTimeout(() => resolve(), 100));
+      return Hi;
+    });
+
+    const step = (msg: string) => assert.step(msg);
+
+    await render(
+      <template>
+        <Loader>
+          <:loading>
+            {{step "loading"}}
+          </:loading>
+          <:error>
+            {{step "error"}}
+          </:error>
+          <:success as |component|>
+            {{step "success"}}
+            <component />
+          </:success>
+        </Loader>
+      </template>
+    );
+
+    assert.verifySteps(['loading', 'success']);
     assert.dom().hasText('hi');
     assert.strictEqual(getRootElement().innerHTML.trim(), 'hi', 'there are no elements');
   });

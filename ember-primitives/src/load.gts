@@ -7,7 +7,11 @@ import { getPromiseState } from "reactiveweb/get-promise-state";
 
 import type { ComponentLike } from "@glint/template";
 
-interface LoadSignature {
+interface LoadSignature<
+  Expected = {
+    Args: any;
+  },
+> {
   Blocks: {
     loading: [];
     error: [
@@ -16,7 +20,7 @@ interface LoadSignature {
         reason: string;
       },
     ];
-    success?: [component: ComponentLike<any>];
+    success?: [component: ComponentLike<Expected>];
   };
 }
 
@@ -40,9 +44,9 @@ interface LoadSignature {
  * </template>
  * ```
  */
-export function load<Value>(
+export function load<ExpectedSignature, Value>(
   fn: Value | Promise<Value> | (() => Promise<Value>) | (() => Value),
-): ComponentLike<LoadSignature> {
+): ComponentLike<LoadSignature<ExpectedSignature>> {
   return setComponentTemplate(
     precompileTemplate(
       `{{#let (getPromiseState fn) as |state|}}
@@ -69,5 +73,5 @@ export function load<Value>(
       },
     ),
     templateOnly(),
-  ) as ComponentLike<LoadSignature>;
+  ) as ComponentLike<LoadSignature<ExpectedSignature>>;
 }

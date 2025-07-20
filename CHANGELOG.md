@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-07-20)
+
+* ember-primitives 0.36.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#504](https://github.com/universal-ember/ember-primitives/pull/504) the `load()` function returns a component that can dynamically load a component (for bundle splitting) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-07-11)
 
 * ember-primitives 0.35.0 (minor)

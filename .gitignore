@@ -8,6 +8,7 @@ docs-api/docs.json
 node_modules/
 
 # misc
+.log/
 .turbo/
 .eslintcache
 /.env*

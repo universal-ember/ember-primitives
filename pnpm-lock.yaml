@@ -521,6 +521,9 @@ importers:
       '@babel/core':
         specifier: ^7.27.1
         version: 7.27.7
+      '@ember/app-tsconfig':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@ember/optional-features':
         specifier: ^2.2.0
         version: 2.2.0
@@ -547,7 +550,7 @@ importers:
         version: 1.18.0(4b49a3d0953f9b96268aadc463dd7a3f)
       '@embroider/vite':
         specifier: ^1.1.5
-        version: 1.1.5(3b10d99bcea1f653211ed264bff81706)
+        version: 1.1.5(d7f326bd3425a85ab8f10f8f1926e141)
       '@floating-ui/dom':
         specifier: ^1.7.0
         version: 1.7.2
@@ -571,13 +574,10 @@ importers:
         version: 2.0.0-alpha.3
       '@nullvoxpopuli/eslint-configs':
         specifier: ^5.1.2
-        version: 5.1.2(312b025e3e70264ceb3b5f77d6153a03)
+        version: 5.1.2(391fb5da7c891bf77cc74b59f1f54220)
       '@rollup/plugin-babel':
         specifier: ^6.0.4
-        version: 6.0.4(003c80155c964b36ea4afc33ce452443)
-      '@tsconfig/ember':
-        specifier: ^3.0.5
-        version: 3.0.10
+        version: 6.0.4(@babel/core@7.27.7)(rollup@4.44.1)
       '@types/eslint__js':
         specifier: ^8.42.3
         version: 8.42.3
@@ -643,13 +643,13 @@ importers:
         version: 6.5.0-beta.1(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-source-channel-url:
         specifier: ^3.0.0
-        version: 3.0.0(encoding@0.1.13)
+        version: 3.0.0
       ember-template-lint:
         specifier: ^7.7.0
         version: 7.9.1
       ember-try:
         specifier: ^4.0.0
-        version: 4.0.0(encoding@0.1.13)
+        version: 4.0.0
       eslint:
         specifier: ^9.26.0
         version: 9.30.0(jiti@2.4.2)
@@ -691,7 +691,7 @@ importers:
         version: 5.8.3
       vite:
         specifier: ^6.3.5
-        version: 6.3.5(6e39fa3ef51c04688a144165f522b270)
+        version: 6.3.5(c30dc848f18aa686ff3ae815d13a80bf)
       webpack:
         specifier: ^5.99.9
         version: 5.99.9
@@ -10826,7 +10826,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@embroider/vite@1.1.5(3b10d99bcea1f653211ed264bff81706)':
+  '@embroider/vite@1.1.5(d7f326bd3425a85ab8f10f8f1926e141)':
     dependencies:
       '@babel/core': 7.27.7
       '@embroider/core': 4.1.1(@glint/template@1.6.0-alpha.2)
@@ -10844,7 +10844,7 @@ snapshots:
       send: 0.18.0
       source-map-url: 0.4.1
       terser: 5.43.1
-      vite: 6.3.5(6e39fa3ef51c04688a144165f522b270)
+      vite: 6.3.5(c30dc848f18aa686ff3ae815d13a80bf)
     transitivePeerDependencies:
       - '@glint/template'
       - bufferutil
@@ -11538,6 +11538,31 @@ snapshots:
       - supports-color
       - typescript
 
+  '@nullvoxpopuli/eslint-configs@5.1.2(391fb5da7c891bf77cc74b59f1f54220)':
+    dependencies:
+      '@babel/core': 7.27.7
+      '@eslint/js': 9.30.0
+      '@typescript-eslint/parser': 8.35.0(4ac8c02afc8cc1017f72def476d9d5df)
+      cosmiconfig: 9.0.0(typescript@5.8.3)
+      ember-eslint: 0.2.1(c712688a690e552dac0434c384dc031a)
+      eslint: 9.30.0(jiti@2.4.2)
+      eslint-import-resolver-typescript: 3.10.1(421f822ff8e7ade108ba557e45576408)
+      eslint-plugin-decorator-position: 6.0.0(9075d7c4db7a71c13d86a04ec16855ed)
+      eslint-plugin-import: 2.32.0(a6343edfa0f713f3578ec39d0ecaf7b3)
+      eslint-plugin-json: 4.0.1
+      eslint-plugin-n: 17.20.0(4ac8c02afc8cc1017f72def476d9d5df)
+      eslint-plugin-simple-import-sort: 12.1.1(eslint@9.30.0(jiti@2.4.2))
+      globals: 16.2.0
+      prettier-plugin-ember-template-tag: 2.0.6(prettier@3.6.2)
+    optionalDependencies:
+      '@babel/eslint-parser': 7.27.5(42261f824dbd1e15f271819270fe1332)
+      prettier: 3.6.2
+    transitivePeerDependencies:
+      - eslint-import-resolver-webpack
+      - eslint-plugin-import-x
+      - supports-color
+      - typescript
+
   '@octokit/auth-token@5.1.2': {}
 
   '@octokit/core@6.1.5':
@@ -11652,6 +11677,16 @@ snapshots:
       '@rollup/pluginutils': 5.2.0(rollup@4.44.1)
     optionalDependencies:
       '@types/babel__core': 7.20.5
+      rollup: 4.44.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@rollup/plugin-babel@6.0.4(@babel/core@7.27.7)(rollup@4.44.1)':
+    dependencies:
+      '@babel/core': 7.27.7
+      '@babel/helper-module-imports': 7.27.1
+      '@rollup/pluginutils': 5.2.0(rollup@4.44.1)
+    optionalDependencies:
       rollup: 4.44.1
     transitivePeerDependencies:
       - supports-color
@@ -14990,9 +15025,9 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-source-channel-url@3.0.0(encoding@0.1.13):
+  ember-source-channel-url@3.0.0:
     dependencies:
-      node-fetch: 2.7.0(encoding@0.1.13)
+      node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
 
@@ -15072,9 +15107,9 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-try-config@4.0.0(encoding@0.1.13):
+  ember-try-config@4.0.0:
     dependencies:
-      ember-source-channel-url: 3.0.0(encoding@0.1.13)
+      ember-source-channel-url: 3.0.0
       lodash: 4.17.21
       package-json: 6.5.0
       remote-git-tags: 3.0.0
@@ -15082,12 +15117,12 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  ember-try@4.0.0(encoding@0.1.13):
+  ember-try@4.0.0:
     dependencies:
       chalk: 4.1.2
       cli-table3: 0.6.5
       debug: 4.4.1
-      ember-try-config: 4.0.0(encoding@0.1.13)
+      ember-try-config: 4.0.0
       es-toolkit: 1.39.5
       execa: 4.1.0
       fs-extra: 6.0.1
@@ -18117,11 +18152,9 @@ snapshots:
       emojilib: 2.4.0
       skin-tone: 2.0.0
 
-  node-fetch@2.7.0(encoding@0.1.13):
+  node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
-    optionalDependencies:
-      encoding: 0.1.13
 
   node-gyp@10.3.1:
     dependencies:
@@ -20770,6 +20803,20 @@ snapshots:
       jiti: 2.4.2
       terser: 5.43.1
       yaml: 2.8.0
+
+  vite@6.3.5(c30dc848f18aa686ff3ae815d13a80bf):
+    dependencies:
+      esbuild: 0.25.5
+      fdir: 6.4.6(picomatch@4.0.2)
+      picomatch: 4.0.2
+      postcss: 8.5.6
+      rollup: 4.44.1
+      tinyglobby: 0.2.14
+    optionalDependencies:
+      '@types/node': 24.0.7
+      fsevents: 2.3.3
+      jiti: 2.4.2
+      terser: 5.43.1
 
   volar-service-html@0.0.64(@volar/language-service@2.4.12):
     dependencies:

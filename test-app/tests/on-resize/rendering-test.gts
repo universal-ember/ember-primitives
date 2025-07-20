@@ -231,8 +231,7 @@ module('{{onResize}}', function (hooks) {
 
       await render(
         <template>
-          {{! @glint-expect-error - deliberate missing args}}
-          <div data-test {{onResize}}>
+          <div data-test {{! @ts-expect-error - deliberate missing args}} {{onResize}}>
             Resize me
           </div>
         </template>

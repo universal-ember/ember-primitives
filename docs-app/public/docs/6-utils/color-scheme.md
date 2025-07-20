@@ -45,8 +45,6 @@ function gatherSchemePreferences() {
   };
 }
 
-const { JSON } = globalThis;
-
 <template>
   <button {{on 'click' (fn colorScheme.update 'dark')}}>Dark mode</button>
   <button {{on 'click' (fn colorScheme.update 'light')}}>Light mode</button>

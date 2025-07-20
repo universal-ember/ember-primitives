@@ -27,8 +27,6 @@ const randomValue = resource(({on}) => {
 const randomPercent = () => Math.random() * 100;
 const translate = (v) => -(100 - v);
 
-const { Math } = globalThis;
-
 <template>
   <Progress @value={{(randomValue)}} aria-label="demo" as |x|>
     <span>{{Math.round x.value}}%</span>

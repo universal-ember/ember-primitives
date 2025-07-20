@@ -23,7 +23,6 @@ Try filling out some data in the form below, and click submit.
 import { cell } from 'ember-resources';
 import { dataFromEvent } from 'ember-primitives/components/form';
 
-const { JSON } = globalThis;
 const dataPreview = cell({});
 
 function handleSubmit(event) {

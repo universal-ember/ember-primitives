@@ -7,8 +7,6 @@ This helper enables typed access to services without a backing class or even a c
 ```gjs live preview 
 import { service } from 'ember-primitives';
 
-const { JSON } = globalThis;
-
 <template>
   {{#let (service 'router') as |router|}}
 

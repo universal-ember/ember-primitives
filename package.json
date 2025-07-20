@@ -20,9 +20,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.1",
-    "@glint/core": "1.5.2",
-    "@glint/environment-ember-loose": "1.5.2",
-    "@glint/environment-ember-template-imports": "1.5.2",
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.1.0",
     "ember-primitives": "workspace:^",
@@ -56,8 +53,6 @@
       ]
     },
     "overrides": {
-      "@glint/environment-ember-loose": "1.5.2",
-      "@glint/environment-ember-template-imports": "1.5.2",
       "@glimmer/component": "^2.0.0",
       "babel-plugin-ember-template-compilation": "^2.4.0",
       "ember-primitives": "workspace:^",
@@ -68,18 +63,11 @@
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {
-      "@embroider/util": {},
-      "@glimmer/component": {},
-      "@glint/template": {},
-      "ember-async-data": {},
-      "ember-cached-decorator-polyfill": {},
-      "ember-element-helper": {},
       "ember-mobile-menu": {
         "dependencies": {
           "ember-cached-decorator-polyfill": null
         }
       },
-      "ember-functions-as-helper-polyfill": {},
       "ember-modify-based-class-resource": {
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"
@@ -94,10 +82,7 @@
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"
         }
-      },
-      "ember-repl": {},
-      "ember-resources": {},
-      "tracked-toolbox": {}
+      }
     }
   }
 }

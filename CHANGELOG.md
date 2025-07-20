@@ -2,6 +2,16 @@
 
 ## Release (2025-07-20)
 
+
+
+#### :memo: Documentation
+* [#506](https://github.com/universal-ember/ember-primitives/pull/506) Remove globalThis hack ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-07-20)
+
 * ember-primitives 0.36.0 (minor)
 
 #### :rocket: Enhancement

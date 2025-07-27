@@ -115,7 +115,7 @@ importers:
         version: 4.2.2(@babel/core@7.27.7)
       ember-primitives:
         specifier: workspace:^
-        version: file:ember-primitives(886968bf70df109e5a8f94949a62bb58)
+        version: link:../ember-primitives
       ember-repl:
         specifier: ^6.0.0
         version: 6.0.0(195a05b01182dfe3c5bd09fac10054f9)
@@ -365,7 +365,7 @@ importers:
         version: 1.10.0
       '@embroider/macros':
         specifier: ^1.18.0
-        version: 1.18.0(a6fa8d0f1f3c894a01569e258197c230)
+        version: 1.18.1(a6fa8d0f1f3c894a01569e258197c230)
       '@floating-ui/dom':
         specifier: ^1.7.0
         version: 1.7.2
@@ -547,7 +547,7 @@ importers:
         version: 4.1.1(@glint/template@1.6.0-alpha.2)
       '@embroider/macros':
         specifier: ^1.18.0
-        version: 1.18.0(4b49a3d0953f9b96268aadc463dd7a3f)
+        version: 1.18.1(4b49a3d0953f9b96268aadc463dd7a3f)
       '@embroider/vite':
         specifier: ^1.1.5
         version: 1.1.5(3b10d99bcea1f653211ed264bff81706)

@@ -368,7 +368,7 @@ importers:
         version: 1.18.1(a6fa8d0f1f3c894a01569e258197c230)
       '@floating-ui/dom':
         specifier: ^1.7.0
-        version: 1.7.2
+        version: 1.7.3
       decorator-transforms:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.27.7)
@@ -553,7 +553,7 @@ importers:
         version: 1.1.5(3b10d99bcea1f653211ed264bff81706)
       '@floating-ui/dom':
         specifier: ^1.7.0
-        version: 1.7.2
+        version: 1.7.3
       '@glimmer/component':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1797,11 +1797,11 @@ packages:
     resolution: {integrity: sha512-1+WqvgNMhmlAambTvT3KPtCl/Ibr68VldY2XY40SL1CE0ZXiakFR/cbTspaF5HsnpDMvcYYoJHfl4980NBjGag==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@floating-ui/core@1.7.2':
-    resolution: {integrity: sha512-wNB5ooIKHQc+Kui96jE/n69rHFWAVoxn5CAzL1Xdd8FG03cgY3MLO+GF9U3W737fYDSgPWA6MReKhBQBop6Pcw==}
+  '@floating-ui/core@1.7.3':
+    resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
 
-  '@floating-ui/dom@1.7.2':
-    resolution: {integrity: sha512-7cfaOQuCS27HD7DX+6ib2OrnW+b4ZBwDNnCcT0uTyidcmyWb03FnQqJybDBoCnpdxwBSfA94UAYlRCt7mV+TbA==}
+  '@floating-ui/dom@1.7.3':
+    resolution: {integrity: sha512-uZA413QEpNuhtb3/iIKoYMSK07keHPYeXF02Zhd6e213j+d1NamLix/mCLxBUDW/Gx52sPH2m+chlUsyaBs/Ag==}
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
@@ -11333,13 +11333,13 @@ snapshots:
       '@eslint/core': 0.15.1
       levn: 0.4.1
 
-  '@floating-ui/core@1.7.2':
+  '@floating-ui/core@1.7.3':
     dependencies:
       '@floating-ui/utils': 0.2.10
 
-  '@floating-ui/dom@1.7.2':
+  '@floating-ui/dom@1.7.3':
     dependencies:
-      '@floating-ui/core': 1.7.2
+      '@floating-ui/core': 1.7.3
       '@floating-ui/utils': 0.2.10
 
   '@floating-ui/utils@0.2.10': {}
@@ -15309,7 +15309,7 @@ snapshots:
       '@ember/test-waiters': 4.1.0(4b49a3d0953f9b96268aadc463dd7a3f)
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1(4b49a3d0953f9b96268aadc463dd7a3f)
-      '@floating-ui/dom': 1.7.2
+      '@floating-ui/dom': 1.7.3
       '@glimmer/component': 2.0.0
       decorator-transforms: 2.3.0(@babel/core@7.27.7)
       ember-element-helper: 0.8.8
@@ -15335,7 +15335,7 @@ snapshots:
       '@ember/test-waiters': 4.1.0(a6fa8d0f1f3c894a01569e258197c230)
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1(a6fa8d0f1f3c894a01569e258197c230)
-      '@floating-ui/dom': 1.7.2
+      '@floating-ui/dom': 1.7.3
       '@glimmer/component': 2.0.0
       decorator-transforms: 2.3.0(@babel/core@7.27.7)
       ember-element-helper: 0.8.8

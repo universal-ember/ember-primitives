@@ -1,3 +1,5 @@
+import 'qunit-theme-ember/qunit.css';
+
 import { currentRouteName, currentURL, getSettledState, setApplication } from '@ember/test-helpers';
 import { getPendingWaiterState } from '@ember/test-waiters';
 import * as QUnit from 'qunit';

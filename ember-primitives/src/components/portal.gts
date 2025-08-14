@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { assert } from "@ember/debug";
 
 import { modifier } from "ember-modifier";
@@ -15,8 +16,9 @@ export interface Signature {
      * The name of the PortalTarget to render in to.
      * This is the value of the `data-portal-name` attribute
      * of the element you wish to render in to.
+     *
+     * This can also be an Element which pairs nicely with query-utilities such as `wormhole`, or the platform-native `querySelector`
      */
-    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     to: (Targets | (string & {})) | Element;
 
     /**

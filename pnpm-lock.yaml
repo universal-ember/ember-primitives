@@ -671,6 +671,9 @@ importers:
       qunit-dom:
         specifier: ^3.2.1
         version: 3.4.0
+      qunit-theme-ember:
+        specifier: ^1.0.0
+        version: 1.0.0
       read-package-up:
         specifier: ^11.0.0
         version: 11.0.0

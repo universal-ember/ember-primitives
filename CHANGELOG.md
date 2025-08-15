@@ -1,5 +1,23 @@
 # Changelog 
 
+## Release (2025-08-15)
+
+* ember-primitives 0.37.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#514](https://github.com/universal-ember/ember-primitives/pull/514) Improvements to portals (pattern for ember-wormhole migration, elemnt support, @append support) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* [#506](https://github.com/universal-ember/ember-primitives/pull/506) Remove globalThis hack ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-primitives`
+  * [#515](https://github.com/universal-ember/ember-primitives/pull/515) Update lints ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-07-20)
 
 * ember-primitives 0.36.0 (minor)

@@ -61,11 +61,11 @@ async function run() {
 }
 
 function turbo(cmd) {
-  let args = ['turbo', '--color', '--no-update-notifier', '--output-logs', 'errors-only', cmd];
+  const args = ['turbo', '--color', '--no-update-notifier', '--output-logs', 'errors-only', cmd];
 
   console.info(chalk.blueBright('Running:\n', args.join(' ')));
 
-  return execa('pnpm', args, { stdio: 'inherit', env: { FORCE_COLOR: '1' } });
+  return execa('pnpm', args, { shell: true, stdio: 'inherit', env: { FORCE_COLOR: '1' } });
 }
 
 async function dumpErrorLog(e) {

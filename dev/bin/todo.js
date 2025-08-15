@@ -2,14 +2,14 @@
 import { execa } from 'execa';
 
 async function pending(command) {
-  let { stdout } = await execa('pnpm', ['turbo', 'run', command, '--dry-run=json']);
+  const { stdout } = await execa('pnpm', ['turbo', 'run', command, '--dry-run=json']);
 
-  let json = JSON.parse(stdout);
-  let tasks = json.tasks;
+  const json = JSON.parse(stdout);
+  const tasks = json.tasks;
 
-  let result = {};
+  const result = {};
 
-  for (let task of tasks) {
+  for (const task of tasks) {
     if (task.task === command) {
       result[task.package] = task.cache.status === 'MISS';
     }
@@ -25,9 +25,9 @@ async function pending(command) {
  * is determined by the turbo.json
  */
 async function gather() {
-  let lint = await pending('_:lint');
-  let test = await pending('test');
-  let typecheck = await pending('lint:types');
+  const lint = await pending('_:lint');
+  const test = await pending('test');
+  const typecheck = await pending('lint:types');
 
   console.info(
     JSON.stringify({

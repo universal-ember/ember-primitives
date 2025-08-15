@@ -72,7 +72,7 @@
     "@glint/environment-ember-loose": "1.5.2",
     "@glint/environment-ember-template-imports": "1.5.2",
     "@glint/template": "1.5.2",
-    "@nullvoxpopuli/eslint-configs": "^5.1.2",
+    "@nullvoxpopuli/eslint-configs": "^5.3.3",
     "@rollup/plugin-babel": "^6.0.4",
     "@tailwindcss/typography": "^0.5.15",
     "@tsconfig/ember": "^3.0.5",

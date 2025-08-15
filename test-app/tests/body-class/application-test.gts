@@ -3,9 +3,9 @@
  * - https://github.com/ef4/ember-set-body-class/blob/master/tests/acceptance/test-bleed-test.js
  * - https://github.com/ef4/ember-set-body-class/blob/master/tests/acceptance/index-test.js
  */
-import { click, fillIn, render, settled, visit } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { setupApplicationTest, setupRenderingTest } from 'ember-qunit';
+import { setupRenderingTest } from 'ember-qunit';
 
 import { bodyClass } from 'ember-primitives/helpers/body-class';
 import { cell } from 'ember-resources';

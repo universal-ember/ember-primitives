@@ -120,7 +120,7 @@
         "lint:published-types"
       ]
     },
-    "lint:js": { "outputs": [] },
+    "lint:js": { "outputs": [], "dependsOn": ["^build"] },
     "lint:hbs": { "outputs": [] },
     "lint:prettier": { "outputs": [] },
     "lint:types": { "outputs": [], "dependsOn": ["_syncPnpm"] },

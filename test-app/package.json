@@ -54,7 +54,7 @@
     "@glint/environment-ember-template-imports": "alpha",
     "@glint/template": "alpha",
     "@glint/tsserver-plugin": "alpha",
-    "@nullvoxpopuli/eslint-configs": "^5.1.2",
+    "@nullvoxpopuli/eslint-configs": "^5.3.3",
     "@rollup/plugin-babel": "^6.0.4",
     "@types/eslint__js": "^8.42.3",
     "@types/qunit": "^2.19.10",

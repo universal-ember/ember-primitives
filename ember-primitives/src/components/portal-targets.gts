@@ -1,5 +1,7 @@
 import { assert } from "@ember/debug";
 import { isDevelopingApp, macroCondition } from "@embroider/macros";
+import { modifier } from "ember-modifier";
+import { TrackedSet } from "tracked-built-ins";
 
 import type { TOC } from "@ember/component/template-only";
 
@@ -28,20 +30,36 @@ export function findNearestTarget(origin: Element, name: string) {
     (window as any).prime0 = origin;
   }
 
-  assert(
-    `Could not find element by the given name: \`${name}\`.` +
-      ` The known names are ` +
-      `${Object.values(TARGETS).join(", ")} ` +
-      `-- but any name will work as long as it is set to the \`data-portal-name\` attribute. ` +
-      `Double check that the element you're wanting to portal to is rendered. ` +
-      `The element passed to \`findNearestTarget\` is stored on \`window.prime0\` ` +
-      `You can debug in your browser's console via ` +
-      `\`document.querySelector('[data-portal-name="${name}"]')\``,
-    element,
-  );
+  if (name.startsWith("ember-primitives")) {
+    assert(
+      `Could not find element by the given name: \`${name}\`.` +
+        ` The known names are ` +
+        `${Object.values(TARGETS).join(", ")} ` +
+        `-- but any name will work as long as it is set to the \`data-portal-name\` attribute. ` +
+        `Double check that the element you're wanting to portal to is rendered. ` +
+        `The element passed to \`findNearestTarget\` is stored on \`window.prime0\` ` +
+        `You can debug in your browser's console via ` +
+        `\`document.querySelector('[data-portal-name="${name}"]')\``,
+      element,
+    );
+  }
 
   return element;
 }
+
+const cache = new Map<string, Set<Element>>();
+const registry = modifier((element, [name]) => {
+  let existing = cache.get(name);
+  if (!existing) {
+    existing = new TrackedSet();
+    cache.set(name, existing);
+  }
+  existing.push(element);
+
+  return () => {
+    cache.delete(name);
+  };
+});
 
 export interface Signature {
   Element: null;
@@ -51,6 +69,20 @@ export const PortalTargets: TOC<Signature> = <template>
   <div data-portal-name={{TARGETS.popover}}></div>
   <div data-portal-name={{TARGETS.tooltip}}></div>
   <div data-portal-name={{TARGETS.modal}}></div>
+</template>;
+
+export const PortalTarget: TOC<{
+  Element: HTMLDivElement;
+  Args: {
+    /**
+     * The name of the PortalTarget
+     *
+     * This exact string may be passed to `Portal`'s `@to` argument.
+     */
+    name: string;
+  };
+}> = <template>
+  <div {{register @name}} ...attributes></div>
 </template>;
 
 export default PortalTargets;

@@ -9,3 +9,8 @@ export function uniqueId(): string {
     ((a * 4) ^ ((Math.random() * 16) >> (a & 2))).toString(16)
   );
 }
+
+export function isNewable(x: any): x is new (...args: unknown[]) => NonNullable<object> {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return x.prototype?.constructor === x;
+}

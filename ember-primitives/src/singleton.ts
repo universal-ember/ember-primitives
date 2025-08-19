@@ -1,10 +1,13 @@
 import { link } from 'reactiveweb/link';
 
-const ownerCache = new WeakMap();
+import { isNewable } from './utils.ts';
+
+import type { Newable } from './type-utils.ts';
 
 /**
- *
+ * context => { class => instance }
  */
+const contextCache = new WeakMap<object, Map<object, object>>();
 
 /**
  * Creates a singleton for the given context and links the lifetime of the created class to the passed context
@@ -25,6 +28,9 @@ const ownerCache = new WeakMap();
  *
  *   // or
  *   bar = createSingleton(this, MyState);
+ *
+ *  // or
+ *  three = createSingleton(this, () => new MyState(1, 2));
  * }
  * ```
  *
@@ -40,20 +46,23 @@ const ownerCache = new WeakMap();
  * }
  * ```
  */
-export function createSingleton(context: object, theClass) {
-  let cache = ownerCache.get(context);
+export function createSingleton<Instance extends object>(
+  context: object,
+  theClass: Newable<Instance> | (() => Instance)
+) {
+  let cache = contextCache.get(context);
 
   if (!cache) {
     cache = new Map();
-    ownerCache.set(context, cache);
+    contextCache.set(context, cache);
   }
 
   let existing = cache.get(theClass);
 
   if (!existing) {
-    const instance = new theClass();
+    const instance = isNewable(theClass) ? new theClass() : theClass();
 
-    link(consumer, context);
+    link(instance, context);
 
     cache.set(theClass, instance);
     existing = instance;

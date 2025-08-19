@@ -1,0 +1,63 @@
+import { link } from 'reactiveweb/link';
+
+const ownerCache = new WeakMap();
+
+/**
+ *
+ */
+
+/**
+ * Creates a singleton for the given context and links the lifetime of the created class to the passed context
+ *
+ * Note that this function is _not_ lazy. Calling `createSingleton` will create an instance of the passed class.
+ * When combined with a getter though, creation becomes lazy.
+ *
+ * In this example, `MyState` is created once per instance of the component.
+ * repeat accesses to `this.foo` return a stable reference _as if_ `@cached` were used.
+ * ```js
+ * class MyState {}
+ *
+ * class Demo extends Component {
+ *   // this is a stable reference
+ *   get foo() {
+ *     return createSingleton(this, MyState);
+ *   }
+ *
+ *   // or
+ *   bar = createSingleton(this, MyState);
+ * }
+ * ```
+ *
+ * If arguments need to be configured during construction, the second argument may also be a function
+ * ```js
+ * class MyState {}
+ *
+ * class Demo extends Component {
+ *   // this is a stable reference
+ *   get foo() {
+ *     return createSingleton(this, MyState);
+ *   }
+ * }
+ * ```
+ */
+export function createSingleton(context: object, theClass) {
+  let cache = ownerCache.get(context);
+
+  if (!cache) {
+    cache = new Map();
+    ownerCache.set(context, cache);
+  }
+
+  let existing = cache.get(theClass);
+
+  if (!existing) {
+    const instance = new theClass();
+
+    link(consumer, context);
+
+    cache.set(theClass, instance);
+    existing = instance;
+  }
+
+  return existing;
+}

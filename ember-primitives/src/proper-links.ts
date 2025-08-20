@@ -4,12 +4,11 @@ import { getOwner } from '@ember/owner';
 
 import { getAnchor, shouldHandle } from 'should-handle-link';
 
+import type { Newable } from './type-utils.ts';
 import type EmberRouter from '@ember/routing/router';
 import type RouterService from '@ember/routing/router-service';
 
 export { shouldHandle } from 'should-handle-link';
-
-type Constructor<T extends object = object> = { new (...args: any[]): T };
 
 export interface Options {
   ignore?: string[];
@@ -54,7 +53,7 @@ export function properLinks<Instance extends object, Klass = { new (...args: any
 
   assert(`klass was not defined. possibile incorrect arity given to properLinks`, klass);
 
-  return class RouterWithProperLinks extends (klass as unknown as Constructor<EmberRouter>) {
+  return class RouterWithProperLinks extends (klass as unknown as Newable<EmberRouter>) {
     // SAFETY: we literally do not care about the args' type here,
     //         because we just call super
     constructor(...args: any[]) {

@@ -44,7 +44,7 @@ module('Unit | createStore', function (hooks) {
   test('can use a functor', function (assert) {
     class Demo {
       declare num: number;
-      constructor(num) {
+      constructor(num: number) {
         this.num = num;
       }
     }
@@ -57,7 +57,7 @@ module('Unit | createStore', function (hooks) {
   test('different functors are cached separately', function (assert) {
     class Demo {
       declare num: number;
-      constructor(num) {
+      constructor(num: number) {
         this.num = num;
       }
     }

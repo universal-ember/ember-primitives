@@ -57,6 +57,7 @@ export function properLinks<Instance extends object, Klass = { new (...args: any
     // SAFETY: we literally do not care about the args' type here,
     //         because we just call super
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
 
       setup(this, ignore);

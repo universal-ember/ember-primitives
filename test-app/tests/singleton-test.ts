@@ -6,15 +6,72 @@ import { createSingleton } from 'ember-primitives/singleton';
 module('Unit | createSingleton', function (hooks) {
   setupTest(hooks);
 
-  class Demo {
-    two = 2;
-  }
-
   test('it works', function (assert) {
+    class Demo {
+      two = 2;
+    }
+
     const instance = createSingleton(this, Demo);
 
     assert.strictEqual(instance.two, 2);
 
-    assert.strictEqual(createSingleton(this, Demo), instance);
+    assert.strictEqual(createSingleton(this, Demo), instance, 'is the same instance');
+  });
+
+  test('can be lazy', function (assert) {
+    class Demo {
+      two = 2;
+
+      constructor() {
+        assert.step('created');
+      }
+    }
+    class Host {
+      get foo() {
+        return createSingleton(this, Demo).two;
+      }
+    }
+
+    const instance = new Host();
+
+    assert.verifySteps([]);
+
+    assert.strictEqual(instance.foo, 2);
+
+    assert.verifySteps(['created']);
+  });
+
+  test('can use a functor', function (assert) {
+    class Demo {
+      declare num: number;
+      constructor(num) {
+        this.num = num;
+      }
+    }
+
+    const instance = createSingleton(this, () => new Demo(3));
+
+    assert.strictEqual(instance.num, 3);
+  });
+
+  test('different functors are cached separately', function (assert) {
+    class Demo {
+      declare num: number;
+      constructor(num) {
+        this.num = num;
+      }
+    }
+
+    const instance3 = createSingleton(this, () => new Demo(3));
+    const instance2 = createSingleton(this, () => new Demo(2));
+    const instance2again = createSingleton(this, () => new Demo(2));
+
+    assert.notStrictEqual(instance3.num, instance2.num, 'intatiated differently');
+    assert.strictEqual(instance2again.num, instance2.num, 'contents *can* match tho');
+    assert.notStrictEqual(
+      instance2again,
+      instance2,
+      'instances do not match (because every arrow function is unique)'
+    );
   });
 });

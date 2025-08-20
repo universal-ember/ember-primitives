@@ -49,7 +49,7 @@ const contextCache = new WeakMap<object, Map<object, object>>();
 export function createSingleton<Instance extends object>(
   context: object,
   theClass: Newable<Instance> | (() => Instance)
-) {
+): Instance {
   let cache = contextCache.get(context);
 
   if (!cache) {
@@ -68,5 +68,5 @@ export function createSingleton<Instance extends object>(
     existing = instance;
   }
 
-  return existing;
+  return existing as Instance;
 }

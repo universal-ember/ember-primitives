@@ -12,6 +12,8 @@ Ownership and destroyable linkage is handled (via [`link`][reactiveweb-link]).
 pnpm add ember-primitives
 ```
 
+Introduced in [0.38.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.38.0-ember-primitives)
+
 ## Usage
 
  In this example, `MyState` is created once per instance of the component.

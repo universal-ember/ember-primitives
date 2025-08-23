@@ -68,3 +68,33 @@ import { PortalTargets } from 'ember-primitives/components/portal-targets';
   <PortalTargets />
 </template>
 ```
+
+## API Reference
+
+### `PortalTargets`
+
+```gjs live no-shadow
+import { ComponentSignature } from 'kolay';
+
+<template>
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/portal-targets" 
+    @name="Signature" 
+  />
+</template>
+```
+
+### `PortalTarget`
+
+```gjs live no-shadow
+import { ComponentSignature } from 'kolay';
+
+<template>
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/portal-targets" 
+    @name="PortalTarget" 
+  />
+</template>
+```

@@ -105,7 +105,7 @@ const anchor = modifier(
   },
 );
 
-const ElementValue = () => cell<Element | ShadowRoot | null>();
+const ElementValue = () => cell<Element | ShadowRoot | null | undefined>();
 
 const waiter = buildWaiter("ember-primitives:portal");
 

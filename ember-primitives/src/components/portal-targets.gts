@@ -1,5 +1,6 @@
 import { assert } from "@ember/debug";
 import { isDevelopingApp, macroCondition } from "@embroider/macros";
+
 import { modifier } from "ember-modifier";
 import { TrackedSet } from "tracked-built-ins";
 
@@ -48,13 +49,15 @@ export function findNearestTarget(origin: Element, name: string) {
 }
 
 const cache = new Map<string, Set<Element>>();
-const registry = modifier((element, [name]) => {
+const register = modifier((element, [name]: [name: string]) => {
   let existing = cache.get(name);
+
   if (!existing) {
     existing = new TrackedSet();
     cache.set(name, existing);
   }
-  existing.push(element);
+
+  existing.add(element);
 
   return () => {
     cache.delete(name);

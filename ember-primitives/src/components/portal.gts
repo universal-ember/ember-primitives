@@ -105,7 +105,7 @@ const anchor = modifier(
   },
 );
 
-const ElementValue = () => cell<Element | ShadowRoot>();
+const ElementValue = () => cell<Element | ShadowRoot | null>();
 
 const waiter = buildWaiter("ember-primitives:portal");
 
@@ -121,7 +121,7 @@ function wormholeCompat(selector: string | Element) {
 
     // eslint-disable-next-line ember/no-runloop
     schedule("afterRender", () => {
-      let result = wormhole(selector);
+      const result = wormhole(selector);
 
       waiter.endAsync(token);
       target.current = result;

@@ -4,6 +4,8 @@ A `<Portal>` allows teleporting elements to another place in the DOM tree. This 
 
 `<Portal>` must be combined with `<PortalTargets>`, or your own portal targets that match the requirements of portalling.  Additionally, a `<Portal>` will render in to the nearest `<PortalTargets>` it can find, allowing for UI layering, e.g.: Modals have their own `<PortalTargets>` so they can have their own tooltips and popovers.
 
+<h2 visually-hidden>Usage</h2>
+
 The following example demonstrates this Portal-nesting:
 
 <div class="featured-demo">
@@ -63,6 +65,7 @@ import { Portal } from 'ember-primitives/components/portal';
 ```
 
 </div>
+
 
 ### Why not just `in-element`?
 

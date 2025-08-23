@@ -38,7 +38,9 @@ export function findNearestTarget(origin: Element, name: string): Element | unde
     });
   }
 
-  const selector = Object.values(TARGETS).includes(name) ? `[data-portal-name=${name}]` : name;
+  const selector = Object.values(TARGETS as Record<string, string>).includes(name)
+    ? `[data-portal-name=${name}]`
+    : name;
 
   /**
    * Default portals / non-registered -- here we match a query selector instead of an element

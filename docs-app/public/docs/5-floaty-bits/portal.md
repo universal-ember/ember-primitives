@@ -15,20 +15,20 @@ import { Portal } from 'ember-primitives/components/portal';
   <div class="style-wrapper">
     <div data-portal-target></div>
 
-    main content
+    <button>main content</button>
 
     <Portal @to="[data-portal-target]">
-      <div class="first">
+      <div class="popover">
         <div data-portal-target></div>
         first layer
 
         <Portal @to="[data-portal-target]">
-          <div class="second">
+          <div class="popover">
             <div data-portal-target></div>
             second layer 
 
             <Portal @to="[data-portal-target]">
-              <div class="third">
+              <div class="popover">
                 tooltip / third layer
               </div>
             </Portal>
@@ -40,15 +40,19 @@ import { Portal } from 'ember-primitives/components/portal';
   </div>
 
   <style>
-    .first, .second, .third {
+    .popover {
       position: absolute;
       width: max-content;
       border: 1px solid;
       padding: 1rem;
+      color: black;
       margin: 1.25rem;
       background: #fefefe;
       filter: invert(1)  drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
       border-radius: 4px;
+    }
+    .button {
+      padding: 0.5rem 1rem;
     }
     .style-wrapper { 
       height: 100px;

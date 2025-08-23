@@ -2,7 +2,7 @@ import { assert } from "@ember/debug";
 import { isDevelopingApp, macroCondition } from "@embroider/macros";
 
 import { modifier } from "ember-modifier";
-import { TrackedSet, TrackedMap } from "tracked-built-ins";
+import { TrackedMap, TrackedSet } from "tracked-built-ins";
 
 import type { TOC } from "@ember/component/template-only";
 
@@ -36,12 +36,15 @@ export function findNearestTarget(origin: Element, name: string): Element | unde
     });
   }
 
+  const selector = Object.values(TARGETS).includes(name) ? `[data-portal-name=${name}]` : name;
+
   /**
    * Default portals / non-registered -- here we match a query selector instead of an element
    */
   function findDefault(host: ParentNode): Element | undefined {
-    return host.querySelector(`[data-portal-name=${name}]`) as Element;
+    return host.querySelector(selector) as Element;
   }
+
   const finder = manuallyRegistered ? findRegistered : findDefault;
 
   /**
@@ -84,6 +87,7 @@ const register = modifier((element: Element, [name]: [name: string]) => {
     await 0;
 
     let existing = cache.get(name);
+
     if (!existing) {
       existing = new TrackedSet<Element>();
       cache.set(name, existing);

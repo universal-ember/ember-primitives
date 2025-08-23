@@ -125,7 +125,10 @@ function wormholeCompat(selector: string | Element) {
 
       waiter.endAsync(token);
       target.current = result;
-      assert(`Could not find element with id/selector \`${selector}\``, result);
+      assert(
+        `Could not find element with id/selector \`${typeof selector === "string" ? selecter : "<Element>"}\``,
+        result,
+      );
     });
 
     return () => target.current;

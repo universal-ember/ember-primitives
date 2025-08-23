@@ -23,7 +23,9 @@ export function findNearestTarget(origin: Element, name: string): Element | unde
   let parent = origin.parentNode;
 
   const manuallyRegisteredSet = cache.get(name);
-  const manuallyRegistered = manuallyRegisteredSet?.size ? [...manuallyRegisteredSet] : null;
+  const manuallyRegistered: Element[] | null = manuallyRegisteredSet?.size
+    ? [...manuallyRegisteredSet]
+    : null;
 
   /**
    * For use with <PortalTarget @name="hi" />
@@ -65,7 +67,6 @@ export function findNearestTarget(origin: Element, name: string): Element | unde
     assert(
       `Could not find element by the given name: \`${name}\`.` +
         ` The known names are ` +
-        (manuallyRegistered ? `${manuallyRegistered.join(", ")}, ` : "") +
         `${Object.values(TARGETS).join(", ")} ` +
         `-- but any name will work as long as it is set to the \`data-portal-name\` attribute ` +
         `(or if the name has been specifically registered via the <PortalTarget /> component). ` +
@@ -83,7 +84,9 @@ export function findNearestTarget(origin: Element, name: string): Element | unde
 const register = modifier((element: Element, [name]: [name: string]) => {
   assert(`@name is required when using <PortalTarget>`, name);
 
-  (async () => {
+  void (async () => {
+    // Bad TypeScript lint.
+    // eslint-disable-next-line @typescript-eslint/await-thenable
     await 0;
 
     let existing = cache.get(name);

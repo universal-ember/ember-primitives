@@ -10,25 +10,24 @@ The following example demonstrates this Portal-nesting:
 
 ```gjs live preview
 import { Portal } from 'ember-primitives/components/portal';
-import { PortalTargets, PORTALS } from 'ember-primitives/components/portal-targets';
 
 <template>
   <div class="style-wrapper">
-    <PortalTargets />
+    <div data-portal-target></div>
 
     main content
 
-    <Portal @to={{PORTALS.popover}}>
+    <Portal @to="[data-portal-target]">
       <div class="first">
-        <PortalTargets />
+        <div data-portal-target></div>
         first layer
 
-        <Portal @to={{PORTALS.popover}}>
+        <Portal @to="[data-portal-target]">
           <div class="second">
-            <PortalTargets />
+            <div data-portal-target></div>
             second layer 
 
-            <Portal @to={{PORTALS.tooltip}}>
+            <Portal @to="[data-portal-target]">
               <div class="third">
                 tooltip / third layer
               </div>

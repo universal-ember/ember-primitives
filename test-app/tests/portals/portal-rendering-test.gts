@@ -1,5 +1,5 @@
 import { render, setupOnerror } from '@ember/test-helpers';
-import { module, test } from 'qunit';
+import { module, skip, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { Portal, PORTALS, PortalTargets } from 'ember-primitives';
@@ -7,7 +7,14 @@ import { Portal, PORTALS, PortalTargets } from 'ember-primitives';
 module('Rendering | <Portal>', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('errors without an existing portal target', async function (assert) {
+  /**
+   * We used to throw when there was no matching portal target.
+   * But it's not safe to do so anymore.
+   *
+   * This is because we now support Reactive <PortalTarget>s
+   * which can pop in and pop out at any time.
+   */
+  skip('errors without an existing portal target', async function (assert) {
     setupOnerror((error) => {
       assert.matches(error.message, /Could not find element by the given name: `does-not-exist`/);
     });
@@ -32,6 +39,52 @@ module('Rendering | <Portal>', function (hooks) {
     );
 
     assert.dom(`[data-portal-name="${PORTALS.popover}"]`).hasText('content');
+  });
+
+  test('Portals can nest with nested targets', async function (assert) {
+    await render(
+      <template>
+        <PortalTargets />
+
+        main content
+
+        <div class="first-outer">
+          <Portal @to={{PORTALS.popover}}>
+            <div class="first">
+              <PortalTargets />
+              first layer
+
+              <div class="second-outer">
+                <Portal @to={{PORTALS.popover}}>
+                  <div class="second">
+                    <PortalTargets />
+                    second layer
+
+                    <div class="third-outer">
+                      <Portal @to={{PORTALS.tooltip}}>
+                        <div class="third">
+                          tooltip / third layer
+                        </div>
+                      </Portal>
+                    </div>
+                  </div>
+                </Portal>
+              </div>
+
+            </div>
+          </Portal>
+        </div>
+      </template>
+    );
+
+    assert.dom().containsText('main content');
+    assert.dom().containsText('first layer');
+    assert.dom().containsText('second layer');
+    assert.dom().containsText('tooltip / third layer');
+
+    assert.dom('.third-outer').doesNotContainText('tooltip / third layer');
+    assert.dom('.second-outer').doesNotContainText('second layer');
+    assert.dom('.first-outer').doesNotContainText('first layer');
   });
 
   module('@append', function () {

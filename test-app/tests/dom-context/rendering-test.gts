@@ -1,7 +1,7 @@
 import { skip, module, test } from 'qunit';
 import { tracked } from '@glimmer/tracking';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, settled, setupOnerror } from '@ember/test-helpers';
+import { click, render, settled, setupOnerror } from '@ember/test-helpers';
 
 import { Provide, Consume } from 'ember-primitives/dom-context';
 
@@ -170,5 +170,63 @@ module('Rendering | DOM Context', function (hooks) {
     await settled();
 
     assert.verifySteps(['first, 1', 'second, 1']);
+  });
+
+  test('@data can be a class', async function (assert) {
+    class Data {
+      @tracked count = 0;
+      increment = () => this.count++;
+    }
+
+    const step = (...x: unknown[]) => assert.step(x.join(', '));
+
+    await render(
+      <template>
+        <Provide @data={{Data}}>
+          <Consume @key={{Data}} as |context|>
+            {{step context.data.count}}
+
+            <button onclick={{context.data.increment}}>++</button>
+          </Consume>
+        </Provide>
+      </template>
+    );
+
+    assert.verifySteps(['0']);
+
+    await click('button');
+
+    assert.verifySteps(['1']);
+  });
+
+  test('@data can be a function', async function (assert) {
+    function data() {
+      class Data {
+        @tracked count = 0;
+        increment = () => this.count++;
+      }
+
+      return new Data();
+    }
+
+    const step = (...x: unknown[]) => assert.step(x.join(', '));
+
+    await render(
+      <template>
+        <Provide @data={{data}}>
+          <Consume @key={{data}} as |context|>
+            {{step context.data.count}}
+
+            <button onclick={{context.data.increment}}>++</button>
+          </Consume>
+        </Provide>
+      </template>
+    );
+
+    assert.verifySteps(['0']);
+
+    await click('button');
+
+    assert.verifySteps(['1']);
   });
 });

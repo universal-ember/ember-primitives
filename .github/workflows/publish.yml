@@ -23,7 +23,7 @@ jobs:
       command: ${{ steps.check-release.outputs.command }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: 'main'
@@ -43,7 +43,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: wyvox/action-setup-pnpm@v3
         with:
           # This creates an .npmrc that reads the NODE_AUTH_TOKEN environment variable

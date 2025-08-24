@@ -4,6 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { click, render, settled, setupOnerror } from '@ember/test-helpers';
 
 import { Provide, Consume } from 'ember-primitives/dom-context';
+import type { TOC } from '@ember/component/template-only';
 
 module('Rendering | DOM Context', function (hooks) {
   setupRenderingTest(hooks);
@@ -84,6 +85,49 @@ module('Rendering | DOM Context', function (hooks) {
         </Provide>
       </template>
     );
+  });
+
+  test('multiple providers are independent', async function (assert) {
+    class Incrementer {
+      @tracked count = 2;
+      doit = () => this.count++;
+    }
+
+    class Doubler {
+      @tracked count = 2;
+      doit = () => (this.count *= 2);
+    }
+
+    const step = (...x: unknown[]) => assert.step(x.join(':'));
+
+    const Consumer: TOC<{ name: string }> = <template>
+      <div data-name={{@name}}>
+        <Consume @key="store" as |context|>
+          {{step @name context.data.count}}
+          <button onclick={{context.data.doit}}>do it</button>
+        </Consume>
+      </div>
+    </template>;
+
+    await render(
+      <template>
+        <Provide @data={{Incrementer}} @key="store">
+          <Consumer @name="inc" />
+        </Provide>
+
+        <Provide @data={{Doubler}} @key="store">
+          <Consumer @name="double" />
+        </Provide>
+      </template>
+    );
+
+    assert.verifySteps(['inc:2', 'double:2']);
+
+    await click('[data-name="inc"] button');
+    assert.verifySteps(['inc:3']);
+
+    await click('[data-name="double"] button');
+    assert.verifySteps(['double:4']);
   });
 
   test('with the same key, we can nest providers', async function (assert) {

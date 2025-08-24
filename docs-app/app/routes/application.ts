@@ -51,6 +51,7 @@ export default class Application extends Route {
           'ember-primitives/components/portal-targets': import(
             'ember-primitives/components/portal-targets'
           ),
+          'ember-primitives/dom-context': import('ember-primitives/dom-context'),
 
           // community libraries
           'ember-resources': import('ember-resources'),

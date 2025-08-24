@@ -4,7 +4,7 @@ import { click, render, settled, setupOnerror } from '@ember/test-helpers';
 import { module, skip, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import { Consume,Provide } from 'ember-primitives/dom-context';
+import { Consume, Provide } from 'ember-primitives/dom-context';
 
 import type { TOC } from '@ember/component/template-only';
 

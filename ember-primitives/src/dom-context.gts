@@ -1,12 +1,12 @@
 import Component from "@glimmer/component";
+import { cached, tracked } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
-import { modifier } from "ember-modifier";
-import { tracked, cached } from "@glimmer/tracking";
 
+import { modifier } from "ember-modifier";
 import { createStore } from "ember-primitives/store";
 
-import type Owner from "@ember/owner";
 import type { Newable } from "./type-utils";
+import type Owner from "@ember/owner";
 
 /**
  * IMPLEMENTATION NOTE:
@@ -113,24 +113,32 @@ function findForKey<Data>(startElement: Element, key: string | object): undefine
   }
 }
 
-export class Consume<Data extends object | string> extends Component<{
+type DataForKey<Key> = Key extends string
+  ? unknown
+  : Key extends Newable<infer T>
+    ? T
+    : Key extends () => infer T
+      ? T
+      : Key;
+
+export class Consume<Key extends object | string> extends Component<{
   Args: {
-    key: typeof Data;
+    key: Key;
   };
   Blocks: {
     default: [
       context: {
-        data: Data extends string ? unknown : Data;
+        data: DataForKey<Key>;
       },
     ];
   };
 }> {
   // SAFETY: We do a runtime assert in the getter below.
-  @tracked getData!: () => Data;
+  @tracked getData!: () => DataForKey<Key>;
 
   element: HTMLDivElement;
 
-  constructor(owner: Owner, args: { key: Data }) {
+  constructor(owner: Owner, args: { key: Key }) {
     super(owner, args);
 
     this.element = document.createElement("div");
@@ -143,8 +151,8 @@ export class Consume<Data extends object | string> extends Component<{
     const self = this;
 
     return {
-      get data(): Data extends string ? unknown : Data {
-        const getData = findForKey<Data>(self.element, self.args.key);
+      get data(): DataForKey<Key> {
+        const getData = findForKey<Key>(self.element, self.args.key);
 
         assert(
           `Could not find provided context in <Consume>. Please assure that there is a corresponding <Provide> component before using this <Consume> component`,

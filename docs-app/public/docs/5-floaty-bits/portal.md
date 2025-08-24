@@ -2,11 +2,11 @@
 
 A `<Portal>` allows teleporting elements to another place in the DOM tree. This can be used for components altering the layout of the page, or getting around z-index issues with modals, popovers, etc.
 
-`<Portal>` must be combined with `<PortalTargets>`, or your own portal targets that match the requirements of portalling.  Additionally, a `<Portal>` will render in to the nearest `<PortalTargets>` it can find, allowing for UI layering, e.g.: Modals have their own `<PortalTargets>` so they can have their own tooltips and popovers.
+`<Portal>` must be combined with `<PortalTargets>`, or your own portal targets that match the requirements of portalling.  Additionally, a `<Portal>` will render in to the nearest `<PortalTargets>` it can find, allowing for UI layering, e.g.: Modals have their own `<PortalTargets>` so they can have their own tooltips and popovers.  _For use with popovers_, this portalling can be a way to support [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) on older browsers. But there are many other use cases outside of popovers as well.
 
 <h2 visually-hidden>Usage</h2>
 
-The following example demonstrates this Portal-nesting:
+The following example demonstrates Portal-nesting:
 
 <div class="featured-demo">
 
@@ -66,6 +66,86 @@ import { Portal } from 'ember-primitives/components/portal';
 
 </div>
 
+<Callout>
+
+When using a popover pattern, you'll want to use the native [`popover`](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using#nested_popovers) capabilities of browsers. When coupled with [Floating UI](/5-floaty-bits/floating-ui.md), you also can correctly position a popover to a target element.
+
+</Callout>
+
+### Component-controlled Layout
+
+Using Portals enables you to be able to have sub-components (or even sub-routes render into elements that live outside of their hierarchy. 
+
+<div class="featured-demo">
+
+```gjs live preview
+import { Portal } from 'ember-primitives/components/portal';
+
+
+<template>
+  <div class="layout">
+    <div class="header-container"></div>
+    <div class="main-container"></div>
+    <div class="sidebar-container"></div>
+    <div class="footer-container"></div>
+  </div>
+
+  <ExampleA />
+  <ExampleB />
+  {{!-- or yield or outlet --}}
+
+  <style>
+    .header-container { grid-area: header; }
+    .main-container { grid-area: main; }
+    .sidebar-container { grid-area: sidebar; }
+    .footer-container { grid-area: footer; }
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 50px 1fr;
+      grid-template-rows: auto;
+      grid-template-areas: 
+        "header header header header"
+        "main main . sidebar"
+        "footer footer footer footer";
+      gap: 0.5rem;
+    }
+
+
+    .header-container, .main-container, .sidebar-container, .footer-container {
+      border: 1px solid;
+    }
+  </style>
+</template>
+
+// Var used for hoisting, so that the 
+// layout component can be seen first
+var ExampleA = <template>
+  <Portal @to=".main-container" @append={{true}}>
+    ExampleA main
+  </Portal>
+  <Portal @to=".header-container" @append={{true}}>
+    ExampleA header
+  </Portal>
+  <Portal @to=".sidebar-container" @append={{true}}>
+    ExampleA sidebar
+  </Portal>
+</template>;
+
+
+var ExampleB = <template>
+  <Portal @to=".main-container" @append={{true}}>
+    ExampleB main
+  </Portal>
+  <Portal @to=".sidebar-container" @append={{true}}>
+    ExampleB sidebar
+  </Portal>
+  <Portal @to=".footer-container" @append={{true}}>
+    ExampleB footer
+  </Portal>
+</template>;
+```
+
+</div>
 
 ### Why not just `in-element`?
 

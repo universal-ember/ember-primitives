@@ -1,10 +1,11 @@
-import { skip, module, test } from 'qunit';
-import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
-import { setupRenderingTest } from 'ember-qunit';
+import { on } from '@ember/modifier';
 import { click, render, settled, setupOnerror } from '@ember/test-helpers';
+import { module, skip, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
 
-import { Provide, Consume } from 'ember-primitives/dom-context';
+import { Consume,Provide } from 'ember-primitives/dom-context';
+
 import type { TOC } from '@ember/component/template-only';
 
 module('Rendering | DOM Context', function (hooks) {
@@ -109,7 +110,7 @@ module('Rendering | DOM Context', function (hooks) {
           {{! @glint-expect-error}}
           {{step @name context.data.count}}
           {{! @glint-expect-error}}
-          <button onclick={{context.data.doit}}>do it</button>
+          <button onclick={{context.data.doit}} type="button">do it</button>
         </Consume>
       </div>
     </template>;
@@ -164,7 +165,7 @@ module('Rendering | DOM Context', function (hooks) {
       <div data-name={{@name}}>
         <StoreConsumer as |store|>
           {{step @name store.count}}
-          <button {{on "click" store.doit}}>do it</button>
+          <button type="button" {{on "click" store.doit}}>do it</button>
         </StoreConsumer>
       </div>
     </template>;
@@ -293,7 +294,7 @@ module('Rendering | DOM Context', function (hooks) {
           <Consume @key={{Data}} as |context|>
             {{step context.data.count}}
 
-            <button onclick={{context.data.increment}}>++</button>
+            <button onclick={{context.data.increment}} type="button">++</button>
           </Consume>
         </Provide>
       </template>
@@ -324,7 +325,7 @@ module('Rendering | DOM Context', function (hooks) {
           <Consume @key={{data}} as |context|>
             {{step context.data.count}}
 
-            <button onclick={{context.data.increment}}>++</button>
+            <button onclick={{context.data.increment}} type="button">++</button>
           </Consume>
         </Provide>
       </template>

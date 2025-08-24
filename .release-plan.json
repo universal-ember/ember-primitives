@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.38.0",
-      "newVersion": "0.39.0",
+      "oldVersion": "0.39.0",
+      "newVersion": "0.40.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -14,5 +14,5 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-08-24)\n\n* ember-primitives 0.39.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#520](https://github.com/universal-ember/ember-primitives/pull/520) Support all portal behaviors ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* [#524](https://github.com/universal-ember/ember-primitives/pull/524) More Portal docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-08-24)\n\n* ember-primitives 0.40.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#525](https://github.com/universal-ember/ember-primitives/pull/525) Implement DOMContext (`<Provide>` & `<Consume>`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

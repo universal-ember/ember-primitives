@@ -2,6 +2,17 @@
 
 ## Release (2025-08-24)
 
+* ember-primitives 0.40.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#525](https://github.com/universal-ember/ember-primitives/pull/525) Implement DOMContext (`<Provide>` & `<Consume>`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-08-24)
+
 * ember-primitives 0.39.0 (minor)
 
 #### :rocket: Enhancement

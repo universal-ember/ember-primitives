@@ -1,6 +1,7 @@
 import { skip, module, test } from 'qunit';
+import { tracked } from '@glimmer/tracking';
 import { setupRenderingTest } from 'ember-qunit';
-import { render, setupOnerror } from '@ember/test-helpers';
+import { render, settled, setupOnerror } from '@ember/test-helpers';
 
 import { Provide, Consume } from 'ember-primitives/dom-context';
 
@@ -83,5 +84,91 @@ module('Rendering | DOM Context', function (hooks) {
         </Provide>
       </template>
     );
+  });
+
+  test('with the same key, we can nest providers', async function (assert) {
+    const key = 'hello-there';
+
+    let result: any;
+
+    function capture(d: any) {
+      result = d;
+    }
+
+    await render(
+      <template>
+        <Provide @data={{Object name="outer"}} @key={{key}}>
+          <Provide @data={{Object name="inner"}} @key={{key}}>
+            <Consume @key={{key}} as |context|>
+              {{capture context.data}}
+            </Consume>
+          </Provide>
+        </Provide>
+      </template>
+    );
+
+    assert.deepEqual(result, { name: 'inner' });
+  });
+
+  test('changes to reactive data are fine-grainedly available to the consumer', async function (assert) {
+    const key = 'hello-there';
+
+    class Data {
+      @tracked count = 0;
+    }
+
+    const data = new Data();
+
+    const step = (x: unknown) => assert.step(String(x));
+
+    await render(
+      <template>
+        <Provide @data={{data}} @key={{key}}>
+          <Consume @key={{key}} as |context|>
+            {{step context.data}}
+            {{step context.data.count}}
+          </Consume>
+        </Provide>
+      </template>
+    );
+
+    assert.verifySteps(['[object Object]', '0']);
+
+    data.count++;
+    await settled();
+
+    assert.verifySteps(['1']);
+  });
+
+  test('multiple consumers can see and react to the same change', async function (assert) {
+    const key = 'hello-there';
+
+    class Data {
+      @tracked count = 0;
+    }
+
+    const data = new Data();
+
+    const step = (...x: unknown[]) => assert.step(x.join(', '));
+
+    await render(
+      <template>
+        <Provide @data={{data}} @key={{key}}>
+          <Consume @key={{key}} as |context|>
+            {{step "first" context.data.count}}
+          </Consume>
+          <Consume @key={{key}} as |context|>
+            {{step "second" context.data.count}}
+          </Consume>
+        </Provide>
+      </template>
+    );
+
+    assert.verifySteps(['first, 0', 'second, 0']);
+
+    data.count++;
+    await settled();
+
+    assert.verifySteps(['first, 1', 'second, 1']);
   });
 });

@@ -1,5 +1,19 @@
 # Changelog 
 
+## Release (2025-08-24)
+
+* ember-primitives 0.39.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#520](https://github.com/universal-ember/ember-primitives/pull/520) Support all portal behaviors ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* [#524](https://github.com/universal-ember/ember-primitives/pull/524) More Portal docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-08-20)
 
 * ember-primitives 0.38.0 (minor)

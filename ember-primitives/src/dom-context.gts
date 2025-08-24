@@ -115,7 +115,7 @@ function findForKey<Data>(startElement: Element, key: string | object): undefine
 
 export class Consume<Data extends object | string> extends Component<{
   Args: {
-    key: Data;
+    key: typeof Data;
   };
   Blocks: {
     default: [

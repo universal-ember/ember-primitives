@@ -1,4 +1,5 @@
 import { skip, module, test } from 'qunit';
+import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render, settled, setupOnerror } from '@ember/test-helpers';
@@ -9,7 +10,7 @@ import type { TOC } from '@ember/component/template-only';
 module('Rendering | DOM Context', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('handles static object', async function (assert) {
+  test('@data handles static object', async function (assert) {
     const key = { static: true };
 
     let result: any;
@@ -31,13 +32,13 @@ module('Rendering | DOM Context', function (hooks) {
     assert.deepEqual(result, key);
   });
 
-  test('can use string keys', async function (assert) {
+  test('@key can be specified as a string', async function (assert) {
     const data = { static: true };
     const key = 'hello-there';
 
     let result: any;
 
-    function capture(d: typeof data) {
+    function capture(d: any) {
       result = d;
     }
 
@@ -103,9 +104,68 @@ module('Rendering | DOM Context', function (hooks) {
     const Consumer: TOC<{ name: string }> = <template>
       <div data-name={{@name}}>
         <Consume @key="store" as |context|>
+          {{! SAFETY: we can't get a specific type with string keys.
+                      we can lie about types though with a wrapper component }}
+          {{! @glint-expect-error}}
           {{step @name context.data.count}}
+          {{! @glint-expect-error}}
           <button onclick={{context.data.doit}}>do it</button>
         </Consume>
+      </div>
+    </template>;
+
+    await render(
+      <template>
+        <Provide @data={{Incrementer}} @key="store">
+          <Consumer @name="inc" />
+        </Provide>
+
+        <Provide @data={{Doubler}} @key="store">
+          <Consumer @name="double" />
+        </Provide>
+      </template>
+    );
+
+    assert.verifySteps(['inc:2', 'double:2']);
+
+    await click('[data-name="inc"] button');
+    assert.verifySteps(['inc:3']);
+
+    await click('[data-name="double"] button');
+    assert.verifySteps(['double:4']);
+  });
+
+  test('@key example curried string with type', async function (assert) {
+    class Incrementer {
+      @tracked count = 2;
+      doit = () => this.count++;
+    }
+
+    class Doubler {
+      @tracked count = 2;
+      doit = () => (this.count *= 2);
+    }
+
+    const step = (...x: unknown[]) => assert.step(x.join(':'));
+
+    const StoreConsumer: TOC<{
+      Blocks: {
+        default: [store: { count: number; doit: () => void }];
+      };
+    }> = <template>
+      <Consume @key="store" as |context|>
+        {{! SAFETY: we specified the type in the signature }}
+        {{! @glint-expect-error}}
+        {{yield context.data}}
+      </Consume>
+    </template>;
+
+    const Consumer: TOC<{ name: string }> = <template>
+      <div data-name={{@name}}>
+        <StoreConsumer as |store|>
+          {{step @name store.count}}
+          <button {{on "click" store.doit}}>do it</button>
+        </StoreConsumer>
       </div>
     </template>;
 
@@ -170,6 +230,7 @@ module('Rendering | DOM Context', function (hooks) {
         <Provide @data={{data}} @key={{key}}>
           <Consume @key={{key}} as |context|>
             {{step context.data}}
+            {{! @glint-expect-error}}
             {{step context.data.count}}
           </Consume>
         </Provide>
@@ -199,9 +260,11 @@ module('Rendering | DOM Context', function (hooks) {
       <template>
         <Provide @data={{data}} @key={{key}}>
           <Consume @key={{key}} as |context|>
+            {{! @glint-expect-error}}
             {{step "first" context.data.count}}
           </Consume>
           <Consume @key={{key}} as |context|>
+            {{! @glint-expect-error}}
             {{step "second" context.data.count}}
           </Consume>
         </Provide>

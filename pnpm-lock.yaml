@@ -27,7 +27,7 @@ importers:
         version: 7.28.3
       '@nullvoxpopuli/dev':
         specifier: workspace:*
-        version: link:dev
+        version: file:dev
       concurrently:
         specifier: ^9.1.0
         version: 9.2.0
@@ -368,7 +368,7 @@ importers:
         version: 1.18.1(731de5cfbb3f32d50726bf63427bba20)
       '@floating-ui/dom':
         specifier: ^1.7.0
-        version: 1.7.3
+        version: 1.7.4
       decorator-transforms:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.28.3)
@@ -553,7 +553,7 @@ importers:
         version: 1.1.6(5e70833390ae878896e7995778cd046c)
       '@floating-ui/dom':
         specifier: ^1.7.0
-        version: 1.7.3
+        version: 1.7.4
       '@glimmer/component':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1729,8 +1729,8 @@ packages:
   '@floating-ui/core@1.7.3':
     resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
 
-  '@floating-ui/dom@1.7.3':
-    resolution: {integrity: sha512-uZA413QEpNuhtb3/iIKoYMSK07keHPYeXF02Zhd6e213j+d1NamLix/mCLxBUDW/Gx52sPH2m+chlUsyaBs/Ag==}
+  '@floating-ui/dom@1.7.4':
+    resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
@@ -2078,6 +2078,11 @@ packages:
   '@npmcli/run-script@7.0.4':
     resolution: {integrity: sha512-9ApYM/3+rBt9V80aYg6tZfzj3UWdiYyCt7gJUD1VJKvWF5nwKDSICXbYIQbspFTq6TOpbsEtIC0LArB8d9PFmg==}
     engines: {node: ^16.14.0 || >=18.0.0}
+
+  '@nullvoxpopuli/dev@file:dev':
+    resolution: {directory: dev, type: directory}
+    engines: {node: '>= 20'}
+    hasBin: true
 
   '@nullvoxpopuli/eslint-configs@5.3.3':
     resolution: {integrity: sha512-lS/AM+m6v+x26B16yF1rbLRS6hbX5HH3uxDNAtcuEXKFlIntLxEg9L9jMpLW0xrgZkPnywCVCWymLPUfMUG3Pw==}
@@ -3553,6 +3558,10 @@ packages:
     resolution: {integrity: sha512-1tm8DTaJhPBG3bIkVeZt1iZM9GfSX2lzOeDVZH9R9ffRHpmHvxZ/QhgQH/aDTkswQVt+YHdXAdS/In/30OjCbg==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
+  chalk@5.6.0:
+    resolution: {integrity: sha512-46QrSQFyVSEyYAgQ22hQ+zDa60YHA4fBstHmtSApj1Y5vKtG27fWowW03jCk5KcbXEWPZUIR894aARCA/G1kfQ==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   change-case@5.4.4:
     resolution: {integrity: sha512-HRQyTk2/YPEkt9TnUPbOpr64Uw3KOicFWPVBb+xiHvd6eBx/qPr9xqfBFDT8P2vWsvvz4jbEkfDe71W3VyNu2w==}
 
@@ -4311,6 +4320,11 @@ packages:
 
   ember-apply@2.15.2:
     resolution: {integrity: sha512-xLYNSe7JV9CtLwGDoYAXc1hYBDsxh9fdlAVxGc8wA/Lyyxt+Y61iQ5FySpFrWZnduulkZ5/XthcxwUK4oTvFrQ==}
+    engines: {node: '>=16.0.0'}
+    hasBin: true
+
+  ember-apply@2.15.3:
+    resolution: {integrity: sha512-d2ppk3PDYFwuW+U5ye0gQErLAlH0e8AmFWPPZE0GlBcAyVqQ5bqzrDDbcnfdfHAJtejjOr0lcuVHp5y1fk3w4A==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -11066,7 +11080,7 @@ snapshots:
     dependencies:
       '@floating-ui/utils': 0.2.10
 
-  '@floating-ui/dom@1.7.3':
+  '@floating-ui/dom@1.7.4':
     dependencies:
       '@floating-ui/core': 1.7.3
       '@floating-ui/utils': 0.2.10
@@ -11544,6 +11558,71 @@ snapshots:
     transitivePeerDependencies:
       - bluebird
       - supports-color
+
+  '@nullvoxpopuli/dev@file:dev':
+    dependencies:
+      chalk: 5.6.0
+      ember-apply: 2.15.3
+      execa: 9.6.0
+      fs-extra: 11.3.1
+      latest-version: 9.0.0
+    transitivePeerDependencies:
+      - arc-templates
+      - atpl
+      - babel-core
+      - bluebird
+      - bracket-template
+      - bufferutil
+      - coffee-script
+      - debug
+      - dot
+      - dust
+      - dustjs-helpers
+      - dustjs-linkedin
+      - eco
+      - ect
+      - ejs
+      - haml-coffee
+      - hamlet
+      - hamljs
+      - handlebars
+      - hogan.js
+      - htmling
+      - jade
+      - jazz
+      - jqtpl
+      - just
+      - liquid-node
+      - liquor
+      - marko
+      - mote
+      - nunjucks
+      - plates
+      - pug
+      - qejs
+      - ractive
+      - razor-tmpl
+      - react
+      - react-dom
+      - slm
+      - squirrelly
+      - supports-color
+      - swig
+      - swig-templates
+      - teacup
+      - templayed
+      - then-jade
+      - then-pug
+      - tinyliquid
+      - toffee
+      - twig
+      - twing
+      - underscore
+      - utf-8-validate
+      - vash
+      - velocityjs
+      - walrus
+      - whiskers
 
   '@nullvoxpopuli/eslint-configs@5.3.3(d15dbee1824a061087fb273678f50d84)':
     dependencies:
@@ -13456,6 +13535,8 @@ snapshots:
 
   chalk@5.5.0: {}
 
+  chalk@5.6.0: {}
+
   change-case@5.4.4: {}
 
   char-regex@1.0.2: {}
@@ -14043,6 +14124,89 @@ snapshots:
       '@babel/core': 7.28.3
       '@babel/preset-env': 7.28.3(@babel/core@7.28.3)
       chalk: 5.5.0
+      ember-cli: 6.6.0
+      ember-template-recast: 6.1.5
+      execa: 8.0.1
+      find-up: 7.0.0
+      fs-extra: 11.3.1
+      globby: 14.1.0
+      jscodeshift: 0.15.2(3fe8f303a52589052b0089e038dc1199)
+      json5: 2.2.3
+      latest-version: 7.0.0
+      ora: 7.0.1
+      pacote: 17.0.7
+      postcss: 8.5.6
+      posthtml: 0.16.6
+      posthtml-boolean-attributes: 0.3.1
+      prettier: 3.6.2
+      semver: 7.7.2
+      sort-object-keys: 1.1.3
+      unified: 11.0.5
+      yargs: 17.7.2
+      yarn-workspaces-list: 0.2.0(@babel/core@7.28.3)
+    transitivePeerDependencies:
+      - arc-templates
+      - atpl
+      - babel-core
+      - bluebird
+      - bracket-template
+      - bufferutil
+      - coffee-script
+      - debug
+      - dot
+      - dust
+      - dustjs-helpers
+      - dustjs-linkedin
+      - eco
+      - ect
+      - ejs
+      - haml-coffee
+      - hamlet
+      - hamljs
+      - handlebars
+      - hogan.js
+      - htmling
+      - jade
+      - jazz
+      - jqtpl
+      - just
+      - liquid-node
+      - liquor
+      - marko
+      - mote
+      - nunjucks
+      - plates
+      - pug
+      - qejs
+      - ractive
+      - razor-tmpl
+      - react
+      - react-dom
+      - slm
+      - squirrelly
+      - supports-color
+      - swig
+      - swig-templates
+      - teacup
+      - templayed
+      - then-jade
+      - then-pug
+      - tinyliquid
+      - toffee
+      - twig
+      - twing
+      - underscore
+      - utf-8-validate
+      - vash
+      - velocityjs
+      - walrus
+      - whiskers
+
+  ember-apply@2.15.3:
+    dependencies:
+      '@babel/core': 7.28.3
+      '@babel/preset-env': 7.28.3(@babel/core@7.28.3)
+      chalk: 5.6.0
       ember-cli: 6.6.0
       ember-template-recast: 6.1.5
       execa: 8.0.1
@@ -14866,7 +15030,7 @@ snapshots:
       '@ember/test-waiters': 4.1.1(731de5cfbb3f32d50726bf63427bba20)
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1(731de5cfbb3f32d50726bf63427bba20)
-      '@floating-ui/dom': 1.7.3
+      '@floating-ui/dom': 1.7.4
       '@glimmer/component': 2.0.0
       decorator-transforms: 2.3.0(@babel/core@7.28.3)
       ember-element-helper: 0.8.8
@@ -14892,7 +15056,7 @@ snapshots:
       '@ember/test-waiters': 4.1.1(77afbc9c53075b5e78defec9158a2447)
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1(77afbc9c53075b5e78defec9158a2447)
-      '@floating-ui/dom': 1.7.3
+      '@floating-ui/dom': 1.7.4
       '@glimmer/component': 2.0.0
       decorator-transforms: 2.3.0(@babel/core@7.28.3)
       ember-element-helper: 0.8.8

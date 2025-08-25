@@ -1,13 +1,16 @@
+import Component from '@glimmer/component';
 import Controller from '@ember/controller';
 import { assert as debugAssert } from '@ember/debug';
+import { hash } from '@ember/helper';
+import { on } from '@ember/modifier';
+import { LinkTo } from '@ember/routing';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import { click, find, settled, visit, waitUntil } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
-import { scrollToHash, uiSettled } from 'ember-url-hash-polyfill';
+import { scrollToHash, uiSettled } from 'ember-primitives/polyfill/anchor-hash-targets';
 
 import { setupRouter } from './-helpers';
 
@@ -28,8 +31,8 @@ module('Hash', function (hooks) {
   function isVisible(element: null | Element, parent: Element) {
     if (!element) return false;
 
-    let bounds = element.getBoundingClientRect();
-    let parentBounds = parent.getBoundingClientRect();
+    const bounds = element.getBoundingClientRect();
+    const parentBounds = parent.getBoundingClientRect();
 
     return (
       bounds.top >= parentBounds.top &&
@@ -43,23 +46,23 @@ module('Hash', function (hooks) {
     test('in-page-links can be scrolled to with native anchors', async function (assert) {
       this.owner.register(
         'template:application',
-        hbs`
-          <a id='first-link' href="#first">first</a>
-          <a id='second-link' href="#second">first</a>
+        <template>
+          <a id="first-link" href="#first">first</a>
+          <a id="second-link" href="#second">first</a>
 
           <h1 id="first">first!</h1>
           <div style="height: 100vh;"></div>
 
           <h1 id="second">second!</h1>
           <div style="height: 100vh;"></div>
-        `
+        </template>
       );
 
       await visit('/');
 
-      let container = document.querySelector('#ember-testing-container');
-      let first = find('#first');
-      let second = find('#second');
+      const container = document.querySelector('#ember-testing-container');
+      const first = find('#first');
+      const second = find('#second');
 
       debugAssert(`Expected all test elements to exist`, container && first && second);
 
@@ -81,7 +84,7 @@ module('Hash', function (hooks) {
     });
 
     test('in-page-links can be scrolled to with custom links', async function (assert) {
-      class TestApplication extends Controller {
+      class TestApplication extends Component {
         handleClick = (event: MouseEvent) => {
           event.preventDefault();
 
@@ -90,32 +93,30 @@ module('Hash', function (hooks) {
             event.target instanceof HTMLAnchorElement
           );
 
-          let [, hash] = event.target.href.split('#');
+          const [, hash] = event.target.href.split('#');
 
           scrollToHash(hash);
         };
-      }
-      this.owner.register('controller:application', TestApplication);
 
-      this.owner.register(
-        'template:application',
-        hbs`
-          <a id='first-link' href="#first" {{on 'click' this.handleClick}}>first</a>
-          <a id='second-link' href="#second" {{on 'click' this.handleClick}}>first</a>
+        <template>
+          <a id="first-link" href="#first" {{on "click" this.handleClick}}>first</a>
+          <a id="second-link" href="#second" {{on "click" this.handleClick}}>first</a>
 
           <h1 id="first">first!</h1>
           <div style="height: 100vh;"></div>
 
           <h1 id="second">second!</h1>
           <div style="height: 100vh;"></div>
-        `
-      );
+        </template>
+      }
+
+      this.owner.register('template:application', TestApplication);
 
       await visit('/');
 
-      let container = document.querySelector('#ember-testing-container');
-      let first = find('#first');
-      let second = find('#second');
+      const container = document.querySelector('#ember-testing-container');
+      const first = find('#first');
+      const second = find('#second');
 
       debugAssert(`Expected all test elements to exist`, container && first && second);
 
@@ -152,30 +153,30 @@ module('Hash', function (hooks) {
         queryParams = ['test'];
         test = false;
       }
-      class Index extends Controller {
+      class Index extends Component {
         @service declare router: RouterService;
+
+        <template>
+          <out>
+            qp:
+            {{! @glint-expect-error }}
+            {{this.router.currentRoute.queryParams.test}}
+          </out>
+        </template>
       }
 
       this.owner.register('controller:application', TestApplication);
-      this.owner.register('controller:index', Index);
       this.owner.register(
         'template:application',
-        hbs`
-          <LinkTo id='foo' @query={{hash test='foo'}}>foo</LinkTo>
-          <LinkTo id='default' @query={{hash test=false}}>default</LinkTo>
+        <template>
+          <LinkTo id="foo" @query={{hash test="foo"}}>foo</LinkTo>
+          <LinkTo id="default" @query={{hash test=false}}>default</LinkTo>
           {{outlet}}
-                          `
+        </template>
       );
-      this.owner.register(
-        'template:index',
-        hbs`
-          <out>
-            qp: {{this.router.currentRoute.queryParams.test}}
-          </out>
-        `
-      );
+      this.owner.register('template:index', Index);
 
-      let router = this.owner.lookup('service:router');
+      const router = this.owner.lookup('service:router');
 
       await visit('/');
       assert.dom('out').hasText('qp:');
@@ -198,28 +199,28 @@ module('Hash', function (hooks) {
     test('cross-page-Llinks are properly scrolled to', async function (assert) {
       this.owner.register(
         'template:foo',
-        hbs`
+        <template>
           <h1 id="foo-first">first!</h1>
           <div style="height: 100vh;"></div>
 
           <h1 id="foo-second">second!</h1>
           <div style="height: 100vh;"></div>
-        `
+        </template>
       );
 
       this.owner.register(
         'template:bar',
-        hbs`
+        <template>
           <h1 id="bar-first">first!</h1>
           <div style="height: 100vh;"></div>
 
           <h1 id="bar-second">second!</h1>
           <div style="height: 100vh;"></div>
-        `
+        </template>
       );
 
-      let router = this.owner.lookup('service:router');
-      let container = document.querySelector('#ember-testing-container');
+      const router = this.owner.lookup('service:router');
+      const container = document.querySelector('#ember-testing-container');
 
       debugAssert(`Expected all test elements to exist`, container);
 
@@ -252,16 +253,16 @@ module('Hash', function (hooks) {
   test('transition to route with loading sub state is properly handled', async function (assert) {
     this.owner.register(
       'template:application',
-      hbs`
+      <template>
         <h1 id="first">first!</h1>
         <div style="height: 100vh;"></div>
 
         <h1 id="second">second!</h1>
         <div style="height: 100vh;"></div>
-      `
+      </template>
     );
 
-    this.owner.register('template:application-loading', hbs`Loading...`);
+    this.owner.register('template:application-loading', <template>Loading...</template>);
 
     class ApplicationRoute extends Route {
       model() {
@@ -277,13 +278,13 @@ module('Hash', function (hooks) {
     await visit('/#second');
     await scrollSettled();
 
-    let container = document.querySelector('#ember-testing-container');
-    let first = find('#first');
-    let second = find('#second');
+    const container = document.querySelector('#ember-testing-container');
+    const first = find('#first');
+    const second = find('#second');
 
     debugAssert(`Expected all test elements to exist`, container && first && second);
 
-    await waitUntil(() => isVisible(second, container as Element), {
+    await waitUntil(() => isVisible(second, container), {
       timeoutMessage: 'second header is visible',
     });
 
@@ -291,19 +292,19 @@ module('Hash', function (hooks) {
   });
 });
 
-export async function scrollSettled() {
+async function scrollSettled() {
   // wait for previous stuff to finish
   await settled();
 
-  let timeout = 200; // ms;
-  let start = new Date().getTime();
+  const timeout = 200; // ms;
+  const start = new Date().getTime();
 
   await Promise.race([
     new Promise((resolve) => setTimeout(resolve, 1000)),
     // scrollIntoView does not trigger scroll events
     new Promise((resolve) => {
-      let interval = setInterval(() => {
-        let now = new Date().getTime();
+      const interval = setInterval(() => {
+        const now = new Date().getTime();
 
         if (now - start >= timeout) {
           clearInterval(interval);

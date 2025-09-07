@@ -1,0 +1,9 @@
+.ember-primitives__sticky-footer__wrapper {
+  height: 100%;
+  overflow: auto;
+}
+.ember-primitives__sticky-footer__container {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}

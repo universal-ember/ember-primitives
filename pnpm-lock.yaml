@@ -115,7 +115,7 @@ importers:
         version: 4.2.2(@babel/core@7.28.3)
       ember-primitives:
         specifier: workspace:^
-        version: file:ember-primitives(0e2eded36f518969ab2d4062a6efc3ab)
+        version: link:../ember-primitives
       ember-repl:
         specifier: ^6.0.0
         version: 6.0.0(d97e38db66a4cde03ab989926c12faab)
@@ -359,7 +359,7 @@ importers:
     dependencies:
       '@babel/runtime':
         specifier: ^7.27.1
-        version: 7.28.3
+        version: 7.28.4
       '@embroider/addon-shim':
         specifier: ^1.10.0
         version: 1.10.0
@@ -559,19 +559,19 @@ importers:
         version: 2.0.0
       '@glint/core':
         specifier: alpha
-        version: 2.0.0-alpha.5(typescript@5.9.2)
+        version: 2.0.0-alpha.6(typescript@5.9.2)
       '@glint/environment-ember-loose':
         specifier: alpha
-        version: 2.0.0-alpha.3(7e658b508ed6991ac1271c9aa8263c91)
+        version: 2.0.0-alpha.3(5da7de1d63853e7002bedcebddd233e6)
       '@glint/environment-ember-template-imports':
         specifier: alpha
-        version: 2.0.0-alpha.3(a2eb58f15db8f185204d9ec2b69b02ce)
+        version: 2.0.0-alpha.3(ac377932cacf21af30247182f6a9ab3d)
       '@glint/template':
         specifier: alpha
         version: 1.6.0-alpha.2
       '@glint/tsserver-plugin':
         specifier: alpha
-        version: 2.0.0-alpha.5
+        version: 2.0.0-alpha.6
       '@nullvoxpopuli/eslint-configs':
         specifier: ^5.3.3
         version: 5.3.3(d15dbee1824a061087fb273678f50d84)
@@ -1856,8 +1856,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8.0'
 
-  '@glint/core@2.0.0-alpha.5':
-    resolution: {integrity: sha512-IDm5IwyXNkKmXpi2MYG5GVSan6mno+WIaandzDgvgSk5GOizyIfrxerxpMd2WWAYZWrZHzzIf3YM9OFKiAmCbw==}
+  '@glint/core@2.0.0-alpha.6':
+    resolution: {integrity: sha512-dvPO/T2pX5c8QvBarxP/BOd4QnXPqfkOfMrMFmNe78JGCU2fQvhyvc27w4R/t/HYVNoxmY38714hwUcDRURFXA==}
     hasBin: true
     peerDependencies:
       typescript: '>=5.6.0'
@@ -1936,8 +1936,8 @@ packages:
   '@glint/template@1.6.0-alpha.2':
     resolution: {integrity: sha512-T1jnkJ4g9kj4CQFdax6/AE8rdd8S5+1/88l63w1xPjfSByhKt3ES6Noko3fPx9WhV7gZxalgg6sjBoZlhPZabg==}
 
-  '@glint/tsserver-plugin@2.0.0-alpha.5':
-    resolution: {integrity: sha512-hxqNJjcDD3ZFnVfE3X6igajPCl2Lcux9psXQ4KqDJAEEk6YlyLaZFO/92wur8+pCmEndLdDYkEjHXC7PymiERQ==}
+  '@glint/tsserver-plugin@2.0.0-alpha.6':
+    resolution: {integrity: sha512-aBnk/F5i8dahNqQBxgiIIRMqberkHEHYDAcT+Tk+Q+g0sCFR7meBOe2IXZCauPhUFCuEYQew+cSK8OPmB7LjMA==}
 
   '@handlebars/parser@2.0.0':
     resolution: {integrity: sha512-EP9uEDZv/L5Qh9IWuMUGJRfwhXJ4h1dqKTT4/3+tY0eu7sPis7xh23j61SYUnNF4vqCQvvUXpDo9Bh/+q1zASA==}
@@ -11350,7 +11350,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@glint/core@2.0.0-alpha.5(typescript@5.9.2)':
+  '@glint/core@2.0.0-alpha.6(typescript@5.9.2)':
     dependencies:
       '@glimmer/syntax': 0.95.0
       '@glint/template': 1.6.0-alpha.2
@@ -11385,10 +11385,10 @@ snapshots:
       ember-cli-htmlbars: 6.3.0
       ember-modifier: 4.2.2(@babel/core@7.28.3)
 
-  '@glint/environment-ember-loose@2.0.0-alpha.3(7e658b508ed6991ac1271c9aa8263c91)':
+  '@glint/environment-ember-loose@2.0.0-alpha.3(5da7de1d63853e7002bedcebddd233e6)':
     dependencies:
       '@glimmer/component': 2.0.0
-      '@glint/core': 2.0.0-alpha.5(typescript@5.9.2)
+      '@glint/core': 2.0.0-alpha.6(typescript@5.9.2)
       '@glint/template': 1.6.0-alpha.2
     optionalDependencies:
       ember-cli-htmlbars: 6.3.0
@@ -11400,10 +11400,10 @@ snapshots:
       '@glint/template': 1.5.2
       content-tag: 2.0.3
 
-  '@glint/environment-ember-template-imports@2.0.0-alpha.3(a2eb58f15db8f185204d9ec2b69b02ce)':
+  '@glint/environment-ember-template-imports@2.0.0-alpha.3(ac377932cacf21af30247182f6a9ab3d)':
     dependencies:
-      '@glint/core': 2.0.0-alpha.5(typescript@5.9.2)
-      '@glint/environment-ember-loose': 2.0.0-alpha.3(7e658b508ed6991ac1271c9aa8263c91)
+      '@glint/core': 2.0.0-alpha.6(typescript@5.9.2)
+      '@glint/environment-ember-loose': 2.0.0-alpha.3(5da7de1d63853e7002bedcebddd233e6)
       '@glint/template': 1.6.0-alpha.2
       content-tag: 3.1.3
 
@@ -11411,9 +11411,9 @@ snapshots:
 
   '@glint/template@1.6.0-alpha.2': {}
 
-  '@glint/tsserver-plugin@2.0.0-alpha.5':
+  '@glint/tsserver-plugin@2.0.0-alpha.6':
     dependencies:
-      '@glint/core': 2.0.0-alpha.5(typescript@5.9.2)
+      '@glint/core': 2.0.0-alpha.6(typescript@5.9.2)
       '@volar/language-core': 2.4.12
       '@volar/typescript': 2.4.12
       jiti: 2.4.2

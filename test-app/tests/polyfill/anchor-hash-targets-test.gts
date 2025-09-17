@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import Component from '@glimmer/component';
 import Controller from '@ember/controller';
 import { assert as debugAssert } from '@ember/debug';

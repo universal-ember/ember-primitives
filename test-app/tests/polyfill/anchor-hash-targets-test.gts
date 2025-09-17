@@ -12,11 +12,11 @@ import { setupApplicationTest } from 'ember-qunit';
 
 import { scrollToHash, uiSettled } from 'ember-primitives/polyfill/anchor-hash-targets';
 
-import { setupRouter } from './-helpers';
+import { setupRouter } from './-helpers.ts';
 
 import type RouterService from '@ember/routing/router-service';
 
-module('Hash', function (hooks) {
+module('anchor-hash-target', function (hooks) {
   setupApplicationTest(hooks);
 
   hooks.beforeEach(() => {

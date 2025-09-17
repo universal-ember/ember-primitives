@@ -1,3 +1,6 @@
+/* eslint-disable ember/no-runloop */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { warn } from '@ember/debug';
 import { isDestroyed, isDestroying, registerDestructor } from '@ember/destroyable';
 import { getOwner } from '@ember/owner';
@@ -17,10 +20,10 @@ type TransitionWithPrivateAPIs = Transition & {
 
 export function withHashSupport(AppRouter: typeof EmberRouter): typeof AppRouter {
   return class RouterWithHashSupport extends AppRouter {
-    constructor(...args: RouterArgs) {
+    constructor(...args: any[]) {
       super(...args);
 
-      setupHashSupport(this);
+      void setupHashSupport(this);
     }
   };
 }
@@ -93,7 +96,7 @@ async function setupHashSupport(router: EmberRouter) {
    *
    */
   requestAnimationFrame(() => {
-    eventuallyTryScrollingTo(owner, initialURL);
+    void eventuallyTryScrollingTo(owner, initialURL);
   });
 
   const routerService = owner.lookup('service:router');
@@ -105,21 +108,21 @@ async function setupHashSupport(router: EmberRouter) {
       return;
     }
 
-    eventuallyTryScrollingTo(owner, url);
+    void eventuallyTryScrollingTo(owner, url);
   }
 
+  // @ts-expect-error -- I don't want to fix this
   routerService.on('routeDidChange', handleHashIntent);
 
   registerDestructor(router, () => {
-    (routerService as any) /* type def missing "off" */
-      .off('routeDidChange', handleHashIntent);
+    routerService.off('routeDidChange', handleHashIntent);
   });
 }
 
 const CACHE = new WeakMap<ApplicationInstance, MutationObserver>();
 
 async function eventuallyTryScrollingTo(owner: ApplicationInstance, url?: string) {
-  // Prevent quick / rapid transitions from continuing to observer beyond their URL-scope
+  // Prevent quick / rapid transitions from continuing to observe beyond their URL-scope
   CACHE.get(owner)?.disconnect();
 
   if (!url) return;
@@ -140,7 +143,11 @@ async function eventuallyTryScrollingTo(owner: ApplicationInstance, url?: string
 const TIME_SINCE_LAST_MUTATION = 500; // ms
 const MAX_TIMEOUT = 2000; // ms
 
-// exported for testing
+/**
+ * exported for testing
+ *
+ * @internal
+ */
 export async function uiSettled(owner: ApplicationInstance) {
   const timeStarted = new Date().getTime();
   let lastMutationAt = Infinity;

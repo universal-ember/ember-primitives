@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable ember/no-private-routing-service */
 import { settled } from '@ember/test-helpers';
 
-import type { Router } from '@ember/routing';
-import type { TestContext } from 'ember-test-helpers';
+import type Router from '@ember/routing/router';
 
-type MapFunction = Parameters<typeof Router['map']>[0];
+type MapFunction = Parameters<(typeof Router)['map']>[0];
 
 interface SetupRouterOptions {
   active?: string | string[];
   map?: MapFunction;
   rootURL?: string;
 }
-
 
 const noop = () => {};
 
@@ -52,7 +53,8 @@ export function setupRouter(
 ) {
   let originalMaps: unknown[] = [];
 
-  hooks.beforeEach(async function (this: TestContext) {
+  hooks.beforeEach(async function () {
+    // @ts-expect-error - not fixing - private api
     const router = this.owner.resolveRegistration('router:main');
 
     router.rootURL = rootURL;
@@ -60,6 +62,7 @@ export function setupRouter(
     router.dslCallbacks = [];
 
     router.map(map);
+    // @ts-expect-error - not fixing - private api
     this.owner.lookup('router:main').setupRouter();
 
     if (active) {
@@ -70,7 +73,8 @@ export function setupRouter(
     }
   });
 
-  hooks.afterEach(function (this: TestContext) {
+  hooks.afterEach(function () {
+    // @ts-expect-error - not fixing - private api
     const router = this.owner.resolveRegistration('router:main');
 
     router.dslCallbacks = originalMaps;
@@ -82,7 +86,8 @@ export function setupRouter(
  *
  */
 export function setupAppRouter(hooks: NestedHooks) {
-  hooks.beforeEach(function (this: TestContext) {
+  hooks.beforeEach(function () {
+    // @ts-expect-error - not fixing - private api
     this.owner.lookup('router:main').setupRouter();
   });
 }

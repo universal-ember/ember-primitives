@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable ember/no-private-routing-service */
+import Router from '@ember/routing/router';
 import { settled } from '@ember/test-helpers';
 
-import type Router from '@ember/routing/router';
+import { withHashSupport } from 'ember-primitives/polyfill/anchor-hash-targets';
 
 type MapFunction = Parameters<(typeof Router)['map']>[0];
 
@@ -54,6 +55,16 @@ export function setupRouter(
   let originalMaps: unknown[] = [];
 
   hooks.beforeEach(async function () {
+    this.owner.register(
+      'router:main',
+      withHashSupport(
+        class extends Router {
+          location = 'none';
+          rootURL = './';
+        }
+      )
+    );
+
     // @ts-expect-error - not fixing - private api
     const router = this.owner.resolveRegistration('router:main');
 

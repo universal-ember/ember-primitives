@@ -7,7 +7,7 @@ import { getOwner } from '@ember/owner';
 import { schedule } from '@ember/runloop';
 import { waitForPromise } from '@ember/test-waiters';
 
-import type ApplicationInstance from '@ember/application/instance';
+import type Owner from '@ember/owner';
 import type Route from '@ember/routing/route';
 import type EmberRouter from '@ember/routing/router';
 
@@ -72,7 +72,7 @@ function isLoadingRoute(routeName: string) {
 
 async function setupHashSupport(router: EmberRouter) {
   let initialURL: string | undefined;
-  const owner = getOwner(router) as ApplicationInstance;
+  const owner = getOwner(router) as Owner;
 
   await new Promise((resolve) => {
     const interval = setInterval(() => {
@@ -119,9 +119,9 @@ async function setupHashSupport(router: EmberRouter) {
   });
 }
 
-const CACHE = new WeakMap<ApplicationInstance, MutationObserver>();
+const CACHE = new WeakMap<Owner, MutationObserver>();
 
-async function eventuallyTryScrollingTo(owner: ApplicationInstance, url?: string) {
+async function eventuallyTryScrollingTo(owner: Owner, url?: string) {
   // Prevent quick / rapid transitions from continuing to observe beyond their URL-scope
   CACHE.get(owner)?.disconnect();
 
@@ -148,7 +148,7 @@ const MAX_TIMEOUT = 2000; // ms
  *
  * @internal
  */
-export async function uiSettled(owner: ApplicationInstance) {
+export async function uiSettled(owner: Owner) {
   const timeStarted = new Date().getTime();
   let lastMutationAt = Infinity;
   let totalTimeWaited = 0;

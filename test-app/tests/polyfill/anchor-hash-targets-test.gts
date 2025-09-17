@@ -95,7 +95,7 @@ module('anchor-hash-target', function (hooks) {
 
           const [, hash] = event.target.href.split('#');
 
-          scrollToHash(hash);
+          scrollToHash(hash!);
         };
 
         <template>

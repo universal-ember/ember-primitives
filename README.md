@@ -11,8 +11,14 @@ Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
+## Contributors
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
+
 
 License
 ------------------------------------------------------------------------------
 
 This project is licensed under the [MIT License](LICENSE.md).
+

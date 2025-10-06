@@ -12,7 +12,10 @@ export default defineConfig((/* { mode } */) => {
         input: {
           main: "index.html",
           tests: "tests/index.html",
-          "examples/daisyui": "./examples/daisyui/index.html",
+          "examples/daisyui": import.meta.resolve(
+            "./examples/daisyui/index.html",
+            import.meta.dirname,
+          ),
         },
       },
     },
@@ -23,7 +26,7 @@ export default defineConfig((/* { mode } */) => {
       extensions,
     },
     plugins: [
-      classicEmberSupport(),
+      // classicEmberSupport(),
       ember(),
       kolay({
         src: "public/docs",

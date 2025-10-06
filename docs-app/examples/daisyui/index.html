@@ -1,33 +1,16 @@
 <!doctype html>
-<html>
+<html lang="en-us">
   <head>
     <meta charset="utf-8" />
-    <title>ember-primitives</title>
+    <title>DaisyUI + ember-primitives</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- https://daisyui.com/docs/cdn/ -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <script type="module">
-      import Application from "ember-strict-application-resolver";
-      import EmberRouter from "@ember/routing/router";
-
-      import { properLinks } from "ember-primitives/proper-links";
-
-      @properLinks
-      class Router extends EmberRouter {
-        location = "history";
-        rootURL = "/examples/daisyui/";
-      }
-      Router.map(function () {});
-
-      class App extends Application {
-        modules = {
-          "./router": Router,
-          ...import.meta.glob("./templates/**/*.gts", { eager: true }),
-        };
-      }
-
-      App.create();
-    </script>
+    <script type="module" src="./app.ts"></script>
   </body>
 </html>

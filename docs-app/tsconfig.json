@@ -6,6 +6,6 @@
       "docs-app/*": ["./app/*"],
       "*": ["./types/*"]
     },
-    "types": ["ember-source/types", "kolay/virtual", "@embroider/core/virtual", "@glint/ember-tsc/types"]
+    "types": ["ember-source/types", "kolay/virtual", "@embroider/core/virtual", "vite/client", "@glint/ember-tsc/types"]
   }
 }

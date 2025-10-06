@@ -11,6 +11,6 @@
       "test-app/*": ["./app/*"],
       "*": ["./types/*"]
     },
-    "types": ["ember-source/types", "@embroider/core/virtual"]
+    "types": ["ember-source/types", "@embroider/core/virtual", "@glint/ember-tsc/types"]
   }
 }

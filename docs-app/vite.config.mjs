@@ -8,6 +8,13 @@ export default defineConfig((/* { mode } */) => {
   return {
     build: {
       target: ["esnext"],
+      rollupOptions: {
+        input: {
+          main: "index.html",
+          tests: "tests/index.html",
+          "examples/daisyui": "./examples/daisyui/index.html",
+        },
+      },
     },
     css: {
       postcss: "./config/postcss.config.mjs",

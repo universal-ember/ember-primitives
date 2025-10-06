@@ -43,6 +43,6 @@
       can do the proper transformations on those files.
     */
     "allowImportingTsExtensions": true,
-    "types": ["ember-source/types"]
+    "types": ["ember-source/types", "@glint/ember-tsc/types"]
   }
 }

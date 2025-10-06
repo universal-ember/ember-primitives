@@ -8,6 +8,16 @@ export default defineConfig((/* { mode } */) => {
   return {
     build: {
       target: ["esnext"],
+      rollupOptions: {
+        input: {
+          main: "index.html",
+          tests: "tests/index.html",
+          "examples/daisyui": import.meta.resolve(
+            "./examples/daisyui/index.html",
+            import.meta.dirname,
+          ),
+        },
+      },
     },
     css: {
       postcss: "./config/postcss.config.mjs",
@@ -16,7 +26,7 @@ export default defineConfig((/* { mode } */) => {
       extensions,
     },
     plugins: [
-      classicEmberSupport(),
+      // classicEmberSupport(),
       ember(),
       kolay({
         src: "public/docs",

@@ -19,7 +19,7 @@
     "lint:hbs:fix": "pnpm -w exec lint hbs:fix",
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
-    "lint:types": "glint",
+    "lint:types": "ember-tsc",
     "start": "pnpm vite",
     "test": "vite build --mode test && ember test --path dist",
     "test:ember": "vite build --mode test && ember test --path dist"

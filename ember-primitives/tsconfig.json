@@ -1,9 +1,6 @@
 {
   "extends": "@tsconfig/ember/tsconfig.json",
   "include": ["src/**/*"],
-  "glint": {
-    "environment": ["ember-template-imports"]
-  },
   "compilerOptions": {
     "skipLibCheck": true,
     "declarationDir": "declarations",

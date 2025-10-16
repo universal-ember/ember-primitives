@@ -21,7 +21,7 @@ export default {
     babel({ extensions, babelHelpers: "inline" }),
     addon.gjs(),
     addon.keepAssets(["**/*.css"]),
-    addon.declarations("declarations"),
+    addon.declarations("declarations", "pnpm ember-tsc"),
     addon.clean(),
     copy({
       targets: [

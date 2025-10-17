@@ -61,7 +61,15 @@ async function run() {
 }
 
 function turbo(cmd) {
-  const args = ['turbo', '--color', '--no-update-notifier', '--output-logs', 'errors-only', cmd];
+  const args = [
+    'turbo',
+    '--color',
+    '--no-update-notifier',
+    '--output-logs',
+    'errors-only',
+    'run',
+    cmd,
+  ];
 
   console.info(chalk.blueBright('Running:\n', args.join(' ')));
 

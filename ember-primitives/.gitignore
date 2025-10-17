@@ -6,3 +6,7 @@
 /dist/
 declarations/
 *.tgz
+
+# Protect against accidental tsc usage
+src/**/*.d.ts
+src/**/*.d.ts.map

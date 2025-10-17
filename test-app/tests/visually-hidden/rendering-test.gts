@@ -29,7 +29,12 @@ module('Rendering | <VisuallyHidden>', function (hooks) {
         margin: '-1px',
         clip: `rect(0px, 0px, 0px, 0px)`,
       },
-      `Expected style: width: "${style.width}", margin: "${style.margin}", clip: "${style.clip}"`
+      [
+        `Expected style: `,
+        `width: [ "1px", got: ${style.width}" ], `,
+        `margin: [ "-1px", got: "${style.margin}" ], `,
+        `clip: [ "rect(0px, 0px, 0px, 0px)", got: "${style.clip} ]"`,
+      ].join('')
     );
   });
 });

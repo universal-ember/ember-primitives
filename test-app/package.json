@@ -21,7 +21,7 @@
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "ember-tsc --noEmit",
     "start": "pnpm vite",
-    "test": "vite build --mode development test && ember test --path dist",
+    "test": "vite build --mode development && ember test --path dist",
     "test:ember": "vite build --mode development && ember test --path dist"
   },
   "dependencies": {
@@ -46,7 +46,7 @@
     "@embroider/config-meta-loader": "^1.0.0",
     "@embroider/core": "^4.2.5",
     "@embroider/macros": "^1.19.2",
-    "@embroider/vite": "^1.3.4",
+    "@embroider/vite": "^1.3.5",
     "@floating-ui/dom": "^1.7.0",
     "@glimmer/component": "^2.0.0",
     "@glint/ember-tsc": "^1.0.3",

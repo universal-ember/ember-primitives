@@ -546,7 +546,7 @@ importers:
         specifier: ^1.19.2
         version: 1.19.2(574c0ee04fb4e50b026cb93320b0e883)
       '@embroider/vite':
-        specifier: ^1.3.4
+        specifier: ^1.3.5
         version: 1.3.5(5d2f5128c5e7acf8b96d3949a8d11c7c)
       '@floating-ui/dom':
         specifier: ^1.7.0

@@ -1,4 +1,5 @@
-import { click, render } from '@ember/test-helpers';
+import { assert as debugAssert } from '@ember/debug';
+import { click, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -16,10 +17,19 @@ module('Rendering | <VisuallyHidden>', function (hooks) {
       </template>
     );
 
-    assert.dom('span').hasStyle({
-      width: '1px',
-      margin: '-1px',
-      clip: `rect(0px, 0px, 0px, 0px)`,
-    });
+    const span = find('span');
+
+    debugAssert(`Could not find span`, span);
+
+    const style = window.getComputedStyle(span);
+
+    assert.dom('span').hasStyle(
+      {
+        width: '1px',
+        margin: '-1px',
+        clip: `rect(0px, 0px, 0px, 0px)`,
+      },
+      `Expected style: width: "${style.width}", margin: "${style.margin}", clip: "${style.clip}"`
+    );
   });
 });

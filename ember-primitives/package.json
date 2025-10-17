@@ -83,6 +83,7 @@
     "publint": "^0.3.12",
     "rollup": "~4.44.0",
     "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-import-css": "^4.0.2",
     "typescript": "^5.8.3"
   },
   "publishConfig": {

@@ -493,6 +493,9 @@ importers:
       rollup-plugin-copy:
         specifier: ^3.5.0
         version: 3.5.0
+      rollup-plugin-import-css:
+        specifier: ^4.0.2
+        version: 4.0.2(rollup@4.44.2)
       typescript:
         specifier: ^5.8.3
         version: 5.9.2
@@ -8023,6 +8026,12 @@ packages:
   rollup-plugin-copy@3.5.0:
     resolution: {integrity: sha512-wI8D5dvYovRMx/YYKtUNt3Yxaw4ORC9xo6Gt9t22kveWz1enG9QrhVlagzwrxSC455xD1dHMKhIJkbsQ7d48BA==}
     engines: {node: '>=8.3'}
+
+  rollup-plugin-import-css@4.0.2:
+    resolution: {integrity: sha512-ud+/BxNpzjZD8Ak/GSCezC1LRbGXaKFKNjDwJu9NMX1dQlrT0J/vmNfuYq1zX2lTbwtTyPlnGVctIm6wGRDx2A==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      rollup: ^2.x.x || ^3.x.x || ^4.x.x
 
   rollup@4.44.2:
     resolution: {integrity: sha512-PVoapzTwSEcelaWGth3uR66u7ZRo6qhPHc0f2uRO9fX6XDVNrIiGYS0Pj9+R8yIIYSD/mCx2b16Ws9itljKSPg==}
@@ -19398,6 +19407,11 @@ snapshots:
       fs-extra: 8.1.0
       globby: 10.0.1
       is-plain-object: 3.0.1
+
+  rollup-plugin-import-css@4.0.2(rollup@4.44.2):
+    dependencies:
+      '@rollup/pluginutils': 5.3.0(rollup@4.44.2)
+      rollup: 4.44.2
 
   rollup@4.44.2:
     dependencies:

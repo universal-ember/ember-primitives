@@ -2,6 +2,8 @@ import { Addon } from "@embroider/addon-dev/rollup";
 
 import { babel } from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
+import { copyFile, mkdir } from "node:fs/promises";
+import { join, resolve } from "node:path";
 
 const addon = new Addon({
   srcDir: "src",
@@ -22,12 +24,23 @@ export default {
       "declarations",
       "pnpm ember-tsc --declaration --declarationDir declarations",
     ),
-    addon.clean(),
     copy({
       targets: [
         { src: "../README.md", dest: "." },
         { src: "../LICENSE.md", dest: "." },
       ],
     }),
+    {
+      name: "inline:copy-optional-assets",
+      async writeBundle() {
+        let cwd = process.cwd();
+        await mkdir(join(cwd, "./dist/components"), { recursive: true });
+        await copyFile(
+          resolve(cwd, "./src/components/violations.css"),
+          join(cwd, "./dist/components/violations.css"),
+        );
+      },
+    },
+    addon.clean(),
   ],
 };

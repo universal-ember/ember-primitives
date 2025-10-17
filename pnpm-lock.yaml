@@ -475,9 +475,6 @@ importers:
       eslint:
         specifier: ^9.26.0
         version: 9.33.0(jiti@2.4.2)
-      fix-bad-declaration-output:
-        specifier: ^1.1.4
-        version: 1.1.4(3fe8f303a52589052b0089e038dc1199)
       prettier:
         specifier: ^3.2.5
         version: 3.6.2
@@ -5174,10 +5171,6 @@ packages:
 
   fireworm@0.7.2:
     resolution: {integrity: sha512-GjebTzq+NKKhfmDxjKq3RXwQcN9xRmZWhnnuC9L+/x5wBQtR0aaQM50HsjrzJ2wc28v1vSdfOpELok0TKR4ddg==}
-
-  fix-bad-declaration-output@1.1.4:
-    resolution: {integrity: sha512-gK1foQT1cxE5GqYgyD4VVY1WCS72M+MbKUIZMRaPCx7HPWnsXKG9bqwo7aNsZiaK5gzlXNtdcg7PnQ8yoGrjZQ==}
-    hasBin: true
 
   fixturify-project@2.1.1:
     resolution: {integrity: sha512-sP0gGMTr4iQ8Kdq5Ez0CVJOZOGWqzP5dv/veOTdFNywioKjkNWCHBi1q65DMpcNGUGeoOUWehyji274Q2wRgxA==}
@@ -15887,15 +15880,6 @@ snapshots:
       lodash.debounce: 3.1.1
       lodash.flatten: 3.0.2
       minimatch: 3.1.2
-
-  fix-bad-declaration-output@1.1.4(3fe8f303a52589052b0089e038dc1199):
-    dependencies:
-      fs-extra: 11.3.1
-      globby: 14.1.0
-      jscodeshift: 0.15.2(3fe8f303a52589052b0089e038dc1199)
-    transitivePeerDependencies:
-      - '@babel/preset-env'
-      - supports-color
 
   fixturify-project@2.1.1:
     dependencies:

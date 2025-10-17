@@ -77,7 +77,6 @@
     "ember-source": "6.7.0",
     "ember-template-lint": "^7.7.0",
     "eslint": "^9.26.0",
-    "fix-bad-declaration-output": "^1.1.4",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^2.0.5",
     "publint": "^0.3.12",

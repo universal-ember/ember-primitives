@@ -33,7 +33,7 @@ module('Rendering | <VisuallyHidden>', function (hooks) {
         `Expected style: `,
         `width: [ "1px", got: ${style.width}" ], `,
         `margin: [ "-1px", got: "${style.margin}" ], `,
-        `clip: [ "rect(0px, 0px, 0px, 0px)", got: "${style.clip} ]"`,
+        `clip: [ "rect(0px, 0px, 0px, 0px)", got: "${style.clip}" ]`,
       ].join('')
     );
   });

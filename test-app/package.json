@@ -21,8 +21,8 @@
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "ember-tsc --noEmit",
     "start": "pnpm vite",
-    "test": "vite build --mode test && ember test --path dist",
-    "test:ember": "vite build --mode test && ember test --path dist"
+    "test": "vite build --development test && ember test --path dist",
+    "test:ember": "vite build --mode development && ember test --path dist"
   },
   "dependencies": {
     "ember-primitives": "workspace:^",

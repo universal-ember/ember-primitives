@@ -1,7 +1,6 @@
 import { Addon } from "@embroider/addon-dev/rollup";
 
 import { execa } from "execa";
-import { execSync } from "node:child_process";
 import { babel } from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
 

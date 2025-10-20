@@ -1,12 +1,9 @@
 {
   "extends": "@ember/library-tsconfig",
   "include": ["src/**/*"],
-  "glint": {
-    "environment": ["ember-template-imports"]
-  },
   "compilerOptions": {
-    "skipLibCheck": true,
     "rootDir": "./src",
+    "declarationDir": "declarations",
     "types": ["ember-source/types"]
   }
 }

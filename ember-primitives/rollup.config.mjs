@@ -1,5 +1,7 @@
 import { Addon } from "@embroider/addon-dev/rollup";
 
+import { execa } from "execa";
+import { execSync } from "node:child_process";
 import { babel } from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
 
@@ -21,6 +23,16 @@ export default {
     babel({ extensions, babelHelpers: "inline" }),
     addon.gjs(),
     addon.keepAssets(["**/*.css"]),
+    {
+      name: "generate types",
+      async writeBundle() {
+        execa(`./node_modules/.bin/ember-tsc`, ["--declaration"], {
+          cwd: process.cwd(),
+          shell: true,
+          stdio: "inherit",
+        });
+      },
+    },
     addon.declarations("declarations"),
     addon.clean(),
     copy({

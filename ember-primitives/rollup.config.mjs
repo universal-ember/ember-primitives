@@ -1,6 +1,5 @@
 import { Addon } from "@embroider/addon-dev/rollup";
 
-import { execa } from "execa";
 import { babel } from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
 
@@ -22,21 +21,10 @@ export default {
     babel({ extensions, babelHelpers: "inline" }),
     addon.gjs(),
     addon.keepAssets(["**/*.css"]),
-    {
-      name: "generate types",
-      async writeBundle() {
-        execa(
-          `./node_modules/.bin/ember-tsc`,
-          ["--declaration", "--declarationDir", "declarations"],
-          {
-            cwd: process.cwd(),
-            shell: true,
-            stdio: "inherit",
-          },
-        );
-      },
-    },
-    addon.declarations("declarations"),
+    addon.declarations(
+      "declarations",
+      "pnpm ember-tsc --declaration --declarationDir declarations",
+    ),
     addon.clean(),
     copy({
       targets: [

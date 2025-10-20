@@ -28,7 +28,7 @@
     "lint:published-types": "attw *.tgz || exit 0",
     "lint:prettier:fix": "pnpm -w exec lint prettier:fix",
     "lint:prettier": "pnpm -w exec lint prettier",
-    "lint:types": "ember-tsc --noEmit --declaration false",
+    "lint:types": "ember-tsc --noEmit --declaration false --declarationMap false --emitDeclarationOnly false",
     "pack": "pnpm pack",
     "start": "rollup --config --watch",
     "test": "echo 'A v2 addon does not have tests, run tests in test-app'",

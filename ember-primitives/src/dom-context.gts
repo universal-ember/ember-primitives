@@ -2,7 +2,7 @@ import Component from "@glimmer/component";
 import { cached, tracked } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 
-import { createStore } from "ember-primitives/store";
+import { createStore } from "./store.ts";
 
 import type { Newable } from "./type-utils";
 import type Owner from "@ember/owner";

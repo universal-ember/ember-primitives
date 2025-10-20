@@ -26,11 +26,15 @@ export default {
     {
       name: "generate types",
       async writeBundle() {
-        execa(`./node_modules/.bin/ember-tsc`, ["--declaration"], {
-          cwd: process.cwd(),
-          shell: true,
-          stdio: "inherit",
-        });
+        execa(
+          `./node_modules/.bin/ember-tsc`,
+          ["--declaration", "--declarationDir", "declarations"],
+          {
+            cwd: process.cwd(),
+            shell: true,
+            stdio: "inherit",
+          },
+        );
       },
     },
     addon.declarations("declarations"),

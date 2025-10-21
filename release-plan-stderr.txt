@@ -1,0 +1,7 @@
+# Unlabeled Changes
+
+* `ember-primitives`
+  * [#540](https://github.com/universal-ember/ember-primitives/pull/540) Update glint packages for the library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+
+*Cannot plan release until the above changes are labeled*.

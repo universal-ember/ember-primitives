@@ -18,7 +18,10 @@ import { uniqueId } from "../utils.ts";
 import Portal from "./portal.gts";
 
 import type { TOC } from "@ember/component/template-only";
+import type Owner from "@ember/owner";
 import type { ComponentLike, WithBoundArgs } from "@glint/template";
+
+const UNSET = Symbol.for("ember-primitives:tabs:unset");
 
 const TABSTER_CONFIG = getTabsterAttribute(
   {
@@ -70,10 +73,11 @@ const TabButton: TOC<{
      * for managing state
      */
     handleClick: () => void;
+
     /**
      * @internal
      */
-    isActive: boolean;
+    state: TabState;
   };
   Blocks: {
     default: [];
@@ -83,7 +87,7 @@ const TabButton: TOC<{
     role="tab"
     type="button"
     aria-controls={{@panelId}}
-    aria-selected={{String @isActive}}
+    aria-selected={{String (@state.isActive @id)}}
     id={{@id}}
     {{on "click" @handleClick}}
   >
@@ -106,21 +110,15 @@ const TabContent: TOC<{
     tabId: string;
     /**
      * @internal
-     * for portalling the content to the correct location in the DOM
-     * (since the tabs pattern (and most HTML patterns), don't support co-located definitions)
      */
-    portalId: string;
-    /**
-     * @internal
-     */
-    isActive: boolean;
+    state: TabState;
   };
   Blocks: {
     default: [];
   };
 }> = <template>
-  <Portal @to="#{{@portalId}}" @append={{true}}>
-    {{#if @isActive}}
+  <Portal @to="#{{@state.tabpanelId}}" @append={{true}}>
+    {{#if (@state.isActive @tabId)}}
       <div ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
         {{yield}}
       </div>
@@ -139,20 +137,17 @@ class TabContainer extends Component<{
   Args: {
     /**
      * @internal
-     * for portalling the content
      */
-    portalId: string;
-    /**
-     * @internal
-     * for coordinate state
-     */
-    active: string;
+    state: TabState;
 
     /**
-     * @internal
-     * for coordinate state
+     * When opting for a "controlled component",
+     * the value will be needed to make sense of the selected tab.
+     *
+     * The default value used for communication within the Tabs component (and eventually emitted via the @onChange argument) is a unique random id.
+     * So while that could still be used for controlling the tabs component, it may be more easy to grok with user-managed values.
      */
-    handleClick: (selected: string) => void;
+    value?: string;
 
     /**
      * optional user-passable label
@@ -161,8 +156,8 @@ class TabContainer extends Component<{
   };
   Blocks: {
     default: [
-      trigger: WithBoundArgs<typeof TabButton, "panelId" | "id" | "handleClick">,
-      content: WithBoundArgs<typeof TabContent, "id">,
+      trigger: WithBoundArgs<typeof TabButton, "state">,
+      content: WithBoundArgs<typeof TabContent, "state">,
     ];
   };
 }> {
@@ -176,10 +171,6 @@ class TabContainer extends Component<{
     return `${this.id}__panel`;
   }
 
-  get isActive() {
-    return this.args.active === this.tabId;
-  }
-
   get label() {
     return this.args.label ?? this.tabId;
   }
@@ -187,20 +178,15 @@ class TabContainer extends Component<{
   <template>
     {{#if @label}}
       <TabButton
+        @state={{@state}}
         @id={{this.tabId}}
         @panelId={{this.panelId}}
-        @isActive={{this.isActive}}
-        @handleClick={{fn @handleClick this.tabId}}
+        @handleClick={{fn @state.handleChange this.tabId}}
       >
         {{@label}}
       </TabButton>
 
-      <TabContent
-        @isActive={{this.isActive}}
-        @id={{this.panelId}}
-        @tabId={{this.tabId}}
-        @portalId={{@portalId}}
-      >
+      <TabContent @state={{@state}} @id={{this.panelId}} @tabId={{this.tabId}}>
         {{yield}}
       </TabContent>
     {{else}}
@@ -208,16 +194,14 @@ class TabContainer extends Component<{
         (makeTab
           (component
             TabButton
+            state=@state
             id=this.tabId
             panelId=this.panelId
-            isActive=this.isActive
-            handleClick=(fn @handleClick this.tabId)
+            handleClick=(fn @state.handleChange this.tabId)
           )
-          (component TabLink id=this.tabId panelId=this.panelId isActive=this.isActive)
+          (component TabLink state=@state id=this.tabId panelId=this.panelId)
         )
-        (component
-          TabContent isActive=this.isActive id=this.panelId tabId=this.tabId portalId=@portalId
-        )
+        (component TabContent state=@state id=this.panelId tabId=this.tabId)
       }}
     {{/if}}
   </template>
@@ -234,11 +218,11 @@ const Label: TOC<{
     /**
      * @internal
      */
-    portalId: string;
+    state: TabState;
   };
   Blocks: { default: [] };
 }> = <template>
-  <Portal @to="#{{@portalId}}">
+  <Portal @to="#{{@state.tabpanelId}}">
     {{yield}}
   </Portal>
 </template>;
@@ -330,13 +314,53 @@ function makeAPI(tabContainer: any, labelComponent: any): any {
   return tabContainer;
 }
 
-export class Tabs extends Component<Signature> {
-  id = `ember-primitives-${uniqueId()}`;
+/**
+ * State bucket passed around to all the sub-components.
+ *
+ * Sort of a "Context", but with a bit of prop-drilling (which is more efficient than dom-context)
+ */
+class TabState {
+  declare args: {
+    activeTab?: string;
+    onChange?: (selected: string, previous: string | null) => void;
+  };
 
   @tracked _active: string | null = null;
 
+  #first: string | null = null;
+  id: string;
+  labelId: string;
+  tabpanelId: string;
+
+  constructor(args: { activeTab?: string; onChange?: () => void }) {
+    this.args = args;
+
+    this.id = `ember-primitives-${uniqueId()}`;
+    this.labelId = `${this.id}__label`;
+    this.tabpanelId = `${this.id}__tabpanel`;
+  }
+
+  /**
+   * This function relies on the fact that during rendering,
+   * the first component to be rendered will be first,
+   * and it will be the one to set the secret first value,
+   * which means all other tabs will not be first.
+   *
+   */
+  isActive = (tabId: string) => {
+    if (this.active === UNSET) {
+      if (this.#first) return tabId === this.#first;
+
+      this.#first = tabId;
+
+      return true;
+    }
+
+    return this.active == tabId;
+  };
+
   get active() {
-    return this._active ?? "first?";
+    return this._active ?? this.args.activeTab ?? UNSET;
   }
 
   handleChange = (selected: string) => {
@@ -344,43 +368,42 @@ export class Tabs extends Component<Signature> {
 
     this._active = selected;
 
-    this.args.onChange?.(selected, previous);
+    this.args.onChange?.(selected, previous === UNSET ? null : previous);
   };
+}
 
-  get labelId() {
-    return `${this.id}__label`;
-  }
+export class Tabs extends Component<Signature> {
+  state: TabState;
 
-  get tabpanelId() {
-    return `${this.id}__tabpanel`;
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  constructor(owner: Owner, args: {}) {
+    super(owner, args);
+
+    this.state = new TabState(args);
   }
 
   <template>
-    <div class="ember-primitives__tabs" ...attributes data-active={{this.active}}>
+    <div class="ember-primitives__tabs" ...attributes data-active={{this.state.active}}>
       {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
-      <div class="ember-primitives__tabl__label" id={{this.labelId}}>
+      <div class="ember-primitives__tabl__label" id={{this.state.labelId}}>
         {{@label}}
       </div>
       <div
         class="ember-primitives__tabs__tablist"
         ...attributes
         role="tablist"
-        aria-labelledby={{this.labelId}}
+        aria-labelledby={{this.state.labelId}}
         data-tabster={{TABSTER_CONFIG}}
       >
         {{yield
-          (makeAPI
-            (component
-              TabContainer portalId=this.tabpanelId active=this.active handleClick=this.handleChange
-            )
-          )
-          (component Label portalId=this.labelId)
+          (makeAPI (component TabContainer state=this.state))
+          (component Label state=this.state)
         }}
       </div>
       {{!
         Tab's contents are portaled in to this element
       }}
-      <div class="ember-primitives__tabs__tabpanel" id={{this.tabpanelId}}></div>
+      <div class="ember-primitives__tabs__tabpanel" id={{this.state.tabpanelId}}></div>
     </div>
   </template>
 }

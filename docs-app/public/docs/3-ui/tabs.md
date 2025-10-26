@@ -5,11 +5,12 @@ A set of layered sections of content—known as tab panels—that are displayed 
 
 <div class="featured-demo">
 
+<!-- tabster doesn't work across the shadow boundary -->
 ```gjs live preview no-shadow
 import { Tabs } from 'ember-primitives/components/tabs';
 
 <template>
-  <Tabs class="tabs" @label="A list of foods" as |Tab|>
+  <Tabs @label="A list of foods" as |Tab|>
     <Tab @label="apple"> 
       content about apples
     </Tab>
@@ -24,78 +25,81 @@ import { Tabs } from 'ember-primitives/components/tabs';
     </Tab>
   </Tabs>
   <style>
-    [role="tablist"] {
-      min-width: 100%;
-    }
+    /* https://caniuse.com/css-cascade-scope */
+    @scope {
+      [role="tablist"] {
+        min-width: 100%;
+      }
 
-    [role="tab"],
-    [role="tab"]:focus,
-    [role="tab"]:hover {
-      color: black;
-      display: inline-block;
-      position: relative;
-      z-index: 2;
-      top: 2px;
-      margin: 0;
-      margin-top: 4px;
-      padding: 3px 3px 4px;
-      border: 1px solid hsl(219deg 1% 72%);
-      border-bottom: 2px solid hsl(219deg 1% 72%);
-      border-radius: 5px 5px 0 0;
-      background: hsl(220deg 20% 94%);
-      outline: none;
-      font-weight: bold;
-      max-width: 22%;
-      overflow: hidden;
-      text-align: left;
-      cursor: pointer;
-    }
+      [role="tab"],
+      [role="tab"]:focus,
+      [role="tab"]:hover {
+        color: black;
+        display: inline-block;
+        position: relative;
+        z-index: 2;
+        top: 2px;
+        margin: 0;
+        margin-top: 4px;
+        padding: 3px 3px 4px;
+        border: 1px solid hsl(219deg 1% 72%);
+        border-bottom: 2px solid hsl(219deg 1% 72%);
+        border-radius: 5px 5px 0 0;
+        background: hsl(220deg 20% 94%);
+        outline: none;
+        font-weight: bold;
+        max-width: 22%;
+        overflow: hidden;
+        text-align: left;
+        cursor: pointer;
+      }
 
-    [role="tab"][aria-selected="true"] {
-      padding: 2px 2px 4px;
-      margin-top: 0;
-      border-width: 2px;
-      border-top-width: 6px;
-      border-top-color: rgb(36 116 214);
-      border-bottom-color: hsl(220deg 43% 99%);
-      background: hsl(220deg 43% 99%);
-    }
+      [role="tab"][aria-selected="true"] {
+        padding: 2px 2px 4px;
+        margin-top: 0;
+        border-width: 2px;
+        border-top-width: 6px;
+        border-top-color: rgb(36 116 214);
+        border-bottom-color: hsl(220deg 43% 99%);
+        background: hsl(220deg 43% 99%);
+      }
 
-    [role="tab"][aria-selected="false"] {
-      border-bottom: 1px solid hsl(219deg 1% 72%);
-    }
+      [role="tab"][aria-selected="false"] {
+        border-bottom: 1px solid hsl(219deg 1% 72%);
+      }
 
-    [role="tab"] span.focus {
-      display: inline-block;
-      margin: 2px;
-      padding: 4px 6px;
-    }
+      [role="tab"] span.focus {
+        display: inline-block;
+        margin: 2px;
+        padding: 4px 6px;
+      }
 
-    [role="tab"]:hover span.focus,
-    [role="tab"]:focus span.focus,
-    [role="tab"]:active span.focus {
-      padding: 2px 4px;
-      border: 2px solid rgb(36 116 214);
-      border-radius: 3px;
-    }
+      [role="tab"]:hover span.focus,
+      [role="tab"]:focus span.focus,
+      [role="tab"]:active span.focus {
+        padding: 2px 4px;
+        border: 2px solid rgb(36 116 214);
+        border-radius: 3px;
+      }
 
-    [role="tabpanel"] {
-      color: black;
-      padding: 5px;
-      border: 2px solid hsl(219deg 1% 72%);
-      border-radius: 0 5px 5px;
-      background: hsl(220deg 43% 99%);
-      min-height: 10em;
-      width: 100%;
-      overflow: auto;
-    }
+      [role="tabpanel"] {
+        color: black;
+        padding: 5px;
+        border: 2px solid hsl(219deg 1% 72%);
+        border-radius: 0 5px 5px;
+        background: hsl(220deg 43% 99%);
+        min-height: 10em;
+        width: 100%;
+        overflow: auto;
+      }
 
-    [role="tabpanel"].is-hidden {
-      display: none;
-    }
+      [role="tabpanel"].is-hidden {
+        display: none;
+      }
 
-    [role="tabpanel"] p {
-      margin: 0;
+      [role="tabpanel"] p {
+        margin: 0;
+      }
     }
   </style>
 </template>

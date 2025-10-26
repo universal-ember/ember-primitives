@@ -12,11 +12,45 @@ import { tracked } from "@glimmer/tracking";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
 
+import { getTabsterAttribute, MoverDirections } from "tabster";
+
 import { uniqueId } from "../utils.ts";
+import Portal from "./portal.gts";
 
 import type { TOC } from "@ember/component/template-only";
 import type { ComponentLike, WithBoundArgs } from "@glint/template";
-import Portal from "./portal.gts";
+
+const TABSTER_CONFIG = getTabsterAttribute(
+  {
+    mover: {
+      direction: MoverDirections.Both,
+      cyclic: true,
+    },
+    deloser: {},
+  },
+  true,
+);
+
+const TabLink: TOC<{
+  Element: HTMLAnchorElement;
+  Args: {
+    /**
+     * @internal
+     * for linking of aria
+     */
+    id: string;
+    /**
+     * @internal
+     * for linking of aria
+     */
+    panelId: string;
+  };
+  Blocks: { default: [] };
+}> = <template>
+  <a ...attributes role="tab" aria-controls={{@panelId}} id={{@id}}>
+    {{yield}}
+  </a>
+</template>;
 
 const TabButton: TOC<{
   Args: {
@@ -71,17 +105,30 @@ const TabContent: TOC<{
      * (since the tabs pattern (and most HTML patterns), don't support co-located definitions)
      */
     portalId: string;
+    /**
+     * @internal
+     */
+    isActive: boolean;
   };
   Blocks: {
     default: [];
   };
 }> = <template>
   <Portal @to="[data-tabs-portal-id='{{@portalId}}']" @append={{true}}>
-    <div ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
-      {{yield}}
-    </div>
+    {{#if @isActive}}
+      <div ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
+        {{yield}}
+      </div>
+    {{/if}}
   </Portal>
 </template>;
+
+function makeTab(tabButton: any, tabLink: any): any {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  tabButton.Link = tabLink;
+
+  return tabButton;
+}
 
 class TabContainer extends Component<{
   Args: {
@@ -133,81 +180,57 @@ class TabContainer extends Component<{
   }
 
   <template>
-    {{#if this.isActive}}
+    {{#if @label}}
+      <TabButton
+        @id={{this.tabId}}
+        @panelId={{this.panelId}}
+        @handleClick={{fn @handleClick this.tabId}}
+      >
+        {{@label}}
+      </TabButton>
+
+      <TabContent
+        @isActive={{this.isActive}}
+        @id={{this.panelId}}
+        @tabId={{this.tabId}}
+        @portalId={{@portalId}}
+      >
+        {{yield}}
+      </TabContent>
+    {{else}}
       {{yield
-        (component
-          TabButton id=this.tabId panelId=this.panelId handleClick=(fn @handleClick this.tabId)
+        (makeTab
+          (component
+            TabButton id=this.tabId panelId=this.panelId handleClick=(fn @handleClick this.tabId)
+          )
+          TabLink
         )
-        (component TabContent id=this.panelId buttonId=this.tabId portalId=@portalId)
+        (component
+          TabContent isActive=this.isActive id=this.panelId tabId=this.tabId portalId=@portalId
+        )
       }}
     {{/if}}
   </template>
 }
 
 const Label: TOC<{
-  Element: HTMLDivElement;
+  /**
+   * The label wiring (id, aria, etc) are handled for you.
+   * If you'd like to use a heading element (h3, etc), place that in the block content
+   * when invoking this Label component.
+   */
+  Element: null;
   Args: {
     /**
      * @internal
-     * for linking of aria
      */
-    tablistId: string;
+    portalId: string;
   };
   Blocks: { default: [] };
 }> = <template>
-  <div ...attributes id="{{@tablistId}}-label">{{yield}}</div>
-</template>;
-
-const List: TOC<{
-  Element: HTMLDivElement;
-  Args: {
-    /**
-     * @internal
-     * for linking of aria
-     */
-    tablistId: string;
-    /**
-     * @internal
-     * for portaling
-     */
-    portalId: string;
-
-    /**
-     * @internal
-     * for coordinate state
-     */
-    active: string;
-    /**
-     * @internal
-     * for coordinate state
-     */
-    handleClick: (selected: string) => void;
-  };
-  Blocks: {
-    default: [tab: WithBoundArgs<typeof TabContainer, "portalId">];
-  };
-}> = <template>
-  <div ...attributes role="tablist" aria-labelledby="{{@tablistId}}-label">
-    {{yield (component TabContainer portalId=@portalId active=@active handleClick=@handleClick)}}
-  </div>
-</template>;
-
-const ContentPortal: TOC<{
-  Element: HTMLDivElement;
-  Args: {
-    /**
-     * @internal
-     * for linking of aria
-     */
-    id: string;
-    /**
-     * @internal
-     * for portaling
-     */
-    portalId: string;
-  };
-}> = <template>
-  <div ...attributes data-tabs-portal-id={{@portalId}} id={{@id}}></div>
+  <Portal @to="#{{@portalId}}">
+    {{yield}}
+  </Portal>
 </template>;
 
 export interface Signature {
@@ -223,6 +246,10 @@ export interface Signature {
      */
     activeTab?: string;
     /**
+     * Optional label for the overall TabList
+     */
+    label?: string;
+    /**
      * When the tab changes, this function will be called.
      * The function receives both the newly selected tab as well as the previous tab.
      *
@@ -232,6 +259,9 @@ export interface Signature {
   };
   Blocks: {
     default: [
+      Tab: WithBoundArgs<typeof TabContainer, "portalId"> & {
+        Label: WithBoundArgs<typeof Label, "portalId">;
+      },
       TabList: ComponentLike<{
         Element: HTMLDivElement;
         Blocks: {
@@ -283,13 +313,11 @@ export interface Signature {
 /**
  * We're doing old skool hax with this, so we don't need to care about what the types think, really
  */
-function makeListAPI(listComponent: any, labelComponent: any, contentCompoent: any): any {
+function makeAPI(tabContainer: any, labelComponent: any): any {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-  listComponent.Label = labelComponent;
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-  listComponent.Content = contentCompoent;
+  tabContainer.Label = labelComponent;
 
-  return listComponent;
+  return tabContainer;
 }
 
 export class Tabs extends Component<Signature> {
@@ -309,25 +337,42 @@ export class Tabs extends Component<Signature> {
     this.args.onChange?.(selected, previous);
   };
 
-  get tablistId() {
-    return `${this.id}__tablist`;
+  get labelId() {
+    return `${this.id}__label`;
+  }
+
+  get tabpanelId() {
+    return `${this.id}__tabpanel`;
   }
 
   <template>
-    <div ...attributes data-active={{this.active}}>
-      {{yield
-        (makeListAPI
-          (component
-            List
-            tablistId=this.tablistId
-            portalId=this.id
-            active=this.active
-            handleClick=this.handleChange
+    <div class="ember-primitives__tabs" ...attributes data-active={{this.active}}>
+      {{#unless @label}}
+        {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
+        <div class="ember-primitives__tabl__label" id={{this.labelId}}>
+          {{@label}}
+        </div>
+      {{/unless}}
+      <div
+        class="ember-primitives__tabs__tablist"
+        ...attributes
+        role="tablist"
+        aria-labelledby={{this.labelId}}
+        data-tabster={{TABSTER_CONFIG}}
+      >
+        {{yield
+          (makeAPI
+            (component
+              TabContainer portalId=this.id active=this.active handleClick=this.handleChange
+            )
           )
-          (component Label tablistId=this.tablistId)
-          (component ContentPortal portalId=this.id id=this.tablistId)
-        )
+          (component Label portalId=this.labelId)
+        }}
+      </div>
+      {{!
+        Tab's contents are portaled in to this element
       }}
+      <div class="ember-primitives__tabs__tabpanel" id={{this.tabpanelId}}></div>
     </div>
   </template>
 }

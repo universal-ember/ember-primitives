@@ -37,7 +37,7 @@
   "packageManager": "pnpm@10.19.0",
   "volta": {
     "node": "22.21.0",
-    "pnpm": "10.13.1"
+    "pnpm": "10.19.0"
   },
   "pnpm": {
     "peerDependencyRules": {

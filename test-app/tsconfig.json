@@ -1,9 +1,6 @@
 {
   "extends": "@ember/app-tsconfig",
   "include": ["app", "tests", "types"],
-  "glint": {
-    "environment": ["ember-loose", "ember-template-imports"]
-  },
   "compilerOptions": {
     "skipLibCheck": true,
     "paths": {
@@ -11,6 +8,6 @@
       "test-app/*": ["./app/*"],
       "*": ["./types/*"]
     },
-    "types": ["ember-source/types", "@embroider/core/virtual"]
+    "types": ["ember-source/types", "@embroider/core/virtual", "@glint/ember-tsc/types"]
   }
 }

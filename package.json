@@ -19,15 +19,15 @@
     "test": "turbo run test --output-logs errors-only"
   },
   "devDependencies": {
-    "@babel/core": "^7.27.1",
+    "@babel/core": "^7.28.5",
     "@nullvoxpopuli/dev": "workspace:*",
-    "concurrently": "^9.1.0",
+    "concurrently": "^9.2.1",
     "ember-primitives": "workspace:^",
     "prettier": "^3.2.5",
     "prettier-plugin-ember-template-tag": "^2.0.5",
     "release-plan": "^0.17.0",
-    "turbo": "^2.2.3",
-    "typescript": "^5.8.3"
+    "turbo": "^2.5.8",
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">= 20.*",

@@ -70,6 +70,10 @@ const TabButton: TOC<{
      * for managing state
      */
     handleClick: () => void;
+    /**
+     * @internal
+     */
+    isActive: boolean;
   };
   Blocks: {
     default: [];
@@ -79,6 +83,7 @@ const TabButton: TOC<{
     role="tab"
     type="button"
     aria-controls={{@panelId}}
+    aria-selected={{String @isActive}}
     id={{@id}}
     {{on "click" @handleClick}}
   >
@@ -114,7 +119,7 @@ const TabContent: TOC<{
     default: [];
   };
 }> = <template>
-  <Portal @to="[data-tabs-portal-id='{{@portalId}}']" @append={{true}}>
+  <Portal @to="#{{@portalId}}" @append={{true}}>
     {{#if @isActive}}
       <div ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
         {{yield}}
@@ -184,6 +189,7 @@ class TabContainer extends Component<{
       <TabButton
         @id={{this.tabId}}
         @panelId={{this.panelId}}
+        @isActive={{this.isActive}}
         @handleClick={{fn @handleClick this.tabId}}
       >
         {{@label}}
@@ -201,9 +207,13 @@ class TabContainer extends Component<{
       {{yield
         (makeTab
           (component
-            TabButton id=this.tabId panelId=this.panelId handleClick=(fn @handleClick this.tabId)
+            TabButton
+            id=this.tabId
+            panelId=this.panelId
+            isActive=this.isActive
+            handleClick=(fn @handleClick this.tabId)
           )
-          TabLink
+          (component TabLink id=this.tabId panelId=this.panelId isActive=this.isActive)
         )
         (component
           TabContent isActive=this.isActive id=this.panelId tabId=this.tabId portalId=@portalId
@@ -347,12 +357,10 @@ export class Tabs extends Component<Signature> {
 
   <template>
     <div class="ember-primitives__tabs" ...attributes data-active={{this.active}}>
-      {{#unless @label}}
-        {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
-        <div class="ember-primitives__tabl__label" id={{this.labelId}}>
-          {{@label}}
-        </div>
-      {{/unless}}
+      {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
+      <div class="ember-primitives__tabl__label" id={{this.labelId}}>
+        {{@label}}
+      </div>
       <div
         class="ember-primitives__tabs__tablist"
         ...attributes
@@ -363,7 +371,7 @@ export class Tabs extends Component<Signature> {
         {{yield
           (makeAPI
             (component
-              TabContainer portalId=this.id active=this.active handleClick=this.handleChange
+              TabContainer portalId=this.tabpanelId active=this.active handleClick=this.handleChange
             )
           )
           (component Label portalId=this.labelId)

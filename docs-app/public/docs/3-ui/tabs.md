@@ -80,6 +80,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
     }
 
     [role="tabpanel"] {
+      color: black;
       padding: 5px;
       border: 2px solid hsl(219deg 1% 72%);
       border-radius: 0 5px 5px;

@@ -6,6 +6,12 @@ Ownership and destroyable linkage is handled (via [`link`][reactiveweb-link]).
 
 [reactiveweb-link]: https://reactive.nullvoxpopuli.com/functions/link.link.html 
 
+<Callout>
+
+When using `createStore` with the `owner` as the key, you effectively have lazyily included services, as per [RFC #502, "Explicit Service Injection"](https://github.com/emberjs/rfcs/pull/502)
+
+</Callout>
+
 ## Setup
 
 ```bash 

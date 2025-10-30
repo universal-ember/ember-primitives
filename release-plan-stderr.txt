@@ -1,0 +1,7 @@
+# Unlabeled Changes
+
+* `ember-primitives`
+  * [#544](https://github.com/universal-ember/ember-primitives/pull/544) Glint v2 everywhere ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+
+*Cannot plan release until the above changes are labeled*.

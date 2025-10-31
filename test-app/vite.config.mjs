@@ -12,4 +12,7 @@ export default defineConfig(() => ({
       extensions,
     }),
   ],
+  optimizeDeps: {
+    exclude: ["ember-primitives"],
+  },
 }));

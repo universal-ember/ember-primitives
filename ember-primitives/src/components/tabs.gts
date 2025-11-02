@@ -76,6 +76,12 @@ const TabButton: TOC<{
 
     /**
      * @internal
+     * for managing state
+     */
+    value: string | undefined;
+
+    /**
+     * @internal
      */
     state: TabState;
   };
@@ -87,7 +93,7 @@ const TabButton: TOC<{
     role="tab"
     type="button"
     aria-controls={{@panelId}}
-    aria-selected={{String (@state.isActive @id)}}
+    aria-selected={{String (@state.isActive @id @value)}}
     id={{@id}}
     {{on "click" @handleClick}}
   >
@@ -165,7 +171,7 @@ class TabContainer extends Component<{
   };
   Blocks: {
     default: [
-      Label: WithBoundArgs<typeof TabButton, "state" | "id" | "panelId" | "handleClick">,
+      Label: WithBoundArgs<typeof TabButton, "state" | "id" | "panelId" | "handleClick" | "value">,
       Content: WithBoundArgs<typeof TabContent, "state" | "id" | "tabId">,
     ];
   };
@@ -189,8 +195,9 @@ class TabContainer extends Component<{
       <TabButton
         @state={{@state}}
         @id={{this.tabId}}
+        @value={{@value}}
         @panelId={{this.panelId}}
-        @handleClick={{fn @state.handleChange this.tabId}}
+        @handleClick={{fn @state.handleChange this.tabId @value}}
       >
         {{#if (isString @label)}}
           {{@label}}
@@ -216,9 +223,10 @@ class TabContainer extends Component<{
           (component
             TabButton
             state=@state
+            value=@value
             id=this.tabId
             panelId=this.panelId
-            handleClick=(fn @state.handleChange this.tabId)
+            handleClick=(fn @state.handleChange this.tabId @value)
           )
           (component TabLink state=@state id=this.tabId panelId=this.panelId)
         )
@@ -272,7 +280,7 @@ export interface Signature {
      *
      * However, if the tabs are not configured with names, these values will be null.
      */
-    onChange?: (selectedTab?: string, previousTab?: string) => void;
+    onChange?: (selectedTab: string, previousTab: string | null) => void;
 
     /**
      * When activationMode is set to "automatic", tabs are activated when receiving focus. When set to "manual", tabs are activated when clicked (or when "enter" is pressed via the keyboard).
@@ -331,28 +339,43 @@ class TabState {
    * which means all other tabs will not be first.
    *
    */
-  isActive = (tabId: string) => {
-    if (this.active === UNSET) {
-      if (this.#first) return tabId === this.#first;
+  isActive = (tabId: string, tabValue: undefined | string) => {
+    /**
+     * When users pass the @value to a tab, we use that for managing
+     * the "active state" instead of the DOM ID.
+     *
+     * NOTE: DOM IDs must be unique across the whole document, but @value
+     *     does not need to be unqiue.
+     *          `@value` *should* be unique for the Tabs component though
+     */
+    const isSelected = (x: string) => {
+      if (tabValue) return x === tabValue;
 
-      this.#first = tabId;
+      return x === tabId;
+    };
+
+    if (this.active === UNSET) {
+      if (this.#first) return isSelected(this.#first);
+
+      this.#first = tabValue ?? tabId;
 
       return true;
     }
 
-    return this.active == tabId;
+    return isSelected(this.active);
   };
 
   get active() {
     return this._active ?? this.args.activeTab ?? UNSET;
   }
 
-  handleChange = (selected: string) => {
+  handleChange = (tabId: string, tabValue: string | undefined) => {
     const previous = this.active;
+    const next = tabValue ?? tabId;
 
-    this._active = selected;
+    this._active = next;
 
-    this.args.onChange?.(selected, previous === UNSET ? null : previous);
+    this.args.onChange?.(next, previous === UNSET ? null : previous);
   };
 }
 

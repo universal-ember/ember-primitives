@@ -28,17 +28,32 @@ module('Rendering | <Tabs>', function (hooks) {
     assert.dom().doesNotContainText('something about oranges');
   });
 
-  module('@activationMode: automatic', function () {});
-  module('@activationMode: manual', function () {});
+  module('@activationMode: automatic', function () {
+    test('keyboard focus selects the tab', async () => {});
+    test('clicking selects the tab', async () => {});
+  });
+  module('@activationMode: manual', function () {
+    test('keyboard focus does not select the tab', async () => {});
+    test('clicking selects the tab', async () => {});
+  });
 
-  module('@label', function () {
-    test('string', async function (assert) {
+  module('@activeTab', () => {
+    test('with no value, the selected tab is the first tab', async (assert) => {});
+    test('initial tab can be non-first', async (assert) => {});
+    test('with invalid value, the first tab is selected', async (assert) => {});
+  });
+  module('@onChange', () => {
+    test('when first called, there is no previous', () => {});
+  });
+
+  module('@label', () => {
+    test('string', async (assert) => {
       await render(<template><Tabs @label="the label" as |Tab| /></template>);
 
       assert.dom().containsText('the label');
     });
 
-    test('component', async function (assert) {
+    test('component', async (assert) => {
       const CustomLabel = <template>my custom label</template>;
 
       await render(<template><Tabs @label={{CustomLabel}} as |Tab| /></template>);
@@ -153,6 +168,30 @@ module('Rendering | <Tabs>', function (hooks) {
         assert.dom('[role="tabpanel"]').doesNotContainText('something about oranges');
       });
     }
+
+    test('@value', async (assert) => {
+      const record = (x: string, y: string | null) => assert.step(`change: ${x}, ${y}`);
+
+      await render(
+        <template>
+          <Tabs @onChange={{record}} as |Tab|>
+            <Tab @value="a" @label="Banana" />
+            <Tab @value="b" @label="Apple" />
+            <Tab @value="c" @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      assert.verifySteps([]);
+
+      // Selects non-first
+      await click(screen.getByText('Apple'));
+      assert.verifySteps(['change: b, null']);
+
+      // Re-selects first
+      await click(screen.getByText('Banana'));
+      assert.verifySteps(['change: a, b']);
+    });
 
     test('default block', async (assert) => {
       await render(

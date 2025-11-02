@@ -1,6 +1,17 @@
 # Tabs
 
-A set of layered sections of content—known as tab panels—that are displayed one at a time.
+A set of layered sections of content, known as tab panels, that are displayed one at a time.
+
+
+<Callout>
+
+  Tabs _can_ be implemented without JavaScript, using "[plain HTML][css-only-tabs]", however, in order to do so, you must render all tabpanels at once (even if hidden). A defining characteristic of JavaScript-enabled tabs is that the DOM has less content rendered at once, improving page load.
+
+  This still requires that subsequent tab loads are fast so that there is no visible UI lag.
+
+[css-only-tabs]: https://jsfiddle.net/eu81273/812ehkyf/ 
+
+</Callout>
 
 
 <div class="featured-demo">
@@ -10,17 +21,14 @@ A set of layered sections of content—known as tab panels—that are displayed 
 import { Tabs } from 'ember-primitives/components/tabs';
 
 <template>
-  <Tabs @label="A list of foods" as |Tab|>
-    <Tab @label="apple"> 
-      content about apples
-    </Tab>
-    <Tab @label="banana"> 
-      content about bananas
-    </Tab>
+  <Tabs @label="Install with your favorite package-manager" as |Tab|>
+    <Tab @label="npm">npm add ember-primitives</Tab>
+    <Tab @label="pnpm">pnpm add ember-primitives</Tab>
+
     <Tab as |trigger content|>
-      <trigger class="blue">durian</trigger>
+      <trigger class="yarn">yarn</trigger>
       <content>
-        content about durian
+        yarn add ember-primitives
       </content>
     </Tab>
   </Tabs>
@@ -31,74 +39,37 @@ import { Tabs } from 'ember-primitives/components/tabs';
         min-width: 100%;
       }
 
-      [role="tab"],
-      [role="tab"]:focus,
-      [role="tab"]:hover {
+      [role="tab"] {
         color: black;
         display: inline-block;
-        position: relative;
-        z-index: 2;
-        top: 2px;
-        margin: 0;
-        margin-top: 4px;
-        padding: 3px 3px 4px;
-        border: 1px solid hsl(219deg 1% 72%);
-        border-bottom: 2px solid hsl(219deg 1% 72%);
-        border-radius: 5px 5px 0 0;
+        padding: 0.25rem 0.5rem; 
         background: hsl(220deg 20% 94%);
         outline: none;
         font-weight: bold;
-        max-width: 22%;
-        overflow: hidden;
-        text-align: left;
         cursor: pointer;
+        box-shadow: inset 0 -1px 1px black;
       }
 
       [role="tab"][aria-selected="true"] {
-        padding: 2px 2px 4px;
-        margin-top: 0;
-        border-width: 2px;
-        border-top-width: 6px;
-        border-top-color: rgb(36 116 214);
-        border-bottom-color: hsl(220deg 43% 99%);
-        background: hsl(220deg 43% 99%);
+        background: white;
+        box-shadow: inset 0 -4px 0px orange;
       }
 
-      [role="tab"][aria-selected="false"] {
-        border-bottom: 1px solid hsl(219deg 1% 72%);
+      [role="tab"]:first-of-type {
+        border-top-left-radius: 0.25rem;
       }
-
-      [role="tab"] span.focus {
-        display: inline-block;
-        margin: 2px;
-        padding: 4px 6px;
-      }
-
-      [role="tab"]:hover span.focus,
-      [role="tab"]:focus span.focus,
-      [role="tab"]:active span.focus {
-        padding: 2px 4px;
-        border: 2px solid rgb(36 116 214);
-        border-radius: 3px;
+      [role="tab"]:last-of-type {
+        border-top-right-radius: 0.25rem;
       }
 
       [role="tabpanel"] {
         color: black;
-        padding: 5px;
-        border: 2px solid hsl(219deg 1% 72%);
-        border-radius: 0 5px 5px;
-        background: hsl(220deg 43% 99%);
-        min-height: 10em;
+        padding: 1rem;
+        border-radius: 0 0.25rem 0.25rem;
+        background: white; 
         width: 100%;
         overflow: auto;
-      }
-
-      [role="tabpanel"].is-hidden {
-        display: none;
-      }
-
-      [role="tabpanel"] p {
-        margin: 0;
+        font-family: ui-monospace monospace;
       }
     }
   </style>
@@ -108,7 +79,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
 </div>
 
 
-Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/) involves a fair bit of boilerplate HTML for satisfying aria structure, not every element created by `<Tabs>` is exposed for direct manipulation by the caller. However, all possible Tabs layouts are possible with both CSS and [tailwind](https://tailwindcss.com/docs/styling-with-utility-classes#complex-selectors) alike. However, it's recommended to use [scoped CSS](https://github.com/auditboard/ember-scoped-css/) as this will provide the best ergonomics for styling HTML in the component.
+Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/) involves a fair bit of boilerplate HTML for satisfying aria structure, not every element created by `<Tabs>` is exposed for direct manipulation by the caller. However, all possible Tabs layouts are possible with both CSS and [tailwind](https://tailwindcss.com/docs/styling-with-utility-classes#complex-selectors) alike. Note though that it's recommended to use [scoped CSS](https://github.com/auditboard/ember-scoped-css/) as this will provide the best ergonomics for styling HTML in the component.
 
 
 ## Features
@@ -117,6 +88,7 @@ Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/exampl
 * Supports any layout (via CSS, horizontal, vertical, reversed, etc) 
 * Full keyboard navigation 
 * Tabs may be buttons or links[^tab-links]
+* Configurable activation behavior
 
 [^tab-links]: when tabs are links there is no customizable associated content with the tab, because a navigation would occur. Use the routing system to place content in the `{{outlet}}` provided for you in the implicit content area.
 
@@ -128,11 +100,66 @@ npm install ember-primitives
 
 ## Anatomy
 
-todo
+All content can either be a argument or block to better suit your invocation and styling needs.
+
+```gjs
+import { Tabs } from 'ember-primitives/components/tabs';
+
+<template>
+  {{! Label as argument (may be a component) }}
+  <Tabs @label="text here" as TabList>...</Tabs>
+
+  {{! Label as block }}
+  <Tabs as |Tab|>
+    <Tab.Label>text here</Tab.Label>
+    ...
+  </Tabs>
+
+  {{! tab as arguments (each arg may also be a component) }}
+  <Tabs as |Tab|>
+    <Tab @label="Banana" @content="something about bananas" />
+  </Tabs>
+
+  {{! tab content as blocks }}
+  <Tabs as |Tab|>
+    <Tab @label="Banana">
+      something about bananas
+    </Tab>
+  </Tabs>
+
+  {{! tab content and trigger as blocks }}
+  <Tabs as |Tab|>
+    <Tab as |trigger content|>
+      <trigger>
+        Banana
+      </trigger>
+
+      <content>
+        something about bananas
+      </content>
+    </Tab>
+  </Tabs>
+</template>
+```
 
 ## Accessibility
 
-todo
+- Follows the [WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/tabs) pattern for Tabs.
+- Keyboard interaction provided by [tabster](https://tabster.io/). 
+
+### Keyboard Interactions 
+
+| key | description |
+| :---: | :----------- |  
+| <kbd>Tab</kbd> | When focus moves on to the tabs, the first tab is focused |  
+| <kbd>ArrowLeft</kbd> | Moves focus to the previous trigger |  
+| <kbd>ArrowRight</kbd> | Moves focus to the next trigger |  
+| <kbd>ArrowDown</kbd> | Moves focus to the next trigger |  
+| <kbd>ArrowUp</kbd> | Moves focus to the previous trigger |  
+| <kbd>Home</kbd> | Moves focus to the first trigger |  
+| <kbd>End</kbd> | Moves focus to the last trigger |  
+
+
 
 ## API Reference
 
@@ -147,16 +174,30 @@ import { ComponentSignature } from 'kolay';
 </template>
 ```
 
-### Classes
+### Classes & Attributes
 
-For styling with a stylesheet:
+All these classes do nothing on their own, but offer a way for folks authoring CSS to set their styles (especially since `@scope` isn't available everywhere (yet?)).
+
 
 - `ember-primitives__tabs`
+
+  This is the class on the root-level element. This element has data attributes representing the overall state of the tabs component
+
+  - `data-active` string. Will represent the id or (if provided), the value of the active tab.
+
 - `ember-primitives__tabs__label`
+  
+  The element around the label text, whether passed as an argument or block content.
+
 - `ember-primitives__tabs__tabpanel`
+
+  The containing element of the active tab content. This element has `[role='tabpanel']`
+  
+
 - `ember-primitives__tabs__tablist`
 
+  The containing element of each of the tabs. This element has `[role='tablist']`
 
-### State Attributes
 
-todo
+
+

@@ -14,5 +14,8 @@ export default defineConfig(() => ({
   ],
   optimizeDeps: {
     exclude: ["ember-primitives"],
+    esbuildOptions: {
+      target: "esnext",
+    },
   },
 }));

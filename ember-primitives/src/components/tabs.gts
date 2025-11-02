@@ -126,6 +126,10 @@ const TabContent: TOC<{
   </Portal>
 </template>;
 
+function isString(x: unknown): x is string {
+  return typeof x === "string";
+}
+
 function makeTab(tabButton: any, tabLink: any): any {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
   tabButton.Link = tabLink;
@@ -152,7 +156,12 @@ class TabContainer extends Component<{
     /**
      * optional user-passable label
      */
-    label?: string;
+    label?: string | ComponentLike;
+
+    /**
+     * optional user-passable content.
+     */
+    content?: string | ComponentLike;
   };
   Blocks: {
     default: [
@@ -183,11 +192,23 @@ class TabContainer extends Component<{
         @panelId={{this.panelId}}
         @handleClick={{fn @state.handleChange this.tabId}}
       >
-        {{@label}}
+        {{#if (isString @label)}}
+          {{@label}}
+        {{else}}
+          <@label />
+        {{/if}}
       </TabButton>
 
       <TabContent @state={{@state}} @id={{this.panelId}} @tabId={{this.tabId}}>
-        {{yield}}
+        {{#if @content}}
+          {{#if (isString @content)}}
+            {{@content}}
+          {{else}}
+            <@content />
+          {{/if}}
+        {{else}}
+          {{yield}}
+        {{/if}}
       </TabContent>
     {{else}}
       {{yield
@@ -222,7 +243,7 @@ const Label: TOC<{
   };
   Blocks: { default: [] };
 }> = <template>
-  <Portal @to="#{{@state.tabpanelId}}">
+  <Portal @to="#{{@state.labelId}}">
     {{yield}}
   </Portal>
 </template>;
@@ -239,10 +260,12 @@ export interface Signature {
      * If not passed, the first tab will be selected
      */
     activeTab?: string;
+
     /**
      * Optional label for the overall TabList
      */
-    label?: string;
+    label?: string | ComponentLike;
+
     /**
      * When the tab changes, this function will be called.
      * The function receives both the newly selected tab as well as the previous tab.
@@ -250,55 +273,16 @@ export interface Signature {
      * However, if the tabs are not configured with names, these values will be null.
      */
     onChange?: (selectedTab?: string, previousTab?: string) => void;
+
+    /**
+     * When activationMode is set to "automatic", tabs are activated when receiving focus. When set to "manual", tabs are activated when clicked (or when "enter" is pressed via the keyboard).
+     */
+    activationMode?: "automatic" | "manual";
   };
   Blocks: {
     default: [
-      Tab: WithBoundArgs<typeof TabContainer, "portalId"> & {
-        Label: WithBoundArgs<typeof Label, "portalId">;
-      },
-      TabList: ComponentLike<{
-        Element: HTMLDivElement;
-        Blocks: {
-          default: [
-            /**
-             * This is an element-less component that acts as a way to organize / co-locate
-             * the definition of the tab, and the content for that tab
-             */
-            tab: ComponentLike<{
-              Element: null;
-              Blocks: {
-                default: [
-                  /**
-                   * The Tab button
-                   */
-                  trigger: ComponentLike<{
-                    Element: HTMLDivElement;
-                    Blocks: { default: [] };
-                  }>,
-                  /**
-                   * The content for the tab.
-                   * This will be rendered in the correct place in the DOM
-                   */
-                  content: ComponentLike<{
-                    Element: HTMLDivElement;
-                    Blocks: { default: [] };
-                  }>,
-                ];
-              };
-            }>,
-          ];
-        };
-      }> & {
-        Label: ComponentLike<{
-          Element: HTMLDivElement;
-          Blocks: { default: [] };
-        }>;
-        Content: ComponentLike<{
-          /**
-           * The element of the portal target may be styled
-           */
-          Element: HTMLDivElement;
-        }>;
+      Tab: WithBoundArgs<typeof TabContainer, "state"> & {
+        Label: WithBoundArgs<typeof Label, "state">;
       },
     ];
   };
@@ -308,7 +292,7 @@ export interface Signature {
  * We're doing old skool hax with this, so we don't need to care about what the types think, really
  */
 function makeAPI(tabContainer: any, labelComponent: any): any {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
   tabContainer.Label = labelComponent;
 
   return tabContainer;
@@ -386,7 +370,11 @@ export class Tabs extends Component<Signature> {
     <div class="ember-primitives__tabs" ...attributes data-active={{this.state.active}}>
       {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
       <div class="ember-primitives__tabl__label" id={{this.state.labelId}}>
-        {{@label}}
+        {{#if (isString @label)}}
+          {{@label}}
+        {{else}}
+          <@label />
+        {{/if}}
       </div>
       <div
         class="ember-primitives__tabs__tablist"
@@ -396,8 +384,7 @@ export class Tabs extends Component<Signature> {
         data-tabster={{TABSTER_CONFIG}}
       >
         {{yield
-          (makeAPI (component TabContainer state=this.state))
-          (component Label state=this.state)
+          (makeAPI (component TabContainer state=this.state) (component Label state=this.state))
         }}
       </div>
       {{!

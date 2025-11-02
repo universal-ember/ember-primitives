@@ -165,8 +165,8 @@ class TabContainer extends Component<{
   };
   Blocks: {
     default: [
-      trigger: WithBoundArgs<typeof TabButton, "state">,
-      content: WithBoundArgs<typeof TabContent, "state">,
+      Label: WithBoundArgs<typeof TabButton, "state" | "id" | "panelId" | "handleClick">,
+      Content: WithBoundArgs<typeof TabContent, "state" | "id" | "tabId">,
     ];
   };
 }> {

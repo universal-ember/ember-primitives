@@ -25,11 +25,11 @@ import { Tabs } from 'ember-primitives/components/tabs';
     <Tab @label="npm">npm add ember-primitives</Tab>
     <Tab @label="pnpm">pnpm add ember-primitives</Tab>
 
-    <Tab as |trigger content|>
-      <trigger class="yarn">yarn</trigger>
-      <content>
+    <Tab as |Label Content|>
+      <Label>yarn</Label>
+      <Content>
         yarn add ember-primitives
-      </content>
+      </Content>
     </Tab>
   </Tabs>
   <style>
@@ -127,16 +127,16 @@ import { Tabs } from 'ember-primitives/components/tabs';
     </Tab>
   </Tabs>
 
-  {{! tab content and trigger as blocks }}
+  {{! tab content and label as components }}
   <Tabs as |Tab|>
-    <Tab as |trigger content|>
-      <trigger>
+    <Tab as |Label Content|>
+      <Label>
         Banana
-      </trigger>
+      </Label>
 
-      <content>
+      <Content>
         something about bananas
-      </content>
+      </Content>
     </Tab>
   </Tabs>
 </template>
@@ -152,12 +152,12 @@ import { Tabs } from 'ember-primitives/components/tabs';
 | key | description |
 | :---: | :----------- |  
 | <kbd>Tab</kbd> | When focus moves on to the tabs, the first tab is focused |  
-| <kbd>ArrowLeft</kbd> | Moves focus to the previous trigger |  
-| <kbd>ArrowRight</kbd> | Moves focus to the next trigger |  
-| <kbd>ArrowDown</kbd> | Moves focus to the next trigger |  
-| <kbd>ArrowUp</kbd> | Moves focus to the previous trigger |  
-| <kbd>Home</kbd> | Moves focus to the first trigger |  
-| <kbd>End</kbd> | Moves focus to the last trigger |  
+| <kbd>ArrowLeft</kbd> | Moves focus to the previous tab |  
+| <kbd>ArrowRight</kbd> | Moves focus to the next tab |  
+| <kbd>ArrowDown</kbd> | Moves focus to the next tab |  
+| <kbd>ArrowUp</kbd> | Moves focus to the previous tab |  
+| <kbd>Home</kbd> | Moves focus to the first tab |  
+| <kbd>End</kbd> | Moves focus to the last tab |  
 
 
 

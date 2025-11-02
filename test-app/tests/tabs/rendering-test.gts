@@ -196,5 +196,51 @@ module('Rendering | <Tabs>', function (hooks) {
       assert.dom('[role="tabpanel"]').doesNotContainText('something about apples');
       assert.dom('[role="tabpanel"]').doesNotContainText('something about oranges');
     });
+
+    test('explicit Label and Content components', async (assert) => {
+      await render(
+        <template>
+          <Tabs as |Tab|>
+            <Tab as |Label Content|>
+              <Label>Banana</Label>
+              <Content>something about bananas</Content>
+            </Tab>
+            <Tab as |Label Content|>
+              <Label>Apple</Label>
+              <Content>something about apples</Content>
+            </Tab>
+            <Tab as |Label Content|>
+              <Label>Orange</Label>
+              <Content>something about oranges</Content>
+            </Tab>
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[aria-selected="true"]').exists({ count: 1 });
+      assert.dom('[aria-selected="true"]').hasText('Banana');
+      assert.dom('[role="tabpanel"]').exists({ count: 1 });
+      assert.dom('[role="tabpanel"]').containsText('something about bananas');
+      assert.dom('[role="tabpanel"]').doesNotContainText('something about apples');
+      assert.dom('[role="tabpanel"]').doesNotContainText('something about oranges');
+
+      // Selects non-first
+      await click(screen.getByText('Apple'));
+      assert.dom('[aria-selected="true"]').exists({ count: 1 });
+      assert.dom('[aria-selected="true"]').hasText('Apple');
+      assert.dom('[role="tabpanel"]').exists({ count: 1 });
+      assert.dom('[role="tabpanel"]').doesNotContainText('something about bananas');
+      assert.dom('[role="tabpanel"]').containsText('something about apples');
+      assert.dom('[role="tabpanel"]').doesNotContainText('something about oranges');
+
+      // Re-selects first
+      await click(screen.getByText('Banana'));
+      assert.dom('[aria-selected="true"]').exists({ count: 1 });
+      assert.dom('[aria-selected="true"]').hasText('Banana');
+      assert.dom('[role="tabpanel"]').exists({ count: 1 });
+      assert.dom('[role="tabpanel"]').containsText('something about bananas');
+      assert.dom('[role="tabpanel"]').doesNotContainText('something about apples');
+      assert.dom('[role="tabpanel"]').doesNotContainText('something about oranges');
+    });
   });
 });

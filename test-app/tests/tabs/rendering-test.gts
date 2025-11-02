@@ -32,6 +32,7 @@ module('Rendering | <Tabs>', function (hooks) {
     test('keyboard focus selects the tab', async () => {});
     test('clicking selects the tab', async () => {});
   });
+
   module('@activationMode: manual', function () {
     test('keyboard focus does not select the tab', async () => {});
     test('clicking selects the tab', async () => {});
@@ -42,6 +43,7 @@ module('Rendering | <Tabs>', function (hooks) {
     test('initial tab can be non-first', async (assert) => {});
     test('with invalid value, the first tab is selected', async (assert) => {});
   });
+
   module('@onChange', () => {
     test('when first called, there is no previous', () => {});
   });

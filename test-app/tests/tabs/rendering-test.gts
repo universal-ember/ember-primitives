@@ -50,7 +50,7 @@ module('Rendering | <Tabs>', function (hooks) {
 
   module('@label', () => {
     test('string', async (assert) => {
-      await render(<template><Tabs @label="the label" as |Tab| /></template>);
+      await render(<template><Tabs @label="the label" /></template>);
 
       assert.dom().containsText('the label');
     });
@@ -58,7 +58,7 @@ module('Rendering | <Tabs>', function (hooks) {
     test('component', async (assert) => {
       const CustomLabel = <template>my custom label</template>;
 
-      await render(<template><Tabs @label={{CustomLabel}} as |Tab| /></template>);
+      await render(<template><Tabs @label={{CustomLabel}} /></template>);
 
       assert.dom().containsText('my custom label');
     });

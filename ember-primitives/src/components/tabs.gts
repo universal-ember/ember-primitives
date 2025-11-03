@@ -50,7 +50,7 @@ const TabLink: TOC<{
   };
   Blocks: { default: [] };
 }> = <template>
-  <a ...attributes role="tab" aria-controls={{@panelId}} id={{@id}}>
+  <a href="##missing##" ...attributes role="tab" aria-controls={{@panelId}} id={{@id}}>
     {{yield}}
   </a>
 </template>;
@@ -401,7 +401,6 @@ export class Tabs extends Component<Signature> {
       </div>
       <div
         class="ember-primitives__tabs__tablist"
-        ...attributes
         role="tablist"
         aria-labelledby={{this.state.labelId}}
         data-tabster={{TABSTER_CONFIG}}

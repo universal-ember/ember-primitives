@@ -45,7 +45,30 @@ module('Rendering | <Tabs>', function (hooks) {
   });
 
   module('@onChange', () => {
-    test('when first called, there is no previous', () => {});
+    test('when first called, there is no previous', async (assert) => {
+      const record = (x: string, y: string | null) =>
+        assert.step(`isNull @ 1:${String(!x)}, 2:${String(!y)}`);
+
+      await render(
+        <template>
+          <Tabs @onChange={{record}} as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      assert.verifySteps([]);
+
+      // Selects non-first
+      await click(screen.getByText('Apple'));
+      assert.verifySteps(['isNull @ 1:false, 2:true']);
+
+      // Re-selects first
+      await click(screen.getByText('Banana'));
+      assert.verifySteps(['isNull @ 1:false, 2:false']);
+    });
   });
 
   module('@label', () => {

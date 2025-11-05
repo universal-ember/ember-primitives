@@ -99,6 +99,8 @@ const TabButton: TOC<{
     aria-selected={{String (@state.isActive @id @value)}}
     id={{@id}}
     {{on "click" @handleClick}}
+    {{! The Types for modifier are wrong }}
+    {{! @glint-expect-error}}
     {{(if @state.isAutomatic (modifier on "focus" @handleClick))}}
   >
     {{yield}}

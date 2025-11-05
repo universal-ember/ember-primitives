@@ -1,12 +1,15 @@
-import { click, find, render } from '@ember/test-helpers';
+import { click, find, focus, render, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { screen } from '@testing-library/dom';
 import { Tabs } from 'ember-primitives/components/tabs';
 
+import { setupTabster } from 'ember-primitives/test-support';
+
 module('Rendering | <Tabs>', function (hooks) {
   setupRenderingTest(hooks);
+  setupTabster(hooks);
 
   test('it renders correctly (basic args-only)', async function (assert) {
     await render(
@@ -29,19 +32,137 @@ module('Rendering | <Tabs>', function (hooks) {
   });
 
   module('@activationMode: automatic', function () {
-    test('keyboard focus selects the tab', async () => {});
-    test('clicking selects the tab', async () => {});
+    test('keyboard focus selects the tab', async (assert) => {
+      await render(
+        <template>
+          <Tabs @activationMode="automatic" as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      const s = '[aria-selected="true"]';
+
+      assert.dom(s).hasText('Banana');
+
+      await focus(s);
+      assert.ok(document.activeElement);
+      assert.dom(document.activeElement).hasAttribute('aria-selected', 'true');
+
+      await triggerKeyEvent(window, 'keydown', 'ArrowRight');
+      assert.dom(document.activeElement).hasText('Apple');
+      assert.dom(s).hasText('Apple');
+    });
+
+    test('clicking selects the tab', async (assert) => {
+      await render(
+        <template>
+          <Tabs @activationMode="automatic" as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[aria-selected="true"]').hasText('Banana');
+
+      await click('button:nth-of-type(2)');
+      assert.dom('[aria-selected="true"]').hasText('Apple');
+    });
   });
 
-  module('@activationMode: manual', function () {
-    test('keyboard focus does not select the tab', async () => {});
-    test('clicking selects the tab', async () => {});
+  module('@activationMode: manual', () => {
+    test('keyboard focus does not select the tab', async (assert) => {
+      await render(
+        <template>
+          <Tabs @activationMode="manual" as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      const s = '[aria-selected="true"]';
+
+      assert.dom(s).hasText('Banana');
+
+      await focus(s);
+      assert.ok(document.activeElement);
+      assert.dom(document.activeElement).hasAttribute('aria-selected', 'true');
+
+      await triggerKeyEvent(window, 'keydown', 'ArrowRight');
+      assert.dom(document.activeElement).hasAttribute('aria-selected', 'false');
+      assert.dom(document.activeElement).hasText('Apple');
+      assert.dom(s).hasText('Banana', 'Panel is unchanged');
+    });
+
+    test('clicking selects the tab', async (assert) => {
+      await render(
+        <template>
+          <Tabs @activationMode="manual" as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[aria-selected="true"]').hasText('Banana');
+
+      await click('button:nth-of-type(2)');
+      assert.dom('[aria-selected="true"]').hasText('Apple');
+    });
   });
 
   module('@activeTab', () => {
-    test('with no value, the selected tab is the first tab', async (assert) => {});
-    test('initial tab can be non-first', async (assert) => {});
-    test('with invalid value, the first tab is selected', async (assert) => {});
+    test('with no value, the selected tab is the first tab', async (assert) => {
+      await render(
+        <template>
+          <Tabs as |Tab|>
+            <Tab @label="Banana" @value="1" />
+            <Tab @label="Apple" @value="2" />
+            <Tab @label="Orange" @value="3" />
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[aria-selected="true"]').hasText('Banana');
+      assert.dom('[data-active]').hasAttribute('data-active', '1');
+    });
+
+    test('initial tab can be non-first', async (assert) => {
+      await render(
+        <template>
+          <Tabs @activeTab="The Apple" as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" @value="The Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[aria-selected="true"]').hasText('Apple');
+      assert.dom('[data-active]').hasAttribute('data-active', 'The Apple');
+    });
+
+    test('with invalid value, nothing is selected', async (assert) => {
+      await render(
+        <template>
+          <Tabs @activeTab="Does not Exist" as |Tab|>
+            <Tab @label="Banana" />
+            <Tab @label="Apple" @value="The Apple" />
+            <Tab @label="Orange" />
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[aria-selected="true"]').doesNotExist();
+      assert.dom('[data-active]').hasAttribute('data-active', 'Does not Exist');
+    });
   });
 
   module('@onChange', () => {

@@ -9,8 +9,10 @@
 
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { isDestroyed, isDestroying } from "@ember/destroyable";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
+import { next } from "@ember/runloop";
 
 import { getTabsterAttribute, MoverDirections } from "tabster";
 
@@ -28,6 +30,7 @@ const TABSTER_CONFIG = getTabsterAttribute(
     mover: {
       direction: MoverDirections.Both,
       cyclic: true,
+      memorizeCurrent: true,
     },
     deloser: {},
   },
@@ -96,6 +99,7 @@ const TabButton: TOC<{
     aria-selected={{String (@state.isActive @id @value)}}
     id={{@id}}
     {{on "click" @handleClick}}
+    {{(if @state.isAutomatic (modifier on "focus" @handleClick))}}
   >
     {{yield}}
   </button>
@@ -306,6 +310,10 @@ function makeAPI(tabContainer: any, labelComponent: any): any {
   return tabContainer;
 }
 
+import { buildWaiter } from "@ember/test-waiters";
+
+const stateWaiter = buildWaiter("ember-primitives:tabs");
+
 /**
  * State bucket passed around to all the sub-components.
  *
@@ -314,15 +322,19 @@ function makeAPI(tabContainer: any, labelComponent: any): any {
 class TabState {
   declare args: {
     activeTab?: string;
+    activationMode?: "automatic" | "manual";
     onChange?: (selected: string, previous: string | null) => void;
   };
 
   @tracked _active: string | null = null;
 
+  @tracked _label: string | undefined;
+
   #first: string | null = null;
   id: string;
   labelId: string;
   tabpanelId: string;
+  #token: unknown;
 
   constructor(args: { activeTab?: string; onChange?: () => void }) {
     this.args = args;
@@ -330,6 +342,14 @@ class TabState {
     this.id = `ember-primitives-${uniqueId()}`;
     this.labelId = `${this.id}__label`;
     this.tabpanelId = `${this.id}__tabpanel`;
+  }
+
+  get activationMode() {
+    return this.args.activationMode ?? "automatic";
+  }
+
+  get isAutomatic() {
+    return this.activationMode === "automatic";
   }
 
   /**
@@ -358,6 +378,17 @@ class TabState {
       if (this.#first) return isSelected(this.#first);
 
       this.#first = tabValue ?? tabId;
+      this.#token = stateWaiter.beginAsync();
+
+      // eslint-disable-next-line ember/no-runloop
+      next(() => {
+        if (!this.#token) return;
+        stateWaiter.endAsync(this.#token);
+        if (this._active) return;
+        if (isDestroyed(this) || isDestroying(this)) return;
+
+        this._label = tabValue ?? tabId;
+      });
 
       return true;
     }
@@ -369,11 +400,31 @@ class TabState {
     return this._active ?? this.args.activeTab ?? UNSET;
   }
 
+  get activeLabel() {
+    /**
+     * This is only needed during the first set
+     * because we prioritize rendering first, and then updating metadata later
+     * (next render)
+     *
+     * NOTE: this does not mean that the a11y tree is updated later.
+     *       it is correct on initial render
+     */
+    if (this._label) {
+      return this._label;
+    }
+
+    if (this.active === UNSET) {
+      return "Pending";
+    }
+
+    return this.active;
+  }
+
   handleChange = (tabId: string, tabValue: string | undefined) => {
     const previous = this.active;
     const next = tabValue ?? tabId;
 
-    this._active = next;
+    this._active = this._label = next;
 
     this.args.onChange?.(next, previous === UNSET ? null : previous);
   };
@@ -390,7 +441,7 @@ export class Tabs extends Component<Signature> {
   }
 
   <template>
-    <div class="ember-primitives__tabs" ...attributes data-active={{this.state.active}}>
+    <div class="ember-primitives__tabs" ...attributes data-active={{this.state.activeLabel}}>
       {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
       <div class="ember-primitives__tabl__label" id={{this.state.labelId}}>
         {{#if (isString @label)}}

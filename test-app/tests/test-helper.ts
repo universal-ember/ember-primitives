@@ -6,6 +6,7 @@ import {
   getSettledState,
   pauseTest,
   setApplication,
+  triggerKeyEvent,
 } from '@ember/test-helpers';
 import { getPendingWaiterState } from '@ember/test-waiters';
 import * as QUnit from 'qunit';
@@ -22,6 +23,7 @@ Object.assign(window, {
   currentURL,
   currentRouteName,
   pauseTest,
+  triggerKeyEvent,
 });
 
 export function start() {

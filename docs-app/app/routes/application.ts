@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
+import { Tabs } from 'ember-primitives/components/tabs';
 import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
@@ -38,6 +39,7 @@ export default class Application extends Route {
           APIDocs,
           ComponentSignature,
           ModifierSignature,
+          Tabs,
         },
         resolve: {
           // ember-primitives

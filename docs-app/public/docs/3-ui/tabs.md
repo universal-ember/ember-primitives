@@ -80,6 +80,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
 
 ## Customizing Layout
 
+<div class="not-prose"><Tabs class="inline-tabs" as |Tab|><Tab @label="Tabs on Left">
 <div class="featured-demo">
 
 <!-- tabster doesn't work across the shadow boundary -->
@@ -92,6 +93,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
     <Tab @label="pnpm">pnpm add ember-primitives</Tab>
     <Tab @label="yarn">yarn add ember-primitives</Tab>
   </Tabs>
+
   <style>
     /* https://caniuse.com/css-cascade-scope */
     @scope {
@@ -102,6 +104,13 @@ import { Tabs } from 'ember-primitives/components/tabs';
           "tablist tabpanel"
           "tablist tabpanel";
         grid-template-columns: min-content;
+      }
+      .ember-primitives__tabs.reversed {
+        grid-template-areas:
+          "label label"
+          "tabpanel tablist"
+          "tabpanel tablist";
+        grid-template-columns: max-content min-content;
       }
       .ember-primitives__tabs__label {
         grid-area: label;
@@ -159,6 +168,128 @@ import { Tabs } from 'ember-primitives/components/tabs';
 ```
 
 </div>
+  </Tab>
+  <Tab @label="Tabs on Right">
+<div class="featured-demo">
+
+<!-- tabster doesn't work across the shadow boundary -->
+```gjs live preview no-shadow
+import { Tabs } from 'ember-primitives/components/tabs';
+
+<template>
+  <Tabs @label="Install with your favorite package-manager" as |Tab|>
+    <Tab @label="npm">npm add ember-primitives</Tab>
+    <Tab @label="pnpm">pnpm add ember-primitives</Tab>
+    <Tab @label="yarn">yarn add ember-primitives</Tab>
+  </Tabs>
+  <style>
+    /* https://caniuse.com/css-cascade-scope */
+    @scope {
+      .ember-primitives__tabs {
+        display: grid;
+        grid-template-areas:
+          "label label"
+          "tabpanel tablist"
+          "tabpanel tablist";
+        grid-template-columns: max-content min-content;
+      }
+      .ember-primitives__tabs__label {
+        grid-area: label;
+      }
+      .ember-primitives__tabs__tabpanel {
+        grid-area: tabpanel;
+        display: flex;
+      }
+
+      [role="tablist"] {
+        grid-area: tablist;
+        flex-direction: column;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      [role="tab"] {
+        color: black;
+        padding: 0.25rem 0.5rem; 
+        background: hsl(220deg 20% 94%);
+        outline: none;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: inset 1px 0px 1px black;
+
+        &:focus-visible {
+          z-index: 1;
+        }
+      }
+
+      [role="tab"][aria-selected="true"] {
+        background: white;
+        box-shadow: inset 4px -0px 0px orange;
+      }
+
+      [role="tab"]:first-of-type {
+        border-top-right-radius: 0.25rem;
+      }
+      [role="tab"]:last-of-type {
+        border-bottom-right-radius: 0.25rem;
+      }
+
+      [role="tabpanel"] {
+        flex-grow: 1;
+        color: black;
+        padding: 1rem;
+        border-radius: 0.25rem 0 0 0.25rem;
+        background: white; 
+        overflow: auto;
+        font-family: ui-monospace monospace;
+      }
+    }
+  </style>
+</template>
+```
+
+</div>
+  </Tab>
+  <Tab @label="Tabs on Bottom">
+    TODO
+  </Tab>
+</Tabs>
+<style>
+      [role="tab"] {
+        color: black;
+        display: inline-block;
+        padding: 0.25rem 0.5rem; 
+        background: hsl(220deg 20% 94%);
+        outline: none;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: inset 0 -1px 1px black;
+      }
+      [role="tab"][aria-selected="true"] {
+        background: white;
+        box-shadow: inset 0 -4px 0px orange;
+      }
+    .inline-tabs {
+      [role="tablist"] {
+        min-width: 100%;
+      }
+      [role="tab"]:first-of-type {
+        border-top-left-radius: 0.25rem;
+      }
+      [role="tab"]:last-of-type {
+        border-top-right-radius: 0.25rem;
+      }
+      [role="tabpanel"] {
+        color: black;
+        padding: 1rem;
+        border-radius: 0 0.25rem 0.25rem;
+        background: white; 
+        width: 100%;
+        overflow: auto;
+        font-family: ui-monospace monospace;
+      }
+    }
+  </style></div>
 
 
 Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/) involves a fair bit of boilerplate HTML for satisfying aria structure, not every element created by `<Tabs>` is exposed for direct manipulation by the caller. However, all possible Tabs layouts are possible with both CSS and [tailwind](https://tailwindcss.com/docs/styling-with-utility-classes#complex-selectors) alike. Note though that it's recommended to use [scoped CSS](https://github.com/auditboard/ember-scoped-css/) as this will provide the best ergonomics for styling HTML in the component.

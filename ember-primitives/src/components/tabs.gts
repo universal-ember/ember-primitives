@@ -445,7 +445,7 @@ export class Tabs extends Component<Signature> {
   <template>
     <div class="ember-primitives__tabs" ...attributes data-active={{this.state.activeLabel}}>
       {{! This element will be portaled in to and replaced if tabs.Label is invoked }}
-      <div class="ember-primitives__tabl__label" id={{this.state.labelId}}>
+      <div class="ember-primitives__tabs__label" id={{this.state.labelId}}>
         {{#if (isString @label)}}
           {{@label}}
         {{else}}

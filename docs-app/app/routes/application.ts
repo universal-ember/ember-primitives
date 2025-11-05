@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
-import { Tabs } from 'ember-primitives/components/tabs';
 import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
@@ -9,6 +8,7 @@ import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
 
 import { Callout } from '@universal-ember/docs-support';
 
+import { Tabs } from '../components/tabs.gts';
 import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
 
 export default class Application extends Route {

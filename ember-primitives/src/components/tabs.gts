@@ -262,6 +262,27 @@ const Label: TOC<{
   </Portal>
 </template>;
 
+export type ButtonType = ComponentLike<{
+  Element: HTMLButtonElement;
+  Blocks: {
+    default: [];
+  };
+}>;
+
+export type ContentType = ComponentLike<{
+  Element: HTMLDivElement;
+  Blocks: {
+    default: [];
+  };
+}>;
+
+export type TabContainerType = ComponentLike<{
+  Element: HTMLDivElement;
+  Blocks: {
+    default: [];
+  };
+}>;
+
 export interface Signature {
   /**
    * The wrapping element for the overall Tabs component.

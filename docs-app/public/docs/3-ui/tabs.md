@@ -84,7 +84,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
 <div class="featured-demo">
 
 <!-- tabster doesn't work across the shadow boundary -->
-```gjs live preview no-shadow
+```gjs live no-shadow
 import { Tabs } from 'ember-primitives/components/tabs';
 
 <template>
@@ -128,6 +128,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
       }
 
       [role="tab"] {
+        border-radius: 0;
         color: black;
         padding: 0.25rem 0.5rem; 
         background: hsl(220deg 20% 94%);
@@ -170,10 +171,10 @@ import { Tabs } from 'ember-primitives/components/tabs';
 </div>
   </Tab>
   <Tab @label="Tabs on Right">
-<div class="featured-demo">
+<div class="featured-demo prose">
 
 <!-- tabster doesn't work across the shadow boundary -->
-```gjs live preview no-shadow
+```gjs live no-shadow
 import { Tabs } from 'ember-primitives/components/tabs';
 
 <template>
@@ -209,6 +210,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
       }
 
       [role="tab"] {
+        border-radius: 0;
         color: black;
         padding: 0.25rem 0.5rem; 
         background: hsl(220deg 20% 94%);
@@ -223,7 +225,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
       }
 
       [role="tab"][aria-selected="true"] {
-        background: white;
+        background: #efefef;
         box-shadow: inset 4px -0px 0px orange;
       }
 
@@ -254,42 +256,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
     TODO
   </Tab>
 </Tabs>
-<style>
-      [role="tab"] {
-        color: black;
-        display: inline-block;
-        padding: 0.25rem 0.5rem; 
-        background: hsl(220deg 20% 94%);
-        outline: none;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: inset 0 -1px 1px black;
-      }
-      [role="tab"][aria-selected="true"] {
-        background: white;
-        box-shadow: inset 0 -4px 0px orange;
-      }
-    .inline-tabs {
-      [role="tablist"] {
-        min-width: 100%;
-      }
-      [role="tab"]:first-of-type {
-        border-top-left-radius: 0.25rem;
-      }
-      [role="tab"]:last-of-type {
-        border-top-right-radius: 0.25rem;
-      }
-      [role="tabpanel"] {
-        color: black;
-        padding: 1rem;
-        border-radius: 0 0.25rem 0.25rem;
-        background: white; 
-        width: 100%;
-        overflow: auto;
-        font-family: ui-monospace monospace;
-      }
-    }
-  </style></div>
+</div>
 
 
 Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/examples/tabs-manual/) involves a fair bit of boilerplate HTML for satisfying aria structure, not every element created by `<Tabs>` is exposed for direct manipulation by the caller. However, all possible Tabs layouts are possible with both CSS and [tailwind](https://tailwindcss.com/docs/styling-with-utility-classes#complex-selectors) alike. Note though that it's recommended to use [scoped CSS](https://github.com/auditboard/ember-scoped-css/) as this will provide the best ergonomics for styling HTML in the component.

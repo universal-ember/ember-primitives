@@ -4,12 +4,13 @@ Styled tabs for documentation
 
 import {
   type ButtonType,
+  type ContainerType,
   type ContentType,
-  type TabContainerType,
   Tabs as PrimitiveTabs,
 } from 'ember-primitives/components/tabs';
 
 import type { TOC } from '@ember/component/template-only';
+import type { ComponentLike, WithBoundArgs } from '@glint/template';
 
 function isString(x: unknown): x is string {
   return typeof x === 'string';
@@ -69,13 +70,28 @@ const StyledContent: TOC<{ Args: { content: ContentType }; Blocks: { default: []
   </style>
 </template>;
 
-const StyledTab: TOC<{
-  Args: {
-    label: string;
-    content: string;
-    tab: TabContainerType;
-  };
-}> = <template>
+const StyledTab: TOC<
+  | {
+      Args: {
+        tab: ContainerType;
+        label: never;
+        content: never;
+      };
+      Blocks: {
+        default: [button: ButtonType, content: ContentType];
+      };
+    }
+  | {
+      Args: {
+        label: string | ComponentLike;
+        content: string | ComponentLike;
+        tab: ContainerType;
+      };
+      Blocks: {
+        default: [];
+      };
+    }
+> = <template>
   <@tab as |UnstyledButton UnstyledContent|>
     {{#let
       (component StyledButton button=UnstyledButton)
@@ -104,13 +120,18 @@ const StyledTab: TOC<{
           {{/if}}
         </Content>
       {{else}}
+        {{! @glint-expect-error The types here are too crazy so I ignore them and define the public API}}
         {{yield Button Content}}
       {{/if}}
     {{/let}}
   </@tab>
 </template>;
 
-export const Tabs = <template>
+export const Tabs: TOC<{
+  Blocks: {
+    default: [WithBoundArgs<typeof StyledTab, 'tab'>];
+  };
+}> = <template>
   <PrimitiveTabs class="docs-tabs" as |Tab|>
     {{yield (component StyledTab tab=Tab)}}
   </PrimitiveTabs>

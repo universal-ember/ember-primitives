@@ -8,6 +8,7 @@ import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
 
 import { Callout } from '@universal-ember/docs-support';
 
+import { Tabs } from '../components/tabs.gts';
 import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
 
 export default class Application extends Route {
@@ -38,6 +39,7 @@ export default class Application extends Route {
           APIDocs,
           ComponentSignature,
           ModifierSignature,
+          Tabs,
         },
         resolve: {
           // ember-primitives
@@ -47,6 +49,7 @@ export default class Application extends Route {
           'ember-primitives/on-resize': import('ember-primitives/on-resize'),
           'ember-primitives/color-scheme': import('ember-primitives/color-scheme'),
           'ember-primitives/components/form': import('ember-primitives/components/form'),
+          'ember-primitives/components/tabs': import('ember-primitives/components/tabs'),
           'ember-primitives/components/portal': import('ember-primitives/components/portal'),
           'ember-primitives/components/portal-targets': import(
             'ember-primitives/components/portal-targets'

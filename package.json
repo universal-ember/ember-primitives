@@ -36,10 +36,6 @@
     "yarn": "use pnpm"
   },
   "packageManager": "pnpm@10.19.0",
-  "volta": {
-    "node": ">= 24",
-    "pnpm": ">= 10.19.0"
-  },
   "pnpm": {
     "peerDependencyRules": {
       "allowAny": [

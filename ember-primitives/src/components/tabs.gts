@@ -471,6 +471,9 @@ class TabState {
     const previous = this.active;
     const next = tabValue ?? tabId;
 
+    // No change, no need to be noisy
+    if (next === previous) return;
+
     this._active = this._label = next;
 
     this.args.onChange?.(next, previous === UNSET ? null : previous);

@@ -1,5 +1,29 @@
 # Changelog 
 
+## Release (2025-11-06)
+
+* ember-primitives 0.41.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#542](https://github.com/universal-ember/ember-primitives/pull/542) New Component: Tabs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* [#535](https://github.com/universal-ember/ember-primitives/pull/535) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### :house: Internal
+* Other
+  * [#545](https://github.com/universal-ember/ember-primitives/pull/545) Upgrade pnpm ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`
+  * [#544](https://github.com/universal-ember/ember-primitives/pull/544) Glint v2 everywhere ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#543](https://github.com/universal-ember/ember-primitives/pull/543) Aggressive dep updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#541](https://github.com/universal-ember/ember-primitives/pull/541) Upgrade addon-dev to v8 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#540](https://github.com/universal-ember/ember-primitives/pull/540) Update glint packages for the library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- [@github-actions[bot]](https://github.com/apps/github-actions)
+
 ## Release (2025-08-24)
 
 * ember-primitives 0.40.0 (minor)

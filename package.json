@@ -37,8 +37,8 @@
   },
   "packageManager": "pnpm@10.19.0",
   "volta": {
-    "node": "22.21.0",
-    "pnpm": "10.19.0"
+    "node": ">= 24",
+    "pnpm": ">= 10.19.0"
   },
   "pnpm": {
     "peerDependencyRules": {

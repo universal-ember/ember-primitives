@@ -29,7 +29,7 @@ const StyledButton: TOC<{ Args: { button: ButtonType }; Blocks: { default: [] } 
       outline: none;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: inset 0 -1px 1px black;
+      box-shadow: inset 0 0px 1px black;
     }
     .tab[aria-selected="true"] {
       background: white;
@@ -51,20 +51,28 @@ const StyledContent: TOC<{ Args: { content: ContentType }; Blocks: { default: []
 
   <style scoped>
     .tabpanel {
-      border: 1px solid gray;
       color: black;
-      padding: 1rem;
-      border-radius: 0 0.25rem 0.25rem;
-      background: white;
-      width: 100%;
       overflow: auto;
-      font-family: ui-monospace monospace;
+      max-height: 20rem;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 0.75rem;
+      background-image: linear-gradient(to right, var(--tw-gradient-stops));
+      --tw-gradient-from: #7c3aed var(--tw-gradient-from-position);
+      --tw-gradient-to: rgb(124 58 237 / 0) var(--tw-gradient-to-position);
+      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+      --tw-gradient-to: #4f46e5 var(--tw-gradient-to-position);
+      padding: 5rem;
+      --tw-text-opacity: 1;
+      color: rgb(248 250 252 / var(--tw-text-opacity, 1));
     }
   </style>
 </template>;
 
 const StyledTab: TOC<{
   Args: {
+    label: string;
+    content: string;
     tab: TabContainerType;
   };
 }> = <template>
@@ -111,8 +119,9 @@ export const Tabs = <template>
     .docs-tabs {
       padding: 1rem;
 
-      [role="tablist"] {
+      > [role="tablist"] {
         min-width: 100%;
+        padding-left: 0.75rem;
       }
     }
   </style>

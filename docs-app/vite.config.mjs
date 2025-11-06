@@ -3,6 +3,7 @@ import { classicEmberSupport, ember, extensions } from "@embroider/vite";
 import { babel } from "@rollup/plugin-babel";
 import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
+import { scopedCSS } from "ember-scoped-css/vite";
 
 export default defineConfig((/* { mode } */) => {
   return {
@@ -16,6 +17,7 @@ export default defineConfig((/* { mode } */) => {
       extensions,
     },
     plugins: [
+      scopedCSS(),
       classicEmberSupport(),
       ember(),
       kolay({

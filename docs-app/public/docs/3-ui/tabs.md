@@ -80,8 +80,9 @@ import { Tabs } from 'ember-primitives/components/tabs';
 
 ## Customizing Layout
 
+Feel free to inspect element here to see how the styles are done.
+
 <div class="not-prose"><Tabs class="inline-tabs" as |Tab|><Tab @label="Tabs on Left">
-<div class="featured-demo">
 
 <!-- tabster doesn't work across the shadow boundary -->
 ```gjs live no-shadow
@@ -168,10 +169,8 @@ import { Tabs } from 'ember-primitives/components/tabs';
 </template>
 ```
 
-</div>
   </Tab>
   <Tab @label="Tabs on Right">
-<div class="featured-demo prose">
 
 <!-- tabster doesn't work across the shadow boundary -->
 ```gjs live no-shadow
@@ -192,7 +191,7 @@ import { Tabs } from 'ember-primitives/components/tabs';
           "label label"
           "tabpanel tablist"
           "tabpanel tablist";
-        grid-template-columns: max-content min-content;
+        grid-template-columns: 1fr min-content;
       }
       .ember-primitives__tabs__label {
         grid-area: label;
@@ -250,10 +249,84 @@ import { Tabs } from 'ember-primitives/components/tabs';
 </template>
 ```
 
-</div>
   </Tab>
   <Tab @label="Tabs on Bottom">
-    TODO
+
+<!-- tabster doesn't work across the shadow boundary -->
+```gjs live no-shadow
+import { Tabs } from 'ember-primitives/components/tabs';
+
+<template>
+  <Tabs @label="Install with your favorite package-manager" as |Tab|>
+    <Tab @label="npm">npm add ember-primitives</Tab>
+    <Tab @label="pnpm">pnpm add ember-primitives</Tab>
+    <Tab @label="yarn">yarn add ember-primitives</Tab>
+  </Tabs>
+  <style>
+    /* https://caniuse.com/css-cascade-scope */
+    @scope {
+      .ember-primitives__tabs {
+        display: grid;
+        grid-template-areas:
+          "label label"
+          "tabpanel tabpanel"
+          "tablist tablist";
+      }
+      .ember-primitives__tabs__label {
+        grid-area: label;
+      }
+      .ember-primitives__tabs__tabpanel {
+        grid-area: tabpanel;
+        display: flex;
+      }
+
+      [role="tablist"] {
+        grid-area: tablist;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      [role="tab"] {
+        border-radius: 0;
+        color: black;
+        padding: 0.25rem 0.5rem; 
+        background: hsl(220deg 20% 94%);
+        outline: none;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: inset 1px 0px 1px black;
+
+        &:focus-visible {
+          z-index: 1;
+        }
+      }
+
+      [role="tab"][aria-selected="true"] {
+        background: #efefef;
+        box-shadow: inset 0 4px 0px orange;
+      }
+
+      [role="tab"]:first-of-type {
+        border-bottom-left-radius: 0.25rem;
+      }
+      [role="tab"]:last-of-type {
+        border-bottom-right-radius: 0.25rem;
+      }
+
+      [role="tabpanel"] {
+        flex-grow: 1;
+        color: black;
+        padding: 1rem;
+        border-radius: 0.25rem 0.25rem 0.25rem 0;
+        background: white; 
+        overflow: auto;
+        font-family: ui-monospace monospace;
+      }
+    }
+  </style>
+</template>
+```
+
   </Tab>
 </Tabs>
 </div>
@@ -269,6 +342,7 @@ Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/exampl
 * Full keyboard navigation 
 * Tabs may be buttons or links[^tab-links]
 * Configurable activation behavior
+* Supports nesting
 
 [^tab-links]: when tabs are links there is no customizable associated content with the tab, because a navigation would occur. Use the routing system to place content in the `{{outlet}}` provided for you in the implicit content area.
 

@@ -58,6 +58,14 @@ const TabLink: TOC<{
   </a>
 </template>;
 
+export type ButtonType = ComponentLike<ButtonSignature>;
+export interface ButtonSignature {
+  Element: HTMLButtonElement;
+  Blocks: {
+    default: [];
+  };
+}
+
 const TabButton: TOC<{
   Args: {
     /**
@@ -93,6 +101,7 @@ const TabButton: TOC<{
   };
 }> = <template>
   <button
+    ...attributes
     role="tab"
     type="button"
     aria-controls={{@panelId}}
@@ -106,6 +115,17 @@ const TabButton: TOC<{
     {{yield}}
   </button>
 </template>;
+
+export type ContentType = ComponentLike<ContentSignature>;
+export interface ContentSignature {
+  /**
+   * the [role=tabpanel] element
+   */
+  Element: HTMLDivElement;
+  Blocks: {
+    default: [];
+  };
+}
 
 const TabContent: TOC<{
   Element: HTMLDivElement;
@@ -148,6 +168,31 @@ function makeTab(tabButton: any, tabLink: any): any {
 
   return tabButton;
 }
+
+export type ContainerType = ComponentLike<ContainerSignature>;
+export type ContainerSignature =
+  | {
+      Blocks: {
+        default: [];
+      };
+    }
+  | {
+      Args: {
+        label: string | ComponentLike;
+        content: string | ComponentLike;
+      };
+    }
+  | {
+      Args: {
+        label: string | ComponentLike;
+      };
+      Blocks: {
+        /**
+         * The content for the tab
+         */
+        default: [];
+      };
+    };
 
 class TabContainer extends Component<{
   Args: {
@@ -261,27 +306,6 @@ const Label: TOC<{
     {{yield}}
   </Portal>
 </template>;
-
-export type ButtonType = ComponentLike<{
-  Element: HTMLButtonElement;
-  Blocks: {
-    default: [];
-  };
-}>;
-
-export type ContentType = ComponentLike<{
-  Element: HTMLDivElement;
-  Blocks: {
-    default: [];
-  };
-}>;
-
-export type TabContainerType = ComponentLike<{
-  Element: HTMLDivElement;
-  Blocks: {
-    default: [];
-  };
-}>;
 
 export interface Signature {
   /**

@@ -23,8 +23,8 @@
     "lint:types": "ember-tsc --noEmit",
     "start": "pnpm vite",
     "sync": "echo 'pnpm is syncing injected deps. (this is configured in .npmrc)'",
-    "test": "vite build --mode test && ember test --path dist",
-    "test:ember": "vite build --mode test && ember test --path dist"
+    "test": "vite build --mode development && ember test --path dist",
+    "test:ember": "vite build --mode development && ember test --path dist"
   },
   "dependencies": {
     "@shikijs/rehype": "^3.14.0",

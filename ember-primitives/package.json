@@ -67,7 +67,7 @@
     "@nullvoxpopuli/eslint-configs": "^5.3.4",
     "@rollup/plugin-babel": "^6.1.0",
     "@tsconfig/ember": "^3.0.5",
-    "babel-plugin-ember-template-compilation": "^2.4.0",
+    "babel-plugin-ember-template-compilation": "^3.0.0",
     "concurrently": "^9.2.1",
     "ember-modifier": "^4.2.2",
     "ember-resources": "^7.0.7",

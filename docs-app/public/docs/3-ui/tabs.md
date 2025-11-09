@@ -352,6 +352,8 @@ Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/exampl
 npm install ember-primitives
 ```
 
+Introduced in [0.41.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.41.0-ember-primitives)
+
 ## Anatomy
 
 All content can either be a argument or block to better suit your invocation and styling needs.

@@ -75,7 +75,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - uses: wyvox/action-setup-pnpm@v3
       - run: pnpm turbo build:dev
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: deploy-prep-dist
           if-no-files-found: error
@@ -117,7 +117,7 @@ jobs:
     outputs:
       docsUrl: ${{ steps.deploy.outputs.url }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v6
         name: deploy-prep-dist
       - id: deploy
         uses: cloudflare/pages-action@v1.5.0

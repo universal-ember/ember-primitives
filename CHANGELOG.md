@@ -1,5 +1,10 @@
 # Changelog 
 
+
+
+
+
+
 ## Release (2025-11-06)
 
 * ember-primitives 0.41.0 (minor)

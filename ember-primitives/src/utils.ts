@@ -1,5 +1,6 @@
-import type Owner from '@ember/owner';
 import { getOwner } from '@ember/owner';
+
+import type Owner from '@ember/owner';
 
 // this is copy pasted from https://github.com/emberjs/ember.js/blob/60d2e0cddb353aea0d6e36a72fda971010d92355/packages/%40ember/-internals/glimmer/lib/helpers/unique-id.ts
 // Unfortunately due to https://github.com/emberjs/ember.js/issues/20165 we cannot use the built-in version in template tags

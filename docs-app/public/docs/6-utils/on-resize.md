@@ -3,7 +3,7 @@
 Utility for efficiently interacting with a [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) on any element.
 No matter how many times `{{onResize}}` is used within your application, only one `ResizeObserver` will exist.
 
-This utility also handles the ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
+This utility also handles the (uncachable) ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
 
 
 ## Setup
@@ -11,6 +11,8 @@ This utility also handles the ["ResizeObserver loop limit exceeded"](https://sta
 ```bash 
 pnpm add ember-primitives
 ```
+
+Introduced in [0.32.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.32.0-ember-primitives)
 
 ## Usage
 

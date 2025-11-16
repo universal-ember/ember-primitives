@@ -47,6 +47,7 @@ export default class Application extends Route {
           'ember-primitives/head': import('ember-primitives/head'),
           'ember-primitives/floating-ui': import('ember-primitives/floating-ui'),
           'ember-primitives/on-resize': import('ember-primitives/on-resize'),
+          'ember-primitives/resize-observer': import('ember-primitives/resize-observer'),
           'ember-primitives/color-scheme': import('ember-primitives/color-scheme'),
           'ember-primitives/components/form': import('ember-primitives/components/form'),
           'ember-primitives/components/tabs': import('ember-primitives/components/tabs'),

@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-11-16)
+
+* ember-primitives 0.42.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#552](https://github.com/universal-ember/ember-primitives/pull/552) New util: `resizeObserver()` -- Extract and export the resize observer from `onResize`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-11-06)
 
 * ember-primitives 0.41.0 (minor)

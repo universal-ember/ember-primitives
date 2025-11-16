@@ -189,7 +189,7 @@ module('{{onResize}}', function (hooks) {
 
     state.handleResize1 = createCallback(3);
     await setSize(element, { width: 20 });
-    assert.verifySteps(['3 called: 20 x 100', '2 called: 20 x 100']);
+    assert.verifySteps(['2 called: 20 x 100', '3 called: 20 x 100']);
   });
 
   module('handling errors', function (hooks) {

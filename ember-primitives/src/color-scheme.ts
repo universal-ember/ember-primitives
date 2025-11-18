@@ -79,6 +79,7 @@ export function sync() {
    * If local prefs are set, then we don't care what prefers-color-scheme is
    */
   const userPreference = localPreference.read();
+
   if (userPreference) {
     setColorScheme(userPreference);
     _colorScheme.current = userPreference;

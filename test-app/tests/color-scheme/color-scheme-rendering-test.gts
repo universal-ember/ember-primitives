@@ -110,4 +110,13 @@ module('color-scheme', function (hooks) {
 
     assert.ok(colorScheme.current);
   });
+
+  test('Color scheme can be a custom value and survives sync', function (assert) {
+    colorScheme.update('synthwave');
+    assert.strictEqual(getColorScheme(), 'synthwave');
+
+    sync();
+
+    assert.strictEqual(getColorScheme(), 'synthwave');
+  });
 });

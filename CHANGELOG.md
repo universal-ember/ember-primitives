@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-11-19)
+
+* ember-primitives 0.42.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#553](https://github.com/universal-ember/ember-primitives/pull/553) Fix color scheme preference bug ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam Potter ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2025-11-16)
 
 * ember-primitives 0.42.0 (minor)

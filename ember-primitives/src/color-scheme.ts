@@ -78,19 +78,11 @@ export function sync() {
   /**
    * If local prefs are set, then we don't care what prefers-color-scheme is
    */
-  if (localPreference.isSet()) {
-    const pref = localPreference.read();
+  const userPreference = localPreference.read();
 
-    if (pref === 'dark') {
-      setColorScheme('dark');
-
-      _colorScheme.current = 'dark';
-
-      return;
-    }
-
-    setColorScheme('light');
-    _colorScheme.current = 'light';
+  if (userPreference) {
+    setColorScheme(userPreference);
+    _colorScheme.current = userPreference;
 
     return;
   }
@@ -106,6 +98,7 @@ export function sync() {
 
 /**
  * Helper methods to determining what the user's preferred color scheme is
+ * based on the system preferences rather than the users explicit preference.
  */
 export const prefers = {
   dark: () => window.matchMedia('(prefers-color-scheme: dark)').matches,

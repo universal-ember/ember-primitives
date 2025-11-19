@@ -1,18 +1,18 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.41.0",
-      "newVersion": "0.42.0",
+      "impact": "patch",
+      "oldVersion": "0.42.0",
+      "newVersion": "0.42.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-11-16)\n\n* ember-primitives 0.42.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#552](https://github.com/universal-ember/ember-primitives/pull/552) New util: `resizeObserver()` -- Extract and export the resize observer from `onResize`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-11-19)\n\n* ember-primitives 0.42.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#553](https://github.com/universal-ember/ember-primitives/pull/553) Fix color scheme preference bug ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
 }

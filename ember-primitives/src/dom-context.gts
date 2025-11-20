@@ -22,7 +22,7 @@ import type Owner from "@ember/owner";
  * but only if we forgoe DOM-tree scoping.
  * We must traverse the DOM hierarchy to validate that we aren't accessing providers from different subtrees.
  */
-const LOOKUP = new WeakMap<Element, [unknown, () => unknown]>();
+const LOOKUP = new WeakMap<Text, [unknown, () => unknown]>();
 
 export class Provide<Data extends object> extends Component<{
   Args: {
@@ -66,7 +66,7 @@ export class Provide<Data extends object> extends Component<{
     return this.args.data;
   }
 
-  element: HTMLDivElement;
+  element: Text;
 
   constructor(
     owner: Owner,
@@ -77,9 +77,7 @@ export class Provide<Data extends object> extends Component<{
   ) {
     super(owner, args);
 
-    const element = document.createElement("div");
-
-    element.style.display = "contents";
+    const element = document.createTextNode("");
 
     const key = this.args.key ?? this.args.data;
 
@@ -89,26 +87,40 @@ export class Provide<Data extends object> extends Component<{
 
   <template>
     {{this.element}}
-
-    {{#in-element this.element}}
-      {{yield}}
-    {{/in-element}}
+    {{yield}}
   </template>
 }
 
-function findForKey<Data>(startElement: Element, key: string | object): undefined | (() => Data) {
-  let parent: Element | null = startElement;
+/**
+ * How this works:
+ * - starting at some deep node (Text, Element, whatever),
+ *   start crawling up the ancenstry graph (of DOM Nodes).
+ * - for each DOM node crawled upward, check all previous siblings to see if one matches the requested *key*
+ *
+ *  - This algo "tops out" (since we traverse upwards (otherwise this would be "bottoming out")) at the HTMLDocument (parent of the HTML Tag)
+ *
+ */
+function findForKey<Data>(startElement: Text, key: string | object): undefined | (() => Data) {
+  let parent: ParentNode | Text | null | undefined = startElement;
 
-  while ((parent = parent.parentElement)) {
-    const maybe = LOOKUP.get(parent);
+  while (parent) {
+    let target: ParentNode | ChildNode | Text | null | undefined = parent;
 
-    if (!maybe) {
-      continue;
+    while ((target = target?.previousSibling)) {
+      if (!(target instanceof Text)) continue;
+
+      const maybe = LOOKUP.get(target);
+
+      if (!maybe) {
+        continue;
+      }
+
+      if (maybe[0] === key) {
+        return maybe[1] as () => Data;
+      }
     }
 
-    if (maybe[0] === key) {
-      return maybe[1] as () => Data;
-    }
+    parent = parent.parentElement;
   }
 }
 
@@ -135,13 +147,12 @@ export class Consume<Key extends object | string> extends Component<{
   // SAFETY: We do a runtime assert in the getter below.
   @tracked getData!: () => DataForKey<Key>;
 
-  element: HTMLDivElement;
+  element: Text;
 
   constructor(owner: Owner, args: { key: Key }) {
     super(owner, args);
 
-    this.element = document.createElement("div");
-    this.element.style.display = "contents";
+    this.element = document.createTextNode("");
   }
 
   @cached
@@ -168,8 +179,6 @@ export class Consume<Key extends object | string> extends Component<{
   <template>
     {{this.element}}
 
-    {{#in-element this.element}}
-      {{yield this.context}}
-    {{/in-element}}
+    {{yield this.context}}
   </template>
 }

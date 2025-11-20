@@ -8,8 +8,8 @@ on:
   pull_request: {}
 
 concurrency:
-   group: ci-${{ github.head_ref || github.ref }}
-   cancel-in-progress: true
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 env:
   TURBO_API: http://127.0.0.1:9080
@@ -18,7 +18,7 @@ env:
 
 jobs:
   setup:
-    name: 'Setup'
+    name: "Setup"
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
@@ -30,7 +30,7 @@ jobs:
       - run: pnpm build
       - id: set-pending
         run: echo "pending=$(./cache-status.sh)" >> $GITHUB_OUTPUT
-      - run:  echo ${{ github.event.number }} > ./pr-number.txt
+      - run: echo ${{ github.event.number }} > ./pr-number.txt
 
   # Every PR will need linting. Turbo's cache can optimize per-package
   lint:
@@ -46,7 +46,6 @@ jobs:
       - run: pnpm i -f # sync for some reason isn't running before lint
       - run: ls -la ember-primitives/
       - run: pnpm lint
-
 
   test:
     name: "Default Tests"
@@ -92,6 +91,7 @@ jobs:
           - ember-5.1
           - ember-5.12
           - ember-6.4
+          - ember-6.8
           - ember-release
           - ember-beta
           - ember-canary
@@ -111,7 +111,7 @@ jobs:
   #       Lint phase up above
   #       This job is for checking specific versions of typescript
   typecheck:
-    name: '${{ matrix.typescript-scenario }}'
+    name: "${{ matrix.typescript-scenario }}"
     runs-on: ubuntu-latest
     # if: ${{ fromJSON(needs.setup.outputs.pending).test-app['lint:types'].status == 'MISS' }}
     timeout-minutes: 5
@@ -136,10 +136,10 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
-      - name: 'Change TS to ${{ matrix.typescript-scenario }}'
-        run: 'pnpm add --save-dev ${{ matrix.typescript-scenario}}'
+      - name: "Change TS to ${{ matrix.typescript-scenario }}"
+        run: "pnpm add --save-dev ${{ matrix.typescript-scenario}}"
         working-directory: ./test-app
-      - name: 'Type checking'
+      - name: "Type checking"
         run: pnpm --filter 'test-app' lint:types
 
   docs-tests:
@@ -165,8 +165,11 @@ jobs:
     strategy:
       matrix:
         app:
-        - { path: "./docs-app/dist", cloudflareName: "ember-primitives", name: "docs" }
-
+          - {
+              path: "./docs-app/dist",
+              cloudflareName: "ember-primitives",
+              name: "docs",
+            }
 
     permissions:
       contents: read
@@ -188,5 +191,3 @@ jobs:
           projectName: ${{ matrix.app.cloudflareName }}
           directory: ${{ matrix.app.path }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-
-

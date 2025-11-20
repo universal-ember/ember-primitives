@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-11-20)
+
+* ember-primitives 0.43.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#555](https://github.com/universal-ember/ember-primitives/pull/555) Implement dom context without extra elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-11-19)
 
 * ember-primitives 0.42.1 (patch)

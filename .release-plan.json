@@ -1,18 +1,18 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.42.0",
-      "newVersion": "0.42.1",
+      "impact": "minor",
+      "oldVersion": "0.42.1",
+      "newVersion": "0.43.0",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-11-19)\n\n* ember-primitives 0.42.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#553](https://github.com/universal-ember/ember-primitives/pull/553) Fix color scheme preference bug ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2025-11-20)\n\n* ember-primitives 0.43.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#555](https://github.com/universal-ember/ember-primitives/pull/555) Implement dom context without extra elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

@@ -2,6 +2,7 @@ import Component from "@glimmer/component";
 import { cached, tracked } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 
+import { isElement } from "./narrowing.ts";
 import { createStore } from "./store.ts";
 
 import type { Newable } from "./type-utils";
@@ -22,9 +23,14 @@ import type Owner from "@ember/owner";
  * but only if we forgoe DOM-tree scoping.
  * We must traverse the DOM hierarchy to validate that we aren't accessing providers from different subtrees.
  */
-const LOOKUP = new WeakMap<Text, [unknown, () => unknown]>();
+const LOOKUP = new WeakMap<Text | Element, [unknown, () => unknown]>();
 
 export class Provide<Data extends object> extends Component<{
+  /**
+   * The Element is not customizable
+   * (and also sometimes doesn't exist (depending on the `@element` value))
+   */
+  Element: null;
   Args: {
     /**
      * What data do you want to provide to the DOM subtree?
@@ -42,6 +48,20 @@ export class Provide<Data extends object> extends Component<{
      * With string keys, the `<Consume>` type will be unknown.
      */
     key?: string;
+
+    /**
+     * Don't use an element for the Provider boundary.
+     *
+     * Setting this to `false` changes the DOM Node containing the Provider's data to be a text node -- which can be useful when certain CSS situations are needed.
+     *
+     * But setting to `false` has a hazard: it allows subsequent sibling subtrees to access adjacent providers.
+     *
+     * There is no way around caveat in library land, and in a framework implementation of context,
+     * it can only be solved by having render-tree context implemented, and ignoring DOM
+     *  (which then makes the only difference between DOM-Context and Context be whether or not
+     *    the context punches through Portals)
+     */
+    element?: false;
   };
   Blocks: {
     /**
@@ -66,7 +86,7 @@ export class Provide<Data extends object> extends Component<{
     return this.args.data;
   }
 
-  element: Text;
+  element: Text | HTMLDivElement;
 
   constructor(
     owner: Owner,
@@ -77,17 +97,46 @@ export class Provide<Data extends object> extends Component<{
   ) {
     super(owner, args);
 
-    const element = document.createTextNode("");
+    if (this.useElementProvider) {
+      this.element = document.createElement("div");
+
+      // This tells the browser to ignore everything about this element when it comes to styling
+      this.element.style.display = "contents";
+    } else {
+      this.element = document.createTextNode("");
+    }
 
     const key = this.args.key ?? this.args.data;
 
-    LOOKUP.set(element, [key, () => this.data]);
-    this.element = element;
+    LOOKUP.set(this.element, [key, () => this.data]);
+  }
+
+  get useElementProvider() {
+    return this.args.element !== false;
   }
 
   <template>
-    {{this.element}}
-    {{yield}}
+    {{#if (isElement this.element)}}
+      {{this.element}}
+
+      {{#in-element this.element}}
+        {{yield}}
+      {{/in-element}}
+
+    {{else}}
+      {{! NOTE! This type of provider will _allow_ non-descendents using the same key to find the provider and use it.
+
+        For example:
+          Provider
+            Consumer
+
+          Consumer (finds Provider)
+      }}
+
+      {{this.element}}
+      {{yield}}
+
+    {{/if}}
   </template>
 }
 
@@ -95,9 +144,8 @@ export class Provide<Data extends object> extends Component<{
  * How this works:
  * - starting at some deep node (Text, Element, whatever),
  *   start crawling up the ancenstry graph (of DOM Nodes).
- * - for each DOM node crawled upward, check all previous siblings to see if one matches the requested *key*
  *
- *  - This algo "tops out" (since we traverse upwards (otherwise this would be "bottoming out")) at the HTMLDocument (parent of the HTML Tag)
+ * - This algo "tops out" (since we traverse upwards (otherwise this would be "bottoming out")) at the HTMLDocument (parent of the HTML Tag)
  *
  */
 function findForKey<Data>(startElement: Text, key: string | object): undefined | (() => Data) {
@@ -106,10 +154,15 @@ function findForKey<Data>(startElement: Text, key: string | object): undefined |
   while (parent) {
     let target: ParentNode | ChildNode | Text | null | undefined = parent;
 
-    while ((target = target?.previousSibling)) {
-      if (!(target instanceof Text)) continue;
+    while (target) {
+      if (!(target instanceof Element) && !(target instanceof Text)) {
+        target = target?.previousSibling;
+        continue;
+      }
 
       const maybe = LOOKUP.get(target);
+
+      target = target?.previousSibling;
 
       if (!maybe) {
         continue;

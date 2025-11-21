@@ -11,330 +11,334 @@ import type { TOC } from '@ember/component/template-only';
 module('Rendering | DOM Context', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('@data handles static object', async function (assert) {
-    const key = { static: true };
+  for (const scenario of ['span', '', undefined, false]) {
+    module(`@element={{${String(scenario)}}}`, function () {
+      test('@data handles static object', async function (assert) {
+        const key = { static: true };
 
-    let result: any;
+        let result: any;
 
-    function capture(data: typeof key) {
-      result = data;
-    }
+        function capture(data: typeof key) {
+          result = data;
+        }
 
-    await render(
-      <template>
-        <Provide @data={{key}}>
-          <Consume @key={{key}} as |context|>
-            {{capture context.data}}
-          </Consume>
-        </Provide>
-      </template>
-    );
+        await render(
+          <template>
+            <Provide @data={{key}} @element={{scenario}}>
+              <Consume @key={{key}} as |context|>
+                {{capture context.data}}
+              </Consume>
+            </Provide>
+          </template>
+        );
 
-    assert.deepEqual(result, key);
-  });
+        assert.deepEqual(result, key);
+      });
 
-  test('@key can be specified as a string', async function (assert) {
-    const data = { static: true };
-    const key = 'hello-there';
+      test('@key can be specified as a string', async function (assert) {
+        const data = { static: true };
+        const key = 'hello-there';
 
-    let result: any;
+        let result: any;
 
-    function capture(d: any) {
-      result = d;
-    }
+        function capture(d: any) {
+          result = d;
+        }
 
-    await render(
-      <template>
-        <Provide @data={{data}} @key={{key}}>
-          <Consume @key={{key}} as |context|>
-            {{capture context.data}}
-          </Consume>
-        </Provide>
-      </template>
-    );
+        await render(
+          <template>
+            <Provide @data={{data}} @key={{key}} @element={{scenario}}>
+              <Consume @key={{key}} as |context|>
+                {{capture context.data}}
+              </Consume>
+            </Provide>
+          </template>
+        );
 
-    assert.deepEqual(result, data);
-  });
+        assert.deepEqual(result, data);
+      });
 
-  /**
-   * We currently can't test when we deliberately crash rendering.
-   *
-   * rendering tries to _re-render_, which fails, because we deliberately
-   * crashed on initial render
-   */
-  skip('consume cannot access provide in a different tree', async function (assert) {
-    const data1 = { one: true };
-    const data2 = { two: true };
+      /**
+       * We currently can't test when we deliberately crash rendering.
+       *
+       * rendering tries to _re-render_, which fails, because we deliberately
+       * crashed on initial render
+       */
+      skip('consume cannot access provide in a different tree', async function (assert) {
+        const data1 = { one: true };
+        const data2 = { two: true };
 
-    let result: any;
+        let result: any;
 
-    function capture(d: any) {
-      result = d;
-    }
+        function capture(d: any) {
+          result = d;
+        }
 
-    setupOnerror((error) => {
-      assert.ok(error?.message?.includes('Could not find provided context'));
-    });
+        setupOnerror((error) => {
+          assert.ok(error?.message?.includes('Could not find provided context'));
+        });
 
-    await render(
-      <template>
-        <Provide @data={{data1}} />
+        await render(
+          <template>
+            <Provide @data={{data1}} @element={{scenario}} />
 
-        <Provide @data={{data2}}>
-          <Consume @key={{data1}} as |context|>
-            {{capture context.data}}
-          </Consume>
-        </Provide>
-      </template>
-    );
-  });
+            <Provide @data={{data2}} @element={{scenario}}>
+              <Consume @key={{data1}} as |context|>
+                {{capture context.data}}
+              </Consume>
+            </Provide>
+          </template>
+        );
+      });
 
-  test('multiple providers are independent', async function (assert) {
-    class Incrementer {
-      @tracked count = 2;
-      doit = () => this.count++;
-    }
+      test('multiple providers are independent', async function (assert) {
+        class Incrementer {
+          @tracked count = 2;
+          doit = () => this.count++;
+        }
 
-    class Doubler {
-      @tracked count = 2;
-      doit = () => (this.count *= 2);
-    }
+        class Doubler {
+          @tracked count = 2;
+          doit = () => (this.count *= 2);
+        }
 
-    const step = (...x: unknown[]) => assert.step(x.join(':'));
+        const step = (...x: unknown[]) => assert.step(x.join(':'));
 
-    const Consumer: TOC<{ name: string }> = <template>
-      <div data-name={{@name}}>
-        <Consume @key="store" as |context|>
-          {{! SAFETY: we can't get a specific type with string keys.
+        const Consumer: TOC<{ name: string }> = <template>
+          <div data-name={{@name}}>
+            <Consume @key="store" as |context|>
+              {{! SAFETY: we can't get a specific type with string keys.
                       we can lie about types though with a wrapper component }}
-          {{! @glint-expect-error}}
-          {{step @name context.data.count}}
-          {{! @glint-expect-error}}
-          <button onclick={{context.data.doit}} type="button">do it</button>
-        </Consume>
-      </div>
-    </template>;
-
-    await render(
-      <template>
-        <Provide @data={{Incrementer}} @key="store">
-          <Consumer @name="inc" />
-        </Provide>
-
-        <Provide @data={{Doubler}} @key="store">
-          <Consumer @name="double" />
-        </Provide>
-      </template>
-    );
-
-    assert.verifySteps(['inc:2', 'double:2']);
-
-    await click('[data-name="inc"] button');
-    assert.verifySteps(['inc:3']);
-
-    await click('[data-name="double"] button');
-    assert.verifySteps(['double:4']);
-  });
-
-  test('@key example curried string with type', async function (assert) {
-    class Incrementer {
-      @tracked count = 2;
-      doit = () => this.count++;
-    }
-
-    class Doubler {
-      @tracked count = 2;
-      doit = () => (this.count *= 2);
-    }
-
-    const step = (...x: unknown[]) => assert.step(x.join(':'));
-
-    const StoreConsumer: TOC<{
-      Blocks: {
-        default: [store: { count: number; doit: () => void }];
-      };
-    }> = <template>
-      <Consume @key="store" as |context|>
-        {{! SAFETY: we specified the type in the signature }}
-        {{! @glint-expect-error}}
-        {{yield context.data}}
-      </Consume>
-    </template>;
-
-    const Consumer: TOC<{ name: string }> = <template>
-      <div data-name={{@name}}>
-        <StoreConsumer as |store|>
-          {{step @name store.count}}
-          <button type="button" {{on "click" store.doit}}>do it</button>
-        </StoreConsumer>
-      </div>
-    </template>;
-
-    await render(
-      <template>
-        <Provide @data={{Incrementer}} @key="store">
-          <Consumer @name="inc" />
-        </Provide>
-
-        <Provide @data={{Doubler}} @key="store">
-          <Consumer @name="double" />
-        </Provide>
-      </template>
-    );
-
-    assert.verifySteps(['inc:2', 'double:2']);
-
-    await click('[data-name="inc"] button');
-    assert.verifySteps(['inc:3']);
-
-    await click('[data-name="double"] button');
-    assert.verifySteps(['double:4']);
-  });
-
-  test('with the same key, we can nest providers', async function (assert) {
-    const key = 'hello-there';
-
-    let result: any;
-
-    function capture(d: any) {
-      result = d;
-    }
-
-    await render(
-      <template>
-        <Provide @data={{Object name="outer"}} @key={{key}}>
-          <Provide @data={{Object name="inner"}} @key={{key}}>
-            <Consume @key={{key}} as |context|>
-              {{capture context.data}}
+              {{! @glint-expect-error}}
+              {{step @name context.data.count}}
+              {{! @glint-expect-error}}
+              <button onclick={{context.data.doit}} type="button">do it</button>
             </Consume>
-          </Provide>
-        </Provide>
-      </template>
-    );
+          </div>
+        </template>;
 
-    assert.deepEqual(result, { name: 'inner' });
-  });
+        await render(
+          <template>
+            <Provide @data={{Incrementer}} @key="store" @element={{scenario}}>
+              <Consumer @name="inc" />
+            </Provide>
 
-  test('changes to reactive data are fine-grainedly available to the consumer', async function (assert) {
-    const key = 'hello-there';
+            <Provide @data={{Doubler}} @key="store" @element={{scenario}}>
+              <Consumer @name="double" />
+            </Provide>
+          </template>
+        );
 
-    class Data {
-      @tracked count = 0;
-    }
+        assert.verifySteps(['inc:2', 'double:2']);
 
-    const data = new Data();
+        await click('[data-name="inc"] button');
+        assert.verifySteps(['inc:3']);
 
-    const step = (x: unknown) => assert.step(String(x));
+        await click('[data-name="double"] button');
+        assert.verifySteps(['double:4']);
+      });
 
-    await render(
-      <template>
-        <Provide @data={{data}} @key={{key}}>
-          <Consume @key={{key}} as |context|>
-            {{step context.data}}
+      test('@key example curried string with type', async function (assert) {
+        class Incrementer {
+          @tracked count = 2;
+          doit = () => this.count++;
+        }
+
+        class Doubler {
+          @tracked count = 2;
+          doit = () => (this.count *= 2);
+        }
+
+        const step = (...x: unknown[]) => assert.step(x.join(':'));
+
+        const StoreConsumer: TOC<{
+          Blocks: {
+            default: [store: { count: number; doit: () => void }];
+          };
+        }> = <template>
+          <Consume @key="store" as |context|>
+            {{! SAFETY: we specified the type in the signature }}
             {{! @glint-expect-error}}
-            {{step context.data.count}}
+            {{yield context.data}}
           </Consume>
-        </Provide>
-      </template>
-    );
+        </template>;
 
-    assert.verifySteps(['[object Object]', '0']);
+        const Consumer: TOC<{ name: string }> = <template>
+          <div data-name={{@name}}>
+            <StoreConsumer as |store|>
+              {{step @name store.count}}
+              <button type="button" {{on "click" store.doit}}>do it</button>
+            </StoreConsumer>
+          </div>
+        </template>;
 
-    data.count++;
-    await settled();
+        await render(
+          <template>
+            <Provide @data={{Incrementer}} @key="store" @element={{scenario}}>
+              <Consumer @name="inc" />
+            </Provide>
 
-    assert.verifySteps(['1']);
-  });
+            <Provide @data={{Doubler}} @key="store" @element={{scenario}}>
+              <Consumer @name="double" />
+            </Provide>
+          </template>
+        );
 
-  test('multiple consumers can see and react to the same change', async function (assert) {
-    const key = 'hello-there';
+        assert.verifySteps(['inc:2', 'double:2']);
 
-    class Data {
-      @tracked count = 0;
-    }
+        await click('[data-name="inc"] button');
+        assert.verifySteps(['inc:3']);
 
-    const data = new Data();
+        await click('[data-name="double"] button');
+        assert.verifySteps(['double:4']);
+      });
 
-    const step = (...x: unknown[]) => assert.step(x.join(', '));
+      test('with the same key, we can nest providers', async function (assert) {
+        const key = 'hello-there';
 
-    await render(
-      <template>
-        <Provide @data={{data}} @key={{key}}>
-          <Consume @key={{key}} as |context|>
-            {{! @glint-expect-error}}
-            {{step "first" context.data.count}}
-          </Consume>
-          <Consume @key={{key}} as |context|>
-            {{! @glint-expect-error}}
-            {{step "second" context.data.count}}
-          </Consume>
-        </Provide>
-      </template>
-    );
+        let result: any;
 
-    assert.verifySteps(['first, 0', 'second, 0']);
+        function capture(d: any) {
+          result = d;
+        }
 
-    data.count++;
-    await settled();
+        await render(
+          <template>
+            <Provide @data={{Object name="outer"}} @key={{key}} @element={{scenario}}>
+              <Provide @data={{Object name="inner"}} @key={{key}} @element={{scenario}}>
+                <Consume @key={{key}} as |context|>
+                  {{capture context.data}}
+                </Consume>
+              </Provide>
+            </Provide>
+          </template>
+        );
 
-    assert.verifySteps(['first, 1', 'second, 1']);
-  });
+        assert.deepEqual(result, { name: 'inner' });
+      });
 
-  test('@data can be a class', async function (assert) {
-    class Data {
-      @tracked count = 0;
-      increment = () => this.count++;
-    }
+      test('changes to reactive data are fine-grainedly available to the consumer', async function (assert) {
+        const key = 'hello-there';
 
-    const step = (...x: unknown[]) => assert.step(x.join(', '));
+        class Data {
+          @tracked count = 0;
+        }
 
-    await render(
-      <template>
-        <Provide @data={{Data}}>
-          <Consume @key={{Data}} as |context|>
-            {{step context.data.count}}
+        const data = new Data();
 
-            <button onclick={{context.data.increment}} type="button">++</button>
-          </Consume>
-        </Provide>
-      </template>
-    );
+        const step = (x: unknown) => assert.step(String(x));
 
-    assert.verifySteps(['0']);
+        await render(
+          <template>
+            <Provide @data={{data}} @key={{key}} @element={{scenario}}>
+              <Consume @key={{key}} as |context|>
+                {{step context.data}}
+                {{! @glint-expect-error}}
+                {{step context.data.count}}
+              </Consume>
+            </Provide>
+          </template>
+        );
 
-    await click('button');
+        assert.verifySteps(['[object Object]', '0']);
 
-    assert.verifySteps(['1']);
-  });
+        data.count++;
+        await settled();
 
-  test('@data can be a function', async function (assert) {
-    function data() {
-      class Data {
-        @tracked count = 0;
-        increment = () => this.count++;
-      }
+        assert.verifySteps(['1']);
+      });
 
-      return new Data();
-    }
+      test('multiple consumers can see and react to the same change', async function (assert) {
+        const key = 'hello-there';
 
-    const step = (...x: unknown[]) => assert.step(x.join(', '));
+        class Data {
+          @tracked count = 0;
+        }
 
-    await render(
-      <template>
-        <Provide @data={{data}}>
-          <Consume @key={{data}} as |context|>
-            {{step context.data.count}}
+        const data = new Data();
 
-            <button onclick={{context.data.increment}} type="button">++</button>
-          </Consume>
-        </Provide>
-      </template>
-    );
+        const step = (...x: unknown[]) => assert.step(x.join(', '));
 
-    assert.verifySteps(['0']);
+        await render(
+          <template>
+            <Provide @data={{data}} @key={{key}} @element={{scenario}}>
+              <Consume @key={{key}} as |context|>
+                {{! @glint-expect-error}}
+                {{step "first" context.data.count}}
+              </Consume>
+              <Consume @key={{key}} as |context|>
+                {{! @glint-expect-error}}
+                {{step "second" context.data.count}}
+              </Consume>
+            </Provide>
+          </template>
+        );
 
-    await click('button');
+        assert.verifySteps(['first, 0', 'second, 0']);
 
-    assert.verifySteps(['1']);
-  });
+        data.count++;
+        await settled();
+
+        assert.verifySteps(['first, 1', 'second, 1']);
+      });
+
+      test('@data can be a class', async function (assert) {
+        class Data {
+          @tracked count = 0;
+          increment = () => this.count++;
+        }
+
+        const step = (...x: unknown[]) => assert.step(x.join(', '));
+
+        await render(
+          <template>
+            <Provide @data={{Data}} @element={{scenario}}>
+              <Consume @key={{Data}} as |context|>
+                {{step context.data.count}}
+
+                <button onclick={{context.data.increment}} type="button">++</button>
+              </Consume>
+            </Provide>
+          </template>
+        );
+
+        assert.verifySteps(['0']);
+
+        await click('button');
+
+        assert.verifySteps(['1']);
+      });
+
+      test('@data can be a function', async function (assert) {
+        function data() {
+          class Data {
+            @tracked count = 0;
+            increment = () => this.count++;
+          }
+
+          return new Data();
+        }
+
+        const step = (...x: unknown[]) => assert.step(x.join(', '));
+
+        await render(
+          <template>
+            <Provide @data={{data}} @element={{scenario}}>
+              <Consume @key={{data}} as |context|>
+                {{step context.data.count}}
+
+                <button onclick={{context.data.increment}} type="button">++</button>
+              </Consume>
+            </Provide>
+          </template>
+        );
+
+        assert.verifySteps(['0']);
+
+        await click('button');
+
+        assert.verifySteps(['1']);
+      });
+    });
+  }
 });

@@ -50,7 +50,8 @@ export class Provide<Data extends object> extends Component<{
     key?: string;
 
     /**
-     * Don't use an element for the Provider boundary.
+     * Can be used to either customize the element tag ( defaults to div )
+     * If set to `false`, we won't use an element for the Provider boundary.
      *
      * Setting this to `false` changes the DOM Node containing the Provider's data to be a text node -- which can be useful when certain CSS situations are needed.
      *
@@ -61,7 +62,7 @@ export class Provide<Data extends object> extends Component<{
      *  (which then makes the only difference between DOM-Context and Context be whether or not
      *    the context punches through Portals)
      */
-    element?: false;
+    element?: keyof HTMLElementTagNameMap | false;
   };
   Blocks: {
     /**
@@ -86,7 +87,7 @@ export class Provide<Data extends object> extends Component<{
     return this.args.data;
   }
 
-  element: Text | HTMLDivElement;
+  element: Text | HTMLElement;
 
   constructor(
     owner: Owner,
@@ -97,8 +98,13 @@ export class Provide<Data extends object> extends Component<{
   ) {
     super(owner, args);
 
+    assert(
+      `@element may only be \`false\` or a string (or undefined (default when not set))`,
+      this.args.element === false || typeof this.args.element === "string",
+    );
+
     if (this.useElementProvider) {
-      this.element = document.createElement("div");
+      this.element = document.createElement(this.args.element || "div");
 
       // This tells the browser to ignore everything about this element when it comes to styling
       this.element.style.display = "contents";

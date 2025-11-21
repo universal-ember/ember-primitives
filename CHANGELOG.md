@@ -2,6 +2,17 @@
 
 ## Release (2025-11-21)
 
+* ember-primitives 0.44.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#560](https://github.com/universal-ember/ember-primitives/pull/560) Automatic Heading ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-11-21)
+
 * ember-primitives 0.43.1 (patch)
 
 #### :bug: Bug Fix

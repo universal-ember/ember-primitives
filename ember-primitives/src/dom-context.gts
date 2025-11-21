@@ -62,7 +62,7 @@ export class Provide<Data extends object> extends Component<{
      *  (which then makes the only difference between DOM-Context and Context be whether or not
      *    the context punches through Portals)
      */
-    element?: keyof HTMLElementTagNameMap | false;
+    element?: keyof HTMLElementTagNameMap | false | undefined;
   };
   Blocks: {
     /**
@@ -100,7 +100,9 @@ export class Provide<Data extends object> extends Component<{
 
     assert(
       `@element may only be \`false\` or a string (or undefined (default when not set))`,
-      this.args.element === false || typeof this.args.element === "string",
+      this.args.element === undefined ||
+        this.args.element === false ||
+        typeof this.args.element === "string",
     );
 
     if (this.useElementProvider) {

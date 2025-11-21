@@ -2,59 +2,60 @@ import Component from "@glimmer/component";
 
 import { element } from "ember-element-helper";
 
-import { Consume, Provide } from "../dom-context.gts";
-
 import type Owner from "@ember/owner";
 
-class AutoHeading {
-  level = 1;
+const LOOKUP = new WeakMap<Text, number>();
 
-  get down() {
-    return this.level - 1;
+function levelOf(node: Text): number {
+  let parent: HTMLElement | null = node.parentElement;
+  let level = 0;
+
+  while (parent) {
+    if (parent.tagName.toLowerCase() === "section") {
+      level++;
+    }
+
+    parent = parent.parentElement;
   }
 
-  get downH() {
-    return `h${this.down}`;
-  }
+  return level;
 }
 
 export class Heading extends Component<{
   Element: HTMLElement;
   Blocks: { default: [] };
 }> {
-  element: HTMLElement;
+  headingScopeAnchor: Text;
   constructor(owner: Owner, args: object) {
     super(owner, args);
 
-    this.element = document.createElement(`h${level}`);
+    this.headingScopeAnchor = document.createTextNode("");
+  }
+
+  get level() {
+    const existing = LOOKUP.get(this.headingScopeAnchor);
+
+    if (existing) return existing;
+
+    const parentLevel = levelOf(this.headingScopeAnchor);
+    const myLevel = parentLevel + 1;
+
+    LOOKUP.set(this.headingScopeAnchor, myLevel);
+
+    return myLevel;
+  }
+
+  get hLevel() {
+    return `h${this.level}`;
   }
 
   <template>
-    <Consume @key={{AutoHeading}} as |state|>
-      {{#let (element state.data.downH) as |el|}}
-        <el ...attributes>
-          {{yield}}
-        </el>
-      {{/let}}
+    {{this.headingScopeAnchor}}
 
-    </Consume>
-  </template>
-}
-
-export class Section extends Component<{
-  Element: HTMLElement;
-  Blocks: {
-    default: [];
-  };
-}> {
-  constructor(owner: Owner, args: object) {
-    super(owner, args);
-  }
-  <template>
-    <section ...attributes>
-      <Provide @data={{AutoHeading}}>
+    {{#let (element this.hLevel) as |el|}}
+      <el ...attributes>
         {{yield}}
-      </Provide>
-    </section>
+      </el>
+    {{/let}}
   </template>
 }

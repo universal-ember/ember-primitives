@@ -58,10 +58,10 @@ export class Heading extends Component<{
   <template>
     {{this.headingScopeAnchor}}
 
-    {{#let (element this.hLevel) as |el|}}
-      <el ...attributes>
+    {{#let (element this.hLevel) as |El|}}
+      <El ...attributes>
         {{yield}}
-      </el>
+      </El>
     {{/let}}
   </template>
 }

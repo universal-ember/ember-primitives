@@ -68,6 +68,8 @@ import { Heading } from 'ember-primitives/components/heading';
 pnpm add ember-primitives
 ```
 
+Introduced in [0.44.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.44.0-ember-primitives)
+
 ## API Reference
 
 ```gjs live no-shadow

@@ -1,18 +1,8 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.43.1",
-      "newVersion": "0.44.0",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        }
-      ],
-      "pkgJSONPath": "./ember-primitives/package.json"
+      "oldVersion": "0.44.0"
     }
   },
-  "description": "## Release (2025-11-21)\n\n* ember-primitives 0.44.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#560](https://github.com/universal-ember/ember-primitives/pull/560) Automatic Heading ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "\n\n\n\n"
 }

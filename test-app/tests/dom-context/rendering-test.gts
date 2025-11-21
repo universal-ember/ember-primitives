@@ -11,7 +11,13 @@ import type { TOC } from '@ember/component/template-only';
 module('Rendering | DOM Context', function (hooks) {
   setupRenderingTest(hooks);
 
-  for (const scenario of ['span', '', undefined, false]) {
+  const testCases = ['span', '', undefined, false] as (
+    | keyof HTMLElementTagNameMap
+    | undefined
+    | false
+  )[];
+
+  for (const scenario of testCases) {
     module(`@element={{${String(scenario)}}}`, function () {
       test('@data handles static object', async function (assert) {
         const key = { static: true };

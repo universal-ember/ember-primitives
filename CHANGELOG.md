@@ -1,5 +1,20 @@
 # Changelog 
 
+## Release (2025-11-21)
+
+* ember-primitives 0.43.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#561](https://github.com/universal-ember/ember-primitives/pull/561) Default to dom-context's provider using an element, allow customization of the element tag, and add an option to disable it. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* [#559](https://github.com/universal-ember/ember-primitives/pull/559) Test against TS 5.9 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* [#557](https://github.com/universal-ember/ember-primitives/pull/557) Add ember 6.8 to try matrix ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-11-20)
 
 * ember-primitives 0.43.0 (minor)

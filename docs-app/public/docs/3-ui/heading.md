@@ -10,7 +10,7 @@ This enables distributed teams to correctly produce appropriate section heading 
 
 ## Usage
 
-in this demo, we use `<section>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
+In your app (and in this demo), you'll use `<section>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
 Note that this demo starts with `h3`, because this docs page already has an `h1`, and _this_ section (Usage) uses an `h2`.
 
 <div class="featured-demo auto-height">

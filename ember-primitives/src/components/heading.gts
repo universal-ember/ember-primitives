@@ -7,15 +7,21 @@ import type Owner from "@ember/owner";
 const LOOKUP = new WeakMap<Text, number>();
 
 function levelOf(node: Text): number {
-  let parent: HTMLElement | null = node.parentElement;
+  let parent: ParentNode | null = node.parentElement;
   let level = 0;
 
   while (parent) {
-    if (parent.tagName.toLowerCase() === "section") {
-      level++;
+    if (parent instanceof Element) {
+      if (parent.tagName.toLowerCase() === "section") {
+        level++;
+      }
     }
 
-    parent = parent.parentElement;
+    if (parent instanceof ShadowRoot) {
+      parent = parent.host;
+    }
+
+    parent = parent.parentNode;
   }
 
   return level;

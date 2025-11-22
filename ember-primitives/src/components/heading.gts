@@ -6,13 +6,18 @@ import type Owner from "@ember/owner";
 
 const LOOKUP = new WeakMap<Text, number>();
 
+const ELEMENTS_THAT_CHANGE_SECTION_HEADING_LEVEL = new Set(["section", "article", "aside"]);
+
 function levelOf(node: Text): number {
   let parent: ParentNode | null = node.parentElement;
   let level = 0;
 
   while (parent) {
     if (parent instanceof Element) {
-      if (parent.tagName.toLowerCase() === "section") {
+      const tagName = parent.tagName.toLowerCase();
+      const shouldChange = ELEMENTS_THAT_CHANGE_SECTION_HEADING_LEVEL.has(tagName);
+
+      if (shouldChange) {
         level++;
       }
     }

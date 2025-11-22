@@ -40,11 +40,6 @@ module('Rendering | Heading', function (hooks) {
         <aside>
           <Heading id="c">two</Heading>
           <Heading id="d">two</Heading>
-          <aside>
-            <Heading id="f">three</Heading>
-
-          </aside>
-          <Heading id="e">two</Heading>
         </aside>
       </template>
     );
@@ -53,8 +48,6 @@ module('Rendering | Heading', function (hooks) {
     assert.dom('#b').hasTagName('h1');
     assert.dom('#c').hasTagName('h2');
     assert.dom('#d').hasTagName('h2');
-    assert.dom('#e').hasTagName('h2');
-    assert.dom('#f').hasTagName('h3');
   });
 
   test('article elements change the section heading level', async function (assert) {

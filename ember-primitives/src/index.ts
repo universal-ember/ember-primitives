@@ -26,7 +26,7 @@ export { Key, KeyCombo } from './components/keys.gts';
 export { StickyFooter } from './components/layout/sticky-footer.gts';
 export { Link } from './components/link.gts';
 export { Menu } from './components/menu.gts';
-export { OTP, OTPInput } from './components/one-time-password/index.gts';
+export { OTP, OTPInput } from './components/one-time-password.gts';
 export { Popover } from './components/popover.gts';
 export { Portal } from './components/portal.gts';
 export { PortalTargets } from './components/portal-targets.gts';

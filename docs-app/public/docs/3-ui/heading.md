@@ -19,7 +19,7 @@ Note that this demo starts with `h3`, because this docs page already has an `h1`
 import { Heading } from 'ember-primitives/components/heading';
   
 <template>
-  <main>
+  <main aria-label="heading-demo">
     <Heading>a heading</Heading>
 
     <nav>
@@ -28,16 +28,16 @@ import { Heading } from 'ember-primitives/components/heading';
 
     <article>
       <Heading>a heading</Heading>
-      <aside>
+      <a href="#">
         <Heading>a heading</Heading>
-      </aside>
+      </a>
       <Heading>a heading</Heading>
       <section>
         <Heading>a heading</Heading>
         <Heading>a heading</Heading>
-        <aside>
+        <a href="#">
           <Heading>a heading</Heading>
-        </aside>
+        </a>
       </section>
       <footer>
         <Heading>a heading</Heading>
@@ -63,6 +63,7 @@ import { Heading } from 'ember-primitives/components/heading';
     h4 { font-size: 1.5rem; }
     h5 { font-size: 1.25rem; }
     h6 { font-size: 1rem; }
+    a { color: white; }
 
     h1::before { content: 'h1'; }
     h2::before { content: 'h2'; }

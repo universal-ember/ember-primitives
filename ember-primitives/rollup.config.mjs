@@ -13,7 +13,7 @@ const extensions = [".js", ".ts", ".gts", ".gjs", ".hbs", ".json"];
 export default {
   output: addon.output(),
   plugins: [
-    addon.publicEntrypoints(["**/*.js"], { exclude: ["**/index.*"] }),
+    addon.publicEntrypoints(["**/*.js"], { exclude: ["*/**/index.*"] }),
     // Services are the only thing we can't rely on auto-import
     // handling for us.
     addon.appReexports(["services/**/*.js"]),

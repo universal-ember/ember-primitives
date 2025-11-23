@@ -10,7 +10,7 @@ This enables distributed teams to correctly produce appropriate section heading 
 
 ## Usage
 
-In your app (and in this demo), you'll use `<section>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
+In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
 Note that this demo starts with `h3`, because this docs page already has an `h1`, and _this_ section (Usage) uses an `h2`.
 
 <div class="featured-demo auto-height">
@@ -19,26 +19,37 @@ Note that this demo starts with `h3`, because this docs page already has an `h1`
 import { Heading } from 'ember-primitives/components/heading';
   
 <template>
-  <Heading>a heading</Heading>
-  <Heading>a heading</Heading>
+  <main aria-label="heading-demo">
+    <Heading>a heading</Heading>
 
-  <section>
-    <Heading>a heading</Heading>
-    <Heading>a heading</Heading>
-    <section>
+    <nav>
+      <Heading>a heading</Heading>
+    </nav>
+
+    <article>
+      <Heading>a heading</Heading>
+      <a href="#">
+        <Heading>a heading</Heading>
+      </a>
       <Heading>a heading</Heading>
       <section>
         <Heading>a heading</Heading>
         <Heading>a heading</Heading>
+        <a href="#">
+          <Heading>a heading</Heading>
+        </a>
       </section>
-      <Heading>a heading</Heading>
-    </section>
-  </section>
+      <footer>
+        <Heading>a heading</Heading>
+
+      </footer>
+    </article>
+  </main>
 
   <style>
-    h3, h4, h5, h6 { margin: 0; }
+    h1, h2, h3, h4, h5, h6 { margin: 0; }
 
-    h3::before, h4::before, h5::before, h6::before {
+    h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
       position: absolute;
       margin-left: -1.2em;
       font-size: 0.7em;
@@ -46,15 +57,67 @@ import { Heading } from 'ember-primitives/components/heading';
       opacity: 0.8;
     }
 
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2.25rem; }
     h3 { font-size: 2rem; }
     h4 { font-size: 1.5rem; }
     h5 { font-size: 1.25rem; }
     h6 { font-size: 1rem; }
+    a { color: white; }
 
+    h1::before { content: 'h1'; }
+    h2::before { content: 'h2'; }
     h3::before { content: 'h3'; }
     h4::before { content: 'h4'; }
     h5::before { content: 'h5'; }
     h6::before { content: 'h6'; }
+
+    article, section, aside, nav, main, footer {
+      border: 1px dotted;
+      padding: 0.25rem 1.5rem;
+      padding-left: 2rem;
+      padding-right: 0.5rem;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        right: 0.5rem;
+        top: -1rem;
+        font-size: 0.7rem;
+        text-align: right;
+        opacity: 0.8;
+      }
+    }
+
+    section, article {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    article::before { content: '<article>'; }
+    section::before { content: '<section>'; }
+    aside::before { content: '<aside>'; }
+    nav::before { content: '<nav>'; }
+    main::before { content: '<main>'; }
+    footer::before { content: '<footer>'; }
+
+    main {
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: max-content 1fr;
+      grid-template-areas:
+        "heading heading"
+        "nav content"
+        "nav content"
+        "nav content";
+
+    }
+
+    >:first-child { grid-area: heading; }
+    nav { grid-area: nav; }
+    article { grid-area: content; }
+
   </style>
 </template>
 ```

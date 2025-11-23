@@ -28,19 +28,19 @@ import { Heading } from 'ember-primitives/components/heading';
 
     <article>
       <Heading>a heading</Heading>
+      <aside>
+        <Heading>a heading</Heading>
+      </aside>
       <Heading>a heading</Heading>
       <section>
         <Heading>a heading</Heading>
-
+        <Heading>a heading</Heading>
         <aside>
           <Heading>a heading</Heading>
         </aside>
-
-        <Heading>a heading</Heading>
-        <Heading>a heading</Heading>
       </section>
       <footer>
-        <Heading>a (footing) heading</Heading>
+        <Heading>a heading</Heading>
 
       </footer>
     </article>
@@ -67,9 +67,11 @@ import { Heading } from 'ember-primitives/components/heading';
     h5::before { content: 'h5'; }
     h6::before { content: 'h6'; }
 
-    article, section, aside, nav, main {
+    article, section, aside, nav, main, footer {
       border: 1px dotted;
       padding: 0.25rem 1.5rem;
+      padding-left: 2rem;
+      padding-right: 0.5rem;
       position: relative;
 
       &::before {
@@ -82,11 +84,18 @@ import { Heading } from 'ember-primitives/components/heading';
       }
     }
 
+    section, article {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
     article::before { content: '<article>'; }
     section::before { content: '<section>'; }
     aside::before { content: '<aside>'; }
     nav::before { content: '<nav>'; }
     main::before { content: '<main>'; }
+    footer::before { content: '<footer>'; }
 
     main {
       display: grid;

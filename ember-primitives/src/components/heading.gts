@@ -29,22 +29,25 @@ function levelOf(node: Text): number {
       const mightChange = ELEMENTS_THAT_CHANGE_SECTION_HEADING_LEVEL.has(tagName);
 
       let foundSectionHeading = false;
-      let search: Element | null | undefined = child;
 
-      while ((search = search?.previousElementSibling)) {
-        const tagName = search.tagName.toLowerCase();
+      if (child instanceof Element) {
+        let search: Element | null | undefined = child;
 
-        if (SECTION_HEADINGS.has(tagName)) {
-          foundSectionHeading = true;
+        while ((search = search?.previousElementSibling)) {
+          const tagName = search.tagName.toLowerCase();
 
-          break;
+          if (SECTION_HEADINGS.has(tagName)) {
+            foundSectionHeading = true;
+
+            break;
+          }
         }
-      }
 
-      const shouldChange = mightChange && foundSectionHeading;
+        const shouldChange = mightChange && foundSectionHeading;
 
-      if (shouldChange) {
-        level++;
+        if (shouldChange) {
+          level++;
+        }
       }
     }
 

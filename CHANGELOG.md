@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release (2025-11-23)
+
+* ember-primitives 0.45.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#564](https://github.com/universal-ember/ember-primitives/pull/564) Heading: add more elements to auto-leveling detection, supporting usage in qunit testing, and in general just be more robust ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#565](https://github.com/universal-ember/ember-primitives/pull/565) Make `<Shadowed>` sync (no more modifier, no more reactive need) | Also add test utilities for working with shadow roots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#567](https://github.com/universal-ember/ember-primitives/pull/567) Bundle per-component entrypoints / hides the little helper files that some of the more complex components have  ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#566](https://github.com/universal-ember/ember-primitives/pull/566) Eliminate accidentally importable nested index files ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-11-21)
 
 * ember-primitives 0.44.0 (minor)

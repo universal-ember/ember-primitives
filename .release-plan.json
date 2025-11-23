@@ -2,17 +2,21 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.43.1",
-      "newVersion": "0.44.0",
+      "oldVersion": "0.44.0",
+      "newVersion": "0.45.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     }
   },
-  "description": "## Release (2025-11-21)\n\n* ember-primitives 0.44.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#560](https://github.com/universal-ember/ember-primitives/pull/560) Automatic Heading ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-11-23)\n\n* ember-primitives 0.45.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#564](https://github.com/universal-ember/ember-primitives/pull/564) Heading: add more elements to auto-leveling detection, supporting usage in qunit testing, and in general just be more robust ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#565](https://github.com/universal-ember/ember-primitives/pull/565) Make `<Shadowed>` sync (no more modifier, no more reactive need) | Also add test utilities for working with shadow roots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#567](https://github.com/universal-ember/ember-primitives/pull/567) Bundle per-component entrypoints / hides the little helper files that some of the more complex components have  ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#566](https://github.com/universal-ember/ember-primitives/pull/566) Eliminate accidentally importable nested index files ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

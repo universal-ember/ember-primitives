@@ -4,6 +4,8 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { Shadowed } from 'ember-primitives';
 
+import { findInFirstShadow } from 'ember-primitives/test-support';
+
 module('Rendering | <Shadowed>', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -22,6 +24,6 @@ module('Rendering | <Shadowed>', function (hooks) {
     assert.dom().doesNotContainText('in shadow');
     // assort.dom forgot that ShadowDom is a thing
     // assert.dom(find('[data-shadow]')?.shadowRoot).hasText('in shadow');
-    assert.ok(find('[data-shadow]')?.shadowRoot?.textContent?.includes('in shadow'));
+    assert.dom(findInFirstShadow('*')).containsText('in shadow');
   });
 });

@@ -12,7 +12,11 @@ const pages: { path: string }[] = (window as any).__pages__;
 /**
  * per-page settings
  */
-const a11yChecks = {
+const a11yChecks: {
+  [url: string]: {
+    [checkName: string]: Record<string, unknown>;
+  };
+} = {
   '/3-ui/heading.md': {
     'landmark-main-is-top-level': {
       enabled: false,
@@ -67,7 +71,6 @@ module('Application | Pages', function (hooks) {
   for (const page of pages) {
     test(`${page.path}`, async function (assert) {
       const path = page.path.replace('.md', '');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const settings: object = a11yChecks[page.path] ?? {};
 
       await visit(path);

@@ -95,6 +95,35 @@ module('Rendering | Heading', function (hooks) {
       assert.dom('#a').hasTagName('h1');
       assert.dom('#b').hasTagName('h2');
     });
+
+    test('h1 wrapped in <header><div><a>, h2 wrapped in <a>', async function (assert) {
+      await render(
+        <template>
+          <header>
+            <div>
+              <a href="#">
+                <Heading id="a">one</Heading>
+              </a>
+            </div>
+          </header>
+          <section>
+            <a href="#">
+              <Heading id="b">two</Heading>
+            </a>
+
+            <section>
+              <a href="#">
+                <Heading id="c">three</Heading>
+              </a>
+            </section>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+      assert.dom('#c').hasTagName('h3');
+    });
   });
 
   module('in shadow', function () {

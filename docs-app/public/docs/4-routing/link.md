@@ -1,12 +1,6 @@
 # Link
 
-```gjs live no-shadow
-import { CommentQuery } from 'kolay';
-
-<template>
-  <CommentQuery @module="components/link" @name="Link" />
-</template>
-```
+{{#let (comment "Link" "components/link") as |Docs|}}<Docs />{{/let}}
 
 <Callout>
 

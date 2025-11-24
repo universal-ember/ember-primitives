@@ -1,4 +1,4 @@
-export { Rating } from "./rating/index.gts";
+export { Rating } from "./rating/rating.gts";
 
 import type { ComponentIcons } from "./rating/public-types.ts";
 

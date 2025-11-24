@@ -31,13 +31,11 @@ import { Heading } from 'ember-primitives/components/heading';
       <a href="#">
         <Heading>a heading</Heading>
       </a>
-      <Heading>a heading</Heading>
       <section>
         <Heading>a heading</Heading>
-        <Heading>a heading</Heading>
-        <a href="#">
+        <article>
           <Heading>a heading</Heading>
-        </a>
+        </article>
       </section>
       <footer>
         <Heading>a heading</Heading>

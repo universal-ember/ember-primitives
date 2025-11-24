@@ -348,7 +348,7 @@ import { ComponentSignature } from 'kolay';
 <template>
   <ComponentSignature 
     @package="ember-primitives" 
-    @module="declarations/components/rating" 
+    @module="declarations/components/rating/rating" 
     @name="Rating" />
 </template>
 ```

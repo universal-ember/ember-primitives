@@ -54,6 +54,9 @@ export function setupRouting(owner: Owner, map: DSLCallback, options?: { rootURL
   (iKnowWhatIMDoing as any).setupRouter();
 }
 
+/**
+ * A small utility that only gives you a _typed_ router service.
+ */
 export function getRouter(owner: Owner): RouterService {
   return owner.lookup('service:router');
 }

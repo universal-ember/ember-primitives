@@ -1,6 +1,6 @@
 .typedoc__type-link,
 .typedoc__unknown__yield,
-.typedoc-intrinsic {
+.typedoc__intrinsic {
   border: 1px solid #222;
   display: inline-block;
   font-style: italic;
@@ -9,123 +9,157 @@
   font-size: 0.75rem;
   padding: 0 0.5rem;
 }
-
 .typedoc__type-link {
   padding: 0 0.5rem;
 }
-
-.typedoc-declaration-name {
+.typedoc__declaration-name {
   margin: 0;
   display: inline-block;
   line-height: 1.5rem;
 }
-.typedoc-declaration {
-  .typedoc-declaration-name {
-    font-weight: bold;
+.typedoc__declaration {
+  .typedoc__declaration-name {
+    font-weight: 700;
   }
 }
 section {
-  > .typedoc-declaration {
-    > .typedoc-declaration-name {
+  > .typedoc__declaration {
+    > .typedoc__declaration-name {
       font-size: 1.5rem;
     }
   }
 }
-
-.typedoc-heading {
+.typedoc__heading {
   display: block;
 }
-
-.typedoc-property,
-.typedoc-component-arg {
+.typedoc__property,
+.typedoc__component-signature__arg {
   padding: 0 1rem;
 }
-
-.typedoc-declaration-signatures {
+.typedoc__declaration-signatures {
   list-style: none;
 }
-
-.typedoc-named-tuple,
-.typedoc-component-arg-info {
+.typedoc__named-tuple,
+.typedoc__component-signature__arg-info,
+.typedoc__helper-signature__arg-info,
+.typedoc__modifier-signature__arg-info {
   display: flex;
   gap: 0.25rem;
   align-items: baseline;
   justify-content: space-between;
 }
-.typedoc-component-arg-info > .typedoc-name {
+.typedoc__component-signature__arg-info > .typedoc__name,
+.typedoc__helper-signature__arg-info > .typedoc__name,
+.typedoc__modifier-signature__arg-info > .typedoc__name {
   display: inline-block;
   margin: 0;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
 }
-
-.typedoc-declaration-children {
+.typedoc__helper-signature__arg-info {
+  border-bottom: 1px rgba(125, 125, 125, 0.5) dashed;
+}
+.typedoc__helper__return {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.typedoc__helper__return > .typedoc__heading {
+  margin: 0;
+}
+.typedoc__declaration-children,
+.typedoc__declaration-children li {
   list-style: none;
   padding: 0 0.5rem;
 }
-
-/**
- *
- * Component Signatures
- *
- */
+.typedoc__arg-flags {
+  display: flex;
+  gap: 0.25rem;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin: 0.5rem 0;
+}
+.typedoc__arg-flags > .typedoc__flag {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.75rem;
+  padding: 0 0.5rem;
+  border: 1px solid #222;
+  border-radius: var(--pico-border-radius);
+  font-family: var(--pico-font-family-monospace);
+}
+.typedoc__modifier-signature__element,
 .typedoc__component-signature__element,
 .typedoc__component-signature__block {
   display: block;
   padding: 0 1rem;
 }
+.typedoc__modifier-signature__element-type,
 .typedoc__component-signature__element-type {
   display: flex;
   gap: 0.25rem;
   align-items: baseline;
   justify-content: space-between;
 }
-
+.typedoc__modifier-signature__element-type > .typedoc__name,
 .typedoc__component-signature__element-type > .typedoc__name {
   display: inline-block;
   margin: 0;
   line-height: 1.5rem;
 }
-
-.typedoc__component-signature__block .typedoc-declaration-name + .typedoc-reference {
+.typedoc__modifier-signature__element-header,
+.typedoc__component-signature__element-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.typedoc__helper-signature__block .typedoc-rendered-comment,
+.typedoc__component-signature__block .typedoc-rendered-comment {
+  border-top: 1px solid #333;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+}
+.typedoc__component-signature__block .typedoc__declaration-name + .typedoc__reference {
   margin-bottom: -0.25rem;
 }
-.typedoc__component-signature__block > .typedoc-property .typedoc-declaration-children {
+.typedoc__component-signature__block > .typedoc__property .typedoc__declaration-children {
   display: grid;
   gap: 0.5rem;
 }
 .typedoc__component-signature__block
-  > .typedoc-property
-  > .typedoc-declaration
-  > ul.typedoc-declaration-children
+  > .typedoc__property
+  > .typedoc__declaration
+  > ul.typedoc__declaration-children
   > li
-  > .typedoc-declaration {
-  @apply p-6 rounded-xl bg-sky-50 dark:bg-slate-800/60 dark:ring-1 dark:ring-slate-300/10;
+  > .typedoc__declaration {
+  border: 1px solid lightgray;
+  padding: 0.5rem;
 }
-
-.typedoc-component-arg {
+.typedoc__helper-signature__arg,
+.typedoc__modifier-signature__arg,
+.typedoc__component-signature__arg {
   margin-bottom: 0.5rem;
   display: grid;
   gap: 0.25rem;
 }
-.typedoc-component-arg > .typedoc-name,
+.typedoc__helper-signature__arg > .typedoc__name,
+.typedoc__modifier-signature__arg > .typedoc__name,
+.typedoc__component-signature__arg > .typedoc__name,
 .typedoc__component-signature__block > .typedoc__name {
   font-size: 1.2rem;
   overflow-y: hidden;
   overflow-x: hidden;
   overflow: hidden;
+  margin: 0;
   max-height: unset;
 }
-
-.typedoc-component-arg .typedoc-rendered-comment p {
+.typedoc__helper-signature__arg .typedoc-rendered-comment p,
+.typedoc__modifier-signature__arg .typedoc-rendered-comment p,
+.typedoc__component-signature__arg .typedoc-rendered-comment p {
   margin-top: 0;
   margin-bottom: 0.25rem;
-}
-
-/**
- * References
- */
-.typedoc__reference {
 }
 .typedoc__reference__name {
   display: inline;
@@ -145,27 +179,17 @@ section {
 .typedoc__reference__typeArgument {
   border: 1px solid;
 }
-
-/**
- * Array formatting
- */
-.typedoc__array > div.typedoc-declaration > ul.typedoc-declaration-children {
+.typedoc__array > div.typedoc__declaration > ul.typedoc__declaration-children {
   border: 1px solid;
   margin: 0;
 }
-
-/**
- * Signature / Function Formatting
- */
 .typedoc__function__type {
   display: flex;
   gap: 0.25rem;
 }
-
 .typedoc__function__type:has(.typedoc__function__parameter) {
   display: grid;
 }
-
 .typedoc__function__parameters {
   margin-left: 1rem;
   display: grid;
@@ -181,10 +205,6 @@ section {
   grid-auto-flow: column;
   gap: 0.5rem;
 }
-.typedoc__function__parameter__comment {
-  /* font-style: italic; */
-  /* font-size: 0.75rem; */
-}
 .typedoc__function__return_type,
 .typedoc__function__close {
   display: inline-block;
@@ -197,18 +217,10 @@ section {
   font-family: monospace;
   font-size: 1rem;
 }
-
-/**
- * Literal
- */
 .typedoc__literal {
   font-family: monospace;
   font-size: 0.75rem;
 }
-
-/**
- * Union
- */
 .typedoc__union {
   display: inline-flex;
   flex-wrap: wrap;
@@ -218,9 +230,9 @@ section {
   display: inline-flex;
   gap: 0.25rem;
 }
-.typedoc__union__type::before {
+.typedoc__union__type:before {
   content: "|";
 }
-.typedoc__union .typedoc__union__type:first-child::before {
+.typedoc__union .typedoc__union__type:first-child:before {
   display: none;
 }

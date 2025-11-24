@@ -2,6 +2,17 @@
 
 ## Release (2025-11-24)
 
+* ember-primitives 0.45.2 (patch)
+
+#### :memo: Documentation
+* `ember-primitives`
+  * [#570](https://github.com/universal-ember/ember-primitives/pull/570) Docs updates (document testing utilities) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2025-11-24)
+
 * ember-primitives 0.45.1 (patch)
 
 #### :bug: Bug Fix

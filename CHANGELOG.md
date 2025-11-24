@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-11-24)
+
+* ember-primitives 0.45.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#568](https://github.com/universal-ember/ember-primitives/pull/568) Heading: allow automatic heading selection when headings are nested in other elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-11-23)
 
 * ember-primitives 0.45.0 (minor)

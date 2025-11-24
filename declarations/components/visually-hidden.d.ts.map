@@ -1,0 +1,1 @@
+{"version":3,"file":"visually-hidden.d.ts","sourceRoot":"","sources":["../../src/components/visually-hidden.gts"],"names":[],"mappings":"AAeA,OAAO,uBAAuB,CAAC;AAE/B,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,gCAAgC,CAAC;AAE1D,eAAO,MAAM,cAAc,EAAE,GAAG,CAAC;IAC/B,OAAO,EAAE,eAAe,CAAC;IACzB,MAAM,EAAE;QACN;;WAEG;QACH,OAAO,EAAE,EAAE,CAAC;KACb,CAAC;CACH,CAYC,CAAC"}

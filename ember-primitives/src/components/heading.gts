@@ -40,6 +40,22 @@ function isRoot(element: Element) {
   return element === document.body || element.id === TEST_BOUNDARY;
 }
 
+function findHeadingIn(node: ParentNode): number | undefined {
+  if (!(node instanceof Element)) return;
+
+  if (SECTION_HEADINGS.has(node.tagName)) {
+    const level = parseInt(node.tagName.replace("h", "").replace("H", ""));
+
+    return level;
+  }
+
+  for (const child of node.children) {
+    const level = findHeadingIn(child);
+
+    if (level) return level;
+  }
+}
+
 /**
  * The Platform native 'closest' function can't punch through shadow-boundaries
  */
@@ -104,11 +120,9 @@ function levelOf(node: Text): number {
   let current: ParentNode | null = ourBoundary.parentNode;
 
   while (current) {
-    for (const child of current.children) {
-      if (!SECTION_HEADINGS.has(child.tagName)) continue;
+    const level = findHeadingIn(current);
 
-      const level = parseInt(child.tagName.replace("h", "").replace("H", ""));
-
+    if (level) {
       return level + 1;
     }
 

@@ -9,7 +9,7 @@ import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
 import { Callout } from '@universal-ember/docs-support';
 
 import { Tabs } from '../components/tabs.gts';
-import { APIDocs, ComponentSignature, ModifierSignature } from './api-docs';
+import { APIDocs, ComponentSignature, ModifierSignature, comment } from './api-docs';
 
 export default class Application extends Route {
   async model() {
@@ -40,6 +40,7 @@ export default class Application extends Route {
           ComponentSignature,
           ModifierSignature,
           Tabs,
+          comment,
         },
         resolve: {
           // ember-primitives

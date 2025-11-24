@@ -24,6 +24,154 @@ module('Rendering | Heading', function (hooks) {
     assert.dom('#b').hasTagName('h2');
   });
 
+  module('wrapped headings', function () {
+    test('h1 wrapped in <a>', async function (assert) {
+      await render(
+        <template>
+          <a href="#">
+            <Heading id="a">one</Heading>
+          </a>
+          <section>
+            <Heading id="b">two</Heading>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+    });
+
+    test('h2 wrapped in <a>', async function (assert) {
+      await render(
+        <template>
+          <Heading id="a">one</Heading>
+
+          <section>
+            <a href="#">
+              <Heading id="b">two</Heading>
+            </a>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+    });
+
+    test('h1 wrapped in <header><a>', async function (assert) {
+      await render(
+        <template>
+          <header>
+            <a href="#">
+              <Heading id="a">one</Heading>
+            </a>
+          </header>
+          <section>
+            <Heading id="b">two</Heading>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+    });
+
+    test('h1 wrapped in <header><div><a>', async function (assert) {
+      await render(
+        <template>
+          <header>
+            <div>
+              <a href="#">
+                <Heading id="a">one</Heading>
+              </a>
+            </div>
+          </header>
+          <section>
+            <Heading id="b">two</Heading>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+    });
+
+    test('h1 wrapped in <header><div><a>, h2 wrapped in <a>', async function (assert) {
+      await render(
+        <template>
+          <header>
+            <div>
+              <a href="#">
+                <Heading id="a">one</Heading>
+              </a>
+            </div>
+          </header>
+          <section>
+            <a href="#">
+              <Heading id="b">two</Heading>
+            </a>
+
+            <section>
+              <a href="#">
+                <Heading id="c">three</Heading>
+              </a>
+            </section>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+      assert.dom('#c').hasTagName('h3');
+    });
+
+    test('[extraneous handling] h1 wrapped in <header><div><a>, h2 wrapped in <a>', async function (assert) {
+      await render(
+        <template>
+          <header>
+            <div>
+              <a href="#">
+                <Heading id="a">one</Heading>
+              </a>
+              <section>
+                <a href="#">
+                  <Heading id="d">two</Heading>
+                </a>
+              </section>
+            </div>
+          </header>
+          <section>
+            <a href="#">
+              <Heading id="b">two</Heading>
+            </a>
+
+            <Heading id="f">two</Heading>
+
+            <section>
+              <a href="#">
+                <Heading id="c">three</Heading>
+              </a>
+
+              <section>
+                <a href="#">
+                  <Heading id="e">four</Heading>
+                </a>
+              </section>
+            </section>
+          </section>
+        </template>
+      );
+
+      assert.dom('#a').hasTagName('h1');
+      assert.dom('#b').hasTagName('h2');
+      assert.dom('#c').hasTagName('h3');
+
+      assert.dom('#d').hasTagName('h2');
+      assert.dom('#e').hasTagName('h4');
+      assert.dom('#f').hasTagName('h2');
+    });
+  });
+
   module('in shadow', function () {
     test('in a section', async function (assert) {
       await render(

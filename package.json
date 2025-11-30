@@ -35,7 +35,7 @@
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@10.22.0",
+  "packageManager": "pnpm@10.24.0",
   "pnpm": {
     "peerDependencyRules": {
       "allowAny": [

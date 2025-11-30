@@ -1,26 +1,12 @@
 # which-heading-do-i-need
 
-[Short description of the addon.]
+Don't want to think about which `<h1>` - `<h6>` to use? This library will synchronously calculate your heading for you.
 
-## Compatibility
-
-- Ember.js v5.8 or above
-- Embroider or ember-auto-import v2
+Docs: 
+https://ember-primitives.pages.dev/6-utils/get-section-heading-level.md
 
 ## Installation
 
 ```
-ember install which-heading-do-i-need
+npm add which-heading-do-i-need 
 ```
-
-## Usage
-
-[Longer description of how to use the addon in apps.]
-
-## Contributing
-
-See the [Contributing](CONTRIBUTING.md) guide for details.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE.md).

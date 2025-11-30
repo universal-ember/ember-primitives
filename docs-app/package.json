@@ -39,6 +39,7 @@
     "ember-primitives": "workspace:^",
     "ember-repl": "^6.0.0",
     "ember-route-template": "^1.0.3",
+    "which-heading-do-i-need": "workspace:*",
     "form-data-utils": "^0.6.0",
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",

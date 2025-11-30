@@ -1,8 +1,7 @@
 import Component from "@glimmer/component";
 
-import { getSectionHeadingLevel } from "which-heading-do-i-need";
-
 import { element } from "ember-element-helper";
+import { getSectionHeadingLevel } from "which-heading-do-i-need";
 
 import type Owner from "@ember/owner";
 

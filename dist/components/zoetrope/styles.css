@@ -1,0 +1,40 @@
+.ember-primitives__zoetrope {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+}
+
+.ember-primitives__zoetrope__header {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding-left: var(--zoetrope-offset, 0);
+}
+
+.ember-primitives__zoetrope__controls {
+  align-items: center;
+  display: flex;
+  padding-right: var(--zoetrope-offset, 0);
+  gap: 4px;
+}
+
+.ember-primitives__zoetrope__scroller {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: var(--zoetrope-gap, 8px);
+  overflow: scroll visible;
+  padding: 8px var(--zoetrope-offset, 0);
+  scroll-behavior: smooth;
+  scroll-padding-left: var(--zoetrope-offset, 0);
+  scroll-snap-type: x mandatory;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: none;
+  width: 100%;
+
+  & > * {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}

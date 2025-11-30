@@ -23,11 +23,8 @@ In this example, we dynamically create a TextNode and Element, where, since the 
 
 ```gjs live preview no-shadow 
 import Component from "@glimmer/component";
-
 import { element } from "ember-element-helper";
 import { getSectionHeadingLevel } from "which-heading-do-i-need";
-
-import type Owner from "@ember/owner";
 
 class Heading extends Component {
   constructor(owner, args) {

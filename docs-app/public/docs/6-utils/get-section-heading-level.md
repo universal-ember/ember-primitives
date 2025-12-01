@@ -135,6 +135,25 @@ class Heading extends Component {
 
 </section>
 
+<details><summary>using Svelte</summary>
+
+```svelte
+<script>
+	import { getSectionHeadingLevel } from "which-heading-do-i-need";
+
+	let { children } = $props();
+
+	let ref = $state();
+	const hLevel = $derived(ref ? `h${getSectionHeadingLevel(ref)}` : 'span');
+</script>
+
+<svelte:element this={hLevel} bind:this={ref}>
+	{@render children?.()}
+</svelte:element>
+```
+
+</details>
+
 ## API Reference
 
 ```gjs live no-shadow

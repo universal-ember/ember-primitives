@@ -66,6 +66,8 @@ export default class Application extends Route {
           'ember-focus-trap/modifiers/focus-trap': import('ember-focus-trap/modifiers/focus-trap'),
           // @ts-expect-error - no types provided
           'ember-focus-trap': import('ember-focus-trap'),
+          // @ts-expect-error - no types provided
+          'ember-element-helper': import('ember-element-helper'),
 
           // utility
           '@ember/test-waiters': import('@ember/test-waiters'),

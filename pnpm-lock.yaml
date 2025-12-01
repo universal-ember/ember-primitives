@@ -104,6 +104,9 @@ importers:
       decorator-transforms:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.28.5)
+      ember-element-helper:
+        specifier: ^0.8.8
+        version: 0.8.8
       ember-focus-trap:
         specifier: ^1.1.0
         version: 1.1.1(b029c899f654588945b06575ccae3ff4)

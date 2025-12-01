@@ -1,18 +1,39 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.45.0",
-      "newVersion": "0.45.1",
+      "impact": "minor",
+      "oldVersion": "0.45.1",
+      "newVersion": "0.46.0",
       "tagName": "latest",
       "constraints": [
         {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
+    },
+    "which-heading-do-i-need": {
+      "impact": "minor",
+      "oldVersion": "0.0.0",
+      "newVersion": "0.1.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        }
+      ],
+      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
     }
   },
-  "description": "## Release (2025-11-24)\n\n* ember-primitives 0.45.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#568](https://github.com/universal-ember/ember-primitives/pull/568) Heading: allow automatic heading selection when headings are nested in other elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-12-01)\n\n* ember-primitives 0.46.0 (minor)\n* which-heading-do-i-need 0.1.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`, `which-heading-do-i-need`\n  * [#573](https://github.com/universal-ember/ember-primitives/pull/573) Extract the heading utility to its own package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `ember-primitives`\n  * [#570](https://github.com/universal-ember/ember-primitives/pull/570) Docs updates (document testing utilities) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

@@ -1,5 +1,21 @@
 # Changelog 
 
+## Release (2025-12-01)
+
+* ember-primitives 0.46.0 (minor)
+* which-heading-do-i-need 0.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`, `which-heading-do-i-need`
+  * [#573](https://github.com/universal-ember/ember-primitives/pull/573) Extract the heading utility to its own package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `ember-primitives`
+  * [#570](https://github.com/universal-ember/ember-primitives/pull/570) Docs updates (document testing utilities) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-11-24)
 
 * ember-primitives 0.45.1 (patch)

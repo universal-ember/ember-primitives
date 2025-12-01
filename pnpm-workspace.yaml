@@ -1,5 +1,6 @@
 packages:
-  - 'ember-primitives'
-  - 'test-app'
-  - 'docs-app'
-  - 'dev'
+  - "ember-primitives"
+  - "test-app"
+  - "docs-app"
+  - "dev"
+  - "packages/*"

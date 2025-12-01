@@ -105,7 +105,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0(@babel/core@7.28.5)
       ember-element-helper:
-        specifier: ^0.8.8
+        specifier: '>= 0.8.6'
         version: 0.8.8
       ember-focus-trap:
         specifier: ^1.1.0

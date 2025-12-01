@@ -263,6 +263,20 @@ module('Rendering | Heading', function (hooks) {
     assert.dom('#b').hasTagName('h3');
   });
 
+  test('in a section (with hardcoded 2 h1)', async function (assert) {
+    await render(
+      <template>
+        <h1 id="a">one</h1>
+        <h1 id="c">three</h1>
+        <section>
+          <Heading id="b">two</Heading>
+        </section>
+      </template>
+    );
+
+    assert.dom('#b').hasTagName('h2');
+  });
+
   test('top-level adjacent', async function (assert) {
     await render(
       <template>

@@ -33,7 +33,18 @@ function isRoot(element: Element) {
   return element === document.body || element.id === TEST_BOUNDARY;
 }
 
-function findHeadingIn(node: ParentNode): number | undefined {
+/**
+ * node is our current traversal node as we head up the DOM tree (towards the root)
+ * previous node is the immediate child within that current traversal node that we came from.
+ *
+ * The previousNode is used for an optimization so that we can iterate *from*
+ * that child within the current traversal node, rather than always starting from the
+ * first child of the current traversal node.
+ */
+function findHeadingIn(
+  node: ParentNode | ChildNode,
+  previousNode?: ParentNode,
+): number | undefined {
   if (!(node instanceof Element)) return;
 
   if (SECTION_HEADINGS.has(node.tagName)) {
@@ -42,6 +53,42 @@ function findHeadingIn(node: ParentNode): number | undefined {
     return level;
   }
 
+  /**
+   * Previous traversal does not search within the section boundaies
+   * This is because previous traversal is looking for a similar heading level, and crossing a section boundary changes the section level.
+   */
+  if (previousNode) {
+    let previous = previousNode.previousSibling;
+
+    while (previous) {
+      if (!(previous instanceof Element)) {
+        previous = previous.previousSibling;
+        continue;
+      }
+
+      if (BOUNDARY_ELEMENTS.has(previous.tagName)) {
+        previous = previous.previousSibling;
+        continue;
+      }
+
+      const level = findHeadingIn(previous);
+
+      /**
+       * We subtract one, because we may have found
+       * an equal heading, due to it being a sibling
+       */
+      if (level) return level;
+
+      previous = previous.previousSibling;
+    }
+  }
+
+  /**
+   * Fallback traversal if we still haven't found the
+   * heading level, we check all the children
+   * of the current node, because headings can be
+   * within <a> tags and such.
+   */
   for (const child of node.children) {
     const level = findHeadingIn(child);
 
@@ -116,10 +163,11 @@ function levelOf(node: Text): number {
     );
   }
 
+  let previous: ParentNode = ourBoundary;
   let current: ParentNode | null = ourBoundary.parentNode;
 
   while (current) {
-    const level = findHeadingIn(current);
+    const level = findHeadingIn(current, previous);
 
     if (level) {
       return level + 1;
@@ -131,12 +179,21 @@ function levelOf(node: Text): number {
       current = current.host;
     }
 
+    previous = current;
     current = current.parentNode;
   }
 
   return 1;
 }
 
+/**
+ * Determines what your heading level should be (h1 - h6).
+ *
+ * In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
+Note that this demo starts with `h3`, because this docs page already has an `h1`, and _this_ section (Usage) uses an `h2`.
+
+  * [mdn-h]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements
+ */
 export function getSectionHeadingLevel(node: Text) {
   const existing = LOOKUP.get(node);
 

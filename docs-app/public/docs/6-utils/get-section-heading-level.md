@@ -1,4 +1,4 @@
-# Get `<H1-6>` Level 📦
+# Heading Level 📦
 
 Used by the [`<Heading>`](/3-ui/heading.md) component, and available for use in all frameworks (React, Svelte, Ember, etc). `getSectionHeadingLevel` is the primary function exported by this utility library and correctly determines which of the `<h1>` through `<h6>` [Section Heading][mdn-h] elements to use, where the **level** is determined _automatically_ based on how the DOM has rendered.
 
@@ -17,11 +17,11 @@ pnpm add which-heading-do-i-need
 In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
 Note that this demo starts with `h3`, because this docs page already has an `h1`, and _this_ section (Usage) uses an `h2`.
 
-In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use.
+In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use. We expect an `h3` and `h4` in the demo, since this is the `Usage` section, which has a section heading of `h2`.
 
-<div class="featured-demo">
+<section class="featured-demo">
 
-```gjs live preview no-shadow 
+```gjs live preview
 import Component from "@glimmer/component";
 import { element } from "ember-element-helper";
 import { getSectionHeadingLevel } from "which-heading-do-i-need";
@@ -133,7 +133,7 @@ class Heading extends Component {
 </template>
 ```
 
-</div>
+</section>
 
 ## API Reference
 

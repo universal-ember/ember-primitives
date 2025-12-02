@@ -21,17 +21,13 @@ In this example, we dynamically create a TextNode and Element, where, since the 
 
 <section class="featured-demo">
 
-```gjs live preview
+```gjs live
 import Component from "@glimmer/component";
 import { element } from "ember-element-helper";
 import { getSectionHeadingLevel } from "which-heading-do-i-need";
 
 class Heading extends Component {
-  constructor(owner, args) {
-    super(owner, args);
-
-    this.markerNode = document.createTextNode("");
-  }
+  markerNode = document.createTextNode("");
 
   get hLevel() {
     return `h${getSectionHeadingLevel(this.markerNode)}`;
@@ -135,7 +131,42 @@ class Heading extends Component {
 
 </section>
 
+<br>
+<details><summary>using Ember</summary>
+
+This version:
+  - caller can pass attributes to the generated heading
+  - only element generated is the heading
+  - synchronous, so there are no extra renders
+
+```gjs
+import Component from "@glimmer/component";
+import { getSectionHeadingLevel } from "which-heading-do-i-need";
+
+class Heading extends Component {
+  markerNode = document.createTextNode("");
+
+  get hLevel() {
+    return `h${getSectionHeadingLevel(this.markerNode)}`;
+  }
+
+  <template>
+    {{this.markerNode}}
+
+    {{#let (element this.hLevel) as |El|}}
+      <El ...attributes>{{yield}}</El>
+    {{/let}}
+  </template>
+}
+```
+
+</details>
 <details><summary>using Svelte</summary>
+
+  downside to this approach is that it requires two renders.
+  first time is a span, second the span is replaced with the heading.
+
+  See [Feature: Bind to text nodes with `svelte:text`](https://github.com/sveltejs/svelte/issues/7424) on svelte's GitHub.
 
 ```svelte
 <script>

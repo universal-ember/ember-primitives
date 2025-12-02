@@ -152,7 +152,6 @@ class Heading extends Component {
 
   <template>
     {{this.markerNode}}
-
     {{#let (element this.hLevel) as |El|}}
       <El ...attributes>{{yield}}</El>
     {{/let}}

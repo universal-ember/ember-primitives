@@ -28,6 +28,7 @@ export default class Application extends Route {
         import('shiki/langs/jsonc.mjs'),
         import('shiki/langs/markdown.mjs'),
         import('shiki/langs/svelte.mjs'),
+        import('shiki/langs/vue.mjs'),
       ],
       engine: createOnigurumaEngine(() => import('shiki/wasm')),
     });
@@ -59,6 +60,7 @@ export default class Application extends Route {
             'ember-primitives/components/portal-targets'
           ),
           'ember-primitives/dom-context': import('ember-primitives/dom-context'),
+          'ember-primitives/layout/hero': import('ember-primitives/layout/hero'),
 
           // community libraries
           'ember-resources': import('ember-resources'),

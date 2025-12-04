@@ -1,26 +1,62 @@
 import { assert } from '@ember/debug';
-import { service as emberService } from '@ember/service';
 
+import { getPromiseState } from 'reactiveweb/get-promise-state';
+
+import { createStore } from './store.ts';
+import { findOwner } from './utils.ts';
+
+import type { Newable } from './type-utils.ts';
+
+/*
 import type { Newable } from './type-utils.ts';
 import type { Registry } from '@ember/service';
 import type Service from '@ember/service';
 
 type Decorator = ReturnType<typeof emberService>;
 
-export function service<Key extends keyof Registry>(
-  context: object,
-  serviceName: Key
-): Registry[Key] & Service;
+// export function service<Key extends keyof Registry>(
+//   context: object,
+//   serviceName: Key
+// ): Registry[Key] & Service;
 export function service<Class extends object>(
   context: object,
   serviceDefinition: Newable<Class>
 ): Class;
 export function service<Class extends object>(serviceDefinition: Newable<Class>): Decorator;
-export function service<Key extends keyof Registry>(serviceName: string): Decorator;
-export function service(prototype: object, name: string | symbol, descriptor?: unknown): void;
+export function service<Key extends keyof Registry>(serviceName: Key): Decorator;
+export function service(prototype: object, name: string | symbol, descriptor: unknown): void;
+export function service<Value, Result>(
+  context: object,
+  fn: Parameters<typeof getPromiseState<Value, Result>>[0]
+): ReturnType<typeof getPromiseState<Value, Result>>;
+export function service<Value, Result>(
+  fn: Parameters<typeof getPromiseState<Value, Result>>[0]
+): Decorator;
+*/
 
 /**
- * Lazily instantiate a service
+ * Instantiates a class once per application instance.
+ *
+ *
+ */
+export function createService<Instance extends object>(
+  context: object,
+  theClass: Newable<Instance> | (() => Instance)
+): Instance {
+  const owner = findOwner(context);
+
+  assert(
+    `Could not find owner / application instance. Cannot create a instance tied to the application lifetime without the application`,
+    owner
+  );
+
+  return createStore(owner, theClass);
+}
+
+const promiseCache = new WeakMap<() => any, unknown>();
+
+/**
+ * Lazily instantiate a service.
  *
  * This is a replacement / alternative API for ember's `@service` decorator from `@ember/service`.
  *
@@ -28,57 +64,37 @@ export function service(prototype: object, name: string | symbol, descriptor?: u
  * ```js
  * import { service } from 'ember-primitives/service';
  *
- * class State {
- *   @service router; // also works with the traditional string usage
- * }
+ * const loader = () => import('./foo/file/with/class.js');
  *
  * class Demo extends Component {
- *   @service(State) state;
+ *   state = createAsyncService(this, loader);
  * }
  * ```
  *
- * Additionally for better TypeScript type-inference, this alternate invocation syntax is allowed:
- * ```js
- * class Demo extends Component {
- *   state = service(this, State);
- * }
+ * The important thing is for repeat usage of `createAsyncService` the second parameter,
+ * (loader in this case), must be shared between all usages.
+ *
+ * This is an alternative to using `createStore` inside an await'd component,
+ * or a component rendered with [`getPromiseState`](https://reactive.nullvoxpopuli.com/functions/get-promise-state.getPromiseState.html)
  * ```
  */
-export function service(...args: any[]) {
-  /**
-   * Stage 1 / Legacy Decorators (original ember service)
-   */
-  if (args.length === 3) {
-    return emberService(...(args as Parameters<typeof emberService>));
+export function createAsyncService<Instance extends object>(
+  context: object,
+  theClass: () => Promise<Newable<Instance>> | (() => Promise<() => Instance | Newable<Instance>>)
+): ReturnType<typeof getPromiseState<unknown, Instance>> {
+  let existing = promiseCache.get(theClass);
+
+  if (!existing) {
+    existing = async () => {
+      const result = await theClass();
+
+      // Pay no attention to the lies, I don't know what the right type is here
+      return createStore(context, result as Newable<Instance>);
+    };
+
+    promiseCache.set(theClass, existing);
   }
 
-  /**
-   * This is either:
-   * - spec decorator
-   * - or non-decorator usage (requiring a this parameter to be passed for the first)
-   */
-  if (args.length === 2) {
-    if (typeof args[1] === 'object' && args[1]) {
-      if ('kind' in args[1]) {
-        assert(
-          `TC39 Spec decorators are not yet supported. If you see this error, please open an issue at https://github.com/universal-ember/ember-primitives/ -- also!, congratulations for being an early adopter of real decorators!`
-        );
-      }
-    }
-
-    return inlineSerice(...args);
-  }
-
-  if (args.length === 1) {
-    /**
-     * Traditional string-based service usage
-     */
-    if (typeof args[0] === 'string') {
-      return emberService(...args);
-    }
-  }
+  // Pay no attention to the TS inference crime here
+  return getPromiseState<unknown, Instance>(existing);
 }
-
-function concreteService<Class>(definition: Newable<Class>): Decorator {}
-
-function inlineService(context: object, service: string | object | Function) {}

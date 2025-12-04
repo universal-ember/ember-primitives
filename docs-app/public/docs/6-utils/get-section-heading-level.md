@@ -167,6 +167,8 @@ class Heading extends Component {
 
   See [Feature: Bind to text nodes with `svelte:text`](https://github.com/sveltejs/svelte/issues/7424) on svelte's GitHub.
 
+  [See it in the Svelte Playground here](https://svelte.dev/playground/45e9e53c9b5b4d0bbaaf7e71acde7893?version=5.45.2)
+
 ```svelte
 <script>
 	import { getSectionHeadingLevel } from "which-heading-do-i-need";
@@ -180,6 +182,58 @@ class Heading extends Component {
 <svelte:element this={hLevel} bind:this={ref}>
 	{@render children?.()}
 </svelte:element>
+```
+
+</details>
+<details><summary>using Vue</summary>
+
+This version:
+  - caller can pass attributes, props, etc to the generated heading
+  - only element generated is the heading
+
+But:
+  - this implementation needs two render passes -- once to get the reference in the DOM, and another to set the h-level
+
+[See it in the Vue Playground here](https://play.vuejs.org/#eNp9VduO2zYQ/ZWBWkQyYEto0yfHa7QNEqRt0haJgT5UBVaVxhazFEmQ1HoXhv89w5tWXuzui83L8MyZc4bUKftFqfJ2xGydbUyrmbJg0I5qWwsANiipLXzApmPiAHstB8jLKs7dsfxNLWrbSmEsdHLXu7ArKBZwtQW3KjmWXB6KvGMdMJsvarGpQh7KQBOLg+KNRZ/Pr6Rsxt5zvKqz/5v25qDlKLq1xu5NnW37H5bQS4X7kfP7TaIT8Ay2lknhJnaC+rnlrL0hrEixWDiUH59FoaNzHICEtO1fP3fIPuSLU1pI1cF3He6bkdvtJ9RqU82q9nEzIEpWzZLPytg6JcBKeJb55cmLNNkyC26uhkaVX40U5PjJix43TJ2twa+4tWPP2n7VB+hVJ1dsJRA7F1NnvbXKrKsKzVCavno21oGda3Gm5NZQO+zZ4VHqVg6KcdR/KUf7kkLDuTz+7tesHnGZ1tse25sn1r+au0Dvb40G9S3W2bRnG31AG7bfffkT72g8bQ6yGzlFv7D5GamVR8cxhP1K7Ui0Z3Ge7W9eSVJhZ97dWRQmFeWIejV8fJ3R1Xn7QukPdF+XP81UnN282YXljThQczsHyel4aU9ACF9CO8RjH/EWOZzDPX7BYrrTEwj1LROeqxQo7BJGg7vYVp9xv4T3ujkMfqdf0pUf1GixW6YseXojRHgjNO7/wHt6InJLMgvZYe428c6ni5fkcdLC6yKaAdeQx1pyEtKt+sdqDYXSUpklEW6s1TQwXFr6w4FZOPvnKIobeNAv2WOJiA8sY2Z6GDxqCnMEqUoKuyx7syP22yJUM52pKvinR0Eqa7A9givRQwAzMNAL5pVxO04nXxocGeekikbR0akjsz00ED0B2xzmbLj372pSuQjvbCRZ3jZ8RHj1Cq77709Pm19cxC7O1xN3TTpqkUSCkCs2N0BQN82CxGkWpZzmTvIwpqYNHe/+Q4Xk1CliJ6eicwnmCcsit39Thr54aLqTa6l16qvzImaLdryVomNOBLqd93BM5lx7BtfOFiXV6EwlY6IHib0HeC/1sdEd0Hn4sPv08RHpRnSerwFiL8laQnQSX6joLOmLWPQJyrKMIDSKODQKZU86uEIcwn/p9i/c53H27czO3wBpqZwG)
+
+```vue
+<script lang="ts">
+import { getSectionHeadingLevel } from "which-heading-do-i-need";
+import { defineComponent, useTemplateRef, Fragment, h, computed, } from 'vue';
+
+const refKey = 'textnode'
+
+export default defineComponent({
+  name: 'Heading',
+
+  setup: (props, { attrs, slots, emit }) => {
+    const content = slots.default()
+
+    const nodeRef = useTemplateRef<Text>(refKey)
+
+    // Whenever the text node is mounted, the component will rerender with a heading tag
+    const level = computed(() => nodeRef.value && `h${getSectionHeadingLevel(nodeRef.value)}`)
+
+    return {
+      level,
+      props,
+      attrs,
+      content,
+      emit
+    }
+  },
+
+  render: ({ level, attrs, props, content, emit }) => {
+    return [
+      h(Fragment, { ref: refKey }),
+
+      // Conditionally whenever `level` is populated, render it
+      // Forward all HTML attrs, props, and emits onto this node
+      level && h(level, { ...attrs, ...props, ...emit }, content),
+    ]
+  }
+})  
+</script>
 ```
 
 </details>

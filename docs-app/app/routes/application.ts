@@ -28,6 +28,7 @@ export default class Application extends Route {
         import('shiki/langs/jsonc.mjs'),
         import('shiki/langs/markdown.mjs'),
         import('shiki/langs/svelte.mjs'),
+        import('shiki/langs/vue.mjs'),
       ],
       engine: createOnigurumaEngine(() => import('shiki/wasm')),
     });

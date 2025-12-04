@@ -2,38 +2,20 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.45.1",
-      "newVersion": "0.46.0",
+      "oldVersion": "0.46.0",
+      "newVersion": "0.47.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "minor",
-      "oldVersion": "0.0.0",
-      "newVersion": "0.1.0",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        }
-      ],
-      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
+      "oldVersion": "0.1.0"
     }
   },
-  "description": "## Release (2025-12-01)\n\n* ember-primitives 0.46.0 (minor)\n* which-heading-do-i-need 0.1.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`, `which-heading-do-i-need`\n  * [#573](https://github.com/universal-ember/ember-primitives/pull/573) Extract the heading utility to its own package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `ember-primitives`\n  * [#570](https://github.com/universal-ember/ember-primitives/pull/570) Docs updates (document testing utilities) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-12-04)\n\n* ember-primitives 0.47.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#582](https://github.com/universal-ember/ember-primitives/pull/582) Improved service: support dynamic loading, await import services, explicit service RFC, better TS support -- eliminates the need to have a large number of services loaded when the app boots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* [#578](https://github.com/universal-ember/ember-primitives/pull/578) Add svelte docs for heading level ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

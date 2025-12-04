@@ -1,5 +1,19 @@
 # Changelog 
 
+## Release (2025-12-04)
+
+* ember-primitives 0.47.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#582](https://github.com/universal-ember/ember-primitives/pull/582) Improved service: support dynamic loading, await import services, explicit service RFC, better TS support -- eliminates the need to have a large number of services loaded when the app boots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* [#578](https://github.com/universal-ember/ember-primitives/pull/578) Add svelte docs for heading level ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-12-01)
 
 * ember-primitives 0.46.0 (minor)

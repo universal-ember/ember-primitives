@@ -64,7 +64,10 @@ const promiseCache = new WeakMap<() => any, unknown>();
  * ```js
  * import { service } from 'ember-primitives/service';
  *
- * const loader = () => import('./foo/file/with/class.js');
+ * const loader = () => {
+ *   let module = await import('./foo/file/with/class.js');
+ *   return () => new module.MyState();
+ * }
  *
  * class Demo extends Component {
  *   state = createAsyncService(this, loader);
@@ -80,7 +83,7 @@ const promiseCache = new WeakMap<() => any, unknown>();
  */
 export function createAsyncService<Instance extends object>(
   context: object,
-  theClass: () => Promise<Newable<Instance>> | (() => Promise<() => Instance | Newable<Instance>>)
+  theClass: () => Promise<Newable<Instance> | (() => Instance)>
 ): ReturnType<typeof getPromiseState<unknown, Instance>> {
   let existing = promiseCache.get(theClass);
 

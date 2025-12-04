@@ -5,6 +5,8 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { createAsyncService } from 'ember-primitives/service';
 
+import type { Sample } from './sample.ts';
+
 module('createAsyncService', function (hooks) {
   setupRenderingTest(hooks);
 
@@ -100,7 +102,7 @@ module('createAsyncService', function (hooks) {
   });
 
   test('is singleton with await import and new', async function (assert) {
-    async function factory() {
+    async function factory(): Promise<() => Sample> {
       const module = await import('./sample.ts');
 
       return () => new module.Sample();

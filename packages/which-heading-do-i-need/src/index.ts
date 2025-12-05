@@ -201,15 +201,27 @@ Note that this demo starts with `h3`, because this docs page already has an `h1`
 
   * [mdn-h]: https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/Heading_Elements
  */
-export function getSectionHeadingLevel(node: Text) {
+export function getSectionHeadingLevel(
+  node: Text,
+  options?: {
+    /**
+     * The root heading level to use if traversal makes it to the "top"
+     * of the available DOM tree.
+     *
+     * Defaults to 1 (as in h1)
+     */
+    startAt?: number;
+  },
+) {
   const existing = LOOKUP.get(node);
 
   if (existing) return existing;
 
   const parentLevel = levelOf(node);
   const myLevel = parentLevel;
+  const offset = (options?.startAt ?? 1) - 1;
 
   LOOKUP.set(node, myLevel);
 
-  return myLevel;
+  return myLevel + offset;
 }

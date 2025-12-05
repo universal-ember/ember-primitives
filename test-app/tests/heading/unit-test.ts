@@ -43,4 +43,23 @@ module('Unit | getSectionHeadingLevel', function () {
 
     assert.strictEqual(level, 1);
   });
+
+  test('can specify an offset', function (assert) {
+    const doc = `
+        <section>
+        </section>
+      `;
+
+    const root = document.createElement('div');
+
+    root.innerHTML = doc;
+
+    const ref = document.createTextNode('');
+
+    root.querySelector('section')?.append(ref);
+
+    const level = getSectionHeadingLevel(ref, { startAt: 1 });
+
+    assert.strictEqual(level, 1);
+  });
 });

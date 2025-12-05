@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "patch",
-      "oldVersion": "0.47.0",
-      "newVersion": "0.47.1",
+      "oldVersion": "0.47.1",
+      "newVersion": "0.47.2",
       "tagName": "latest",
       "constraints": [
         {
@@ -14,22 +14,18 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "minor",
-      "oldVersion": "0.1.0",
-      "newVersion": "0.2.0",
+      "impact": "patch",
+      "oldVersion": "0.2.0",
+      "newVersion": "0.2.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
     }
   },
-  "description": "## Release (2025-12-05)\n\n* ember-primitives 0.47.1 (patch)\n* which-heading-do-i-need 0.2.0 (minor)\n\n#### :rocket: Enhancement\n* `which-heading-do-i-need`\n  * [#587](https://github.com/universal-ember/ember-primitives/pull/587) getSectionHeadingLevel: support a `startAt` option to better support fragment rendering customization ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `which-heading-do-i-need`\n  * [#586](https://github.com/universal-ember/ember-primitives/pull/586) Heading / getSectionHeadingLevel: Support rendering into off screen fragements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* [#584](https://github.com/universal-ember/ember-primitives/pull/584) Add Vue example for which-heading-do-i-need ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-12-05)\n\n* ember-primitives 0.47.2 (patch)\n* which-heading-do-i-need 0.2.1 (patch)\n\n#### :memo: Documentation\n* `which-heading-do-i-need`\n  * [#588](https://github.com/universal-ember/ember-primitives/pull/588) Add REPL to docs (first page) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

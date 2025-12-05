@@ -1,21 +1,35 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.46.0",
-      "newVersion": "0.47.0",
+      "impact": "patch",
+      "oldVersion": "0.47.0",
+      "newVersion": "0.47.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "which-heading-do-i-need": {
-      "oldVersion": "0.1.0"
+      "impact": "minor",
+      "oldVersion": "0.1.0",
+      "newVersion": "0.2.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        }
+      ],
+      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
     }
   },
-  "description": "## Release (2025-12-04)\n\n* ember-primitives 0.47.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#582](https://github.com/universal-ember/ember-primitives/pull/582) Improved service: support dynamic loading, await import services, explicit service RFC, better TS support -- eliminates the need to have a large number of services loaded when the app boots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* [#578](https://github.com/universal-ember/ember-primitives/pull/578) Add svelte docs for heading level ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-12-05)\n\n* ember-primitives 0.47.1 (patch)\n* which-heading-do-i-need 0.2.0 (minor)\n\n#### :rocket: Enhancement\n* `which-heading-do-i-need`\n  * [#587](https://github.com/universal-ember/ember-primitives/pull/587) getSectionHeadingLevel: support a `startAt` option to better support fragment rendering customization ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `which-heading-do-i-need`\n  * [#586](https://github.com/universal-ember/ember-primitives/pull/586) Heading / getSectionHeadingLevel: Support rendering into off screen fragements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* [#584](https://github.com/universal-ember/ember-primitives/pull/584) Add Vue example for which-heading-do-i-need ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

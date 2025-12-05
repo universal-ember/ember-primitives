@@ -1,5 +1,24 @@
 # Changelog 
 
+## Release (2025-12-05)
+
+* ember-primitives 0.47.1 (patch)
+* which-heading-do-i-need 0.2.0 (minor)
+
+#### :rocket: Enhancement
+* `which-heading-do-i-need`
+  * [#587](https://github.com/universal-ember/ember-primitives/pull/587) getSectionHeadingLevel: support a `startAt` option to better support fragment rendering customization ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `which-heading-do-i-need`
+  * [#586](https://github.com/universal-ember/ember-primitives/pull/586) Heading / getSectionHeadingLevel: Support rendering into off screen fragements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* [#584](https://github.com/universal-ember/ember-primitives/pull/584) Add Vue example for which-heading-do-i-need ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-12-04)
 
 * ember-primitives 0.47.0 (minor)

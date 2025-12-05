@@ -219,9 +219,12 @@ export function getSectionHeadingLevel(
 
   const parentLevel = levelOf(node);
   const myLevel = parentLevel;
-  const offset = (options?.startAt ?? 1) - 1;
 
   LOOKUP.set(node, myLevel);
 
-  return myLevel + offset;
+  if (myLevel === 1 && options?.startAt) {
+    return options.startAt;
+  }
+
+  return myLevel;
 }

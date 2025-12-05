@@ -214,7 +214,7 @@ function levelOf(node: Text): number {
  * ```js
  * import { getSectionHeadingLevel } from 'which-heading-do-i-need';
  *
- * getSectionHeadingLevel(nodeRef, { start: 3 });
+ * getSectionHeadingLevel(nodeRef, { startAt: 3 });
  *
  */
 export function getSectionHeadingLevel(

@@ -71,6 +71,7 @@ export default class Application extends Route {
           'ember-focus-trap': import('ember-focus-trap'),
           'ember-element-helper': import('ember-element-helper'),
           'which-heading-do-i-need': import('which-heading-do-i-need'),
+          'limber-ui': import('limber-ui'),
 
           // utility
           '@ember/test-waiters': import('@ember/test-waiters'),

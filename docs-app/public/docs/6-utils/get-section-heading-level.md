@@ -15,9 +15,8 @@ pnpm add which-heading-do-i-need
 ## Usage
 
 In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
-Note that this demo starts with `h3`, because this docs page already has an `h1`, and _this_ section (Usage) uses an `h2`.
 
-In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use. We expect an `h3` and `h4` in the demo, since this is the `Usage` section, which has a section heading of `h2`.
+In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use -- all in a single render pass.
 
 
 ```gjs live

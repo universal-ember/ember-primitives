@@ -7,12 +7,14 @@ import { modifier as eModifier } from "ember-modifier";
 import { cell } from "ember-resources";
 import { getTabster, getTabsterAttribute, MoverDirections, setTabsterAttribute } from "tabster";
 
+import { Link, type Signature as LinkSignature } from "./link.gts";
 import { Popover, type Signature as PopoverSignature } from "./popover.gts";
 
 import type { TOC } from "@ember/component/template-only";
 import type { WithBoundArgs } from "@glint/template";
 
 type Cell<V> = ReturnType<typeof cell<V>>;
+type LinkArgs = LinkSignature["Args"];
 type PopoverArgs = PopoverSignature["Args"];
 type PopoverBlockParams = PopoverSignature["Blocks"]["default"][0];
 
@@ -104,6 +106,25 @@ const Item: TOC<ItemSignature> = <template>
   {{/let}}
 </template>;
 
+export interface LinkItemSignature {
+  Element: HTMLAnchorElement;
+  Args: LinkArgs;
+  Blocks: { default: [] };
+}
+
+const LinkItem: TOC<LinkItemSignature> = <template>
+  <Link
+    role="menuitem"
+    @href={{@href}}
+    @includeActiveQueryParams={{@includeActiveQueryParams}}
+    @activeOnSubPaths={{@activeOnSubPaths}}
+    {{on "pointermove" focusOnHover}}
+    ...attributes
+  >
+    {{yield}}
+  </Link>
+</template>;
+
 const installContent = eModifier<{
   Element: HTMLElement;
   Args: {
@@ -157,7 +178,9 @@ interface PrivateContentSignature {
     isOpen: Cell<boolean>;
     PopoverContent: PopoverBlockParams["Content"];
   };
-  Blocks: { default: [{ Item: typeof Item; Separator: typeof Separator }] };
+  Blocks: {
+    default: [{ Item: typeof Item; LinkItem: typeof LinkItem; Separator: typeof Separator }];
+  };
 }
 
 export interface ContentSignature {
@@ -176,7 +199,7 @@ const Content: TOC<PrivateContentSignature> = <template>
       {{on "click" @isOpen.toggle}}
       ...attributes
     >
-      {{yield (hash Item=Item Separator=Separator)}}
+      {{yield (hash Item=Item LinkItem=LinkItem Separator=Separator)}}
     </@PopoverContent>
   {{/if}}
 </template>;

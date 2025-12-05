@@ -23,7 +23,7 @@ export default defineConfig((/* { mode } */) => {
       kolay({
         src: "public/docs",
         groups: [],
-        packages: ["ember-primitives"],
+        packages: ["ember-primitives", "which-heading-do-i-need"],
       }),
       babel({
         babelHelpers: "runtime",

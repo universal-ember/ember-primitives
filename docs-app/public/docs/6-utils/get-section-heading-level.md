@@ -244,6 +244,6 @@ export default defineComponent({
 import { APIDocs } from 'kolay';
 
 <template>
-  <APIDocs @package="which-heading-do-i-need" @module="declarations/index" @name="getSectionHeadingLevel" />
+  <APIDocs @package="which-heading-do-i-need" @module="getSectionHeadingLevel" @name="getSectionHeadingLevel" />
 </template>
 ```

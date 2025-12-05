@@ -29,7 +29,8 @@
     "ember-primitives": "workspace:^",
     "ember-resources": "^7.0.7",
     "ember-route-template": "^1.0.3",
-    "qunit-assertions-extra": "^1.0.3"
+    "qunit-assertions-extra": "^1.0.3",
+    "which-heading-do-i-need": "workspace:*"
   },
   "dependenciesMeta": {
     "ember-primitives": {

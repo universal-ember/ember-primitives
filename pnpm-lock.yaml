@@ -571,6 +571,9 @@ importers:
       qunit-assertions-extra:
         specifier: ^1.0.3
         version: 1.0.3(qunit@2.24.2)
+      which-heading-do-i-need:
+        specifier: workspace:*
+        version: link:../packages/which-heading-do-i-need
     dependenciesMeta:
       ember-primitives:
         injected: true

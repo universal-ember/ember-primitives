@@ -15,14 +15,14 @@ pnpm add which-heading-do-i-need
 ## Usage
 
 In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
-Note that this demo starts with `h3`, because this docs page already has an `h1`, and _this_ section (Usage) uses an `h2`.
 
-In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use. We expect an `h3` and `h4` in the demo, since this is the `Usage` section, which has a section heading of `h2`.
+In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use -- all in a single render pass.
 
-<section class="featured-demo">
 
 ```gjs live
-import Component from "@glimmer/component";
+import { REPL } from 'limber-ui';
+
+const code = `import Component from "@glimmer/component";
 import { element } from "ember-element-helper";
 import { getSectionHeadingLevel } from "which-heading-do-i-need";
 
@@ -30,7 +30,7 @@ class Heading extends Component {
   markerNode = document.createTextNode("");
 
   get hLevel() {
-    return `h${getSectionHeadingLevel(this.markerNode)}`;
+    return \`h\${getSectionHeadingLevel(this.markerNode)}\`;
   }
 
   <template>
@@ -44,16 +44,16 @@ class Heading extends Component {
   </template>
 }
 
-// Output for demo uses the above
+// Usage / output
 <template>
   <Heading>hello there</Heading>
 
   <section>
     <Heading>hello there</Heading>
-
   </section>
 
   <style>
+    /* These styles are completely optional */
     h1, h2, h3, h4, h5, h6 { margin: 0; }
 
     h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
@@ -126,10 +126,20 @@ class Heading extends Component {
     article { grid-area: content; }
 
   </style>
+</template>  
+`;
+
+<template>
+  <REPL 
+    @code={{code}} 
+    @format="gjs"
+    @lines={{14}} 
+    @editorLoad="force"
+    @editor="65v"
+    style="width:100%; height: 500px; border-radius: 0.5rem;" 
+  />
 </template>
 ```
-
-</section>
 
 <br>
 <details><summary>using Ember</summary>

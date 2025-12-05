@@ -33,7 +33,10 @@ function isRoot(element: Element) {
   return (
     element === document.body ||
     element.id === TEST_BOUNDARY ||
-    !element.parentElement
+    !(
+      element.parentElement ||
+      (element.parentNode as unknown as ShadowRoot)?.host
+    )
   );
 }
 

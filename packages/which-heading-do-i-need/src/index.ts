@@ -30,7 +30,11 @@ const SECTION_HEADINGS = new Set([
 const TEST_BOUNDARY = 'ember-testing';
 
 function isRoot(element: Element) {
-  return element === document.body || element.id === TEST_BOUNDARY;
+  return (
+    element === document.body ||
+    element.id === TEST_BOUNDARY ||
+    !element.parentElement
+  );
 }
 
 /**

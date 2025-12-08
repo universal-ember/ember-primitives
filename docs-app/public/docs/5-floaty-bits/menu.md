@@ -23,7 +23,7 @@ import { PortalTargets, Menu } from 'ember-primitives';
       <c.Item>Item 1</c.Item>
       <c.Item>Item 2</c.Item>
       <c.Separator />
-      <c.Item>Item 3</c.Item>
+      <c.LinkItem class="not-prose" @href="/">Item 3</c.LinkItem>
     </m.Content>
   </Menu>
 

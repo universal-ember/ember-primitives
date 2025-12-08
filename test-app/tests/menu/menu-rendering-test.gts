@@ -4,6 +4,7 @@ import { on } from '@ember/modifier';
 import {
   click,
   find,
+  findAll,
   focus,
   render,
   triggerEvent,
@@ -45,7 +46,7 @@ module('Rendering | menu', function (hooks) {
             <c.Item>Item 1</c.Item>
             <c.Item>Item 2</c.Item>
             <c.Separator />
-            <c.Item>Item 3</c.Item>
+            <c.LinkItem @href="https://emberjs.com">Item 3</c.LinkItem>
           </m.Content>
         </Menu>
       </template>
@@ -71,13 +72,15 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.trigger').hasAttribute('aria-haspopup', 'menu');
     assert.dom('.trigger').hasAttribute('aria-expanded', 'true');
     assert.dom('.content').hasAttribute('role', 'menu');
-    assert.dom('[role="menuitem"]').exists({ count: 3 });
-    assert.dom('[role="menuitem"]:nth-of-type(1)').hasText('Item 1');
-    assert.dom('[role="menuitem"]:nth-of-type(2)').hasText('Item 2');
-    assert.dom('[role="menuitem"]:nth-of-type(3)').hasText('Item 3');
-    assert.dom('[role="separator"]').exists({ count: 1 });
-    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
 
+    const items = findAll('[role="menuitem"]');
+
+    assert.equal(items.length, 3);
+    assert.dom(items[0]).hasText('Item 1');
+    assert.dom(items[1]).hasText('Item 2');
+    assert.dom(items[2]).hasText('Item 3');
+    assert.dom('[role="separator"]').exists({ count: 1 });
+    assert.dom(items[0]).isFocused();
     await click('.trigger');
 
     assert.dom('.trigger').doesNotHaveAttribute('aria-controls');
@@ -101,7 +104,7 @@ module('Rendering | menu', function (hooks) {
             <c.Item>Item 1</c.Item>
             <c.Item>Item 2</c.Item>
             <c.Separator />
-            <c.Item>Item 3</c.Item>
+            <c.LinkItem @href="https://emberjs.com">Item 3</c.LinkItem>
           </m.Content>
         </Menu>
       </template>
@@ -127,12 +130,15 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.trigger').hasAttribute('aria-haspopup', 'menu');
     assert.dom('.trigger').hasAttribute('aria-expanded', 'true');
     assert.dom('.content').hasAttribute('role', 'menu');
-    assert.dom('[role="menuitem"]').exists({ count: 3 });
-    assert.dom('[role="menuitem"]:nth-of-type(1)').hasText('Item 1');
-    assert.dom('[role="menuitem"]:nth-of-type(2)').hasText('Item 2');
-    assert.dom('[role="menuitem"]:nth-of-type(3)').hasText('Item 3');
+
+    const items = findAll('[role="menuitem"]');
+
+    assert.equal(items.length, 3);
+    assert.dom(items[0]).hasText('Item 1');
+    assert.dom(items[1]).hasText('Item 2');
+    assert.dom(items[2]).hasText('Item 3');
     assert.dom('[role="separator"]').exists({ count: 1 });
-    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
+    assert.dom(items[0]).isFocused();
 
     await click('.trigger');
 
@@ -157,7 +163,7 @@ module('Rendering | menu', function (hooks) {
             <c.Item>Item 1</c.Item>
             <c.Item>Item 2</c.Item>
             <c.Separator />
-            <c.Item>Item 3</c.Item>
+            <c.LinkItem @href="https://emberjs.com">Item 3</c.LinkItem>
           </m.Content>
         </Menu>
       </template>
@@ -179,20 +185,20 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.content').exists({ count: 1 });
     debugAssert(`Cannot use triggerKeyEvent with no activeElement`, document.activeElement);
 
-    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
+    const items = findAll('[role="menuitem"]');
+
+    assert.dom(items[0]).isFocused();
 
     await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowDown');
 
-    assert.dom('[role="menuitem"]:nth-of-type(2)').isFocused();
-
+    assert.dom(items[1]).isFocused();
     await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowRight');
 
-    assert.dom('[role="menuitem"]:nth-of-type(3)').isFocused();
+    assert.dom(items[2]).isFocused();
 
     await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowDown');
 
-    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
-
+    assert.dom(items[0]).isFocused();
     await triggerKeyEvent(document.activeElement, 'keydown', 'Escape');
 
     assert.dom('.content').doesNotExist();
@@ -241,10 +247,12 @@ module('Rendering | menu', function (hooks) {
 
     assert.dom('.content').exists({ count: 1 });
 
-    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
+    const items = findAll('[role="menuitem"]');
+
+    assert.dom(items[0]).isFocused();
 
     // using click here for the same reason as above
-    await click('[role="menuitem"]:nth-of-type(1)');
+    await click(items[0] as HTMLElement);
 
     assert.dom('.content').doesNotExist();
 
@@ -271,7 +279,7 @@ module('Rendering | menu', function (hooks) {
             <c.Item>Item 1</c.Item>
             <c.Item>Item 2</c.Item>
             <c.Separator />
-            <c.Item>Item 3</c.Item>
+            <c.LinkItem @href="https://emberjs.com">Item 3</c.LinkItem>
           </m.Content>
         </Menu>
       </template>
@@ -304,7 +312,7 @@ module('Rendering | menu', function (hooks) {
             <c.Item>Item 1</c.Item>
             <c.Item>Item 2</c.Item>
             <c.Separator />
-            <c.Item>Item 3</c.Item>
+            <c.LinkItem @href="https://emberjs.com">Item 3</c.LinkItem>
           </m.Content>
         </Menu>
       </template>
@@ -314,11 +322,12 @@ module('Rendering | menu', function (hooks) {
 
     assert.dom('.content').exists({ count: 1 });
 
-    assert.dom('[role="menuitem"]:nth-of-type(1)').isFocused();
+    const items = findAll('[role="menuitem"]');
 
-    await triggerEvent('[role="menuitem"]:nth-of-type(3)', 'pointermove');
+    assert.dom(items[0]).isFocused();
 
-    assert.dom('[role="menuitem"]:nth-of-type(3)').isFocused();
+    await triggerEvent(items[2] as HTMLElement, 'pointermove');
+    assert.dom(items[2] as HTMLElement).isFocused();
   });
 
   test('yielded isOpen has correct value', async function (assert) {

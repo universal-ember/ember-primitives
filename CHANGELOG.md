@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release (2025-12-08)
+
+* ember-primitives 0.48.0 (minor)
+* which-heading-do-i-need 0.2.1 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#590](https://github.com/universal-ember/ember-primitives/pull/590) Add the LinkItem to the Menu component ([@barryofguilder](https://github.com/barryofguilder))
+
+#### :memo: Documentation
+* `which-heading-do-i-need`
+  * [#588](https://github.com/universal-ember/ember-primitives/pull/588) Add REPL to docs (first page) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Jason Barry ([@barryofguilder](https://github.com/barryofguilder))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-12-05)
 
 * ember-primitives 0.47.1 (patch)

@@ -1,6 +1,6 @@
 {
   "name": "which-heading-do-i-need",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "The default blueprint for Embroider v2 addons.",
   "type": "module",
   "keywords": [

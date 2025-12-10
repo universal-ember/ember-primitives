@@ -1,35 +1,21 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.47.1",
-      "newVersion": "0.48.0",
+      "impact": "patch",
+      "oldVersion": "0.48.0",
+      "newVersion": "0.48.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
           "impact": "patch",
-          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "patch",
-      "oldVersion": "0.2.0",
-      "newVersion": "0.2.1",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
-        }
-      ],
-      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
+      "oldVersion": "0.2.1"
     }
   },
-  "description": "## Release (2025-12-08)\n\n* ember-primitives 0.48.0 (minor)\n* which-heading-do-i-need 0.2.1 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#590](https://github.com/universal-ember/ember-primitives/pull/590) Add the LinkItem to the Menu component ([@barryofguilder](https://github.com/barryofguilder))\n\n#### :memo: Documentation\n* `which-heading-do-i-need`\n  * [#588](https://github.com/universal-ember/ember-primitives/pull/588) Add REPL to docs (first page) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Jason Barry ([@barryofguilder](https://github.com/barryofguilder))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2025-12-10)\n\n* ember-primitives 0.48.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#593](https://github.com/universal-ember/ember-primitives/pull/593) Update link helper to use `event.currentTarget` ([@barryofguilder](https://github.com/barryofguilder))\n\n#### Committers: 1\n- Jason Barry ([@barryofguilder](https://github.com/barryofguilder))\n"
 }

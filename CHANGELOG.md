@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2025-12-10)
+
+* ember-primitives 0.48.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#593](https://github.com/universal-ember/ember-primitives/pull/593) Update link helper to use `event.currentTarget` ([@barryofguilder](https://github.com/barryofguilder))
+
+#### Committers: 1
+- Jason Barry ([@barryofguilder](https://github.com/barryofguilder))
+
 ## Release (2025-12-08)
 
 * ember-primitives 0.48.0 (minor)

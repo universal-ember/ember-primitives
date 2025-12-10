@@ -35,9 +35,9 @@ export default class Link extends Helper<Signature> {
 
     const router = this.router;
     const handleClick = (event: MouseEvent) => {
-      assert('[BUG]', event.target instanceof HTMLAnchorElement);
+      assert('[BUG]', event.currentTarget instanceof HTMLAnchorElement);
 
-      handle(router, event.target, [], event);
+      handle(router, event.currentTarget, [], event);
     };
 
     return {

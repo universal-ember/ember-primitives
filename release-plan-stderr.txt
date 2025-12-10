@@ -1,0 +1,6 @@
+# Unlabeled Changes
+
+* [#596](https://github.com/universal-ember/ember-primitives/pull/596) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+
+*Cannot plan release until the above changes are labeled*.

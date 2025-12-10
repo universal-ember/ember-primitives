@@ -39,6 +39,13 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/barryofguilder">
+                    <img src="https://avatars.githubusercontent.com/u/5649106?v=4" width="100;" alt="barryofguilder"/>
+                    <br />
+                    <sub><b>Jason Barry</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/lukasnys">
                     <img src="https://avatars.githubusercontent.com/u/22593230?v=4" width="100;" alt="lukasnys"/>
                     <br />
@@ -52,6 +59,8 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>Ryan Tablada</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/kaermorchen">
                     <img src="https://avatars.githubusercontent.com/u/11972062?v=4" width="100;" alt="kaermorchen"/>
@@ -59,8 +68,6 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>Stanislav Romanov</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/pulien">
                     <img src="https://avatars.githubusercontent.com/u/120576344?v=4" width="100;" alt="pulien"/>

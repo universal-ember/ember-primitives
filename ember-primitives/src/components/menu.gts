@@ -84,13 +84,19 @@ function focusOnHover(e: PointerEvent) {
   }
 }
 
-export interface ItemSignature {
+interface PrivateItemSignature {
   Element: HTMLButtonElement;
-  Args: { onSelect?: (event: Event) => void };
+  Args: { onSelect?: (event: Event) => void; toggle: () => void };
   Blocks: { default: [] };
 }
 
-const Item: TOC<ItemSignature> = <template>
+export interface ItemSignature {
+  Element: PrivateItemSignature["Element"];
+  Args: Omit<PrivateItemSignature["Args"], "toggle">;
+  Blocks: PrivateItemSignature["Blocks"];
+}
+
+const Item: TOC<PrivateItemSignature> = <template>
   {{! @glint-expect-error }}
   {{#let (if @onSelect (modifier on "click" @onSelect)) as |maybeClick|}}
     <button
@@ -98,6 +104,7 @@ const Item: TOC<ItemSignature> = <template>
       role="menuitem"
       {{! @glint-expect-error }}
       {{maybeClick}}
+      {{on "click" @toggle}}
       {{on "pointermove" focusOnHover}}
       ...attributes
     >
@@ -106,18 +113,29 @@ const Item: TOC<ItemSignature> = <template>
   {{/let}}
 </template>;
 
-export interface LinkItemSignature {
+interface LinkItemArgs extends LinkArgs {
+  toggle: () => void;
+}
+
+interface PrivateLinkItemSignature {
   Element: HTMLAnchorElement;
-  Args: LinkArgs;
+  Args: LinkItemArgs;
   Blocks: { default: [] };
 }
 
-const LinkItem: TOC<LinkItemSignature> = <template>
+export interface LinkItemSignature {
+  Element: PrivateLinkItemSignature["Element"];
+  Args: LinkArgs;
+  Blocks: PrivateLinkItemSignature["Blocks"];
+}
+
+const LinkItem: TOC<PrivateLinkItemSignature> = <template>
   <Link
     role="menuitem"
     @href={{@href}}
     @includeActiveQueryParams={{@includeActiveQueryParams}}
     @activeOnSubPaths={{@activeOnSubPaths}}
+    {{on "click" @toggle}}
     {{on "pointermove" focusOnHover}}
     ...attributes
   >
@@ -179,7 +197,13 @@ interface PrivateContentSignature {
     PopoverContent: PopoverBlockParams["Content"];
   };
   Blocks: {
-    default: [{ Item: typeof Item; LinkItem: typeof LinkItem; Separator: typeof Separator }];
+    default: [
+      {
+        Item: WithBoundArgs<typeof Item, "toggle">;
+        LinkItem: WithBoundArgs<typeof LinkItem, "toggle">;
+        Separator: typeof Separator;
+      },
+    ];
   };
 }
 
@@ -196,10 +220,15 @@ const Content: TOC<PrivateContentSignature> = <template>
       data-tabster={{TABSTER_CONFIG_CONTENT}}
       tabindex="0"
       {{installContent isOpen=@isOpen triggerElement=@triggerElement}}
-      {{on "click" @isOpen.toggle}}
       ...attributes
     >
-      {{yield (hash Item=Item LinkItem=LinkItem Separator=Separator)}}
+      {{yield
+        (hash
+          Item=(component Item toggle=@isOpen.toggle)
+          LinkItem=(component LinkItem toggle=@isOpen.toggle)
+          Separator=Separator
+        )
+      }}
     </@PopoverContent>
   {{/if}}
 </template>;

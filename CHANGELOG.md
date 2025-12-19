@@ -1,5 +1,20 @@
 # Changelog 
 
+## Release (2025-12-19)
+
+* ember-primitives 0.48.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#600](https://github.com/universal-ember/ember-primitives/pull/600) Move menu toggle to the items ([@barryofguilder](https://github.com/barryofguilder))
+
+#### :memo: Documentation
+* [#596](https://github.com/universal-ember/ember-primitives/pull/596) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### Committers: 2
+- Jason Barry ([@barryofguilder](https://github.com/barryofguilder))
+- [@github-actions[bot]](https://github.com/apps/github-actions)
+
 ## Release (2025-12-10)
 
 * ember-primitives 0.48.1 (patch)

@@ -149,6 +149,66 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.trigger').isFocused();
   });
 
+  test('can be closed by clicking a menu item', async function (assert) {
+    await render(
+      <template>
+        <PortalTargets />
+
+        <Menu as |m|>
+          <m.Trigger class="trigger">
+            Trigger
+          </m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.Item>Item 1</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    assert.dom('.content').doesNotExist();
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'true');
+
+    await click('[role="menuitem"]');
+
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.content').doesNotExist();
+  });
+
+  test('can be closed by clicking a menu link item', async function (assert) {
+    await render(
+      <template>
+        <PortalTargets />
+
+        <Menu as |m|>
+          <m.Trigger class="trigger">
+            Trigger
+          </m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.LinkItem @href="/">Item 1</c.LinkItem>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    assert.dom('.content').doesNotExist();
+
+    await click('.trigger');
+
+    assert.dom('.content').exists({ count: 1 });
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'true');
+
+    await click('[role="menuitem"]');
+
+    assert.dom('.trigger').hasAttribute('aria-expanded', 'false');
+    assert.dom('.content').doesNotExist();
+  });
+
   test('keyboard navigation works', async function (assert) {
     await render(
       <template>

@@ -51,4 +51,26 @@ module('createService', function (hooks) {
     assert.strictEqual(a.foo, b.foo);
     assert.strictEqual(a.foo, 1);
   });
+
+  test('using a context and an owner, should still only create one service if the context has the owner set to the same owner', function (assert) {
+    let id = 0;
+
+    class State {
+      foo = ++id;
+
+      constructor() {
+        assert.step('created');
+      }
+    }
+
+    const a = createService(this, State);
+
+    assert.verifySteps(['created']);
+
+    const b = createService(this.owner, State);
+
+    assert.verifySteps([]);
+    assert.strictEqual(a.foo, b.foo);
+    assert.strictEqual(a.foo, 1);
+  });
 });

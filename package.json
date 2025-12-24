@@ -14,7 +14,7 @@
     "_start:tests": "pnpm --filter test-app start",
     "build": "turbo run build --output-logs errors-only",
     "lint": "turbo run _:lint --output-logs errors-only",
-    "lint:fix": "turbo run _:lint:fix --output-logs errors-only",
+    "lint:fix": "turbo run _:lint:fix",
     "start": "pnpm build; concurrently 'npm:_start:*' --prefix ' ' --restart-after 5000 --restart-tries -1",
     "sync": "pnpm --filter '*' sync",
     "test": "turbo run test --output-logs errors-only"

@@ -47,7 +47,7 @@
     "@embroider/compat": "^4.1.12",
     "@embroider/config-meta-loader": "^1.0.0",
     "@embroider/core": "^4.4.2",
-    "@embroider/macros": "^1.19.2",
+    "@embroider/macros": "^1.19.6",
     "@embroider/vite": "^1.5.0",
     "@floating-ui/dom": "^1.7.0",
     "@glimmer/component": "^2.0.0",
@@ -93,7 +93,7 @@
     "stylelint": "^16.26.1",
     "stylelint-config-standard": "^39.0.1",
     "stylelint-prettier": "^5.0.0",
-    "tracked-built-ins": "^4.0.0",
+    "tracked-built-ins": "^4.1.0",
     "typescript": "^5.9.3",
     "vite": "^7.1.12",
     "webpack": "^5.102.1"

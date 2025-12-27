@@ -48,7 +48,7 @@
     "limber-ui": "^4.0.2",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",
-    "reactiveweb": "^1.9.1",
+    "reactiveweb": "^1.8.0",
     "shiki": "^3.20.0",
     "should-handle-link": "^1.2.2",
     "tracked-built-ins": "^4.1.0",
@@ -125,7 +125,7 @@
     "tailwindcss": "^3.4.14",
     "typedoc": "^0.28.5",
     "typescript": "^5.9.3",
-    "vite": "^7.1.12",
+    "vite": "^7.3.0",
     "webpack": "^5.102.1"
   },
   "engines": {

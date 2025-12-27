@@ -24,8 +24,8 @@
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.2.1",
     "ember-primitives": "workspace:^",
-    "prettier": "^3.2.5",
-    "prettier-plugin-ember-template-tag": "^2.0.5",
+    "prettier": "^3.7.4",
+    "prettier-plugin-ember-template-tag": "^2.1.2",
     "release-plan": "^0.17.0",
     "turbo": "^2.6.0",
     "typescript": "^5.9.3"

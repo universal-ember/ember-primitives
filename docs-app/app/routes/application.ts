@@ -44,7 +44,7 @@ export default class Application extends Route {
           Tabs,
           comment,
         },
-        resolve: {
+        modules: {
           // ember-primitives
           'ember-primitives': () => import('ember-primitives'),
           'ember-primitives/head': () => import('ember-primitives/head'),
@@ -65,8 +65,8 @@ export default class Application extends Route {
           // community libraries
           'ember-resources': () => import('ember-resources'),
           'reactiveweb/remote-data': () => import('reactiveweb/remote-data'),
-          // @ts-expect-error - no types provided
           'ember-focus-trap/modifiers/focus-trap': () =>
+            // @ts-expect-error - no types provided
             import('ember-focus-trap/modifiers/focus-trap'),
           // @ts-expect-error - no types provided
           'ember-focus-trap': () => import('ember-focus-trap'),
@@ -78,7 +78,7 @@ export default class Application extends Route {
           '@ember/test-waiters': () => import('@ember/test-waiters'),
           'lorem-ipsum': () => import('lorem-ipsum'),
           'form-data-utils': () => import('form-data-utils'),
-          kolay: import('kolay'),
+          kolay: () => import('kolay'),
         },
         rehypePlugins: [
           [

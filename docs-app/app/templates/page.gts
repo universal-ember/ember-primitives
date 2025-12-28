@@ -1,11 +1,16 @@
+import Component from '@glimmer/component';
+
 import { GitHubLink, TestsLink } from 'docs-app/components/header';
 import { Logo, Logomark } from 'docs-app/components/icons';
-import { ExternalLink, service } from 'ember-primitives';
-import Route from 'ember-route-template';
+import { ExternalLink } from 'ember-primitives';
+import { selected } from 'kolay';
 
 import { OopsError, PageLayout } from '@universal-ember/docs-support';
 
-export default Route(
+export default class Page extends Component {
+  get selectedPath() {
+    return selected(this).path;
+  }
   <template>
     <PageLayout>
       <:logoLink>
@@ -24,17 +29,15 @@ export default Route(
         </OopsError>
       </:error>
       <:editLink as |Link|>
-        {{#let (service "kolay/docs") as |docs|}}
-          <Link
-            @href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{docs.selected.path}}.md"
-          >
-            Edit this page
-          </Link>
-        {{/let}}
+        <Link
+          @href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{this.selectedPath}}.md"
+        >
+          Edit this page
+        </Link>
       </:editLink>
     </PageLayout>
   </template>
-);
+}
 
 const ReportingAnIssue = <template>
   <ExternalLink href="https://github.com/universal-ember/ember-primitives/issues/new">

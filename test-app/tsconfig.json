@@ -2,6 +2,7 @@
   "extends": "@ember/app-tsconfig",
   "include": ["app", "tests", "types"],
   "compilerOptions": {
+    "lib": "2022",
     "skipLibCheck": true,
     "paths": {
       "test-app/tests/*": ["./tests/*"],

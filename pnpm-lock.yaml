@@ -33,7 +33,7 @@ importers:
         version: 9.2.1
       ember-primitives:
         specifier: workspace:^
-        version: link:ember-primitives
+        version: file:ember-primitives(0c7bbd00f8956c2e08d5d78df638611e)
       prettier:
         specifier: ^3.2.5
         version: 3.6.2
@@ -118,7 +118,7 @@ importers:
         version: 4.2.2(@babel/core@7.28.5)
       ember-primitives:
         specifier: workspace:^
-        version: link:../ember-primitives
+        version: file:ember-primitives(0c7bbd00f8956c2e08d5d78df638611e)
       ember-repl:
         specifier: ^6.0.0
         version: 6.0.0(49c90770ec982dd9e76ad68bb8f2c315)
@@ -151,7 +151,7 @@ importers:
         version: 1.0.1
       reactiveweb:
         specifier: ^1.8.0
-        version: 1.9.0(0ab465dc6b162d7abf703b597944aa7f)
+        version: 1.9.1(0ab465dc6b162d7abf703b597944aa7f)
       shiki:
         specifier: ^3.14.0
         version: 3.14.0
@@ -395,7 +395,7 @@ importers:
         version: 0.6.0
       reactiveweb:
         specifier: ^1.8.0
-        version: 1.9.0(0ab465dc6b162d7abf703b597944aa7f)
+        version: 1.9.1(0ab465dc6b162d7abf703b597944aa7f)
       should-handle-link:
         specifier: ^1.2.2
         version: 1.3.0
@@ -564,7 +564,7 @@ importers:
     dependencies:
       ember-primitives:
         specifier: workspace:^
-        version: link:../ember-primitives
+        version: file:ember-primitives(0c7bbd00f8956c2e08d5d78df638611e)
       ember-resources:
         specifier: ^7.0.7
         version: 7.0.7(265ce5cb806b754607ef0cf280df9b99)
@@ -1686,6 +1686,15 @@ packages:
       '@glint/template':
         optional: true
 
+  '@embroider/macros@1.19.6':
+    resolution: {integrity: sha512-yPf8lD/gRZmcxms66CCKuZuvWMJ0g/hdCE6P8FZsyewR3So6pxgdgOFp0zk2w5d34jS1ejBtxLNREZbBTELpzw==}
+    engines: {node: 12.* || 14.* || >= 16}
+    peerDependencies:
+      '@glint/template': ^1.0.0
+    peerDependenciesMeta:
+      '@glint/template':
+        optional: true
+
   '@embroider/reverse-exports@0.1.2':
     resolution: {integrity: sha512-TgjQalfB42RnwdRVApjcvHSVjBe+7MJfCZV0Cs1jv2QgnFGr/6f5X19PKvmF4FU4xbBf7yOsIWrVvYvidWnXlw==}
 
@@ -1699,6 +1708,10 @@ packages:
 
   '@embroider/shared-internals@3.0.1':
     resolution: {integrity: sha512-d7RQwDwqqHo7YvjE9t1rtIrCCYtbSoO0uRq2ikVhRh4hGS5OojZNu2ZtS0Wqrg+V72CRtMFr/hibTvHNsRM2Lg==}
+    engines: {node: 12.* || 14.* || >= 16}
+
+  '@embroider/shared-internals@3.0.2':
+    resolution: {integrity: sha512-/SusdG+zgosc3t+9sPFVKSFOYyiSgLfXOT6lYNWoG1YtnhWDxlK4S8leZ0jhcVjemdaHln5rTyxCnq8oFLxqpQ==}
     engines: {node: 12.* || 14.* || >= 16}
 
   '@embroider/vite@1.3.6':
@@ -7938,8 +7951,8 @@ packages:
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
-  reactiveweb@1.9.0:
-    resolution: {integrity: sha512-2WmDJA8TQe0jwSKB3QTcpxYBxDiBTZoISKjSoqo3LrBEB9Zi5PEluDlnoXBmzW+OM7TVxslgH1NVNqLPB8WCfg==}
+  reactiveweb@1.9.1:
+    resolution: {integrity: sha512-bd/Iyk8wm9A8qyxKVu8w4M4POWOtZErRKr6EJwnrBitceSLlY+yk1/m9AuKec/5XvcNnDi1NRdvBQDBEaVpk6A==}
     peerDependencies:
       '@ember/test-waiters': '>= 3.1.0'
 
@@ -8795,6 +8808,9 @@ packages:
   tabster@8.6.2:
     resolution: {integrity: sha512-SRt/mFhfunYDWUZcebnKGbWfhN36FSoX7eiGJ7kVfpI9N90WlqOZzoUaDWx+IQA1M/uHujqRqnBGYk6hFtEXhw==}
 
+  tabster@8.7.0:
+    resolution: {integrity: sha512-AKYquti8AdWzuqJdQo4LUMQDZrHoYQy6V+8yUq2PmgLZV10EaB+8BD0nWOfC/3TBp4mPNg4fbHkz6SFtkr0PpA==}
+
   tailwindcss@3.4.18:
     resolution: {integrity: sha512-6A2rnmW5xZMdw11LYjhcI5846rt9pbLSabY5XPxo+XWdxwZaFEn47Go4NzFiHu9sNNmr/kXivP1vStfvMaK1GQ==}
     engines: {node: '>=14.0.0'}
@@ -9515,6 +9531,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@4.0.0:
     resolution: {integrity: sha512-QaKxh0eNIi2mE9p2vEdzfagOKHCcj1pJ56EEHGQOVxp8r9/iszLUUV7v89x9O1p/T+NlTM5W7jW6+cz4Fq1YVg==}
@@ -10880,7 +10897,7 @@ snapshots:
 
   '@ember/render-modifiers@2.1.0(52435dbcc844ecc4c93fb4c0e165714d)':
     dependencies:
-      '@embroider/macros': 1.19.5(33d945019a1d97815b678afa874c3c10)
+      '@embroider/macros': 1.19.6(33d945019a1d97815b678afa874c3c10)
       ember-cli-babel: 8.2.0(@babel/core@7.28.5)
       ember-modifier-manager-polyfill: 1.2.0(@babel/core@7.28.5)
       ember-source: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
@@ -11102,6 +11119,22 @@ snapshots:
       - '@babel/core'
       - supports-color
 
+  '@embroider/macros@1.19.6(33d945019a1d97815b678afa874c3c10)':
+    dependencies:
+      '@embroider/shared-internals': 3.0.2
+      assert-never: 1.4.0
+      babel-import-util: 3.0.1
+      ember-cli-babel: 8.2.0(@babel/core@7.28.5)
+      find-up: 5.0.0
+      lodash: 4.17.21
+      resolve: 1.22.11
+      semver: 7.7.3
+    optionalDependencies:
+      '@glint/template': 1.7.2
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+
   '@embroider/reverse-exports@0.1.2':
     dependencies:
       mem: 8.1.1
@@ -11142,6 +11175,24 @@ snapshots:
       - supports-color
 
   '@embroider/shared-internals@3.0.1':
+    dependencies:
+      babel-import-util: 3.0.1
+      debug: 4.4.3
+      ember-rfc176-data: 0.3.18
+      fs-extra: 9.1.0
+      is-subdir: 1.2.0
+      js-string-escape: 1.0.1
+      lodash: 4.17.21
+      minimatch: 3.1.2
+      pkg-entry-points: 1.1.1
+      resolve-package-path: 4.0.3
+      resolve.exports: 2.0.3
+      semver: 7.7.3
+      typescript-memoize: 1.1.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@embroider/shared-internals@3.0.2':
     dependencies:
       babel-import-util: 3.0.1
       debug: 4.4.3
@@ -11691,7 +11742,7 @@ snapshots:
   '@npmcli/fs@1.1.1':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.7.3
+      semver: 7.7.2
 
   '@npmcli/fs@3.1.1':
     dependencies:
@@ -14620,7 +14671,7 @@ snapshots:
 
   ember-cached-decorator-polyfill@1.0.2(52435dbcc844ecc4c93fb4c0e165714d):
     dependencies:
-      '@embroider/macros': 1.19.5(33d945019a1d97815b678afa874c3c10)
+      '@embroider/macros': 1.19.6(33d945019a1d97815b678afa874c3c10)
       '@glimmer/tracking': 1.1.2
       babel-import-util: 1.4.1
       ember-cache-primitive-polyfill: 1.0.1(@babel/core@7.28.5)
@@ -15141,7 +15192,7 @@ snapshots:
       '@babel/runtime': 7.28.4
       '@ember/test-waiters': 4.1.1(33d945019a1d97815b678afa874c3c10)
       '@embroider/addon-shim': 1.10.2
-      '@embroider/macros': 1.19.5(33d945019a1d97815b678afa874c3c10)
+      '@embroider/macros': 1.19.6(33d945019a1d97815b678afa874c3c10)
       '@floating-ui/dom': 1.7.4
       '@glimmer/component': 2.0.0
       decorator-transforms: 2.3.0(@babel/core@7.28.5)
@@ -15149,9 +15200,9 @@ snapshots:
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-resources: 7.0.7(265ce5cb806b754607ef0cf280df9b99)
       form-data-utils: 0.6.0
-      reactiveweb: 1.9.0(0ab465dc6b162d7abf703b597944aa7f)
+      reactiveweb: 1.9.1(0ab465dc6b162d7abf703b597944aa7f)
       should-handle-link: 1.3.0
-      tabster: 8.6.2
+      tabster: 8.7.0
       tracked-built-ins: 4.0.0(@babel/core@7.28.5)
       tracked-toolbox: 2.0.0(9721229f31339b951aa1c1eefcbce454)
       which-heading-do-i-need: file:packages/which-heading-do-i-need
@@ -17624,7 +17675,7 @@ snapshots:
       globby: 14.1.0
       json5: 2.2.3
       package-up: 5.0.0
-      reactiveweb: 1.9.0(0ab465dc6b162d7abf703b597944aa7f)
+      reactiveweb: 1.9.1(0ab465dc6b162d7abf703b597944aa7f)
       send: 1.2.0
       tracked-built-ins: 4.0.0(@babel/core@7.28.5)
       typedoc: 0.28.4(typescript@5.9.3)
@@ -17668,7 +17719,7 @@ snapshots:
       decorator-transforms: 2.3.0(@babel/core@7.28.5)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       penpal: 6.2.2
-      reactiveweb: 1.9.0(0ab465dc6b162d7abf703b597944aa7f)
+      reactiveweb: 1.9.1(0ab465dc6b162d7abf703b597944aa7f)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'
@@ -19314,11 +19365,11 @@ snapshots:
 
   react-is@17.0.2: {}
 
-  reactiveweb@1.9.0(0ab465dc6b162d7abf703b597944aa7f):
+  reactiveweb@1.9.1(0ab465dc6b162d7abf703b597944aa7f):
     dependencies:
       '@ember/test-waiters': 4.1.1(33d945019a1d97815b678afa874c3c10)
       '@embroider/addon-shim': 1.10.2
-      '@embroider/macros': 1.19.5(33d945019a1d97815b678afa874c3c10)
+      '@embroider/macros': 1.19.6(33d945019a1d97815b678afa874c3c10)
       decorator-transforms: 2.3.0(@babel/core@7.28.5)
       ember-resources: 7.0.7(265ce5cb806b754607ef0cf280df9b99)
     transitivePeerDependencies:
@@ -20435,6 +20486,13 @@ snapshots:
       strip-ansi: 6.0.1
 
   tabster@8.6.2:
+    dependencies:
+      keyborg: 2.6.0
+      tslib: 2.8.1
+    optionalDependencies:
+      '@rollup/rollup-linux-x64-gnu': 4.53.3
+
+  tabster@8.7.0:
     dependencies:
       keyborg: 2.6.0
       tslib: 2.8.1

@@ -43,7 +43,7 @@
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.2.1",
-    "kolay": "^4.0.1",
+    "kolay": "^4.0.2",
     "limber-ui": "^4.0.2",
     "lorem-ipsum": "^2.0.8",
     "path-browserify": "^1.0.1",

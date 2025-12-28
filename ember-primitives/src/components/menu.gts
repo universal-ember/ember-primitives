@@ -284,7 +284,7 @@ const trigger = eModifier<PrivateTriggerModifierSignature>(
     element.addEventListener("click", onTriggerClick);
 
     triggerElement.current = element;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
     setReference(element);
 
     return () => {

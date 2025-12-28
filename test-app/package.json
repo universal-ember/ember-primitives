@@ -26,6 +26,7 @@
     "test:ember": "vite build --mode development && ember test --path dist"
   },
   "dependencies": {
+    "decorator-transforms": "^2.3.0",
     "ember-primitives": "workspace:^",
     "ember-resources": "^7.0.7",
     "ember-route-template": "^1.0.3",

@@ -56,9 +56,8 @@ export default class Application extends Route {
           'ember-primitives/components/heading': import('ember-primitives/components/heading'),
           'ember-primitives/components/tabs': import('ember-primitives/components/tabs'),
           'ember-primitives/components/portal': import('ember-primitives/components/portal'),
-          'ember-primitives/components/portal-targets': import(
-            'ember-primitives/components/portal-targets'
-          ),
+          'ember-primitives/components/portal-targets':
+            import('ember-primitives/components/portal-targets'),
           'ember-primitives/dom-context': import('ember-primitives/dom-context'),
           'ember-primitives/layout/hero': import('ember-primitives/layout/hero'),
 

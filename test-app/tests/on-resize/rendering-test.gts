@@ -198,10 +198,8 @@ module('{{onResize}}', function (hooks) {
     });
 
     test('throws if a callback is not a function', async function (assert) {
-      assert.expect(1);
-
       setupOnerror((error) => {
-        assert.equal(
+        assert.strictEqual(
           error.message,
           'Assertion Failed: {{onResize}}: callback must be a function, but was [object Object]'
         );
@@ -220,10 +218,8 @@ module('{{onResize}}', function (hooks) {
     });
 
     test('throws if a callback is not provided', async function (assert) {
-      assert.expect(1);
-
       setupOnerror((error) => {
-        assert.equal(
+        assert.strictEqual(
           error.message,
           'Assertion Failed: {{onResize}}: callback must be a function, but was undefined'
         );

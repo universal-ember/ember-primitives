@@ -562,6 +562,9 @@ importers:
 
   test-app:
     dependencies:
+      decorator-transforms:
+        specifier: ^2.3.0
+        version: 2.3.0(@babel/core@7.28.5)
       ember-primitives:
         specifier: workspace:^
         version: link:../ember-primitives

@@ -23,8 +23,6 @@ Object.assign(window, {
   Buffer: {},
 });
 
-console.log(compatModules);
-
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
   podModulePrefix = config.podModulePrefix;

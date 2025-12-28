@@ -35,7 +35,7 @@
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.26.2",
   "pnpm": {
     "peerDependencyRules": {
       "allowAny": [
@@ -45,17 +45,16 @@
         "@glimmer/syntax"
       ],
       "ignoreMissing": [
-        "webpack",
         "rsvp"
       ]
     },
     "overrides": {
       "@glimmer/component": "^2.0.0",
-      "babel-plugin-ember-template-compilation": "^2.4.0",
+      "babel-plugin-ember-template-compilation": "^3.0.1",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
-      "ember-element-helper": ">= 0.8.6",
-      "reactiveweb": "^1.8.0",
+      "ember-element-helper": "0.8.8",
+      "reactiveweb": "^1.9.1",
       "ember-source": "6.9.0",
       "tracked-toolbox": "^2.0.0"
     },

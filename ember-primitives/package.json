@@ -68,7 +68,7 @@
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@tsconfig/ember": "^3.0.12",
-    "babel-plugin-ember-template-compilation": "^3.0.1",
+    "babel-plugin-ember-template-compilation": "^2.4.0",
     "concurrently": "^9.2.1",
     "ember-modifier": "^4.2.2",
     "ember-resources": "^7.0.7",
@@ -79,7 +79,7 @@
     "fix-bad-declaration-output": "^1.1.5",
     "prettier": "^3.7.4",
     "prettier-plugin-ember-template-tag": "^2.1.2",
-    "publint": "^0.3.12",
+    "publint": "^0.3.16",
     "rollup": "~4.54.0",
     "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.9.3"

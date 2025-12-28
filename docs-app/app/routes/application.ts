@@ -46,36 +46,38 @@ export default class Application extends Route {
         },
         resolve: {
           // ember-primitives
-          'ember-primitives': import('ember-primitives'),
-          'ember-primitives/head': import('ember-primitives/head'),
-          'ember-primitives/floating-ui': import('ember-primitives/floating-ui'),
-          'ember-primitives/on-resize': import('ember-primitives/on-resize'),
-          'ember-primitives/resize-observer': import('ember-primitives/resize-observer'),
-          'ember-primitives/color-scheme': import('ember-primitives/color-scheme'),
-          'ember-primitives/components/form': import('ember-primitives/components/form'),
-          'ember-primitives/components/heading': import('ember-primitives/components/heading'),
-          'ember-primitives/components/tabs': import('ember-primitives/components/tabs'),
-          'ember-primitives/components/portal': import('ember-primitives/components/portal'),
-          'ember-primitives/components/portal-targets':
+          'ember-primitives': () => import('ember-primitives'),
+          'ember-primitives/head': () => import('ember-primitives/head'),
+          'ember-primitives/floating-ui': () => import('ember-primitives/floating-ui'),
+          'ember-primitives/on-resize': () => import('ember-primitives/on-resize'),
+          'ember-primitives/resize-observer': () => import('ember-primitives/resize-observer'),
+          'ember-primitives/color-scheme': () => import('ember-primitives/color-scheme'),
+          'ember-primitives/components/form': () => import('ember-primitives/components/form'),
+          'ember-primitives/components/heading': () =>
+            import('ember-primitives/components/heading'),
+          'ember-primitives/components/tabs': () => import('ember-primitives/components/tabs'),
+          'ember-primitives/components/portal': () => import('ember-primitives/components/portal'),
+          'ember-primitives/components/portal-targets': () =>
             import('ember-primitives/components/portal-targets'),
-          'ember-primitives/dom-context': import('ember-primitives/dom-context'),
-          'ember-primitives/layout/hero': import('ember-primitives/layout/hero'),
+          'ember-primitives/dom-context': () => import('ember-primitives/dom-context'),
+          'ember-primitives/layout/hero': () => import('ember-primitives/layout/hero'),
 
           // community libraries
-          'ember-resources': import('ember-resources'),
-          'reactiveweb/remote-data': import('reactiveweb/remote-data'),
+          'ember-resources': () => import('ember-resources'),
+          'reactiveweb/remote-data': () => import('reactiveweb/remote-data'),
           // @ts-expect-error - no types provided
-          'ember-focus-trap/modifiers/focus-trap': import('ember-focus-trap/modifiers/focus-trap'),
+          'ember-focus-trap/modifiers/focus-trap': () =>
+            import('ember-focus-trap/modifiers/focus-trap'),
           // @ts-expect-error - no types provided
-          'ember-focus-trap': import('ember-focus-trap'),
-          'ember-element-helper': import('ember-element-helper'),
-          'which-heading-do-i-need': import('which-heading-do-i-need'),
-          'limber-ui': import('limber-ui'),
+          'ember-focus-trap': () => import('ember-focus-trap'),
+          'ember-element-helper': () => import('ember-element-helper'),
+          'which-heading-do-i-need': () => import('which-heading-do-i-need'),
+          'limber-ui': () => import('limber-ui'),
 
           // utility
-          '@ember/test-waiters': import('@ember/test-waiters'),
-          'lorem-ipsum': import('lorem-ipsum'),
-          'form-data-utils': import('form-data-utils'),
+          '@ember/test-waiters': () => import('@ember/test-waiters'),
+          'lorem-ipsum': () => import('lorem-ipsum'),
+          'form-data-utils': () => import('form-data-utils'),
           kolay: import('kolay'),
         },
         rehypePlugins: [

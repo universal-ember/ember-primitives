@@ -52,7 +52,7 @@
       "@glimmer/component": "^2.0.0",
       "@embroider/macros": "1.19.6",
       "babel-plugin-ember-template-compilation": "^3.0.1",
-      "decorator-transformS": "2.3.0",
+      "decorator-transformS": "2.3.1",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": "0.8.8",

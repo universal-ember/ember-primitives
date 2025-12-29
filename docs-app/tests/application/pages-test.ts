@@ -25,6 +25,12 @@ const a11yChecks: {
       enabled: false,
     },
   },
+  '/3-ui/key-combo.md': {
+    // Buggy: doesn't allow the "same heading" under different headers
+    'heading-order': {
+      enabled: false,
+    },
+  },
 };
 
 /**

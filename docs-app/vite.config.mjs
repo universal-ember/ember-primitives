@@ -32,7 +32,7 @@ export default defineConfig((/* { mode } */) => {
     ],
     optimizeDeps: {
       // a wasm-providing dependency
-      exclude: ["content-tag", "ember-primitives"],
+      exclude: ["content-tag", "ember-primitives", "decorator-transforms"],
       // for top-level-await, etc
       esbuildOptions: {
         target: "esnext",

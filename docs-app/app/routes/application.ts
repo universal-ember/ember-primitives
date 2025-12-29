@@ -95,6 +95,7 @@ export default class Application extends Route {
           'limber-ui': () => import('limber-ui'),
 
           // utility
+          'decorator-transforms': () => import('decorator-transforms'),
           '@ember/test-waiters': () => import('@ember/test-waiters'),
           'lorem-ipsum': () => import('lorem-ipsum'),
           'form-data-utils': () => import('form-data-utils'),

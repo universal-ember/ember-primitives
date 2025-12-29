@@ -10,7 +10,7 @@ overrides:
   '@glimmer/component': ^2.0.0
   '@embroider/macros': 1.19.6
   babel-plugin-ember-template-compilation: ^3.0.1
-  decorator-transformS: 2.3.0
+  decorator-transformS: 2.3.1
   ember-primitives: workspace:^
   ember-cli-babel: ^8.2.0
   ember-element-helper: 0.8.8
@@ -104,7 +104,7 @@ importers:
         version: 5.4.4
       decorator-transforms:
         specifier: ^2.3.0
-        version: 2.3.0(@babel/core@7.28.5)
+        version: 2.3.1(@babel/core@7.28.5)
       ember-element-helper:
         specifier: 0.8.8
         version: 0.8.8
@@ -381,7 +381,7 @@ importers:
         version: 1.7.4
       decorator-transforms:
         specifier: ^2.3.0
-        version: 2.3.0(@babel/core@7.28.5)
+        version: 2.3.1(@babel/core@7.28.5)
       ember-element-helper:
         specifier: 0.8.8
         version: 0.8.8
@@ -559,7 +559,7 @@ importers:
     dependencies:
       decorator-transforms:
         specifier: ^2.3.0
-        version: 2.3.0(@babel/core@7.28.5)
+        version: 2.3.1(@babel/core@7.28.5)
       ember-primitives:
         specifier: workspace:^
         version: link:../ember-primitives
@@ -4251,8 +4251,8 @@ packages:
   decorator-transforms@1.2.1:
     resolution: {integrity: sha512-UUtmyfdlHvYoX3VSG1w5rbvBQ2r5TX1JsE4hmKU9snleFymadA3VACjl6SRfi9YgBCSjBbfQvR1bs9PRW9yBKw==}
 
-  decorator-transforms@2.3.0:
-    resolution: {integrity: sha512-jo8c1ss9yFPudHuYYcrJ9jpkDZIoi+lOGvt+Uyp9B+dz32i50icRMx9Bfa8hEt7TnX1FyKWKkjV+cUdT/ep2kA==}
+  decorator-transforms@2.3.1:
+    resolution: {integrity: sha512-PDOk74Zqqy0946Lx4ckXxbgG6uhPScOICtrxL/pXmfznxchqNee0TaJISClGJQe6FeT8ohGqsOgdjfahm4FwEw==}
 
   deep-extend@0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
@@ -7713,8 +7713,8 @@ packages:
     resolution: {integrity: sha512-ravE6m9Atw9Z/jjttRUZ+clIXogdghyZAuWJ3qEzjT+jI/dL1ifAqhZeC5VHzQp1MSt1+jxKkFNemj/iO7tVUA==}
     engines: {node: '>=4'}
 
-  prettier-linter-helpers@1.0.0:
-    resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
+  prettier-linter-helpers@1.0.1:
+    resolution: {integrity: sha512-SxToR7P8Y2lWmv/kTzVLC1t/GDI2WGjMwNhLLE9qtH8Q13C+aEmuRlzDst4Up4s0Wc8sF2M+J57iB3cMLqftfg==}
     engines: {node: '>=6.0.0'}
 
   prettier-plugin-ember-template-tag@2.1.2:
@@ -8912,8 +8912,8 @@ packages:
   trough@2.2.0:
     resolution: {integrity: sha512-tmMpK00BjZiUyVyvrBK7knerNgmgvcV/KLVyuma/SC+TQN167GrMRciANTz09+k3zW8L8t60jWO1GpfkZdjTaw==}
 
-  ts-api-utils@2.2.0:
-    resolution: {integrity: sha512-L6f5oQRAoLU1RwXz0Ab9mxsE7LtxeVB6AIR1lpkZMsOyg/JXeaxBaXa/FVCBZyNr9S9I4wkHrlZTklX+im+WMw==}
+  ts-api-utils@2.3.0:
+    resolution: {integrity: sha512-6eg3Y9SF7SsAvGzRHQvvc1skDAhwI4YQ32ui1scxD1Ccr0G5qIIbUBT3pFTKX8kmWIQClHobtUdNuaBgwdfdWg==}
     engines: {node: '>=18.12'}
     peerDependencies:
       typescript: '>=4.8.4'
@@ -10443,8 +10443,8 @@ snapshots:
   '@codemirror/autocomplete@6.18.6':
     dependencies:
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
 
   '@codemirror/autocomplete@6.20.0':
@@ -10464,8 +10464,8 @@ snapshots:
   '@codemirror/commands@6.8.1':
     dependencies:
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
 
   '@codemirror/lang-angular@0.1.4':
@@ -10484,28 +10484,28 @@ snapshots:
 
   '@codemirror/lang-css@6.3.1':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/css': 1.3.0
 
   '@codemirror/lang-go@6.0.1':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/go': 1.0.1
 
   '@codemirror/lang-html@6.4.11':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/lang-css': 6.3.1
       '@codemirror/lang-javascript': 6.2.4
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
       '@lezer/css': 1.3.0
       '@lezer/html': 1.3.13
@@ -10517,11 +10517,11 @@ snapshots:
 
   '@codemirror/lang-javascript@6.2.4':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
       '@codemirror/lint': 6.9.2
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
       '@lezer/javascript': 1.5.4
 
@@ -10548,22 +10548,22 @@ snapshots:
 
   '@codemirror/lang-liquid@6.3.1':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/lang-html': 6.4.11
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.5
 
   '@codemirror/lang-markdown@6.3.3':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/lang-html': 6.4.11
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
       '@lezer/markdown': 1.6.2
 
@@ -10571,15 +10571,15 @@ snapshots:
     dependencies:
       '@codemirror/lang-html': 6.4.11
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/php': 1.0.5
 
   '@codemirror/lang-python@6.2.1':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/python': 1.1.18
 
@@ -10592,15 +10592,15 @@ snapshots:
     dependencies:
       '@codemirror/lang-css': 6.3.1
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/sass': 1.1.0
 
   '@codemirror/lang-sql@6.10.0':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.5
@@ -10623,18 +10623,18 @@ snapshots:
 
   '@codemirror/lang-xml@6.1.0':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
       '@lezer/xml': 1.0.6
 
   '@codemirror/lang-yaml@6.1.2':
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/language': 6.12.1
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@lezer/common': 1.5.0
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.5
@@ -10668,8 +10668,8 @@ snapshots:
 
   '@codemirror/language@6.12.1':
     dependencies:
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@lezer/common': 1.5.0
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.5
@@ -10681,14 +10681,14 @@ snapshots:
 
   '@codemirror/lint@6.9.2':
     dependencies:
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       crelt: 1.0.6
 
   '@codemirror/search@6.5.11':
     dependencies:
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       crelt: 1.0.6
 
   '@codemirror/state@6.5.2':
@@ -10701,7 +10701,7 @@ snapshots:
 
   '@codemirror/view@6.38.0':
     dependencies:
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       crelt: 1.0.6
       style-mod: 4.1.3
       w3c-keyname: 2.2.8
@@ -10831,7 +10831,7 @@ snapshots:
       '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
       '@simple-dom/interface': 1.4.0
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       dom-element-descriptors: 0.5.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -12316,7 +12316,7 @@ snapshots:
       eslint: 9.39.2(jiti@2.6.1)
       ignore: 7.0.5
       natural-compare: 1.4.0
-      ts-api-utils: 2.2.0(typescript@5.9.3)
+      ts-api-utils: 2.3.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -12358,7 +12358,7 @@ snapshots:
       '@typescript-eslint/utils': 8.50.1(b1cbe766652296b79becebe56b05ba7c)
       debug: 4.4.3
       eslint: 9.39.2(jiti@2.6.1)
-      ts-api-utils: 2.2.0(typescript@5.9.3)
+      ts-api-utils: 2.3.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -12375,7 +12375,7 @@ snapshots:
       minimatch: 9.0.5
       semver: 7.7.3
       tinyglobby: 0.2.15
-      ts-api-utils: 2.2.0(typescript@5.9.3)
+      ts-api-utils: 2.3.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -12404,7 +12404,7 @@ snapshots:
       '@fontsource/lexend': 5.2.11
       '@tailwindcss/typography': 0.5.19(tailwindcss@3.4.19(yaml@2.8.2))
       change-case: 5.4.4
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-mobile-menu: 5.3.0(289019306041d4a7c2302272b11f33ce)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-primitives: file:ember-primitives(e374d91fc384bddcdd04d592bdefee85)
@@ -13763,8 +13763,8 @@ snapshots:
       '@codemirror/lang-css': 6.3.1
       '@codemirror/lang-html': 6.4.11
       '@codemirror/lang-javascript': 6.2.4
-      '@codemirror/state': 6.5.3
-      '@codemirror/view': 6.39.7
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.0
       '@glimdown/lezer-glimmer-expression': 2.0.1
       '@lezer/common': 1.5.0
       '@lezer/highlight': 1.2.3
@@ -13781,9 +13781,9 @@ snapshots:
 
   codemirror-languageserver@1.18.1(encoding@0.1.13):
     dependencies:
-      '@codemirror/autocomplete': 6.20.0
+      '@codemirror/autocomplete': 6.18.6
       '@codemirror/lint': 6.9.2
-      '@codemirror/state': 6.5.3
+      '@codemirror/state': 6.5.2
       '@codemirror/view': 6.39.7
       '@open-rpc/client-js': 1.8.1(encoding@0.1.13)
       marked: 16.4.2
@@ -14092,7 +14092,7 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
-  decorator-transforms@2.3.0(@babel/core@7.28.5):
+  decorator-transforms@2.3.1(@babel/core@7.28.5):
     dependencies:
       '@babel/plugin-syntax-decorators': 7.27.1(@babel/core@7.28.5)
       babel-import-util: 3.0.1
@@ -14827,7 +14827,7 @@ snapshots:
   ember-gesture-modifiers@6.1.0(2dac6f177318f00e0b3ac35ba6e57208):
     dependencies:
       '@embroider/addon-shim': 1.10.2
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-source: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
     optionalDependencies:
@@ -14847,7 +14847,7 @@ snapshots:
       '@embroider/addon-shim': 1.10.2
       '@glimmer/component': 2.0.0
       '@glimmer/tracking': 1.1.2
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-cached-decorator-polyfill: 1.0.2(d5ddaf17df8bfe9be60994299b1d430f)
       ember-concurrency: 4.0.6(41dbc40bfe763063746c2ae01dde51bb)
       ember-gesture-modifiers: 6.1.0(2dac6f177318f00e0b3ac35ba6e57208)
@@ -14875,7 +14875,7 @@ snapshots:
   ember-modifier@4.2.2(@babel/core@7.28.5):
     dependencies:
       '@embroider/addon-shim': 1.10.2
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-string-utils: 1.1.0
     transitivePeerDependencies:
@@ -14910,7 +14910,7 @@ snapshots:
       '@embroider/macros': 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
       '@floating-ui/dom': 1.7.4
       '@glimmer/component': 2.0.0
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-element-helper: 0.8.8
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-resources: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
@@ -14948,7 +14948,7 @@ snapshots:
       '@embroider/addon-shim': 1.10.2
       codemirror: 6.0.2
       content-tag: 4.1.0
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-primitives: file:ember-primitives(e374d91fc384bddcdd04d592bdefee85)
       ember-resolver: 13.1.1(@babel/core@7.28.5)
       ember-resources: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
@@ -15150,7 +15150,7 @@ snapshots:
   ember-welcome-page@8.0.4(@babel/core@7.28.5):
     dependencies:
       '@embroider/addon-shim': 1.10.2
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -17305,7 +17305,7 @@ snapshots:
       '@glimmer/component': 2.0.0
       '@glint/template': 1.7.3
       common-tags: 1.8.2
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-primitives: file:ember-primitives(e374d91fc384bddcdd04d592bdefee85)
       ember-repl: 7.2.1(5fbb936cc8fe0258ded495ac09034f9d)
@@ -17367,7 +17367,7 @@ snapshots:
       '@ember/test-waiters': 4.1.1(41dbc40bfe763063746c2ae01dde51bb)
       '@embroider/addon-shim': 1.10.2
       '@glimmer/component': 2.0.0
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       penpal: 6.2.2
       reactiveweb: 1.9.1(6100d0282851d05f404935d6c1cbaf6b)
@@ -18849,7 +18849,7 @@ snapshots:
 
   prepend-http@2.0.0: {}
 
-  prettier-linter-helpers@1.0.0:
+  prettier-linter-helpers@1.0.1:
     dependencies:
       fast-diff: 1.3.0
 
@@ -18993,7 +18993,7 @@ snapshots:
       '@ember/test-waiters': 4.1.1(41dbc40bfe763063746c2ae01dde51bb)
       '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-resources: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
     transitivePeerDependencies:
       - '@babel/core'
@@ -20077,7 +20077,7 @@ snapshots:
   stylelint-prettier@5.0.3(f5041c496881ab77eed18ffc524511d3):
     dependencies:
       prettier: 3.7.4
-      prettier-linter-helpers: 1.0.0
+      prettier-linter-helpers: 1.0.1
       stylelint: 16.26.1(typescript@5.9.3)
 
   stylelint@16.26.1(typescript@5.9.3):
@@ -20449,7 +20449,7 @@ snapshots:
   tracked-built-ins@4.1.0(@babel/core@7.28.5):
     dependencies:
       '@embroider/addon-shim': 1.10.2
-      decorator-transforms: 2.3.0(@babel/core@7.28.5)
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-tracked-storage-polyfill: 1.0.0(@babel/core@7.28.5)
     transitivePeerDependencies:
       - '@babel/core'
@@ -20491,7 +20491,7 @@ snapshots:
 
   trough@2.2.0: {}
 
-  ts-api-utils@2.2.0(typescript@5.9.3):
+  ts-api-utils@2.3.0(typescript@5.9.3):
     dependencies:
       typescript: 5.9.3
 

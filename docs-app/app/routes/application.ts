@@ -5,6 +5,15 @@ import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
 import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
+import {
+  tracked as wrappedTracked,
+  TrackedArray,
+  TrackedMap,
+  TrackedObject,
+  TrackedSet,
+  TrackedWeakMap,
+  TrackedWeakSet,
+} from 'tracked-built-ins';
 
 import { Callout } from '@universal-ember/docs-support';
 
@@ -44,7 +53,7 @@ export default class Application extends Route {
           Tabs,
           comment,
         },
-        modules: {
+        resolve: {
           // ember-primitives
           'ember-primitives': () => import('ember-primitives'),
           'ember-primitives/head': () => import('ember-primitives/head'),
@@ -64,6 +73,17 @@ export default class Application extends Route {
 
           // community libraries
           'ember-resources': () => import('ember-resources'),
+          'tracked-built-ins': () => {
+            return {
+              TrackedObject,
+              TrackedArray,
+              TrackedMap,
+              TrackedWeakMap,
+              TrackedSet,
+              TrackedWeakSet,
+              tracked: wrappedTracked,
+            };
+          },
           'reactiveweb/remote-data': () => import('reactiveweb/remote-data'),
           'ember-focus-trap/modifiers/focus-trap': () =>
             // @ts-expect-error - no types provided

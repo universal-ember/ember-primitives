@@ -58,7 +58,7 @@
       "ember-repl": "7.2.1",
       "reactiveweb": "^1.9.1",
       "ember-source": "6.9.0",
-      "kolay": "4.0.4",
+      "kolay": "4.0.5",
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {

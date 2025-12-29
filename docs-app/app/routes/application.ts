@@ -53,7 +53,7 @@ export default class Application extends Route {
           Tabs,
           comment,
         },
-        resolve: {
+        modules: {
           // ember-primitives
           'ember-primitives': () => import('ember-primitives'),
           'ember-primitives/head': () => import('ember-primitives/head'),

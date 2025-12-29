@@ -50,10 +50,12 @@
     },
     "overrides": {
       "@glimmer/component": "^2.0.0",
+      "@embroider/macros": "1.19.6",
       "babel-plugin-ember-template-compilation": "^3.0.1",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": "0.8.8",
+      "ember-repl": "7.2.1",
       "reactiveweb": "^1.9.1",
       "ember-source": "6.9.0",
       "kolay": "4.0.4",

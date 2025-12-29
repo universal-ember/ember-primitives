@@ -37,7 +37,6 @@
     "ember-mobile-menu": "^5.0.0",
     "ember-modifier": "^4.2.2",
     "ember-primitives": "workspace:^",
-    "ember-repl": "^7.2.0",
     "ember-route-template": "^1.0.3",
     "form-data-utils": "^0.6.0",
     "hash": "^0.2.1",

@@ -119,6 +119,9 @@ importers:
       ember-primitives:
         specifier: workspace:^
         version: link:../ember-primitives
+      ember-repl:
+        specifier: 7.2.1
+        version: 7.2.1(5fbb936cc8fe0258ded495ac09034f9d)
       ember-route-template:
         specifier: ^1.0.3
         version: 1.0.3

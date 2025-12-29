@@ -27,7 +27,7 @@
     "prettier": "^3.7.4",
     "prettier-plugin-ember-template-tag": "^2.1.2",
     "release-plan": "^0.17.0",
-    "turbo": "^2.6.0",
+    "turbo": "~2.5.0",
     "typescript": "^5.9.3"
   },
   "engines": {

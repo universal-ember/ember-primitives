@@ -17,6 +17,16 @@ export function comment(name: string, declaration: string) {
   </template>;
 }
 
+export const Comment: TOC<{
+  Args: { declaration: string; name: string };
+}> = <template>
+  <KolayCommentQuery
+    @package="ember-primitives"
+    @module="declarations/{{@declaration}}"
+    @name={{@name}}
+  />
+</template>;
+
 export const APIDocs: TOC<{
   Args: { declaration: string; name: string };
 }> = <template>

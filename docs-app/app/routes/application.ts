@@ -18,7 +18,7 @@ import {
 import { Callout } from '@universal-ember/docs-support';
 
 import { Tabs } from '../components/tabs.gts';
-import { APIDocs, comment, ComponentSignature, ModifierSignature } from './api-docs';
+import { APIDocs, Comment, comment, ComponentSignature, ModifierSignature } from './api-docs';
 
 export default class Application extends Route {
   async model() {
@@ -50,10 +50,14 @@ export default class Application extends Route {
           APIDocs,
           ComponentSignature,
           ModifierSignature,
+          Comment,
           Tabs,
           comment,
         },
         modules: {
+          // us
+          '#src/api-docs': () => import('./api-docs.gts'),
+
           // ember-primitives
           'ember-primitives': () => import('ember-primitives'),
           'ember-primitives/head': () => import('ember-primitives/head'),

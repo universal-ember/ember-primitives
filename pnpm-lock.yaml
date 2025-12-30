@@ -94,8 +94,8 @@ importers:
         specifier: ^3.14.0
         version: 3.20.0
       '@universal-ember/docs-support':
-        specifier: ^0.8.0
-        version: 0.8.0(0641f94bbf570ef1c773c8682938a4ae)
+        specifier: ^0.8.1
+        version: 0.8.1(0641f94bbf570ef1c773c8682938a4ae)
       assert:
         specifier: ^2.0.0
         version: 2.1.0
@@ -2813,8 +2813,8 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@universal-ember/docs-support@0.8.0':
-    resolution: {integrity: sha512-4GFjbUC4dyP0KqqpPfwQ5dBiWq3zBu0aPqFwMA0Fi/XuEPNyE0kkO5OdLbBm+Dr93DvJrVxO/MlkfMJ0jlPTfA==}
+  '@universal-ember/docs-support@0.8.1':
+    resolution: {integrity: sha512-IeI2ziK/Mt+xhV+/+pSq3bRKsr2FjBfoRXBihSqV5+VJ8CKT1PiyxGJTrmwUNcF4g2DT27zSoA2EEFaU/SK3MA==}
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
     resolution: {integrity: sha512-ppLRUgHVaGRWUx0R0Ut06Mjo9gBaBkg3v/8AxusGLhsIotbBLuRk51rAzqLC8gq6NyyAojEXglNjzf6R948DNw==}
@@ -12330,7 +12330,7 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@universal-ember/docs-support@0.8.0(0641f94bbf570ef1c773c8682938a4ae)':
+  '@universal-ember/docs-support@0.8.1(0641f94bbf570ef1c773c8682938a4ae)':
     dependencies:
       '@embroider/addon-shim': 1.10.2
       '@fontsource/lexend': 5.2.11

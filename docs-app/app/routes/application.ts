@@ -72,6 +72,23 @@ export default class Application extends Route {
         modules: {
           // us
           '#src/api-docs': () => import('./api-docs.gts'),
+          ...(() => {
+            const modules = import.meta.glob('./**/*.{gjs,gts,js,ts}', {
+              base: '../../public/docs',
+            });
+
+            const reformatted: Record<string, unknown> = {};
+
+            for (const [relativePath, module] of Object.entries(modules)) {
+              const availableName = relativePath.replace(/^./, '#public').replace('.gjs', '');
+
+              reformatted[availableName] = module;
+            }
+
+            // console.log(reformatted);
+
+            return reformatted;
+          })(),
 
           // ember-primitives
           'ember-primitives': () => import('ember-primitives'),

@@ -1,4 +1,5 @@
-import { render, settled } from '@ember/test-helpers';
+import { tracked } from '@glimmer/tracking';
+import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -68,7 +69,7 @@ module('<InViewport />', function (hooks) {
       @tracked isInViewport = false;
 
       <template>
-        <InViewport @mode="contain" @intersectionOptions={{hash rootMargin="0px"}}>
+        <InViewport @mode="contain" @intersectionOptions={{Object rootMargin="0px"}}>
           <div class="content">Visible content</div>
         </InViewport>
       </template>
@@ -129,7 +130,7 @@ module('<InViewport />', function (hooks) {
     // This test verifies that custom intersection options are accepted
     await render(
       <template>
-        <InViewport @intersectionOptions={{hash rootMargin="100px" threshold=0.5}}>
+        <InViewport @intersectionOptions={{Object rootMargin="100px" threshold=0.5}}>
           Content
         </InViewport>
       </template>

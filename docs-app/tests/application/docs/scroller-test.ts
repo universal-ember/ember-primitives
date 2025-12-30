@@ -54,7 +54,7 @@ module('Docs: Scroller', function (hooks) {
 
   test('the 4 buttons work as expected', async function (assert) {
     await visit('/6-utils/scroller');
-    await waitUntil(() => find('.glimdown-render'));
+    await waitUntil(() => find('[data-repl-output]'));
 
     const left = buttonByText('⬅️ ');
     const down = buttonByText('⬇️ ');

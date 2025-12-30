@@ -90,12 +90,14 @@ import { ComponentSignature } from 'kolay';
 </template>
 ```
 
-#### Classes
+#### KeyCombo Classes
 
 For styling with a stylesheet
 
 - `ember-primitives__key-combination`
 - `ember-primitives__key-combination__separator`
+
+<section>
 
 ### `<Key>`
 
@@ -110,10 +112,11 @@ import { ComponentSignature } from 'kolay';
 </template>
 ```
 
-#### Classes
+#### Key Classes
 
 For styling with a stylesheet
 
 - `ember-primitives__key`
 
 
+</section>

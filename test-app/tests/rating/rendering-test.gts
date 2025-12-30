@@ -63,7 +63,7 @@ module('<Rating>', function (hooks) {
       await render(<template><Rating /></template>);
 
       assert.strictEqual(rating.value, 0);
-      assert.strictEqual(rating.isReadonly, false);
+      assert.false(rating.isReadonly);
 
       await rating.select(3);
       assert.strictEqual(rating.value, 3);
@@ -286,7 +286,7 @@ module('<Rating>', function (hooks) {
     await render(<template><Rating @readonly={{true}} /></template>);
 
     assert.strictEqual(rating.value, 0);
-    assert.strictEqual(rating.isReadonly, true, 'is readonly');
+    assert.true(rating.isReadonly, 'is readonly');
     assert.dom(label).doesNotExist();
 
     await rating.select(3);
@@ -297,7 +297,7 @@ module('<Rating>', function (hooks) {
     await render(<template><Rating @interactive={{false}} /></template>);
 
     assert.strictEqual(rating.value, 0);
-    assert.strictEqual(rating.isReadonly, true, 'is readonly');
+    assert.true(rating.isReadonly, 'is readonly');
     assert.strictEqual(rating.label, 'Rated 0 out of 5');
 
     await rating.select(3);

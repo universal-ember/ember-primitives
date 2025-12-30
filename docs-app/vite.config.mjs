@@ -5,7 +5,7 @@ import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
 import { scopedCSS } from "ember-scoped-css/vite";
 
-export default defineConfig((/* { mode } */) => {
+export default defineConfig(async (/* { mode } */) => {
   return {
     build: {
       target: ["esnext"],

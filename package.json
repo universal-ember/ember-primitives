@@ -24,10 +24,10 @@
     "@nullvoxpopuli/dev": "workspace:*",
     "concurrently": "^9.2.1",
     "ember-primitives": "workspace:^",
-    "prettier": "^3.2.5",
-    "prettier-plugin-ember-template-tag": "^2.0.5",
+    "prettier": "^3.7.4",
+    "prettier-plugin-ember-template-tag": "^2.1.2",
     "release-plan": "^0.17.0",
-    "turbo": "^2.6.0",
+    "turbo": "~2.5.0",
     "typescript": "^5.9.3"
   },
   "engines": {
@@ -35,7 +35,7 @@
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@10.25.0",
+  "packageManager": "pnpm@10.26.2",
   "pnpm": {
     "peerDependencyRules": {
       "allowAny": [
@@ -45,26 +45,24 @@
         "@glimmer/syntax"
       ],
       "ignoreMissing": [
-        "webpack",
         "rsvp"
       ]
     },
     "overrides": {
       "@glimmer/component": "^2.0.0",
-      "babel-plugin-ember-template-compilation": "^2.4.0",
+      "@embroider/macros": "1.19.6",
+      "babel-plugin-ember-template-compilation": "^3.0.1",
+      "decorator-transformS": "2.3.1",
       "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
-      "ember-element-helper": ">= 0.8.6",
-      "reactiveweb": "^1.8.0",
+      "ember-element-helper": "0.8.8",
+      "ember-repl": "7.2.1",
+      "reactiveweb": "^1.9.1",
       "ember-source": "6.9.0",
+      "kolay": "4.0.5",
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {
-      "ember-mobile-menu": {
-        "dependencies": {
-          "ember-cached-decorator-polyfill": null
-        }
-      },
       "ember-modify-based-class-resource": {
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"
@@ -80,6 +78,8 @@
           "@glimmer/component": "^2.0.0"
         }
       }
+    },
+    "patchedDependencies": {
     }
   }
 }

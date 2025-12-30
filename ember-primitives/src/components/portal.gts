@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { assert } from "@ember/debug";
 import { schedule } from "@ember/runloop";
 import { buildWaiter } from "@ember/test-waiters";
@@ -97,10 +96,8 @@ export function wormhole(query: string | null | undefined | Element) {
 
 const anchor = modifier(
   (element: Element, [to, update]: [string, ReturnType<typeof ElementValue>["set"]]) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const found = findNearestTarget(element, to);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     update(found);
   },
 );

@@ -1,6 +1,12 @@
 # Link
 
-{{#let (comment "Link" "components/link") as |Docs|}}<Docs />{{/let}}
+```gjs live
+import { Comment } from '#src/api-docs';
+
+<template>
+  <Comment @name="Link" @declaration="components/link" />
+</template>
+```
 
 <Callout>
 

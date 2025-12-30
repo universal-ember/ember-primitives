@@ -75,7 +75,7 @@ module('Rendering | menu', function (hooks) {
 
     const items = findAll('[role="menuitem"]');
 
-    assert.equal(items.length, 3);
+    assert.strictEqual(items.length, 3);
     assert.dom(items[0]).hasText('Item 1');
     assert.dom(items[1]).hasText('Item 2');
     assert.dom(items[2]).hasText('Item 3');
@@ -133,7 +133,7 @@ module('Rendering | menu', function (hooks) {
 
     const items = findAll('[role="menuitem"]');
 
-    assert.equal(items.length, 3);
+    assert.strictEqual(items.length, 3);
     assert.dom(items[0]).hasText('Item 1');
     assert.dom(items[1]).hasText('Item 2');
     assert.dom(items[2]).hasText('Item 3');

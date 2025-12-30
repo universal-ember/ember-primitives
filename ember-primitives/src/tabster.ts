@@ -28,9 +28,8 @@ export async function setupTabster(
     setTabsterRoot?: boolean;
   } = {}
 ) {
-  const { createTabster, getDeloser, getMover, getTabster, disposeTabster } = await import(
-    'tabster'
-  );
+  const { createTabster, getDeloser, getMover, getTabster, disposeTabster } =
+    await import('tabster');
 
   tabster ??= true;
   setTabsterRoot ??= true;

@@ -63,11 +63,6 @@
       "tracked-toolbox": "^2.0.0"
     },
     "packageExtensions": {
-      "ember-mobile-menu": {
-        "dependencies": {
-          "ember-cached-decorator-polyfill": null
-        }
-      },
       "ember-modify-based-class-resource": {
         "peerDependencies": {
           "@glimmer/component": "^2.0.0"

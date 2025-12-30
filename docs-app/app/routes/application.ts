@@ -72,6 +72,10 @@ export default class Application extends Route {
         modules: {
           // us
           '#src/api-docs': () => import('./api-docs.gts'),
+          // importing from: "#public/*"
+          // matches:
+          //  - "../../public/docs/*"
+          //
           ...(() => {
             const modules = import.meta.glob('./**/*.{gjs,gts,js,ts}', {
               base: '../../public/docs',

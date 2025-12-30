@@ -72,10 +72,36 @@ export default class Application extends Route {
         modules: {
           // us
           '#src/api-docs': () => import('./api-docs.gts'),
-          // importing from: "#public/*"
-          // matches:
-          //  - "../../public/docs/*"
-          //
+          /*********************************
+           *
+           * importing from: "#public/*"
+           * matches:
+           * - "../../public/docs/*"
+           *
+           * -----------------------------------
+           *
+           * This has to be done in-app, rather than via the kolay plugin,
+           * because this is customizable, and I don't want to add "Magic"
+           * to the import-creation process.
+           *
+           * If I were to do it in the kolay plugin, I'd have to decide on a naming convention,
+           * and have potentially mis-implement things.
+           * At least with this being an early demo, it's safer to have it in userland for now.
+           * Anyone is welcome to try to convince me to build it in somehow, but I think it would require
+           * me parsing the markdown at build time, which I'm not sure I want to do 🤔
+           *
+           * TODO:
+           * currently when importing from the public directory, we get a warning about unconventional behavior from vite:
+           *     If you intend to use the URL of that asset, use /docs/3-ui/tabs/right-tabs.gjs?url.
+           *     Assets in public directory cannot be imported from JavaScript.
+           *     If you intend to import that asset, put the file in the src directory, and use /src/docs/3-ui/tabs/left-tabs.gjs instead of /public/docs/3-ui/tabs/left-tabs.gjs.
+           *     If you intend to use the URL of that asset, use /docs/3-ui/tabs/left-tabs.gjs?url.
+           *
+           * (which is fair)
+           *
+           * Silencing this warning *is* something the Kolay build plugin could probably easily do.
+           *
+           ********************************/
           ...(() => {
             const modules = import.meta.glob('./**/*.{gjs,gts,js,ts}', {
               base: '../../public/docs',

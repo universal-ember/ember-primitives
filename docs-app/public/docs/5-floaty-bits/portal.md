@@ -195,22 +195,35 @@ If you're migrating from [ember-wormhole](https://github.com/yapplabs/ember-worm
 
 ```gjs live preview no-shadow
 import { Portal } from 'ember-primitives/components/portal';
+import { cell } from 'ember-resources';
+
+const showDemo = cell(false);
+
+function reveal() {
+  setTimeout(() => {
+    showDemo.current = true;
+  }, 1000);
+}
+
 
 <template>
-  <fieldset class="border">
-    <legend>origin</legend>
-    Two portals:
-    <Portal @wormhole="wormhole-target">
-      content
-    </Portal>
+  {{ (reveal) }}
+  {{#if showDemo.current}}
+    <fieldset class="border">
+      <legend>origin</legend>
+      Two portals:
+      <Portal @wormhole="wormhole-target">
+        content
+      </Portal>
 
-    <Portal @wormhole="#wormhole-target">
-      extra content
-    </Portal>
-  </fieldset>
+      <Portal @wormhole="#wormhole-target">
+        extra content
+      </Portal>
+    </fieldset>
 
-  element is wherever we want:
-  <div id="wormhole-target"></div>
+    element is wherever we want:
+    <div id="wormhole-target"></div>
+  {{/if}}
 </template>
 ```
 
@@ -223,7 +236,7 @@ Additionally, ember-wormhole allows passing a plain `id` as in `#selector` witho
 And an improvement upon ember-wormhole is that if the element can already be found in the DOM, the portaled contents will render right away, and not wait until the next render cycle.
 Of note, the default behavior here is to append to the portal target instead of replace. The other usages do not default to this behavior.
 
-A major limitation of the wormhole approach is that it does not work well within shadowdom.
+A major limitation of the wormhole approach is that it does not work well within shadowdom nor does it work with off-canvas rendering (fragments not yet part of the DOM tree (which is a strategy that [repl-sdk](https://limber.glimdown.com/docs/repl-sdk) employs)).
 
 
 ### ember-stargate

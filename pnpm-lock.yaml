@@ -94,8 +94,8 @@ importers:
         specifier: ^3.14.0
         version: 3.20.0
       '@universal-ember/docs-support':
-        specifier: ^0.7.0
-        version: 0.7.0(0641f94bbf570ef1c773c8682938a4ae)
+        specifier: ^0.8.0
+        version: 0.8.0(0641f94bbf570ef1c773c8682938a4ae)
       assert:
         specifier: ^2.0.0
         version: 2.1.0
@@ -317,8 +317,8 @@ importers:
         specifier: ^16.5.0
         version: 16.5.0
       globby:
-        specifier: ^15.0.0
-        version: 15.0.0
+        specifier: ^16.1.0
+        version: 16.1.0
       inter-ui:
         specifier: ^4.0.2
         version: 4.1.1
@@ -2813,8 +2813,8 @@ packages:
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
 
-  '@universal-ember/docs-support@0.7.0':
-    resolution: {integrity: sha512-lPet4IACiLmmohgRpJG7047prFvSyWhjM/sDvsf+ltOhMS6c/K68AhlOAPkbMGSP6ECSImlgfNX5BBk1wcjsmQ==}
+  '@universal-ember/docs-support@0.8.0':
+    resolution: {integrity: sha512-4GFjbUC4dyP0KqqpPfwQ5dBiWq3zBu0aPqFwMA0Fi/XuEPNyE0kkO5OdLbBm+Dr93DvJrVxO/MlkfMJ0jlPTfA==}
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
     resolution: {integrity: sha512-ppLRUgHVaGRWUx0R0Ut06Mjo9gBaBkg3v/8AxusGLhsIotbBLuRk51rAzqLC8gq6NyyAojEXglNjzf6R948DNw==}
@@ -5542,10 +5542,6 @@ packages:
     resolution: {integrity: sha512-0Ia46fDOaT7k4og1PDW4YbodWWr3scS2vAr2lTbsplOt2WkKp0vQbkI9wKis/T5LV/dqPjO3bpS/z6GTJB82LA==}
     engines: {node: '>=18'}
 
-  globby@15.0.0:
-    resolution: {integrity: sha512-oB4vkQGqlMl682wL1IlWd02tXCbquGWM4voPEI85QmNKCaw8zGTm1f1rubFgkg3Eli2PtKlFgrnmUqasbQWlkw==}
-    engines: {node: '>=20'}
-
   globby@16.1.0:
     resolution: {integrity: sha512-+A4Hq7m7Ze592k9gZRy4gJ27DrXRNnC1vPjxTt1qQxEY8RxagBkBxivkCwg7FxSTG0iLLEMaUx13oOr0R2/qcQ==}
     engines: {node: '>=20'}
@@ -7840,10 +7836,6 @@ packages:
     engines: {node: ^16.14.0 || >=18.0.0}
     deprecated: This package is no longer supported. Please use @npmcli/package-json instead.
 
-  read-package-up@11.0.0:
-    resolution: {integrity: sha512-MbgfoNPANMdb4oRBNg5eqLbB2t2r+o5Ua1pNt8BqGp4I0FJZhuVSOj3PaBPni4azWuSzEdNn2evevzVmEk1ohQ==}
-    engines: {node: '>=18'}
-
   read-package-up@12.0.0:
     resolution: {integrity: sha512-Q5hMVBYur/eQNWDdbF4/Wqqr9Bjvtrw2kjGxxBbKLbx8bVCL8gcArjTy8zDUuLGQicftpMuU0riQNcAsbtOVsw==}
     engines: {node: '>=20'}
@@ -7851,10 +7843,6 @@ packages:
   read-pkg@10.0.0:
     resolution: {integrity: sha512-A70UlgfNdKI5NSvTTfHzLQj7NJRpJ4mT5tGafkllJ4wh71oYuGm/pzphHcmW4s35iox56KSK721AihodoXSc/A==}
     engines: {node: '>=20'}
-
-  read-pkg@9.0.1:
-    resolution: {integrity: sha512-9viLL4/n1BJUCT1NXVTdS1jtm80yDEgR5T4yCelII49Mbj0v1rZdKqj7zCiYdbB0CuCgdrvHcNogAKTFPBocFA==}
-    engines: {node: '>=18'}
 
   readable-stream@1.0.34:
     resolution: {integrity: sha512-ok1qVCJuRkNmvebYikljxJA/UEsKwLl2nI1OmaqAu4/UE+h0wKCHok4XkL/gvi39OacXvw59RJUOFUkDib2rHg==}
@@ -12342,7 +12330,7 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@universal-ember/docs-support@0.7.0(0641f94bbf570ef1c773c8682938a4ae)':
+  '@universal-ember/docs-support@0.8.0(0641f94bbf570ef1c773c8682938a4ae)':
     dependencies:
       '@embroider/addon-shim': 1.10.2
       '@fontsource/lexend': 5.2.11
@@ -12356,7 +12344,7 @@ snapshots:
       inter-ui: 4.1.1
       kolay: 4.0.5(f5af1c5b8aae72ecb09d5eac5866bcfd)
       package-up: 5.0.0
-      read-package-up: 11.0.0
+      read-package-up: 12.0.0
       should-handle-link: 1.3.0
       tailwindcss: 3.4.19(yaml@2.8.2)
     transitivePeerDependencies:
@@ -16240,15 +16228,6 @@ snapshots:
       slash: 5.1.0
       unicorn-magic: 0.3.0
 
-  globby@15.0.0:
-    dependencies:
-      '@sindresorhus/merge-streams': 4.0.0
-      fast-glob: 3.3.3
-      ignore: 7.0.5
-      path-type: 6.0.0
-      slash: 5.1.0
-      unicorn-magic: 0.3.0
-
   globby@16.1.0:
     dependencies:
       '@sindresorhus/merge-streams': 4.0.0
@@ -18898,12 +18877,6 @@ snapshots:
       normalize-package-data: 6.0.2
       npm-normalize-package-bin: 3.0.1
 
-  read-package-up@11.0.0:
-    dependencies:
-      find-up-simple: 1.0.1
-      read-pkg: 9.0.1
-      type-fest: 4.41.0
-
   read-package-up@12.0.0:
     dependencies:
       find-up-simple: 1.0.1
@@ -18917,14 +18890,6 @@ snapshots:
       parse-json: 8.3.0
       type-fest: 5.3.1
       unicorn-magic: 0.3.0
-
-  read-pkg@9.0.1:
-    dependencies:
-      '@types/normalize-package-data': 2.4.4
-      normalize-package-data: 6.0.2
-      parse-json: 8.3.0
-      type-fest: 4.41.0
-      unicorn-magic: 0.1.0
 
   readable-stream@1.0.34:
     dependencies:

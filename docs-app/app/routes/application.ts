@@ -5,6 +5,8 @@ import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
 import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
+import dark from 'shiki/themes/github-dark.mjs';
+import light from 'shiki/themes/github-light.mjs';
 import {
   tracked as wrappedTracked,
   TrackedArray,
@@ -23,7 +25,20 @@ import { APIDocs, Comment, comment, ComponentSignature, ModifierSignature } from
 export default class Application extends Route {
   async model() {
     const highlighter = await createHighlighterCore({
-      themes: [import('shiki/themes/github-dark.mjs'), import('shiki/themes/github-light.mjs')],
+      themes: [
+        {
+          ...dark,
+          colors: {
+            ...dark.colors,
+          },
+        },
+        {
+          ...light,
+          colors: {
+            ...light.colors,
+          },
+        },
+      ],
       langs: [
         import('shiki/langs/javascript.mjs'),
         import('shiki/langs/typescript.mjs'),

@@ -5,7 +5,7 @@ import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
 import { scopedCSS } from "ember-scoped-css/vite";
 
-export default defineConfig((/* { mode } */) => {
+export default defineConfig(async (/* { mode } */) => {
   return {
     build: {
       target: ["esnext"],
@@ -32,7 +32,7 @@ export default defineConfig((/* { mode } */) => {
     ],
     optimizeDeps: {
       // a wasm-providing dependency
-      exclude: ["content-tag", "ember-primitives", "decorator-transforms"],
+      exclude: ["content-tag", "ember-primitives"],
       // for top-level-await, etc
       esbuildOptions: {
         target: "esnext",

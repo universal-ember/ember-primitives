@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@shikijs/rehype": "^3.14.0",
-    "@universal-ember/docs-support": "^0.7.0",
+    "@universal-ember/docs-support": "^0.8.0",
     "assert": "^2.0.0",
     "change-case": "^5.4.4",
     "decorator-transforms": "^2.3.0",
@@ -108,7 +108,7 @@
     "eslint": "^9.39.2",
     "file-loader": "^6.2.0",
     "globals": "^16.5.0",
-    "globby": "^15.0.0",
+    "globby": "^16.1.0",
     "inter-ui": "^4.0.2",
     "loader.js": "^4.7.0",
     "postcss": "^8.4.47",

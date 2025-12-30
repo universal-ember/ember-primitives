@@ -22,6 +22,8 @@ export { Avatar } from './components/avatar.gts';
 export { Dialog, Dialog as Modal } from './components/dialog.gts';
 export { ExternalLink } from './components/external-link.gts';
 export { Form } from './components/form.gts';
+export type { InViewportMode, InViewportSignature } from './components/in-viewport.gts';
+export { InViewport } from './components/in-viewport.gts';
 export { Key, KeyCombo } from './components/keys.gts';
 export { StickyFooter } from './components/layout/sticky-footer.gts';
 export { Link } from './components/link.gts';

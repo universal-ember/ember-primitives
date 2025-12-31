@@ -22,7 +22,11 @@ import { InViewport } from 'ember-primitives/viewport';
 <template>
   <div style="height: 160px; overflow: auto; border: 1px solid gray; padding: 1rem;">
     <div style="height: 800px;">
-      <p style="height: 180px">Scroll down to see the InViewport component render</p>
+      <div style="display:grid; gap:4rem;">
+        <span>Scroll down</span>
+        <span>Scroll down</span>
+        <span>Scroll down</span>
+      </div>
       
       <InViewport @mode="contain">
         <div style="background: black; padding: 2rem;">
@@ -52,7 +56,11 @@ import { InViewport } from 'ember-primitives/viewport';
 <template>
   <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
     <div style="height: 600px;">
-      <p style="height:180px">Scroll down</p>
+      <div style="display:grid; gap:4rem;">
+        <span>Scroll down</span>
+        <span>Scroll down</span>
+        <span>Scroll down</span>
+      </div>
 
       <InViewport @mode="contain">
         <div style="background: black; padding: 1rem;">
@@ -78,7 +86,11 @@ import { InViewport } from 'ember-primitives/viewport';
 <template>
   <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
     <div style="height: 600px;">
-      <p style="height:180px">Scroll down</p>
+      <div style="display:grid; gap:4rem;">
+        <span>Scroll down</span>
+        <span>Scroll down</span>
+        <span>Scroll down</span>
+      </div>
 
       <InViewport @mode="replace">
         <div style="background: black; padding: 1rem;">

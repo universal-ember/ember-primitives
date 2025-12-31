@@ -1,5 +1,5 @@
-import { tracked } from '@glimmer/tracking';
-import { render } from '@ember/test-helpers';
+import { renderSettled } from '@ember/renderer';
+import { render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -39,7 +39,7 @@ module('<InViewport />', function (hooks) {
   });
 
   test('in contain mode, initially does not show yielded content', async function (assert) {
-    await render(
+    render(
       <template>
         <InViewport @mode="contain">
           <div class="content">Hidden content</div>
@@ -47,8 +47,13 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await renderSettled();
+    assert.dom().doesNotContainText('Hidden content');
+
     await new Promise(requestAnimationFrame);
-    assert.dom('.content').doesNotExist('Content is not rendered until intersection');
+    await settled();
+
+    assert.dom('.content').exists();
   });
 
   test('in replace mode, initially shows placeholder only', async function (assert) {
@@ -106,17 +111,22 @@ module('<InViewport />', function (hooks) {
   });
 
   test('replace mode shows placeholder until intersection', async function (assert) {
-    await render(
+    render(
       <template>
         <InViewport @mode="replace" class="placeholder">
           <span class="child">Replaced content</span>
         </InViewport>
       </template>
     );
+    await renderSettled();
+
+    assert.dom('.placeholder').exists();
 
     await new Promise(requestAnimationFrame);
-    // In replace mode, placeholder is visible initially
-    assert.dom('.placeholder').exists();
+    await settled();
+
+    assert.dom('.placeholder').doesNotExist();
+    assert.dom('.child').exists();
   });
 
   test('multiple InViewport components can coexist', async function (assert) {

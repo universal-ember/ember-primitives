@@ -2,12 +2,6 @@
   "name": "@nullvoxpopuli/dev",
   "private": true,
   "type": "module",
-  "version": "0.0.0",
-  "bin": {
-    "lint": "./bin/lint.js",
-    "ci-todo": "./bin/todo.js",
-    "unstable": "./bin/use-unstable-embroider.js"
-  },
   "dependencies": {
     "chalk": "^5.6.2",
     "ember-apply": "^2.16.0",

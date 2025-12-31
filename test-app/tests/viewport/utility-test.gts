@@ -33,7 +33,9 @@ module('viewport', function (hooks) {
 
       constructor(public owner: Owner) {}
 
-      #viewport = viewport(this);
+      get #viewport() {
+        return viewport(this);
+      }
 
       handleIntersection = (e: IntersectionObserverEntry) => {
         entry = e;
@@ -46,9 +48,7 @@ module('viewport', function (hooks) {
       }
 
       unobserve() {
-        if (this.element) {
-          this.#viewport.unobserve(this.element, this.handleIntersection);
-        }
+        this.#viewport.unobserve(this.element, this.handleIntersection);
       }
     }
 
@@ -99,7 +99,9 @@ module('viewport', function (hooks) {
 
       constructor(public owner: Owner) {}
 
-      #viewport = viewport(this);
+      get #viewport() {
+        return viewport(this);
+      }
 
       handleIntersection1 = (e: IntersectionObserverEntry) => {
         entry1 = e;
@@ -161,7 +163,9 @@ module('viewport', function (hooks) {
 
       constructor(public owner: Owner) {}
 
-      #viewport = viewport(this);
+      get #viewport() {
+        return viewport(this);
+      }
 
       handleIntersection = (e: IntersectionObserverEntry) => {
         entry = e;
@@ -211,7 +215,9 @@ module('viewport', function (hooks) {
 
       constructor(public owner: Owner) {}
 
-      #viewport = viewport(this);
+      get #viewport() {
+        return viewport(this);
+      }
 
       observe(element: Element) {
         this.element = element;
@@ -286,7 +292,9 @@ module('viewport', function (hooks) {
 
       constructor(public owner: Owner) {}
 
-      #viewport = viewport(this);
+      get #viewport() {
+        return viewport(this);
+      }
 
       handleIntersection1 = () => {
         called1 = true;
@@ -350,7 +358,9 @@ module('viewport', function (hooks) {
 
       constructor(public owner: Owner) {}
 
-      #viewport = viewport(this);
+      get #viewport() {
+        return viewport(this);
+      }
 
       handleIntersection = () => {
         calledAfterDestroy = true;

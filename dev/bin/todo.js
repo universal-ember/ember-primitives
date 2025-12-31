@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { execa } from 'execa';
 
 async function pending(command) {

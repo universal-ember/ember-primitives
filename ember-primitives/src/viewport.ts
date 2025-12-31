@@ -1,8 +1,6 @@
-import { assert } from '@ember/debug';
 import { registerDestructor } from '@ember/destroyable';
 
-import { createStore } from './store.ts';
-import { findOwner } from './utils.ts';
+import { createService } from './service.ts';
 
 /**
  * Creates or returns the ViewportObserverManager.
@@ -18,14 +16,7 @@ import { findOwner } from './utils.ts';
  * passed to observe.
  */
 export function viewport(context: object) {
-  const owner = findOwner(context);
-
-  assert(
-    `Could not find owner on the passed context (to viewport). viewport can only be used on an object whose lifetime is entangled with the application (which incidentally has an "owner").`,
-    owner
-  );
-
-  return createStore(owner, ViewportObserverManager);
+  return createService(context, ViewportObserverManager);
 }
 
 export interface ViewportOptions {
@@ -110,11 +101,18 @@ class ViewportObserverManager {
    * It will unobserve the `element` if the `callback` is not provided
    * or there are no more callbacks left for this `element`.
    *
-   * @param {object} element
+   * @param {Element | undefined | null} element
    * @param {function?} callback - The `callback` to remove from the listeners
    *   of the `element` intersection changes.
    */
-  unobserve(element: Element, callback: (entry: IntersectionObserverEntry) => unknown) {
+  unobserve(
+    element: Element | undefined | null,
+    callback: (entry: IntersectionObserverEntry) => unknown
+  ) {
+    if (!element) {
+      return;
+    }
+
     const callbacks = this.#callbacks.get(element);
 
     if (!callbacks) {

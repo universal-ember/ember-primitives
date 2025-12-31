@@ -65,5 +65,11 @@ export function findOwner(contextOrOwner: unknown): Owner | undefined {
 
   if (isOwner(maybeOwner)) return maybeOwner;
 
+  if ('owner' in contextOrOwner) {
+    const maybeOwner = contextOrOwner.owner;
+
+    if (isOwner(maybeOwner)) return maybeOwner;
+  }
+
   return;
 }

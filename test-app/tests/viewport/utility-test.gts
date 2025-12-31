@@ -8,7 +8,9 @@ import { viewport } from 'ember-primitives/viewport';
 
 import type Owner from '@ember/owner';
 
-function assertDefined<T>(value: T | null | undefined): asserts value is Exclude<T, null | undefined> {
+function assertDefined<T>(
+  value: T | null | undefined
+): asserts value is Exclude<T, null | undefined> {
   debugAssert('Value must be defined', value != null);
 }
 

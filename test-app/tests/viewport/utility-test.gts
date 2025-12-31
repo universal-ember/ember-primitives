@@ -1,4 +1,5 @@
 import { tracked } from '@glimmer/tracking';
+import { assert as debugAssert } from '@ember/debug';
 import { render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -6,6 +7,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { viewport } from 'ember-primitives/viewport';
 
 import type Owner from '@ember/owner';
+
+function assertDefined<T>(value: T | null | undefined): asserts value is Exclude<T, null | undefined> {
+  debugAssert('Value must be defined', value != null);
+}
 
 async function delay(ms = 50) {
   await new Promise((resolve) => {
@@ -55,6 +60,7 @@ module('viewport', function (hooks) {
     const element = document.querySelector('[data-test-element]');
 
     assert.ok(element, 'element exists');
+    debugAssert('element is defined', element !== null);
 
     if (element) {
       context.observe(element);
@@ -65,15 +71,15 @@ module('viewport', function (hooks) {
     assert.verifySteps(['callback'], 'callback was called initially');
     assert.ok(entry, 'entry was set');
 
-    if (entry) {
-      assert.ok(entry instanceof IntersectionObserverEntry, 'entry is correct type');
-      assert.strictEqual(entry.target, element, 'entry target is correct');
-    }
+    assertDefined(entry);
 
-    // Unobserve
+    const typedEntry = entry as IntersectionObserverEntry;
+
+    assert.ok(typedEntry instanceof IntersectionObserverEntry, 'entry is correct type');
+    assert.strictEqual(typedEntry.target, element, 'entry target is correct');
+
     context.unobserve();
 
-    // Reset entry
     entry = null;
 
     await delay(100);
@@ -127,8 +133,9 @@ module('viewport', function (hooks) {
     const element = document.querySelector('[data-test-element]');
 
     assert.ok(element, 'element exists');
+    debugAssert('element is defined', element !== null);
 
-    context.observe(element!);
+    context.observe(element);
 
     await delay(100);
 
@@ -181,17 +188,17 @@ module('viewport', function (hooks) {
 
     assert.ok(element, 'element exists');
 
-    context.observe(element!);
+    context.observe(element as Element);
 
     await delay(100);
 
     assert.ok(entry, 'entry was set');
-    assert.ok(typeof entry?.isIntersecting === 'boolean', 'isIntersecting is a boolean');
-    assert.ok(typeof entry?.intersectionRatio === 'number', 'intersectionRatio is a number');
-    assert.ok(entry?.boundingClientRect, 'boundingClientRect exists');
-    assert.ok(entry?.intersectionRect, 'intersectionRect exists');
+    assertDefined(entry);
 
-    context.unobserve();
+    const typedEntry = entry as IntersectionObserverEntry;
+
+    assert.ok(typedEntry.boundingClientRect, 'boundingClientRect exists');
+    assert.ok(typedEntry.intersectionRect, 'intersectionRect exists');
   });
 
   test('changing callback reference', async function (assert) {
@@ -249,9 +256,10 @@ module('viewport', function (hooks) {
     const element = document.querySelector('[data-test-element]');
 
     assert.ok(element, 'element exists');
+    debugAssert('element is defined', element !== null);
 
     context.updateCallback(callback1);
-    context.observe(element!);
+    context.observe(element);
 
     await delay(100);
 
@@ -310,15 +318,15 @@ module('viewport', function (hooks) {
     const element = document.querySelector('[data-test-element]');
 
     assert.ok(element, 'element exists');
+    debugAssert('element is defined', element !== null);
 
-    context.observe(element!);
+    context.observe(element);
 
     await delay(100);
 
     assert.ok(called1, 'callback1 was called');
     assert.ok(called2, 'callback2 was called');
 
-    // Reset flags
     called1 = false;
     called2 = false;
 

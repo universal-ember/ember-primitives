@@ -28,7 +28,9 @@ export default class Demo extends Component {
   @tracked isVisible = false;
   @tracked intersectionRatio = 0;
 
-  #viewport = viewport(this);
+  get #viewport() {
+    return viewport(this);
+  }
   element = null;
 
   constructor(owner, args) {
@@ -113,7 +115,9 @@ import Component from '@glimmer/component';
 import { registerDestructor } from '@ember/destroyable';
 
 export default class Demo extends Component {
-  #viewport = viewport(this);
+  get #viewport() {
+    return viewport(this);
+  }
 
   constructor(owner, args) {
     super(owner, args);

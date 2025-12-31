@@ -1,5 +1,23 @@
 # Changelog 
 
+## Release (2025-12-31)
+
+* ember-primitives 0.49.0 (minor)
+* which-heading-do-i-need 0.2.2 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#607](https://github.com/universal-ember/ember-primitives/pull/607) add `<InViewport>` component and `viewport()` singleton for optimized rendering based on viewport visibility ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* Other
+  * [#608](https://github.com/universal-ember/ember-primitives/pull/608) Add recommended extensions for VS Code ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`, `which-heading-do-i-need`
+  * [#602](https://github.com/universal-ember/ember-primitives/pull/602) Upgrade Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-12-19)
 
 * ember-primitives 0.48.2 (patch)

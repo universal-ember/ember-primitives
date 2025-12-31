@@ -47,6 +47,7 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     assert.dom('.content').doesNotExist('Content is not rendered until intersection');
   });
 
@@ -59,6 +60,7 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     assert.dom('.content').doesNotExist('Content is not rendered until intersection');
   });
 
@@ -85,6 +87,7 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     // Note: Full testing of IntersectionObserver requires manual triggering
     // which would need custom test utilities or mocking
     assert.ok(true, 'Component renders without errors');
@@ -109,6 +112,7 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     // Even when not intersected, contain mode wraps the content
     assert.dom('.placeholder').exists();
   });
@@ -122,6 +126,7 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     // In replace mode, placeholder is visible initially
     assert.dom('.placeholder').exists();
   });
@@ -136,6 +141,7 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     assert.ok(true, 'Component accepts custom intersection options');
   });
 
@@ -147,7 +153,8 @@ module('<InViewport />', function (hooks) {
       </template>
     );
 
+    await new Promise(requestAnimationFrame);
     assert.dom('.viewport-1').exists();
     assert.dom('.viewport-2').exists();
-  });
+  });}
 });

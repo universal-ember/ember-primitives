@@ -29,24 +29,13 @@ Requires you to maintain a unique ID for every invocation.
 
 ```gjs live preview no-shadow
 import { anchorTo } from 'ember-primitives/floating-ui';
-import { cell } from 'ember-resources';
-
-const showDemo = cell(false);
-
-// TODO: make a "Show when seen" component, using 
-//       https://developer.mozilla.org/en-US/docs/Web/API/Element/checkVisibility 
-function reveal() {
-  setTimeout(() => {
-    showDemo.current = true;
-  }, 1000);
-}
+import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  {{ (reveal) }}
-  {{#if showDemo.current}}
+  <InViewport>
     <button id="reference" popovertarget="floating">Click the reference element</button>
     <menu popover id="floating" {{anchorTo "#reference"}}>Here is <br> floating element</menu>
-  {{/if}}
+  </InViewport>
 
   <style>
     menu#floating {

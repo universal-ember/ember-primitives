@@ -195,20 +195,10 @@ If you're migrating from [ember-wormhole](https://github.com/yapplabs/ember-worm
 
 ```gjs live preview no-shadow
 import { Portal } from 'ember-primitives/components/portal';
-import { cell } from 'ember-resources';
-
-const showDemo = cell(false);
-
-function reveal() {
-  setTimeout(() => {
-    showDemo.current = true;
-  }, 1000);
-}
-
+import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  {{ (reveal) }}
-  {{#if showDemo.current}}
+  <InViewport>
     <fieldset class="border">
       <legend>origin</legend>
       Two portals:
@@ -223,7 +213,7 @@ function reveal() {
 
     element is wherever we want:
     <div id="wormhole-target"></div>
-  {{/if}}
+  </InViewport>
 </template>
 ```
 

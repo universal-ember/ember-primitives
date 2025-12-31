@@ -85,7 +85,9 @@ module('<InViewport />', function (hooks) {
       assert.dom().doesNotContainText('Hidden content');
 
       await show();
+      assert.dom().containsText('Hidden content');
 
+      await hide();
       assert.dom().containsText('Hidden content');
     });
 
@@ -118,7 +120,6 @@ module('<InViewport />', function (hooks) {
       assert.dom('.placeholder').doesNotContainText('Child content');
 
       await show();
-
       assert.dom('.placeholder').containsText('Child content');
     });
   });
@@ -136,7 +137,9 @@ module('<InViewport />', function (hooks) {
       assert.dom().doesNotContainText('Replaced content');
 
       await show();
+      assert.dom().containsText('Replaced content');
 
+      await hide();
       assert.dom().containsText('Replaced content');
     });
 

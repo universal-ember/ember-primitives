@@ -21,7 +21,7 @@ import { InViewport } from 'ember-primitives/viewport';
 
 <template>
   <div style="height: 160px; overflow: auto; border: 1px solid gray; padding: 1rem;">
-    <div style="height: 800px;">
+    <div style="height: 800px;" tabindex="0">
       <div style="display:grid; gap:4rem;">
         <span>Scroll down</span>
         <span>Scroll down</span>
@@ -54,7 +54,7 @@ In `contain` mode, the placeholder element wraps the yielded content once render
 import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
+  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;" tabindex="0">
     <div style="height: 600px;">
       <div style="display:grid; gap:4rem;">
         <span>Scroll down</span>
@@ -85,7 +85,7 @@ import { InViewport } from 'ember-primitives/viewport';
 
 <template>
   <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
-    <div style="height: 600px;">
+    <div style="height: 600px;" tabindex="0">
       <div style="display:grid; gap:4rem;">
         <span>Scroll down</span>
         <span>Scroll down</span>

@@ -46,7 +46,7 @@ export default class Demo extends Component {
   }
 
   <template>
-    <div class="scroll-container">
+    <div class="scroll-container" tabindex="0">
       <div class="spacer">Scroll down to see the element enter the viewport</div>
       
       <div {{this.observeIntersection}} class="observed-element">

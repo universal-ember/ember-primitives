@@ -142,7 +142,7 @@ import { APIDocs } from 'kolay';
 <template>
   <APIDocs 
     @package="ember-primitives" 
-    @module="declarations/viewport" 
+    @module="declarations/viewport/viewport" 
     @name="viewport" />
 </template>
 ```

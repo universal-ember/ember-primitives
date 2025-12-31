@@ -123,6 +123,7 @@ export default class Application extends Route {
           // ember-primitives
           'ember-primitives': () => import('ember-primitives'),
           'ember-primitives/head': () => import('ember-primitives/head'),
+          'ember-primitives/viewport': () => import('ember-primitives/viewport'),
           'ember-primitives/floating-ui': () => import('ember-primitives/floating-ui'),
           'ember-primitives/on-resize': () => import('ember-primitives/on-resize'),
           'ember-primitives/resize-observer': () => import('ember-primitives/resize-observer'),

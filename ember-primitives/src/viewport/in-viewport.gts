@@ -5,7 +5,7 @@ import { assert } from "@ember/debug";
 import { element } from "ember-element-helper";
 import { modifier } from "ember-modifier";
 
-import type Owner from "@ember/owner";
+import { viewport } from "./viewport.ts";
 
 export type InViewportMode = "replace" | "contain";
 
@@ -29,18 +29,6 @@ export interface InViewportSignature {
      * Default: 'contain'
      */
     mode?: InViewportMode;
-
-    /**
-     * IntersectionObserver options.
-     * Determines how close to the viewport the element needs to be
-     * before it's considered "in viewport"
-     */
-    intersectionOptions?: IntersectionObserverInit;
-
-    /**
-     * CSS class to apply to the placeholder element
-     */
-    class?: string;
   };
   Blocks: {
     /**
@@ -77,67 +65,34 @@ export class InViewport extends Component<InViewportSignature> {
    */
   @tracked hasIntersected = false;
 
-  /**
-   * Reference to the IntersectionObserver instance
-   */
-  private observer: IntersectionObserver | null = null;
-
-  /**
-   * Reference to the placeholder element
-   */
-  private placeholderElement: Element | null = null;
-
-  constructor(owner: Owner, args: InViewportSignature["Args"]) {
-    super(owner, args);
-
-    assert(
-      'InViewport mode must be either "replace" or "contain"',
-      !args.mode || args.mode === "replace" || args.mode === "contain",
-    );
+  get #viewport() {
+    return viewport(this);
   }
 
-  /**
-   * Initializes the IntersectionObserver when the element is inserted into the DOM
-   */
   setupObserver = modifier((element: Element) => {
-    this.placeholderElement = element;
-
     if (this.hasIntersected) {
-      // Already intersected, no need to observe
       return;
     }
 
-    const options = this.args.intersectionOptions ?? {};
+    this.#viewport.observe(element, this.handle);
 
-    // Default to 50% margin to catch elements that are "near" the viewport
-    if (!options.rootMargin) {
-      options.rootMargin = "50%";
-    }
-
-    this.observer = new IntersectionObserver(([entry]) => {
-      if (entry?.isIntersecting) {
-        this.hasIntersected = true;
-
-        // Disconnect and clean up the observer
-        if (this.observer) {
-          this.observer.disconnect();
-          this.observer = null;
-        }
-      }
-    }, options);
-
-    this.observer.observe(element);
-
-    // Cleanup when the component is destroyed
-    return () => {
-      if (this.observer) {
-        this.observer.disconnect();
-        this.observer = null;
-      }
-    };
+    return () => this.#viewport.unobserve(element, this.handle);
   });
 
+  handle = (entry: IntersectionObserverEntry) => {
+    if (entry?.isIntersecting) {
+      this.hasIntersected = true;
+
+      this.#viewport.unobserve(entry.target, this.handle);
+    }
+  };
+
   get mode(): InViewportMode {
+    assert(
+      'InViewport mode must be either "replace" or "contain"',
+      !this.args.mode || this.args.mode === "replace" || this.args.mode === "contain",
+    );
+
     return this.args.mode ?? "contain";
   }
 
@@ -159,10 +114,10 @@ export class InViewport extends Component<InViewportSignature> {
         {{#if this.hasReachedViewport}}
           {{yield}}
         {{else}}
-          <El class={{@class}} {{this.setupObserver}} ...attributes />
+          <El {{this.setupObserver}} ...attributes />
         {{/if}}
       {{else}}
-        <El class={{@class}} {{this.setupObserver}} ...attributes>
+        <El {{this.setupObserver}} ...attributes>
           {{#if this.hasReachedViewport}}
             {{yield}}
           {{/if}}

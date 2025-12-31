@@ -12,16 +12,20 @@ pnpm add ember-primitives
 
 ## Usage
 
+You'll need to inspect-element to see that the component is not rendered when scrolled off screen.
+
+<div class="featured-demo">
+
 ```gjs live preview
-import { InViewport } from 'ember-primitives';
+import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 300px; overflow: auto; border: 1px solid gray; padding: 1rem;">
+  <div style="height: 160px; overflow: auto; border: 1px solid gray; padding: 1rem;">
     <div style="height: 800px;">
-      <p>Scroll down to see the InViewport component render</p>
+      <p style="height: 180px">Scroll down to see the InViewport component render</p>
       
-      <InViewport class="placeholder" @mode="contain">
-        <div style="background: lightblue; padding: 2rem; border: 2px solid blue; margin: 2rem 0;">
+      <InViewport @mode="contain">
+        <div style="background: black; padding: 2rem;">
           This content is rendered only when near the viewport!
         </div>
       </InViewport>
@@ -32,22 +36,26 @@ import { InViewport } from 'ember-primitives';
 </template>
 ```
 
+</div>
+
 ## Modes
 
 ### Contain Mode (Default)
 
 In `contain` mode, the placeholder element wraps the yielded content once rendered. The element remains in the DOM structure.
 
+<div class="featured-demo">
+
 ```gjs live preview
-import { InViewport } from 'ember-primitives';
+import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 300px; overflow: auto; border: 1px solid gray; padding: 1rem;">
+  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
     <div style="height: 600px;">
-      <p>Scroll down</p>
+      <p style="height:180px">Scroll down</p>
 
-      <InViewport @mode="contain" class="my-container" style="background: lightgray;">
-        <div style="background: lightblue; padding: 1rem;">
+      <InViewport @mode="contain">
+        <div style="background: black; padding: 1rem;">
           Content in contain mode
         </div>
       </InViewport>
@@ -56,20 +64,24 @@ import { InViewport } from 'ember-primitives';
 </template>
 ```
 
+</div>
+
 ### Replace Mode
 
 In `replace` mode, the placeholder element is replaced entirely by the yielded content once rendered.
 
+<div class="featured-demo">
+
 ```gjs live preview
-import { InViewport } from 'ember-primitives';
+import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 300px; overflow: auto; border: 1px solid gray; padding: 1rem;">
+  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
     <div style="height: 600px;">
-      <p>Scroll down</p>
+      <p style="height:180px">Scroll down</p>
 
-      <InViewport @mode="replace" class="placeholder">
-        <div style="background: lightblue; padding: 1rem;">
+      <InViewport @mode="replace">
+        <div style="background: black; padding: 1rem;">
           This replaces the placeholder
         </div>
       </InViewport>
@@ -78,44 +90,21 @@ import { InViewport } from 'ember-primitives';
 </template>
 ```
 
+</div>
+
 ## Custom Tag Name
 
 You can specify a custom tag name for the placeholder element:
 
 ```gjs live preview
-import { InViewport } from 'ember-primitives';
+import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <InViewport @tagName="section" class="my-section">
+  <InViewport @tagName="section">
     <div style="background: lightblue; padding: 1rem;">
       Content wrapped in a section element
     </div>
   </InViewport>
-</template>
-```
-
-## Custom Intersection Options
-
-Control when the component is considered "in viewport" using `@intersectionOptions`:
-
-```gjs live preview
-import { InViewport } from 'ember-primitives';
-
-<template>
-  <div style="height: 300px; overflow: auto; border: 1px solid gray; padding: 1rem;">
-    <div style="height: 800px;">
-      <p>Scroll down to trigger at different scroll position</p>
-
-      {{! Renders when 200px away from viewport edge }}
-      <InViewport @intersectionOptions={{hash rootMargin="200px"}}>
-        <div style="background: lightblue; padding: 1rem; margin: 2rem 0;">
-          Rendered 200px before entering viewport
-        </div>
-      </InViewport>
-
-      <div style="height: 400px;"></div>
-    </div>
-  </div>
 </template>
 ```
 
@@ -143,7 +132,7 @@ import { ComponentSignature } from 'kolay';
 <template>
   <ComponentSignature 
     @package="ember-primitives" 
-    @module="declarations/components/in-viewport" 
+    @module="declarations/viewport" 
     @name="InViewportSignature" />
 </template>
 ```

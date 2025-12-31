@@ -3,7 +3,7 @@ import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import { InViewport } from 'ember-primitives';
+import { InViewport } from 'ember-primitives/viewport';
 
 module('<InViewport />', function (hooks) {
   setupRenderingTest(hooks);
@@ -117,20 +117,6 @@ module('<InViewport />', function (hooks) {
     await new Promise(requestAnimationFrame);
     // In replace mode, placeholder is visible initially
     assert.dom('.placeholder').exists();
-  });
-
-  test('intersection observer is created with custom options', async function (assert) {
-    // This test verifies that custom intersection options are accepted
-    await render(
-      <template>
-        <InViewport @intersectionOptions={{Object rootMargin="100px" threshold=0.5}}>
-          Content
-        </InViewport>
-      </template>
-    );
-
-    await new Promise(requestAnimationFrame);
-    assert.ok(true, 'Component accepts custom intersection options');
   });
 
   test('multiple InViewport components can coexist', async function (assert) {

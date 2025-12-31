@@ -14,6 +14,8 @@ Introduced in [0.49.0](https://github.com/universal-ember/ember-primitives/relea
 
 ## Usage
 
+You'll need to inspect-element to see that the text is changing when leaving view.
+
 
 <div class="featured-demo">
 
@@ -21,8 +23,8 @@ Introduced in [0.49.0](https://github.com/universal-ember/ember-primitives/relea
 import { viewport } from 'ember-primitives/viewport';
 
 import Component from '@glimmer/component';
-import { registerDestructor } from '@ember/destroyable';
 import { tracked } from '@glimmer/tracking';
+import { modifier } from 'ember-modifier';
 
 export default class Demo extends Component {
   @tracked isVisible = false;
@@ -31,22 +33,12 @@ export default class Demo extends Component {
   get #viewport() {
     return viewport(this);
   }
-  element = null;
 
-  constructor(owner, args) {
-    super(owner, args);
-
-    registerDestructor(this, () => {
-      if (this.element) {
-        this.#viewport.unobserve(this.element, this.handleIntersection);
-      }
-    });
-  }
-
-  setupElement = (element) => {
-    this.element = element;
+  observeIntersection = modifier((element) => {
     this.#viewport.observe(element, this.handleIntersection);
-  };
+
+    return () => this.#viewport.unobserve(element, this.handleIntersection);
+  });
 
   handleIntersection = (entry) => {
     this.isVisible = entry.isIntersecting;
@@ -57,7 +49,7 @@ export default class Demo extends Component {
     <div class="scroll-container">
       <div class="spacer">Scroll down to see the element enter the viewport</div>
       
-      <div {{this.setupElement}} class="observed-element">
+      <div {{this.observeIntersection}} class="observed-element">
         {{#if this.isVisible}}
           ✓ Element is visible in viewport ({{this.intersectionRatio}})
         {{else}}
@@ -71,28 +63,26 @@ export default class Demo extends Component {
     <style>
       @scope {
         .scroll-container {
-          height: 300px;
+          height: 160px;
           overflow-y: scroll;
-          border: 2px dashed #666;
-          padding: 1rem;
+          border: 2px dashed black;
+          padding: 2rem;
         }
         
         .spacer {
-          height: 400px;
+          height: 180px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #666;
         }
         
         .observed-element {
-          padding: 2rem;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          padding: 1rem;
+          background: linear-gradient(135deg, #66aeea 0%, #862ba2 100%);
           color: white;
           border-radius: 8px;
           text-align: center;
           font-weight: bold;
-          min-height: 100px;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -112,26 +102,14 @@ You can provide options to configure the intersection observer:
 ```gjs
 import { viewport } from 'ember-primitives/viewport';
 import Component from '@glimmer/component';
-import { registerDestructor } from '@ember/destroyable';
+import { modifier } from 'ember-modifier';
 
 export default class Demo extends Component {
   get #viewport() {
     return viewport(this);
   }
 
-  constructor(owner, args) {
-    super(owner, args);
-
-    registerDestructor(this, () => {
-      if (this.element) {
-        this.#viewport.unobserve(this.element, this.handleIntersection);
-      }
-    });
-  }
-
-  setupElement = (element) => {
-    this.element = element;
-    
+  observeIntersection = modifier((element) => {
     // Observe with custom options
     this.#viewport.observe(element, this.handleIntersection, {
       // Trigger 100px before entering viewport
@@ -139,7 +117,9 @@ export default class Demo extends Component {
       // Trigger at 0%, 50%, and 100% visibility
       threshold: [0, 0.5, 1.0]
     });
-  };
+
+    return () => this.#viewport.unobserve(element, this.handleIntersection);
+  });
 
   handleIntersection = (entry) => {
     console.log('Intersection ratio:', entry.intersectionRatio);
@@ -147,7 +127,7 @@ export default class Demo extends Component {
   }
 
   <template>
-    <div {{this.setupElement}}>
+    <div {{this.observeIntersection}}>
       Observed content
     </div>
   </template>
@@ -169,5 +149,5 @@ import { APIDocs } from 'kolay';
 
 ## See Also
 
-- [`InViewport`](/in-viewport) - A component built on top of this utility for declarative viewport-based rendering
-- [ResizeObserver](/resize-observer) - Similar pattern for observing element size changes
+- [`InViewport`](/6-utils/in-viewport) - A component built on top of this utility for declarative viewport-based rendering
+- [ResizeObserver](/6-utils/resize-observer) - Similar pattern for observing element size changes

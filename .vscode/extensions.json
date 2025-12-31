@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "typed-ember.glint2-vscode",
-    "pflannery.vscode-versionlens"
+    "pflannery.vscode-versionlens",
+    "GitHub.copilot"
   ]
 }

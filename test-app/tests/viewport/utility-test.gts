@@ -1,5 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 import { assert as debugAssert } from '@ember/debug';
+import { destroy } from '@ember/destroyable';
 import { render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -338,5 +339,66 @@ module('viewport', function (hooks) {
 
     assert.notOk(called1, 'callback1 was not called after unobserveAll');
     assert.notOk(called2, 'callback2 was not called after unobserveAll');
+  });
+
+  test('destruction unobserves all observed elements', async function (assert) {
+    let calledAfterDestroy = false;
+
+    class TestContext {
+      element1: Element | null = null;
+      element2: Element | null = null;
+
+      constructor(public owner: Owner) {}
+
+      #viewport = viewport(this);
+
+      handleIntersection = () => {
+        calledAfterDestroy = true;
+        assert.step('callback');
+      };
+
+      observe(element: Element) {
+        this.#viewport.observe(element, this.handleIntersection);
+      }
+
+      observeMultiple(element1: Element, element2: Element) {
+        this.element1 = element1;
+        this.element2 = element2;
+        this.#viewport.observe(element1, this.handleIntersection);
+        this.#viewport.observe(element2, this.handleIntersection);
+      }
+    }
+
+    const context = new TestContext(this.owner);
+
+    await render(
+      <template>
+        <div data-test-element1 style="width: 100px; height: 100px;"></div>
+        <div data-test-element2 style="width: 100px; height: 100px;"></div>
+      </template>
+    );
+
+    const element1 = document.querySelector('[data-test-element1]');
+    const element2 = document.querySelector('[data-test-element2]');
+
+    assert.ok(element1, 'element1 exists');
+    assert.ok(element2, 'element2 exists');
+    debugAssert('element1 is defined', element1 !== null);
+    debugAssert('element2 is defined', element2 !== null);
+
+    context.observeMultiple(element1, element2);
+
+    await delay(100);
+
+    assert.verifySteps(['callback', 'callback'], 'both callbacks were called initially');
+
+    // Destroy the context, which should trigger destruction of the viewport manager
+    destroy(context);
+
+    calledAfterDestroy = false;
+
+    await delay(100);
+
+    assert.notOk(calledAfterDestroy, 'callbacks were not called after destruction');
   });
 });

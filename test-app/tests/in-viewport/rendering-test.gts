@@ -65,18 +65,6 @@ module('<InViewport />', function (hooks) {
   });
 
   test('shows content after manual intersection trigger', async function (assert) {
-    let component: any;
-
-    class TestComponent {
-      @tracked isInViewport = false;
-
-      <template>
-        <InViewport @mode="contain" @intersectionOptions={{Object rootMargin="0px"}}>
-          <div class="content">Visible content</div>
-        </InViewport>
-      </template>
-    }
-
     // This test verifies the basic intersection behavior
     // In a real app, scrolling would trigger the intersection
     await render(

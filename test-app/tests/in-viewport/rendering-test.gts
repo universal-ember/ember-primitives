@@ -156,5 +156,5 @@ module('<InViewport />', function (hooks) {
     await new Promise(requestAnimationFrame);
     assert.dom('.viewport-1').exists();
     assert.dom('.viewport-2').exists();
-  });}
+  });
 });

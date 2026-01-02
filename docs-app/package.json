@@ -62,6 +62,7 @@
     "@babel/core": "^7.28.5",
     "@babel/plugin-transform-runtime": "^7.28.5",
     "@babel/plugin-transform-typescript": "^7.28.5",
+    "@babel/runtime": "^7.28.4",
     "@ember/app-tsconfig": "^1.0.0",
     "@ember/optional-features": "^2.3.0",
     "@ember/string": "^4.0.0",

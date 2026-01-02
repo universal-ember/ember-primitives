@@ -13,21 +13,6 @@ module.exports = {
         onlyRemoveTypeImports: true,
       },
     ],
-    [
-      'babel-plugin-ember-template-compilation',
-      {
-        targetFormat: 'hbs',
-        transforms: [],
-      },
-    ],
-    [
-      'module:decorator-transforms',
-      {
-        runtime: {
-          import: 'decorator-transforms/runtime-esm',
-        },
-      },
-    ],
   ],
 
   generatorOpts: {

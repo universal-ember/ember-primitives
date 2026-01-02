@@ -390,9 +390,7 @@ module('<Rating>', function (hooks) {
       const lte = (a: number, b: number) => a <= b;
       const lt = (a: number, b: number) => a < b;
 
-      await render(
-        <template><Rating @step={{0.5}} @value={{2.5}} @icon={{Icon}} /></template>
-      );
+      await render(<template><Rating @step={{0.5}} @value={{2.5}} @icon={{Icon}} /></template>);
 
       assert.strictEqual(rating.value, 2.5);
       assert.strictEqual(rating.starTexts, 'full full half empty empty');

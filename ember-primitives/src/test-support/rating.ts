@@ -94,8 +94,10 @@ class RatingPageObject {
             // Check if we have different visual representation for half stars
             return '⯨'; // Unicode half-star or we use this as indicator
           }
+
           return stars.selected;
         }
+
         return stars.unselected;
       })
       .join(' ');

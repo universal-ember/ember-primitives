@@ -48,7 +48,7 @@ export interface Signature {
      * For string icons: Defaults to the same as @icon
      * For component icons: The component receives @percentSelected to render partial states
      */
-    iconHalf?: string | ComponentIcons['icon'];
+    iconHalf?: string | ComponentIcons["icon"];
 
     /**
      * Prevents click events on the icons and sets aria-readonly.

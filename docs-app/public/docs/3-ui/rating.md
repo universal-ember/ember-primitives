@@ -220,6 +220,126 @@ const Icon = <template>
 
 </div>
 </details>
+<details><summary>Half-Ratings</summary>
+<div class="featured-demo">
+
+```gjs live preview 
+import { Rating } from 'ember-primitives';
+import { cell } from 'ember-resources';
+
+const value = cell(3.5);
+
+<template>
+  <Rating 
+    @value={{value.current}} 
+    @step={{0.5}}
+    @iconHalf="⯨"
+    @onChange={{value.set}}
+  >
+    <:label>Half-Star Rating</:label>
+  </Rating>
+
+  <p>Current value: {{value.current}}</p>
+
+  <style>
+    @import "/demo-support/utilities.css";
+
+    .ember-primitives__rating__items {
+      width: fit-content;
+      display: grid;
+      gap: 0.5rem;
+      grid-auto-flow: column;
+      justify-content: center;
+      align-items: center;
+      height: 4rem;
+    }
+
+    .ember-primitives__rating__item {
+      font-size: 3rem;
+      line-height: 1em;
+      transition: all 0.1s;
+      transform-origin: center;
+      aspect-ratio: 1 / 1;
+      user-select: none;
+      width: 3rem;
+      text-align: center;
+      border-radius: 1.5rem;
+
+      label:hover {
+        cursor: pointer;
+      }
+
+      &:has(input:focus-visible) {
+        --tw-ring-opacity: 1;
+        --tw-ring-offset-color: #000;
+        --tw-ring-offset-width: 2px;
+        --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
+        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+      }
+
+      input {
+        appearance: none;
+        position: absolute;
+
+        &:focus-visible, &:focus {
+          outline: none;
+          box-shadow: none;
+        }
+      }
+
+      &[data-selected] {
+        color: gold;
+      }
+
+      /* Style half-selected stars differently if needed */
+      &[data-percent-selected] {
+        /* Could apply gradient or other styling */
+      }
+    } 
+
+    .ember-primitives__rating__item:hover {
+        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+    } 
+  </style>
+</template>
+```
+
+</div>
+
+For more precise control with half-ratings, you can use a range input:
+
+```gjs
+<Rating @step={{0.5}} as |rating|>
+  <rating.Range step="0.5" />
+  <rating.Stars />
+</Rating>
+```
+
+Or use a component icon that receives `@percentSelected` to render gradient fills:
+
+```gjs
+const GradientStar = <template>
+  <svg ...attributes viewBox="0 0 24 24">
+    <defs>
+      <linearGradient id="grad-{{@value}}">
+        <stop offset="{{@percentSelected}}%" stop-color="gold" />
+        <stop offset="{{@percentSelected}}%" stop-color="lightgray" />
+      </linearGradient>
+    </defs>
+    <path fill="url(#grad-{{@value}})" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </svg>
+</template>
+
+<template>
+  <Rating @icon={{GradientStar}} @step={{0.5}} />
+</template>
+```
+
+</details>
 <details><summary>No Styles</summary>
 <div class="featured-demo">
 
@@ -262,6 +382,8 @@ const Star = <template>
 - Any shape can be used
 - All styles / directions possible via CSS
 - Full componets can be passed for the rating items / stars, and will have all the same information is available (properties, state, etc). This allows for custom icons, svgs, or some more complex pattern.
+- Half-ratings and fractional values supported via the `@step` property
+- Separate icons for half-selected states via `@iconHalf`
 
 ## Accessibility
 
@@ -382,6 +504,7 @@ All these classes do nothing on their own, but offer a way for folks authoring C
 
     - `[data-number]` number. Which numer of the total this item is.
     - `[data-selected]` boolean.
+    - `[data-percent-selected]` number (0-100). The percentage of selection for this item. Useful for styling half-stars or fractional ratings.
     - `[data-readonly]` boolean.
     - `[data-disabled]` boolean.
 

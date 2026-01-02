@@ -84,7 +84,20 @@ class RatingPageObject {
     const elements = this.#starElements;
 
     return elements
-      .map((x) => (x.hasAttribute('data-selected') ? stars.selected : stars.unselected))
+      .map((x) => {
+        if (x.hasAttribute('data-selected')) {
+          const percent = x.getAttribute('data-percent-selected');
+          const percentNum = percent ? parseFloat(percent) : 100;
+          
+          // If it's a partial selection (between 0 and 100 exclusive), it could be a half star
+          if (percentNum > 0 && percentNum < 100) {
+            // Check if we have different visual representation for half stars
+            return '⯨'; // Unicode half-star or we use this as indicator
+          }
+          return stars.selected;
+        }
+        return stars.unselected;
+      })
       .join(' ');
   }
 

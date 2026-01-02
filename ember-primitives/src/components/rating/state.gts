@@ -11,6 +11,7 @@ export class RatingState extends Component<{
   Args: {
     max: number | undefined;
     value: number | undefined;
+    step: number | undefined;
     readonly: boolean | undefined;
     name: string;
     onChange?: (value: number) => void;
@@ -49,13 +50,18 @@ export class RatingState extends Component<{
       return;
     }
 
-    if (value === this._value) {
+    const step = this.args.step ?? 1;
+    // Round to nearest step to avoid floating point precision issues
+    const roundedValue = Math.round(value / step) * step;
+    const finalValue = Math.max(0, Math.min(roundedValue, this.args.max ?? 5));
+
+    if (finalValue === this._value) {
       this._value = 0;
     } else {
-      this._value = value;
+      this._value = finalValue;
     }
 
-    this.args.onChange?.(value);
+    this.args.onChange?.(this._value);
   };
 
   setFromString = (value: unknown) => {

@@ -10,7 +10,7 @@ export const Stars: TOC<{
     stars: number[];
     icon: StringIcons["icon"] | ComponentIcons["icon"];
     iconHalf?: string | ComponentIcons["icon"];
-    step: number;
+    step?: number;
     isReadonly: boolean;
 
     // HTML Boilerplate

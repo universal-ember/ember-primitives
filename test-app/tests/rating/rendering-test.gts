@@ -420,8 +420,13 @@ module('<Rating>', function (hooks) {
 
       // Verify it rounds correctly
       await rating.select(2.15);
-      // Should round to nearest 0.1
-      assert.ok(Math.abs(rating.value - 2.2) < 0.01 || Math.abs(rating.value - 2.1) < 0.01);
+
+      // Should round to nearest 0.1 (either 2.1 or 2.2 depending on rounding behavior)
+      const isCloseTo2_1 = Math.abs(rating.value - 2.1) < 0.01;
+      const isCloseTo2_2 = Math.abs(rating.value - 2.2) < 0.01;
+      const roundedCorrectly = isCloseTo2_1 ? true : isCloseTo2_2;
+
+      assert.ok(roundedCorrectly, `Value ${rating.value} should be close to 2.1 or 2.2`);
     });
 
     test('@iconHalf without @step uses default whole stars', async function (assert) {

@@ -105,7 +105,7 @@ export interface Signature {
          */
         Stars: WithBoundArgs<
           typeof Stars,
-          "stars" | "icon" | "isReadonly" | "name" | "total" | "currentValue"
+          "stars" | "icon" | "iconHalf" | "step" | "isReadonly" | "name" | "total" | "currentValue"
         >;
         /**
          * Input range for adjusting the rating via fractional means

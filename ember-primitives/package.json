@@ -12,8 +12,10 @@
     "addon-main.cjs",
     "dist",
     "src",
+    "bin",
     "declarations"
   ],
+  "bin": "./bin/index.mjs",
   "scripts": {
     "build": "rollup --config ./rollup.config.mjs",
     "lint": "pnpm -w exec lint",

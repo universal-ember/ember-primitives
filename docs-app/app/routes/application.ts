@@ -21,6 +21,8 @@ import { Callout } from '@universal-ember/docs-support';
 
 import { Tabs } from '../components/tabs.gts';
 import { APIDocs, Comment, comment, ComponentSignature, ModifierSignature } from './api-docs';
+import { SetupInstructions } from 'docs-app/components/setup.gts';
+import { Shadowed } from 'ember-primitives';
 
 export default class Application extends Route {
   async model() {
@@ -61,12 +63,14 @@ export default class Application extends Route {
       setupTabster(this),
       setupKolay(this, {
         topLevelScope: {
+          SetupInstructions,
           Callout,
           APIDocs,
           ComponentSignature,
           ModifierSignature,
           Comment,
           Tabs,
+          Shadowed,
           comment,
         },
         modules: {

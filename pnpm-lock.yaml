@@ -578,6 +578,9 @@ importers:
       qunit-assertions-extra:
         specifier: ^1.0.3
         version: 1.0.3(qunit@2.24.3)
+      reactiveweb:
+        specifier: ^1.9.1
+        version: 1.9.1(6100d0282851d05f404935d6c1cbaf6b)
       which-heading-do-i-need:
         specifier: workspace:*
         version: link:../packages/which-heading-do-i-need
@@ -4585,6 +4588,7 @@ packages:
 
   ember-primitives@file:ember-primitives:
     resolution: {directory: ember-primitives, type: directory}
+    hasBin: true
     peerDependencies:
       '@ember/test-helpers': '>= 3.2.0'
       '@ember/test-waiters': '>= 3.0.2'

@@ -11,6 +11,7 @@
   "files": [
     "addon-main.cjs",
     "dist",
+    "src",
     "declarations"
   ],
   "scripts": {
@@ -55,6 +56,7 @@
     "@babel/plugin-syntax-decorators": "^7.27.1",
     "@babel/plugin-transform-class-static-block": "^7.27.1",
     "@babel/plugin-transform-private-methods": "^7.27.1",
+    "@babel/plugin-transform-typescript": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@ember/library-tsconfig": "^2.0.0",
     "@ember/test-helpers": "^5.4.1",

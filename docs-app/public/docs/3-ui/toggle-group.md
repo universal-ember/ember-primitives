@@ -104,7 +104,7 @@ const AlignRight = <template>
 
 </div>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/toggle-group.gts" />

@@ -264,7 +264,7 @@ export default class ControlledAccordion extends Component {
 
 </details>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/accordion.gts" />

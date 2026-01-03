@@ -6,7 +6,7 @@ Can be use for manual, import-based, bundle splittiing (or any other async activ
 
 This is a very tiny wrapper around reactiveweb's [`getPromiseState`](https://reactive.nullvoxpopuli.com/functions/get-promise-state.getPromiseState.html)
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="load.gts" />

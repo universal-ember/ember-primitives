@@ -251,7 +251,7 @@ const Star = <template>
 </div>
 </details>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/rating.gts" />

@@ -6,7 +6,7 @@ No matter how many times `{{onResize}}` is used within your application, only on
 This utility also handles the (uncachable) ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="on-resize.ts" />

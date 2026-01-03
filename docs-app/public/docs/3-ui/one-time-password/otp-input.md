@@ -46,7 +46,7 @@ const update = ({ code }) => currentCode.current = code;
 
 </div>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/one-time-password.gts" />

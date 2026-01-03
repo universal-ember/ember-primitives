@@ -65,7 +65,7 @@ const click = (methodName) => scrollers[methodName]();
 </div>
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/scroller.gts" />

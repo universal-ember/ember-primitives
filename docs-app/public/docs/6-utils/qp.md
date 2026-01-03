@@ -4,7 +4,7 @@ Utilities for accessing query-params without the need for creating a class-compo
 
 [router-service]: https://api.emberjs.com/ember/release/classes/routerservice/
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="qp.ts" />

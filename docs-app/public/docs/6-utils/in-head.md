@@ -33,7 +33,7 @@ const useBootstrap = cell(false);
 
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="head.gts" />

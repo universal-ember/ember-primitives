@@ -123,7 +123,7 @@ const removeContent = () => content.splice(-1);
 </div>
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/layout/sticky-footer.gts" />

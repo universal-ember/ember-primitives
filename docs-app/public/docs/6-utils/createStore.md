@@ -13,7 +13,7 @@ When using `createStore` with the `owner` as the key, you effectively have lazyi
 </Callout>
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="store.ts" />

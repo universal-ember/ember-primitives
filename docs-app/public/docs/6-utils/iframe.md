@@ -20,7 +20,7 @@ import { APIDocs } from 'kolay';
 ```
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="iframe.ts" />

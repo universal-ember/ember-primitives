@@ -4,7 +4,7 @@ A component that defers rendering its content until the element is visible or ne
 
 This is useful for optimizing performance by not rendering expensive components until they're actually needed. Each demo on this site renders off-canvas, which can sometimes cause problems if the DOM is queried during render.
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="viewport/in-viewport.gts" />

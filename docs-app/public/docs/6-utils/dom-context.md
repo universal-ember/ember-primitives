@@ -4,7 +4,7 @@ DOM Context provides a way to share data between components through the DOM hier
 
 Unlike event-based context systems, DOM Context follows the DOM tree synchronously, allowing for proper fine-grained reactivity where consumers automatically update when the provided data changes.
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="dom-context.gts" />

@@ -3,7 +3,7 @@
 Enables usage of plain `<a>` tags.
 You no longer need to use a component to have single-page-app navigation 🎉.
 
-## Installation
+## Install
 
 ```hbs live
 <SetupInstructions @src="proper-links.ts" />

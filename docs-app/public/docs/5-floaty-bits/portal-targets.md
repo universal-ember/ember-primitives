@@ -49,7 +49,7 @@ const isOpen = cell(false);
 </template>
  ```
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/portal-targets.gts" />

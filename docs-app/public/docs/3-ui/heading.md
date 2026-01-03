@@ -130,7 +130,7 @@ import { InViewport } from 'ember-primitives/viewport';
 </div>
 </section>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/heading.gts" />

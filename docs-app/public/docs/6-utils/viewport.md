@@ -4,7 +4,7 @@ Utility for managing a singleton [`IntersectionObserver`](https://developer.mozi
 
 Using one `IntersectionObserver` (instead of multiple) results in dramatically better performance of your application, especially when observing many elements.
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="viewport/viewport.ts" />

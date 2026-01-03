@@ -38,7 +38,7 @@ import { Shadowed } from 'ember-primitives';
 ```
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/shadowed.gts" />

@@ -8,7 +8,7 @@ The hero pattern is for featuring large, eye-catching content, such as an image 
 
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/layout/hero.gts" />

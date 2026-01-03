@@ -99,7 +99,7 @@ function syncBodyClass() {
 </template>
 ```
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="color-scheme.gts" />

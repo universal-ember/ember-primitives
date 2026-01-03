@@ -204,7 +204,7 @@ const settings = cell(true);
 
 </div>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/popover.gts" />

@@ -137,7 +137,7 @@ const RandomProgress =
 
 </div>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/progress.gts" />

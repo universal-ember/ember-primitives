@@ -39,7 +39,7 @@ import { Key, KeyCombo } from 'ember-primitives';
 
 </div>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/keys.gts" />

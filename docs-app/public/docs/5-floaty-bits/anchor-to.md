@@ -11,7 +11,7 @@ The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](h
 Several of Floating UI's functions and [middleware](https://floating-ui.com/docs/middleware) are used to create an experience out of the box that is useful and expected.
 See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) for more information on any of the following included functionality.
 
-## Setup
+## Install
 
 
 ```hbs live

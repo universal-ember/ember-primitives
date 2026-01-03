@@ -21,7 +21,7 @@ This utility will create a _private_ service using a class definition similar to
 </Callout>
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="service.ts" />

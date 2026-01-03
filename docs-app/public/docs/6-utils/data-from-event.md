@@ -95,7 +95,7 @@ function handleSubmit(event) {
 
 </div>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @name="form-data-utils" />

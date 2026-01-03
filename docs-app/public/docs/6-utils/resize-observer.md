@@ -7,7 +7,7 @@ Using one `ResizeObserver` (instead of multiple) results in dramatically better 
 
 This utility also handles the (uncatchable) ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="resize-observer.ts" />

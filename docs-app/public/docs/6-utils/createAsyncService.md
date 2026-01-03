@@ -21,7 +21,7 @@ This can be useful for importing services that may themselves import many things
 </Callout>
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="service.ts" />

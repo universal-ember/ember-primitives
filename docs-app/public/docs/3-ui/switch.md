@@ -139,7 +139,7 @@ const Moon = <template>
 
 </details>
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/switch.gts" />

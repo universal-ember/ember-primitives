@@ -21,7 +21,7 @@ import { VisuallyHidden } from 'ember-primitives';
 ```
 
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/visually-hidden.gts" />

@@ -126,7 +126,7 @@ const handleSubmit = (onChange, event) => {
 [mdn-FormData]:  https://developer.mozilla.org/en-US/docs/Web/API/FormData
 [mdn-FormDataEntryValue]: https://udn.realityripple.com/docs/Web/API/FormDataEntryValue
 
-## Setup
+## Install
 
 ```hbs live
 <SetupInstructions @src="components/form.gts" />

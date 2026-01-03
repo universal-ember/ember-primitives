@@ -40,9 +40,29 @@ export class RatingState extends Component<{
     return this._value ?? 0;
   }
 
+  get step() {
+    return this.args.step ?? 1;
+  }
+
+  get max() {
+    return this.args.max ?? 5;
+  }
+
   @cached
   get stars() {
-    return Array.from({ length: this.args.max ?? 5 }, (_, index) => index + 1);
+    const result = [];
+
+    // 0 is "none selected"
+    let current = 0;
+
+    current += this.step;
+
+    while (current <= this.max) {
+      result.push(current);
+      current += this.step;
+    }
+
+    return result;
   }
 
   setRating = (value: number) => {
@@ -50,18 +70,13 @@ export class RatingState extends Component<{
       return;
     }
 
-    const step = this.args.step ?? 1;
-    // Round to nearest step to avoid floating point precision issues
-    const roundedValue = Math.round(value / step) * step;
-    const finalValue = Math.max(0, Math.min(roundedValue, this.args.max ?? 5));
-
-    if (finalValue === this._value) {
+    if (value === this._value) {
       this._value = 0;
     } else {
-      this._value = finalValue;
+      this._value = value;
     }
 
-    this.args.onChange?.(this._value);
+    this.args.onChange?.(value);
   };
 
   setFromString = (value: unknown) => {

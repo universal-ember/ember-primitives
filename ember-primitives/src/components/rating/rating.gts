@@ -34,21 +34,14 @@ export interface Signature {
     value?: number;
 
     /**
-     * The step increment for rating values.
-     * Use 0.5 for half-star ratings, 0.25 for quarter-star ratings, etc.
+     * When generating the radio inputs, this changes what value of rating each radio
+     * input will be incremented by.
      *
-     * Defaults to 1 (whole stars only)
+     * e.g.: Set to 0.5 for half-star ratings.
+     *
+     * Defaults to 1
      */
     step?: number;
-
-    /**
-     * The symbol or component to use for half-selected icons.
-     * Only used when step is less than 1.
-     *
-     * For string icons: Defaults to the same as @icon
-     * For component icons: The component receives @percentSelected to render partial states
-     */
-    iconHalf?: string | ComponentIcons["icon"];
 
     /**
      * Prevents click events on the icons and sets aria-readonly.
@@ -105,7 +98,7 @@ export interface Signature {
          */
         Stars: WithBoundArgs<
           typeof Stars,
-          "stars" | "icon" | "iconHalf" | "step" | "isReadonly" | "name" | "total" | "currentValue"
+          "stars" | "icon" | "isReadonly" | "name" | "total" | "currentValue"
         >;
         /**
          * Input range for adjusting the rating via fractional means
@@ -136,14 +129,6 @@ export class Rating extends Component<Signature> {
     return this.args.icon ?? "★";
   }
 
-  get iconHalf() {
-    return this.args.iconHalf ?? this.icon;
-  }
-
-  get step() {
-    return this.args.step ?? 1;
-  }
-
   get isInteractive() {
     return this.args.interactive ?? true;
   }
@@ -165,8 +150,8 @@ export class Rating extends Component<Signature> {
   <template>
     <RatingState
       @max={{@max}}
+      @step={{@step}}
       @value={{@value}}
-      @step={{this.step}}
       @name={{this.name}}
       @readonly={{this.isReadonly}}
       @onChange={{@onChange}}
@@ -187,8 +172,6 @@ export class Rating extends Component<Signature> {
             Stars
             stars=r.stars
             icon=this.icon
-            iconHalf=this.iconHalf
-            step=this.step
             isReadonly=this.isReadonly
             name=this.name
             total=r.total

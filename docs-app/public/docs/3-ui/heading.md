@@ -133,7 +133,7 @@ import { InViewport } from 'ember-primitives/viewport';
 ## Setup
 
 ```hbs live
-<SetupInstructions @name="heading" />
+<SetupInstructions @src="components/heading.gts" />
 ```
 
 Introduced in [0.44.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.44.0-ember-primitives)

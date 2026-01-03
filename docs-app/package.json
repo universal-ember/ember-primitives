@@ -46,6 +46,7 @@
     "kolay": "4.0.5",
     "limber-ui": "^4.0.2",
     "lorem-ipsum": "^2.0.8",
+    "nvp.ui": "^0.5.2",
     "path-browserify": "^1.0.1",
     "reactiveweb": "^1.8.0",
     "shiki": "^3.20.0",

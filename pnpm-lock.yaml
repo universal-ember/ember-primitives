@@ -147,6 +147,9 @@ importers:
       lorem-ipsum:
         specifier: ^2.0.8
         version: 2.0.8
+      nvp.ui:
+        specifier: ^0.5.2
+        version: 0.5.2(9721229f31339b951aa1c1eefcbce454)
       path-browserify:
         specifier: ^1.0.1
         version: 1.0.1
@@ -7163,6 +7166,9 @@ packages:
     resolution: {integrity: sha512-/vBvz5Jfr9dT/aFWd0FIRf+T/Q2WBsLENygUaFUqstqsycmZAP/t5BvFJTK0viFmSUxiUKTUplWy5vt+rvKIxg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     deprecated: This package is no longer supported.
+
+  nvp.ui@0.5.2:
+    resolution: {integrity: sha512-lkIAUVvYqJyn8TUSUWUcKnPdM3VtPlDU9rBMxqjXT9g52HhUTiCzRCsx07ars9qeFm9SzOgVB6gAGgKLemDifQ==}
 
   nwsapi@2.2.23:
     resolution: {integrity: sha512-7wfH4sLbt4M0gCDzGE6vzQBo0bfTKjU7Sfpqy/7gs1qBfYz2vEJH6vXcBKpO3+6Yu1telwd0t9HpyOoLEQQbIQ==}
@@ -18225,6 +18231,23 @@ snapshots:
       console-control-strings: 1.1.0
       gauge: 4.0.4
       set-blocking: 2.0.0
+
+  nvp.ui@0.5.2(9721229f31339b951aa1c1eefcbce454):
+    dependencies:
+      '@ember/test-helpers': 5.4.1(41dbc40bfe763063746c2ae01dde51bb)
+      '@ember/test-waiters': 4.1.1(41dbc40bfe763063746c2ae01dde51bb)
+      '@embroider/addon-shim': 1.10.2
+      '@embroider/macros': 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
+      '@glimmer/component': 2.0.0
+      '@glint/template': 1.7.3
+      decorator-transforms: 2.3.1(@babel/core@7.28.5)
+      ember-modifier: 4.2.2(@babel/core@7.28.5)
+      ember-primitives: file:ember-primitives(e374d91fc384bddcdd04d592bdefee85)
+      ember-resources: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - ember-source
+      - supports-color
 
   nwsapi@2.2.23: {}
 

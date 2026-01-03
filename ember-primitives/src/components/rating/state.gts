@@ -11,6 +11,7 @@ export class RatingState extends Component<{
   Args: {
     max: number | undefined;
     value: number | undefined;
+    step: number | undefined;
     readonly: boolean | undefined;
     name: string;
     onChange?: (value: number) => void;
@@ -19,6 +20,7 @@ export class RatingState extends Component<{
     default: [
       internalApi: {
         stars: number[];
+        step: number;
         value: number;
         total: number;
         handleClick: (event: Event) => void;
@@ -39,9 +41,29 @@ export class RatingState extends Component<{
     return this._value ?? 0;
   }
 
+  get step() {
+    return this.args.step ?? 1;
+  }
+
+  get max() {
+    return this.args.max ?? 5;
+  }
+
   @cached
   get stars() {
-    return Array.from({ length: this.args.max ?? 5 }, (_, index) => index + 1);
+    const result = [];
+
+    // 0 is "none selected"
+    let current = 0;
+
+    current += this.step;
+
+    while (current <= this.max) {
+      result.push(current);
+      current += this.step;
+    }
+
+    return result;
   }
 
   setRating = (value: number) => {
@@ -114,6 +136,7 @@ export class RatingState extends Component<{
         handleChange=this.handleChange
         setRating=this.setRating
         value=this.value
+        step=this.step
       )
       (hash total=this.stars.length value=this.value)
     }}

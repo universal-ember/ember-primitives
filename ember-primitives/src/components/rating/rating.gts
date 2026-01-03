@@ -34,6 +34,16 @@ export interface Signature {
     value?: number;
 
     /**
+     * When generating the radio inputs, this changes what value of rating each radio
+     * input will be incremented by.
+     *
+     * e.g.: Set to 0.5 for half-star ratings.
+     *
+     * Defaults to 1
+     */
+    step?: number;
+
+    /**
      * Prevents click events on the icons and sets aria-readonly.
      *
      * Also sets data-readonly=true on the wrapping element
@@ -140,6 +150,7 @@ export class Rating extends Component<Signature> {
   <template>
     <RatingState
       @max={{@max}}
+      @step={{@step}}
       @value={{@value}}
       @name={{this.name}}
       @readonly={{this.isReadonly}}
@@ -180,7 +191,12 @@ export class Rating extends Component<Signature> {
                 isChangeable=this.isChangeable
                 Stars=RatingStars
                 Range=(component
-                  RatingRange max=r.total value=r.value name=this.name handleChange=r.handleChange
+                  RatingRange
+                  step=r.step
+                  max=r.total
+                  value=r.value
+                  name=this.name
+                  handleChange=r.handleChange
                 )
               )
             }}

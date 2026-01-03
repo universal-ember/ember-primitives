@@ -1,5 +1,5 @@
 import { uniqueId } from "../../utils.ts";
-import { isString, lte, percentSelected } from "./utils.ts";
+import { isString, lte } from "./utils.ts";
 
 import type { ComponentIcons, StringIcons } from "./public-types.ts";
 import type { TOC } from "@ember/component/template-only";
@@ -25,24 +25,24 @@ export const Stars: TOC<{
         <span
           class="ember-primitives__rating__item"
           data-number={{star}}
-          data-percent-selected={{percentSelected star @currentValue}}
           data-selected={{lte star @currentValue}}
           data-readonly={{@isReadonly}}
         >
           <label for="input-{{id}}">
             <span visually-hidden>{{star}} star</span>
-            <span aria-hidden="true">
-              {{#if (isString @icon)}}
-                {{@icon}}
-              {{else}}
-                <@icon
-                  @value={{star}}
-                  @isSelected={{lte star @currentValue}}
-                  @percentSelected={{percentSelected star @currentValue}}
-                  @readonly={{@isReadonly}}
-                />
-              {{/if}}
-            </span>
+            {{#if @icon}}
+              <span aria-hidden="true">
+                {{#if (isString @icon)}}
+                  {{@icon}}
+                {{else}}
+                  <@icon
+                    @value={{star}}
+                    @isSelected={{lte star @currentValue}}
+                    @readonly={{@isReadonly}}
+                  />
+                {{/if}}
+              </span>
+            {{/if}}
           </label>
 
           <input
@@ -51,7 +51,7 @@ export const Stars: TOC<{
             name={{@name}}
             value={{star}}
             readonly={{@isReadonly}}
-            checked={{lte star @currentValue}}
+            checked={{Object.is star @currentValue}}
           />
         </span>
       {{/let}}

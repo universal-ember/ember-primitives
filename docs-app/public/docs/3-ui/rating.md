@@ -6,6 +6,7 @@ When interactive, the underlying implementation is a radio button for maximum ac
 
 <div class="featured-demo">
 
+
 ```gjs live preview
 import { Rating } from 'ember-primitives';
 import { cell } from 'ember-resources';
@@ -13,128 +14,245 @@ import { cell } from 'ember-resources';
 const capturedValue = cell(2);
 
 <template>
-  Current Value: {{capturedValue.current}}<br><hr>
-  <Rating @value={{capturedValue.current}} @onChange={{capturedValue.set}}>
+  Current Value: {{capturedValue.current}}<br>
+  <Rating 
+    @step={{0.5}} {{! enabling half ratings, omit @step for whole ratings }} 
+    @value={{capturedValue.current}} 
+    @onChange={{capturedValue.set}}
+    {{! Using CSS only for icons in this demo 
+        -- use your design system's star icons here if you need }}
+    @icon=""
+  >
     <:label>Rate me</:label>
   </Rating>
 
   <style>
     @import "/demo-support/utilities.css";
 
+    @scope {
+
+    /* Some CSS borrowed from https://play.tailwindcss.com/SMXsGVXaHO */
     .ember-primitives__rating__items {
-      width: fit-content;
-      display: grid;
-      gap: 0.5rem;
-      grid-auto-flow: column;
-      justify-content: center;
-      align-items: center;
-      height: 4rem;
-    }
+      display: inline-flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      border: none;
+      position: relative; /* so the focus ring pseudo-element can be positioned */
 
-    .ember-primitives__rating__item {
-      font-size: 3rem;
-      line-height: 1em;
-      transition: all 0.1s;
-      transform-origin: center;
-      aspect-ratio: 1 / 1;
-      user-select: none;
-      width: 3rem;
-      text-align: center;
-      border-radius: 1.5rem;
-
-      label:hover {
-        cursor: pointer;
-      }
-
-      &:has(input:focus-visible) {
-        --tw-ring-opacity: 1;
-        --tw-ring-offset-color: #000;
-        --tw-ring-offset-width: 2px;
-        --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
-        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-      }
-
+      /* visually hide radio input, but leave accessible to screen readers */
       input {
-        appearance: none;
         position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
 
-        &:focus-visible, &:focus {
-          outline: none;
-          box-shadow: none;
+      --star-size: 2rem;
+      --star-gap: 0.33rem;
+      --star-height: var(--star-size);
+      --star-width: calc(var(--star-size) / 2);
+      --star-width-plus-gap: calc(var(--star-width) + var(--star-gap));
+
+      .ember-primitives__rating__item {
+        label {
+          display: block;
+          height: var(--star-height);
+          width: var(--star-width);
+          background-color: currentColor;
+        }
+
+        &:nth-of-type(even) label {
+          mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512"><path d="M0 0c12.2.1 23.3 7 28.6 18L93 150.3l143.6 21.2c12 1.8 22 10.2 25.7 21.7 3.7 11.5.7 24.2-7.9 32.7L150.2 329l24.6 145.7c2 12-3 24.2-12.9 31.3-9.9 7.1-23 8-33.8 2.3L0 439.8V0Z"/></svg>') no-repeat;
+          width: var(--star-width-plus-gap);
+          mask-size: var(--star-width);
+        }
+
+        &:nth-of-type(odd) label {
+          mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512"><path d="M264 0c-12.2.1-23.3 7-28.6 18L171 150.3 27.4 171.5c-12 1.8-22 10.2-25.7 21.7-3.7 11.5-.7 24.2 7.9 32.7L113.8 329 89.2 474.7c-2 12 3 24.2 12.9 31.3 9.9 7.1 23 8 33.8 2.3L264 439.8V0Z"/></svg>') no-repeat;
+        }
+
+        &:first-of-type label {
+          width: var(--star-width);
+        }
+
+        &:has(:checked) label,
+        &:has(~ span :checked) label {
+          background-color: gold;
+        }
+
+        label:hover,
+        &:has(~ span label:hover) label {
+          background-color: #ffbb00;
         }
       }
 
-      &[data-selected] {
-        color: gold;
+      /* Focus ring for keyboard users: around the whole rating group */
+      &:has(:focus-visible)::after {
+        content: '';
+        position: absolute;
+        inset: -4px; /* offset so the ring sits outside the stars */
+        border-radius: 9999px;
+        pointer-events: none;
+        box-shadow: 0 0 0 0 transparent;
       }
-    } 
 
-    .ember-primitives__rating__item:hover {
-        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-    } 
+      &:has(:focus-visible)::after {
+        box-shadow:
+          0 0 0 2px #000,
+          0 0 0 4px rgb(224 78 57);
+      }
+    }
+    }
   </style>
 </template>
 ```
 
+
 </div>
 
+<details><summary>defaults</summary>
+<div class="featured-demo">
+
+
+```gjs live preview
+import { Rating, Shadowed } from 'ember-primitives';
+import { cell } from 'ember-resources';
+
+const capturedValue = cell(2);
+
+<template>
+  <Shadowed>
+    Current Value: {{capturedValue.current}}<br><hr>
+    <Rating @value={{capturedValue.current}} @onChange={{capturedValue.set}}>
+      <:label>Rate me</:label>
+    </Rating>
+
+    <style>
+      @import "/demo-support/utilities.css";
+
+      .ember-primitives__rating__items {
+        width: fit-content;
+        display: grid;
+        gap: 0.5rem;
+        grid-auto-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
+      }
+
+      .ember-primitives__rating__item {
+        font-size: 3rem;
+        line-height: 1em;
+        transition: all 0.1s;
+        transform-origin: center;
+        aspect-ratio: 1 / 1;
+        user-select: none;
+        width: 3rem;
+        text-align: center;
+        border-radius: 1.5rem;
+
+        label:hover {
+          cursor: pointer;
+        }
+
+        &:has(input:focus-visible) {
+          --tw-ring-opacity: 1;
+          --tw-ring-offset-color: #000;
+          --tw-ring-offset-width: 2px;
+          --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
+          --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+          --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+          box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+        }
+
+        input {
+          appearance: none;
+          position: absolute;
+
+          &:focus-visible, &:focus {
+            outline: none;
+            box-shadow: none;
+          }
+        }
+
+        &[data-selected] {
+          color: gold;
+        }
+      } 
+
+      .ember-primitives__rating__item:hover {
+          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+      } 
+    </style>
+  </Shadowed>
+</template>
+```
+
+
+</div>
+</details>
 <details><summary>non-interactive (display-only) mode</summary>
 <div class="featured-demo">
 
 ```gjs live preview 
-import { Rating } from 'ember-primitives';
+import { Rating, Shadowed } from 'ember-primitives';
 
 <template>
-  <Rating @value={{2}} @interactive={{false}} />
-  <Rating @value={{4}} @interactive={{false}}>
-    <:label as |rating|>
+  <Shadowed>
+    <Rating @value={{2}} @interactive={{false}} />
+    <Rating @value={{4}} @interactive={{false}}>
+      <:label as |rating|>
+        {{rating.value}} of {{rating.total}}
+      </:label>
+    </Rating>
+    <Rating @value={{3}} @interactive={{false}} as |rating|>
+      <rating.Stars />
       {{rating.value}} of {{rating.total}}
-    </:label>
-  </Rating>
-  <Rating @value={{3}} @interactive={{false}} as |rating|>
-    <rating.Stars />
-    {{rating.value}} of {{rating.total}}
-  </Rating>
+    </Rating>
 
-  <style>
-    @import "/demo-support/utilities.css";
+    <style>
+      @import "/demo-support/utilities.css";
 
-    .ember-primitives__rating {
-      width: fit-content;
-      display: grid;
-      gap: 0.5rem;
-      grid-auto-flow: column;
-      justify-content: center;
-      align-items: center;
-      height: 4rem;
-    }
-
-    .ember-primitives__rating__item {
-        font-size: 3rem;
-        line-height: 3rem;
-        transition: all 0.1s;
-        transform-origin: center;
-        aspect-ratio: 1 / 1;
-        cursor: pointer;
-        user-select: none;
-
-      input {
-          display: none;
+      .ember-primitives__rating {
+        width: fit-content;
+        display: grid;
+        gap: 0.5rem;
+        grid-auto-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
       }
 
-      &[data-selected] {
-        color: gold;
-      }
-    } 
+      .ember-primitives__rating__item {
+          font-size: 3rem;
+          line-height: 3rem;
+          transition: all 0.1s;
+          transform-origin: center;
+          aspect-ratio: 1 / 1;
+          cursor: pointer;
+          user-select: none;
 
-    .ember-primitives__rating__item:hover {
-        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-    } 
-  </style>
+        input {
+            display: none;
+        }
+
+        &[data-selected] {
+          color: gold;
+        }
+      } 
+
+      .ember-primitives__rating__item:hover {
+          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+      } 
+    </style>
+  </Shadowed>
 </template>
 ```
 
@@ -144,7 +262,7 @@ import { Rating } from 'ember-primitives';
 <div class="featured-demo">
 
 ```gjs live preview 
-import { Rating } from 'ember-primitives';
+import { Rating, Shadowed } from 'ember-primitives';
 
 const Icon = <template>
   <div ...attributes style={{if @isSelected "transform:rotate(180deg)"}}>
@@ -154,67 +272,69 @@ const Icon = <template>
 
 
 <template>
-  <Rating @icon={{Icon}} />
+  <Shadowed>
+    <Rating @icon={{Icon}} />
 
-  <style>
-    @import "/demo-support/utilities.css";
+    <style>
+      @import "/demo-support/utilities.css";
 
-    .ember-primitives__rating__items {
-      width: fit-content;
-      display: grid;
-      gap: 0.5rem;
-      grid-auto-flow: column;
-      justify-content: center;
-      align-items: center;
-      height: 4rem;
-    }
-
-    .ember-primitives__rating__item {
-      font-size: 3rem;
-      line-height: 1em;
-      transition: all 0.1s;
-      transform-origin: center;
-      aspect-ratio: 1 / 1;
-      user-select: none;
-      width: 3rem;
-      text-align: center;
-      border-radius: 1.5rem;
-
-      label:hover {
-        cursor: pointer;
+      .ember-primitives__rating__items {
+        width: fit-content;
+        display: grid;
+        gap: 0.5rem;
+        grid-auto-flow: column;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
       }
 
-      &:has(input:focus-visible) {
-        --tw-ring-opacity: 1;
-        --tw-ring-offset-color: #000;
-        --tw-ring-offset-width: 2px;
-        --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
-        --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-        --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-      }
+      .ember-primitives__rating__item {
+        font-size: 3rem;
+        line-height: 1em;
+        transition: all 0.1s;
+        transform-origin: center;
+        aspect-ratio: 1 / 1;
+        user-select: none;
+        width: 3rem;
+        text-align: center;
+        border-radius: 1.5rem;
 
-      input {
-        appearance: none;
-        position: absolute;
-
-        &:focus-visible, &:focus {
-          outline: none;
-          box-shadow: none;
+        label:hover {
+          cursor: pointer;
         }
-      }
 
-      &[data-selected] {
-        color: gold;
-      }
-    } 
+        &:has(input:focus-visible) {
+          --tw-ring-opacity: 1;
+          --tw-ring-offset-color: #000;
+          --tw-ring-offset-width: 2px;
+          --tw-ring-color: rgb(224 78 57 / var(--tw-ring-opacity, 1));
+          --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+          --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+          box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+        }
 
-    .ember-primitives__rating__item:hover {
-        transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
-    } 
+        input {
+          appearance: none;
+          position: absolute;
+
+          &:focus-visible, &:focus {
+            outline: none;
+            box-shadow: none;
+          }
+        }
+
+        &[data-selected] {
+          color: gold;
+        }
+      } 
+
+      .ember-primitives__rating__item:hover {
+          transform: rotate3d(0, 0, 1, 15deg) scale(1.05);
+      } 
     </style>
+  </Shadowed>
 </template>
 ```
 
@@ -224,7 +344,7 @@ const Icon = <template>
 <div class="featured-demo">
 
 ```gjs live preview
-import { Rating } from 'ember-primitives';
+import { Rating, Shadowed } from 'ember-primitives';
 
 const Star = <template>
     <div class="item">
@@ -233,18 +353,20 @@ const Star = <template>
   </template>;
 
 <template>
-  <Rating as |rating|>
-    {{rating.value}} of {{rating.total}}<br>
-    <rating.Stars @icon={{Star}} />
-  </Rating>
+  <Shadowed>
+    <Rating as |rating|>
+      {{rating.value}} of {{rating.total}}<br>
+      <rating.Stars @icon={{Star}} />
+    </Rating>
 
-  <style>
-    /* just layout, since we don't want to use all the vertical space */
-    .ember-primitives__rating__items {
-      display: flex;
-      gap: 1rem;
-    }
-  </style>
+    <style>
+      /* just layout, since we don't want to use all the vertical space */
+      .ember-primitives__rating__items {
+        display: flex;
+        gap: 1rem;
+      }
+    </style>
+  </Shadowed>
 </template>
 ```
 
@@ -262,6 +384,7 @@ const Star = <template>
 - Any shape can be used
 - All styles / directions possible via CSS
 - Full componets can be passed for the rating items / stars, and will have all the same information is available (properties, state, etc). This allows for custom icons, svgs, or some more complex pattern.
+- Half-ratings and fractional values supported via the `@step` property
 
 ## Accessibility
 
@@ -382,6 +505,7 @@ All these classes do nothing on their own, but offer a way for folks authoring C
 
     - `[data-number]` number. Which numer of the total this item is.
     - `[data-selected]` boolean.
+    - `[data-percent-selected]` number (0-100). The percentage of selection for this item. Useful for styling half-stars or fractional ratings.
     - `[data-readonly]` boolean.
     - `[data-disabled]` boolean.
 

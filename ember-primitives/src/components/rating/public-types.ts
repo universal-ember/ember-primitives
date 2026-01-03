@@ -19,10 +19,6 @@ export interface ComponentIcons {
        */
       isSelected: boolean;
       /**
-       * How much % of this item is selected?
-       */
-      percentSelected: number;
-      /**
        * Which number of item is this item within the overall rating group.
        */
       value: number;

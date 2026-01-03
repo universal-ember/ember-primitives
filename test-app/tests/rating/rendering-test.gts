@@ -12,7 +12,6 @@ interface IconSignature {
   Element: HTMLElement;
   Args: {
     isSelected: boolean;
-    percentSelected: number;
     value: number;
     readonly: boolean;
   };
@@ -189,21 +188,8 @@ module('<Rating>', function (hooks) {
     assert.strictEqual(rating.starTexts, 'x x x x x');
   });
 
-  test('fractional (numbers)', async function (assert) {
-    const step = (x: number | undefined) => assert.step(`${x}`);
-    const Icon: TOC<IconSignature> = <template>{{step @percentSelected}}</template>;
-
-    await render(<template><Rating @icon={{Icon}} /></template>);
-
-    assert.verifySteps(['0', '0', '0', '0', '0']);
-
-    await rating.select(2);
-
-    assert.verifySteps(['100', '100', '0', '0', '0']);
-  });
-
   test('fractional', async function (assert) {
-    const Icon: TOC<IconSignature> = <template>{{@percentSelected}}</template>;
+    const Icon: TOC<IconSignature> = <template>{{@value}}</template>;
 
     await render(
       <template>
@@ -317,5 +303,103 @@ module('<Rating>', function (hooks) {
 
     assert.dom('legend').exists();
     assert.dom('legend').hasText('A Label!');
+  });
+
+  module('half-ratings', function () {
+    test('@step={{0.5}} with @value={{3.5}}', async function (assert) {
+      await render(<template><Rating @step={{0.5}} @value={{3.5}} /></template>);
+
+      assert.strictEqual(rating.value, 3.5);
+    });
+
+    test('@step={{0.5}} interactive selection', async function (assert) {
+      await render(
+        <template>
+          <Rating @step={{0.5}} as |r|>
+            <r.Range />
+            <r.Stars />
+          </Rating>
+        </template>
+      );
+
+      await rating.select(3.5);
+      assert.strictEqual(rating.value, 3.5);
+
+      await rating.select(1.5);
+      assert.strictEqual(rating.value, 1.5);
+
+      // Toggle
+      await rating.select(1.5);
+      assert.strictEqual(rating.value, 0);
+    });
+
+    test('@step={{0.25}} quarter-star ratings', async function (assert) {
+      await render(
+        <template>
+          <Rating @step={{0.25}} @value={{3.75}} as |r|>
+            <r.Range />
+            <r.Stars />
+          </Rating>
+        </template>
+      );
+
+      assert.strictEqual(rating.value, 3.75);
+    });
+
+    test('half-rating with @onChange callback', async function (assert) {
+      let capturedValue: number | undefined;
+      const onChange = (value: number) => {
+        capturedValue = value;
+      };
+
+      await render(
+        <template>
+          <Rating @step={{0.5}} @onChange={{onChange}} as |r|>
+            <r.Range />
+            <r.Stars />
+          </Rating>
+        </template>
+      );
+
+      await rating.select(4.5);
+      assert.strictEqual(capturedValue, 4.5, 'onChange called with fractional value');
+      assert.strictEqual(rating.value, 4.5);
+    });
+
+    test('@step={{0.5}} data attributes are correct', async function (assert) {
+      await render(<template><Rating @step={{0.5}} @value={{3.5}} /></template>);
+
+      const root = find('.ember-primitives__rating');
+
+      assert.dom(root).hasAttribute('data-value', '3.5');
+
+      // Check selected attribute
+      assert.dom('[data-number="0.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="1"]').hasAttribute('data-selected');
+      assert.dom('[data-number="1.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="2"]').hasAttribute('data-selected');
+      assert.dom('[data-number="2.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="3"]').hasAttribute('data-selected');
+      assert.dom('[data-number="3.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="4"]').doesNotHaveAttribute('data-selected');
+      assert.dom('[data-number="5"]').doesNotHaveAttribute('data-selected');
+    });
+
+    test('@step={{0.5}} with @readonly', async function (assert) {
+      await render(
+        <template>
+          <Rating @step={{0.5}} @value={{3.5}} @readonly={{true}} as |r|>
+            <r.Range step="0.5" />
+            <r.Stars />
+          </Rating>
+        </template>
+      );
+
+      assert.strictEqual(rating.value, 3.5);
+      assert.true(rating.isReadonly);
+
+      await rating.select(2.5);
+      assert.strictEqual(rating.value, 3.5, 'value does not change when readonly');
+    });
   });
 });

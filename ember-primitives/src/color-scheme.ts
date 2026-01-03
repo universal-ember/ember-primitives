@@ -116,6 +116,7 @@ export const prefers = {
   dark: () => queries.dark.matches,
   light: () => queries.light.matches,
   none: () => queries.none.matches,
+  custom: (name: string) => window.matchMedia(`(prefers-color-scheme: ${name})`).matches,
 };
 
 const LOCAL_PREF_KEY = 'ember-primitives/color-scheme#local-preference';

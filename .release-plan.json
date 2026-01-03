@@ -1,39 +1,21 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.49.0",
-      "newVersion": "0.50.0",
+      "impact": "patch",
+      "oldVersion": "0.50.0",
+      "newVersion": "0.50.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        },
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "patch",
-      "oldVersion": "0.2.2",
-      "newVersion": "0.2.3",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        }
-      ],
-      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
+      "oldVersion": "0.2.3"
     }
   },
-  "description": "## Release (2026-01-03)\n\n* ember-primitives 0.50.0 (minor)\n* which-heading-do-i-need 0.2.3 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#610](https://github.com/universal-ember/ember-primitives/pull/610) Half-ratings ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#611](https://github.com/universal-ember/ember-primitives/pull/611) Add CLI tool to eject code into a person's project ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* Other\n  * [#613](https://github.com/universal-ember/ember-primitives/pull/613) Upgrade ember-repl, ref: https://github.com/emberjs/ember.js/issues/21023 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`, `which-heading-do-i-need`\n  * [#612](https://github.com/universal-ember/ember-primitives/pull/612) Update intetrnal deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-01-03)\n\n* ember-primitives 0.50.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#616](https://github.com/universal-ember/ember-primitives/pull/616) Improve color-scheme sync when debugging in devtools ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

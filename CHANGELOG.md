@@ -2,6 +2,17 @@
 
 ## Release (2026-01-03)
 
+* ember-primitives 0.50.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#616](https://github.com/universal-ember/ember-primitives/pull/616) Improve color-scheme sync when debugging in devtools ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2026-01-03)
+
 * ember-primitives 0.50.0 (minor)
 * which-heading-do-i-need 0.2.3 (patch)
 

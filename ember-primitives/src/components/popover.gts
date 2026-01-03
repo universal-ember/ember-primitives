@@ -89,6 +89,7 @@ const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
+    makePopover: ModifierLike<{ Element: HTMLElement }>;
     /**
      * By default the popover content is wrapped in a div.
      * You may change this by supplying the name of an element here.

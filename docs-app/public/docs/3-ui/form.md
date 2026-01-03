@@ -70,22 +70,24 @@ function update(newValues) {
   </div>
 
   <style>
-    .layout { 
-      display: grid; 
-      gap: 1rem;
-      grid-auto-flow: column;
+    @scope {
+      .layout { 
+        display: grid; 
+        gap: 1rem;
+        grid-auto-flow: column;
+      }
+      form, fieldset {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      input { max-width: 100%; }
+      pre { 
+        overflow: hidden; 
+        white-space: pre-wrap;
+      } 
     }
-    form, fieldset {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      flex-direction: column;
-    }
-    input { max-width: 100%; }
-    pre { 
-      overflow: hidden; 
-      white-space: pre-wrap;
-    } 
   </style>
 </template>
 ```

@@ -17,9 +17,11 @@ Note that this demo starts with `h3`, because this docs page already has an `h1`
 
 ```gjs live preview 
 import { Heading } from 'ember-primitives/components/heading';
+import { InViewport } from 'ember-primitives/viewport';
   
 <template>
-  <main aria-label="heading-demo">
+  <InViewport style="min-height:300px;">
+  <main aria-label="heading-demo" class="not-prose">
     <Heading>a heading</Heading>
 
     <nav>
@@ -43,10 +45,14 @@ import { Heading } from 'ember-primitives/components/heading';
       </footer>
     </article>
   </main>
+  </InViewport>
 
   <style>
     @scope {
-      h1, h2, h3, h4, h5, h6 { margin: 0; margin-top: 0; margin-bottom: 0;}
+      h1, h2, h3, h4, h5, h6 { 
+        margin-top: 0; margin-bottom: 0;
+        color: white;
+      }
 
       h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
         position: absolute;

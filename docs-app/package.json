@@ -51,6 +51,7 @@
     "shiki": "^3.20.0",
     "should-handle-link": "^1.2.2",
     "tracked-built-ins": "^4.1.0",
+    "unist-util-visit": "^5.0.0",
     "which-heading-do-i-need": "workspace:*"
   },
   "dependenciesMeta": {

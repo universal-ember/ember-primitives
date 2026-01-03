@@ -162,6 +162,9 @@ importers:
       tracked-built-ins:
         specifier: ^4.1.0
         version: 4.1.0(@babel/core@7.28.5)
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
       which-heading-do-i-need:
         specifier: workspace:*
         version: link:../packages/which-heading-do-i-need

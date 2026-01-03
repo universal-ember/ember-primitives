@@ -2,6 +2,8 @@
 
 The `FloatingUI` component provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc). 
 
+This component uses the native [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover) attribute to automatically make the intended floating element behave correctly.
+
 <Callout>
 
 The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) lands and is widely supported (This component and modifier will still exist for the purpose of wiring up the ids between anchor and target). 
@@ -10,6 +12,7 @@ The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](h
 
 Several of Floating UI's functions and [middleware](https://floating-ui.com/docs/middleware) are used to create an experience out of the box that is useful and expected.
 See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) for more information on any of the following included functionality.
+
 
 ## Install
 
@@ -31,35 +34,37 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
 
 <template>
   <FloatingUI as |reference floating|>
-    <button {{reference}} popovertarget="floating2">Click the reference element</button>
-    <menu {{floating}} popover id="floating2">Here is <br> floating element</menu>
+    <button {{reference}}>Click the reference element</button>
+    <menu {{floating}}>Here is <br> floating element</menu>
   </FloatingUI>
 
   <style>
-    menu#floating2 {
-      width: max-content;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #222;
-      color: white;
-      font-weight: bold;
-      padding: 2rem;
-      border-radius: 4px;
-      font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
-      z-index: 10;
-    }
-    button[popovertarget="floating2"] {
-      padding: 0.5rem;
-      border: 1px solid;
-      display: inline-block;
-      background: white;
-      color: black;
-      border-radius: 0.25rem;
+    @scope {
+      menu {
+        width: max-content;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 2rem;
+        border-radius: 4px;
+        font-size: 90%;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+        z-index: 10;
+      }
+      button {
+        padding: 0.5rem;
+        border: 1px solid;
+        display: inline-block;
+        background: white;
+        color: black;
+        border-radius: 0.25rem;
 
-      &:hover {
-        background: #ddd;
+        &:hover {
+          background: #ddd;
+        }
       }
     }
   </style>

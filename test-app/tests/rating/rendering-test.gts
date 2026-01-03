@@ -12,7 +12,6 @@ interface IconSignature {
   Element: HTMLElement;
   Args: {
     isSelected: boolean;
-    percentSelected: number;
     value: number;
     readonly: boolean;
   };

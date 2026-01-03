@@ -2,6 +2,8 @@
 
 The `anchorTo` modifier provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc). 
 
+This modifier uses the native [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover) attribute to automatically make the intended floating element behave correctly.
+
 <Callout>
 
 The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) lands and is widely supported (This component and modifier will still exist for the purpose of wiring up the ids between anchor and target). 
@@ -34,35 +36,37 @@ import { InViewport } from 'ember-primitives/viewport';
 
 <template>
   <InViewport>
-    <button id="reference" popovertarget="floating">Click the reference element</button>
-    <menu popover id="floating" {{anchorTo "#reference"}}>Here is <br> floating element</menu>
+    <button id="reference">Click the reference element</button>
+    <menu {{anchorTo "#reference"}}>Here is <br> floating element</menu>
   </InViewport>
 
   <style>
-    menu#floating {
-      width: max-content;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #222;
-      color: white;
-      font-weight: bold;
-      padding: 2rem;
-      border-radius: 4px;
-      font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
-      z-index: 10;
-    }
-    button#reference {
-      padding: 0.5rem;
-      border: 1px solid;
-      display: inline-block;
-      background: white;
-      color: black;
-      border-radius: 0.25rem;
+    @scope {
+      menu {
+        width: max-content;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 2rem;
+        border-radius: 4px;
+        font-size: 90%;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+        z-index: 10;
+      }
+      button {
+        padding: 0.5rem;
+        border: 1px solid;
+        display: inline-block;
+        background: white;
+        color: black;
+        border-radius: 0.25rem;
 
-      &:hover {
-        background: #ddd;
+        &:hover {
+          background: #ddd;
+        }
       }
     }
   </style>

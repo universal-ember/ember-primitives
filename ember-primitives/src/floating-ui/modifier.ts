@@ -84,6 +84,51 @@ export interface Signature {
   };
 }
 
+let id = 1;
+const nextId = () => {
+  id++;
+
+  return `ep-popover-${id}`;
+};
+
+function getId(element: Element) {
+  let existing = element.getAttribute('popovertarget');
+
+  if (existing) return existing;
+
+  existing = nextId();
+
+  element.setAttribute('popovertarget', existing);
+
+  return existing;
+}
+
+export const makePopover = eModifier<{
+  Element: HTMLElement | SVGElement;
+  Args: {
+    Positional: [string | HTMLElement | SVGElement];
+  };
+}>((floatingElement, [_referenceElement]) => {
+  const referenceElement = findReference(_referenceElement);
+
+  const popoverId = getId(referenceElement);
+
+  floatingElement.setAttribute('popover', '');
+  floatingElement.id = popoverId;
+});
+
+function findReference(specified: string | HTMLElement | SVGElement) {
+  const referenceElement: null | HTMLElement | SVGElement =
+    typeof specified === 'string' ? document.querySelector(specified) : specified;
+
+  assert(
+    'no reference element defined',
+    referenceElement instanceof HTMLElement || referenceElement instanceof SVGElement
+  );
+
+  return referenceElement;
+}
+
 /**
  * A modifier to apply to the _floating_ element.
  * This is what will anchor to the reference element.
@@ -112,21 +157,12 @@ export const anchorTo = eModifier<Signature>(
       setData,
     }
   ) => {
-    const referenceElement: null | HTMLElement | SVGElement =
-      typeof _referenceElement === 'string'
-        ? document.querySelector(_referenceElement)
-        : _referenceElement;
-
-    assert(
-      'no reference element defined',
-      referenceElement instanceof HTMLElement || referenceElement instanceof SVGElement
-    );
+    const referenceElement = findReference(_referenceElement);
 
     assert(
       'no floating element defined',
       floatingElement instanceof HTMLElement || _referenceElement instanceof SVGElement
     );
-
     assert(
       'reference and floating elements cannot be the same element',
       floatingElement !== _referenceElement

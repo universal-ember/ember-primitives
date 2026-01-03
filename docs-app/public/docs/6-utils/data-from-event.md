@@ -95,11 +95,12 @@ function handleSubmit(event) {
 
 </div>
 
-## Setup
+## Install
 
-```bash
-pnpm add form-data-utils
+```hbs live
+<SetupInstructions @name="form-data-utils" />
 ```
+
 
 otherwise, this is included with ember-primitives when using the `<Form />` component.
 

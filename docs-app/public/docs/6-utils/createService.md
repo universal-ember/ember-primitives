@@ -20,11 +20,13 @@ This utility will create a _private_ service using a class definition similar to
 
 </Callout>
 
-## Setup
 
-```bash 
-pnpm add ember-primitives
+## Install
+
+```hbs live
+<SetupInstructions @src="service.ts" />
 ```
+
 
 Introduced in [0.47.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.47.0-ember-primitives)
 

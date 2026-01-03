@@ -20,6 +20,14 @@ import { VisuallyHidden } from 'ember-primitives';
 </template>
 ```
 
+
+## Install
+
+```hbs live
+<SetupInstructions @src="components/visually-hidden.gts" />
+```
+
+
 ## Features
 
 - Visually hides content while preserving it for assistive technology.

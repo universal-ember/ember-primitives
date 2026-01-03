@@ -39,6 +39,12 @@ import { Key, KeyCombo } from 'ember-primitives';
 
 </div>
 
+## Install
+
+```hbs live
+<SetupInstructions @src="components/keys.gts" />
+```
+
 ## Features
 
 * Handling of auto-switching the display combination based on viewing operating system (macOS vs non-macOS)

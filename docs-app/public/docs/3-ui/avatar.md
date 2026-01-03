@@ -63,6 +63,12 @@ import { Avatar } from 'ember-primitives';
 
 </div>
 
+## Install
+
+```hbs live
+<SetupInstructions @src="components/avatar.gts" />
+```
+
 ## Features
 
 * Automatic and manual control over when the image renders.

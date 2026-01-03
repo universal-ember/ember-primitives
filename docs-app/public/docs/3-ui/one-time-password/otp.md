@@ -54,6 +54,12 @@ const handleSubmit = ({ code }) => submittedCode.current = code;
 
 </div>
 
+## Install
+
+```hbs live
+<SetupInstructions @src="components/one-time-password.gts" />
+```
+
 ## Features
 
 * Auto-advance focus between inputs as characters are typed

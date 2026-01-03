@@ -4,11 +4,12 @@ Utilities for accessing query-params without the need for creating a class-compo
 
 [router-service]: https://api.emberjs.com/ember/release/classes/routerservice/
 
-## Setup
+## Install
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="qp.ts" />
 ```
+
 
 ## API Reference
 

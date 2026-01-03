@@ -258,6 +258,12 @@ import { PortalTarget } from 'ember-primitives/components/portal-targets';
 
 </div>
 
+## Install
+
+```hbs live
+<SetupInstructions @src="components/portal.gts" />
+```
+
 ## API Reference
 
 ```gjs live no-shadow

@@ -1,12 +1,11 @@
 import Route from '@ember/routing/route';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
+import { SetupInstructions } from 'docs-app/components/setup.gts';
 import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
 import { createOnigurumaEngine } from 'shiki/engine/oniguruma';
-import dark from 'shiki/themes/github-dark.mjs';
-import light from 'shiki/themes/github-light.mjs';
 import {
   tracked as wrappedTracked,
   TrackedArray,
@@ -24,36 +23,10 @@ import { APIDocs, Comment, comment, ComponentSignature, ModifierSignature } from
 
 export default class Application extends Route {
   async model() {
+    const shiki = await import('./shiki.ts');
     const highlighter = await createHighlighterCore({
-      themes: [
-        {
-          ...dark,
-          colors: {
-            ...dark.colors,
-          },
-        },
-        {
-          ...light,
-          colors: {
-            ...light.colors,
-          },
-        },
-      ],
-      langs: [
-        import('shiki/langs/javascript.mjs'),
-        import('shiki/langs/typescript.mjs'),
-        import('shiki/langs/bash.mjs'),
-        import('shiki/langs/css.mjs'),
-        import('shiki/langs/diff.mjs'),
-        import('shiki/langs/html.mjs'),
-        import('shiki/langs/glimmer-js.mjs'),
-        import('shiki/langs/glimmer-ts.mjs'),
-        import('shiki/langs/handlebars.mjs'),
-        import('shiki/langs/jsonc.mjs'),
-        import('shiki/langs/markdown.mjs'),
-        import('shiki/langs/svelte.mjs'),
-        import('shiki/langs/vue.mjs'),
-      ],
+      themes: [shiki.dark, shiki.light],
+      langs: shiki.langs,
       engine: createOnigurumaEngine(() => import('shiki/wasm')),
     });
 
@@ -61,6 +34,7 @@ export default class Application extends Route {
       setupTabster(this),
       setupKolay(this, {
         topLevelScope: {
+          SetupInstructions,
           Callout,
           APIDocs,
           ComponentSignature,
@@ -174,7 +148,7 @@ export default class Application extends Route {
             highlighter,
             {
               // Theme chosen by CSS variables in app/css/site/shiki.css
-              defaultColor: false,
+              // defaultColor: false,
               themes: {
                 light: 'github-light',
                 dark: 'github-dark',

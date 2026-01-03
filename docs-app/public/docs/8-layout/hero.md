@@ -6,6 +6,15 @@ The hero pattern is for featuring large, eye-catching content, such as an image 
 
 * Covers the full browser height and width, including proper dimensionality on dynamically sized viewports, such as on mobile.
 
+
+
+## Install
+
+```hbs live
+<SetupInstructions @src="components/layout/hero.gts" />
+```
+
+
 ## Anatomy
 
 ```js 

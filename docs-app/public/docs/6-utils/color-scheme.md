@@ -99,6 +99,12 @@ function syncBodyClass() {
 </template>
 ```
 
+## Install
+
+```hbs live
+<SetupInstructions @src="color-scheme.gts" />
+```
+
 ## API Reference
 
 ```hbs live

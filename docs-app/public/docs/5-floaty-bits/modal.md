@@ -335,6 +335,12 @@ Constraining the height of an element to the dynamic vertical height works for d
 
 The scrollable element doesn't have to be the `body` either, it could be a `<div>`, as you'll see in layouts where scroll-content may be wholly underneath a header.
 
+## Install
+
+```hbs live
+<SetupInstructions @src="components/dialog.gts" />
+```
+
 ## Anatomy
 
 ```js 

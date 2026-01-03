@@ -47,41 +47,43 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
   </div>
 
   <style>
-    details {
-      position: relative;
-      padding-bottom: 1rem;
-    }
-    summary {
-      cursor: pointer;
-      margin-bottom: -1rem;
-      transition-property: all;
-      transition-duration: 150ms;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    @scope {
+      details {
+        position: relative;
+        padding-bottom: 1rem;
+      }
+      summary {
+        cursor: pointer;
+        margin-bottom: -1rem;
+        transition-property: all;
+        transition-duration: 150ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
-      background: white;
-      padding: 0.5rem;
-      color: black;
-      border: 1px solid;
-      border-radius: 0.25rem;
-      position: relative;
-      z-index: 2;
-    }
-    details[open] > summary {
-      background: #dcdcff; 
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
+        background: white;
+        padding: 0.5rem;
+        color: black;
+        border: 1px solid;
+        border-radius: 0.25rem;
+        position: relative;
+        z-index: 2;
+      }
+      details[open] > summary {
+        background: #dcdcff; 
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
 
-    details > span {
-      position: relative;
-      z-index: 1;
-    }
+      details > span {
+        position: relative;
+        z-index: 1;
+      }
 
-    .demo {
-      margin: 1rem; 
-      padding: 1rem;
-      display: grid;
-      gap: 1rem;
+      .demo {
+        margin: 1rem; 
+        padding: 1rem;
+        display: grid;
+        gap: 1rem;
+      }
     }
   </style>
 </template>
@@ -97,45 +99,53 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
 <summary><h3>Bootstrap - Single - Uncontrolled</h3></summary>
 
 ```gjs live preview
-import { Accordion } from 'ember-primitives';
+import { Accordion, Shadowed } from 'ember-primitives';
 
 <template>
-  <Accordion class='accordion' @type='single' as |A|>
-    <A.Item class='accordion-item' @value='what' as |I|>
-      <I.Header class='accordion-header' as |H|>
-        <H.Trigger
-          aria-expanded='{{I.isExpanded}}'
-          class='accordion-button {{unless I.isExpanded "collapsed"}}'
-        >What is Ember?</H.Trigger>
-      </I.Header>
-      <I.Content class='accordion-collapse collapse {{if I.isExpanded "show"}}'>
-        <div class='accordion-body'>
-          Ember.js is a productive, battle-tested JavaScript framework for building modern web
-          applications. It includes everything you need to build rich UIs that work on any device.
-        </div>
-      </I.Content>
-    </A.Item>
-    <A.Item class='accordion-item' @value='why' as |I|>
-      <I.Header class='accordion-header' as |H|>
-        <H.Trigger
-          aria-expanded='{{I.isExpanded}}'
-          class='accordion-button {{unless I.isExpanded "collapsed"}}'
-        >Why should I use Ember?</H.Trigger>
-      </I.Header>
-      <I.Content class='accordion-collapse collapse {{if I.isExpanded "show"}}'>
-        <div class='accordion-body'>
-          Use Ember.js for its opinionated structure and extensive ecosystem, which simplify
-          development and ensure long-term stability for web applications.
-        </div>
-      </I.Content>
-    </A.Item>
-  </Accordion>
+  <Shadowed>
+    <Accordion class='accordion' @type='single' as |A|>
+      <A.Item class='accordion-item' @value='what' as |I|>
+        <I.Header class='accordion-header' as |H|>
+          <H.Trigger
+            aria-expanded='{{I.isExpanded}}'
+            class='accordion-button {{unless I.isExpanded "collapsed"}}'
+          >What is Ember?</H.Trigger>
+        </I.Header>
+        <I.Content class='accordion-collapse {{if I.isExpanded "show"}}'>
+          <div class='accordion-body'>
+            Ember.js is a productive, battle-tested JavaScript framework for building modern web
+            applications. It includes everything you need to build rich UIs that work on any device.
+          </div>
+        </I.Content>
+      </A.Item>
+      <A.Item class='accordion-item' @value='why' as |I|>
+        <I.Header class='accordion-header' as |H|>
+          <H.Trigger
+            aria-expanded='{{I.isExpanded}}'
+            class='accordion-button {{unless I.isExpanded "collapsed"}}'
+          >Why should I use Ember?</H.Trigger>
+        </I.Header>
+        <I.Content class='accordion-collapse {{if I.isExpanded "show"}}'>
+          <div class='accordion-body'>
+            Use Ember.js for its opinionated structure and extensive ecosystem, which simplify
+            development and ensure long-term stability for web applications.
+          </div>
+        </I.Content>
+      </A.Item>
+    </Accordion>
 
-  <link
-    href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'
-    rel='stylesheet'
-    crossorigin='anonymous'
-  />
+    <link
+      href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'
+      rel='stylesheet'
+      crossorigin='anonymous'
+    />
+
+    <style>
+      @scope {
+        .accordion-body { color: black; }
+      }
+    </style>
+  </Shadowed>
 </template>
 ```
 
@@ -253,6 +263,12 @@ export default class ControlledAccordion extends Component {
 ```
 
 </details>
+
+## Install
+
+```hbs live
+<SetupInstructions @src="components/accordion.gts" />
+```
 
 ## Features
 

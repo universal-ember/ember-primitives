@@ -14,6 +14,12 @@ import { bodyClass } from 'ember-primitives/helpers/body-class';
 </template>
 ```
 
+## Install
+
+```hbs live
+<SetupInstructions @src="helpers/body-class.ts" />
+```
+
 ## API Reference
 
 

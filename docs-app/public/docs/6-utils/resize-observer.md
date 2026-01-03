@@ -7,11 +7,12 @@ Using one `ResizeObserver` (instead of multiple) results in dramatically better 
 
 This utility also handles the (uncatchable) ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
 
-## Setup
+## Install
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="resize-observer.ts" />
 ```
+
 
 Introduced in [0.42.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.42.0-ember-primitives)
 

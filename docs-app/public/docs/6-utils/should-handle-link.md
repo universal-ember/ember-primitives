@@ -4,11 +4,12 @@ The utility provided from [should-handle-link](https://github.com/NullVoxPopuli/
 
 Before we pass off the the ember router to determine if a `href` link is part of your app, we have to first determine if the browser should handle the click instead.
 
-## Setup 
+## Install
 
-```bash 
-pnpm add should-handle-link
+```hbs live
+<SetupInstructions @name="should-handle-link" />
 ```
+
 
 ## Usage 
 

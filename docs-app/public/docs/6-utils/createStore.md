@@ -12,11 +12,13 @@ When using `createStore` with the `owner` as the key, you effectively have lazyi
 
 </Callout>
 
-## Setup
 
-```bash 
-pnpm add ember-primitives
+## Install
+
+```hbs live
+<SetupInstructions @src="store.ts" />
 ```
+
 
 Introduced in [0.38.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.38.0-ember-primitives)
 

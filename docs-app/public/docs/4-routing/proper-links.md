@@ -3,6 +3,12 @@
 Enables usage of plain `<a>` tags.
 You no longer need to use a component to have single-page-app navigation 🎉.
 
+## Install
+
+```hbs live
+<SetupInstructions @src="proper-links.ts" />
+```
+
 ## Setup
 
 import `properLinks` and apply it to your Router.
@@ -36,3 +42,5 @@ Once `@properLinks` is installed and setup, you can use plain `<a>` tags for nav
   </nav>
 </template>
 ```
+
+

@@ -46,11 +46,13 @@
     "kolay": "4.0.5",
     "limber-ui": "^4.0.2",
     "lorem-ipsum": "^2.0.8",
+    "nvp.ui": "^0.5.2",
     "path-browserify": "^1.0.1",
     "reactiveweb": "^1.8.0",
     "shiki": "^3.20.0",
     "should-handle-link": "^1.2.2",
     "tracked-built-ins": "^4.1.0",
+    "unist-util-visit": "^5.0.0",
     "which-heading-do-i-need": "workspace:*"
   },
   "dependenciesMeta": {

@@ -18,3 +18,11 @@ import { APIDocs } from 'kolay';
   <APIDocs @package="ember-primitives" @module="declarations/iframe" @name="notInIframe" />
 </template>
 ```
+
+
+## Install
+
+```hbs live
+<SetupInstructions @src="iframe.ts" />
+```
+

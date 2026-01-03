@@ -4,9 +4,11 @@ With `ember-primitives` you only ship as much JS to your users as you need. Impo
 
 ## Install
 
-```bash
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions />
 ```
+
+While installation is recommended, you are welcome to copy any implementation to your codebase, and most docs pages have a one-off command to help automate this, enabling you to own the code you ship to your users.
 
 ## Compatibility
 

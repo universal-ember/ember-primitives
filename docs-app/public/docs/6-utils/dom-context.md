@@ -4,11 +4,12 @@ DOM Context provides a way to share data between components through the DOM hier
 
 Unlike event-based context systems, DOM Context follows the DOM tree synchronously, allowing for proper fine-grained reactivity where consumers automatically update when the provided data changes.
 
-## Setup
+## Install
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="dom-context.gts" />
 ```
+
 
 Introduced in [0.40.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.40.0-ember-primitives)
 

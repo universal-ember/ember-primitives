@@ -31,8 +31,14 @@ export default defineConfig(async (/* { mode } */) => {
       }),
     ],
     optimizeDeps: {
-      // a wasm-providing dependency
-      exclude: ["content-tag", "ember-primitives"],
+      exclude: [
+        // a wasm-providing dependency
+        "content-tag",
+        // this repo
+        "ember-primitives",
+        // Because we rely on postcss processing
+        "@universal-ember/docs-support",
+      ],
       // for top-level-await, etc
       esbuildOptions: {
         target: "esnext",

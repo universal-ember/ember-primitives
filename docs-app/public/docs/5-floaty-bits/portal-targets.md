@@ -49,6 +49,12 @@ const isOpen = cell(false);
 </template>
  ```
 
+## Install
+
+```hbs live
+<SetupInstructions @src="components/portal-targets.gts" />
+```
+
 
 ## Anatomy
 

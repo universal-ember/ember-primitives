@@ -189,21 +189,8 @@ module('<Rating>', function (hooks) {
     assert.strictEqual(rating.starTexts, 'x x x x x');
   });
 
-  test('fractional (numbers)', async function (assert) {
-    const step = (x: number | undefined) => assert.step(`${x}`);
-    const Icon: TOC<IconSignature> = <template>{{step @percentSelected}}</template>;
-
-    await render(<template><Rating @icon={{Icon}} /></template>);
-
-    assert.verifySteps(['0', '0', '0', '0', '0']);
-
-    await rating.select(2);
-
-    assert.verifySteps(['100', '100', '0', '0', '0']);
-  });
-
   test('fractional', async function (assert) {
-    const Icon: TOC<IconSignature> = <template>{{@percentSelected}}</template>;
+    const Icon: TOC<IconSignature> = <template>{{@value}}</template>;
 
     await render(
       <template>
@@ -324,25 +311,13 @@ module('<Rating>', function (hooks) {
       await render(<template><Rating @step={{0.5}} @value={{3.5}} /></template>);
 
       assert.strictEqual(rating.value, 3.5);
-      assert.dom('[data-number="3"]').hasAttribute('data-percent-selected', '100');
-      assert.dom('[data-number="4"]').hasAttribute('data-percent-selected', '50');
-      assert.dom('[data-number="5"]').hasAttribute('data-percent-selected', '0');
-    });
-
-    test('@step={{0.5}} with string @iconHalf', async function (assert) {
-      await render(
-        <template><Rating @step={{0.5}} @value={{2.5}} @icon="★" @iconHalf="⯨" /></template>
-      );
-
-      assert.strictEqual(rating.value, 2.5);
-      assert.strictEqual(rating.starTexts, '★ ★ ⯨ ★ ★');
     });
 
     test('@step={{0.5}} interactive selection', async function (assert) {
       await render(
         <template>
           <Rating @step={{0.5}} as |r|>
-            <r.Range step="0.5" />
+            <r.Range />
             <r.Stars />
           </Rating>
         </template>
@@ -363,76 +338,13 @@ module('<Rating>', function (hooks) {
       await render(
         <template>
           <Rating @step={{0.25}} @value={{3.75}} as |r|>
-            <r.Range step="0.25" />
+            <r.Range />
             <r.Stars />
           </Rating>
         </template>
       );
 
       assert.strictEqual(rating.value, 3.75);
-      assert.dom('[data-number="3"]').hasAttribute('data-percent-selected', '100');
-      assert.dom('[data-number="4"]').hasAttribute('data-percent-selected', '75');
-    });
-
-    test('@step={{0.5}} with component icon uses percentSelected', async function (assert) {
-      const Icon: TOC<IconSignature> = <template>
-        <span data-test-percent={{@percentSelected}}>
-          {{#if (lte @percentSelected 0)}}
-            empty
-          {{else if (lt @percentSelected 100)}}
-            half
-          {{else}}
-            full
-          {{/if}}
-        </span>
-      </template>;
-
-      const lte = (a: number, b: number) => a <= b;
-      const lt = (a: number, b: number) => a < b;
-
-      await render(<template><Rating @step={{0.5}} @value={{2.5}} @icon={{Icon}} /></template>);
-
-      assert.strictEqual(rating.value, 2.5);
-      assert.strictEqual(rating.starTexts, 'full full half empty empty');
-
-      const items = findAll('[data-test-percent]');
-
-      assert.strictEqual(items[0]?.getAttribute('data-test-percent'), '100');
-      assert.strictEqual(items[1]?.getAttribute('data-test-percent'), '100');
-      assert.strictEqual(items[2]?.getAttribute('data-test-percent'), '50');
-      assert.strictEqual(items[3]?.getAttribute('data-test-percent'), '0');
-      assert.strictEqual(items[4]?.getAttribute('data-test-percent'), '0');
-    });
-
-    test('@step rounding handles floating point precision', async function (assert) {
-      await render(
-        <template>
-          <Rating @step={{0.1}} @value={{3.3}} as |r|>
-            <r.Range step="0.1" />
-            <r.Stars />
-          </Rating>
-        </template>
-      );
-
-      assert.strictEqual(rating.value, 3.3);
-
-      // Verify it rounds correctly
-      await rating.select(2.15);
-
-      // Should round to nearest 0.1 (either 2.1 or 2.2 depending on rounding behavior)
-      const isCloseTo2_1 = Math.abs(rating.value - 2.1) < 0.01;
-      const isCloseTo2_2 = Math.abs(rating.value - 2.2) < 0.01;
-      const roundedCorrectly = isCloseTo2_1 ? true : isCloseTo2_2;
-
-      assert.ok(roundedCorrectly, `Value ${rating.value} should be close to 2.1 or 2.2`);
-    });
-
-    test('@iconHalf without @step uses default whole stars', async function (assert) {
-      await render(<template><Rating @iconHalf="⯨" @value={{3}} /></template>);
-
-      assert.strictEqual(rating.value, 3);
-      // No half stars should show with whole number value
-      assert.strictEqual(rating.starTexts, '★ ★ ★ ★ ★');
     });
 
     test('half-rating with @onChange callback', async function (assert) {
@@ -444,7 +356,7 @@ module('<Rating>', function (hooks) {
       await render(
         <template>
           <Rating @step={{0.5}} @onChange={{onChange}} as |r|>
-            <r.Range step="0.5" />
+            <r.Range />
             <r.Stars />
           </Rating>
         </template>
@@ -462,19 +374,16 @@ module('<Rating>', function (hooks) {
 
       assert.dom(root).hasAttribute('data-value', '3.5');
 
-      // Check percent-selected for each star
-      assert.dom('[data-number="1"]').hasAttribute('data-percent-selected', '100');
-      assert.dom('[data-number="2"]').hasAttribute('data-percent-selected', '100');
-      assert.dom('[data-number="3"]').hasAttribute('data-percent-selected', '100');
-      assert.dom('[data-number="4"]').hasAttribute('data-percent-selected', '50');
-      assert.dom('[data-number="5"]').hasAttribute('data-percent-selected', '0');
-
       // Check selected attribute
-      assert.dom('[data-number="1"]').hasAttribute('data-selected', 'true');
-      assert.dom('[data-number="2"]').hasAttribute('data-selected', 'true');
-      assert.dom('[data-number="3"]').hasAttribute('data-selected', 'true');
-      assert.dom('[data-number="4"]').hasAttribute('data-selected', 'false');
-      assert.dom('[data-number="5"]').hasAttribute('data-selected', 'false');
+      assert.dom('[data-number="0.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="1"]').hasAttribute('data-selected');
+      assert.dom('[data-number="1.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="2"]').hasAttribute('data-selected');
+      assert.dom('[data-number="2.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="3"]').hasAttribute('data-selected');
+      assert.dom('[data-number="3.5"]').hasAttribute('data-selected');
+      assert.dom('[data-number="4"]').doesNotHaveAttribute('data-selected');
+      assert.dom('[data-number="5"]').doesNotHaveAttribute('data-selected');
     });
 
     test('@step={{0.5}} with @readonly', async function (assert) {

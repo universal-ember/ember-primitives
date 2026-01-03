@@ -20,6 +20,7 @@ export class RatingState extends Component<{
     default: [
       internalApi: {
         stars: number[];
+        step: number;
         value: number;
         total: number;
         handleClick: (event: Event) => void;
@@ -135,6 +136,7 @@ export class RatingState extends Component<{
         handleChange=this.handleChange
         setRating=this.setRating
         value=this.value
+        step=this.step
       )
       (hash total=this.stars.length value=this.value)
     }}

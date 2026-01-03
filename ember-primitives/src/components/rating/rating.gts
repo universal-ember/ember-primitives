@@ -191,7 +191,12 @@ export class Rating extends Component<Signature> {
                 isChangeable=this.isChangeable
                 Stars=RatingStars
                 Range=(component
-                  RatingRange max=r.total value=r.value name=this.name handleChange=r.handleChange
+                  RatingRange
+                  step=r.step
+                  max=r.total
+                  value=r.value
+                  name=this.name
+                  handleChange=r.handleChange
                 )
               )
             }}

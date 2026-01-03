@@ -1,5 +1,24 @@
 # Changelog 
 
+## Release (2026-01-03)
+
+* ember-primitives 0.50.0 (minor)
+* which-heading-do-i-need 0.2.3 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#610](https://github.com/universal-ember/ember-primitives/pull/610) Half-ratings ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#611](https://github.com/universal-ember/ember-primitives/pull/611) Add CLI tool to eject code into a person's project ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* Other
+  * [#613](https://github.com/universal-ember/ember-primitives/pull/613) Upgrade ember-repl, ref: https://github.com/emberjs/ember.js/issues/21023 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`, `which-heading-do-i-need`
+  * [#612](https://github.com/universal-ember/ember-primitives/pull/612) Update intetrnal deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-12-31)
 
 * ember-primitives 0.49.0 (minor)

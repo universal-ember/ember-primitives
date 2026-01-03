@@ -96,15 +96,27 @@ export function sync() {
   }
 }
 
+const queries = {
+  dark: window.matchMedia('(prefers-color-scheme: dark)'),
+  light: window.matchMedia('(prefers-color-scheme: light)'),
+  none: window.matchMedia('(prefers-color-scheme: no-preference)'),
+};
+
+queries.dark.addEventListener('change', (e) => {
+  const mode = e.matches ? 'dark' : 'light';
+
+  colorScheme.update(mode);
+});
+
 /**
  * Helper methods to determining what the user's preferred color scheme is
  * based on the system preferences rather than the users explicit preference.
  */
 export const prefers = {
-  dark: () => window.matchMedia('(prefers-color-scheme: dark)').matches,
-  light: () => window.matchMedia('(prefers-color-scheme: light)').matches,
+  dark: () => queries.dark.matches,
+  light: () => queries.light.matches,
+  none: () => queries.none.matches,
   custom: (name: string) => window.matchMedia(`(prefers-color-scheme: ${name})`).matches,
-  none: () => window.matchMedia('(prefers-color-scheme: no-preference)').matches,
 };
 
 const LOCAL_PREF_KEY = 'ember-primitives/color-scheme#local-preference';

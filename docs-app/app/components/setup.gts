@@ -1,4 +1,5 @@
 import { Tabs } from 'ember-primitives/components/tabs';
+
 import { Link } from '@universal-ember/docs-support';
 
 import type { TOC } from '@ember/component/template-only';

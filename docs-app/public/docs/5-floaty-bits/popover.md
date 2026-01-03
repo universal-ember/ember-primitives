@@ -204,6 +204,12 @@ const settings = cell(true);
 
 </div>
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/popover.gts" />
+```
+
 
 ## API Reference
 

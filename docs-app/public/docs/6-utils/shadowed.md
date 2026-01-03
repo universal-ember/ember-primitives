@@ -37,6 +37,14 @@ import { Shadowed } from 'ember-primitives';
 </template>
 ```
 
+
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/shadowed.gts" />
+```
+
+
 ## API Reference
 
 ```gjs live no-shadow

@@ -31,3 +31,11 @@ const useBootstrap = cell(false);
 </template>
 ```
 
+
+
+## Setup
+
+```hbs live
+<SetupInstructions @src="head.gts" />
+```
+

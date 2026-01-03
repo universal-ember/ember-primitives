@@ -251,6 +251,12 @@ const Star = <template>
 </div>
 </details>
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/rating.gts" />
+```
+
 ## Features
 
 - Any shape can be used

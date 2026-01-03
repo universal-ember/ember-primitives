@@ -107,6 +107,14 @@ Sometimes, you need to use an existing component as the trigger. `<Menu>` also y
 Keep in mind that for the modifier to do its work, your custom component must use [`...attributes`](https://guides.emberjs.com/v5.7.0/components/component-arguments-and-html-attributes/#toc_html-attributes) in some HTML element.
 
 
+## Setup
+
+
+```hbs live
+<SetupInstructions @src="components/menu.gts" />
+```
+
+
 ## API Reference
 
 ```gjs live no-shadow

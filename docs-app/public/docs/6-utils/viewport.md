@@ -6,9 +6,10 @@ Using one `IntersectionObserver` (instead of multiple) results in dramatically b
 
 ## Setup
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="viewport/viewport.ts" />
 ```
+
 
 Introduced in [0.49.0](https://github.com/universal-ember/ember-primitives/releases)
 

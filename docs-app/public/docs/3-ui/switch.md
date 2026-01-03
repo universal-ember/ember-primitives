@@ -11,18 +11,20 @@ The Switch component is a user interface element used for toggling between two s
 See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
 
 ```gjs live preview
-import { Switch } from 'ember-primitives';
+import { Switch, Shadowed } from 'ember-primitives';
 
 <template>
-  <div class="p-4">
-    <Switch class="form-check form-switch" as |s|>
-      <s.Control class="form-check-input" />
-      <s.Label class="form-check-label">
-        Toggle on or off
-      </s.Label>
-    </Switch>
-  </div>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  <Shadowed>
+    <div class="p-4">
+      <Switch class="form-check form-switch" as |s|>
+        <s.Control class="form-check-input" />
+        <s.Label class="form-check-label">
+          Toggle on or off
+        </s.Label>
+      </Switch>
+    </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  </Shadowed>
 </template>
 ```
 
@@ -33,93 +35,95 @@ import { Switch } from 'ember-primitives';
 CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKGN?editors=1100)
 
 ```gjs live preview
-import { Switch } from 'ember-primitives';
+import { Switch, Shadowed } from 'ember-primitives';
 import { on } from '@ember/modifier';
 
 const toggleTheme = (e) =>
   e.target.closest('div').classList.toggle("dark");
 
 <template>
-  <Switch as |s|>
-    <s.Control {{on 'change' toggleTheme}} />
-    <s.Label>
-      <span class="sr-only">Toggle between light and dark mode</span>
-      <Moon />
-      <Sun />
-      <span class="ball"></span>
-    </s.Label>
-  </Switch>
+  <Shadowed>
+    <Switch as |s|>
+      <s.Control {{on 'change' toggleTheme}} />
+      <s.Label>
+        <span class="sr-only">Toggle between light and dark mode</span>
+        <Moon />
+        <Sun />
+        <span class="ball"></span>
+      </s.Label>
+    </Switch>
 
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-    * {box-sizing: border-box;}
+      * {box-sizing: border-box;}
 
-    div {
-      padding: 1rem;
-      font-family: "Montserrat", sans-serif;
-      background-color: #eee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-      margin: 0;
-      transition: background 0.2s linear;
-    }
+      div {
+        padding: 1rem;
+        font-family: "Montserrat", sans-serif;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        margin: 0;
+        transition: background 0.2s linear;
+      }
 
-    div.dark {background-color: #292c35;}
-    div.dark label { background-color: #9b59b6; }
+      div.dark {background-color: #292c35;}
+      div.dark label { background-color: #9b59b6; }
 
 
-    input[type='checkbox'][role='switch'] {
-      opacity: 0;
-      position: absolute;
-    }
+      input[type='checkbox'][role='switch'] {
+        opacity: 0;
+        position: absolute;
+      }
 
-    .sr-only {
-      width: 0px;
-      max-width: 0px;
-      height: 0px;
-      max-height: 0px;
-      overflow: hidden;
-      margin-left: -0.5rem;
-    }
+      .sr-only {
+        width: 0px;
+        max-width: 0px;
+        height: 0px;
+        max-height: 0px;
+        overflow: hidden;
+        margin-left: -0.5rem;
+      }
 
-    label {
-      background-color: #111;
-      width: 50px;
-      height: 26px;
-      border-radius: 50px;
-      position: relative;
-      padding: 5px;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-    }
+      label {
+        background-color: #111;
+        width: 50px;
+        height: 26px;
+        border-radius: 50px;
+        position: relative;
+        padding: 5px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+      }
 
-    svg { fill: currentColor; }
-    .fa-moon { color: #f1c40f; }
-    .fa-sun { color: #f39c12; }
+      svg { fill: currentColor; }
+      .fa-moon { color: #f1c40f; }
+      .fa-sun { color: #f39c12; }
 
-    label .ball {
-      background-color: #fff;
-      width: 22px;
-      height: 22px;
-      position: absolute;
-      left: 2px;
-      top: 2px;
-      border-radius: 50%;
-      transition: transform 0.2s linear;
-    }
+      label .ball {
+        background-color: #fff;
+        width: 22px;
+        height: 22px;
+        position: absolute;
+        left: 2px;
+        top: 2px;
+        border-radius: 50%;
+        transition: transform 0.2s linear;
+      }
 
-    input[type='checkbox'][role='switch']:checked + label .ball {
-      transform: translateX(24px);
-    }
+      input[type='checkbox'][role='switch']:checked + label .ball {
+        transform: translateX(24px);
+      }
 
-  </style>
+    </style>
+  </Shadowed>
 </template>
 
 // 🎵 It's raining, it's pouring, ... 🎵
@@ -134,6 +138,12 @@ const Moon = <template>
 ```
 
 </details>
+
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/switch.gts" />
+```
 
 ## Features 
 

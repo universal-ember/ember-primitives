@@ -105,6 +105,12 @@ import { Zoetrope } from "ember-primitives";
 
 </div>
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/zoetrope.ts" />
+```
+
 ## Features
 
 - Automatic page size detection.

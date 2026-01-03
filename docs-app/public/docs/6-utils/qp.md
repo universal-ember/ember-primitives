@@ -6,9 +6,10 @@ Utilities for accessing query-params without the need for creating a class-compo
 
 ## Setup
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="qp.ts" />
 ```
+
 
 ## API Reference
 

@@ -82,7 +82,7 @@ function update(newValues) {
         flex-wrap: wrap;
         flex-direction: column;
       }
-      input { max-width: 100%; }
+      input { max-width: 100%; color: black; }
       pre { 
         overflow: hidden; 
         white-space: pre-wrap;
@@ -126,6 +126,11 @@ const handleSubmit = (onChange, event) => {
 [mdn-FormData]:  https://developer.mozilla.org/en-US/docs/Web/API/FormData
 [mdn-FormDataEntryValue]: https://udn.realityripple.com/docs/Web/API/FormDataEntryValue
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/form.gts" />
+```
 
 ## Features 
 

@@ -13,8 +13,9 @@ See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) 
 
 ## Setup
 
-```bash 
-pnpm add ember-primitives
+
+```hbs live
+<SetupInstructions @src="floating-ui.ts" />
 ```
 
 ## `<FloatingUI>`

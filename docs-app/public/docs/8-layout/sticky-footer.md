@@ -122,6 +122,14 @@ const removeContent = () => content.splice(-1);
 
 </div>
 
+
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/layout/sticky-footer.gts" />
+```
+
+
 ## Features
 
 * Footer sticks to the bottom of the window when there is less than a screen's worth of content

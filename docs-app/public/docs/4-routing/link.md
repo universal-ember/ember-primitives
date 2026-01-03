@@ -43,6 +43,12 @@ import { Link } from 'ember-primitives';
 </template>
 ```
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/link.gts" />
+```
+
 ## Features
 
 * Full keyboard navigation
@@ -102,10 +108,12 @@ import { Link } from 'ember-primitives';
 
 <template>
   <style>
-    [data-active] {
-      color: red;
+    @scope {
+      [data-active] {
+        color: red;
+      }
+      a { padding: 0.25rem 0.5rem; }
     }
-    a { padding: 0.25rem 0.5rem; }
   </style>
 
   <Link @href="/4-routing/link" as |a|>

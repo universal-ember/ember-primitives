@@ -104,6 +104,12 @@ const AlignRight = <template>
 
 </div>
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/toggle-group.gts" />
+```
+
 ## Features
 
 * Full keyboard navigation

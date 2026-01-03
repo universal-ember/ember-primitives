@@ -8,9 +8,10 @@ This utility also handles the (uncachable) ["ResizeObserver loop limit exceeded"
 
 ## Setup
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="on-resize.ts" />
 ```
+
 
 Introduced in [0.32.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.32.0-ember-primitives)
 

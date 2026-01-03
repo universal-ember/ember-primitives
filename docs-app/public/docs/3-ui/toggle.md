@@ -41,6 +41,12 @@ import { Toggle } from 'ember-primitives';
 
 </details>
 
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/toggle.gts" />
+```
+
 ## Features 
 
 * Full keyboard navigation 

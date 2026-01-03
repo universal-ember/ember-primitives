@@ -8,9 +8,10 @@ This enables distributed teams to correctly produce appropriate section heading 
 
 ## Install
 
-```bash
-pnpm add which-heading-do-i-need
+```hbs live
+<SetupInstructions @name="which-heading-do-i-need" />
 ```
+
 
 ## Usage
 

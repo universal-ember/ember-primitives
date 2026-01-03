@@ -6,9 +6,10 @@ This is useful for optimizing performance by not rendering expensive components 
 
 ## Setup
 
-```bash
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="viewport/in-viewport.gts" />
 ```
+
 
 ## Usage
 

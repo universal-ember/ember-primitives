@@ -20,3 +20,10 @@ import { ExternalLink } from 'ember-primitives';
   </ExternalLink>
 </template>
 ```
+
+
+## Setup
+
+```hbs live
+<SetupInstructions @src="components/external-link.gts" />
+```

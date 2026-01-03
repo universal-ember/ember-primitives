@@ -10,15 +10,20 @@ function dropExtension(name: string | undefined) {
   return name.replace(/\.g?(j|t)s/, '');
 }
 
+function orDefault(name: string | undefined) {
+  return name || 'ember-primitives';
+}
+
 export const SetupInstructions: TOC<{
   Args: {
+    name?: string;
     src?: string;
   };
 }> = <template>
   <Tabs class="tabs not-prose" @label="Install as a library" as |Tab|>
-    <Tab @label="npm">npm add ember-primitives</Tab>
-    <Tab @label="pnpm">pnpm add ember-primitives</Tab>
-    <Tab @label="yarn">yarn add ember-primitives</Tab>
+    <Tab @label="npm">npm add {{orDefault @name}}</Tab>
+    <Tab @label="pnpm">pnpm add {{orDefault @name}}</Tab>
+    <Tab @label="yarn">yarn add {{orDefault @name}}</Tab>
   </Tabs>
 
   {{#if @src}}
@@ -30,7 +35,7 @@ export const SetupInstructions: TOC<{
         <Link
           href="https://github.com/universal-ember/ember-primitives/blob/main/ember-primitives/src/{{@src}}"
         >
-          https://github.com/universal-ember/ember-primitives/blob/main/ember-primitives/src/{{@src}}
+          Edit or Copy from the Source
         </Link>
       </Tab>
     </Tabs>
@@ -57,7 +62,7 @@ export const SetupInstructions: TOC<{
         outline: none;
         font-weight: bold;
         cursor: pointer;
-        box-shadow: inset 0 -1px 1px black;
+        box-shadow: inset 0 -1px 0px black;
       }
 
       [role="tab"][aria-selected="true"] {

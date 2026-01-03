@@ -5,7 +5,7 @@ This helper enables typed access to services without a backing class or even a c
 ## Example 
 
 ```gjs live preview 
-import { service } from 'ember-primitives';
+import { service } from 'ember-primitives/helpers/service';
 
 <template>
   {{#let (service 'router') as |router|}}
@@ -15,5 +15,12 @@ import { service } from 'ember-primitives';
 
   {{/let}}
 </template>
+```
+
+
+## Setup
+
+```hbs live
+<SetupInstructions @src="helpers/service.ts" />
 ```
 

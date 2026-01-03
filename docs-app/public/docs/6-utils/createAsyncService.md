@@ -21,12 +21,12 @@ This can be useful for importing services that may themselves import many things
 </Callout>
 
 
-
 ## Setup
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="service.ts" />
 ```
+
 
 Introduced in [0.47.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.47.0-ember-primitives)
 

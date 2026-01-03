@@ -8,9 +8,10 @@ This is a very tiny wrapper around reactiveweb's [`getPromiseState`](https://rea
 
 ## Setup
 
-```bash 
-pnpm add ember-primitives
+```hbs live
+<SetupInstructions @src="load.gts" />
 ```
+
 
 ## Usage
 

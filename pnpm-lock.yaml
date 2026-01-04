@@ -585,6 +585,9 @@ importers:
       '@babel/runtime':
         specifier: ^7.28.4
         version: 7.28.4
+      '@ember/library-tsconfig':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@embroider/addon-dev':
         specifier: ^6.0.1
         version: 6.0.1(@glint/template@1.7.3)(rollup@4.54.0)
@@ -606,9 +609,6 @@ importers:
       '@rollup/plugin-babel':
         specifier: ^6.1.0
         version: 6.1.0(478634eb3d4f0e669e967121e68e9dbd)
-      '@tsconfig/ember':
-        specifier: ^3.0.12
-        version: 3.0.12
       babel-plugin-ember-template-compilation:
         specifier: ^3.0.1
         version: 3.0.1

@@ -1,10 +1,10 @@
-import { cell } from 'ember-resources';
 import { modifier } from 'ember-modifier';
+import { cell } from 'ember-resources';
 import { Page } from 'kolay/components';
 
-import { ResponsiveMenuLayout } from './menu-layout.gts';
-import { Link } from './links.gts';
 import { Article } from './article.gts';
+import { Link } from './links.gts';
+import { ResponsiveMenuLayout } from './menu-layout.gts';
 import { ThemeToggle } from './theme-toggle.gts';
 
 import type { TOC } from '@ember/component/template-only';
@@ -15,7 +15,7 @@ function removeLoader() {
   document.querySelector('#initial-loader')?.remove();
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 function resetScroll(..._args: unknown[]) {
   document.querySelector('html')?.scrollTo(0, 0);
 }

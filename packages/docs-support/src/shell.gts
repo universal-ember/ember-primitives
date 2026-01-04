@@ -1,5 +1,4 @@
 import 'ember-mobile-menu/themes/android';
-
 /**
  * NOTE: while this project uses tailwind,
  *   CSS is better than tailwind for
@@ -14,9 +13,9 @@ import './site-css/featured-demo.css';
 import './site-css/shiki.css';
 import './site-css/shell.css';
 
-import type { TOC } from '@ember/component/template-only';
-
 import { colorScheme } from 'ember-primitives/color-scheme';
+
+import type { TOC } from '@ember/component/template-only';
 
 export const Shell: TOC<{ Blocks: { default: [] } }> = <template>
   {{(syncBodyClass)}}

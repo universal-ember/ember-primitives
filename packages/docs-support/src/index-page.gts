@@ -1,7 +1,8 @@
-import type { TOC } from '@ember/component/template-only';
+import './index-page.css';
+
 import { Hero } from 'ember-primitives/layout/hero';
 
-import './index-page.css';
+import type { TOC } from '@ember/component/template-only';
 
 export const IndexPage: TOC<{
   Blocks: {

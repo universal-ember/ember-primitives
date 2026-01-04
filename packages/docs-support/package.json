@@ -37,20 +37,16 @@
     "src"
   ],
   "scripts": {
-    "build": "concurrently 'pnpm:build:*'",
-    "build:js": "rollup --config",
-    "build:types": "glint --declaration",
+    "build": "rollup --config",
     "lint": "concurrently 'pnpm:lint:*(!fix)' --names 'lint:'",
     "lint:fix": "concurrently 'pnpm:lint:*:fix' --names 'fix:'",
     "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
     "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "lint:types": "glint",
-    "prepack": "concurrently 'pnpm:build:*'",
-    "start": "concurrently 'pnpm:start:*'",
-    "start:js": "rollup --config --watch --no-watch.clearScreen",
-    "start:types": "glint --declaration --watch"
+    "lint:types": "ember-tsc --noEmit",
+    "prepack": "pnpm build",
+    "start": "rollup --config --watch --no-watch.clearScreen"
   },
   "dependencies": {
     "@embroider/addon-shim": "^1.10.2",
@@ -79,7 +75,7 @@
     "@glint/template": "^1.7.3",
     "@glint/tsserver-plugin": "^2.0.8",
     "@rollup/plugin-babel": "^6.1.0",
-    "@tsconfig/ember": "^3.0.12",
+    "@ember/library-tsconfig": "^2.0.0",
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
     "babel-plugin-ember-template-compilation": "^2.2.5",
     "concurrently": "^9.2.1",

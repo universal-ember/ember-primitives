@@ -1,11 +1,11 @@
 // @ts-expect-error - no types are provided for ember-mobile-menu
 import MenuWrapper from 'ember-mobile-menu/components/mobile-menu-wrapper';
 
-import type { TOC } from '@ember/component/template-only';
-import type { ComponentLike, WithBoundArgs } from '@glint/template';
-
 import { Menu } from './icons.gts';
 import { SideNav } from './side-nav.gts';
+
+import type { TOC } from '@ember/component/template-only';
+import type { ComponentLike, WithBoundArgs } from '@glint/template';
 
 const Toggle: TOC<{
   Args: {

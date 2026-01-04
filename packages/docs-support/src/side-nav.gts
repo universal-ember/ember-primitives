@@ -1,15 +1,16 @@
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
-import type RouterService from '@ember/routing/router-service';
 
 import { sentenceCase } from 'change-case';
 import { link } from 'ember-primitives/helpers';
+import { selected } from 'kolay';
 import { PageNav } from 'kolay/components';
 import { getAnchor } from 'should-handle-link';
 
 import type { TOC } from '@ember/component/template-only';
-import type { DocsService, Page } from 'kolay';
+import type RouterService from '@ember/routing/router-service';
+import type { Page } from 'kolay';
 
 type CustomPage = Page & {
   title?: string;
@@ -27,7 +28,8 @@ function fixWords(text: string) {
 }
 
 const joinUrl = (...strs: string[]) => {
-  let prefix = strs[0]?.startsWith('/') ? '/' : '';
+  const prefix = strs[0]?.startsWith('/') ? '/' : '';
+
   return (
     prefix +
     strs
@@ -55,12 +57,12 @@ const titleize = (str: string) => {
   );
 };
 
-function nameFor(x: Page) {
+function nameFor(x: Page): string {
   if ('componentName' in x) {
-    return `${x.componentName}`;
+    return String(x.componentName);
   }
 
-  let page = x as CustomPage;
+  const page = x as CustomPage;
 
   return page.title ? page.title : sentenceCase(page.name);
 }
@@ -123,11 +125,13 @@ export class SideNav extends Component<{
     onClick?: () => void;
   };
 }> {
-  @service('kolay/docs') declare docs: DocsService;
+  get #selected() {
+    return selected(this);
+  }
   @service('router') declare router: RouterService;
 
   get humanSelected() {
-    let path = this.docs.selected?.path;
+    const path = this.#selected?.path;
 
     if (!path) return undefined;
 

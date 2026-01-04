@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import { ExternalLink } from 'ember-primitives/components/external-link';
+
+import type { TOC } from '@ember/component/template-only';
 
 const linkClasses = `
   text-sm font-semibold

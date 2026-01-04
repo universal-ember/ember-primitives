@@ -1,0 +1,11 @@
+# https://github.com/NullVoxPopuli/defrag
+#
+# When writing to package.json,
+# remove the semver-range, pinning the dependencie
+# to an exact version.
+#
+# Possible values:
+#  pinned ( default )
+#  patches ( e.g.:  ~1.0.0 )
+#  minors ( e.g.: ^1.0.0 )
+write-as: minors

@@ -1,0 +1,104 @@
+{
+  "name": "@universal-ember/docs-support",
+  "version": "0.8.1",
+  "description": "The default blueprint for Embroider v2 addons.",
+  "keywords": [
+    "ember-addon"
+  ],
+  "repository": "https://github.com/universal-ember/ember-primitives",
+  "license": "MIT",
+  "author": "nullvoxpopuli",
+  "exports": {
+    ".": {
+      "types": "./declarations/index.gts.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tailwind": {
+      "import": "./tailwind.mjs"
+    },
+    "./*": {
+      "types": "./declarations/*.gts.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./addon-main.js": "./addon-main.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "declarations/*"
+      ]
+    }
+  },
+  "files": [
+    "addon-main.cjs",
+    "tailwind.mjs",
+    "declarations",
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "lint": "concurrently 'pnpm:lint:*(!fix)' --names 'lint:'",
+    "lint:fix": "concurrently 'pnpm:lint:*:fix' --names 'fix:'",
+    "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
+    "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "lint:types": "ember-tsc --noEmit",
+    "prepack": "pnpm build",
+    "start": "rollup --config --watch --no-watch.clearScreen"
+  },
+  "dependencies": {
+    "@embroider/addon-shim": "^1.10.2",
+    "@fontsource/lexend": "^5.2.11",
+    "@tailwindcss/typography": "^0.5.15",
+    "change-case": "^5.4.4",
+    "decorator-transforms": "^2.3.0",
+    "ember-mobile-menu": "^6.0.0",
+    "ember-modifier": "^4.2.2",
+    "ember-primitives": "workspace:*",
+    "ember-resources": "^7.0.7",
+    "inter-ui": "^4.0.2",
+    "kolay": "^3.5.6",
+    "package-up": "^5.0.0",
+    "read-package-up": "^12.0.0",
+    "should-handle-link": "^1.2.2",
+    "tailwindcss": "^3.4.14"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/plugin-transform-typescript": "^7.28.5",
+    "@babel/runtime": "^7.28.4",
+    "@ember/library-tsconfig": "^2.0.0",
+    "@embroider/addon-dev": "^8.2.0",
+    "@glimmer/component": "^2.0.0",
+    "@glint/ember-tsc": "^1.0.8",
+    "@glint/template": "^1.7.3",
+    "@glint/tsserver-plugin": "^2.0.8",
+    "@nullvoxpopuli/eslint-configs": "^5.5.0",
+    "@rollup/plugin-babel": "^6.1.0",
+    "babel-plugin-ember-template-compilation": "^2.2.5",
+    "concurrently": "^9.2.1",
+    "ember-source": "^5.12.0",
+    "ember-template-lint": "^7.9.3",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "prettier-plugin-ember-template-tag": "^2.1.2",
+    "rollup": "^4.54.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.cjs",
+    "app-js": {}
+  }
+}

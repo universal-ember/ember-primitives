@@ -8,7 +8,6 @@ import {
   render,
   settled,
   triggerKeyEvent,
-  waitUntil,
 } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -37,16 +36,6 @@ module('Rendering | command-palette', function (hooks) {
     debugAssert(`Expected ${selector} to exist`, el);
 
     return el;
-  }
-
-  // due to the way tabster works, we have to wait a bit for the focus to be correctly set
-  function waitForFocus(selector: string) {
-    return waitUntil(
-      function () {
-        return document.activeElement === find(selector);
-      },
-      { timeout: 2000 }
-    );
   }
 
   test('can be opened and closed', async function (assert) {

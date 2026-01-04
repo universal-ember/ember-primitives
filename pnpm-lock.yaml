@@ -8,16 +8,16 @@ settings:
 
 overrides:
   '@glimmer/component': ^2.0.0
-  '@embroider/macros': 1.19.6
+  '@embroider/macros': ^1.19.6
   babel-plugin-ember-template-compilation: ^3.0.1
   decorator-transformS: 2.3.1
   ember-primitives: workspace:^
   ember-cli-babel: ^8.2.0
-  ember-element-helper: 0.8.8
-  ember-repl: 7.2.2
+  ember-element-helper: ^0.8.8
+  ember-repl: ^7.2.2
   reactiveweb: ^1.9.1
-  ember-source: 6.9.0
-  kolay: 4.0.5
+  ember-source: ^6.9.0
+  kolay: ^4.0.5
   tracked-toolbox: ^2.0.0
 
 packageExtensionsChecksum: sha256-p0kU58WxiwX1+oCFC0kx9iAdkYUX2HD1bCOkKzPWl04=
@@ -48,7 +48,7 @@ importers:
         specifier: ^0.17.0
         version: 0.17.2
       turbo:
-        specifier: ~2.5.0
+        specifier: ^2.5.0
         version: 2.5.8
       typescript:
         specifier: ^5.9.3
@@ -63,7 +63,7 @@ importers:
         specifier: ^2.16.0
         version: 2.16.0
       execa:
-        specifier: ^9.5.3
+        specifier: ^9.6.0
         version: 9.6.1
       fs-extra:
         specifier: ^11.3.3
@@ -106,7 +106,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.1(@babel/core@7.28.5)
       ember-element-helper:
-        specifier: 0.8.8
+        specifier: ^0.8.8
         version: 0.8.8
       ember-focus-trap:
         specifier: ^1.1.0
@@ -121,7 +121,7 @@ importers:
         specifier: workspace:^
         version: link:../ember-primitives
       ember-repl:
-        specifier: 7.2.2
+        specifier: ^7.2.2
         version: 7.2.2(5fbb936cc8fe0258ded495ac09034f9d)
       ember-route-template:
         specifier: ^1.0.3
@@ -139,7 +139,7 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2(highlight.js@11.11.1)
       kolay:
-        specifier: 4.0.5
+        specifier: ^4.0.5
         version: 4.0.5(f5af1c5b8aae72ecb09d5eac5866bcfd)
       limber-ui:
         specifier: ^4.0.2
@@ -206,7 +206,7 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12(ebe65be0decbfceca8960b5a5a835c32)
       '@embroider/config-meta-loader':
-        specifier: 1.0.0
+        specifier: ^1.0.0
         version: 1.0.0
       '@embroider/core':
         specifier: ^4.4.2
@@ -269,7 +269,7 @@ importers:
         specifier: ^7.1.3
         version: 7.1.3(bb487744c83838154d59cccea293af2a)
       ember-cli:
-        specifier: ~6.9.1
+        specifier: ^6.9.1
         version: 6.9.1(8bb73ca446944426175eb7463389e1f5)
       ember-cli-app-version:
         specifier: ^7.0.0
@@ -308,7 +308,7 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4(ember-template-lint@7.9.3)
       ember-source:
-        specifier: 6.9.0
+        specifier: ^6.9.0
         version: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-template-lint:
         specifier: ^7.9.3
@@ -377,13 +377,13 @@ importers:
   ember-primitives:
     dependencies:
       '@babel/runtime':
-        specifier: ^7.27.1
+        specifier: ^7.28.4
         version: 7.28.4
       '@embroider/addon-shim':
-        specifier: ^1.10.0
+        specifier: ^1.10.2
         version: 1.10.2
       '@embroider/macros':
-        specifier: 1.19.6
+        specifier: ^1.19.6
         version: 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
       '@floating-ui/dom':
         specifier: ^1.7.0
@@ -392,7 +392,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.1(@babel/core@7.28.5)
       ember-element-helper:
-        specifier: 0.8.8
+        specifier: ^0.8.8
         version: 0.8.8
       form-data-utils:
         specifier: ^0.6.0
@@ -495,7 +495,7 @@ importers:
         specifier: ^7.0.7
         version: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
       ember-source:
-        specifier: 6.9.0
+        specifier: ^6.9.0
         version: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-template-lint:
         specifier: ^7.9.3
@@ -519,7 +519,7 @@ importers:
         specifier: ^0.3.16
         version: 0.3.16
       rollup:
-        specifier: ~4.54.0
+        specifier: ^4.54.0
         version: 4.54.0
       rollup-plugin-copy:
         specifier: ^3.5.0
@@ -534,7 +534,7 @@ importers:
         specifier: ^1.10.2
         version: 1.10.2
       '@fontsource/lexend':
-        specifier: ^5.2.5
+        specifier: ^5.2.11
         version: 5.2.11
       '@tailwindcss/typography':
         specifier: ^0.5.15
@@ -543,25 +543,25 @@ importers:
         specifier: ^5.4.4
         version: 5.4.4
       decorator-transforms:
-        specifier: ^2.0.0
+        specifier: ^2.3.0
         version: 2.3.1(@babel/core@7.28.5)
       ember-mobile-menu:
         specifier: ^6.0.0
         version: 6.0.0(d355cea645735bff734896a608233b30)
       ember-modifier:
-        specifier: ^4.2.0
+        specifier: ^4.2.2
         version: 4.2.2(@babel/core@7.28.5)
       ember-primitives:
         specifier: workspace:^
         version: link:../../ember-primitives
       ember-resources:
-        specifier: ^7.0.3
+        specifier: ^7.0.7
         version: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
       inter-ui:
         specifier: ^4.0.2
         version: 4.1.1
       kolay:
-        specifier: 4.0.5
+        specifier: ^4.0.5
         version: 4.0.5(f5af1c5b8aae72ecb09d5eac5866bcfd)
       package-up:
         specifier: ^5.0.0
@@ -573,17 +573,17 @@ importers:
         specifier: ^1.2.2
         version: 1.3.0
       tailwindcss:
-        specifier: ^3.0.0
+        specifier: ^3.4.14
         version: 3.4.19(yaml@2.8.2)
     devDependencies:
       '@babel/core':
-        specifier: ^7.24.4
+        specifier: ^7.28.5
         version: 7.28.5
       '@babel/plugin-transform-typescript':
-        specifier: ^7.24.4
+        specifier: ^7.28.5
         version: 7.28.5(@babel/core@7.28.5)
       '@babel/runtime':
-        specifier: ^7.24.4
+        specifier: ^7.28.4
         version: 7.28.4
       '@embroider/addon-dev':
         specifier: ^6.0.1
@@ -604,10 +604,10 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0(ab4432f6d4187a13c7dfad50f9a4bf95)
       '@rollup/plugin-babel':
-        specifier: ^6.0.4
+        specifier: ^6.1.0
         version: 6.1.0(478634eb3d4f0e669e967121e68e9dbd)
       '@tsconfig/ember':
-        specifier: ^3.0.6
+        specifier: ^3.0.12
         version: 3.0.12
       babel-plugin-ember-template-compilation:
         specifier: ^3.0.1
@@ -616,7 +616,7 @@ importers:
         specifier: ^9.2.1
         version: 9.2.1
       ember-source:
-        specifier: 6.9.0
+        specifier: ^6.9.0
         version: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-template-lint:
         specifier: ^6.0.0
@@ -625,13 +625,13 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2(jiti@2.6.1)
       prettier:
-        specifier: ^3.2.5
+        specifier: ^3.7.4
         version: 3.7.4
       prettier-plugin-ember-template-tag:
-        specifier: ^2.0.2
+        specifier: ^2.1.2
         version: 2.1.2(prettier@3.7.4)
       rollup:
-        specifier: ^4.16.4
+        specifier: ^4.54.0
         version: 4.54.0
       rollup-plugin-copy:
         specifier: ^3.5.0
@@ -643,13 +643,13 @@ importers:
   packages/which-heading-do-i-need:
     devDependencies:
       '@babel/core':
-        specifier: ^7.25.2
+        specifier: ^7.28.5
         version: 7.28.5
       '@babel/plugin-transform-typescript':
-        specifier: ^7.25.2
+        specifier: ^7.28.5
         version: 7.28.5(@babel/core@7.28.5)
       '@babel/runtime':
-        specifier: ^7.25.6
+        specifier: ^7.28.4
         version: 7.28.4
       '@ember/library-tsconfig':
         specifier: ^2.0.0
@@ -661,10 +661,10 @@ importers:
         specifier: ^5.5.0
         version: 5.5.0(ab4432f6d4187a13c7dfad50f9a4bf95)
       '@rollup/plugin-babel':
-        specifier: ^6.0.4
+        specifier: ^6.1.0
         version: 6.1.0(478634eb3d4f0e669e967121e68e9dbd)
       concurrently:
-        specifier: ^9.0.1
+        specifier: ^9.2.1
         version: 9.2.1
       eslint:
         specifier: ^9.39.2
@@ -676,7 +676,7 @@ importers:
         specifier: ^4.54.0
         version: 4.54.0
       typescript:
-        specifier: ~5.9.3
+        specifier: ^5.9.3
         version: 5.9.3
 
   test-app:
@@ -740,7 +740,7 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2(@glint/template@1.7.3)
       '@embroider/macros':
-        specifier: 1.19.6
+        specifier: ^1.19.6
         version: 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
       '@embroider/vite':
         specifier: ^1.5.0
@@ -788,7 +788,7 @@ importers:
         specifier: ^9.2.1
         version: 9.2.1
       ember-cli:
-        specifier: ~6.9.1
+        specifier: ^6.9.1
         version: 6.9.1(8bb73ca446944426175eb7463389e1f5)
       ember-cli-app-version:
         specifier: ^7.0.0
@@ -830,7 +830,7 @@ importers:
         specifier: ^13.1.1
         version: 13.1.1(@babel/core@7.28.5)
       ember-source:
-        specifier: 6.9.0
+        specifier: ^6.9.0
         version: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-source-channel-url:
         specifier: ^3.0.0
@@ -4580,7 +4580,7 @@ packages:
     resolution: {integrity: sha512-zWIkxvlRrW7w1/vp+bGkmS27QsVum7NKp8N9DgAjhFMWuKewVqGyl/jeYaujMS/I4WSKBzSG9WHwBy2rjbUWxA==}
     engines: {node: '>= 18'}
     peerDependencies:
-      ember-source: 6.9.0
+      ember-source: ^6.9.0
 
   ember-cli-babel-plugin-helpers@1.1.1:
     resolution: {integrity: sha512-sKvOiPNHr5F/60NLd7SFzMpYPte/nnGkq/tMIfXejfKHIhaiIkYFqX8Z9UFTKWLLn+V7NOaby6niNPZUdvKCRw==}
@@ -4614,7 +4614,7 @@ packages:
     engines: {node: '>= 20'}
     peerDependencies:
       '@babel/core': '>= 7'
-      ember-source: 6.9.0
+      ember-source: ^6.9.0
 
   ember-cli-inject-live-reload@2.1.0:
     resolution: {integrity: sha512-YV5wYRD5PJHmxaxaJt18u6LE6Y+wo455BnmcpN+hGNlChy2piM9/GMvYgTAz/8Vin8RJ5KekqP/w/NEaRndc/A==}
@@ -4702,13 +4702,13 @@ packages:
     resolution: {integrity: sha512-5tOWu6eV1UoNZE+P9Gl9lJXNrENZVCoOXi52ePb7JOrOZ3ckOk1OkPsFwR4Jym9VJ7vZ6S3Z3D8BrkFa2aCpYw==}
     engines: {node: 12.* || >= 14}
     peerDependencies:
-      ember-source: 6.9.0
+      ember-source: ^6.9.0
 
   ember-gesture-modifiers@6.1.0:
     resolution: {integrity: sha512-LY92LRkO+wDiqeIjni3IXn1xV8lIUJzIm7Ywh7+sGeKpxy2qBtSlnyyFIAxBjCfD1RrM3wGSh3WKA41y+LS5lw==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.0'
-      ember-source: 6.9.0
+      ember-source: ^6.9.0
     peerDependenciesMeta:
       '@ember/test-helpers':
         optional: true
@@ -4717,7 +4717,7 @@ packages:
     resolution: {integrity: sha512-qV3vxJKw5+7TVDdtdLPy8PhVsh58MlK8jwzqh5xeOwJPNP7o0+BlhvwoIlLYTPzGaHdfjEIFCgVSyMRGd74E1g==}
     engines: {node: '>= 18.*'}
     peerDependencies:
-      ember-source: 6.9.0
+      ember-source: ^6.9.0
 
   ember-mobile-menu@6.0.0:
     resolution: {integrity: sha512-F6HPJ9smX+VOOzr45YMi+cTLcPtwJt+rXe6ZjDBg6c4rOThYkQnfl0POSKou7v+JmYetf6UzSHNL4My9itoE9A==}
@@ -9019,7 +9019,7 @@ packages:
     resolution: {integrity: sha512-adZtX+RGN6F+pWs/5JqVuDxLhuia4uhqmQp+UlUaxpykWjDFETtAdQR+LdDJiFPXFAXnS6FBqn/tnSLJQCm3Yw==}
     engines: {node: 14.* || 16.* || >= 18}
     peerDependencies:
-      ember-source: 6.9.0
+      ember-source: ^6.9.0
     peerDependenciesMeta:
       ember-source:
         optional: true
@@ -12408,7 +12408,7 @@ snapshots:
 
   '@types/glob@9.0.0':
     dependencies:
-      glob: 8.1.0
+      glob: 13.0.0
 
   '@types/hast@3.0.4':
     dependencies:

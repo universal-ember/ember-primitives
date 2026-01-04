@@ -49,7 +49,7 @@ importers:
         version: 0.17.2
       turbo:
         specifier: ^2.5.0
-        version: 2.5.8
+        version: 2.7.2
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -267,7 +267,7 @@ importers:
         version: 9.2.1
       ember-a11y-testing:
         specifier: ^7.1.3
-        version: 7.1.3(bb487744c83838154d59cccea293af2a)
+        version: 7.1.3(35c3b119fe847b445859dd214e7f1304)
       ember-cli:
         specifier: ^6.9.1
         version: 6.9.1(8bb73ca446944426175eb7463389e1f5)
@@ -297,7 +297,7 @@ importers:
         version: 9.0.3
       ember-qunit:
         specifier: ^9.0.4
-        version: 9.0.4(bb487744c83838154d59cccea293af2a)
+        version: 9.0.4(35c3b119fe847b445859dd214e7f1304)
       ember-resolver:
         specifier: ^13.1.1
         version: 13.1.1(@babel/core@7.28.5)
@@ -351,10 +351,10 @@ importers:
         version: 2.1.2(prettier@3.7.4)
       qunit:
         specifier: ^2.24.3
-        version: 2.24.3
+        version: 2.25.0
       qunit-assertions-extra:
         specifier: ^1.0.3
-        version: 1.0.3(qunit@2.24.3)
+        version: 1.0.3(qunit@2.25.0)
       qunit-dom:
         specifier: ^3.5.0
         version: 3.5.0
@@ -695,7 +695,7 @@ importers:
         version: 1.0.3
       qunit-assertions-extra:
         specifier: ^1.0.3
-        version: 1.0.3(qunit@2.24.3)
+        version: 1.0.3(qunit@2.25.0)
       reactiveweb:
         specifier: ^1.9.1
         version: 1.9.1(6100d0282851d05f404935d6c1cbaf6b)
@@ -825,7 +825,7 @@ importers:
         version: 9.0.3
       ember-qunit:
         specifier: ^9.0.4
-        version: 9.0.4(bb487744c83838154d59cccea293af2a)
+        version: 9.0.4(35c3b119fe847b445859dd214e7f1304)
       ember-resolver:
         specifier: ^13.1.1
         version: 13.1.1(@babel/core@7.28.5)
@@ -858,7 +858,7 @@ importers:
         version: 2.1.2(prettier@3.7.4)
       qunit:
         specifier: ^2.24.3
-        version: 2.24.3
+        version: 2.25.0
       qunit-dom:
         specifier: ^3.5.0
         version: 3.5.0
@@ -7931,8 +7931,8 @@ packages:
   qunit-theme-ember@1.0.0:
     resolution: {integrity: sha512-vdMVVo6ecdCkWttMTKeyq1ZTLGHcA6zdze2zhguNuc3ritlJMhOXY5RDseqazOwqZVfCg3rtlmL3fMUyIzUyFQ==}
 
-  qunit@2.24.3:
-    resolution: {integrity: sha512-JTHwSfHf2Cw8TqusZo2tT4F9d+XA/pp/veoxUDiPNHtB1Wc1VPctiHHIv6HA3vrXNOBu9LSzFM7YU2OV9Gz4vQ==}
+  qunit@2.25.0:
+    resolution: {integrity: sha512-MONPKgjavgTqArCwZOEz8nEMbA19zNXIp5ZOW9rPYj5cbgQp0fiI36c9dPTSzTRRzx+KcfB5eggYB/ENqxi0+w==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -9020,38 +9020,38 @@ packages:
     resolution: {integrity: sha512-GwIJau9XaA8nLVbUXsN3IlFi7WmQ48gBUrl3FTkkL/XLu/POhBzfmX9hd33FNMX1qAsfl6ozO1iMmW9NC8YniA==}
     engines: {node: ^16.14.0 || >=18.0.0}
 
-  turbo-darwin-64@2.5.8:
-    resolution: {integrity: sha512-Dh5bCACiHO8rUXZLpKw+m3FiHtAp2CkanSyJre+SInEvEr5kIxjGvCK/8MFX8SFRjQuhjtvpIvYYZJB4AGCxNQ==}
+  turbo-darwin-64@2.7.2:
+    resolution: {integrity: sha512-dxY3X6ezcT5vm3coK6VGixbrhplbQMwgNsCsvZamS/+/6JiebqW9DKt4NwpgYXhDY2HdH00I7FWs3wkVuan4rA==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.5.8:
-    resolution: {integrity: sha512-f1H/tQC9px7+hmXn6Kx/w8Jd/FneIUnvLlcI/7RGHunxfOkKJKvsoiNzySkoHQ8uq1pJnhJ0xNGTlYM48ZaJOQ==}
+  turbo-darwin-arm64@2.7.2:
+    resolution: {integrity: sha512-1bXmuwPLqNFt3mzrtYcVx1sdJ8UYb124Bf48nIgcpMCGZy3kDhgxNv1503kmuK/37OGOZbsWSQFU4I08feIuSg==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.5.8:
-    resolution: {integrity: sha512-hMyvc7w7yadBlZBGl/bnR6O+dJTx3XkTeyTTH4zEjERO6ChEs0SrN8jTFj1lueNXKIHh1SnALmy6VctKMGnWfw==}
+  turbo-linux-64@2.7.2:
+    resolution: {integrity: sha512-kP+TiiMaiPugbRlv57VGLfcjFNsFbo8H64wMBCPV2270Or2TpDCBULMzZrvEsvWFjT3pBFvToYbdp8/Kw0jAQg==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.5.8:
-    resolution: {integrity: sha512-LQELGa7bAqV2f+3rTMRPnj5G/OHAe2U+0N9BwsZvfMvHSUbsQ3bBMWdSQaYNicok7wOZcHjz2TkESn1hYK6xIQ==}
+  turbo-linux-arm64@2.7.2:
+    resolution: {integrity: sha512-VDJwQ0+8zjAfbyY6boNaWfP6RIez4ypKHxwkuB6SrWbOSk+vxTyW5/hEjytTwK8w/TsbKVcMDyvpora8tEsRFw==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.5.8:
-    resolution: {integrity: sha512-3YdcaW34TrN1AWwqgYL9gUqmZsMT4T7g8Y5Azz+uwwEJW+4sgcJkIi9pYFyU4ZBSjBvkfuPZkGgfStir5BBDJQ==}
+  turbo-windows-64@2.7.2:
+    resolution: {integrity: sha512-rPjqQXVnI6A6oxgzNEE8DNb6Vdj2Wwyhfv3oDc+YM3U9P7CAcBIlKv/868mKl4vsBtz4ouWpTQNXG8vljgJO+w==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.5.8:
-    resolution: {integrity: sha512-eFC5XzLmgXJfnAK3UMTmVECCwuBcORrWdewoiXBnUm934DY6QN8YowC/srhNnROMpaKaqNeRpoB5FxCww3eteQ==}
+  turbo-windows-arm64@2.7.2:
+    resolution: {integrity: sha512-tcnHvBhO515OheIFWdxA+qUvZzNqqcHbLVFc1+n+TJ1rrp8prYicQtbtmsiKgMvr/54jb9jOabU62URAobnB7g==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.5.8:
-    resolution: {integrity: sha512-5c9Fdsr9qfpT3hA0EyYSFRZj1dVVsb6KIWubA9JBYZ/9ZEAijgUEae0BBR/Xl/wekt4w65/lYLTFaP3JmwSO8w==}
+  turbo@2.7.2:
+    resolution: {integrity: sha512-5JIA5aYBAJSAhrhbyag1ZuMSgUZnHtI+Sq3H8D3an4fL8PeF+L1yYvbEJg47akP1PFfATMf5ehkqFnxfkmuwZQ==}
     hasBin: true
 
   type-check@0.4.0:
@@ -14305,7 +14305,7 @@ snapshots:
 
   electron-to-chromium@1.5.267: {}
 
-  ember-a11y-testing@7.1.3(bb487744c83838154d59cccea293af2a):
+  ember-a11y-testing@7.1.3(35c3b119fe847b445859dd214e7f1304):
     dependencies:
       '@ember/test-helpers': 5.4.1(41dbc40bfe763063746c2ae01dde51bb)
       '@ember/test-waiters': 4.1.1(41dbc40bfe763063746c2ae01dde51bb)
@@ -14321,7 +14321,7 @@ snapshots:
       fs-extra: 11.3.3
       validate-peer-dependencies: 2.2.0
     optionalDependencies:
-      qunit: 2.24.3
+      qunit: 2.25.0
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'
@@ -14950,12 +14950,12 @@ snapshots:
       - ember-source
       - supports-color
 
-  ember-qunit@9.0.4(bb487744c83838154d59cccea293af2a):
+  ember-qunit@9.0.4(35c3b119fe847b445859dd214e7f1304):
     dependencies:
       '@ember/test-helpers': 5.4.1(41dbc40bfe763063746c2ae01dde51bb)
       '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.19.6(41dbc40bfe763063746c2ae01dde51bb)
-      qunit: 2.24.3
+      qunit: 2.25.0
       qunit-theme-ember: 1.0.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -18963,9 +18963,9 @@ snapshots:
       rimraf: 5.0.10
       underscore.string: 3.3.6
 
-  qunit-assertions-extra@1.0.3(qunit@2.24.3):
+  qunit-assertions-extra@1.0.3(qunit@2.25.0):
     dependencies:
-      qunit: 2.24.3
+      qunit: 2.25.0
 
   qunit-dom@3.5.0:
     dependencies:
@@ -18973,7 +18973,7 @@ snapshots:
 
   qunit-theme-ember@1.0.0: {}
 
-  qunit@2.24.3:
+  qunit@2.25.0:
     dependencies:
       commander: 7.2.0
       node-watch: 0.7.3
@@ -20521,32 +20521,32 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  turbo-darwin-64@2.5.8:
+  turbo-darwin-64@2.7.2:
     optional: true
 
-  turbo-darwin-arm64@2.5.8:
+  turbo-darwin-arm64@2.7.2:
     optional: true
 
-  turbo-linux-64@2.5.8:
+  turbo-linux-64@2.7.2:
     optional: true
 
-  turbo-linux-arm64@2.5.8:
+  turbo-linux-arm64@2.7.2:
     optional: true
 
-  turbo-windows-64@2.5.8:
+  turbo-windows-64@2.7.2:
     optional: true
 
-  turbo-windows-arm64@2.5.8:
+  turbo-windows-arm64@2.7.2:
     optional: true
 
-  turbo@2.5.8:
+  turbo@2.7.2:
     optionalDependencies:
-      turbo-darwin-64: 2.5.8
-      turbo-darwin-arm64: 2.5.8
-      turbo-linux-64: 2.5.8
-      turbo-linux-arm64: 2.5.8
-      turbo-windows-64: 2.5.8
-      turbo-windows-arm64: 2.5.8
+      turbo-darwin-64: 2.7.2
+      turbo-darwin-arm64: 2.7.2
+      turbo-linux-64: 2.7.2
+      turbo-linux-arm64: 2.7.2
+      turbo-windows-64: 2.7.2
+      turbo-windows-arm64: 2.7.2
 
   type-check@0.4.0:
     dependencies:

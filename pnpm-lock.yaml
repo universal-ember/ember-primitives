@@ -681,6 +681,9 @@ importers:
 
   test-app:
     dependencies:
+      '@babel/runtime':
+        specifier: ^7.28.4
+        version: 7.28.4
       decorator-transforms:
         specifier: ^2.3.0
         version: 2.3.1(@babel/core@7.28.5)

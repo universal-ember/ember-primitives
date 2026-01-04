@@ -1,12 +1,12 @@
 /**
  * Command Palette Component
- * 
+ *
  * A modal dialog-based command palette with search input and keyboard-navigable list.
- * 
+ *
  * References:
  * - https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
  * - https://www.w3.org/WAI/ARIA/apg/patterns/combobox/
- * 
+ *
  * Keyboard behaviors provided by tabster:
  * - Arrow keys navigate between items
  * - Escape closes the palette
@@ -14,22 +14,18 @@
  */
 
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
 import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 import { guidFor } from "@ember/object/internals";
 
 import { modifier as eModifier } from "ember-modifier";
-import { cell } from "ember-resources";
-import { getTabster, getTabsterAttribute, MoverDirections, setTabsterAttribute } from "tabster";
+import { getTabsterAttribute, MoverDirections, setTabsterAttribute } from "tabster";
 
 import { Dialog } from "./dialog.gts";
 
 import type { Signature as DialogSignature } from "./dialog.gts";
 import type { TOC } from "@ember/component/template-only";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
-
-type Cell<V> = ReturnType<typeof cell<V>>;
 
 const TABSTER_CONFIG_LIST = getTabsterAttribute(
   {
@@ -145,6 +141,7 @@ const CommandPaletteItem: TOC<PrivateItemSignature> = <template>
     <div
       role="option"
       tabindex="-1"
+      aria-selected="false"
       {{! @glint-expect-error }}
       {{maybeClick}}
       {{on "click" @state.close}}
@@ -191,7 +188,7 @@ interface PrivateInputSignature {
     inputId: string;
     listId: string;
   };
-  Blocks: {};
+  Blocks: Record<string, never>;
 }
 
 export interface InputSignature {
@@ -271,10 +268,7 @@ const CommandPaletteDialog: TOC<PrivateDialogSignature> = <template>
   </@dialogProps.Dialog>
 </template>;
 
-function createCommandPaletteState(
-  dialog: DialogSignature["Blocks"]["default"][0],
-  owner: object,
-) {
+function createCommandPaletteState(dialog: DialogSignature["Blocks"]["default"][0], owner: object) {
   const guid = guidFor(owner);
   const inputId = `command-palette-input-${guid}`;
   const listId = `command-palette-list-${guid}`;
@@ -291,6 +285,7 @@ function createCommandPaletteState(
   };
 }
 
+// eslint-disable-next-line ember/no-empty-glimmer-component-classes
 export class CommandPalette extends Component<Signature> {
   <template>
     <Dialog @open={{@open}} @onClose={{@onClose}} as |dialog|>
@@ -302,7 +297,9 @@ export class CommandPalette extends Component<Signature> {
             close=state.close
             focusOnClose=state.focusOnClose
             Dialog=(component CommandPaletteDialog state=state dialogProps=dialog)
-            Input=(component CommandPaletteInput state=state inputId=state.inputId listId=state.listId)
+            Input=(component
+              CommandPaletteInput state=state inputId=state.inputId listId=state.listId
+            )
             List=(component
               CommandPaletteList state=state listId=state.listId inputId=state.inputId
             )

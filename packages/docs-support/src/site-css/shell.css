@@ -1,0 +1,102 @@
+.mobile-menu-wrapper {
+  height: 100dvh;
+  overflow: auto !important;
+
+  /**
+   * Set our theme-based background colors
+   */
+  .mobile-menu__tray,
+  .mobile-menu-wrapper__content {
+    background: transparent;
+  }
+
+  aside,
+  aside nav {
+    @apply bg-white dark:bg-slate-900;
+  }
+
+  /**
+   * Layout
+   */
+  .outer-content {
+    max-width: 80rem;
+    @apply sm:px-2 lg:px-8 xl:px-12;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .mobile-menu-wrapper__content {
+    .outer-content {
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: 300px 1fr;
+      margin: 0 auto;
+
+      aside {
+        margin-top: 1.5rem;
+        overflow: auto;
+        max-height: calc(100dvh - 80px);
+        padding-bottom: 80px;
+        position: sticky;
+        top: 92px;
+      }
+    }
+
+    header .outer-content {
+      display: flex;
+    }
+  }
+
+  /**
+   * Mobile-only visible
+   */
+  .mobile-menu__tray aside {
+    height: 100dvh;
+  }
+
+  /**
+   * Spacing
+   */
+  .mobile-menu__tray {
+    overflow-x: hidden;
+
+    nav {
+      padding: 1rem;
+
+      ul {
+        padding-left: 0.5rem;
+        list-style: none;
+        line-height: 1.75rem;
+      }
+    }
+  }
+}
+
+header button.mobile-menu__toggle {
+  padding: 0.25rem 0.5rem;
+  width: 48px;
+  height: 44px;
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+@media (min-width: 800px) {
+  header button.mobile-menu__toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .mobile-menu-wrapper .mobile-menu-wrapper__content {
+    .outer-content {
+      grid-template-columns: 1fr;
+
+      @apply px-4;
+    }
+  }
+  .mobile-menu-wrapper__content aside {
+    display: none;
+  }
+}

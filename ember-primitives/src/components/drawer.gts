@@ -194,7 +194,7 @@ class DrawerDialog extends Component<Signature> {
    */
   handleClose = () => {
     assert(
-      "Cannot call `handleDrawerClose` on <Drawer> without rendering the drawer element. This is likely a bug in ember-primitives. Please open an issue <3",
+      "Cannot call `handleClose` on <Drawer> without rendering the drawer element. This is likely a bug in ember-primitives. Please open an issue <3",
       this.drawerElement,
     );
 

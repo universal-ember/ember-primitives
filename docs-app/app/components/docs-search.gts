@@ -4,8 +4,8 @@ import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
+import onKey from 'ember-keyboard/modifiers/on-key';
 import { CommandPalette } from 'ember-primitives';
-import { onKey } from 'ember-keyboard';
 import { docsManager } from 'kolay';
 
 import type RouterService from '@ember/routing/router-service';

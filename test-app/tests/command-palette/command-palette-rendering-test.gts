@@ -1,14 +1,7 @@
 import { assert as debugAssert } from '@ember/debug';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
-import {
-  click,
-  find,
-  findAll,
-  render,
-  settled,
-  triggerKeyEvent,
-} from '@ember/test-helpers';
+import { click, find, findAll, render, settled, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 

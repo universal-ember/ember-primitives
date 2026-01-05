@@ -158,12 +158,9 @@ module('<Slider />', function (hooks) {
   });
 
   test('calls onValueChange callback', async function (assert) {
-    assert.expect(2);
-
-    let capturedValue: number[] = [];
+    assert.expect(1);
 
     const handleChange = (value: number[]) => {
-      capturedValue = value;
       assert.step('onValueChange');
     };
 

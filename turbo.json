@@ -47,8 +47,9 @@
     /////////////////////////////////////////////////
     /////////////////////////////////////////////////
     "dev": {
-      "dependsOn": ["^dev"],
-      "cache": false
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
     },
     "start": {
       "dependsOn": ["_syncPnpm", "^build"],
@@ -76,8 +77,9 @@
     // production
     "build": {
       "outputs": ["dist/**", "dist-types/**", "declarations/**", "docs.json"],
-      "dependsOn": ["_syncPnpm"]
+      "dependsOn": ["_syncPnpm", "//#sync"]
     },
+    "//#sync": {},
     "_syncPnpm": {
       "dependsOn": ["^build"],
       "cache": false
@@ -123,7 +125,7 @@
     "lint:js": { "outputs": [], "dependsOn": ["^build"] },
     "lint:hbs": { "outputs": [] },
     "lint:prettier": { "outputs": [] },
-    "lint:types": { "outputs": [], "dependsOn": ["_syncPnpm"] },
+    "lint:types": { "outputs": [], "dependsOn": ["^build"] },
     "lint:package": { "outputs": [], "dependsOn": ["build"] },
     "lint:published-types": { "outputs": [], "dependsOn": ["pack"] },
 

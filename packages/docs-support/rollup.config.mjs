@@ -10,7 +10,7 @@ export default {
   output: addon.output(),
 
   plugins: [
-    addon.publicEntrypoints(["index.js", "template-registry.js"]),
+    addon.publicEntrypoints(["index.js", "template-registry.js", "icons.js"]),
     addon.dependencies(),
     babel({
       extensions: [".js", ".gjs", ".ts", ".gts"],

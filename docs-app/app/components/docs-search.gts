@@ -6,7 +6,7 @@ import { service } from '@ember/service';
 
 import { modifier as eModifier } from 'ember-modifier';
 import { CommandPalette } from 'ember-primitives';
-import { manifest } from 'kolay';
+import { docsManager } from 'kolay';
 
 import type RouterService from '@ember/routing/router-service';
 import type { Page } from 'kolay';
@@ -83,13 +83,11 @@ export class DocsSearch extends Component {
   @tracked isOpen = false;
 
   get allPages(): PageData[] {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-    const m = manifest();
+    const m = docsManager(this);
 
     if (!m) return [];
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    return extractPages((m.pages || []) as Page[]);
+    return extractPages(m.pages || []);
   }
 
   get filteredPages(): PageData[] {

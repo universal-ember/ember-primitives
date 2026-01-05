@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 import { fn, hash } from "@ember/helper";
 import { on } from "@ember/modifier";
-import { tracked } from "@glimmer/tracking";
 
 import { modifier } from "ember-modifier";
 
@@ -96,6 +96,7 @@ const DEFAULT_STEP = 1;
 function normalizeValue(value: number | number[] | undefined): number[] {
   if (value === undefined) return [0];
   if (Array.isArray(value)) return value;
+
   return [value];
 }
 
@@ -125,6 +126,7 @@ interface TrackSignature {
 const captureElement = modifier(
   (element: HTMLElement, [callback]: [(element: HTMLElement | null) => void]) => {
     callback(element);
+
     return () => callback(null);
   },
 );
@@ -149,12 +151,7 @@ interface RangeSignature {
 }
 
 const Range: TOC<RangeSignature> = <template>
-  <span
-    ...attributes
-    data-orientation={{@orientation}}
-    role="presentation"
-    style={{@rangeStyle}}
-  />
+  <span ...attributes data-orientation={{@orientation}} role="presentation" style={{@rangeStyle}} />
 </template>;
 
 class ThumbComponent extends Component<{
@@ -173,6 +170,7 @@ class ThumbComponent extends Component<{
 }> {
   get thumbStyle(): string {
     const percent = getPercentage(this.args.value, this.args.min, this.args.max);
+
     if (this.args.orientation === "horizontal") {
       return `left: ${percent}%`;
     } else {
@@ -181,6 +179,7 @@ class ThumbComponent extends Component<{
   }
 
   <template>
+    {{! template-lint-disable no-pointer-down-event-binding }}
     <span
       role="slider"
       aria-valuemin={{@min}}
@@ -222,9 +221,8 @@ export class Slider extends Component<Signature> {
 
   get values(): number[] {
     const normalized = normalizeValue(this.args.value);
-    return normalized.map((v) =>
-      clamp(roundToStep(v, this.step), this.min, this.max),
-    );
+
+    return normalized.map((v) => clamp(roundToStep(v, this.step), this.min, this.max));
   }
 
   get disabled(): boolean {
@@ -268,6 +266,7 @@ export class Slider extends Component<Signature> {
     this.isDragging = true;
 
     const target = event.currentTarget as HTMLElement;
+
     target.setPointerCapture(event.pointerId);
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -287,8 +286,7 @@ export class Slider extends Component<Signature> {
   };
 
   private handlePointerMove = (event: PointerEvent) => {
-    if (!this.isDragging || this.activeThumbIndex === null || !this.trackElement)
-      return;
+    if (!this.isDragging || this.activeThumbIndex === null || !this.trackElement) return;
 
     const rect = this.trackElement.getBoundingClientRect();
     let percent: number;
@@ -301,9 +299,11 @@ export class Slider extends Component<Signature> {
 
     const range = this.max - this.min;
     let newValue = this.min + percent * range;
+
     newValue = clamp(roundToStep(newValue, this.step), this.min, this.max);
 
     const newValues = [...this.values];
+
     newValues[this.activeThumbIndex] = newValue;
 
     this.updateValue(newValues);
@@ -313,6 +313,7 @@ export class Slider extends Component<Signature> {
     if (this.disabled) return;
 
     const value = this.values[index];
+
     if (value === undefined) return;
 
     let newValue = value;
@@ -322,32 +323,39 @@ export class Slider extends Component<Signature> {
       case "ArrowDown":
         event.preventDefault();
         newValue = clamp(value - this.step, this.min, this.max);
+
         break;
       case "ArrowRight":
       case "ArrowUp":
         event.preventDefault();
         newValue = clamp(value + this.step, this.min, this.max);
+
         break;
       case "Home":
         event.preventDefault();
         newValue = this.min;
+
         break;
       case "End":
         event.preventDefault();
         newValue = this.max;
+
         break;
       case "PageDown":
         event.preventDefault();
         newValue = clamp(value - this.step * 10, this.min, this.max);
+
         break;
       case "PageUp":
         event.preventDefault();
         newValue = clamp(value + this.step * 10, this.min, this.max);
+
         break;
     }
 
     if (newValue !== value) {
       const newValues = [...this.values];
+
       newValues[index] = newValue;
       this.updateValue(newValues);
       this.commitValue(newValues);
@@ -386,4 +394,3 @@ export class Slider extends Component<Signature> {
 }
 
 export default Slider;
-

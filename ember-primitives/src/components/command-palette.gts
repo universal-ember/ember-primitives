@@ -83,12 +83,12 @@ export interface Signature {
         /**
          * The input element for search/filtering
          */
-        Input: WithBoundArgs<typeof CommandPaletteInput, "state">;
+        Input: WithBoundArgs<typeof CommandPaletteInput, "state" | "inputId" | "listId">;
 
         /**
          * The list container for command items
          */
-        List: WithBoundArgs<typeof CommandPaletteList, "state">;
+        List: WithBoundArgs<typeof CommandPaletteList, "state" | "listId" | "inputId">;
 
         /**
          * Individual command items

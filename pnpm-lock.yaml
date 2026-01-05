@@ -111,6 +111,9 @@ importers:
       ember-focus-trap:
         specifier: ^1.1.0
         version: 1.1.1(b029c899f654588945b06575ccae3ff4)
+      ember-keyboard:
+        specifier: ^9.0.4
+        version: 9.0.4(c19ce2e3cf0f61e9fef32bb529026185)
       ember-mobile-menu:
         specifier: ^6.0.0
         version: 6.0.0(d355cea645735bff734896a608233b30)
@@ -4687,6 +4690,14 @@ packages:
     peerDependencies:
       '@ember/test-helpers': '>=3.0.0'
       ember-source: ^6.9.0
+    peerDependenciesMeta:
+      '@ember/test-helpers':
+        optional: true
+
+  ember-keyboard@9.0.4:
+    resolution: {integrity: sha512-lReOVCwvPt8aTLynuyh1rVoZx9LITqcwdCiUltGMkoJNyuE8snuGMIEpEj3RtiPLWm0UCnTfod8bjEqOoEEFtA==}
+    peerDependencies:
+      '@ember/test-helpers': ^2.6.0 || ^3.0.0 || >= 4.0.0
     peerDependenciesMeta:
       '@ember/test-helpers':
         optional: true
@@ -14879,6 +14890,16 @@ snapshots:
       decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-source: 6.9.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
+    optionalDependencies:
+      '@ember/test-helpers': 5.4.1(41dbc40bfe763063746c2ae01dde51bb)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - supports-color
+
+  ember-keyboard@9.0.4(c19ce2e3cf0f61e9fef32bb529026185):
+    dependencies:
+      '@embroider/addon-shim': 1.10.2
+      ember-modifier: 4.2.2(@babel/core@7.28.5)
     optionalDependencies:
       '@ember/test-helpers': 5.4.1(41dbc40bfe763063746c2ae01dde51bb)
     transitivePeerDependencies:

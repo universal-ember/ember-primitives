@@ -35,6 +35,7 @@
     "decorator-transforms": "^2.3.0",
     "ember-element-helper": "^0.8.8",
     "ember-focus-trap": "^1.1.0",
+    "ember-keyboard": "^9.0.4",
     "ember-mobile-menu": "^6.0.0",
     "ember-modifier": "^4.2.2",
     "ember-primitives": "workspace:^",

@@ -14,7 +14,7 @@ overrides:
   ember-primitives: workspace:^
   ember-cli-babel: ^8.2.0
   ember-element-helper: ^0.8.8
-  ember-repl: ^7.2.2
+  ember-repl: ^7.2.3
   reactiveweb: ^1.9.1
   ember-source: ^6.9.0
   kolay: ^4.0.5
@@ -121,8 +121,8 @@ importers:
         specifier: workspace:^
         version: link:../ember-primitives
       ember-repl:
-        specifier: ^7.2.2
-        version: 7.2.2(5fbb936cc8fe0258ded495ac09034f9d)
+        specifier: ^7.2.3
+        version: 7.2.3(5fbb936cc8fe0258ded495ac09034f9d)
       ember-route-template:
         specifier: ^1.0.3
         version: 1.0.3
@@ -4726,8 +4726,8 @@ packages:
       '@ember/test-helpers': '>=3.0.3'
       qunit: ^2.13.0
 
-  ember-repl@7.2.2:
-    resolution: {integrity: sha512-fu+FyBmPpKUMi5KmjVZZKH0ow4Remo0Yxt+e+SieCnSkW0UXWudBnCheCILq2ik4O+bhIel8Crlu68YDrl2bXg==}
+  ember-repl@7.2.3:
+    resolution: {integrity: sha512-3dg084UpBU+t3uxYqQr0nKaET4U6cVFHHPaqCFhm26z7/xcdHw+UMf5MTrGssFmnPDg2Z/H3mbbP9vVBh3n+lQ==}
     peerDependencies:
       '@glint/template': '>= 1.5.2 || ^1.6.0-alpha.1'
     peerDependenciesMeta:
@@ -14962,7 +14962,7 @@ snapshots:
       - '@glint/template'
       - supports-color
 
-  ember-repl@7.2.2(5fbb936cc8fe0258ded495ac09034f9d):
+  ember-repl@7.2.3(5fbb936cc8fe0258ded495ac09034f9d):
     dependencies:
       '@ember/test-helpers': 5.4.1(41dbc40bfe763063746c2ae01dde51bb)
       '@ember/test-waiters': 4.1.1(41dbc40bfe763063746c2ae01dde51bb)
@@ -17305,7 +17305,7 @@ snapshots:
       decorator-transforms: 2.3.1(@babel/core@7.28.5)
       ember-modifier: 4.2.2(@babel/core@7.28.5)
       ember-primitives: file:ember-primitives(e374d91fc384bddcdd04d592bdefee85)
-      ember-repl: 7.2.2(5fbb936cc8fe0258ded495ac09034f9d)
+      ember-repl: 7.2.3(5fbb936cc8fe0258ded495ac09034f9d)
       ember-resources: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
       globby: 16.1.0
       json5: 2.2.3

@@ -7,7 +7,6 @@ import {
   findAll,
   focus,
   render,
-  triggerEvent,
   triggerKeyEvent,
   waitUntil,
 } from '@ember/test-helpers';

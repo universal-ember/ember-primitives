@@ -79,7 +79,7 @@ function focusOnHover(e: PointerEvent) {
   const item = e.currentTarget;
 
   if (item instanceof HTMLElement) {
-    item?.focus();
+    item.focus();
   }
 }
 

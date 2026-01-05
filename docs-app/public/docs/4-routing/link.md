@@ -1,11 +1,9 @@
 # Link
 
 ```gjs live
-import { Comment } from '#src/api-docs';
+import { Comment } from "#src/api-docs";
 
-<template>
-  <Comment @name="Link" @declaration="components/link" />
-</template>
+<template><Comment @name="Link" @declaration="components/link" /></template>
 ```
 
 <Callout>
@@ -20,18 +18,16 @@ The `<Link />` component provides additional behavior and utilities for styling 
 
 `<Link />` will automatically externalize a `href` which specify different domains (add `target='_blank'` and `rel='noreferrer noopener'`)
 
-
-
 [mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
 
 ## Example
 
-
 ```gjs live preview
-import { Link } from 'ember-primitives';
+import { Link } from "ember-primitives";
 
 <template>
-  <Link @href="/">Home</Link>  &nbsp;&nbsp;
+  <Link @href="/">Home</Link>
+  &nbsp;&nbsp;
 
   <Link @href="https://developer.mozilla.org" as |a|>
     MDN
@@ -51,27 +47,26 @@ import { Link } from 'ember-primitives';
 
 ## Features
 
-* Full keyboard navigation
-* Active state
-* "Just an `<a>`" 
+- Full keyboard navigation
+- Active state
+- "Just an `<a>`"
 
 ## Anatomy
 
 _requires usage of [`@properLinks`](/4-routing/proper-links)_
 
-
-```js 
-import { Link } from 'ember-primitives';
+```js
+import { Link } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Link } from 'ember-primitives/components/link';
+
+```js
+import { Link } from "ember-primitives/components/link";
 ```
 
-
-```gjs 
-import { Link } from 'ember-primitives';
+```gjs
+import { Link } from "ember-primitives";
 
 <template>
   <Link @href="..." as |a|>
@@ -84,27 +79,27 @@ import { Link } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/link" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/link"
+    @name="Signature"
+  />
 </template>
 ```
 
 ### State Attributes
 
-
-| key | description |  
-| :---: | :----------- |  
-| data-active | attribute will be "true" or "false", depending on if the `@href` matches the current URL |  
+|     key     | description                                                                              |
+| :---------: | :--------------------------------------------------------------------------------------- |
+| data-active | attribute will be "true" or "false", depending on if the `@href` matches the current URL |
 
 <br>
 
 ```gjs live preview
-import { Link } from 'ember-primitives';
+import { Link } from "ember-primitives";
 
 <template>
   <style>
@@ -112,7 +107,9 @@ import { Link } from 'ember-primitives';
       [data-active] {
         color: red;
       }
-      a { padding: 0.25rem 0.5rem; }
+      a {
+        padding: 0.25rem 0.5rem;
+      }
     }
   </style>
 
@@ -125,5 +122,3 @@ import { Link } from 'ember-primitives';
   </Link>
 </template>
 ```
-
-

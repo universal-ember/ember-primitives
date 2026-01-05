@@ -5,13 +5,11 @@ No matter how many times `{{onResize}}` is used within your application, only on
 
 This utility also handles the (uncachable) ["ResizeObserver loop limit exceeded"](https://stackoverflow.com/questions/49384120/resizeobserver-loop-limit-exceeded) error that can happen when resize event happens too quickly for the _browser_ to handle.
 
-
 ## Install
 
 ```hbs live
 <SetupInstructions @src="on-resize.ts" />
 ```
-
 
 Introduced in [0.32.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.32.0-ember-primitives)
 
@@ -20,8 +18,8 @@ Introduced in [0.32.0](https://github.com/universal-ember/ember-primitives/relea
 <div class="featured-demo">
 
 ```gjs live preview
-import { onResize } from 'ember-primitives/on-resize';
-import { cell } from 'ember-resources';
+import { onResize } from "ember-primitives/on-resize";
+import { cell } from "ember-resources";
 
 const inner = cell();
 
@@ -32,12 +30,13 @@ function handleResize(entry) {
 }
 
 <template>
-  Inner Dimensions: {{inner.current}}<br>
+  Inner Dimensions:
+  {{inner.current}}<br />
 
   <div class="resizable" {{onResize handleResize}}>
     Resize me
   </div>
-  
+
   <style>
     .resizable {
       border: 2px black dashed;
@@ -54,16 +53,16 @@ function handleResize(entry) {
 ## API Reference
 
 ```gjs live no-shadow
-import { ModifierSignature } from 'kolay';
+import { ModifierSignature } from "kolay";
 
 <template>
-  <ModifierSignature 
-    @package="ember-primitives" 
-    @module="declarations/on-resize" 
-    @name="Signature" />
+  <ModifierSignature
+    @package="ember-primitives"
+    @module="declarations/on-resize"
+    @name="Signature"
+  />
 </template>
 ```
-
 
 ## Reference
 

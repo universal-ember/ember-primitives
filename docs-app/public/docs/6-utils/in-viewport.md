@@ -10,7 +10,6 @@ This is useful for optimizing performance by not rendering expensive components 
 <SetupInstructions @src="viewport/in-viewport.gts" />
 ```
 
-
 ## Usage
 
 You'll need to inspect-element to see that the component is not rendered when scrolled off screen.
@@ -18,7 +17,7 @@ You'll need to inspect-element to see that the component is not rendered when sc
 <div class="featured-demo">
 
 ```gjs live preview
-import { InViewport } from 'ember-primitives/viewport';
+import { InViewport } from "ember-primitives/viewport";
 
 <template>
   <div style="height: 160px; overflow: auto; border: 1px solid gray; padding: 1rem;">
@@ -28,7 +27,7 @@ import { InViewport } from 'ember-primitives/viewport';
         <span>Scroll down</span>
         <span>Scroll down</span>
       </div>
-      
+
       <InViewport @mode="contain">
         <div style="background: black; padding: 2rem;">
           This content is rendered only when near the viewport!
@@ -52,7 +51,7 @@ In `contain` mode, the placeholder element wraps the yielded content once render
 <div class="featured-demo">
 
 ```gjs live preview
-import { InViewport } from 'ember-primitives/viewport';
+import { InViewport } from "ember-primitives/viewport";
 
 <template>
   <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;" tabindex="0">
@@ -82,7 +81,7 @@ In `replace` mode, the placeholder element is replaced entirely by the yielded c
 <div class="featured-demo">
 
 ```gjs live preview
-import { InViewport } from 'ember-primitives/viewport';
+import { InViewport } from "ember-primitives/viewport";
 
 <template>
   <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
@@ -110,7 +109,7 @@ import { InViewport } from 'ember-primitives/viewport';
 You can specify a custom tag name for the placeholder element:
 
 ```gjs live preview
-import { InViewport } from 'ember-primitives/viewport';
+import { InViewport } from "ember-primitives/viewport";
 
 <template>
   <InViewport @tagName="section">
@@ -132,6 +131,7 @@ The `InViewport` component uses the [Intersection Observer API](https://develope
 5. The content remains rendered even if scrolled out of view
 
 This approach is ideal for:
+
 - Pages with many heavy components
 - Off-canvas renders that may query the DOM
 - Implementing "virtual scrolling" patterns
@@ -140,12 +140,13 @@ This approach is ideal for:
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/viewport" 
-    @name="InViewportSignature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/viewport"
+    @name="InViewportSignature"
+  />
 </template>
 ```

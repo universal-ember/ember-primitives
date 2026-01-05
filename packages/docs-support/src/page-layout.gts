@@ -15,7 +15,6 @@ function removeLoader() {
   document.querySelector('#initial-loader')?.remove();
 }
 
- 
 function resetScroll(..._args: unknown[]) {
   document.querySelector('html')?.scrollTo(0, 0);
 }

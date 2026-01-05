@@ -12,16 +12,14 @@ This enables distributed teams to correctly produce appropriate section heading 
 <SetupInstructions @name="which-heading-do-i-need" />
 ```
 
-
 ## Usage
 
 In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.
 
 In this example, we dynamically create a TextNode and Element, where, since the TextNode is rendered first, the Element can traverse from the TextNode up the existing DOM to determine which h-level to use -- all in a single render pass.
 
-
 ```gjs live
-import { REPL } from 'limber-ui';
+import { REPL } from "limber-ui";
 
 const code = `import Component from "@glimmer/component";
 import { element } from "ember-element-helper";
@@ -131,13 +129,13 @@ class Heading extends Component {
 `;
 
 <template>
-  <REPL 
-    @code={{code}} 
+  <REPL
+    @code={{code}}
     @format="gjs"
-    @lines={{14}} 
+    @lines={{14}}
     @editorLoad="force"
     @editor="65v"
-    style="width:100%; height: 500px; border-radius: 0.5rem;" 
+    style="width:100%; height: 500px; border-radius: 0.5rem;"
   />
 </template>
 ```
@@ -146,9 +144,10 @@ class Heading extends Component {
 <details><summary>using Ember</summary>
 
 This version:
-  - caller can pass attributes to the generated heading
-  - only element generated is the heading
-  - synchronous, so there are no extra renders
+
+- caller can pass attributes to the generated heading
+- only element generated is the heading
+- synchronous, so there are no extra renders
 
 ```gjs
 import Component from "@glimmer/component";
@@ -173,12 +172,12 @@ class Heading extends Component {
 </details>
 <details><summary>using Svelte</summary>
 
-  downside to this approach is that it requires two renders.
-  first time is a span, second the span is replaced with the heading.
+downside to this approach is that it requires two renders.
+first time is a span, second the span is replaced with the heading.
 
-  See [Feature: Bind to text nodes with `svelte:text`](https://github.com/sveltejs/svelte/issues/7424) on svelte's GitHub.
+See [Feature: Bind to text nodes with `svelte:text`](https://github.com/sveltejs/svelte/issues/7424) on svelte's GitHub.
 
-  [See it in the Svelte Playground here](https://svelte.dev/playground/45e9e53c9b5b4d0bbaaf7e71acde7893?version=5.45.2)
+[See it in the Svelte Playground here](https://svelte.dev/playground/45e9e53c9b5b4d0bbaaf7e71acde7893?version=5.45.2)
 
 ```svelte
 <script>
@@ -199,39 +198,41 @@ class Heading extends Component {
 <details><summary>using Vue</summary>
 
 This version:
-  - caller can pass attributes, props, etc to the generated heading
-  - only element generated is the heading
+
+- caller can pass attributes, props, etc to the generated heading
+- only element generated is the heading
 
 But:
-  - this implementation needs two render passes -- once to get the reference in the DOM, and another to set the h-level
+
+- this implementation needs two render passes -- once to get the reference in the DOM, and another to set the h-level
 
 [See it in the Vue Playground here](https://play.vuejs.org/#eNp9Vdtu2kAQ/ZWRWxUjgS01faKAlEaJ0ja9KEHqQ10JFw/Yqb1r7a6BCPHvnb0ZO6V5gd3ZuZw5ZwYOwWVdR9sGg0kwlStR1AokqqaeJ6yoai4U3GKaFWwDa8ErGESxu+ugwfuEJWwa20AKoYvCqi5ThXQDMBYXMF8UqsSpj7feEleq4ExfVOv40PxW//qSQ9cb4ORvzWAKQJhfDHuRqpPaXsngYcKrDNdpU6r5JeMqRwHnsnWaMtGd9IQj7uDq9uEz3uEWS3jrmexG92N7hYJRYBUYV2kdPUrOSKODYdU9yCSYgLFo2y4vVvk4t6nHGR8XY4aYaZ8kyJWq5SSOUVaRzOP/+upkx4QdqbiSK87WxeZZ6RWv6qJE8a3WsPsQ0rLku0/GpkSDI29f5bj6c8b+KPcW3neBEsUWk6B9U6nYoLLP1w9fcU/n9rHiWVOS9wuP9yh52WiM1u1DwzKC3fEzaD8aJomFhbzeK2TSN6WBGjaMfxLQuF+90PoJ7kX0rsNiZ1s6K1ambDOjIMpxWrQDUAY3fS7MTs7R7t4LEtMetklongtmsHKGTI2gkbhwY3WP6xHciHRTmZd8BFrORmE28lUG7V6T/FKBwPVnfIIZDBTRzHiGA/2Ie1POLc/zoqHhhaUVTmDgehkQkdpqfl4mENaC13JEgFOlBB1kyRV9YVUoOA5hNvfkWhz0SfIoAmIcI1c5HNqs3k0DpC7Jrd/2dEHo56Htpo2JY/iRIyOWBdCqgm7RpIBCQsUbKknM6BfNk2kNdkVZEisCWUZRu0LlkILTBFS66aIpjX6zluUwNI05kNE2LRuEN29gmb8+nBc/7PkOj8sWuyAeBfMkga3lhhvAsutvlmJ/c1S2d025PdPQ2onX37ZDUurgcnulnHI+zRnJHLafvkIenobuoEdq4ufqOHTVnBxXnGWFJoG28wl2XpylQbDUstS8brSoJIzTwKM3CW642KUiA4qH28WXu2egU5YZvBIIPSdpKaOmuMeiliQPXdMHiKLIJaGTy0Mn23bLg25EZ/jlt3+o//86f47B8S9Tj4Ii)
 
 ```vue
 <script lang="ts">
 import { getSectionHeadingLevel } from "which-heading-do-i-need";
-import { defineComponent, useTemplateRef, Fragment, h, computed, } from 'vue';
+import { defineComponent, useTemplateRef, Fragment, h, computed } from "vue";
 
-const refKey = 'textnode'
+const refKey = "textnode";
 
 export default defineComponent({
-  name: 'Heading',
+  name: "Heading",
 
   setup: (props, { attrs, slots, emit }) => {
-    const content = slots.default()
+    const content = slots.default();
 
-    const nodeRef = useTemplateRef<Text>(refKey)
+    const nodeRef = useTemplateRef<Text>(refKey);
 
     // Whenever the text node is mounted, the component will rerender with a heading tag
-    const level = computed(() => nodeRef.value && `h${getSectionHeadingLevel(nodeRef.value)}`)
+    const level = computed(() => nodeRef.value && `h${getSectionHeadingLevel(nodeRef.value)}`);
 
     return {
       level,
       props,
       attrs,
       content,
-      emit
-    }
+      emit,
+    };
   },
 
   render: ({ level, attrs, props, content, emit }) => {
@@ -241,9 +242,9 @@ export default defineComponent({
       // Conditionally whenever `level` is populated, render it
       // Forward all HTML attrs, props, and emits onto this node
       level && h(level, { ...attrs, ...props, ...emit }, content),
-    ]
-  }
-})  
+    ];
+  },
+});
 </script>
 ```
 
@@ -252,9 +253,13 @@ export default defineComponent({
 ## API Reference
 
 ```gjs live no-shadow
-import { APIDocs } from 'kolay';
+import { APIDocs } from "kolay";
 
 <template>
-  <APIDocs @package="which-heading-do-i-need" @module="getSectionHeadingLevel" @name="getSectionHeadingLevel" />
+  <APIDocs
+    @package="which-heading-do-i-need"
+    @module="getSectionHeadingLevel"
+    @name="getSectionHeadingLevel"
+  />
 </template>
 ```

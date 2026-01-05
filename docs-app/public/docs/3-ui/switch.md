@@ -11,7 +11,7 @@ The Switch component is a user interface element used for toggling between two s
 See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
 
 ```gjs live preview
-import { Switch, Shadowed } from 'ember-primitives';
+import { Switch, Shadowed } from "ember-primitives";
 
 <template>
   <Shadowed>
@@ -23,7 +23,11 @@ import { Switch, Shadowed } from 'ember-primitives';
         </s.Label>
       </Switch>
     </div>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
   </Shadowed>
 </template>
 ```
@@ -35,16 +39,15 @@ import { Switch, Shadowed } from 'ember-primitives';
 CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKGN?editors=1100)
 
 ```gjs live preview
-import { Switch, Shadowed } from 'ember-primitives';
-import { on } from '@ember/modifier';
+import { Switch, Shadowed } from "ember-primitives";
+import { on } from "@ember/modifier";
 
-const toggleTheme = (e) =>
-  e.target.closest('div').classList.toggle("dark");
+const toggleTheme = (e) => e.target.closest("div").classList.toggle("dark");
 
 <template>
   <Shadowed>
     <Switch as |s|>
-      <s.Control {{on 'change' toggleTheme}} />
+      <s.Control {{on "change" toggleTheme}} />
       <s.Label>
         <span class="sr-only">Toggle between light and dark mode</span>
         <Moon />
@@ -56,7 +59,9 @@ const toggleTheme = (e) =>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-      * {box-sizing: border-box;}
+      * {
+        box-sizing: border-box;
+      }
 
       div {
         padding: 1rem;
@@ -71,11 +76,14 @@ const toggleTheme = (e) =>
         transition: background 0.2s linear;
       }
 
-      div.dark {background-color: #292c35;}
-      div.dark label { background-color: #9b59b6; }
+      div.dark {
+        background-color: #292c35;
+      }
+      div.dark label {
+        background-color: #9b59b6;
+      }
 
-
-      input[type='checkbox'][role='switch'] {
+      input[type="checkbox"][role="switch"] {
         opacity: 0;
         position: absolute;
       }
@@ -103,9 +111,15 @@ const toggleTheme = (e) =>
         gap: 0.5rem;
       }
 
-      svg { fill: currentColor; }
-      .fa-moon { color: #f1c40f; }
-      .fa-sun { color: #f39c12; }
+      svg {
+        fill: currentColor;
+      }
+      .fa-moon {
+        color: #f1c40f;
+      }
+      .fa-sun {
+        color: #f39c12;
+      }
 
       label .ball {
         background-color: #fff;
@@ -118,10 +132,9 @@ const toggleTheme = (e) =>
         transition: transform 0.2s linear;
       }
 
-      input[type='checkbox'][role='switch']:checked + label .ball {
+      input[type="checkbox"][role="switch"]:checked + label .ball {
         transform: translateX(24px);
       }
-
     </style>
   </Shadowed>
 </template>
@@ -129,11 +142,23 @@ const toggleTheme = (e) =>
 // 🎵 It's raining, it's pouring, ... 🎵
 // https://www.youtube.com/watch?v=ll5ykbAumD4
 const Sun = <template>
-  <svg class="fa-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">{{!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --}}<path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/></svg>
+  <svg
+    class="fa-sun"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 512 512"
+  >{{!! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. }}<path
+      d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+    /></svg>
 </template>;
 
 const Moon = <template>
-  <svg class="fa-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">{{!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --}}<path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/></svg>
+  <svg
+    class="fa-moon"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 384 512"
+  >{{!! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. }}<path
+      d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+    /></svg>
 </template>;
 ```
 
@@ -145,26 +170,25 @@ const Moon = <template>
 <SetupInstructions @src="components/switch.gts" />
 ```
 
-## Features 
+## Features
 
-* Full keyboard navigation 
-* Can be controlled or uncontrolled
+- Full keyboard navigation
+- Can be controlled or uncontrolled
 
 ## Anatomy
 
-
-```js 
-import { Switch } from 'ember-primitives';
+```js
+import { Switch } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Switch } from 'ember-primitives/components/switch';
+
+```js
+import { Switch } from "ember-primitives/components/switch";
 ```
 
-
-```gjs 
-import { Switch } from 'ember-primitives';
+```gjs
+import { Switch } from "ember-primitives";
 
 <template>
   <Switch as |s|>
@@ -179,27 +203,28 @@ import { Switch } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/switch" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/switch"
+    @name="Signature"
+  />
 </template>
 ```
 
 ### State Attributes
 
-| key | description |  
-| :---: | :----------- |  
-| checked | attribute will be present when the underlying input is checked |  
-| data-state | attribute will be "on" or "off", depending on the state of the toggle button |  
+|    key     | description                                                                  |
+| :--------: | :--------------------------------------------------------------------------- |
+|  checked   | attribute will be present when the underlying input is checked               |
+| data-state | attribute will be "on" or "off", depending on the state of the toggle button |
 
 No custom data attributes are needed. From the root element, you may use the `:has` selector, to change the state of the container.
 
 ```gjs live preview
-import { Switch } from 'ember-primitives';
+import { Switch } from "ember-primitives";
 
 <template>
   <style>
@@ -207,7 +232,7 @@ import { Switch } from 'ember-primitives';
     .my-switch:has(:checked) {
       font-style: italic;
     }
-    .my-switch:has([data-state=on]) {
+    .my-switch:has([data-state="on"]) {
       font-weight: bold;
     }
   </style>
@@ -221,16 +246,15 @@ import { Switch } from 'ember-primitives';
 </template>
 ```
 
-
-## Accessibility 
+## Accessibility
 
 Adheres to the `switch` [role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/switch)
 
-### Keyboard Interactions 
+### Keyboard Interactions
 
-| key | description |  
-| :---: | :----------- |  
-| <kbd>Space</kbd> | Toggles the component's state |  
-| <kbd>Enter</kbd> | Toggles the component's state |  
+|       key        | description                   |
+| :--------------: | :---------------------------- |
+| <kbd>Space</kbd> | Toggles the component's state |
+| <kbd>Enter</kbd> | Toggles the component's state |
 
 In addition, a label is required so that users know what the switch is for.

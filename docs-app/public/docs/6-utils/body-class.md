@@ -5,13 +5,11 @@ A utility template-helper for updating the `class` on the `document.body`, based
 ## Example
 
 ```gjs
-import { bodyClass } from 'ember-primitives/helpers/body-class';
+import { bodyClass } from "ember-primitives/helpers/body-class";
 
 // When rendered: "prevent-scrolling" is added to the body class
 // When unrendered: "prevent-scrolling" is removed from the body class
-<template>
-  {{bodyClass "prevent-scrolling"}}
-</template>
+<template>{{bodyClass "prevent-scrolling"}}</template>
 ```
 
 ## Install
@@ -22,15 +20,15 @@ import { bodyClass } from 'ember-primitives/helpers/body-class';
 
 ## API Reference
 
-
 ```gjs live no-shadow
-import { HelperSignature } from 'kolay';
+import { HelperSignature } from "kolay";
 
 <template>
-  <HelperSignature 
-    @package="ember-primitives" 
-    @module="declarations/helpers/body-class" 
-    @name="Signature" />
+  <HelperSignature
+    @package="ember-primitives"
+    @module="declarations/helpers/body-class"
+    @name="Signature"
+  />
 </template>
 ```
 

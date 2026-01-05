@@ -1,31 +1,34 @@
 # Scroller
 
 ```gjs live no-shadow
-import { CommentQuery } from 'kolay';
+import { CommentQuery } from "kolay";
 
 <template>
-  <CommentQuery @package="ember-primitives" @module="declarations/components/scroller" @name="Scroller" />
+  <CommentQuery
+    @package="ember-primitives"
+    @module="declarations/components/scroller"
+    @name="Scroller"
+  />
 </template>
 ```
-
 
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { Scroller } from 'ember-primitives';
-import { on } from '@ember/modifier';
-import { hash, fn } from '@ember/helper';
-import { loremIpsum } from 'lorem-ipsum';
+import { Scroller } from "ember-primitives";
+import { on } from "@ember/modifier";
+import { hash, fn } from "@ember/helper";
+import { loremIpsum } from "lorem-ipsum";
 
 // set during render
 let scrollers = {};
-const setScrollers = (s) => scrollers = s;
+const setScrollers = (s) => (scrollers = s);
 const click = (methodName) => scrollers[methodName]();
 
 <template>
   <div class="demo">
     <Scroller class="container" as |s|>
-      {{ (setScrollers s) }}
+      {{(setScrollers s)}}
 
       <div class="big-content">
         {{loremIpsum (hash count=10 units="paragraphs")}}
@@ -41,12 +44,14 @@ const click = (methodName) => scrollers[methodName]();
   </div>
 
   <style>
-    .demo { position: relative; }
+    .demo {
+      position: relative;
+    }
     .container {
       overflow: auto;
       height: 200px;
       scroll-behavior: smooth;
-    } 
+    }
     .big-content {
       width: 200%;
     }
@@ -57,13 +62,16 @@ const click = (methodName) => scrollers[methodName]();
       margin-top: -4rem;
       filter: drop-shadow(0 2px 3px #555);
     }
-    button { padding: 0; font-size: 2rem; line-height: 2rem;}
+    button {
+      padding: 0;
+      font-size: 2rem;
+      line-height: 2rem;
+    }
   </style>
 </template>
 ```
 
 </div>
-
 
 ## Install
 
@@ -71,29 +79,28 @@ const click = (methodName) => scrollers[methodName]();
 <SetupInstructions @src="components/scroller.gts" />
 ```
 
-
 ## Anatomy
 
-```js 
-import { Scroller } from 'ember-primitives';
+```js
+import { Scroller } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Scroller } from 'ember-primitives/components/scroller';
+
+```js
+import { Scroller } from "ember-primitives/components/scroller";
 ```
 
-
-```gjs 
-import { Scroller } from 'ember-primitives';
+```gjs
+import { Scroller } from "ember-primitives";
 
 <template>
   <Scroller as |s|>
 
-    {{ (s.scrollToTop) }}
-    {{ (s.scrollToBottom) }}
-    {{ (s.scrollToLeft) }}
-    {{ (s.scrolltoRight) }}
+    {{(s.scrollToTop)}}
+    {{(s.scrollToBottom)}}
+    {{(s.scrollToLeft)}}
+    {{(s.scrolltoRight)}}
 
   </Scroller>
 </template>
@@ -102,13 +109,14 @@ import { Scroller } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/scroller" 
-    @name="Scroller" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/scroller"
+    @name="Scroller"
+  />
 </template>
 ```
 

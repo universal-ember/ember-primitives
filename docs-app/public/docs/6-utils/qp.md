@@ -1,4 +1,4 @@
-# Query Params 
+# Query Params
 
 Utilities for accessing query-params without the need for creating a class-component, or injecting the [router service][router-service].
 
@@ -10,7 +10,6 @@ Utilities for accessing query-params without the need for creating a class-compo
 <SetupInstructions @src="qp.ts" />
 ```
 
-
 ## API Reference
 
 There are a few exports from `ember-primitives/qp`
@@ -20,21 +19,16 @@ There are a few exports from `ember-primitives/qp`
 Grabs a query-param off the current route from the router service.
 
 ```gjs
-import { qp } from 'ember-primitives/qp';
+import { qp } from "ember-primitives/qp";
 
-<template>
- {{qp "query-param"}}
-</template>
+<template>{{qp "query-param"}}</template>
 ```
 
 ```gjs live no-shadow
-import { HelperSignature } from 'kolay';
+import { HelperSignature } from "kolay";
 
 <template>
-  <HelperSignature 
-    @package="ember-primitives" 
-    @module="declarations/qp" 
-    @name="qp" />
+  <HelperSignature @package="ember-primitives" @module="declarations/qp" @name="qp" />
 </template>
 ```
 
@@ -43,7 +37,7 @@ import { HelperSignature } from 'kolay';
 Returns a string for use as an `href` on `<a>` tags, updated with the passed query param
 
 ```gjs
-import { withQP } from 'ember-primitives/qp';
+import { withQP } from "ember-primitives/qp";
 
 <template>
   <a href={{withQP "foo" "2"}}>
@@ -53,13 +47,10 @@ import { withQP } from 'ember-primitives/qp';
 ```
 
 ```gjs live no-shadow
-import { HelperSignature } from 'kolay';
+import { HelperSignature } from "kolay";
 
 <template>
-  <HelperSignature 
-    @package="ember-primitives" 
-    @module="declarations/qp" 
-    @name="withQP" />
+  <HelperSignature @package="ember-primitives" @module="declarations/qp" @name="withQP" />
 </template>
 ```
 
@@ -68,6 +59,7 @@ import { HelperSignature } from 'kolay';
 Cast a query-param string value to a boolean.
 
 The following values are considered "false"
+
 - `undefined`
 - `""`
 - `"0"`
@@ -81,13 +73,9 @@ The following values are considered "false"
 All other values are considered truthy
 
 ```gjs live no-shadow
-import { HelperSignature } from 'kolay';
+import { HelperSignature } from "kolay";
 
 <template>
-  <HelperSignature 
-    @package="ember-primitives" 
-    @module="declarations/qp" 
-    @name="castToBoolean" />
+  <HelperSignature @package="ember-primitives" @module="declarations/qp" @name="castToBoolean" />
 </template>
 ```
-

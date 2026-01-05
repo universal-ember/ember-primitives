@@ -1,10 +1,10 @@
 # Floating UI
 
-The `FloatingUI` component provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc). 
+The `FloatingUI` component provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc).
 
 <Callout>
 
-The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) lands and is widely supported (This component and modifier will still exist for the purpose of wiring up the ids between anchor and target). 
+The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) lands and is widely supported (This component and modifier will still exist for the purpose of wiring up the ids between anchor and target).
 
 </Callout>
 
@@ -12,7 +12,6 @@ Several of Floating UI's functions and [middleware](https://floating-ui.com/docs
 See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) for more information on any of the following included functionality.
 
 ## Install
-
 
 ```hbs live
 <SetupInstructions @src="floating-ui.ts" />
@@ -27,12 +26,12 @@ This component has no DOM of its own, but provides two modifiers to attach to bo
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { FloatingUI } from 'ember-primitives/floating-ui';
+import { FloatingUI } from "ember-primitives/floating-ui";
 
 <template>
   <FloatingUI as |reference floating|>
     <button {{reference}} popovertarget="floating2">Click the reference element</button>
-    <menu {{floating}} popover id="floating2">Here is <br> floating element</menu>
+    <menu {{floating}} popover id="floating2">Here is <br /> floating element</menu>
   </FloatingUI>
 
   <style>
@@ -47,7 +46,7 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
       padding: 2rem;
       border-radius: 4px;
       font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+      filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
       z-index: 10;
     }
     button[popovertarget="floating2"] {
@@ -73,13 +72,14 @@ Note that this demo has to main a unique id/target for the popover behavior. If 
 ### API Reference for `<FloatingUI>`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/floating-ui/component" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/floating-ui/component"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -92,14 +92,13 @@ import { ComponentSignature } from 'kolay';
 
 Similar projects include:
 
-* [ember-popperjs](https://github.com/NullVoxPopuli/ember-popperjs)
-* [ember-popper-modifier](https://github.com/adopted-ember-addons/ember-popper-modifier)
+- [ember-popperjs](https://github.com/NullVoxPopuli/ember-popperjs)
+- [ember-popper-modifier](https://github.com/adopted-ember-addons/ember-popper-modifier)
 
 The above projects both use [Popper](https://popper.js.org/). In contrast, Ember Velcro uses Floating UI. Floating UI is the successor to Popper - see their [migration guide](https://floating-ui.com/docs/migration) for a complete comparison.
 
 There is also:
 
-* [ember-velcro](https://github.com/CrowdStrike/ember-velcro)
+- [ember-velcro](https://github.com/CrowdStrike/ember-velcro)
 
 which this project is a fork up, and ditches the velcro (hook / loop) verbiage and fixes bugs and improves ergonomics.
-

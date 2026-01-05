@@ -1,26 +1,24 @@
 # Shadowed
 
 ```gjs live no-shadow
-import { CommentQuery } from 'kolay';
+import { CommentQuery } from "kolay";
 
-<template>
-  <CommentQuery @module="components/shadowed" @name="Shadowed" />
-</template>
+<template><CommentQuery @module="components/shadowed" @name="Shadowed" /></template>
 ```
 
 ## Example
 
 Almost all demos within these docs are rendered within a `<Shadowed />` wrapper.
 
-```gjs live preview 
-import { Shadowed } from 'ember-primitives';
+```gjs live preview
+import { Shadowed } from "ember-primitives";
 
 <template>
-  <style> 
+  <style>
     p {
       border: 1px solid;
       padding: 0.75rem;
-      transform: skew(5deg, 5deg); 
+      transform: skew(5deg, 5deg);
       width: 100px;
     }
   </style>
@@ -37,24 +35,22 @@ import { Shadowed } from 'ember-primitives';
 </template>
 ```
 
-
 ## Install
 
 ```hbs live
 <SetupInstructions @src="components/shadowed.gts" />
 ```
 
-
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/shadowed" 
-    @name="Shadowed" 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/shadowed"
+    @name="Shadowed"
   />
 </template>
 ```

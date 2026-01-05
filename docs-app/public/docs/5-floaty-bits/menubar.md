@@ -9,7 +9,7 @@ Like `<Menu>`, the `<MenuBar>` component uses portals in a way that totally solv
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { PortalTargets, MenuBar } from 'ember-primitives';
+import { PortalTargets, MenuBar } from "ember-primitives";
 
 <template>
   <PortalTargets />
@@ -90,7 +90,11 @@ import { PortalTargets, MenuBar } from 'ember-primitives';
       border: 1px solid #e5e7eb;
       font-size: 14px;
       z-index: 10;
-      box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      box-shadow:
+        0 0 #0000,
+        0 0 #0000,
+        0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
       display: flex;
       flex-direction: column;
     }
@@ -132,7 +136,7 @@ Just like `<Menu>`, you can use `LinkItem` for navigation:
 <MenuBar as |mb|>
   <mb.Menu as |m|>
     <m.Trigger>File</m.Trigger>
-    
+
     <m.Content as |c|>
       <c.LinkItem @href="/">Home</c.LinkItem>
       <c.LinkItem @href="/about">About</c.LinkItem>
@@ -150,13 +154,14 @@ Just like `<Menu>`, you can use `LinkItem` for navigation:
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/menubar" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/menubar"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -166,14 +171,14 @@ Adheres to the [MenuBar WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg
 
 ### Keyboard Interactions
 
-| key | description |
-| :---: | :----------- |
-| <kbd>ArrowLeft</kbd> | When focus is on a trigger in the menubar, moves to the previous trigger. |
-| <kbd>ArrowRight</kbd> | When focus is on a trigger in the menubar, moves to the next trigger. |
+|                key                | description                                                                                                                  |
+| :-------------------------------: | :--------------------------------------------------------------------------------------------------------------------------- |
+|       <kbd>ArrowLeft</kbd>        | When focus is on a trigger in the menubar, moves to the previous trigger.                                                    |
+|       <kbd>ArrowRight</kbd>       | When focus is on a trigger in the menubar, moves to the next trigger.                                                        |
 | <kbd>Space</kbd> <kbd>Enter</kbd> | When focus is on a trigger, opens the menu and focuses the first item. When focus is on an item, activates the focused item. |
-| <kbd>ArrowDown</kbd> | When a menu is open, moves to the next item. |
-| <kbd>ArrowUp</kbd> | When a menu is open, moves to the previous item. |
-| <kbd>Esc</kbd> | Closes the open menu and moves focus back to its trigger. |
+|       <kbd>ArrowDown</kbd>        | When a menu is open, moves to the next item.                                                                                 |
+|        <kbd>ArrowUp</kbd>         | When a menu is open, moves to the previous item.                                                                             |
+|          <kbd>Esc</kbd>           | Closes the open menu and moves focus back to its trigger.                                                                    |
 
 ## Comparison with Menu
 

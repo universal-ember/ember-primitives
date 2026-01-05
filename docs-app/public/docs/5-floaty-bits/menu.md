@@ -1,6 +1,6 @@
 # Menu
 
-Menus are built with Popovers, with added features for keyboard navigation and accessibility. 
+Menus are built with Popovers, with added features for keyboard navigation and accessibility.
 
 The placement of the menu content is handled by `<Popover>`, so `<Menu>` accepts the same arguments for positioning the dropdown.
 
@@ -9,7 +9,7 @@ Like `<Popover>`, the `<Menu>` component uses portals in a way that totally solv
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { PortalTargets, Menu } from 'ember-primitives';
+import { PortalTargets, Menu } from "ember-primitives";
 
 <template>
   <PortalTargets />
@@ -38,7 +38,11 @@ import { PortalTargets, Menu } from 'ember-primitives';
       border: none;
       font-size: 14px;
       z-index: 10;
-      box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      box-shadow:
+        0 0 #0000,
+        0 0 #0000,
+        0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
       display: flex;
       flex-direction: column;
     }
@@ -50,7 +54,8 @@ import { PortalTargets, Menu } from 'ember-primitives';
       cursor: pointer;
     }
 
-    .content [role="menuitem"]:focus, .trigger:hover {
+    .content [role="menuitem"]:focus,
+    .trigger:hover {
       background-color: #f9fafb;
     }
 
@@ -79,15 +84,19 @@ import { PortalTargets, Menu } from 'ember-primitives';
 </template>
 
 const EllipsisVertical = <template>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512" fill="currentColor"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/></svg>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 128 512"
+    fill="currentColor"
+  ><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path
+      d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"
+    /></svg>
 </template>;
 ```
 
 </div>
 
-
 Sometimes, you need to use an existing component as the trigger. `<Menu>` also yields a `trigger` modifier that you can use anywhere, even on your own components (e.g a custom button):
-
 
 ```hbs
 <Menu as |m|>
@@ -106,25 +115,23 @@ Sometimes, you need to use an existing component as the trigger. `<Menu>` also y
 
 Keep in mind that for the modifier to do its work, your custom component must use [`...attributes`](https://guides.emberjs.com/v5.7.0/components/component-arguments-and-html-attributes/#toc_html-attributes) in some HTML element.
 
-
 ## Install
-
 
 ```hbs live
 <SetupInstructions @src="components/menu.gts" />
 ```
 
-
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/menu" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/menu"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -134,9 +141,9 @@ Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA
 
 ### Keyboard Interactions
 
-| key | description |
-| :---: | :----------- |
-| <kbd>Space</kbd> <kbd>Enter</kbd>  | When focus is on `Trigger`, opens the menu and focuses the first item. When focus is on an `Item`, activates the focused item. |
-| <kbd>ArrowDown</kbd> <kbd>ArrowRight</kbd> | When `Content` is open, moves to the next item.  |
-| <kbd>ArrowUp</kbd> <kbd>ArrowLeft</kbd> | When `Content` is open, moves to the previous item.  |
-| <kbd>Esc</kbd> | Closes the menu and moves focus to `Trigger`. |
+|                    key                     | description                                                                                                                    |
+| :----------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------- |
+|     <kbd>Space</kbd> <kbd>Enter</kbd>      | When focus is on `Trigger`, opens the menu and focuses the first item. When focus is on an `Item`, activates the focused item. |
+| <kbd>ArrowDown</kbd> <kbd>ArrowRight</kbd> | When `Content` is open, moves to the next item.                                                                                |
+|  <kbd>ArrowUp</kbd> <kbd>ArrowLeft</kbd>   | When `Content` is open, moves to the previous item.                                                                            |
+|               <kbd>Esc</kbd>               | Closes the menu and moves focus to `Trigger`.                                                                                  |

@@ -2,31 +2,30 @@
 
 Hides content from the screen in an accessible way.
 
-Can be used as an attribute, `visually-hidden` on any element, or a Component. 
+Can be used as an attribute, `visually-hidden` on any element, or a Component.
 
 ## Example
 
 ```gjs live live-preview no-shadow
-import { VisuallyHidden } from 'ember-primitives';
+import { VisuallyHidden } from "ember-primitives";
 
 <template>
-  Visually <span visually-hidden>secrets!</span>
+  Visually
+  <span visually-hidden>secrets!</span>
   seen
 
   <VisuallyHidden>
-    This is visually hidden 
+    This is visually hidden
   </VisuallyHidden>
   Visually seen
 </template>
 ```
-
 
 ## Install
 
 ```hbs live
 <SetupInstructions @src="components/visually-hidden.gts" />
 ```
-
 
 ## Features
 
@@ -43,25 +42,24 @@ Using the attribute
 
 the `visually-hidden` attribute becomes available after importing the component (below), or including this import somewherer in your app:
 
-```js 
-import 'ember-primitives/styles.css';
+```js
+import "ember-primitives/styles.css";
 ```
-
 
 Using the component:
 
-```js 
-import { VisuallyHidden } from 'ember-primitives';
+```js
+import { VisuallyHidden } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { VisuallyHidden } from 'ember-primitives/components/dialog';
+
+```js
+import { VisuallyHidden } from "ember-primitives/components/dialog";
 ```
 
-
-```gjs 
-import { VisuallyHidden } from 'ember-primitives';
+```gjs
+import { VisuallyHidden } from "ember-primitives";
 
 <template>
   <VisuallyHidden>
@@ -73,13 +71,13 @@ import { VisuallyHidden } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/visually-hidden" 
-    @name="VisuallyHidden" 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/visually-hidden"
+    @name="VisuallyHidden"
   />
 </template>
 ```

@@ -32,8 +32,8 @@
     "ember-resources": "^7.0.7",
     "ember-route-template": "^1.0.3",
     "qunit-assertions-extra": "^1.0.3",
-    "which-heading-do-i-need": "workspace:*",
-    "reactiveweb": "^1.9.1"
+    "reactiveweb": "^1.9.1",
+    "which-heading-do-i-need": "workspace:*"
   },
   "dependenciesMeta": {
     "ember-primitives": {
@@ -44,6 +44,7 @@
     "@babel/core": "^7.28.5",
     "@babel/plugin-transform-runtime": "^7.28.5",
     "@babel/plugin-transform-typescript": "^7.28.5",
+    "@babel/runtime": "^7.28.4",
     "@ember/app-tsconfig": "^1.0.0",
     "@ember/optional-features": "^2.3.0",
     "@ember/string": "^4.0.0",

@@ -359,6 +359,8 @@ module('Rendering | menubar', function (hooks) {
 
     assert.dom('.trigger-1').isFocused();
 
+    debugAssert(`Cannot use triggerKeyEvent with no activeElement`, document.activeElement);
+
     await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowRight');
 
     await waitForFocus('.trigger-2');

@@ -400,12 +400,11 @@ export interface Signature {
   };
 }
 
-export class MenuBar extends Component<Signature> {
-  <template>
-    <div role="menubar" data-tabster={{TABSTER_CONFIG_MENUBAR}} ...attributes>
-      {{yield (hash Menu=MenubarMenu)}}
-    </div>
-  </template>
-}
+const MenuBar: TOC<Signature> = <template>
+  <div role="menubar" data-tabster={{TABSTER_CONFIG_MENUBAR}} ...attributes>
+    {{yield (hash Menu=MenubarMenu)}}
+  </div>
+</template>;
 
+export { MenuBar };
 export default MenuBar;

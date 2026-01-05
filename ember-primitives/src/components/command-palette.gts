@@ -288,7 +288,7 @@ function createCommandPaletteState(dialog: DialogSignature["Blocks"]["default"][
 // eslint-disable-next-line ember/no-empty-glimmer-component-classes
 export class CommandPalette extends Component<Signature> {
   <template>
-    <Dialog @open={{@open}} @onClose={{@onClose}} as |dialog|>
+    <Dialog @open={{@open}} @onClose={{@onClose}} ...attributes as |dialog|>
       {{#let (createCommandPaletteState dialog this) as |state|}}
         {{yield
           (hash

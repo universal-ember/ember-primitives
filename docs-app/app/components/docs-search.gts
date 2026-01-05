@@ -1,10 +1,10 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { registerDestructor } from '@ember/destroyable';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
-import onKey from 'ember-keyboard/modifiers/on-key';
 import { CommandPalette } from 'ember-primitives';
 import { docsManager } from 'kolay';
 
@@ -62,6 +62,44 @@ export class DocsSearch extends Component {
 
   @tracked isOpen = false;
 
+  constructor(owner: unknown, args: unknown) {
+    super(owner as never, args as never);
+
+    // In docs-app we want Cmd/Ctrl+K to open globally (regardless of focus).
+    // Use a window listener (capture phase) so we can prevent the browser's default behavior.
+    if (typeof window === 'undefined') return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented) return;
+      if (event.isComposing) return;
+
+      if (event.altKey || event.shiftKey) return;
+      if (!(event.metaKey || event.ctrlKey)) return;
+
+      // Prefer `key` (layout-aware); fall back to `code`.
+      const isK = event.key?.toLowerCase() === 'k' || event.code === 'KeyK';
+
+      if (!isK) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      if (this.isOpen) {
+        this.close();
+      } else {
+        this.open();
+      }
+    };
+
+    // `true` => capture phase
+    window.addEventListener('keydown', onKeyDown, true);
+
+    registerDestructor(this, () => {
+      window.removeEventListener('keydown', onKeyDown, true);
+    });
+  }
+
   get allPages(): PageData[] {
     const m = docsManager(this);
 
@@ -109,13 +147,10 @@ export class DocsSearch extends Component {
   };
 
   <template>
-    <div
-      {{onKey "cmd+KeyK" this.open preventDefault=true onlyWhenFocused=false}}
-      {{onKey "ctrl+KeyK" this.open preventDefault=true onlyWhenFocused=false}}
-    >
+    <div>
       <button
         type="button"
-        class="group flex items-center gap-2 px-3 py-1.5 text-sm text-slate-500 transition bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
+        class="trigger group flex items-center gap-2 px-3 py-1.5 text-sm text-slate-500 transition bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-md hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500"
         {{on "click" this.open}}
         aria-label="Search documentation"
       >
@@ -142,7 +177,7 @@ export class DocsSearch extends Component {
       </button>
 
       <CommandPalette @open={{this.isOpen}} @onClose={{this.close}} as |cp|>
-        <cp.Dialog>
+        <cp.Dialog class="dialog">
           <div class="flex flex-col max-h-[60vh] bg-white dark:bg-slate-900 rounded-lg">
             <cp.Input
               class="w-full px-4 py-3 text-base border-b border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-slate-100 focus:outline-none placeholder-slate-400"
@@ -185,5 +220,16 @@ export class DocsSearch extends Component {
         </cp.Dialog>
       </CommandPalette>
     </div>
+
+    <style scoped>
+      .trigger {
+      }
+      .dialog {
+        margin-top: -2.5rem;
+        border-radius: 0.25rem;
+        border: 1px solid;
+        filter: drop-shadow(0px 1rem 1rem rgba(0, 0, 0, 0.5));
+      }
+    </style>
   </template>
 }

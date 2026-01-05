@@ -63,7 +63,7 @@ export const PageLayout: TOC<{
               {{yield to="logoLink"}}
             </a>
           </div>
-          <div class="mr-6 -my-5 sm:mr-8 md:mr-0">
+          <div class="flex-grow flex items-center justify-center">
             {{yield to="search"}}
           </div>
           <TopRight>

@@ -267,7 +267,11 @@ export class Slider extends Component<Signature> {
 
     const target = event.currentTarget as HTMLElement;
 
-    target.setPointerCapture(event.pointerId);
+    try {
+      target.setPointerCapture(event.pointerId);
+    } catch {
+      // Silently fail if pointer capture is not supported or invalid
+    }
 
     const handlePointerMove = (e: PointerEvent) => {
       this.handlePointerMove(e);
@@ -276,7 +280,13 @@ export class Slider extends Component<Signature> {
     const handlePointerUp = (e: PointerEvent) => {
       this.isDragging = false;
       this.commitValue(this.values);
-      target.releasePointerCapture(e.pointerId);
+
+      try {
+        target.releasePointerCapture(e.pointerId);
+      } catch {
+        // Silently fail if pointer capture was not set
+      }
+
       target.removeEventListener("pointermove", handlePointerMove);
       target.removeEventListener("pointerup", handlePointerUp);
     };

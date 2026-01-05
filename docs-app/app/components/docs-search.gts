@@ -33,7 +33,12 @@ function extractPages(pages: Page[], category = ''): PageData[] {
 
   for (const page of pages) {
     if ('path' in page) {
-      const title = 'title' in page && page.title ? String(page.title) : titleize(page.name);
+      let title = titleize(page.name);
+
+      if ('title' in page && typeof page.title === 'string') {
+        title = page.title;
+      }
+
       result.push({
         path: page.path,
         title,
@@ -42,7 +47,7 @@ function extractPages(pages: Page[], category = ''): PageData[] {
     }
 
     if ('pages' in page && Array.isArray(page.pages)) {
-      result.push(...extractPages(page.pages, titleize(page.name)));
+      result.push(...extractPages(page.pages as Page[], titleize(page.name)));
     }
   }
 
@@ -51,14 +56,19 @@ function extractPages(pages: Page[], category = ''): PageData[] {
 
 export class DocsSearch extends Component {
   @service declare router: RouterService;
+
   @tracked searchQuery = '';
+
   @tracked isOpen = false;
 
   get allPages(): PageData[] {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const m = manifest();
+
     if (!m) return [];
 
-    return extractPages(m.pages || []);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    return extractPages((m.pages || []) as Page[]);
   }
 
   get filteredPages(): PageData[] {
@@ -67,6 +77,7 @@ export class DocsSearch extends Component {
     }
 
     const query = this.searchQuery.toLowerCase();
+
     return this.allPages
       .filter(
         (page) =>
@@ -79,6 +90,7 @@ export class DocsSearch extends Component {
 
   handleInput = (event: Event) => {
     const target = event.target as HTMLInputElement;
+
     this.searchQuery = target.value;
   };
 

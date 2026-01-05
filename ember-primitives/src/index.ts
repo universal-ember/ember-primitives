@@ -21,6 +21,7 @@ export type {
 export { Avatar } from './components/avatar.gts';
 export { Breadcrumb } from './components/breadcrumb.gts';
 export { Dialog, Dialog as Modal } from './components/dialog.gts';
+export { Drawer } from './components/drawer.gts';
 export { ExternalLink } from './components/external-link.gts';
 export { Form } from './components/form.gts';
 export { Key, KeyCombo } from './components/keys.gts';

@@ -718,9 +718,6 @@ importers:
       '@babel/plugin-transform-typescript':
         specifier: ^7.28.5
         version: 7.28.5(@babel/core@7.28.5)
-      '@babel/runtime':
-        specifier: ^7.28.4
-        version: 7.28.4
       '@ember/app-tsconfig':
         specifier: ^1.0.0
         version: 1.0.3

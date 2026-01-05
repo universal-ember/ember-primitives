@@ -25,6 +25,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "rollup --config --watch --no-watch.clearScreen",
     "build": "rollup --config",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",

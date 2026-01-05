@@ -21,6 +21,7 @@
     "lint:prettier": "pnpm -w exec lint prettier",
     "lint:types": "ember-tsc --noEmit",
     "start": "pnpm vite",
+    "dev": "vite",
     "sync": "echo 'pnpm is syncing injected deps. (this is configured in .npmrc)'",
     "test": "vite build --mode development && ember test --path dist",
     "test:ember": "vite build --mode development && ember test --path dist"

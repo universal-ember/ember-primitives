@@ -47,8 +47,9 @@
     /////////////////////////////////////////////////
     /////////////////////////////////////////////////
     "dev": {
-      "dependsOn": ["^dev"],
-      "cache": false
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
     },
     "start": {
       "dependsOn": ["_syncPnpm", "^build"],

@@ -101,7 +101,7 @@ export interface Signature {
  * ```
  */
 export const Breadcrumb: TOC<Signature> = <template>
-  <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
+  <nav aria-label={{or @label "Breadcrumb"}} ...attributes>
     <ol>
       {{yield (hash Item=Item Link=BreadcrumbLink Separator=Separator)}}
     </ol>

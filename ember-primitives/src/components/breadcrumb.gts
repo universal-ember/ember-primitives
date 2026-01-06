@@ -1,6 +1,6 @@
-import { hash } from "@ember/helper";
+import { hash } from '@ember/helper';
 
-import type { TOC } from "@ember/component/template-only";
+import type { TOC } from '@ember/component/template-only';
 
 const Item: TOC<{
   Element: HTMLLIElement;
@@ -101,7 +101,7 @@ export interface Signature {
  * ```
  */
 export const Breadcrumb: TOC<Signature> = <template>
-  <nav aria-label={{or @label "Breadcrumb"}} ...attributes>
+  <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
     <ol>
       {{yield (hash Item=Item Link=BreadcrumbLink Separator=Separator)}}
     </ol>

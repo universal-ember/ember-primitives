@@ -6,17 +6,29 @@ Breadcrumbs help users understand their current location and provide a way to na
 
 <div class="featured-demo">
 
-```gjs live preview
-import { Breadcrumb } from 'ember-primitives';
+```gjs live preview no-shadow
+import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
 <template>
+  <PortalTargets />
+
   <Breadcrumb as |b|>
     <b.Item>
       <b.Link @href="/">Home</b.Link>
     </b.Item>
     <b.Separator>/</b.Separator>
     <b.Item>
-      <b.Link @href="/docs">Docs</b.Link>
+      <Menu @offsetOptions={{8}} as |m|>
+        <m.Trigger class="menu-trigger">
+          Docs
+          <ChevronDown />
+        </m.Trigger>
+        <m.Content class="menu-content" as |c|>
+          <c.LinkItem class="not-prose" @href="/docs">Overview</c.LinkItem>
+          <c.LinkItem class="not-prose" @href="/docs/getting-started">Getting Started</c.LinkItem>
+          <c.LinkItem class="not-prose" @href="/docs/components">Components</c.LinkItem>
+        </m.Content>
+      </Menu>
     </b.Item>
     <b.Separator>/</b.Separator>
     <b.Item>
@@ -60,8 +72,60 @@ import { Breadcrumb } from 'ember-primitives';
       color: #999;
       user-select: none;
     }
+
+    .menu-trigger {
+      all: unset;
+      color: #0066cc;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .menu-trigger:hover {
+      text-decoration: underline;
+    }
+
+    .menu-trigger svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .menu-content {
+      all: unset;
+      min-width: 180px;
+      background: #fff;
+      color: #111827;
+      padding: 8px 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+      z-index: 10;
+      box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-content [role="menuitem"] {
+      all: unset;
+      display: block;
+      padding: 4px 12px;
+      cursor: pointer;
+      color: #111827;
+    }
+
+    .menu-content [role="menuitem"]:focus,
+    .menu-content [role="menuitem"]:hover {
+      background-color: #f9fafb;
+    }
   </style>
 </template>
+
+const ChevronDown = <template>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>
+</template>;
 ```
 
 </div>

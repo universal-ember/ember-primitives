@@ -1,7 +1,6 @@
-import { hash } from '@ember/helper';
+import { hash } from "@ember/helper";
 
-import type { TOC } from '@ember/component/template-only';
-import type { WithBoundArgs } from '@glint/template';
+import type { TOC } from "@ember/component/template-only";
 
 const Item: TOC<{
   Element: HTMLLIElement;

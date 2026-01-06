@@ -18,14 +18,17 @@ import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 import { guidFor } from "@ember/object/internals";
 
+// @ts-expect-error, really, no types?
+import { focusTrap } from "ember-focus-trap";
 import { modifier as eModifier } from "ember-modifier";
-import { getTabsterAttribute, MoverDirections, setTabsterAttribute } from "tabster";
+import { getTabsterAttribute, MoverDirections } from "tabster";
 
 import { Dialog } from "./dialog.gts";
 
 import type { Signature as DialogSignature } from "./dialog.gts";
 import type { TOC } from "@ember/component/template-only";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
+import Menu from "./menu.gts";
 
 const TABSTER_CONFIG_LIST = getTabsterAttribute(
   {
@@ -195,14 +198,10 @@ export interface InputSignature {
   Element: PrivateInputSignature["Element"];
 }
 
-const focusInput = eModifier<{
-  Element: HTMLInputElement;
-}>((element) => {
-  // Focus the input when it's rendered
-  void (async () => {
-    await Promise.resolve();
+const focusInput = eModifier<{ Element: HTMLInputElement }>((element) => {
+  requestAnimationFrame(() => {
     element.focus();
-  })();
+  });
 });
 
 const CommandPaletteInput: TOC<PrivateInputSignature> = <template>
@@ -219,94 +218,46 @@ const CommandPaletteInput: TOC<PrivateInputSignature> = <template>
   />
 </template>;
 
-interface PrivateDialogSignature {
+const CommandPaletteDialog: TOC<{
   Element: HTMLDivElement;
   Args: {
-    state: CommandPaletteState;
-    dialogProps: DialogSignature["Blocks"]["default"][0];
+    dialog: DialogSignature["Blocks"]["default"][0];
   };
   Blocks: { default: [] };
-}
-
-export interface CommandPaletteDialogSignature {
-  Element: PrivateDialogSignature["Element"];
-  Blocks: PrivateDialogSignature["Blocks"];
-}
-
-const installDialog = eModifier<{
-  Element: HTMLElement;
-  Args: {
-    Named: {
-      state: CommandPaletteState;
-    };
-  };
-}>((element, _: [], { state }) => {
-  // Set tabster attributes for the dialog content
-  setTabsterAttribute(element, {
-    deloser: {},
-  });
-
-  // Listen for the escape key
-  function onDocumentKeydown(e: KeyboardEvent) {
-    if (e.key === "Escape") {
-      state.close();
-    }
-  }
-
-  document.addEventListener("keydown", onDocumentKeydown);
-
-  return () => {
-    document.removeEventListener("keydown", onDocumentKeydown);
-  };
-});
-
-const CommandPaletteDialog: TOC<PrivateDialogSignature> = <template>
-  <@dialogProps.Dialog ...attributes>
-    <div {{installDialog state=@state}}>
-      {{yield}}
-    </div>
-  </@dialogProps.Dialog>
+}> = <template>
+  <@dialog.Dialog
+    ...attributes
+    {{focusTrap isActive=@dialog.isOpen focusTrapOptions=focusTrapOptions}}
+  >
+    {{yield}}
+  </@dialog.Dialog>
 </template>;
 
-function createCommandPaletteState(dialog: DialogSignature["Blocks"]["default"][0], owner: object) {
-  const guid = guidFor(owner);
-  const inputId = `command-palette-input-${guid}`;
-  const listId = `command-palette-list-${guid}`;
+const focusTrapOptions = {
+  clickOutsideDeactivates: true,
+  allowOutsideClick: true,
+};
 
-  return {
-    inputId,
-    listId,
-    get isOpen() {
-      return dialog.isOpen;
-    },
-    close: dialog.close,
-    open: dialog.open,
-    focusOnClose: dialog.focusOnClose,
-  };
-}
-
-// eslint-disable-next-line ember/no-empty-glimmer-component-classes
 export class CommandPalette extends Component<Signature> {
+  guid = guidFor(this);
+  inputId = `command-palette-input-${this.guid}`;
+  listId = `command-palette-list-${this.guid}`;
+
   <template>
-    <Dialog @open={{@open}} @onClose={{@onClose}} ...attributes as |dialog|>
-      {{#let (createCommandPaletteState dialog this) as |state|}}
-        {{yield
-          (hash
-            isOpen=state.isOpen
-            open=state.open
-            close=state.close
-            focusOnClose=state.focusOnClose
-            Dialog=(component CommandPaletteDialog state=state dialogProps=dialog)
-            Input=(component
-              CommandPaletteInput state=state inputId=state.inputId listId=state.listId
-            )
-            List=(component
-              CommandPaletteList state=state listId=state.listId inputId=state.inputId
-            )
-            Item=(component CommandPaletteItem state=state)
-          )
-        }}
-      {{/let}}
+    <Dialog as |dialog|>
+      {{yield
+        (hash
+          isOpen=dialog.isOpen
+          open=dialog.open
+          close=dialog.close
+          focusOnClose=dialog.focusOnClose
+          Dialog=(component CommandPaletteDialog dialog=dialog)
+          Input=(component CommandPaletteInput inputId=this.inputId listId=this.listId)
+          List=(component CommandPaletteList state=dialog listId=this.listId inputId=this.inputId)
+          Item=(component CommandPaletteItem state=dialog)
+        )
+      }}
+
     </Dialog>
   </template>
 }

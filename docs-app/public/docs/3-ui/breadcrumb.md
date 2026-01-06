@@ -42,7 +42,9 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
   <style>
     nav[aria-label="Breadcrumb"] {
-      padding: 1rem;
+      padding: 0.5rem;
+      background: currentColor;
+      border-radius: 0.25rem;
     }
     
     nav[aria-label="Breadcrumb"] ol {
@@ -92,7 +94,6 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
     }
 
     .menu-content {
-      all: unset;
       min-width: 180px;
       background: #fff;
       color: #111827;
@@ -101,6 +102,7 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
       border: none;
       font-size: 14px;
       z-index: 10;
+      border: 1px solid gray;
       box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
       display: flex;
       flex-direction: column;

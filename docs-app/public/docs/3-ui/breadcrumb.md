@@ -24,9 +24,9 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
           <ChevronDown />
         </m.Trigger>
         <m.Content class="menu-content" as |c|>
-          <c.LinkItem class="not-prose" @href="/docs">Overview</c.LinkItem>
-          <c.LinkItem class="not-prose" @href="/docs/getting-started">Getting Started</c.LinkItem>
-          <c.LinkItem class="not-prose" @href="/docs/components">Components</c.LinkItem>
+          <c.LinkItem @href="/docs">Overview</c.LinkItem>
+          <c.LinkItem @href="/docs/getting-started">Getting Started</c.LinkItem>
+          <c.LinkItem @href="/docs/components">Components</c.LinkItem>
         </m.Content>
       </Menu>
     </b.Item>

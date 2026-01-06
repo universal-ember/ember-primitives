@@ -102,7 +102,6 @@ const Item: TOC<PrivateItemSignature> = <template>
     <button
       type="button"
       role="menuitem"
-      {{! @glint-expect-error }}
       {{maybeClick}}
       {{on "click" @toggle}}
       {{on "pointermove" focusOnHover}}

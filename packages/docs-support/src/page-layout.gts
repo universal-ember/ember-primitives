@@ -15,7 +15,6 @@ function removeLoader() {
   document.querySelector('#initial-loader')?.remove();
 }
 
- 
 function resetScroll(..._args: unknown[]) {
   document.querySelector('html')?.scrollTo(0, 0);
 }
@@ -38,6 +37,7 @@ const onWindowScroll = modifier(() => {
 export const PageLayout: TOC<{
   Blocks: {
     logoLink: [];
+    search: [];
     topRight: [];
     editLink: [typeof EditLink];
     error: [error: string];
@@ -63,12 +63,9 @@ export const PageLayout: TOC<{
               {{yield to="logoLink"}}
             </a>
           </div>
-          {{!
-            If we ever have a search bar
-              <div class="mr-6 -my-5 sm:mr-8 md:mr-0">
-                  input here
-              </div>
-            }}
+          <div class="flex-grow flex items-center justify-center">
+            {{yield to="search"}}
+          </div>
           <TopRight>
             {{yield to="topRight"}}
           </TopRight>

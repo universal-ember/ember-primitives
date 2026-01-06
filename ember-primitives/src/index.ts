@@ -19,6 +19,7 @@ export type {
   AccordionTriggerExternalSignature,
 } from './components/accordion/public.ts';
 export { Avatar } from './components/avatar.gts';
+export { CommandPalette } from './components/command-palette.gts';
 export { Dialog, Dialog as Modal } from './components/dialog.gts';
 export { ExternalLink } from './components/external-link.gts';
 export { Form } from './components/form.gts';

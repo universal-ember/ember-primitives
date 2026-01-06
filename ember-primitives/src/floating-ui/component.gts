@@ -4,7 +4,7 @@ import { hash } from "@ember/helper";
 
 import { modifier as eModifier } from "ember-modifier";
 
-import { anchorTo } from "./modifier.ts";
+import { anchorTo, makePopover } from "./modifier.ts";
 
 import type { Signature as ModifierSignature } from "./modifier.ts";
 import type { MiddlewareState } from "@floating-ui/dom";
@@ -114,6 +114,14 @@ export interface Signature {
          * Gives you x, y position, among other things.
          */
         data?: MiddlewareState;
+
+        /**
+         * Converts the floating element into a popover, also updating the
+         * reference element
+         */
+        makePopover: ModifierLike<{
+          Element: HTMLElement | SVGElement;
+        }>;
       },
     ];
   };
@@ -178,7 +186,11 @@ export class FloatingUI extends Component<Signature> {
         {{yield
           (modifier ref this.setReference)
           floating
-          (hash setReference=this.setReference data=this.data)
+          (hash
+            setReference=this.setReference
+            data=this.data
+            makePopover=(modifier makePopover this.reference)
+          )
         }}
       {{/let}}
     {{/let}}

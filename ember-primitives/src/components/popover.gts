@@ -63,15 +63,6 @@ export interface Signature {
      * This argument is forwarded to the `<FloatingUI>` component.
      */
     strategy?: HookSignature["Args"]["Named"]["strategy"];
-
-    /**
-     * By default, the popover is portaled.
-     * If you don't control your CSS, and the positioning of the popover content
-     * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
-     *
-     * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
-     */
-    inline?: boolean;
   };
   Blocks: {
     default: [
@@ -98,7 +89,7 @@ const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
-    inline?: boolean;
+    makePopover: ModifierLike<{ Element: HTMLElement }>;
     /**
      * By default the popover content is wrapped in a div.
      * You may change this by supplying the name of an element here.
@@ -117,25 +108,9 @@ const Content: TOC<{
   Blocks: { default: [] };
 }> = <template>
   {{#let (element (getElementTag @as)) as |El|}}
-    {{#if @inline}}
-      {{! @glint-ignore
-            https://github.com/tildeio/ember-element-helper/issues/91
-            https://github.com/typed-ember/glint/issues/610
-      }}
-      <El {{@floating}} ...attributes>
-        {{yield}}
-      </El>
-    {{else}}
-      <Portal @to={{TARGETS.popover}}>
-        {{! @glint-ignore
-              https://github.com/tildeio/ember-element-helper/issues/91
-              https://github.com/typed-ember/glint/issues/610
-        }}
-        <El {{@floating}} ...attributes>
-          {{yield}}
-        </El>
-      </Portal>
-    {{/if}}
+    <El {{@floating}} {{@makePopover}} ...attributes>
+      {{yield}}
+    </El>
   {{/let}}
 </template>;
 
@@ -235,7 +210,7 @@ export const Popover: TOC<Signature> = <template>
           (hash
             reference=reference
             setReference=extra.setReference
-            Content=(component Content floating=floating inline=@inline)
+            Content=(component Content floating=floating makePopover=extra.makePopover)
             data=extra.data
             arrow=arrow
           )

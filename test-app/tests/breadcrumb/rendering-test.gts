@@ -11,9 +11,9 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb as |b|>
-          <b.Item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/">Home</a>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -27,9 +27,9 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb @label="Site Navigation" as |b|>
-          <b.Item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/">Home</a>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -41,17 +41,17 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb as |b|>
-          <b.Item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/">Home</a>
+          </li>
           <b.Separator>/</b.Separator>
-          <b.Item>
-            <b.Link @href="/docs">Docs</b.Link>
-          </b.Item>
+          <li>
+            <a href="/docs">Docs</a>
+          </li>
           <b.Separator>/</b.Separator>
-          <b.Item aria-current="page">
+          <li aria-current="page">
             Current Page
-          </b.Item>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -67,13 +67,13 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb as |b|>
-          <b.Item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/">Home</a>
+          </li>
           <b.Separator>/</b.Separator>
-          <b.Item>
-            <b.Link @href="/docs">Docs</b.Link>
-          </b.Item>
+          <li>
+            <a href="/docs">Docs</a>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -86,9 +86,9 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb class="my-breadcrumb" data-test-breadcrumb as |b|>
-          <b.Item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/">Home</a>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -101,9 +101,9 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb as |b|>
-          <b.Item class="item-class" data-test-item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li class="item-class" data-test-item>
+            <a href="/">Home</a>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -116,9 +116,9 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb as |b|>
-          <b.Item>
-            <b.Link @href="/" class="link-class" data-test-link>Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/" class="link-class" data-test-link>Home</a>
+          </li>
         </Breadcrumb>
       </template>
     );
@@ -131,20 +131,39 @@ module('<Breadcrumb />', function (hooks) {
     await render(
       <template>
         <Breadcrumb as |b|>
-          <b.Item>
-            <b.Link @href="/">Home</b.Link>
-          </b.Item>
+          <li>
+            <a href="/">Home</a>
+          </li>
           <b.Separator class="separator-class" data-test-separator>
             /
           </b.Separator>
-          <b.Item>
-            <b.Link @href="/docs">Docs</b.Link>
-          </b.Item>
+          <li>
+            <a href="/docs">Docs</a>
+          </li>
         </Breadcrumb>
       </template>
     );
 
     assert.dom('span[aria-hidden="true"]').hasClass('separator-class');
     assert.dom('span[aria-hidden="true"]').hasAttribute('data-test-separator');
+  });
+
+  test('works with any link component', async function (assert) {
+    await render(
+      <template>
+        <Breadcrumb as |b|>
+          <li>
+            <a href="/">Regular Link</a>
+          </li>
+          <b.Separator>/</b.Separator>
+          <li>
+            <button type="button">Button</button>
+          </li>
+        </Breadcrumb>
+      </template>
+    );
+
+    assert.dom('a').hasText('Regular Link');
+    assert.dom('button').hasText('Button');
   });
 });

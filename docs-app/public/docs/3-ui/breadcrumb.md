@@ -13,11 +13,11 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
   <PortalTargets />
 
   <Breadcrumb as |b|>
-    <b.Item>
-      <b.Link @href="/">Home</b.Link>
-    </b.Item>
+    <li>
+      <a href="/">Home</a>
+    </li>
     <b.Separator>/</b.Separator>
-    <b.Item>
+    <li>
       <Menu @offsetOptions={{8}} as |m|>
         <m.Trigger class="menu-trigger">
           Docs
@@ -29,15 +29,15 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
           <c.LinkItem @href="/docs/components">Components</c.LinkItem>
         </m.Content>
       </Menu>
-    </b.Item>
+    </li>
     <b.Separator>/</b.Separator>
-    <b.Item>
-      <b.Link @href="/docs/components">Components</b.Link>
-    </b.Item>
+    <li>
+      <a href="/docs/components">Components</a>
+    </li>
     <b.Separator>/</b.Separator>
-    <b.Item aria-current="page">
+    <li aria-current="page">
       Breadcrumb
-    </b.Item>
+    </li>
   </Breadcrumb>
 
   <style>
@@ -142,6 +142,7 @@ const ChevronDown = <template>
 * Proper ARIA attributes for accessibility
 * Flexible separator component
 * Full control over styling
+* No unnecessary abstractions - use any link component or element directly
 
 ## Anatomy
 
@@ -159,22 +160,80 @@ import { Breadcrumb } from 'ember-primitives';
 
 <template>
   <Breadcrumb as |b|>
-    <b.Item>
-      <b.Link @href="/">Home</b.Link>
-    </b.Item>
+    <li>
+      <a href="/">Home</a>
+    </li>
     <b.Separator>/</b.Separator>
-    <b.Item>
-      <b.Link @href="/docs">Docs</b.Link>
-    </b.Item>
+    <li>
+      <a href="/docs">Docs</a>
+    </li>
     <b.Separator>/</b.Separator>
-    <b.Item aria-current="page">
+    <li aria-current="page">
       Current Page
-    </b.Item>
+    </li>
   </Breadcrumb>
 </template>
 ```
 
 ## Examples
+
+### Using the Link Component
+
+You can use any link component, including the `<Link>` component from ember-primitives:
+
+```gjs live preview
+import { Breadcrumb, Link } from 'ember-primitives';
+
+<template>
+  <Breadcrumb as |b|>
+    <li>
+      <Link @href="/">Home</Link>
+    </li>
+    <b.Separator>/</b.Separator>
+    <li>
+      <Link @href="/docs">Docs</Link>
+    </li>
+    <b.Separator>/</b.Separator>
+    <li aria-current="page">
+      Breadcrumb
+    </li>
+  </Breadcrumb>
+
+  <style>
+    nav[aria-label="Breadcrumb"] {
+      padding: 1rem;
+    }
+    
+    nav[aria-label="Breadcrumb"] ol {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav[aria-label="Breadcrumb"] a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    nav[aria-label="Breadcrumb"] a:hover {
+      text-decoration: underline;
+    }
+
+    nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+      color: #666;
+      font-weight: 600;
+    }
+
+    nav[aria-label="Breadcrumb"] span[aria-hidden] {
+      color: #999;
+      user-select: none;
+    }
+  </style>
+</template>
+```
 
 ### Custom Separator
 
@@ -185,17 +244,17 @@ import { Breadcrumb } from 'ember-primitives';
 
 <template>
   <Breadcrumb as |b|>
-    <b.Item>
-      <b.Link @href="/">Home</b.Link>
-    </b.Item>
+    <li>
+      <a href="/">Home</a>
+    </li>
     <b.Separator>&gt;</b.Separator>
-    <b.Item>
-      <b.Link @href="/products">Products</b.Link>
-    </b.Item>
+    <li>
+      <a href="/products">Products</a>
+    </li>
     <b.Separator>&gt;</b.Separator>
-    <b.Item aria-current="page">
+    <li aria-current="page">
       Details
-    </b.Item>
+    </li>
   </Breadcrumb>
 
   <style>
@@ -232,6 +291,71 @@ import { Breadcrumb } from 'ember-primitives';
 </template>
 ```
 
+### Using Buttons
+
+Since breadcrumbs can contain any component, you can even use buttons for non-navigation actions:
+
+```gjs live preview
+import { Breadcrumb } from 'ember-primitives';
+
+<template>
+  <Breadcrumb as |b|>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <b.Separator>/</b.Separator>
+    <li>
+      <button type="button" class="breadcrumb-button">
+        Actions
+      </button>
+    </li>
+    <b.Separator>/</b.Separator>
+    <li aria-current="page">
+      Current
+    </li>
+  </Breadcrumb>
+
+  <style>
+    nav[aria-label="Breadcrumb"] {
+      padding: 1rem;
+    }
+    
+    nav[aria-label="Breadcrumb"] ol {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav[aria-label="Breadcrumb"] a,
+    nav[aria-label="Breadcrumb"] .breadcrumb-button {
+      color: #0066cc;
+      text-decoration: none;
+      background: none;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    nav[aria-label="Breadcrumb"] a:hover,
+    nav[aria-label="Breadcrumb"] .breadcrumb-button:hover {
+      text-decoration: underline;
+    }
+
+    nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+      color: #666;
+    }
+
+    nav[aria-label="Breadcrumb"] span[aria-hidden] {
+      color: #999;
+    }
+  </style>
+</template>
+```
+
 ### Custom Label
 
 You can provide a custom accessible label for the breadcrumb navigation:
@@ -241,13 +365,13 @@ import { Breadcrumb } from 'ember-primitives';
 
 <template>
   <Breadcrumb @label="Page Navigation" as |b|>
-    <b.Item>
-      <b.Link @href="/">Home</b.Link>
-    </b.Item>
+    <li>
+      <a href="/">Home</a>
+    </li>
     <b.Separator>/</b.Separator>
-    <b.Item aria-current="page">
+    <li aria-current="page">
       About
-    </b.Item>
+    </li>
   </Breadcrumb>
 
   <style>

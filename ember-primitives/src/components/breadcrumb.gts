@@ -2,34 +2,6 @@ import { hash } from '@ember/helper';
 
 import type { TOC } from '@ember/component/template-only';
 
-const Item: TOC<{
-  Element: HTMLLIElement;
-  Blocks: {
-    default: [];
-  };
-}> = <template>
-  <li ...attributes>
-    {{yield}}
-  </li>
-</template>;
-
-const BreadcrumbLink: TOC<{
-  Element: HTMLAnchorElement;
-  Args: {
-    /**
-     * The `href` string value to set on the anchor element.
-     */
-    href: string;
-  };
-  Blocks: {
-    default: [];
-  };
-}> = <template>
-  <a href={{@href}} ...attributes>
-    {{yield}}
-  </a>
-</template>;
-
 const Separator: TOC<{
   Element: HTMLSpanElement;
   Blocks: {
@@ -54,16 +26,6 @@ export interface Signature {
     default: [
       {
         /**
-         * A breadcrumb item component.
-         * Use this to wrap each breadcrumb link or text.
-         */
-        Item: typeof Item;
-        /**
-         * A link component for breadcrumb items.
-         * Use this for navigable breadcrumb items.
-         */
-        Link: typeof BreadcrumbLink;
-        /**
          * A separator component to place between breadcrumb items.
          * Typically renders as "/" or ">" with aria-hidden="true".
          */
@@ -85,17 +47,17 @@ export interface Signature {
  *
  * <template>
  *   <Breadcrumb as |b|>
- *     <b.Item>
- *       <b.Link @href="/">Home</b.Link>
- *     </b.Item>
+ *     <li>
+ *       <a href="/">Home</a>
+ *     </li>
  *     <b.Separator>/</b.Separator>
- *     <b.Item>
- *       <b.Link @href="/docs">Docs</b.Link>
- *     </b.Item>
+ *     <li>
+ *       <a href="/docs">Docs</a>
+ *     </li>
  *     <b.Separator>/</b.Separator>
- *     <b.Item aria-current="page">
+ *     <li aria-current="page">
  *       Breadcrumb
- *     </b.Item>
+ *     </li>
  *   </Breadcrumb>
  * </template>
  * ```
@@ -103,7 +65,7 @@ export interface Signature {
 export const Breadcrumb: TOC<Signature> = <template>
   <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
     <ol>
-      {{yield (hash Item=Item Link=BreadcrumbLink Separator=Separator)}}
+      {{yield (hash Separator=Separator)}}
     </ol>
   </nav>
 </template>;

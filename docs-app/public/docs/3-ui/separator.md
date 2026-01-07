@@ -13,9 +13,9 @@ import { Separator } from "ember-primitives";
   <nav>
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
-      <Separator>/</Separator>
+      <Separator @as="li">/</Separator>
       <li><a href="/docs">Docs</a></li>
-      <Separator>/</Separator>
+      <Separator @as="li">/</Separator>
       <li aria-current="page">Separator</li>
     </ol>
   </nav>
@@ -54,7 +54,7 @@ import { Separator } from "ember-primitives";
         font-weight: 600;
       }
 
-      span[aria-hidden] {
+      li[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -78,19 +78,34 @@ The `Separator` component is primarily a **documentation and readability tool**.
 - Makes the code more readable by clearly marking separator elements
 - Automatically adds `aria-hidden="true"` to hide decorators from screen readers
 - Provides a consistent pattern across your codebase
+- Allows customizing the element tag via the `@as` argument
+
+## The `@as` Argument
+
+By default, the Separator renders as a `<span>` element. However, when used in lists where separators need to be siblings to `<li>` elements, you should use `@as="li"` to ensure proper HTML structure:
+
+```gjs
+<ol>
+  <li>Item 1</li>
+  <Separator @as="li">/</Separator>
+  <li>Item 2</li>
+</ol>
+```
+
+This is important because in HTML, `<ol>` and `<ul>` elements should only have `<li>` children. Using `<span>` elements as siblings to `<li>` elements is invalid HTML.
 
 ## Plain HTML Alternative
 
-**Using plain HTML is just as easy!** The Separator component simply renders a `<span aria-hidden="true">` element with your content:
+**Using plain HTML is just as easy!** The Separator component renders an element with `aria-hidden="true"`:
 
 ```gjs live preview
 <template>
   <nav>
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
-      <span aria-hidden="true">/</span>
+      <li aria-hidden="true">/</li>
       <li><a href="/docs">Docs</a></li>
-      <span aria-hidden="true">/</span>
+      <li aria-hidden="true">/</li>
       <li aria-current="page">Plain HTML</li>
     </ol>
   </nav>
@@ -129,7 +144,7 @@ The `Separator` component is primarily a **documentation and readability tool**.
         font-weight: 600;
       }
 
-      span[aria-hidden] {
+      li[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -146,7 +161,11 @@ Both approaches are equally valid. Choose whichever feels more natural for your 
 import { Separator } from "ember-primitives/components/separator";
 
 <template>
+  {{! Default: renders as <span> }}
   <Separator>/</Separator>
+
+  {{! In lists: renders as <li> }}
+  <Separator @as="li">/</Separator>
 </template>
 ```
 
@@ -154,15 +173,17 @@ import { Separator } from "ember-primitives/components/separator";
 
 ### In Breadcrumbs
 
+When using with Breadcrumb, the yielded `b.Separator` is automatically configured with `@as="li"`:
+
 ```gjs live preview
-import { Breadcrumb, Separator } from "ember-primitives";
+import { Breadcrumb } from "ember-primitives";
 
 <template>
   <Breadcrumb as |b|>
     <li><a href="/">Home</a></li>
-    <Separator>/</Separator>
+    <b.Separator>/</b.Separator>
     <li><a href="/docs">Docs</a></li>
-    <Separator>/</Separator>
+    <b.Separator>/</b.Separator>
     <li aria-current="page">Current</li>
   </Breadcrumb>
 
@@ -196,7 +217,7 @@ import { Breadcrumb, Separator } from "ember-primitives";
         font-weight: 600;
       }
 
-      nav span[aria-hidden] {
+      nav li[aria-hidden] {
         color: #999;
       }
     }
@@ -215,9 +236,9 @@ import { Separator } from "ember-primitives";
   <nav>
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
-      <Separator>&gt;</Separator>
+      <Separator @as="li">&gt;</Separator>
       <li><a href="/products">Products</a></li>
-      <Separator>→</Separator>
+      <Separator @as="li">→</Separator>
       <li aria-current="page">Details</li>
     </ol>
   </nav>
@@ -254,7 +275,7 @@ import { Separator } from "ember-primitives";
         color: #666;
       }
 
-      span[aria-hidden] {
+      li[aria-hidden] {
         color: #999;
       }
     }

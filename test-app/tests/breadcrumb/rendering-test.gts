@@ -69,7 +69,26 @@ module('<Breadcrumb />', function (hooks) {
       </template>
     );
 
-    assert.dom('span[aria-hidden="true"]').hasText('/');
+    assert.dom('li[aria-hidden="true"]').hasText('/');
+  });
+
+  test('yielded separators render as li elements', async function (assert) {
+    await render(
+      <template>
+        <Breadcrumb as |b|>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <b.Separator>/</b.Separator>
+          <li aria-current="page">
+            Current
+          </li>
+        </Breadcrumb>
+      </template>
+    );
+
+    assert.dom('li[aria-hidden="true"]').hasText('/');
+    assert.dom('li').exists({ count: 3 });
   });
 
   test('it accepts custom attributes', async function (assert) {
@@ -90,8 +109,8 @@ module('<Breadcrumb />', function (hooks) {
       </template>
     );
 
-    assert.dom('span[aria-hidden="true"]').hasClass('separator-class');
-    assert.dom('span[aria-hidden="true"]').hasAttribute('data-test-separator');
+    assert.dom('li[aria-hidden="true"]').hasClass('separator-class');
+    assert.dom('li[aria-hidden="true"]').hasAttribute('data-test-separator');
   });
 
   test('can use standalone Separator with Breadcrumb', async function (assert) {
@@ -102,7 +121,7 @@ module('<Breadcrumb />', function (hooks) {
           <li>
             <a href="/">Home</a>
           </li>
-          <Separator>/</Separator>
+          <Separator @as="li">/</Separator>
           <li aria-current="page">
             Current
           </li>
@@ -110,7 +129,7 @@ module('<Breadcrumb />', function (hooks) {
       </template>
     );
 
-    assert.dom('li').exists({ count: 2 });
-    assert.dom('span[aria-hidden="true"]').hasText('/');
+    assert.dom('li').exists({ count: 3 });
+    assert.dom('li[aria-hidden="true"]').hasText('/');
   });
 });

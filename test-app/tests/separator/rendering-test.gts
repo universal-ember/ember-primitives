@@ -33,19 +33,32 @@ module('<Separator />', function (hooks) {
     assert.dom('span[aria-hidden="true"]').hasText('→');
   });
 
-  test('it can be used standalone outside of Breadcrumb', async function (assert) {
+  test('it can use @as to change element tag', async function (assert) {
+    await render(
+      <template>
+        <Separator @as="li">/</Separator>
+      </template>
+    );
+
+    assert.dom('li').exists();
+    assert.dom('li').hasAttribute('aria-hidden', 'true');
+    assert.dom('li').hasText('/');
+  });
+
+  test('it can be used in lists with @as="li"', async function (assert) {
     await render(
       <template>
         <nav>
-          <ul>
+          <ol>
             <li>Item 1</li>
-            <Separator>|</Separator>
+            <Separator @as="li">|</Separator>
             <li>Item 2</li>
-          </ul>
+          </ol>
         </nav>
       </template>
     );
 
-    assert.dom('span[aria-hidden="true"]').hasText('|');
+    assert.dom('li[aria-hidden="true"]').hasText('|');
+    assert.dom('li').exists({ count: 3 });
   });
 });

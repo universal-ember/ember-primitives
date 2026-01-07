@@ -6,7 +6,7 @@ Breadcrumbs help users understand their current location and provide a way to na
 
 <div class="featured-demo">
 
-```gjs live preview no-shadow
+```gjs live preview 
 import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
 <template>
@@ -41,84 +41,89 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
   </Breadcrumb>
 
   <style>
-    nav[aria-label="Breadcrumb"] {
-      padding: 0.5rem;
-      background: currentColor;
-      border-radius: 0.25rem;
-    }
-    
-    nav[aria-label="Breadcrumb"] ol {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0;
-      margin: 0;
-    }
+    @scope { 
+      nav[aria-label="Breadcrumb"] {
+        user-select: none;
+        background: var(--color-page-background);
+        border-radius: 0.25rem;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
+        padding: 0.25rem 1rem;
+        width: min-content;
+      }
+      
+      nav[aria-label="Breadcrumb"] ol {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+      }
 
-    nav[aria-label="Breadcrumb"] a {
-      color: #0066cc;
-      text-decoration: none;
-    }
+      nav[aria-label="Breadcrumb"] a {
+        color: #0066cc;
+        text-decoration: none;
+      }
 
-    nav[aria-label="Breadcrumb"] a:hover {
-      text-decoration: underline;
-    }
+      nav[aria-label="Breadcrumb"] a:hover {
+        text-decoration: underline;
+      }
 
-    nav[aria-label="Breadcrumb"] li[aria-current="page"] {
-      color: #666;
-      font-weight: 600;
-    }
+      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+        color: #666;
+        font-weight: 600;
+      }
 
-    nav[aria-label="Breadcrumb"] span[aria-hidden] {
-      color: #999;
-      user-select: none;
-    }
+      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+        color: #999;
+        user-select: none;
+      }
 
-    .menu-trigger {
-      all: unset;
-      color: #0066cc;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
+      .menu-trigger {
+        all: unset;
+        color: #0066cc;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
 
-    .menu-trigger:hover {
-      text-decoration: underline;
-    }
+      .menu-trigger:hover {
+        text-decoration: underline;
+      }
 
-    .menu-trigger svg {
-      width: 12px;
-      height: 12px;
-    }
+      .menu-trigger svg {
+        width: 12px;
+        height: 12px;
+      }
 
-    .menu-content {
-      min-width: 180px;
-      background: #fff;
-      color: #111827;
-      padding: 8px 0;
-      border-radius: 6px;
-      border: none;
-      font-size: 14px;
-      z-index: 10;
-      border: 1px solid gray;
-      box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-      display: flex;
-      flex-direction: column;
-    }
+      .menu-content {
+        min-width: 180px;
+        background: #fff;
+        color: #111827;
+        padding: 8px 0;
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+        z-index: 10;
+        border: 1px solid gray;
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        display: flex;
+        flex-direction: column;
+      }
 
-    .menu-content [role="menuitem"] {
-      all: unset;
-      display: block;
-      padding: 4px 12px;
-      cursor: pointer;
-      color: #111827;
-    }
+      .menu-content [role="menuitem"] {
+        all: unset;
+        display: block;
+        padding: 4px 12px;
+        cursor: pointer;
+        color: #111827;
+      }
 
-    .menu-content [role="menuitem"]:focus,
-    .menu-content [role="menuitem"]:hover {
-      background-color: #f9fafb;
+      .menu-content [role="menuitem"]:focus,
+      .menu-content [role="menuitem"]:hover {
+        background-color: #f9fafb;
+      }
     }
   </style>
 </template>
@@ -202,36 +207,40 @@ import { Breadcrumb, Link } from 'ember-primitives';
   </Breadcrumb>
 
   <style>
-    nav[aria-label="Breadcrumb"] {
-      padding: 1rem;
-    }
-    
-    nav[aria-label="Breadcrumb"] ol {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0;
-      margin: 0;
-    }
+    @scope { 
+      nav[aria-label="Breadcrumb"] {
+        background: var(--color-page-background);
+        padding: 0.25rem 1rem;
+        width: min-content;
+      }
+      
+      nav[aria-label="Breadcrumb"] ol {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+      }
 
-    nav[aria-label="Breadcrumb"] a {
-      color: #0066cc;
-      text-decoration: none;
-    }
+      nav[aria-label="Breadcrumb"] a {
+        color: #0066cc;
+        text-decoration: none;
+      }
 
-    nav[aria-label="Breadcrumb"] a:hover {
-      text-decoration: underline;
-    }
+      nav[aria-label="Breadcrumb"] a:hover {
+        text-decoration: underline;
+      }
 
-    nav[aria-label="Breadcrumb"] li[aria-current="page"] {
-      color: #666;
-      font-weight: 600;
-    }
+      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+        color: #666;
+        font-weight: 600;
+      }
 
-    nav[aria-label="Breadcrumb"] span[aria-hidden] {
-      color: #999;
-      user-select: none;
+      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+        color: #999;
+        user-select: none;
+      }
     }
   </style>
 </template>
@@ -260,34 +269,41 @@ import { Breadcrumb } from 'ember-primitives';
   </Breadcrumb>
 
   <style>
-    nav[aria-label="Breadcrumb"] {
-      padding: 1rem;
-    }
-    
-    nav[aria-label="Breadcrumb"] ol {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0;
-      margin: 0;
-    }
+    @scope {
+      nav[aria-label="Breadcrumb"] {
+        user-select: none;
+        background: var(--color-page-background);
+        border-radius: 0.25rem;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
+        padding: 0.25rem 1rem;
+        width: min-content;
+      }
+      
+      nav[aria-label="Breadcrumb"] ol {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+      }
 
-    nav[aria-label="Breadcrumb"] a {
-      color: #0066cc;
-      text-decoration: none;
-    }
+      nav[aria-label="Breadcrumb"] a {
+        color: #0066cc;
+        text-decoration: none;
+      }
 
-    nav[aria-label="Breadcrumb"] a:hover {
-      text-decoration: underline;
-    }
+      nav[aria-label="Breadcrumb"] a:hover {
+        text-decoration: underline;
+      }
 
-    nav[aria-label="Breadcrumb"] li[aria-current="page"] {
-      color: #666;
-    }
+      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+        color: #666;
+      }
 
-    nav[aria-label="Breadcrumb"] span[aria-hidden] {
-      color: #999;
+      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+        color: #999;
+      }
     }
   </style>
 </template>
@@ -318,41 +334,48 @@ import { Breadcrumb } from 'ember-primitives';
   </Breadcrumb>
 
   <style>
-    nav[aria-label="Breadcrumb"] {
-      padding: 1rem;
-    }
-    
-    nav[aria-label="Breadcrumb"] ol {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0;
-      margin: 0;
-    }
+    @scope {
+      nav[aria-label="Breadcrumb"] {
+        user-select: none;
+        background: var(--color-page-background);
+        border-radius: 0.25rem;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
+        padding: 0.25rem 1rem;
+        width: min-content;
+      }
+      
+      nav[aria-label="Breadcrumb"] ol {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+      }
 
-    nav[aria-label="Breadcrumb"] a,
-    nav[aria-label="Breadcrumb"] .breadcrumb-button {
-      color: #0066cc;
-      text-decoration: none;
-      background: none;
-      border: none;
-      padding: 0;
-      font: inherit;
-      cursor: pointer;
-    }
+      nav[aria-label="Breadcrumb"] a,
+      nav[aria-label="Breadcrumb"] .breadcrumb-button {
+        color: #0066cc;
+        text-decoration: none;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+      }
 
-    nav[aria-label="Breadcrumb"] a:hover,
-    nav[aria-label="Breadcrumb"] .breadcrumb-button:hover {
-      text-decoration: underline;
-    }
+      nav[aria-label="Breadcrumb"] a:hover,
+      nav[aria-label="Breadcrumb"] .breadcrumb-button:hover {
+        text-decoration: underline;
+      }
 
-    nav[aria-label="Breadcrumb"] li[aria-current="page"] {
-      color: #666;
-    }
+      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+        color: #666;
+      }
 
-    nav[aria-label="Breadcrumb"] span[aria-hidden] {
-      color: #999;
+      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+        color: #999;
+      }
     }
   </style>
 </template>
@@ -377,34 +400,41 @@ import { Breadcrumb } from 'ember-primitives';
   </Breadcrumb>
 
   <style>
-    nav[aria-label] {
-      padding: 1rem;
-    }
-    
-    nav[aria-label] ol {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0;
-      margin: 0;
-    }
+    @scope {
+      nav[aria-label] {
+        user-select: none;
+        background: var(--color-page-background);
+        border-radius: 0.25rem;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
+        padding: 0.25rem 1rem;
+        width: min-content;
+      }
+      
+      nav[aria-label] ol {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0;
+        margin: 0;
+      }
 
-    nav[aria-label] a {
-      color: #0066cc;
-      text-decoration: none;
-    }
+      nav[aria-label] a {
+        color: #0066cc;
+        text-decoration: none;
+      }
 
-    nav[aria-label] a:hover {
-      text-decoration: underline;
-    }
+      nav[aria-label] a:hover {
+        text-decoration: underline;
+      }
 
-    nav[aria-label] li[aria-current="page"] {
-      color: #666;
-    }
+      nav[aria-label] li[aria-current="page"] {
+        color: #666;
+      }
 
-    nav[aria-label] span[aria-hidden] {
-      color: #999;
+      nav[aria-label] span[aria-hidden] {
+        color: #999;
+      }
     }
   </style>
 </template>

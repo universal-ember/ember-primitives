@@ -32,3 +32,11 @@
   .typedoc__declaration-children {
   display: block;
 }
+
+.theme-light {
+  --color-page-background: white;
+}
+
+.theme-dark {
+  --color-page-background: #111;
+}

@@ -16,6 +16,7 @@ import {
   TrackedWeakSet,
 } from 'tracked-built-ins';
 
+// import { visit } from 'unist-util-visit';
 import { Callout } from '@universal-ember/docs-support';
 
 import { Tabs } from '../components/tabs.gts';
@@ -33,6 +34,21 @@ export default class Application extends Route {
     const [manifest] = await Promise.all([
       setupTabster(this),
       setupKolay(this, {
+        // This won't work, because the compiler can't find the element to rendedr in to.
+        // remarkPlugins: [
+        //   () => (tree) => {
+        //     let opening = '<Shadowed>';
+        //     visit(tree, 'code', (node, index, parent) => {
+        //       if (!parent || typeof index !== 'number') return;
+        //       if (parent.children[index - 1].value === opening) return;
+        //
+        //       parent.children.splice(index, 1, { type: 'html', value: opening }, node, {
+        //         type: 'html',
+        //         value: '</Shadowed>',
+        //       });
+        //     });
+        //   },
+        // ],
         topLevelScope: {
           SetupInstructions,
           Callout,

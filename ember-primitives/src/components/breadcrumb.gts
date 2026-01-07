@@ -1,6 +1,6 @@
-import { hash } from '@ember/helper';
+import { hash } from "@ember/helper";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 const Separator: TOC<{
   Element: HTMLSpanElement;

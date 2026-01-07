@@ -75,6 +75,11 @@ const returnValue = cell('');
       display: grid;
       gap: 1rem;
       padding: 1rem;
+
+        button {
+          border: 1px solid;
+          padding: 1rem;
+        }
     }
     dialog::backdrop {
       backdrop-filter: blur(1px);

@@ -2,7 +2,7 @@ import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import { Breadcrumb } from 'ember-primitives';
+import { Breadcrumb, Separator } from 'ember-primitives';
 
 module('<Breadcrumb />', function (hooks) {
   setupRenderingTest(hooks);
@@ -92,5 +92,25 @@ module('<Breadcrumb />', function (hooks) {
 
     assert.dom('span[aria-hidden="true"]').hasClass('separator-class');
     assert.dom('span[aria-hidden="true"]').hasAttribute('data-test-separator');
+  });
+
+  test('can use standalone Separator with Breadcrumb', async function (assert) {
+    await render(
+      <template>
+        {{! @glint-expect-error }}
+        <Breadcrumb>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <Separator>/</Separator>
+          <li aria-current="page">
+            Current
+          </li>
+        </Breadcrumb>
+      </template>
+    );
+
+    assert.dom('li').exists({ count: 2 });
+    assert.dom('span[aria-hidden="true"]').hasText('/');
   });
 });

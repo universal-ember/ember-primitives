@@ -31,28 +31,26 @@ const returnValue = cell('');
     return: {{returnValue.current}}
 
     <d.Drawer>
-      <div class="drawer-content">
-        <header>
-          <h2>Example Drawer</h2>
+      <header>
+        <h2>Example Drawer</h2>
 
-          <button {{on 'click' d.close}}>Close</button>
-        </header>
+        <button {{on 'click' d.close}}>Close</button>
+      </header>
 
-        <form method="dialog">
-          <main>
-            Drawer content here
-            <br>
+      <form method="dialog">
+        <main>
+          Drawer content here
+          <br>
 
-           {{loremIpsum 1}}
-          </main>
+         {{loremIpsum 1}}
+        </main>
 
-          <footer>
-            <button type="submit" value="confirm">Confirm</button>
-            <button type="submit" value="create">Create</button>
-            <button type="reset" value="close" {{on 'click' d.close}}>Reset</button>
-          </footer>
-        </form>
-      </div>
+        <footer>
+          <button type="submit" value="confirm">Confirm</button>
+          <button type="submit" value="create">Create</button>
+          <button type="reset" value="close" {{on 'click' d.close}}>Reset</button>
+        </footer>
+      </form>
     </d.Drawer>
   </Drawer>
 
@@ -60,25 +58,22 @@ const returnValue = cell('');
   <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
   <style>
+  @scope {
     dialog {
-      border: none;
-      border-left: 1px solid #ccc;
       padding: 0;
       margin: 0;
-      max-width: 400px;
-      width: 400px;
-      height: 100dvh;
+      max-height: 400px;
+      width: 100dvw;
+      height: 400px;
       position: fixed;
-      top: 0;
-      right: 0;
-      animation: var(--animation-slide-in-right), var(--animation-fade-in);
+      bottom: 0;
+      top: unset;
+      animation: var(--animation-slide-in-up), var(--animation-fade-in);
       animation-timing-function: var(--ease-out-5);
       animation-duration: 0.3s;
-    }
-    dialog .drawer-content {
+
       display: grid;
       gap: 1rem;
-      height: 100%;
       padding: 1rem;
     }
     dialog::backdrop {
@@ -101,6 +96,7 @@ const returnValue = cell('');
       gap: 1rem; 
       height: 100%;
     }
+  }
   </style>
 </template>
 ```
@@ -183,27 +179,25 @@ import { loremIpsum } from 'lorem-ipsum';
     isOpen: {{d.isOpen}}<br>
 
     <d.Drawer {{focusTrap isActive=d.isOpen}}>
-      <div class="drawer-content">
-        <header>
-          <h2>Example Drawer</h2>
+      <header>
+        <h2>Example Drawer</h2>
 
-          <button {{on 'click' d.close}}>Close</button>
-        </header>
+        <button {{on 'click' d.close}}>Close</button>
+      </header>
 
-        <form method="dialog">
-          <main>
-            Drawer content here
-            <br>
+      <form method="dialog">
+        <main>
+          Drawer content here
+          <br>
 
-           {{loremIpsum 1}}
-          </main>
+         {{loremIpsum 1}}
+        </main>
 
-          <footer>
-            <button type="submit" value="confirm">Confirm</button>
-            <button type="reset" value="close" {{on 'click' d.close}}>Reset</button>
-          </footer>
-        </form>
-      </div>
+        <footer>
+          <button type="submit" value="confirm">Confirm</button>
+          <button type="reset" value="close" {{on 'click' d.close}}>Reset</button>
+        </footer>
+      </form>
     </d.Drawer>
   </Drawer>
 
@@ -211,6 +205,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css"/>
   <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
   <style>
+  @scope {
     dialog {
       border: none;
       border-left: 1px solid #ccc;
@@ -220,14 +215,12 @@ import { loremIpsum } from 'lorem-ipsum';
       width: 400px;
       height: 100dvh;
       position: fixed;
-      top: 0;
       right: 0;
       animation: var(--animation-slide-in-right), var(--animation-fade-in);
       animation-timing-function: var(--ease-out-5);
       animation-duration: 0.3s;
-    }
-    dialog .drawer-content {
-      display: grid;
+
+      display: flex;
       gap: 1rem;
       height: 100%;
       padding: 1rem;
@@ -255,6 +248,7 @@ import { loremIpsum } from 'lorem-ipsum';
     .glimdown-render {
       button { border: 1px solid; padding: 0.5rem; }
     }
+  }
   </style>
 </template>
 ```

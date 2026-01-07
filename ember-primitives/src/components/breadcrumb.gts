@@ -56,13 +56,11 @@ export interface Signature {
  * ```
  */
 export const Breadcrumb: TOC<Signature> = <template>
-  {{#let (hash Separator=(component Separator as="li")) as |b|}}
-    <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
-      <ol>
-        {{yield b}}
-      </ol>
-    </nav>
-  {{/let}}
+  <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
+    <ol>
+      {{yield (hash Separator=(component Separator as="li"))}}
+    </ol>
+  </nav>
 </template>;
 
 export default Breadcrumb;

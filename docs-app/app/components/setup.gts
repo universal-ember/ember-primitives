@@ -54,11 +54,11 @@ export const SetupInstructions: TOC<{
       }
 
       [role="tab"] {
-        color: black;
+        color: var(--color-foreground);
         width: max-content;
         display: inline-block;
         padding: 0.25rem 0.5rem;
-        background: hsl(220deg 20% 94%);
+        background: var(--color-page-background);
         outline: none;
         font-weight: bold;
         cursor: pointer;
@@ -77,11 +77,11 @@ export const SetupInstructions: TOC<{
       }
 
       [role="tabpanel"] {
-        color: black;
+        color: var(--color-foreground);
         padding: 1rem;
         border: 1px solid;
         border-radius: 0 0.25rem 0.25rem;
-        background: white;
+        background: var(--color-page-background);
         width: 100%;
         overflow: auto;
         font-family: monospace;

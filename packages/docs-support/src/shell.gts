@@ -22,14 +22,16 @@ export const Shell: TOC<{ Blocks: { default: [] } }> = <template>
   {{yield}}
 </template>;
 
-function isDark() {
-  return colorScheme.current === 'dark';
-}
-
 function syncBodyClass() {
-  if (isDark()) {
+  if (colorScheme.isDark) {
     document.body.classList.add('dark');
+    document.body.classList.add('theme-dark');
+    document.body.classList.remove('theme-light');
+    document.body.classList.remove('light');
   } else {
+    document.body.classList.remove('theme-dark');
     document.body.classList.remove('dark');
+    document.body.classList.add('theme-light');
+    document.body.classList.add('light');
   }
 }

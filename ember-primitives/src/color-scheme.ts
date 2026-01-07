@@ -62,6 +62,13 @@ export const colorScheme = {
     localPreference.update(value);
     setColorScheme(value);
   },
+
+  get isDark() {
+    return _colorScheme.current === 'dark';
+  },
+  get isLight() {
+    return _colorScheme.current !== 'dark';
+  },
 };
 
 /**
@@ -175,3 +182,5 @@ function styleOf(element?: HTMLElement) {
 
   return document.documentElement.style;
 }
+
+sync();

@@ -35,8 +35,10 @@
 
 .theme-light {
   --color-page-background: white;
+  --color-foreground: black;
 }
 
 .theme-dark {
-  --color-page-background: #111;
+  --color-page-background: #252525;
+  --color-foreground: white;
 }

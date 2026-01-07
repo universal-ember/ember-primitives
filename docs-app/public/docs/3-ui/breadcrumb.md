@@ -185,41 +185,40 @@ import { Breadcrumb } from "ember-primitives/components/breadcrumb";
 </template>
 ```
 
-## About the Separator Component
+## About the Separator
 
-The `Separator` component is **80% documentation and 20% boilerplate reduction**. It's a thin wrapper that:
+The `Separator` component is a standalone component that can be used with or without `Breadcrumb`. It's a simple semantic wrapper that automatically adds `aria-hidden="true"` to hide decorative content from screen readers.
 
-- Makes the code more readable by clearly marking separator elements
-- Automatically adds `aria-hidden="true"` to hide separators from screen readers
-- Provides a consistent pattern across your breadcrumbs
+For detailed information about using separators, including plain HTML alternatives, see the [Separator documentation](/3-ui/separator).
 
-**Using plain HTML is just as easy!** You can achieve the same result without the `Separator` component:
+## Examples
+
+### Using the Link Component
+
+You can use any link component, `<a>`, `<LinkTo>`, `<Link>`, etc:
 
 ```gjs live preview
-import { Breadcrumb } from "ember-primitives";
+import { Breadcrumb, Link } from "ember-primitives";
 
 <template>
-  <Breadcrumb as |b|>
+  <Breadcrumb @label="example-links" as |b|>
     <li>
-      <a href="/">Home</a>
+      <Link @href="/">Home</Link>
     </li>
-    <span aria-hidden="true">/</span>
+    <b.Separator>/</b.Separator>
     <li>
-      <a href="/docs">Docs</a>
+      <Link @href="/docs">Docs</Link>
     </li>
-    <span aria-hidden="true">/</span>
+    <b.Separator>/</b.Separator>
     <li aria-current="page">
-      Plain HTML Separator
+      Breadcrumb
     </li>
   </Breadcrumb>
 
   <style>
     @scope {
       nav {
-        user-select: none;
         background: var(--color-page-background);
-        border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
         padding: 0.25rem 1rem;
         width: min-content;
       }
@@ -256,27 +255,23 @@ import { Breadcrumb } from "ember-primitives";
 </template>
 ```
 
-The `Separator` component simply renders a `<span aria-hidden="true">` element with your content. Choose whichever approach feels more natural for your codebase!
+### Using Standalone Separator
 
-## Examples
-
-### Using the Link Component
-
-You can use any link component, `<a>`, `<LinkTo>`, `<Link>`, etc:
+You can also use the standalone `Separator` component instead of the yielded `b.Separator`:
 
 ```gjs live preview
-import { Breadcrumb, Link } from "ember-primitives";
+import { Breadcrumb, Link, Separator } from "ember-primitives";
 
 <template>
-  <Breadcrumb @label="example-links" as |b|>
+  <Breadcrumb @label="example-standalone">
     <li>
       <Link @href="/">Home</Link>
     </li>
-    <b.Separator>/</b.Separator>
+    <Separator>/</Separator>
     <li>
       <Link @href="/docs">Docs</Link>
     </li>
-    <b.Separator>/</b.Separator>
+    <Separator>/</Separator>
     <li aria-current="page">
       Breadcrumb
     </li>

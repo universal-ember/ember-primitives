@@ -1,17 +1,8 @@
 import { hash } from "@ember/helper";
 
-import type { TOC } from "@ember/component/template-only";
+import { Separator } from "./separator.gts";
 
-const Separator: TOC<{
-  Element: HTMLSpanElement;
-  Blocks: {
-    default: [];
-  };
-}> = <template>
-  <span aria-hidden="true" ...attributes>
-    {{yield}}
-  </span>
-</template>;
+import type { TOC } from "@ember/component/template-only";
 
 export interface Signature {
   Element: HTMLElement;

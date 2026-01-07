@@ -42,7 +42,7 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
   <style>
     @scope { 
-      nav[aria-label="Breadcrumb"] {
+      nav {
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
@@ -51,7 +51,7 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
         width: min-content;
       }
       
-      nav[aria-label="Breadcrumb"] ol {
+      nav ol {
         list-style: none;
         display: flex;
         align-items: center;
@@ -60,21 +60,21 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
         margin: 0;
       }
 
-      nav[aria-label="Breadcrumb"] a {
+      nav a {
         color: #0066cc;
         text-decoration: none;
       }
 
-      nav[aria-label="Breadcrumb"] a:hover {
+      nav a:hover {
         text-decoration: underline;
       }
 
-      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+      nav li[aria-current="page"] {
         color: #666;
         font-weight: 600;
       }
 
-      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -153,17 +153,8 @@ const ChevronDown = <template>
 
 ## Anatomy
 
-```js
-import { Breadcrumb } from 'ember-primitives';
-```
-
-or for non-tree-shaking environments:
-```js
-import { Breadcrumb } from 'ember-primitives/components/breadcrumb';
-```
-
 ```gjs
-import { Breadcrumb } from 'ember-primitives';
+import { Breadcrumb } from 'ember-primitives/components/breadcrumb';
 
 <template>
   <Breadcrumb as |b|>
@@ -186,13 +177,13 @@ import { Breadcrumb } from 'ember-primitives';
 
 ### Using the Link Component
 
-You can use any link component, including the `<Link>` component from ember-primitives:
+You can use any link component, `<a>`, `<LinkTo>`, `<Link>`, etc:
 
 ```gjs live preview
 import { Breadcrumb, Link } from 'ember-primitives';
 
 <template>
-  <Breadcrumb as |b|>
+  <Breadcrumb @label="example-links" as |b|>
     <li>
       <Link @href="/">Home</Link>
     </li>
@@ -208,13 +199,13 @@ import { Breadcrumb, Link } from 'ember-primitives';
 
   <style>
     @scope { 
-      nav[aria-label="Breadcrumb"] {
+      nav {
         background: var(--color-page-background);
         padding: 0.25rem 1rem;
         width: min-content;
       }
       
-      nav[aria-label="Breadcrumb"] ol {
+      nav ol {
         list-style: none;
         display: flex;
         align-items: center;
@@ -223,21 +214,21 @@ import { Breadcrumb, Link } from 'ember-primitives';
         margin: 0;
       }
 
-      nav[aria-label="Breadcrumb"] a {
+      nav a {
         color: #0066cc;
         text-decoration: none;
       }
 
-      nav[aria-label="Breadcrumb"] a:hover {
+      nav a:hover {
         text-decoration: underline;
       }
 
-      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+      nav li[aria-current="page"] {
         color: #666;
         font-weight: 600;
       }
 
-      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -254,7 +245,7 @@ You can use any content as a separator, including icons or symbols:
 import { Breadcrumb } from 'ember-primitives';
 
 <template>
-  <Breadcrumb as |b|>
+  <Breadcrumb @label="example-separator" as |b|>
     <li>
       <a href="/">Home</a>
     </li>
@@ -270,7 +261,7 @@ import { Breadcrumb } from 'ember-primitives';
 
   <style>
     @scope {
-      nav[aria-label="Breadcrumb"] {
+      nav {
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
@@ -279,7 +270,7 @@ import { Breadcrumb } from 'ember-primitives';
         width: min-content;
       }
       
-      nav[aria-label="Breadcrumb"] ol {
+      nav ol {
         list-style: none;
         display: flex;
         align-items: center;
@@ -288,20 +279,20 @@ import { Breadcrumb } from 'ember-primitives';
         margin: 0;
       }
 
-      nav[aria-label="Breadcrumb"] a {
+      nav a {
         color: #0066cc;
         text-decoration: none;
       }
 
-      nav[aria-label="Breadcrumb"] a:hover {
+      nav a:hover {
         text-decoration: underline;
       }
 
-      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+      nav li[aria-current="page"] {
         color: #666;
       }
 
-      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
       }
     }
@@ -317,7 +308,7 @@ Since breadcrumbs can contain any component, you can even use buttons for non-na
 import { Breadcrumb } from 'ember-primitives';
 
 <template>
-  <Breadcrumb as |b|>
+  <Breadcrumb @label="button-example" as |b|>
     <li>
       <a href="/">Home</a>
     </li>
@@ -335,7 +326,7 @@ import { Breadcrumb } from 'ember-primitives';
 
   <style>
     @scope {
-      nav[aria-label="Breadcrumb"] {
+      nav {
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
@@ -344,7 +335,7 @@ import { Breadcrumb } from 'ember-primitives';
         width: min-content;
       }
       
-      nav[aria-label="Breadcrumb"] ol {
+      nav ol {
         list-style: none;
         display: flex;
         align-items: center;
@@ -353,8 +344,8 @@ import { Breadcrumb } from 'ember-primitives';
         margin: 0;
       }
 
-      nav[aria-label="Breadcrumb"] a,
-      nav[aria-label="Breadcrumb"] .breadcrumb-button {
+      nav a,
+      nav .breadcrumb-button {
         color: #0066cc;
         text-decoration: none;
         background: none;
@@ -364,16 +355,16 @@ import { Breadcrumb } from 'ember-primitives';
         cursor: pointer;
       }
 
-      nav[aria-label="Breadcrumb"] a:hover,
-      nav[aria-label="Breadcrumb"] .breadcrumb-button:hover {
+      nav a:hover,
+      nav .breadcrumb-button:hover {
         text-decoration: underline;
       }
 
-      nav[aria-label="Breadcrumb"] li[aria-current="page"] {
+      nav li[aria-current="page"] {
         color: #666;
       }
 
-      nav[aria-label="Breadcrumb"] span[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
       }
     }

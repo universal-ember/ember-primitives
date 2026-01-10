@@ -204,12 +204,9 @@ Once the drawer is open, the browser will focus on the first button (in this cas
 
 ### Keyboard Interactions
 
-The dialog element handles ESC (escape) key events automatically, hence reducing the burdens and efforts required to provide an effortless experience for users while working with drawers.
+Because this builds on `<dialog>`, all behaviors are already built in to the browser. 
 
-However, if you want to add an animation effect on _closing_ and opening drawer programmatically, note that you will lose this built-in feature support and have to implement the tab navigation focus yourself.
-
-When the drawer is closed, you can refocus the opening button when the `{{d.focusOnClose}}` modifier is applied to that button.
-
+Pressing the <kbd>esc</kbd> key closes the dialog, focusing the last-focused element before the dialog was opened. 
 
 ## References
 

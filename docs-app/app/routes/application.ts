@@ -21,6 +21,7 @@ import { Callout } from '@universal-ember/docs-support';
 
 import { Tabs } from '../components/tabs.gts';
 import { APIDocs, Comment, comment, ComponentSignature, ModifierSignature } from './api-docs';
+import { Key, KeyCombo } from 'ember-primitives/components/keys';
 
 export default class Application extends Route {
   async model() {
@@ -57,6 +58,7 @@ export default class Application extends Route {
           ModifierSignature,
           Comment,
           Tabs,
+          KeyCombo,
           comment,
         },
         modules: {

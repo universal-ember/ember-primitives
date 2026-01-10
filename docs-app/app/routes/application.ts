@@ -119,6 +119,7 @@ export default class Application extends Route {
           'ember-primitives/resize-observer': () => import('ember-primitives/resize-observer'),
           'ember-primitives/color-scheme': () => import('ember-primitives/color-scheme'),
           'ember-primitives/components/form': () => import('ember-primitives/components/form'),
+          'ember-primitives/components/drawer': () => import('ember-primitives/components/drawer'),
           'ember-primitives/components/heading': () =>
             import('ember-primitives/components/heading'),
           'ember-primitives/components/tabs': () => import('ember-primitives/components/tabs'),

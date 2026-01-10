@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
 import { SetupInstructions } from 'docs-app/components/setup.gts';
+import { KeyCombo } from 'ember-primitives/components/keys';
 import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
@@ -21,7 +22,6 @@ import { Callout } from '@universal-ember/docs-support';
 
 import { Tabs } from '../components/tabs.gts';
 import { APIDocs, Comment, comment, ComponentSignature, ModifierSignature } from './api-docs';
-import { Key, KeyCombo } from 'ember-primitives/components/keys';
 
 export default class Application extends Route {
   async model() {

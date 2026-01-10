@@ -10,9 +10,9 @@
   "author": "",
   "scripts": {
     "build": "turbo run build --output-logs errors-only",
+    "dev": "pnpm turbo dev --ui tui",
     "lint": "turbo run _:lint --output-logs errors-only",
     "lint:fix": "turbo run _:lint:fix --output-logs errors-only",
-    "dev": "pnpm turbo dev --ui tui",
     "sync": "pnpm --filter '*' sync",
     "test": "turbo run test --output-logs errors-only"
   },
@@ -27,12 +27,12 @@
     "turbo": "^2.5.0",
     "typescript": "^5.9.3"
   },
+  "packageManager": "pnpm@10.27.0",
   "engines": {
     "node": ">= 20.*",
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
-  "packageManager": "pnpm@10.27.0",
   "pnpm": {
     "peerDependencyRules": {
       "allowAny": [
@@ -46,19 +46,20 @@
       ]
     },
     "overrides": {
-      "@glimmer/component": "^2.0.0",
       "@embroider/macros": "^1.19.6",
+      "@glimmer/component": "^2.0.0",
       "babel-plugin-ember-template-compilation": "^3.0.1",
       "decorator-transformS": "2.3.1",
-      "ember-primitives": "workspace:^",
       "ember-cli-babel": "^8.2.0",
       "ember-element-helper": "^0.8.8",
+      "ember-primitives": "workspace:^",
       "ember-repl": "^7.2.3",
-      "reactiveweb": "^1.9.1",
       "ember-source": "^6.9.0",
       "kolay": "^4.0.5",
+      "reactiveweb": "^1.9.1",
       "tracked-toolbox": "^2.0.0"
     },
+    "patchedDependencies": {},
     "packageExtensions": {
       "ember-modify-based-class-resource": {
         "peerDependencies": {
@@ -75,7 +76,6 @@
           "@glimmer/component": "^2.0.0"
         }
       }
-    },
-    "patchedDependencies": {}
+    }
   }
 }

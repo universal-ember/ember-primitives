@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core';
 import { SetupInstructions } from 'docs-app/components/setup.gts';
+import { KeyCombo } from 'ember-primitives/components/keys';
 import { setupTabster } from 'ember-primitives/tabster';
 import { setupKolay } from 'kolay/setup';
 import { createHighlighterCore } from 'shiki/core';
@@ -57,6 +58,7 @@ export default class Application extends Route {
           ModifierSignature,
           Comment,
           Tabs,
+          KeyCombo,
           comment,
         },
         modules: {
@@ -119,6 +121,7 @@ export default class Application extends Route {
           'ember-primitives/resize-observer': () => import('ember-primitives/resize-observer'),
           'ember-primitives/color-scheme': () => import('ember-primitives/color-scheme'),
           'ember-primitives/components/form': () => import('ember-primitives/components/form'),
+          'ember-primitives/components/drawer': () => import('ember-primitives/components/drawer'),
           'ember-primitives/components/heading': () =>
             import('ember-primitives/components/heading'),
           'ember-primitives/components/tabs': () => import('ember-primitives/components/tabs'),

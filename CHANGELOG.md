@@ -1,5 +1,32 @@
 # Changelog 
 
+## Release (2026-01-10)
+
+* ember-primitives 0.51.0 (minor)
+* @universal-ember/docs-support 0.9.0 (minor)
+* which-heading-do-i-need 0.2.4 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#630](https://github.com/universal-ember/ember-primitives/pull/630) Add Drawer component ([@Copilot](https://github.com/apps/copilot-swe-agent))
+* `ember-primitives`, `@universal-ember/docs-support`
+  * [#633](https://github.com/universal-ember/ember-primitives/pull/633) Add Breadcrumb component ([@Copilot](https://github.com/apps/copilot-swe-agent))
+
+#### :memo: Documentation
+* [#628](https://github.com/universal-ember/ember-primitives/pull/628) Document offcanvas sidebar using ember-mobile-menu ([@Copilot](https://github.com/apps/copilot-swe-agent))
+
+#### :house: Internal
+* Other
+  * [#639](https://github.com/universal-ember/ember-primitives/pull/639) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#635](https://github.com/universal-ember/ember-primitives/pull/635) Add Copilot instructions for ember-primitives repository ([@Copilot](https://github.com/apps/copilot-swe-agent))
+* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#631](https://github.com/universal-ember/ember-primitives/pull/631) Add dev command ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#618](https://github.com/universal-ember/ember-primitives/pull/618) Bring in docs-support to ember-primitives' monorepo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-01-03)
 
 * ember-primitives 0.50.1 (patch)

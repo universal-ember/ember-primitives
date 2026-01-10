@@ -74,7 +74,7 @@ import { Breadcrumb, Menu, PortalTargets } from "ember-primitives";
         font-weight: 600;
       }
 
-      nav span[aria-hidden] {
+      nav li[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -187,7 +187,10 @@ import { Breadcrumb } from "ember-primitives/components/breadcrumb";
 
 ## About the Separator
 
-The `Separator` component is a standalone component that can be used with or without `Breadcrumb`. It's a simple semantic wrapper that automatically adds `aria-hidden="true"` to hide decorative content from screen readers.
+`Breadcrumb` yields a `b.Separator` component for convenience.
+
+- The yielded `b.Separator` is already configured for breadcrumbs: it renders as an `<li>` and is decorative (`aria-hidden="true"`).
+- The standalone `<Separator />` defaults to a semantic separator (`<hr>`). If you want a visual glyph separator like `/` inside a breadcrumb list, use `@decorative={{true}}` and `@as="li"`.
 
 For detailed information about using separators, including plain HTML alternatives, see the [Separator documentation](/3-ui/separator).
 
@@ -246,7 +249,7 @@ import { Breadcrumb, Link } from "ember-primitives";
         font-weight: 600;
       }
 
-      nav span[aria-hidden] {
+      nav li[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -267,11 +270,11 @@ import { Breadcrumb, Link, Separator } from "ember-primitives";
     <li>
       <Link @href="/">Home</Link>
     </li>
-    <Separator>/</Separator>
+    <Separator @as="li" @decorative={{true}}>/</Separator>
     <li>
       <Link @href="/docs">Docs</Link>
     </li>
-    <Separator>/</Separator>
+    <Separator @as="li" @decorative={{true}}>/</Separator>
     <li aria-current="page">
       Breadcrumb
     </li>
@@ -308,7 +311,7 @@ import { Breadcrumb, Link, Separator } from "ember-primitives";
         font-weight: 600;
       }
 
-      nav span[aria-hidden] {
+      nav li[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -372,7 +375,7 @@ import { Breadcrumb } from "ember-primitives";
         color: #666;
       }
 
-      nav span[aria-hidden] {
+      nav li[aria-hidden] {
         color: #999;
       }
     }
@@ -444,7 +447,7 @@ import { Breadcrumb } from "ember-primitives";
         color: #666;
       }
 
-      nav span[aria-hidden] {
+      nav li[aria-hidden] {
         color: #999;
       }
     }
@@ -503,7 +506,7 @@ import { Breadcrumb } from "ember-primitives";
         color: #666;
       }
 
-      nav[aria-label] span[aria-hidden] {
+      nav[aria-label] li[aria-hidden] {
         color: #999;
       }
     }

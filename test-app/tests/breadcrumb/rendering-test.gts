@@ -56,7 +56,7 @@ module('<Breadcrumb />', function (hooks) {
       </template>
     );
 
-    assert.dom('li').exists({ count: 3 });
+    assert.dom('li:not([aria-hidden="true"])').exists({ count: 3 });
     assert.dom('a').exists({ count: 2 });
   });
 
@@ -116,12 +116,11 @@ module('<Breadcrumb />', function (hooks) {
   test('can use standalone Separator with Breadcrumb', async function (assert) {
     await render(
       <template>
-        {{! @glint-expect-error }}
         <Breadcrumb>
           <li>
             <a href="/">Home</a>
           </li>
-          <Separator @as="li">/</Separator>
+          <Separator @as="li" @decorative={{true}}>/</Separator>
           <li aria-current="page">
             Current
           </li>

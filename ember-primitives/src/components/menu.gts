@@ -60,9 +60,7 @@ export interface SeparatorSignature {
 }
 
 const Separator: TOC<SeparatorSignature> = <template>
-  <div role="separator" ...attributes>
-    {{yield}}
-  </div>
+  <div role="separator" ...attributes />
 </template>;
 
 /**

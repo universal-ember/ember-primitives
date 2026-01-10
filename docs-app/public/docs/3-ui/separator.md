@@ -1,8 +1,11 @@
 # Separator
 
-A semantic wrapper component that renders separators with proper ARIA attributes.
+A component for rendering both **semantic** separators and **decorative** separators.
 
-The `Separator` is **80% documentation and 20% boilerplate reduction**. It's a simple, semantic wrapper that automatically adds `aria-hidden="true"` to hide decorative content from screen readers.
+The `Separator` is **80% documentation and 20% boilerplate reduction**.
+
+- By default it renders a semantic separator (`<hr>`) that is exposed to assistive technology.
+- For purely visual glyph separators (like `/` in breadcrumbs), use `@decorative={{true}}` to apply `aria-hidden="true"`.
 
 <div class="featured-demo">
 
@@ -13,9 +16,9 @@ import { Separator } from "ember-primitives";
   <nav>
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
-      <Separator @as="li">/</Separator>
+      <Separator @as="li" @decorative={{true}}>/</Separator>
       <li><a href="/docs">Docs</a></li>
-      <Separator @as="li">/</Separator>
+      <Separator @as="li" @decorative={{true}}>/</Separator>
       <li aria-current="page">Separator</li>
     </ol>
   </nav>
@@ -76,18 +79,21 @@ import { Separator } from "ember-primitives";
 The `Separator` component is primarily a **documentation and readability tool**. It:
 
 - Makes the code more readable by clearly marking separator elements
-- Automatically adds `aria-hidden="true"` to hide decorators from screen readers
+- Renders a semantic separator (`<hr>`) by default
+- Provides an explicit `@decorative` mode for purely visual separators (adds `aria-hidden="true"`)
 - Provides a consistent pattern across your codebase
 - Allows customizing the element tag via the `@as` argument
 
 ## The `@as` Argument
 
-By default, the Separator renders as a `<span>` element. However, when used in lists where separators need to be siblings to `<li>` elements, you should use `@as="li"` to ensure proper HTML structure:
+By default, the Separator renders as an `<hr>` element.
+
+When you are using `@decorative={{true}}` (for glyph separators like `/`), you typically want a non-void element so you can provide visible content. In lists, use `@as="li"` so separators are siblings to `<li>` elements:
 
 ```gjs
 <ol>
   <li>Item 1</li>
-  <Separator @as="li">/</Separator>
+  <Separator @as="li" @decorative={{true}}>/</Separator>
   <li>Item 2</li>
 </ol>
 ```
@@ -96,7 +102,10 @@ This is important because in HTML, `<ol>` and `<ul>` elements should only have `
 
 ## Plain HTML Alternative
 
-**Using plain HTML is just as easy!** The Separator component renders an element with `aria-hidden="true"`:
+**Using plain HTML is just as easy!**
+
+- For a semantic separator, use `<hr>`.
+- For a decorative glyph separator in breadcrumbs, use an element with `aria-hidden="true"`.
 
 ```gjs live preview
 <template>
@@ -161,11 +170,14 @@ Both approaches are equally valid. Choose whichever feels more natural for your 
 import { Separator } from "ember-primitives/components/separator";
 
 <template>
-  {{! Default: renders as <span> }}
-  <Separator>/</Separator>
+  {{! Default: semantic separator (renders as <hr>) }}
+  <Separator />
 
-  {{! In lists: renders as <li> }}
-  <Separator @as="li">/</Separator>
+  {{! Decorative glyph separator (renders as <span aria-hidden="true">) }}
+  <Separator @as="span" @decorative={{true}}>/</Separator>
+
+  {{! Decorative glyph separator in lists (renders as <li aria-hidden="true">) }}
+  <Separator @as="li" @decorative={{true}}>/</Separator>
 </template>
 ```
 
@@ -236,9 +248,9 @@ import { Separator } from "ember-primitives";
   <nav>
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
-      <Separator @as="li">&gt;</Separator>
+      <Separator @as="li" @decorative={{true}}>&gt;</Separator>
       <li><a href="/products">Products</a></li>
-      <Separator @as="li">→</Separator>
+      <Separator @as="li" @decorative={{true}}>→</Separator>
       <li aria-current="page">Details</li>
     </ol>
   </nav>
@@ -299,10 +311,13 @@ import { ComponentSignature } from "kolay";
 
 ## Accessibility
 
-The Separator component uses `aria-hidden="true"` to hide decorative content from screen readers. This ensures that screen reader users don't hear unnecessary separators like "/" or ">" when navigating breadcrumbs or other lists.
+When used as a semantic separator (`<Separator />`), the separator is exposed to assistive technology.
+
+When used as a decorative glyph separator (`@decorative={{true}}`), the component adds `aria-hidden="true"` so screen reader users don't hear unnecessary characters like "/" or ">".
 
 ### Best Practices
 
-- Use Separator for decorative visual separators only
-- The content is hidden from screen readers, so don't use it for meaningful content
-- Ensure sufficient color contrast between separators and background
+- Use `<Separator />` (semantic) when the separation itself is meaningful structure.
+- Use `@decorative={{true}}` only for visual separators.
+- When decorative, the content is hidden from screen readers, so don't use it for meaningful content.
+- Ensure sufficient color contrast between separators and background.

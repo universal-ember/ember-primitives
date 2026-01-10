@@ -1,0 +1,14 @@
+/*
+  Sentinel element used by <InViewport />.
+
+  IntersectionObserver won't report intersections for a 0x0 target.
+  This element provides a tiny, visually invisible box to observe,
+  without requiring consumers to style their placeholder.
+*/
+.ember-primitives__in-viewport-sentinel {
+  display: block;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}

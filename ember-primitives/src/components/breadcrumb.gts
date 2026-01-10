@@ -19,10 +19,10 @@ export interface Signature {
       {
         /**
          * A separator component to place between breadcrumb items.
-         * Typically renders as "/" or ">" with aria-hidden="true".
+         * Typically renders as "/" or ">" and is decorative (aria-hidden="true").
          * Pre-configured to render as an <li> element for proper HTML structure.
          */
-        Separator: WithBoundArgs<typeof Separator, "as">;
+        Separator: WithBoundArgs<typeof Separator, "as" | "decorative">;
       },
     ];
   };
@@ -58,7 +58,7 @@ export interface Signature {
 export const Breadcrumb: TOC<Signature> = <template>
   <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
     <ol>
-      {{yield (hash Separator=(component Separator as="li"))}}
+      {{yield (hash Separator=(component Separator as="li" decorative=true))}}
     </ol>
   </nav>
 </template>;

@@ -29,7 +29,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <Drawer as |d|>
     <button {{on 'click' d.open}} {{d.focusOnClose}}>Open Drawer</button>
 
-    <d.Drawer>
+    <d.Drawer class="not-prose">
       <header>
         <h2>Example Drawer</h2>
         <button {{on 'click' d.close}}>Close</button>
@@ -55,31 +55,16 @@ import { loremIpsum } from 'lorem-ipsum';
   <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
   <style>
 @scope {
+[data-repl-output] {
+  display: block;
+}
 button {
-  /* Reset-ish */
-  appearance: none;
-  border: none;
-  font: inherit;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;;
 
-  /* Layout */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-
-  /* Colors */
   background-color: #2563eb;   /* blue */
   color: #ffffff;
 
-  /* Text */
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1;
-
-  /* Interaction */
-  cursor: pointer;
   transition:
     background-color 120ms ease-out,
     box-shadow 120ms ease-out,
@@ -95,20 +80,6 @@ button:active {
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.3) inset;
 }
 
-/* Accessible focus state */
-button:focus-visible {
-  outline: 2px solid #1d4ed8;
-  outline-offset: 2px;
-}
-
-/* Disabled state */
-button:disabled,
-button[aria-disabled="true"] {
-  cursor: not-allowed;
-  opacity: 0.6;
-  box-shadow: none;
-}
-
 }
   @scope {
 
@@ -117,36 +88,39 @@ dialog {
   margin: 0;
   padding: 0;
   border: none;
-}
-
-/* Bottom sheet */
-dialog[open] {
   position: fixed;
-
-  /* kill UA centering */
-  top: auto;
   left: 0;
   right: 0;
-  transform: none;
-  margin: 0;
+  bottom: 100px;
+  color: black;
+  background: white;
+  box-shadow: var(--shadow-4);
+  margin: 0 auto;
+  min-width: 80dvw;
+  min-height: 30dvh;
 
-  bottom: 0;                 /* anchor to bottom */
-  width: 100vw;
-  max-height: 80vh;
+  main {
+    padding: 1rem;
+  }
 
-  display: flex;
-  flex-direction: column;
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
 
-  background: var(--surface-1, #fff);
-  color: var(--text-1, #0f172a);
-  border-radius: var(--radius-3, 1rem) 1rem 0 0;
-  box-shadow: var(--shadow-4, 0 -10px 40px rgba(15, 23, 42, 0.25));
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
 
-  /* Open Props animation: slide up */
-  animation: var(--animation-slide-in-up);
-  animation-duration: 240ms; /* tighten duration if you want */
-  animation-timing-function: var(--ease-spring-3, ease-out);
+  footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    padding: 1rem;
+  }
 }
 
 /* backdrop */
@@ -154,68 +128,13 @@ dialog::backdrop {
   background: color-mix(in srgb, #020617 60%, transparent);
 }
 
-/* content layout (same as before, just tightened a bit) */
-dialog > header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--size-3, 0.75rem) var(--size-4, 1.25rem);
-  border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
-}
+dialog[open] {
+  bottom: 0;
 
-dialog > header h2 {
-  margin: 0 !important;
-  font-size: var(--font-size-2, 1.1rem);
-  font-weight: 600;
-}
-
-dialog > header > button {
-  border: none;
-  background: transparent;
-  padding: 0.25rem 0.5rem;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-/* form fills the rest */
-dialog > form {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  flex: 1;
-}
-
-dialog main {
-  flex: 1;
-  padding: var(--size-4, 1.25rem);
-  overflow-y: auto;
-  line-height: 1.5;
-}
-
-/* footer buttons */
-dialog footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--size-2, 0.5rem);
-  padding: var(--size-3, 0.75rem) var(--size-4, 1.25rem);
-  border-top: 1px solid color-mix(in srgb, currentColor 10%, transparent);
-}
-
-dialog footer button {
-  appearance: none;
-  border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
-  background: var(--surface-1, #fff);
-  cursor: pointer;
-}
-
-dialog footer button[type="submit"] {
-  background: var(--brand, #2563eb);
-  border-color: var(--brand, #2563eb);
-  color: #fff;
+  /* Open Props slide-up animation */
+  animation: var(--animation-slide-in-up), var(--animation-slide-in-down);
+  animation-duration: 250ms;
+  animation-timing-function: var(--ease-spring-3);
 }
 
 @media (prefers-reduced-motion: reduce) {

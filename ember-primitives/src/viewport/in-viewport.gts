@@ -74,44 +74,9 @@ export class InViewport extends Component<InViewportSignature> {
       return;
     }
 
-    // Some browsers have surprising `IntersectionObserver` behavior when the
-    // observed element has a 0×0 bounding box (either never intersecting, or
-    // intersecting immediately). Since `<InViewport />` often starts with an
-    // empty placeholder element, ensure the observed element has a minimal size.
-    //
-    // We only apply styles when necessary and revert them on teardown.
-    let restoreStyles: (() => void) | undefined;
-
-    if (element instanceof HTMLElement) {
-      const rect = element.getBoundingClientRect();
-
-      if (rect.width === 0 && rect.height === 0) {
-        const originalMinHeight = element.style.minHeight;
-        const originalMinWidth = element.style.minWidth;
-        const originalDisplay = element.style.display;
-
-        element.style.minHeight = "1px";
-        element.style.minWidth = "1px";
-
-        // `min-*` won't affect `display: inline` elements.
-        if (window.getComputedStyle(element).display === "inline") {
-          element.style.display = "inline-block";
-        }
-
-        restoreStyles = () => {
-          element.style.minHeight = originalMinHeight;
-          element.style.minWidth = originalMinWidth;
-          element.style.display = originalDisplay;
-        };
-      }
-    }
-
     this.#viewport.observe(element, this.handle);
 
-    return () => {
-      this.#viewport.unobserve(element, this.handle);
-      restoreStyles?.();
-    };
+    return () => this.#viewport.unobserve(element, this.handle);
   });
 
   handle = (entry: IntersectionObserverEntry) => {

@@ -44,7 +44,10 @@ module('<InViewport />', function (hooks) {
     test('renders placeholder element with default tag (div)', async function (assert) {
       await render(
         <template>
-          <InViewport class="placeholder">Content</InViewport>
+          <InViewport
+            class="placeholder"
+            style="min-height: 1px; min-width: 1px; display: block;"
+          >Content</InViewport>
         </template>
       );
 
@@ -54,7 +57,10 @@ module('<InViewport />', function (hooks) {
     test('uses custom tag name when provided', async function (assert) {
       await render(
         <template>
-          <InViewport @tagName="section">Content</InViewport>
+          <InViewport
+            @tagName="section"
+            style="min-height: 1px; min-width: 1px; display: block;"
+          >Content</InViewport>
         </template>
       );
 
@@ -64,7 +70,10 @@ module('<InViewport />', function (hooks) {
     test('supports attributes passed through', async function (assert) {
       await render(
         <template>
-          <InViewport data-test-id="my-viewport">Content</InViewport>
+          <InViewport
+            data-test-id="my-viewport"
+            style="min-height: 1px; min-width: 1px; display: block;"
+          >Content</InViewport>
         </template>
       );
 
@@ -76,7 +85,7 @@ module('<InViewport />', function (hooks) {
     test('initially does not show yielded content', async function (assert) {
       await render(
         <template>
-          <InViewport @mode="contain">
+          <InViewport @mode="contain" style="min-height: 1px; min-width: 1px; display: block;">
             <div>Hidden content</div>
           </InViewport>
         </template>
@@ -96,7 +105,7 @@ module('<InViewport />', function (hooks) {
       // In a real app, scrolling would trigger the intersection
       await render(
         <template>
-          <InViewport @mode="contain">
+          <InViewport @mode="contain" style="min-height: 1px; min-width: 1px; display: block;">
             <div class="content">Content</div>
           </InViewport>
         </template>
@@ -110,7 +119,11 @@ module('<InViewport />', function (hooks) {
     test('contain mode renders content in placeholder', async function (assert) {
       await render(
         <template>
-          <InViewport class="placeholder" @mode="contain">
+          <InViewport
+            class="placeholder"
+            @mode="contain"
+            style="min-height: 1px; min-width: 1px; display: block;"
+          >
             <span class="child">Child content</span>
           </InViewport>
         </template>
@@ -128,7 +141,7 @@ module('<InViewport />', function (hooks) {
     test('initially shows placeholder only', async function (assert) {
       await render(
         <template>
-          <InViewport @mode="replace">
+          <InViewport @mode="replace" style="min-height: 1px; min-width: 1px; display: block;">
             <div>Replaced content</div>
           </InViewport>
         </template>
@@ -146,7 +159,11 @@ module('<InViewport />', function (hooks) {
     test('replace mode shows placeholder until intersection', async function (assert) {
       await render(
         <template>
-          <InViewport @mode="replace" class="placeholder">
+          <InViewport
+            @mode="replace"
+            class="placeholder"
+            style="min-height: 1px; min-width: 1px; display: block;"
+          >
             <span class="child">Replaced content</span>
           </InViewport>
         </template>

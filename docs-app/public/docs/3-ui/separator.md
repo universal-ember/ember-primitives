@@ -84,6 +84,8 @@ The `Separator` component is primarily a **documentation and readability tool**.
 - Provides a consistent pattern across your codebase
 - Allows customizing the element tag via the `@as` argument
 
+This `Separator` is intended for **non-interactive** use-cases (semantic `<hr>` and decorative glyph separators). It does **not** implement focus/drag/keyboard behaviors for splitter-style UI.
+
 ## The `@as` Argument
 
 By default, the Separator renders as an `<hr>` element.

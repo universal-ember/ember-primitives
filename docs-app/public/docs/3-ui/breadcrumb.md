@@ -6,8 +6,8 @@ Breadcrumbs help users understand their current location and provide a way to na
 
 <div class="featured-demo">
 
-```gjs live preview
-import { Breadcrumb, Menu, PortalTargets } from "ember-primitives";
+```gjs live preview 
+import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
 <template>
   <PortalTargets />
@@ -41,16 +41,16 @@ import { Breadcrumb, Menu, PortalTargets } from "ember-primitives";
   </Breadcrumb>
 
   <style>
-    @scope {
+    @scope { 
       nav {
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
         padding: 0.25rem 1rem;
         width: min-content;
       }
-
+      
       nav ol {
         list-style: none;
         display: flex;
@@ -74,7 +74,7 @@ import { Breadcrumb, Menu, PortalTargets } from "ember-primitives";
         font-weight: 600;
       }
 
-      nav li[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -107,11 +107,7 @@ import { Breadcrumb, Menu, PortalTargets } from "ember-primitives";
         font-size: 14px;
         z-index: 10;
         border: 1px solid gray;
-        box-shadow:
-          0 0 #0000,
-          0 0 #0000,
-          0 10px 15px -3px rgb(0 0 0 / 0.1),
-          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
         display: flex;
         flex-direction: column;
       }
@@ -133,15 +129,7 @@ import { Breadcrumb, Menu, PortalTargets } from "ember-primitives";
 </template>
 
 const ChevronDown = <template>
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="6 9 12 15 18 9"></polyline>
   </svg>
 </template>;
@@ -157,16 +145,16 @@ const ChevronDown = <template>
 
 ## Features
 
-- Semantic HTML structure using `<nav>`, `<ol>`, and `<li>` elements
-- Proper ARIA attributes for accessibility
-- Flexible separator component
-- Full control over styling
-- No unnecessary abstractions - use any link component or element directly
+* Semantic HTML structure using `<nav>`, `<ol>`, and `<li>` elements
+* Proper ARIA attributes for accessibility
+* Flexible separator component
+* Full control over styling
+* No unnecessary abstractions - use any link component or element directly
 
 ## Anatomy
 
 ```gjs
-import { Breadcrumb } from "ember-primitives/components/breadcrumb";
+import { Breadcrumb } from 'ember-primitives/components/breadcrumb';
 
 <template>
   <Breadcrumb as |b|>
@@ -185,15 +173,6 @@ import { Breadcrumb } from "ember-primitives/components/breadcrumb";
 </template>
 ```
 
-## About the Separator
-
-`Breadcrumb` yields a `b.Separator` component for convenience.
-
-- The yielded `b.Separator` is already configured for breadcrumbs: it renders as an `<li>` and is decorative (`aria-hidden="true"`).
-- The standalone `<Separator />` defaults to a semantic separator (`<hr>`). If you want a visual glyph separator like `/` inside a breadcrumb list, use `@decorative={{true}}` and `@as="li"`.
-
-For detailed information about using separators, including plain HTML alternatives, see the [Separator documentation](/3-ui/separator).
-
 ## Examples
 
 ### Using the Link Component
@@ -201,7 +180,7 @@ For detailed information about using separators, including plain HTML alternativ
 You can use any link component, `<a>`, `<LinkTo>`, `<Link>`, etc:
 
 ```gjs live preview
-import { Breadcrumb, Link } from "ember-primitives";
+import { Breadcrumb, Link } from 'ember-primitives';
 
 <template>
   <Breadcrumb @label="example-links" as |b|>
@@ -219,13 +198,13 @@ import { Breadcrumb, Link } from "ember-primitives";
   </Breadcrumb>
 
   <style>
-    @scope {
+    @scope { 
       nav {
         background: var(--color-page-background);
         padding: 0.25rem 1rem;
         width: min-content;
       }
-
+      
       nav ol {
         list-style: none;
         display: flex;
@@ -249,69 +228,7 @@ import { Breadcrumb, Link } from "ember-primitives";
         font-weight: 600;
       }
 
-      nav li[aria-hidden] {
-        color: #999;
-        user-select: none;
-      }
-    }
-  </style>
-</template>
-```
-
-### Using Standalone Separator
-
-You can also use the standalone `Separator` component instead of the yielded `b.Separator`:
-
-```gjs live preview
-import { Breadcrumb, Link, Separator } from "ember-primitives";
-
-<template>
-  <Breadcrumb @label="example-standalone">
-    <li>
-      <Link @href="/">Home</Link>
-    </li>
-    <Separator @as="li" @decorative={{true}}>/</Separator>
-    <li>
-      <Link @href="/docs">Docs</Link>
-    </li>
-    <Separator @as="li" @decorative={{true}}>/</Separator>
-    <li aria-current="page">
-      Breadcrumb
-    </li>
-  </Breadcrumb>
-
-  <style>
-    @scope {
-      nav {
-        background: var(--color-page-background);
-        padding: 0.25rem 1rem;
-        width: min-content;
-      }
-
-      nav ol {
-        list-style: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0;
-        margin: 0;
-      }
-
-      nav a {
-        color: #0066cc;
-        text-decoration: none;
-      }
-
-      nav a:hover {
-        text-decoration: underline;
-      }
-
-      nav li[aria-current="page"] {
-        color: #666;
-        font-weight: 600;
-      }
-
-      nav li[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
         user-select: none;
       }
@@ -325,7 +242,7 @@ import { Breadcrumb, Link, Separator } from "ember-primitives";
 You can use any content as a separator, including icons or symbols:
 
 ```gjs live preview
-import { Breadcrumb } from "ember-primitives";
+import { Breadcrumb } from 'ember-primitives';
 
 <template>
   <Breadcrumb @label="example-separator" as |b|>
@@ -348,11 +265,11 @@ import { Breadcrumb } from "ember-primitives";
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
         padding: 0.25rem 1rem;
         width: min-content;
       }
-
+      
       nav ol {
         list-style: none;
         display: flex;
@@ -375,7 +292,7 @@ import { Breadcrumb } from "ember-primitives";
         color: #666;
       }
 
-      nav li[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
       }
     }
@@ -388,7 +305,7 @@ import { Breadcrumb } from "ember-primitives";
 Since breadcrumbs can contain any component, you can even use buttons for non-navigation actions:
 
 ```gjs live preview
-import { Breadcrumb } from "ember-primitives";
+import { Breadcrumb } from 'ember-primitives';
 
 <template>
   <Breadcrumb @label="button-example" as |b|>
@@ -413,11 +330,11 @@ import { Breadcrumb } from "ember-primitives";
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
         padding: 0.25rem 1rem;
         width: min-content;
       }
-
+      
       nav ol {
         list-style: none;
         display: flex;
@@ -447,7 +364,7 @@ import { Breadcrumb } from "ember-primitives";
         color: #666;
       }
 
-      nav li[aria-hidden] {
+      nav span[aria-hidden] {
         color: #999;
       }
     }
@@ -460,7 +377,7 @@ import { Breadcrumb } from "ember-primitives";
 You can provide a custom accessible label for the breadcrumb navigation:
 
 ```gjs live preview
-import { Breadcrumb } from "ember-primitives";
+import { Breadcrumb } from 'ember-primitives';
 
 <template>
   <Breadcrumb @label="Page Navigation" as |b|>
@@ -479,11 +396,11 @@ import { Breadcrumb } from "ember-primitives";
         user-select: none;
         background: var(--color-page-background);
         border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
         padding: 0.25rem 1rem;
         width: min-content;
       }
-
+      
       nav[aria-label] ol {
         list-style: none;
         display: flex;
@@ -506,7 +423,7 @@ import { Breadcrumb } from "ember-primitives";
         color: #666;
       }
 
-      nav[aria-label] li[aria-hidden] {
+      nav[aria-label] span[aria-hidden] {
         color: #999;
       }
     }
@@ -517,13 +434,13 @@ import { Breadcrumb } from "ember-primitives";
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from "kolay";
+import { ComponentSignature } from 'kolay';
 
 <template>
-  <ComponentSignature
-    @package="ember-primitives"
-    @module="declarations/components/breadcrumb"
-    @name="Signature"
+  <ComponentSignature 
+    @package="ember-primitives" 
+    @module="declarations/components/breadcrumb" 
+    @name="Signature" 
   />
 </template>
 ```
@@ -534,9 +451,9 @@ import { ComponentSignature } from "kolay";
 
 The breadcrumb component uses proper ARIA attributes to ensure accessibility:
 
-- The root `<nav>` element has `aria-label="Breadcrumb"` (or a custom label if provided)
-- Separators have `aria-hidden="true"` to hide them from screen readers
-- The current page item should have `aria-current="page"` to indicate the current location
+* The root `<nav>` element has `aria-label="Breadcrumb"` (or a custom label if provided)
+* Separators have `aria-hidden="true"` to hide them from screen readers
+* The current page item should have `aria-current="page"` to indicate the current location
 
 ### Screen Reader Support
 
@@ -544,7 +461,7 @@ Screen readers will announce the breadcrumb navigation as a landmark with the la
 
 ### Best Practices
 
-- Always mark the current page with `aria-current="page"` on the last item
-- The current page item should not be a link
-- Keep breadcrumb labels concise and descriptive
-- Ensure sufficient color contrast for links and text
+* Always mark the current page with `aria-current="page"` on the last item
+* The current page item should not be a link
+* Keep breadcrumb labels concise and descriptive
+* Ensure sufficient color contrast for links and text

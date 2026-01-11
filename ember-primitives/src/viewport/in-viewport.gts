@@ -2,8 +2,6 @@ import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 
-import "./in-viewport.css";
-
 import { element } from "ember-element-helper";
 import { modifier } from "ember-modifier";
 
@@ -116,23 +114,10 @@ export class InViewport extends Component<InViewportSignature> {
         {{#if this.hasReachedViewport}}
           {{yield}}
         {{else}}
-          <El ...attributes>
-            <span
-              class="ember-primitives__in-viewport-sentinel"
-              aria-hidden="true"
-              {{this.setupObserver}}
-            />
-          </El>
+          <El {{this.setupObserver}} ...attributes />
         {{/if}}
       {{else}}
-        <El ...attributes>
-          {{#unless this.hasReachedViewport}}
-            <span
-              class="ember-primitives__in-viewport-sentinel"
-              aria-hidden="true"
-              {{this.setupObserver}}
-            />
-          {{/unless}}
+        <El {{this.setupObserver}} ...attributes>
           {{#if this.hasReachedViewport}}
             {{yield}}
           {{/if}}

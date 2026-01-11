@@ -11,7 +11,6 @@ function normalizeTagName(tagName: string) {
 function getElementTag(tagName: undefined | string) {
   if (tagName) return tagName;
 
-  // Prefer semantic HTML for separators.
   return "hr";
 }
 
@@ -30,6 +29,7 @@ function ariaHiddenFor(decorative: undefined | boolean) {
 
 function ariaOrientationFor(orientation: undefined | Orientation, decorative: undefined | boolean) {
   if (decorative) return undefined;
+
   // `separator` has an implicit aria-orientation of horizontal.
   // Only specify when authors opt in (e.g. vertical separators).
   return orientation;
@@ -107,10 +107,6 @@ export interface Signature {
 export const Separator: TOC<Signature> = <template>
   {{#let (getElementTag @as) as |tagName|}}
     {{#let (element tagName) as |El|}}
-      {{! @glint-ignore
-            https://github.com/tildeio/ember-element-helper/issues/91
-            https://github.com/typed-ember/glint/issues/610
-      }}
       <El
         aria-hidden={{ariaHiddenFor @decorative}}
         role={{roleFor tagName @decorative}}

@@ -142,6 +142,8 @@ const ChevronDown = <template>
 <SetupInstructions @src="components/breadcrumb.gts" />
 ```
 
+Introduced in [0.51.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.51.0-ember-primitives)
+
 ## Features
 
 * Semantic HTML structure using `<nav>`, `<ol>`, and `<li>` elements

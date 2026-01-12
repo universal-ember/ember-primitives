@@ -20,7 +20,7 @@ export interface Signature {
         /**
          * A separator component to place between breadcrumb items.
          * Typically renders as "/" or ">" and is decorative (aria-hidden="true").
-         * Pre-configured to render as an <li> element for proper HTML structure.
+         * Pre-configured to render as an `<li>` element for proper HTML structure.
          */
         Separator: WithBoundArgs<typeof Separator, "as" | "decorative">;
       },

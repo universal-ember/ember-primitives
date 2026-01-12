@@ -94,19 +94,20 @@ import { cell } from 'ember-resources';
 import { on } from '@ember/modifier';
 import { focusTrap } from 'ember-focus-trap';
 
-const settings = cell(true);
+const settings = cell(false);
 
 <template>
-    <div class="site">
+    <div class="site not-prose">
       <PortalTargets />
 
         <header>
-            <span>My App</span>
+            <span style="color: black">My App: click settings -&gt;</span>
 
             <Popover @offsetOptions={{8}} as |p|>
               <button class="hook" {{p.reference}} {{on 'click' settings.toggle}}>
                 Settings
               </button>
+
               {{#if settings.current}}
                 <p.Content @as="dialog" open class="floatybit">
                   <PortalTargets />
@@ -152,6 +153,7 @@ const settings = cell(true);
         font-size: 90%;
         filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
         z-index: 10;
+        border: 1px solid rgba(0, 255, 255, 0.6);
       }
       .floatybit .floatybit {
         background: #eee;
@@ -160,6 +162,13 @@ const settings = cell(true);
       .floatybit .floatybit .arrow {
         background: #eee;
         transform: translateY(-1rem) rotate(45deg);
+
+        &::before {
+          background: #eee;
+          border-top: 1px solid rgba(0, 255, 255, 0.6);
+          transform: rotate(45deg) translateY(7px) translateX(-8px);
+          border-left: none;
+        }
       }
       ul {
         padding-left: 1rem;
@@ -171,6 +180,19 @@ const settings = cell(true);
         width: 8px;
         height: 8px;
         transform: rotate(45deg);
+        border: 1px solid rgba(0, 255, 255, 0.6);
+
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          background: #222;
+          transform: rotate(45deg);
+          border-left: 1px solid rgba(0, 255, 255, 0.6);
+
+        }
       }
       .hook {
         padding: 0.5rem;

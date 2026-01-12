@@ -121,7 +121,7 @@ importers:
         specifier: workspace:^
         version: link:../ember-primitives
       ember-repl:
-        specifier: ^7.3.0
+        specifier: ^7.2.3
         version: 7.3.0(629e7e19a73b71121bd09cde67ee5f58)
       ember-route-template:
         specifier: ^1.0.3
@@ -139,7 +139,7 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2(highlight.js@11.11.1)
       kolay:
-        specifier: ^4.1.0
+        specifier: ^4.0.5
         version: 4.1.0(1508af4c6aa60dfe974f2a34670ba795)
       limber-ui:
         specifier: ^4.1.0
@@ -308,7 +308,7 @@ importers:
         specifier: ^2.0.4
         version: 2.0.4(ember-template-lint@7.9.3)
       ember-source:
-        specifier: ^6.10.0
+        specifier: ^6.9.0
         version: 6.10.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-template-lint:
         specifier: ^7.9.3
@@ -410,7 +410,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(@babel/core@7.28.5)
       tracked-toolbox:
-        specifier: ^2.2.0
+        specifier: ^2.0.0
         version: 2.2.0(@babel/core@7.28.5)
       which-heading-do-i-need:
         specifier: workspace:*
@@ -495,7 +495,7 @@ importers:
         specifier: ^7.0.7
         version: 7.0.7(c534e3001f7b62b4c2f1418899b71f3f)
       ember-source:
-        specifier: ^6.10.0
+        specifier: ^6.9.0
         version: 6.10.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-template-lint:
         specifier: ^7.9.3
@@ -561,7 +561,7 @@ importers:
         specifier: ^4.0.2
         version: 4.1.1
       kolay:
-        specifier: ^4.1.0
+        specifier: ^4.0.5
         version: 4.1.0(1508af4c6aa60dfe974f2a34670ba795)
       package-up:
         specifier: ^5.0.0
@@ -616,7 +616,7 @@ importers:
         specifier: ^9.2.1
         version: 9.2.1
       ember-source:
-        specifier: ^6.10.0
+        specifier: ^6.9.0
         version: 6.10.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-template-lint:
         specifier: ^7.9.3
@@ -833,7 +833,7 @@ importers:
         specifier: ^13.1.1
         version: 13.1.1(@babel/core@7.28.5)
       ember-source:
-        specifier: ^6.10.0
+        specifier: ^6.9.0
         version: 6.10.0(@glimmer/component@2.0.0)(rsvp@4.8.5)
       ember-source-channel-url:
         specifier: ^3.0.0

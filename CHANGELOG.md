@@ -1,5 +1,17 @@
 # Changelog 
 
+## Release (2026-01-12)
+
+* ember-primitives 0.52.0 (minor)
+* @universal-ember/docs-support 0.9.1 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#637](https://github.com/universal-ember/ember-primitives/pull/637) Create standalone Separator component with @as argument for dynamic element tags ([@Copilot](https://github.com/apps/copilot-swe-agent))
+
+#### Committers: 1
+- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))
+
 ## Release (2026-01-10)
 
 * ember-primitives 0.51.0 (minor)

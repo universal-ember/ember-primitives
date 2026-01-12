@@ -23,7 +23,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <PortalTargets />
 
   <div class="scroll-content" tabindex="0">
-    {{loremIpsum (hash count=1 units="paragraphs")}}
+    {{loremIpsum (hash count=1 units="sentence")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.reference}}>
@@ -40,38 +40,38 @@ import { loremIpsum } from 'lorem-ipsum';
   </div>
 
   <style>
-    .floatybit {
-      width: max-content;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #222;
-      color: white;
-      font-weight: bold;
-      padding: 5px;
-      border-radius: 4px;
-      font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
-      z-index: 10;
-    }
-    .arrow {
-      position: absolute;
-      background: #222;
-      width: 8px;
-      height: 8px;
-      transform: rotate(45deg);
-    }
-    .hook {
-      padding: 0.5rem;
-      border: 1px solid;
-      display: inline-block;
-      color: black;
-    }
-    .scroll-content {
-      max-height: 150px;
-      overflow-y: auto;
-      border: 1px solid;
-      padding: 0.5rem;
+    @scope {
+      .floatybit {
+        width: max-content;
+        position: absolute;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 90%;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+        z-index: 10;
+      }
+      .arrow {
+        position: absolute;
+        background: #222;
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+      }
+      .hook {
+        padding: 0.5rem;
+        border: 1px solid;
+        display: inline-block;
+        color: black;
+      }
+      .scroll-content {
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid;
+        padding: 0.5rem;
+      }
     }
   </style>
 </template>
@@ -140,64 +140,65 @@ const settings = cell(true);
     </div>
 
   <style>
-    .floatybit {
-      width: max-content;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: #222;
-      color: white;
-      font-weight: bold;
-      padding: 0.5rem;
-      border-radius: 4px;
-      font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
-      z-index: 10;
+    @scope {
+      .floatybit {
+        width: 200px;
+        position: absolute;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 1rem;
+        border-radius: 4px;
+        font-size: 90%;
+        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+        z-index: 10;
+      }
+      .floatybit .floatybit {
+        background: #eee;
+        color: black;
+      }
+      .floatybit .floatybit .arrow {
+        background: #eee;
+        transform: translateY(-1rem) rotate(45deg);
+      }
+      ul {
+        padding-left: 1rem;
+        margin: 0;
+      }
+      .arrow {
+        position: absolute;
+        background: #222;
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+      }
+      .hook {
+        padding: 0.5rem;
+        border: 1px solid;
+        display: inline-block;
+        color: black;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: white;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        padding: 0.25rem;
+        filter: drop-shadow(0px 3px 6px #000000aa);
+      }
+      .main {
+        padding: 0.5rem;
+      }
+      .site {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid;
+      }
+      * { box-sizing: border-box; }
     }
-    .floatybit .floatybit {
-      background: #eee;
-      color: black;
-    }
-    .floatybit .floatybit .arrow {
-      background: #eee;
-    }
-    ul {
-      padding-left: 1rem;
-      margin: 0;
-    }
-    .arrow {
-      position: absolute;
-      background: #222;
-      width: 8px;
-      height: 8px;
-      transform: rotate(45deg);
-    }
-    .hook {
-      padding: 0.5rem;
-      border: 1px solid;
-      display: inline-block;
-      color: black;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: white;
-      position: sticky;
-      top: 0;
-      width: 100%;
-      padding: 0.25rem;
-      filter: drop-shadow(0px 3px 6px #000000aa);
-    }
-    .main {
-      padding: 0.5rem;
-    }
-    .site {
-      max-height: 200px;
-      overflow-y: auto;
-      border: 1px solid;
-    }
-    * { box-sizing: border-box; }
   </style>
 </template>
 ```

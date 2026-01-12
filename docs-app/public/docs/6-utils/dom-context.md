@@ -10,7 +10,6 @@ Unlike event-based context systems, DOM Context follows the DOM tree synchronous
 <SetupInstructions @src="dom-context.gts" />
 ```
 
-
 Introduced in [0.40.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.40.0-ember-primitives)
 
 ## Usage
@@ -23,11 +22,11 @@ A `<Consume>` component must be a child of `<Provide>`.
 <div class="featured-demo">
 
 ```gjs live preview
-import { Provide, Consume } from 'ember-primitives/dom-context';
+import { Provide, Consume } from "ember-primitives/dom-context";
 
 class State {
-  greeting = 'hello';
-  name = 'world';
+  greeting = "hello";
+  name = "world";
 }
 
 <template>
@@ -41,7 +40,6 @@ class State {
 
 </div>
 
-
 ### Reactive Data with Classes
 
 DOM Context correctly interops with reactive data:
@@ -49,24 +47,24 @@ DOM Context correctly interops with reactive data:
 <div class="featured-demo">
 
 ```gjs live preview
-import { Provide, Consume } from 'ember-primitives/dom-context';
-import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
+import { Provide, Consume } from "ember-primitives/dom-context";
+import { tracked } from "@glimmer/tracking";
+import { on } from "@ember/modifier";
 
 class Counter {
   @tracked count = 0;
-  
+
   increment = () => {
     this.count++;
-  }
-  
+  };
+
   decrement = () => {
     this.count--;
-  }
+  };
 }
 
 <template>
-  <Provide @data={{Counter}}>  
+  <Provide @data={{Counter}}>
     <Consume @key={{Counter}} as |context|>
       <div class="counter">
         <button {{on "click" context.data.decrement}} class="btn">-</button>
@@ -74,10 +72,11 @@ class Counter {
         <button {{on "click" context.data.increment}} class="btn">+</button>
       </div>
     </Consume>
-    
+
     <p>Multiple consumers see the same state:</p>
     <Consume @key={{Counter}} as |context|>
-      Count is: {{context.data.count}}
+      Count is:
+      {{context.data.count}}
     </Consume>
   </Provide>
 
@@ -118,9 +117,9 @@ class Counter {
 Different providers with the same key remain completely independent:
 
 ```gjs live preview
-import { Provide, Consume } from 'ember-primitives/dom-context';
-import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
+import { Provide, Consume } from "ember-primitives/dom-context";
+import { tracked } from "@glimmer/tracking";
+import { on } from "@ember/modifier";
 
 class Incrementer {
   @tracked count = 2;
@@ -129,7 +128,7 @@ class Incrementer {
 
 class Doubler {
   @tracked count = 2;
-  doit = () => this.count *= 2;
+  doit = () => (this.count *= 2);
 }
 
 const StoreConsumer = <template>
@@ -146,7 +145,8 @@ const StoreConsumer = <template>
         <div class="store-container">
           <StoreConsumer as |store|>
             <div class="store-display">
-              Count: {{store.count}}
+              Count:
+              {{store.count}}
               <button {{on "click" store.doit}} class="btn">Increment</button>
             </div>
           </StoreConsumer>
@@ -160,7 +160,8 @@ const StoreConsumer = <template>
         <div class="store-container">
           <StoreConsumer as |store|>
             <div class="store-display">
-              Count: {{store.count}}
+              Count:
+              {{store.count}}
               <button {{on "click" store.doit}} class="btn">Double</button>
             </div>
           </StoreConsumer>
@@ -212,14 +213,14 @@ const StoreConsumer = <template>
 You can also provide functions that return data. Functions are called once and cached:
 
 ```gjs live preview
-import { Provide, Consume } from 'ember-primitives/dom-context';
-import { registerDestructor } from '@ember/destroyable';
-import { tracked } from '@glimmer/tracking';
+import { Provide, Consume } from "ember-primitives/dom-context";
+import { registerDestructor } from "@ember/destroyable";
+import { tracked } from "@glimmer/tracking";
 
 function createTimer() {
-  return new class Timer {
+  return new (class Timer {
     @tracked seconds = 0;
-    
+
     constructor() {
       let interval = setInterval(() => {
         this.seconds++;
@@ -227,7 +228,7 @@ function createTimer() {
 
       registerDestructor(this, () => clearInterval(interval));
     }
-  }();
+  })();
 }
 
 <template>
@@ -235,16 +236,18 @@ function createTimer() {
     <Provide @data={{createTimer}}>
       <div class="container">
         <h3>Timer Example</h3>
-        
+
         <Consume @key={{createTimer}} as |context|>
           <div class="timer">
-            Seconds elapsed: {{context.data.seconds}}
+            Seconds elapsed:
+            {{context.data.seconds}}
           </div>
         </Consume>
-        
+
         <Consume @key={{createTimer}} as |context|>
           <div class="timer-alt">
-            Also showing: {{context.data.seconds}}s
+            Also showing:
+            {{context.data.seconds}}s
           </div>
         </Consume>
       </div>
@@ -252,7 +255,9 @@ function createTimer() {
   </div>
 
   <style>
-    .demo { padding: 1rem; }
+    .demo {
+      padding: 1rem;
+    }
     .container {
       padding: 1.5rem;
       border: 2px solid #ef4444;
@@ -263,7 +268,8 @@ function createTimer() {
       margin-top: 0;
       color: #dc2626;
     }
-    .timer, .timer-alt {
+    .timer,
+    .timer-alt {
       padding: 0.5rem;
       margin: 0.5rem 0;
       border-radius: 4px;
@@ -284,25 +290,27 @@ function createTimer() {
 ### `<Provide />`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/dom-context" 
-    @name="Provide" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/dom-context"
+    @name="Provide"
+  />
 </template>
 ```
 
 ### `<Consume />`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/dom-context" 
-    @name="Consume" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/dom-context"
+    @name="Consume"
+  />
 </template>
 ```

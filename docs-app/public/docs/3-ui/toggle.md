@@ -8,14 +8,12 @@ This type of button could be used to enable or disable a feature, activate or de
 
 ## Examples
 
-
 <details open><summary><h3>Bold Text Toggle</h3></summary>
-
 
 See [Bootstrap Toggle Button](https://getbootstrap.com/docs/5.3/forms/checks-radios/#toggle-buttons) docs.
 
 ```gjs live preview
-import { Toggle } from 'ember-primitives';
+import { Toggle } from "ember-primitives";
 
 <template>
   <Toggle aria-label="Toggle Bold Text" class="bold-toggle">
@@ -35,7 +33,6 @@ import { Toggle } from 'ember-primitives';
       background: gray;
     }
   </style>
-  
 </template>
 ```
 
@@ -47,26 +44,25 @@ import { Toggle } from 'ember-primitives';
 <SetupInstructions @src="components/toggle.gts" />
 ```
 
-## Features 
+## Features
 
-* Full keyboard navigation 
-* Can be controlled or uncontrolled
-
+- Full keyboard navigation
+- Can be controlled or uncontrolled
 
 ## Anatomy
 
-```js 
-import { Toggle } from 'ember-primitives';
+```js
+import { Toggle } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Toggle } from 'ember-primitives/components/toggle';
+
+```js
+import { Toggle } from "ember-primitives/components/toggle";
 ```
 
-
-```gjs 
-import { Toggle } from 'ember-primitives';
+```gjs
+import { Toggle } from "ember-primitives";
 
 <template>
   <Toggle aria-label="Toggle Bold Text">
@@ -75,27 +71,25 @@ import { Toggle } from 'ember-primitives';
 </template>
 ```
 
-
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/toggle" 
-    @name="Signature" 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/toggle"
+    @name="Signature"
   />
 </template>
 ```
 
 ### State Attributes
 
-| key | description |  
-| :---: | :----------- |  
-| aria-pressed | "true" or "false", depending on the state of the toggle button |  
-
+|     key      | description                                                    |
+| :----------: | :------------------------------------------------------------- |
+| aria-pressed | "true" or "false", depending on the state of the toggle button |
 
 ## Accessibility
 
@@ -103,9 +97,9 @@ Uses [`aria-pressed`](https://www.w3.org/TR/wai-aria-1.2/#aria-pressed) but with
 
 ### Keyboard Interactions
 
-| key | description |  
-| :---: | :----------- |  
-| <kbd>Space</kbd> | Toggles the component's state |  
-| <kbd>Enter</kbd> | Toggles the component's state |  
+|       key        | description                   |
+| :--------------: | :---------------------------- |
+| <kbd>Space</kbd> | Toggles the component's state |
+| <kbd>Enter</kbd> | Toggles the component's state |
 
 In addition, a label is required so that users know what the toggle is for.

@@ -4,13 +4,13 @@
  *
  * This would require that modifiers could run pre-render
  */
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
+import { hash } from "@ember/helper";
+import { on } from "@ember/modifier";
 
-import { link } from '../helpers/link.ts';
-import { ExternalLink } from './external-link.gts';
+import { link } from "../helpers/link.ts";
+import { ExternalLink } from "./external-link.gts";
 
-import type { TOC } from '@ember/component/template-only';
+import type { TOC } from "@ember/component/template-only";
 
 export interface Signature {
   Element: HTMLAnchorElement;
@@ -151,7 +151,12 @@ export interface Signature {
  * [mdn-a]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
  */
 export const Link: TOC<Signature> = <template>
-  {{#let (link @href includeActiveQueryParams=@includeActiveQueryParams activeOnSubPaths=@activeOnSubPaths) as |l|}}
+  {{#let
+    (link
+      @href includeActiveQueryParams=@includeActiveQueryParams activeOnSubPaths=@activeOnSubPaths
+    )
+    as |l|
+  }}
     {{#if l.isExternal}}
       <ExternalLink href={{@href}} ...attributes>
         {{yield (hash isExternal=true isActive=false)}}

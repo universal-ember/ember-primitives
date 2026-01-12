@@ -1,60 +1,61 @@
 # Modal `<dialog>`
 
-A modal in is a temporary overlay that appears on top of the main content of a webpage. 
-It is used to present important information, prompt for input, or require the user to make a decision. 
+A modal in is a temporary overlay that appears on top of the main content of a webpage.
+It is used to present important information, prompt for input, or require the user to make a decision.
 
-Modals create a focused and isolated interaction, often with a darker background overlay, to draw attention and prevent interactions with the underlying page until the modal is dismissed. 
+Modals create a focused and isolated interaction, often with a darker background overlay, to draw attention and prevent interactions with the underlying page until the modal is dismissed.
 
 ## Example
 
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { Modal } from 'ember-primitives';
+import { Modal } from "ember-primitives";
 
-import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
-import { loremIpsum } from 'lorem-ipsum';
+import { on } from "@ember/modifier";
+import { cell } from "ember-resources";
+import { loremIpsum } from "lorem-ipsum";
 
-const returnValue = cell('');
+const returnValue = cell("");
 
 <template>
   <Modal @onClose={{returnValue.set}} as |m|>
-    <button {{on 'click' m.open}} {{m.focusOnClose}}>Open Modal</button>
+    <button {{on "click" m.open}} {{m.focusOnClose}}>Open Modal</button>
 
-    <br><br>
-    isOpen: {{m.isOpen}}<br>
-    return: {{returnValue.current}}
+    <br /><br />
+    isOpen:
+    {{m.isOpen}}<br />
+    return:
+    {{returnValue.current}}
 
     <m.Dialog>
       <div>
         <header>
           <h2>Example Modal</h2>
 
-          <button {{on 'click' m.close}}>Close</button>
+          <button {{on "click" m.close}}>Close</button>
         </header>
 
         <form method="dialog">
           <main>
             Modal content here
-            <br>
+            <br />
 
-           {{loremIpsum 1}}
+            {{loremIpsum 1}}
           </main>
 
           <footer>
             <button type="submit" value="confirm">Confirm</button>
             <button type="submit" value="create">Create</button>
-            <button type="reset" value="close" {{on 'click' m.close}}>Reset</button>
+            <button type="reset" value="close" {{on "click" m.close}}>Reset</button>
           </footer>
         </form>
       </div>
     </m.Dialog>
   </Modal>
 
-
-  <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css" />
   <style>
     dialog {
       border-radius: 0.25rem;
@@ -69,7 +70,7 @@ const returnValue = cell('');
     dialog::backdrop {
       backdrop-filter: blur(1px);
     }
-    dialog header { 
+    dialog header {
       display: flex;
       justify-content: space-between;
     }
@@ -82,7 +83,7 @@ const returnValue = cell('');
     }
     form {
       display: grid;
-      gap: 1rem; 
+      gap: 1rem;
     }
   </style>
 </template>
@@ -94,10 +95,10 @@ Note that animations on `<dialog>` elements do not work within a [Shadow Dom](ht
 
 ### Adding a focus-trap
 
-`<Modal />` doesn't provide a focus-trap by default. 
-The `<dialog>` element already traps focus for your webpage -- however, 
-`<dialog>` does not trap focus from tabbing to the browser (address bar, tabs, etc). 
-This is, in part, so that focus behavior is consistent in and out of a modal, 
+`<Modal />` doesn't provide a focus-trap by default.
+The `<dialog>` element already traps focus for your webpage -- however,
+`<dialog>` does not trap focus from tabbing to the browser (address bar, tabs, etc).
+This is, in part, so that focus behavior is consistent in and out of a modal,
 and that keyboard users retain the ability to escape the webpage without being forced to close the modal -- though,
 if keyboard users are also power-users, they may know about <kbd>ctrl</kbd> + <kbd>l</kbd> which escapes all focus traps, focusing the address bar, which would then allow them to tab to the back, forward, refresh, etc buttons in their browsers UI.
 
@@ -109,7 +110,6 @@ _However_, the [example](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/e
 
 The behavior of trapping all focus is [proposed here](https://github.com/whatwg/html/issues/8339), and we are reminded that the ARIA patterns are _guidelines_.
 
-
 If you wish to follow this guideline, it can be achieved via the `focusTrap` modifier.
 
 ```bash
@@ -119,48 +119,47 @@ pnpm add ember-focus-trap
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { Modal } from 'ember-primitives';
+import { Modal } from "ember-primitives";
 
-import { on } from '@ember/modifier';
-import { focusTrap } from 'ember-focus-trap';
-import { loremIpsum } from 'lorem-ipsum';
-
+import { on } from "@ember/modifier";
+import { focusTrap } from "ember-focus-trap";
+import { loremIpsum } from "lorem-ipsum";
 
 <template>
   <Modal as |m|>
-    <button {{on 'click' m.open}}>Open Modal</button>
+    <button {{on "click" m.open}}>Open Modal</button>
 
-    <br><br>
-    isOpen: {{m.isOpen}}<br>
+    <br /><br />
+    isOpen:
+    {{m.isOpen}}<br />
 
     <m.Dialog {{focusTrap isActive=m.isOpen}}>
       <div>
         <header>
           <h2>Example Modal</h2>
 
-          <button {{on 'click' m.close}}>Close</button>
+          <button {{on "click" m.close}}>Close</button>
         </header>
 
         <form method="dialog">
           <main>
             Modal content here
-            <br>
+            <br />
 
-           {{loremIpsum 1}}
+            {{loremIpsum 1}}
           </main>
 
           <footer>
             <button type="submit" value="confirm">Confirm</button>
-            <button type="reset" value="close" {{on 'click' m.close}}>Reset</button>
+            <button type="reset" value="close" {{on "click" m.close}}>Reset</button>
           </footer>
         </form>
       </div>
     </m.Dialog>
   </Modal>
 
-
-  <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css" />
   <style>
     dialog {
       border-radius: 0.25rem;
@@ -176,7 +175,7 @@ import { loremIpsum } from 'lorem-ipsum';
     dialog::backdrop {
       backdrop-filter: blur(1px);
     }
-    dialog header { 
+    dialog header {
       display: flex;
       justify-content: space-between;
     }
@@ -189,10 +188,13 @@ import { loremIpsum } from 'lorem-ipsum';
     }
     form {
       display: grid;
-      gap: 1rem; 
+      gap: 1rem;
     }
     .glimdown-render {
-      button { border: 1px solid; padding: 0.5rem; }
+      button {
+        border: 1px solid;
+        padding: 0.5rem;
+      }
     }
   </style>
 </template>
@@ -203,10 +205,11 @@ import { loremIpsum } from 'lorem-ipsum';
 ### Using as a Routeable Modal
 
 To use the modal as a routeable modal, you can set the `@open` and `@onClose` keys, like so:
+
 ```gjs
-import { Modal } from 'ember-primitives';
-import Component from '@glimmer/component';
-import { service } from '@ember/service';
+import { Modal } from "ember-primitives";
+import Component from "@glimmer/component";
+import { service } from "@ember/service";
 
 export default class RouteableModal extends Component {
   <template>
@@ -216,7 +219,7 @@ export default class RouteableModal extends Component {
         <form method="dialog">
           <button type="submit" value="confirm">Confirm</button>
           <button type="submit" value="create">Create</button>
-          <button type="reset" value="close" {{on 'click' m.close}}>Reset</button>
+          <button type="reset" value="close" {{on "click" m.close}}>Reset</button>
         </form>
       </m.Dialog>
     </Modal>
@@ -226,23 +229,24 @@ export default class RouteableModal extends Component {
 
   handleClose = (reason) => {
     switch (reason) {
-      case 'create': return this.router.transitionTo('place/when/created');
-      case 'confirm': return this.router.transitionTo('place/when/confirmed');
+      case "create":
+        return this.router.transitionTo("place/when/created");
+      case "confirm":
+        return this.router.transitionTo("place/when/confirmed");
       default:
         /**
-          * there is no reason when ESC is pressed, 
-          * or a type=reset button is clicked
-          */
-        return this.router.transitionTo('place/when/cancelled');
+         * there is no reason when ESC is pressed,
+         * or a type=reset button is clicked
+         */
+        return this.router.transitionTo("place/when/cancelled");
     }
-  }
-
+  };
 }
 ```
 
 ### Using an external trigger
 
-To use an external trigger, you have to use a side-effect to do it, like so: 
+To use an external trigger, you have to use a side-effect to do it, like so:
 
 <div class="featured-demo">
 
@@ -320,6 +324,7 @@ function sideEffect(func, ...args) {
 ## Enabling automatic body-scroll lock
 
 You'll need page-wide CSS similar to this:
+
 ```css
 html {
   overflow: hidden;
@@ -330,6 +335,7 @@ body {
   height: 100dvh;
 }
 ```
+
 This is also a common technique for controlling which element scrolls when doing custom layouts.
 Constraining the height of an element to the dynamic vertical height works for desktop and mobile where some elements of the browser may not always be visible.
 
@@ -343,25 +349,23 @@ The scrollable element doesn't have to be the `body` either, it could be a `<div
 
 ## Anatomy
 
-```js 
-import { Modal, Dialog /* alias */ } from 'ember-primitives';
+```js
+import { Modal, Dialog /* alias */ } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Modal, Dialog /* alias */ } from 'ember-primitives/components/dialog';
+
+```js
+import { Modal, Dialog /* alias */ } from "ember-primitives/components/dialog";
 ```
 
-
-```gjs 
-import { Modal } from 'ember-primitives';
+```gjs
+import { Modal } from "ember-primitives";
 
 <template>
   <Modal as |m|>
 
-    m.isOpen
-    m.open
-    m.close
+    m.isOpen m.open m.close
 
     <m.Dialog ...attributes>
       this is just the HTMLDialogElement
@@ -373,13 +377,14 @@ import { Modal } from 'ember-primitives';
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/dialog" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/dialog"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -400,7 +405,6 @@ However, if you want to add an animation effect on _closing_ and opening dialog 
 
 When the dialog is closed, you can refocus the opening button when the `{{m.focusOnClose}}` modifier is applied to that button.
 
-
 ## References
 
 - [MDN HTMLDialogElement](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog)
@@ -410,5 +414,6 @@ When the dialog is closed, you can refocus the opening button when the `{{m.focu
 
 <hr>
 
-[^a11y]: The Accessibility text was copied from this blog. 
-[^animations]: Animations in the examples are provided by Open Props 
+[^a11y]: The Accessibility text was copied from this blog.
+
+[^animations]: Animations in the examples are provided by Open Props

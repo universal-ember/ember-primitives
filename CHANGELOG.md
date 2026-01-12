@@ -1,4 +1,4 @@
-# Changelog 
+# Changelog
 
 ## Release (2026-01-12)
 
@@ -41,397 +41,470 @@
 
 ## Release (2026-01-03)
 
-* ember-primitives 0.50.1 (patch)
+- ember-primitives 0.50.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#616](https://github.com/universal-ember/ember-primitives/pull/616) Improve color-scheme sync when debugging in devtools ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#616](https://github.com/universal-ember/ember-primitives/pull/616) Improve color-scheme sync when debugging in devtools ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2026-01-03)
 
-* ember-primitives 0.50.0 (minor)
-* which-heading-do-i-need 0.2.3 (patch)
+- ember-primitives 0.50.0 (minor)
+- which-heading-do-i-need 0.2.3 (patch)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#610](https://github.com/universal-ember/ember-primitives/pull/610) Half-ratings ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#611](https://github.com/universal-ember/ember-primitives/pull/611) Add CLI tool to eject code into a person's project ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#610](https://github.com/universal-ember/ember-primitives/pull/610) Half-ratings ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#611](https://github.com/universal-ember/ember-primitives/pull/611) Add CLI tool to eject code into a person's project ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* Other
-  * [#613](https://github.com/universal-ember/ember-primitives/pull/613) Upgrade ember-repl, ref: https://github.com/emberjs/ember.js/issues/21023 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `ember-primitives`, `which-heading-do-i-need`
-  * [#612](https://github.com/universal-ember/ember-primitives/pull/612) Update intetrnal deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- Other
+  - [#613](https://github.com/universal-ember/ember-primitives/pull/613) Upgrade ember-repl, ref: https://github.com/emberjs/ember.js/issues/21023 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `ember-primitives`, `which-heading-do-i-need`
+  - [#612](https://github.com/universal-ember/ember-primitives/pull/612) Update intetrnal deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-12-31)
 
-* ember-primitives 0.49.0 (minor)
-* which-heading-do-i-need 0.2.2 (patch)
+- ember-primitives 0.49.0 (minor)
+- which-heading-do-i-need 0.2.2 (patch)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#607](https://github.com/universal-ember/ember-primitives/pull/607) add `<InViewport>` component and `viewport()` singleton for optimized rendering based on viewport visibility ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#607](https://github.com/universal-ember/ember-primitives/pull/607) add `<InViewport>` component and `viewport()` singleton for optimized rendering based on viewport visibility ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* Other
-  * [#608](https://github.com/universal-ember/ember-primitives/pull/608) Add recommended extensions for VS Code ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `ember-primitives`, `which-heading-do-i-need`
-  * [#602](https://github.com/universal-ember/ember-primitives/pull/602) Upgrade Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- Other
+  - [#608](https://github.com/universal-ember/ember-primitives/pull/608) Add recommended extensions for VS Code ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `ember-primitives`, `which-heading-do-i-need`
+  - [#602](https://github.com/universal-ember/ember-primitives/pull/602) Upgrade Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-12-19)
 
-* ember-primitives 0.48.2 (patch)
+- ember-primitives 0.48.2 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#600](https://github.com/universal-ember/ember-primitives/pull/600) Move menu toggle to the items ([@barryofguilder](https://github.com/barryofguilder))
+
+- `ember-primitives`
+  - [#600](https://github.com/universal-ember/ember-primitives/pull/600) Move menu toggle to the items ([@barryofguilder](https://github.com/barryofguilder))
 
 #### :memo: Documentation
-* [#596](https://github.com/universal-ember/ember-primitives/pull/596) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+- [#596](https://github.com/universal-ember/ember-primitives/pull/596) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
 
 #### Committers: 2
+
 - Jason Barry ([@barryofguilder](https://github.com/barryofguilder))
 - [@github-actions[bot]](https://github.com/apps/github-actions)
 
 ## Release (2025-12-10)
 
-* ember-primitives 0.48.1 (patch)
+- ember-primitives 0.48.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#593](https://github.com/universal-ember/ember-primitives/pull/593) Update link helper to use `event.currentTarget` ([@barryofguilder](https://github.com/barryofguilder))
+
+- `ember-primitives`
+  - [#593](https://github.com/universal-ember/ember-primitives/pull/593) Update link helper to use `event.currentTarget` ([@barryofguilder](https://github.com/barryofguilder))
 
 #### Committers: 1
+
 - Jason Barry ([@barryofguilder](https://github.com/barryofguilder))
 
 ## Release (2025-12-08)
 
-* ember-primitives 0.48.0 (minor)
-* which-heading-do-i-need 0.2.1 (patch)
+- ember-primitives 0.48.0 (minor)
+- which-heading-do-i-need 0.2.1 (patch)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#590](https://github.com/universal-ember/ember-primitives/pull/590) Add the LinkItem to the Menu component ([@barryofguilder](https://github.com/barryofguilder))
+
+- `ember-primitives`
+  - [#590](https://github.com/universal-ember/ember-primitives/pull/590) Add the LinkItem to the Menu component ([@barryofguilder](https://github.com/barryofguilder))
 
 #### :memo: Documentation
-* `which-heading-do-i-need`
-  * [#588](https://github.com/universal-ember/ember-primitives/pull/588) Add REPL to docs (first page) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `which-heading-do-i-need`
+  - [#588](https://github.com/universal-ember/ember-primitives/pull/588) Add REPL to docs (first page) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - Jason Barry ([@barryofguilder](https://github.com/barryofguilder))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-12-05)
 
-* ember-primitives 0.47.1 (patch)
-* which-heading-do-i-need 0.2.0 (minor)
+- ember-primitives 0.47.1 (patch)
+- which-heading-do-i-need 0.2.0 (minor)
 
 #### :rocket: Enhancement
-* `which-heading-do-i-need`
-  * [#587](https://github.com/universal-ember/ember-primitives/pull/587) getSectionHeadingLevel: support a `startAt` option to better support fragment rendering customization ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `which-heading-do-i-need`
+  - [#587](https://github.com/universal-ember/ember-primitives/pull/587) getSectionHeadingLevel: support a `startAt` option to better support fragment rendering customization ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :bug: Bug Fix
-* `which-heading-do-i-need`
-  * [#586](https://github.com/universal-ember/ember-primitives/pull/586) Heading / getSectionHeadingLevel: Support rendering into off screen fragements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `which-heading-do-i-need`
+  - [#586](https://github.com/universal-ember/ember-primitives/pull/586) Heading / getSectionHeadingLevel: Support rendering into off screen fragements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* [#584](https://github.com/universal-ember/ember-primitives/pull/584) Add Vue example for which-heading-do-i-need ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- [#584](https://github.com/universal-ember/ember-primitives/pull/584) Add Vue example for which-heading-do-i-need ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-12-04)
 
-* ember-primitives 0.47.0 (minor)
+- ember-primitives 0.47.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#582](https://github.com/universal-ember/ember-primitives/pull/582) Improved service: support dynamic loading, await import services, explicit service RFC, better TS support -- eliminates the need to have a large number of services loaded when the app boots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#582](https://github.com/universal-ember/ember-primitives/pull/582) Improved service: support dynamic loading, await import services, explicit service RFC, better TS support -- eliminates the need to have a large number of services loaded when the app boots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* [#578](https://github.com/universal-ember/ember-primitives/pull/578) Add svelte docs for heading level ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- [#578](https://github.com/universal-ember/ember-primitives/pull/578) Add svelte docs for heading level ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-12-01)
 
-* ember-primitives 0.46.0 (minor)
-* which-heading-do-i-need 0.1.0 (minor)
+- ember-primitives 0.46.0 (minor)
+- which-heading-do-i-need 0.1.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`, `which-heading-do-i-need`
-  * [#573](https://github.com/universal-ember/ember-primitives/pull/573) Extract the heading utility to its own package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `which-heading-do-i-need`
+  - [#573](https://github.com/universal-ember/ember-primitives/pull/573) Extract the heading utility to its own package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* `ember-primitives`
-  * [#570](https://github.com/universal-ember/ember-primitives/pull/570) Docs updates (document testing utilities) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#570](https://github.com/universal-ember/ember-primitives/pull/570) Docs updates (document testing utilities) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-24)
 
-* ember-primitives 0.45.1 (patch)
+- ember-primitives 0.45.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#568](https://github.com/universal-ember/ember-primitives/pull/568) Heading: allow automatic heading selection when headings are nested in other elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#568](https://github.com/universal-ember/ember-primitives/pull/568) Heading: allow automatic heading selection when headings are nested in other elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-23)
 
-* ember-primitives 0.45.0 (minor)
+- ember-primitives 0.45.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#564](https://github.com/universal-ember/ember-primitives/pull/564) Heading: add more elements to auto-leveling detection, supporting usage in qunit testing, and in general just be more robust ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#565](https://github.com/universal-ember/ember-primitives/pull/565) Make `<Shadowed>` sync (no more modifier, no more reactive need) | Also add test utilities for working with shadow roots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#564](https://github.com/universal-ember/ember-primitives/pull/564) Heading: add more elements to auto-leveling detection, supporting usage in qunit testing, and in general just be more robust ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#565](https://github.com/universal-ember/ember-primitives/pull/565) Make `<Shadowed>` sync (no more modifier, no more reactive need) | Also add test utilities for working with shadow roots ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#567](https://github.com/universal-ember/ember-primitives/pull/567) Bundle per-component entrypoints / hides the little helper files that some of the more complex components have  ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#566](https://github.com/universal-ember/ember-primitives/pull/566) Eliminate accidentally importable nested index files ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#567](https://github.com/universal-ember/ember-primitives/pull/567) Bundle per-component entrypoints / hides the little helper files that some of the more complex components have ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#566](https://github.com/universal-ember/ember-primitives/pull/566) Eliminate accidentally importable nested index files ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-21)
 
-* ember-primitives 0.44.0 (minor)
+- ember-primitives 0.44.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#560](https://github.com/universal-ember/ember-primitives/pull/560) Automatic Heading ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#560](https://github.com/universal-ember/ember-primitives/pull/560) Automatic Heading ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-21)
 
-* ember-primitives 0.43.1 (patch)
+- ember-primitives 0.43.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#561](https://github.com/universal-ember/ember-primitives/pull/561) Default to dom-context's provider using an element, allow customization of the element tag, and add an option to disable it. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#561](https://github.com/universal-ember/ember-primitives/pull/561) Default to dom-context's provider using an element, allow customization of the element tag, and add an option to disable it. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* [#559](https://github.com/universal-ember/ember-primitives/pull/559) Test against TS 5.9 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* [#557](https://github.com/universal-ember/ember-primitives/pull/557) Add ember 6.8 to try matrix ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- [#559](https://github.com/universal-ember/ember-primitives/pull/559) Test against TS 5.9 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- [#557](https://github.com/universal-ember/ember-primitives/pull/557) Add ember 6.8 to try matrix ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-20)
 
-* ember-primitives 0.43.0 (minor)
+- ember-primitives 0.43.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#555](https://github.com/universal-ember/ember-primitives/pull/555) Implement dom context without extra elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#555](https://github.com/universal-ember/ember-primitives/pull/555) Implement dom context without extra elements ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-19)
 
-* ember-primitives 0.42.1 (patch)
+- ember-primitives 0.42.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#553](https://github.com/universal-ember/ember-primitives/pull/553) Fix color scheme preference bug ([@evoactivity](https://github.com/evoactivity))
+
+- `ember-primitives`
+  - [#553](https://github.com/universal-ember/ember-primitives/pull/553) Fix color scheme preference bug ([@evoactivity](https://github.com/evoactivity))
 
 #### Committers: 1
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 
 ## Release (2025-11-16)
 
-* ember-primitives 0.42.0 (minor)
+- ember-primitives 0.42.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#552](https://github.com/universal-ember/ember-primitives/pull/552) New util: `resizeObserver()` -- Extract and export the resize observer from `onResize`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#552](https://github.com/universal-ember/ember-primitives/pull/552) New util: `resizeObserver()` -- Extract and export the resize observer from `onResize`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-11-06)
 
-* ember-primitives 0.41.0 (minor)
+- ember-primitives 0.41.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#542](https://github.com/universal-ember/ember-primitives/pull/542) New Component: Tabs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#542](https://github.com/universal-ember/ember-primitives/pull/542) New Component: Tabs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* [#535](https://github.com/universal-ember/ember-primitives/pull/535) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+- [#535](https://github.com/universal-ember/ember-primitives/pull/535) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
 
 #### :house: Internal
-* Other
-  * [#545](https://github.com/universal-ember/ember-primitives/pull/545) Upgrade pnpm ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `ember-primitives`
-  * [#544](https://github.com/universal-ember/ember-primitives/pull/544) Glint v2 everywhere ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#543](https://github.com/universal-ember/ember-primitives/pull/543) Aggressive dep updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#541](https://github.com/universal-ember/ember-primitives/pull/541) Upgrade addon-dev to v8 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#540](https://github.com/universal-ember/ember-primitives/pull/540) Update glint packages for the library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- Other
+  - [#545](https://github.com/universal-ember/ember-primitives/pull/545) Upgrade pnpm ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `ember-primitives`
+  - [#544](https://github.com/universal-ember/ember-primitives/pull/544) Glint v2 everywhere ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#543](https://github.com/universal-ember/ember-primitives/pull/543) Aggressive dep updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#541](https://github.com/universal-ember/ember-primitives/pull/541) Upgrade addon-dev to v8 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#540](https://github.com/universal-ember/ember-primitives/pull/540) Update glint packages for the library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 - [@github-actions[bot]](https://github.com/apps/github-actions)
 
 ## Release (2025-08-24)
 
-* ember-primitives 0.40.0 (minor)
+- ember-primitives 0.40.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#525](https://github.com/universal-ember/ember-primitives/pull/525) Implement DOMContext (`<Provide>` & `<Consume>`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#525](https://github.com/universal-ember/ember-primitives/pull/525) Implement DOMContext (`<Provide>` & `<Consume>`) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-08-24)
 
-* ember-primitives 0.39.0 (minor)
+- ember-primitives 0.39.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#520](https://github.com/universal-ember/ember-primitives/pull/520) Support all portal behaviors ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#520](https://github.com/universal-ember/ember-primitives/pull/520) Support all portal behaviors ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* [#524](https://github.com/universal-ember/ember-primitives/pull/524) More Portal docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- [#524](https://github.com/universal-ember/ember-primitives/pull/524) More Portal docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-08-20)
 
-* ember-primitives 0.38.0 (minor)
+- ember-primitives 0.38.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#521](https://github.com/universal-ember/ember-primitives/pull/521) createStore ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#521](https://github.com/universal-ember/ember-primitives/pull/521) createStore ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-08-15)
 
-* ember-primitives 0.37.0 (minor)
+- ember-primitives 0.37.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#514](https://github.com/universal-ember/ember-primitives/pull/514) Improvements to portals (pattern for ember-wormhole migration, elemnt support, @append support) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#514](https://github.com/universal-ember/ember-primitives/pull/514) Improvements to portals (pattern for ember-wormhole migration, elemnt support, @append support) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* [#506](https://github.com/universal-ember/ember-primitives/pull/506) Remove globalThis hack ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- [#506](https://github.com/universal-ember/ember-primitives/pull/506) Remove globalThis hack ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `ember-primitives`
-  * [#515](https://github.com/universal-ember/ember-primitives/pull/515) Update lints ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#515](https://github.com/universal-ember/ember-primitives/pull/515) Update lints ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-07-20)
 
-* ember-primitives 0.36.0 (minor)
+- ember-primitives 0.36.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#504](https://github.com/universal-ember/ember-primitives/pull/504) the `load()` function returns a component that can dynamically load a component (for bundle splitting) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#504](https://github.com/universal-ember/ember-primitives/pull/504) the `load()` function returns a component that can dynamically load a component (for bundle splitting) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-07-11)
 
-* ember-primitives 0.35.0 (minor)
+- ember-primitives 0.35.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#502](https://github.com/universal-ember/ember-primitives/pull/502) New utility component: In-head ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#502](https://github.com/universal-ember/ember-primitives/pull/502) New utility component: In-head ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-06-30)
 
-* ember-primitives 0.34.0 (minor)
+- ember-primitives 0.34.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#496](https://github.com/universal-ember/ember-primitives/pull/496) Update QP utility for generating an href with an updated queryParam ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#496](https://github.com/universal-ember/ember-primitives/pull/496) Update QP utility for generating an href with an updated queryParam ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-06-29)
 
-* ember-primitives 0.33.0 (minor)
+- ember-primitives 0.33.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#494](https://github.com/universal-ember/ember-primitives/pull/494) Add query-param utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#494](https://github.com/universal-ember/ember-primitives/pull/494) Add query-param utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* [#488](https://github.com/universal-ember/ember-primitives/pull/488) Add doc to use external trigger with Modal ([@pulien](https://github.com/pulien))
-* [#479](https://github.com/universal-ember/ember-primitives/pull/479) Update docs-support again ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* [#477](https://github.com/universal-ember/ember-primitives/pull/477) Docs support upgrade ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- [#488](https://github.com/universal-ember/ember-primitives/pull/488) Add doc to use external trigger with Modal ([@pulien](https://github.com/pulien))
+- [#479](https://github.com/universal-ember/ember-primitives/pull/479) Update docs-support again ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- [#477](https://github.com/universal-ember/ember-primitives/pull/477) Docs support upgrade ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* Other
-  * [#495](https://github.com/universal-ember/ember-primitives/pull/495) Widen test support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `ember-primitives`
-  * [#487](https://github.com/universal-ember/ember-primitives/pull/487) Mass upgrades ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- Other
+  - [#495](https://github.com/universal-ember/ember-primitives/pull/495) Widen test support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `ember-primitives`
+  - [#487](https://github.com/universal-ember/ember-primitives/pull/487) Mass upgrades ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 - [@pulien](https://github.com/pulien)
 
 ## Release (2025-05-09)
 
-* ember-primitives 0.32.0 (minor)
+- ember-primitives 0.32.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#475](https://github.com/universal-ember/ember-primitives/pull/475) New util: {{onResize}} modifier ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#475](https://github.com/universal-ember/ember-primitives/pull/475) New util: {{onResize}} modifier ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-05-07)
 
-* ember-primitives 0.31.0 (minor)
+- ember-primitives 0.31.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#474](https://github.com/universal-ember/ember-primitives/pull/474) Update dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#472](https://github.com/universal-ember/ember-primitives/pull/472) Add new helper: bodyClass ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#474](https://github.com/universal-ember/ember-primitives/pull/474) Update dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#472](https://github.com/universal-ember/ember-primitives/pull/472) Add new helper: bodyClass ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-05-07)
 
-* ember-primitives 0.30.1 (patch)
+- ember-primitives 0.30.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#471](https://github.com/universal-ember/ember-primitives/pull/471) Remove unneeded peers ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#471](https://github.com/universal-ember/ember-primitives/pull/471) Remove unneeded peers ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-04-05)
@@ -439,18 +512,21 @@
 ember-primitives 0.30.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#444](https://github.com/universal-ember/ember-primitives/pull/444) Rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* Other
-  * [#455](https://github.com/universal-ember/ember-primitives/pull/455) [Breaking]: Require babel-plugin-ember-template-compilation 2.4.0+ ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#444](https://github.com/universal-ember/ember-primitives/pull/444) Rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- Other
+  - [#455](https://github.com/universal-ember/ember-primitives/pull/455) [Breaking]: Require babel-plugin-ember-template-compilation 2.4.0+ ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#454](https://github.com/universal-ember/ember-primitives/pull/454) Upgrade more deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#453](https://github.com/universal-ember/ember-primitives/pull/453) Upgrade some deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#454](https://github.com/universal-ember/ember-primitives/pull/454) Upgrade more deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#453](https://github.com/universal-ember/ember-primitives/pull/453) Upgrade some deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-03-20)
@@ -458,20 +534,24 @@ ember-primitives 0.30.0 (minor)
 ember-primitives 0.29.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`
-  * [#445](https://github.com/universal-ember/ember-primitives/pull/445) Use visually-hidden as an attribute on any element ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#443](https://github.com/universal-ember/ember-primitives/pull/443) VisuallyHidden ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`
+  - [#445](https://github.com/universal-ember/ember-primitives/pull/445) Use visually-hidden as an attribute on any element ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#443](https://github.com/universal-ember/ember-primitives/pull/443) VisuallyHidden ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#448](https://github.com/universal-ember/ember-primitives/pull/448) Add CSS exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#448](https://github.com/universal-ember/ember-primitives/pull/448) Add CSS exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#441](https://github.com/universal-ember/ember-primitives/pull/441) Upgrade deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#441](https://github.com/universal-ember/ember-primitives/pull/441) Upgrade deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-03-09)
@@ -479,10 +559,12 @@ ember-primitives 0.29.0 (minor)
 ember-primitives 0.28.1 (patch)
 
 #### :bug: Bug Fix
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#438](https://github.com/universal-ember/ember-primitives/pull/438) Add focusOnClose modifier for the modal button ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#438](https://github.com/universal-ember/ember-primitives/pull/438) Add focusOnClose modifier for the modal button ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2025-03-09)
@@ -490,18 +572,22 @@ ember-primitives 0.28.1 (patch)
 ember-primitives 0.28.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#436](https://github.com/universal-ember/ember-primitives/pull/436) Create `<Key>`, `<KeyCombo>` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#436](https://github.com/universal-ember/ember-primitives/pull/436) Create `<Key>`, `<KeyCombo>` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :bug: Bug Fix
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#437](https://github.com/universal-ember/ember-primitives/pull/437) Upgrade lint dependencies, widen ember-source peer ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#437](https://github.com/universal-ember/ember-primitives/pull/437) Upgrade lint dependencies, widen ember-source peer ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#437](https://github.com/universal-ember/ember-primitives/pull/437) Upgrade lint dependencies, widen ember-source peer ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#437](https://github.com/universal-ember/ember-primitives/pull/437) Upgrade lint dependencies, widen ember-source peer ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-12-15)
@@ -509,10 +595,12 @@ ember-primitives 0.28.0 (minor)
 ember-primitives 0.27.2 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#420](https://github.com/universal-ember/ember-primitives/pull/420) Widen @glint/template range to include unstable ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#420](https://github.com/universal-ember/ember-primitives/pull/420) Widen @glint/template range to include unstable ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-11-22)
@@ -520,18 +608,21 @@ ember-primitives 0.27.2 (patch)
 ember-primitives 0.27.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#415](https://github.com/universal-ember/ember-primitives/pull/415) Remove included app styles ([@evoactivity](https://github.com/evoactivity))
+
+- `ember-primitives`
+  - [#415](https://github.com/universal-ember/ember-primitives/pull/415) Remove included app styles ([@evoactivity](https://github.com/evoactivity))
 
 #### :memo: Documentation
-* `docs-app`
-  * [#411](https://github.com/universal-ember/ember-primitives/pull/411) Make tabster loading parallel ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#410](https://github.com/universal-ember/ember-primitives/pull/410) Try to make font loading faster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#412](https://github.com/universal-ember/ember-primitives/pull/412) Use published version of docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#401](https://github.com/universal-ember/ember-primitives/pull/401) Use components from docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`
+  - [#411](https://github.com/universal-ember/ember-primitives/pull/411) Make tabster loading parallel ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#410](https://github.com/universal-ember/ember-primitives/pull/410) Try to make font loading faster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#412](https://github.com/universal-ember/ember-primitives/pull/412) Use published version of docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#401](https://github.com/universal-ember/ember-primitives/pull/401) Use components from docs-support ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
@@ -540,10 +631,12 @@ ember-primitives 0.27.1 (patch)
 ember-primitives 0.27.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#407](https://github.com/universal-ember/ember-primitives/pull/407) [Breaking] Make tabster not required. new import for setting up tabster, and it's async. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#407](https://github.com/universal-ember/ember-primitives/pull/407) [Breaking] Make tabster not required. new import for setting up tabster, and it's async. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-11-12)
@@ -551,19 +644,23 @@ ember-primitives 0.27.0 (minor)
 ember-primitives 0.26.2 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#406](https://github.com/universal-ember/ember-primitives/pull/406) Fix peerDependency range for ember-source. Was accidentally bumped to >= 5.12, should be >= 4.12 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#406](https://github.com/universal-ember/ember-primitives/pull/406) Fix peerDependency range for ember-source. Was accidentally bumped to >= 5.12, should be >= 4.12 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* `docs-app`
-  * [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))
+
+- `docs-app`
+  - [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))
 
 #### :house: Internal
-* `ember-primitives`
-  * [#398](https://github.com/universal-ember/ember-primitives/pull/398) Prepare Release ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+- `ember-primitives`
+  - [#398](https://github.com/universal-ember/ember-primitives/pull/398) Prepare Release ([@github-actions[bot]](https://github.com/apps/github-actions))
 
 #### Committers: 3
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 - [@github-actions[bot]](https://github.com/apps/github-actions)
@@ -573,14 +670,17 @@ ember-primitives 0.26.2 (patch)
 ember-primitives 0.26.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#397](https://github.com/universal-ember/ember-primitives/pull/397) Fix zoetrope exports ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* `docs-app`
-  * [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))
+
+- `docs-app`
+  - [#399](https://github.com/universal-ember/ember-primitives/pull/399) Load types file for zoetrope api reference ([@evoactivity](https://github.com/evoactivity))
 
 #### Committers: 2
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
@@ -589,14 +689,17 @@ ember-primitives 0.26.1 (patch)
 ember-primitives 0.26.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#394](https://github.com/universal-ember/ember-primitives/pull/394) Zoetrope component ([@evoactivity](https://github.com/evoactivity))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#394](https://github.com/universal-ember/ember-primitives/pull/394) Zoetrope component ([@evoactivity](https://github.com/evoactivity))
 
 #### :memo: Documentation
-* `docs-app`
-  * [#388](https://github.com/universal-ember/ember-primitives/pull/388) Update index.gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`
+  - [#388](https://github.com/universal-ember/ember-primitives/pull/388) Update index.gts ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
@@ -605,10 +708,12 @@ ember-primitives 0.26.0 (minor)
 ember-primitives 0.25.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`, `test-app`
-  * [#385](https://github.com/universal-ember/ember-primitives/pull/385) add preventDefault arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))
+
+- `ember-primitives`, `test-app`
+  - [#385](https://github.com/universal-ember/ember-primitives/pull/385) add preventDefault arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))
 
 #### Committers: 1
+
 - Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
 
 ## Release (2024-10-16)
@@ -616,19 +721,22 @@ ember-primitives 0.25.0 (minor)
 ember-primitives 0.24.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`, `test-app`
-  * [#383](https://github.com/universal-ember/ember-primitives/pull/383) add stopPropagation arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#380](https://github.com/universal-ember/ember-primitives/pull/380) [Breaking] Document and solidify the public API of FloatingUI ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `ember-primitives`
-  * [#372](https://github.com/universal-ember/ember-primitives/pull/372) Upgrade tabster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `test-app`
+  - [#383](https://github.com/universal-ember/ember-primitives/pull/383) add stopPropagation arg to menu trigger ([@miguelcobain](https://github.com/miguelcobain))
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#380](https://github.com/universal-ember/ember-primitives/pull/380) [Breaking] Document and solidify the public API of FloatingUI ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `ember-primitives`
+  - [#372](https://github.com/universal-ember/ember-primitives/pull/372) Upgrade tabster ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#384](https://github.com/universal-ember/ember-primitives/pull/384) Upgrade more devdeps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#382](https://github.com/universal-ember/ember-primitives/pull/382) Upgrade dev deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#384](https://github.com/universal-ember/ember-primitives/pull/384) Upgrade more devdeps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#382](https://github.com/universal-ember/ember-primitives/pull/382) Upgrade dev deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
@@ -637,14 +745,16 @@ ember-primitives 0.24.0 (minor)
 ember-primitives 0.23.1 (patch)
 
 #### :house: Internal
-* Other
-  * [#370](https://github.com/universal-ember/ember-primitives/pull/370) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#364](https://github.com/universal-ember/ember-primitives/pull/364) Upgrade test-helpers to v4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`
-  * [#357](https://github.com/universal-ember/ember-primitives/pull/357) Page Updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- Other
+  - [#370](https://github.com/universal-ember/ember-primitives/pull/370) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#364](https://github.com/universal-ember/ember-primitives/pull/364) Upgrade test-helpers to v4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`
+  - [#357](https://github.com/universal-ember/ember-primitives/pull/357) Page Updates ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-08-15)
@@ -652,14 +762,17 @@ ember-primitives 0.23.1 (patch)
 ember-primitives 0.23.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#355](https://github.com/universal-ember/ember-primitives/pull/355) Update should-handle-link, documentation ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-08-15)
@@ -667,10 +780,12 @@ ember-primitives 0.23.0 (minor)
 ember-primitives 0.22.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`
-  * [#354](https://github.com/universal-ember/ember-primitives/pull/354) Add hero layout ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`
+  - [#354](https://github.com/universal-ember/ember-primitives/pull/354) Add hero layout ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-08-12)
@@ -678,10 +793,12 @@ ember-primitives 0.22.0 (minor)
 ember-primitives 0.21.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#352](https://github.com/universal-ember/ember-primitives/pull/352) Add layout export (for StickyFooter) -- this was missing, but mentioned in the docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#352](https://github.com/universal-ember/ember-primitives/pull/352) Add layout export (for StickyFooter) -- this was missing, but mentioned in the docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-06-28)
@@ -689,21 +806,25 @@ ember-primitives 0.21.1 (patch)
 ember-primitives 0.21.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#336](https://github.com/universal-ember/ember-primitives/pull/336) Support hash-only transitions in proper-links ([@mmun](https://github.com/mmun))
-  * [#325](https://github.com/universal-ember/ember-primitives/pull/325) Upgrade form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#336](https://github.com/universal-ember/ember-primitives/pull/336) Support hash-only transitions in proper-links ([@mmun](https://github.com/mmun))
+  - [#325](https://github.com/universal-ember/ember-primitives/pull/325) Upgrade form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* `docs-app`
-  * [#331](https://github.com/universal-ember/ember-primitives/pull/331) fix broken links in proper-links.md ([@johanrd](https://github.com/johanrd))
+
+- `docs-app`
+  - [#331](https://github.com/universal-ember/ember-primitives/pull/331) fix broken links in proper-links.md ([@johanrd](https://github.com/johanrd))
 
 #### :house: Internal
-* Other
-  * [#335](https://github.com/universal-ember/ember-primitives/pull/335) Re-roll lock, pin macros ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`, `test-app`
-  * [#334](https://github.com/universal-ember/ember-primitives/pull/334) Get app watching working ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- Other
+  - [#335](https://github.com/universal-ember/ember-primitives/pull/335) Re-roll lock, pin macros ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`, `test-app`
+  - [#334](https://github.com/universal-ember/ember-primitives/pull/334) Get app watching working ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 3
+
 - Martin Muñoz ([@mmun](https://github.com/mmun))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 - [@johanrd](https://github.com/johanrd)
@@ -713,10 +834,12 @@ ember-primitives 0.21.0 (minor)
 ember-primitives 0.20.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`
-  * [#321](https://github.com/universal-ember/ember-primitives/pull/321) Consume form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`
+  - [#321](https://github.com/universal-ember/ember-primitives/pull/321) Consume form-data-utils ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-05-24)
@@ -724,10 +847,12 @@ ember-primitives 0.20.0 (minor)
 ember-primitives 0.19.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`, `test-app`
-  * [#316](https://github.com/universal-ember/ember-primitives/pull/316) [Breaking]: Remove app-re-exports so that auto-import (classic) apps don't pull in the whole library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `test-app`
+  - [#316](https://github.com/universal-ember/ember-primitives/pull/316) [Breaking]: Remove app-re-exports so that auto-import (classic) apps don't pull in the whole library ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-05-24)
@@ -735,10 +860,12 @@ ember-primitives 0.19.0 (minor)
 ember-primitives 0.18.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#317](https://github.com/universal-ember/ember-primitives/pull/317) Export Link Compute Functions ([@rtablada](https://github.com/rtablada))
+
+- `ember-primitives`
+  - [#317](https://github.com/universal-ember/ember-primitives/pull/317) Export Link Compute Functions ([@rtablada](https://github.com/rtablada))
 
 #### Committers: 1
+
 - Ryan Tablada ([@rtablada](https://github.com/rtablada))
 
 ## Release (2024-05-18)
@@ -746,28 +873,32 @@ ember-primitives 0.18.0 (minor)
 ember-primitives 0.17.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`, `test-app`
-  * [#312](https://github.com/universal-ember/ember-primitives/pull/312) Add Support for @activeOnSubPaths to Link component ([@rtablada](https://github.com/rtablada))
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#313](https://github.com/universal-ember/ember-primitives/pull/313) New `<form>` utility: `dataFromEvent` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `test-app`
+  - [#312](https://github.com/universal-ember/ember-primitives/pull/312) Add Support for @activeOnSubPaths to Link component ([@rtablada](https://github.com/rtablada))
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#313](https://github.com/universal-ember/ember-primitives/pull/313) New `<form>` utility: `dataFromEvent` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :memo: Documentation
-* `docs-app`, `ember-primitives`
-  * [#314](https://github.com/universal-ember/ember-primitives/pull/314) Better docs for form util ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`
-  * [#307](https://github.com/universal-ember/ember-primitives/pull/307) Dynamic Shiki Color Scheme ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#304](https://github.com/universal-ember/ember-primitives/pull/304) Fix scrolling and fix shadows in light mode  ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#300](https://github.com/universal-ember/ember-primitives/pull/300) Update docs app design ([@miguelcobain](https://github.com/miguelcobain))
-* `@nullvoxpopuli/dev`, `docs-app`
-  * [#303](https://github.com/universal-ember/ember-primitives/pull/303) Better nav (ember-mobile-menu, etc) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#257](https://github.com/universal-ember/ember-primitives/pull/257) Start using Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`
+  - [#314](https://github.com/universal-ember/ember-primitives/pull/314) Better docs for form util ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`
+  - [#307](https://github.com/universal-ember/ember-primitives/pull/307) Dynamic Shiki Color Scheme ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#304](https://github.com/universal-ember/ember-primitives/pull/304) Fix scrolling and fix shadows in light mode ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#300](https://github.com/universal-ember/ember-primitives/pull/300) Update docs app design ([@miguelcobain](https://github.com/miguelcobain))
+- `@nullvoxpopuli/dev`, `docs-app`
+  - [#303](https://github.com/universal-ember/ember-primitives/pull/303) Better nav (ember-mobile-menu, etc) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#257](https://github.com/universal-ember/ember-primitives/pull/257) Start using Kolay ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `ember-primitives`
-  * [#298](https://github.com/universal-ember/ember-primitives/pull/298) add simple link helper ([@miguelcobain](https://github.com/miguelcobain))
+
+- `ember-primitives`
+  - [#298](https://github.com/universal-ember/ember-primitives/pull/298) add simple link helper ([@miguelcobain](https://github.com/miguelcobain))
 
 #### Committers: 3
+
 - Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
 - Ryan Tablada ([@rtablada](https://github.com/rtablada))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
@@ -777,16 +908,19 @@ ember-primitives 0.17.0 (minor)
 ember-primitives 0.16.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#294](https://github.com/universal-ember/ember-primitives/pull/294) export menu signatures ([@miguelcobain](https://github.com/miguelcobain))
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#293](https://github.com/universal-ember/ember-primitives/pull/293) use trigger modifier ([@miguelcobain](https://github.com/miguelcobain))
+
+- `ember-primitives`
+  - [#294](https://github.com/universal-ember/ember-primitives/pull/294) export menu signatures ([@miguelcobain](https://github.com/miguelcobain))
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#293](https://github.com/universal-ember/ember-primitives/pull/293) use trigger modifier ([@miguelcobain](https://github.com/miguelcobain))
 
 #### :house: Internal
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#292](https://github.com/universal-ember/ember-primitives/pull/292) remove babel-plugin-ember-template-compilation overrides ([@miguelcobain](https://github.com/miguelcobain))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#292](https://github.com/universal-ember/ember-primitives/pull/292) remove babel-plugin-ember-template-compilation overrides ([@miguelcobain](https://github.com/miguelcobain))
 
 #### Committers: 1
+
 - Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
 
 ## Release (2024-04-18)
@@ -794,17 +928,20 @@ ember-primitives 0.16.0 (minor)
 ember-primitives 0.15.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#286](https://github.com/universal-ember/ember-primitives/pull/286) Implement Menu ([@miguelcobain](https://github.com/miguelcobain))
-  * [#289](https://github.com/universal-ember/ember-primitives/pull/289) Injest all of ember-velcro as a new optional import: `ember-primitives/floating-ui` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#286](https://github.com/universal-ember/ember-primitives/pull/286) Implement Menu ([@miguelcobain](https://github.com/miguelcobain))
+  - [#289](https://github.com/universal-ember/ember-primitives/pull/289) Injest all of ember-velcro as a new optional import: `ember-primitives/floating-ui` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :bug: Bug Fix
-* `test-app`
-  * [#291](https://github.com/universal-ember/ember-primitives/pull/291) fix floating-ui tests ([@miguelcobain](https://github.com/miguelcobain))
-* `ember-primitives`, `test-app`
-  * [#290](https://github.com/universal-ember/ember-primitives/pull/290) fix velcro types ([@miguelcobain](https://github.com/miguelcobain))
+
+- `test-app`
+  - [#291](https://github.com/universal-ember/ember-primitives/pull/291) fix floating-ui tests ([@miguelcobain](https://github.com/miguelcobain))
+- `ember-primitives`, `test-app`
+  - [#290](https://github.com/universal-ember/ember-primitives/pull/290) fix velcro types ([@miguelcobain](https://github.com/miguelcobain))
 
 #### Committers: 2
+
 - Miguel Andrade ([@miguelcobain](https://github.com/miguelcobain))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
@@ -813,10 +950,12 @@ ember-primitives 0.15.0 (minor)
 ember-primitives 0.14.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#279](https://github.com/universal-ember/ember-primitives/pull/279) [ToggleGroup]: Support `@type=multi`, allowing multiple toggles to be active at once. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#279](https://github.com/universal-ember/ember-primitives/pull/279) [ToggleGroup]: Support `@type=multi`, allowing multiple toggles to be active at once. ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-03-18)
@@ -824,10 +963,12 @@ ember-primitives 0.14.0 (minor)
 ember-primitives 0.13.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#258](https://github.com/universal-ember/ember-primitives/pull/258) [ToggleGroup]: New component ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#258](https://github.com/universal-ember/ember-primitives/pull/258) [ToggleGroup]: New component ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-03-14)
@@ -835,10 +976,12 @@ ember-primitives 0.13.0 (minor)
 ember-primitives 0.12.0 (minor)
 
 #### :rocket: Enhancement
-* `docs-app`, `ember-primitives`
-  * [#271](https://github.com/universal-ember/ember-primitives/pull/271) Add `<Scroller />` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`
+  - [#271](https://github.com/universal-ember/ember-primitives/pull/271) Add `<Scroller />` ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-03-11)
@@ -846,10 +989,12 @@ ember-primitives 0.12.0 (minor)
 ember-primitives 0.11.4 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#270](https://github.com/universal-ember/ember-primitives/pull/270) Fix shadowroot styles, include all <link> tags available on document when includeStyles is true ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#270](https://github.com/universal-ember/ember-primitives/pull/270) Fix shadowroot styles, include all <link> tags available on document when includeStyles is true ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-02-09)
@@ -857,10 +1002,12 @@ ember-primitives 0.11.4 (patch)
 ember-primitives 0.11.3 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#255](https://github.com/universal-ember/ember-primitives/pull/255) [OTP] makes backspace stay in current input unless it's empty ([@evoactivity](https://github.com/evoactivity))
+
+- `ember-primitives`
+  - [#255](https://github.com/universal-ember/ember-primitives/pull/255) [OTP] makes backspace stay in current input unless it's empty ([@evoactivity](https://github.com/evoactivity))
 
 #### Committers: 1
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 
 ## Release (2024-02-05)
@@ -868,10 +1015,12 @@ ember-primitives 0.11.3 (patch)
 ember-primitives 0.11.2 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`, `test-app`
-  * [#252](https://github.com/universal-ember/ember-primitives/pull/252) [Shadowed]: Add support for ember-source 5.6 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `test-app`
+  - [#252](https://github.com/universal-ember/ember-primitives/pull/252) [Shadowed]: Add support for ember-source 5.6 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-02-04)
@@ -879,18 +1028,22 @@ ember-primitives 0.11.2 (patch)
 ember-primitives 0.11.1 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#248](https://github.com/universal-ember/ember-primitives/pull/248) [OTP] Trigger an input event for backspace ([@evoactivity](https://github.com/evoactivity))
+
+- `ember-primitives`
+  - [#248](https://github.com/universal-ember/ember-primitives/pull/248) [OTP] Trigger an input event for backspace ([@evoactivity](https://github.com/evoactivity))
 
 #### :memo: Documentation
-* `docs-app`
-  * [#244](https://github.com/universal-ember/ember-primitives/pull/244) [Docs]: Explain how body-lock works with <Modal> ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`
+  - [#244](https://github.com/universal-ember/ember-primitives/pull/244) [Docs]: Explain how body-lock works with <Modal> ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `ember-primitives`, `test-app`
-  * [#246](https://github.com/universal-ember/ember-primitives/pull/246) Unify with the v2 addon blueprint, using extensions in the imports and stuch ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `test-app`
+  - [#246](https://github.com/universal-ember/ember-primitives/pull/246) Unify with the v2 addon blueprint, using extensions in the imports and stuch ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 2
+
 - Liam Potter ([@evoactivity](https://github.com/evoactivity))
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
@@ -899,24 +1052,28 @@ ember-primitives 0.11.1 (patch)
 ember-primitives 0.11.0 (minor)
 
 #### :rocket: Enhancement
-* `ember-primitives`
-  * [#241](https://github.com/universal-ember/ember-primitives/pull/241) [OTP]: Disable autocomplete on the input fields ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `ember-primitives`, `test-app`
-  * [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#241](https://github.com/universal-ember/ember-primitives/pull/241) [OTP]: Disable autocomplete on the input fields ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `ember-primitives`, `test-app`
+  - [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :bug: Bug Fix
-* `ember-primitives`, `test-app`
-  * [#243](https://github.com/universal-ember/ember-primitives/pull/243) [OTP]: Fix issue with backspace repeating faster than the otp input logic could keep up with (by keeping up with it) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#240](https://github.com/universal-ember/ember-primitives/pull/240) [OTP]: Resolve pasting and focus state issues ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`, `test-app`
+  - [#243](https://github.com/universal-ember/ember-primitives/pull/243) [OTP]: Fix issue with backspace repeating faster than the otp input logic could keep up with (by keeping up with it) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#240](https://github.com/universal-ember/ember-primitives/pull/240) [OTP]: Resolve pasting and focus state issues ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#239](https://github.com/universal-ember/ember-primitives/pull/239) [OTP]: add better correction behavior when using both mouse and keyboard ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `test-app`
-  * [#242](https://github.com/universal-ember/ember-primitives/pull/242) [Avatar] Fix flaky test ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`
-  * [#237](https://github.com/universal-ember/ember-primitives/pull/237) Upgrade repl ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `test-app`
+  - [#242](https://github.com/universal-ember/ember-primitives/pull/242) [Avatar] Fix flaky test ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`
+  - [#237](https://github.com/universal-ember/ember-primitives/pull/237) Upgrade repl ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-02-02)
@@ -924,10 +1081,12 @@ ember-primitives 0.11.0 (minor)
 ember-primitives 0.10.4 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#235](https://github.com/universal-ember/ember-primitives/pull/235) fix prepack command so types are shipped ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#235](https://github.com/universal-ember/ember-primitives/pull/235) fix prepack command so types are shipped ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## Release (2024-02-02)
@@ -935,29 +1094,35 @@ ember-primitives 0.10.4 (patch)
 ember-primitives 0.10.3 (patch)
 
 #### :house: Internal
-* `@nullvoxpopuli/dev`, `docs-api`, `docs-app`, `ember-primitives`, `test-app`
-  * [#234](https://github.com/universal-ember/ember-primitives/pull/234) Upgrade build dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-  * [#233](https://github.com/universal-ember/ember-primitives/pull/233) Upgrade types-related dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
-  * [#231](https://github.com/universal-ember/ember-primitives/pull/231) Upgrade lint deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `@nullvoxpopuli/dev`, `docs-api`, `docs-app`, `ember-primitives`, `test-app`
+  - [#234](https://github.com/universal-ember/ember-primitives/pull/234) Upgrade build dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  - [#233](https://github.com/universal-ember/ember-primitives/pull/233) Upgrade types-related dependencies ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `@nullvoxpopuli/dev`, `docs-app`, `ember-primitives`, `test-app`
+  - [#231](https://github.com/universal-ember/ember-primitives/pull/231) Upgrade lint deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2024-01-19)
 
 ember-primitives 0.10.2 (patch)
 
 #### :bug: Bug Fix
-* `ember-primitives`
-  * [#202](https://github.com/universal-ember/ember-primitives/pull/202) Fix issue where the progress component had an internal glint ignore ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `ember-primitives`
+  - [#202](https://github.com/universal-ember/ember-primitives/pull/202) Fix issue where the progress component had an internal glint ignore ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### :house: Internal
-* `docs-app`, `ember-primitives`, `test-app`
-  * [#209](https://github.com/universal-ember/ember-primitives/pull/209)  Eslint plugin ember alpha v12 testing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
-* `docs-app`
-  * [#203](https://github.com/universal-ember/ember-primitives/pull/203) Use released version of ember-headless-form ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+- `docs-app`, `ember-primitives`, `test-app`
+  - [#209](https://github.com/universal-ember/ember-primitives/pull/209) Eslint plugin ember alpha v12 testing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+- `docs-app`
+  - [#203](https://github.com/universal-ember/ember-primitives/pull/203) Use released version of ember-headless-form ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
 
 #### Committers: 1
+
 - [@NullVoxPopuli](https://github.com/NullVoxPopuli)
 
 ## 0.10.1
@@ -971,7 +1136,6 @@ ember-primitives 0.10.2 (patch)
 ### Minor Changes
 
 - 3515f4d: Improvements to `ember-primitives/color-scheme`
-
   - fix a bug with `setColorScheme`
   - new method, `onUpdate`, which can be used to synchronize external systems,
     like graphics or charting systems that need to sync with the broader site theme.
@@ -1014,18 +1178,18 @@ ember-primitives 0.10.2 (patch)
   To use:
 
   ```gjs
-  import { OTP } from 'ember-primitives';
-  import { cell } from 'ember-resources';
+  import { OTP } from "ember-primitives";
+  import { cell } from "ember-resources";
 
   const submittedCode = cell();
-  const handleSubmit = ({ code }) => submittedCode.current = code;
+  const handleSubmit = ({ code }) => (submittedCode.current = code);
 
   <template>
     <pre>submitted: {{submittedCode}}</pre>
 
     <OTP @onSubmit={{handleSubmit}} as |x|>
       <x.Input class="fields" />
-      <br>
+      <br />
       <x.Submit>Submit</x.Submit>
       <x.Reset>Reset</x.Reset>
     </OTP>
@@ -1035,7 +1199,6 @@ ember-primitives 0.10.2 (patch)
   the reset button is optional.
 
   For more information, see the docs for
-
   - [OTP](https://ember-primitives.pages.dev/3-components/one-time-password)
   - [OTPInput](https://ember-primitives.pages.dev/3-components/one-time-password-input)
 

@@ -6,7 +6,6 @@ An accordion component is an element that organizes content into collapsible sec
 
 Before reaching for this component, consider if the [native `<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) is sufficient for your use case.
 
-
 <details><summary>example of <code>details</code></summary>
 
 Like with the component, `<details>` and `<summary>` can be styled with CSS.
@@ -68,7 +67,7 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
         z-index: 2;
       }
       details[open] > summary {
-        background: #dcdcff; 
+        background: #dcdcff;
         font-weight: bold;
         margin-bottom: 1rem;
       }
@@ -79,7 +78,7 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
       }
 
       .demo {
-        margin: 1rem; 
+        margin: 1rem;
         padding: 1rem;
         display: grid;
         gap: 1rem;
@@ -99,34 +98,34 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
 <summary><h3>Bootstrap - Single - Uncontrolled</h3></summary>
 
 ```gjs live preview
-import { Accordion, Shadowed } from 'ember-primitives';
+import { Accordion, Shadowed } from "ember-primitives";
 
 <template>
   <Shadowed>
-    <Accordion class='accordion' @type='single' as |A|>
-      <A.Item class='accordion-item' @value='what' as |I|>
-        <I.Header class='accordion-header' as |H|>
+    <Accordion class="accordion" @type="single" as |A|>
+      <A.Item class="accordion-item" @value="what" as |I|>
+        <I.Header class="accordion-header" as |H|>
           <H.Trigger
-            aria-expanded='{{I.isExpanded}}'
-            class='accordion-button {{unless I.isExpanded "collapsed"}}'
+            aria-expanded="{{I.isExpanded}}"
+            class="accordion-button {{unless I.isExpanded 'collapsed'}}"
           >What is Ember?</H.Trigger>
         </I.Header>
-        <I.Content class='accordion-collapse {{if I.isExpanded "show"}}'>
-          <div class='accordion-body'>
+        <I.Content class="accordion-collapse {{if I.isExpanded 'show'}}">
+          <div class="accordion-body">
             Ember.js is a productive, battle-tested JavaScript framework for building modern web
             applications. It includes everything you need to build rich UIs that work on any device.
           </div>
         </I.Content>
       </A.Item>
-      <A.Item class='accordion-item' @value='why' as |I|>
-        <I.Header class='accordion-header' as |H|>
+      <A.Item class="accordion-item" @value="why" as |I|>
+        <I.Header class="accordion-header" as |H|>
           <H.Trigger
-            aria-expanded='{{I.isExpanded}}'
-            class='accordion-button {{unless I.isExpanded "collapsed"}}'
+            aria-expanded="{{I.isExpanded}}"
+            class="accordion-button {{unless I.isExpanded 'collapsed'}}"
           >Why should I use Ember?</H.Trigger>
         </I.Header>
-        <I.Content class='accordion-collapse {{if I.isExpanded "show"}}'>
-          <div class='accordion-body'>
+        <I.Content class="accordion-collapse {{if I.isExpanded 'show'}}">
+          <div class="accordion-body">
             Use Ember.js for its opinionated structure and extensive ecosystem, which simplify
             development and ensure long-term stability for web applications.
           </div>
@@ -135,14 +134,16 @@ import { Accordion, Shadowed } from 'ember-primitives';
     </Accordion>
 
     <link
-      href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'
-      rel='stylesheet'
-      crossorigin='anonymous'
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
     />
 
     <style>
       @scope {
-        .accordion-body { color: black; }
+        .accordion-body {
+          color: black;
+        }
       }
     </style>
   </Shadowed>
@@ -155,18 +156,18 @@ import { Accordion, Shadowed } from 'ember-primitives';
 <summary><h3>Multiple - Uncontrolled</h3></summary>
 
 ```gjs live preview
-import { Accordion } from 'ember-primitives';
+import { Accordion } from "ember-primitives";
 
 <template>
-  <Accordion @type='multiple' as |A|>
-    <A.Item @value='what' as |I|>
+  <Accordion @type="multiple" as |A|>
+    <A.Item @value="what" as |I|>
       <I.Header as |H|>
         <H.Trigger>What is Ember?</H.Trigger>
       </I.Header>
       <I.Content>Ember.js is a productive, battle-tested JavaScript framework for building modern
         web applications. It includes everything you need to build rich UIs that work on any device.</I.Content>
     </A.Item>
-    <A.Item @value='why' as |I|>
+    <A.Item @value="why" as |I|>
       <I.Header as |H|>
         <H.Trigger>Why should I use Ember?</H.Trigger>
       </I.Header>
@@ -183,20 +184,20 @@ import { Accordion } from 'ember-primitives';
 <summary><h3>Single - Controlled - Collapsible</h3></summary>
 
 ```gjs live preview
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { Accordion } from 'ember-primitives';
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
+import { Accordion } from "ember-primitives";
 
 export default class ControlledAccordion extends Component {
   <template>
     <Accordion
-      @type='single'
+      @type="single"
       @collapsible={{true}}
       @value={{this.value}}
       @onValueChange={{this.updateValue}}
       as |A|
     >
-      <A.Item @value='what' as |I|>
+      <A.Item @value="what" as |I|>
         <I.Header as |H|>
           <H.Trigger>What is Ember?</H.Trigger>
         </I.Header>
@@ -204,7 +205,7 @@ export default class ControlledAccordion extends Component {
           web applications. It includes everything you need to build rich UIs that work on any
           device.</I.Content>
       </A.Item>
-      <A.Item @value='why' as |I|>
+      <A.Item @value="why" as |I|>
         <I.Header as |H|>
           <H.Trigger>Why should I use Ember?</H.Trigger>
         </I.Header>
@@ -214,7 +215,7 @@ export default class ControlledAccordion extends Component {
     </Accordion>
   </template>
 
-  @tracked value = 'what';
+  @tracked value = "what";
 
   updateValue = (value) => {
     this.value = value;
@@ -228,15 +229,15 @@ export default class ControlledAccordion extends Component {
 <summary><h3>Multiple - Controlled</h3></summary>
 
 ```gjs live preview
-import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 
-import { Accordion } from 'ember-primitives';
+import { Accordion } from "ember-primitives";
 
 export default class ControlledAccordion extends Component {
   <template>
-    <Accordion @type='multiple' @value={{this.values}} @onValueChange={{this.updateValues}} as |A|>
-      <A.Item @value='what' as |I|>
+    <Accordion @type="multiple" @value={{this.values}} @onValueChange={{this.updateValues}} as |A|>
+      <A.Item @value="what" as |I|>
         <I.Header as |H|>
           <H.Trigger>What is Ember?</H.Trigger>
         </I.Header>
@@ -244,7 +245,7 @@ export default class ControlledAccordion extends Component {
           web applications. It includes everything you need to build rich UIs that work on any
           device.</I.Content>
       </A.Item>
-      <A.Item @value='why' as |I|>
+      <A.Item @value="why" as |I|>
         <I.Header as |H|>
           <H.Trigger>Why should I use Ember?</H.Trigger>
         </I.Header>
@@ -254,7 +255,7 @@ export default class ControlledAccordion extends Component {
     </Accordion>
   </template>
 
-  @tracked values = ['what', 'why'];
+  @tracked values = ["what", "why"];
 
   updateValues = (values) => {
     this.values = values;
@@ -277,21 +278,20 @@ export default class ControlledAccordion extends Component {
 - Can expand one or multiple items
 - Can be animated
 
-
 ## Anatomy
 
 ```js
-import { Accordion } from 'ember-primitives';
+import { Accordion } from "ember-primitives";
 ```
 
 or for non tree-shaking environments:
 
 ```js
-import { Accordion } from 'ember-primitives/components/accordion';
+import { Accordion } from "ember-primitives/components/accordion";
 ```
 
 ```gjs
-import { Accordion } from 'ember-primitives';
+import { Accordion } from "ember-primitives";
 
 <template>
   <Accordion as |A|>
@@ -310,13 +310,13 @@ import { Accordion } from 'ember-primitives';
 <summary><h3>Accordion</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module='declarations/components/accordion' 
-    @name='Accordion' 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/accordion"
+    @name="Accordion"
   />
 </template>
 ```
@@ -333,13 +333,13 @@ import { ComponentSignature } from 'kolay';
 <summary><h3>AccordionItem</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module='declarations/components/accordion' 
-    @name='AccordionItemExternalSignature' 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/accordion"
+    @name="AccordionItemExternalSignature"
   />
 </template>
 ```
@@ -357,13 +357,13 @@ import { ComponentSignature } from 'kolay';
 <summary><h3>AccordionHeader</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module='declarations/components/accordion' 
-    @name='AccordionHeaderExternalSignature' 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/accordion"
+    @name="AccordionHeaderExternalSignature"
   />
 </template>
 ```
@@ -381,13 +381,13 @@ import { ComponentSignature } from 'kolay';
 <summary><h3>AccordionTrigger</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module='declarations/components/accordion' 
-    @name='AccordionTriggerExternalSignature' 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/accordion"
+    @name="AccordionTriggerExternalSignature"
   />
 </template>
 ```
@@ -405,13 +405,14 @@ import { ComponentSignature } from 'kolay';
 <summary><h3>AccordionContent</h3></summary>
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module='declarations/components/accordion' 
-    @name='AccordionContentExternalSignature' />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/accordion"
+    @name="AccordionContentExternalSignature"
+  />
 </template>
 ```
 

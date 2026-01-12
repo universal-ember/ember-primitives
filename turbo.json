@@ -92,11 +92,7 @@
     // They are separate so that they can cache independently
     // and provide more variability than just "test"
     "test:ember": {
-      "env": [
-        "CI_BROWSER",
-        "EMBER_TRY_CURRENT_SCENARIO",
-        "EMBROIDER_TEST_SETUP_OPTIONS"
-      ],
+      "env": ["CI_BROWSER", "EMBER_TRY_CURRENT_SCENARIO", "EMBROIDER_TEST_SETUP_OPTIONS"],
       "dependsOn": ["^build"]
     },
     // All scenarios

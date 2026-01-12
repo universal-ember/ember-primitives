@@ -10,27 +10,26 @@ Before we pass off the the ember router to determine if a `href` link is part of
 <SetupInstructions @name="should-handle-link" />
 ```
 
-
-## Usage 
+## Usage
 
 ```ts
-import { shouldHandle } from 'should-handle-link';
+import { shouldHandle } from "should-handle-link";
 
 function handler(event) {
-    let anchor = getAnchor(event);
+  let anchor = getAnchor(event);
 
-    if (!shouldHandle(location.href, anchor, event)) {
-        return;
-    }
+  if (!shouldHandle(location.href, anchor, event)) {
+    return;
+  }
 
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    event.stopPropagation();
-    // Do single-page-app routing, 
-    // or some other manual handling of the clicked anchor element
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  event.stopPropagation();
+  // Do single-page-app routing,
+  // or some other manual handling of the clicked anchor element
 }
 
-document.body.addEventListener('click', handler);
+document.body.addEventListener("click", handler);
 
 function getAnchor(event) {
   /**

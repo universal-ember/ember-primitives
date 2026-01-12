@@ -2,11 +2,10 @@
 
 An image element with a fallback for representing the user.
 
-
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
-import { Avatar } from 'ember-primitives';
+import { Avatar } from "ember-primitives";
 
 <template>
   <div class="demo">
@@ -20,17 +19,29 @@ import { Avatar } from 'ember-primitives';
       <a.Fallback @delayMs={{600}}>NVP</a.Fallback>
     </Avatar>
 
-    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/2/21/CarbotZerglingLevel_SC2_Portrait1.jpg" as |a|>
+    <Avatar
+      class="container"
+      @src="https://static.wikia.nocookie.net/starcraft/images/2/21/CarbotZerglingLevel_SC2_Portrait1.jpg"
+      as |a|
+    >
       <a.Image alt="Zergling" />
       <a.Fallback>Z</a.Fallback>
     </Avatar>
 
-    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/b/bc/Vorazun_SC2_Portrait1.jpg" as |a|>
+    <Avatar
+      class="container"
+      @src="https://static.wikia.nocookie.net/starcraft/images/b/bc/Vorazun_SC2_Portrait1.jpg"
+      as |a|
+    >
       <a.Image alt="Vorazun's profile picture" />
       <a.Fallback>V</a.Fallback>
     </Avatar>
 
-    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/3/34/GhostKerrigan_SC2_Portrait1.jpg" as |a|>
+    <Avatar
+      class="container"
+      @src="https://static.wikia.nocookie.net/starcraft/images/3/34/GhostKerrigan_SC2_Portrait1.jpg"
+      as |a|
+    >
       <a.Image alt="Sarah Kerrigan's profile picture" />
       <a.Fallback>SK</a.Fallback>
     </Avatar>
@@ -49,7 +60,7 @@ import { Avatar } from 'ember-primitives';
       overflow: hidden;
       align-items: center;
       place-content: center;
-      border: 2px solid #A300DE;
+      border: 2px solid #a300de;
 
       > img {
         width: 100%;
@@ -71,24 +82,24 @@ import { Avatar } from 'ember-primitives';
 
 ## Features
 
-* Automatic and manual control over when the image renders.
-* Fallback accepts any content.
-* Optionally delay fallback rendering to avoid content flashing.
+- Automatic and manual control over when the image renders.
+- Fallback accepts any content.
+- Optionally delay fallback rendering to avoid content flashing.
 
 ## Anatomy
 
-```js 
-import { Avatar } from 'ember-primitives';
+```js
+import { Avatar } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Avatar } from 'ember-primitives/components/avatar';
+
+```js
+import { Avatar } from "ember-primitives/components/avatar";
 ```
 
-
-```gjs 
-import { Avatar } from 'ember-primitives';
+```gjs
+import { Avatar } from "ember-primitives";
 
 <template>
   <Avatar @src="..." as |a|>
@@ -107,13 +118,14 @@ An `alt` attribute is required, and in development, the UI will show an indicati
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/avatar" 
-    @name="Avatar" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/avatar"
+    @name="Avatar"
+  />
 </template>
 ```
 
@@ -122,8 +134,7 @@ import { ComponentSignature } from 'kolay';
 There are state attributes available on the the root element of this component.
 These may allow for stateful CSS-only stylings of the Avatar component.
 
-| key | description |  
-| :---: | :----------- |  
-| `data-loading` | the loading state of the image | 
-| `data-error` | will be "true" if the image failed to load | 
-
+|      key       | description                                |
+| :------------: | :----------------------------------------- |
+| `data-loading` | the loading state of the image             |
+|  `data-error`  | will be "true" if the image failed to load |

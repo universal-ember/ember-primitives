@@ -42,5 +42,3 @@ Once `@properLinks` is installed and setup, you can use plain `<a>` tags for nav
   </nav>
 </template>
 ```
-
-

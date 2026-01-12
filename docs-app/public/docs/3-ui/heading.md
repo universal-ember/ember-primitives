@@ -15,46 +15,57 @@ Note that this demo starts with `h3`, because this docs page already has an `h1`
 
 <div class="featured-demo auto-height">
 
-```gjs live preview 
-import { Heading } from 'ember-primitives/components/heading';
-import { InViewport } from 'ember-primitives/viewport';
-  
+```gjs live preview
+import { Heading } from "ember-primitives/components/heading";
+import { InViewport } from "ember-primitives/viewport";
+
 <template>
   <InViewport style="min-height:300px;">
-  <main aria-label="heading-demo" class="not-prose">
-    <Heading>a heading</Heading>
-
-    <nav>
+    <main aria-label="heading-demo" class="not-prose">
       <Heading>a heading</Heading>
-    </nav>
 
-    <article>
-      <Heading>a heading</Heading>
-      <a href="#">
+      <nav>
         <Heading>a heading</Heading>
-      </a>
-      <section>
+      </nav>
+
+      <article>
         <Heading>a heading</Heading>
-        <article>
+        <a href="#">
           <Heading>a heading</Heading>
-        </article>
-      </section>
-      <footer>
-        <Heading>a heading</Heading>
+        </a>
+        <section>
+          <Heading>a heading</Heading>
+          <article>
+            <Heading>a heading</Heading>
+          </article>
+        </section>
+        <footer>
+          <Heading>a heading</Heading>
 
-      </footer>
-    </article>
-  </main>
+        </footer>
+      </article>
+    </main>
   </InViewport>
 
   <style>
     @scope {
-      h1, h2, h3, h4, h5, h6 { 
-        margin-top: 0; margin-bottom: 0;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 0;
+        margin-bottom: 0;
         color: white;
       }
 
-      h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+      h1::before,
+      h2::before,
+      h3::before,
+      h4::before,
+      h5::before,
+      h6::before {
         position: absolute;
         margin-left: -1.2em;
         font-size: 0.7em;
@@ -62,22 +73,53 @@ import { InViewport } from 'ember-primitives/viewport';
         opacity: 0.8;
       }
 
-      h1 { font-size: 2.5rem; }
-      h2 { font-size: 2.25rem; }
-      h3 { font-size: 2rem; }
-      h4 { font-size: 1.5rem; }
-      h5 { font-size: 1.25rem; }
-      h6 { font-size: 1rem; }
-      a { color: white; }
+      h1 {
+        font-size: 2.5rem;
+      }
+      h2 {
+        font-size: 2.25rem;
+      }
+      h3 {
+        font-size: 2rem;
+      }
+      h4 {
+        font-size: 1.5rem;
+      }
+      h5 {
+        font-size: 1.25rem;
+      }
+      h6 {
+        font-size: 1rem;
+      }
+      a {
+        color: white;
+      }
 
-      h1::before { content: 'h1'; }
-      h2::before { content: 'h2'; }
-      h3::before { content: 'h3'; }
-      h4::before { content: 'h4'; }
-      h5::before { content: 'h5'; }
-      h6::before { content: 'h6'; }
+      h1::before {
+        content: "h1";
+      }
+      h2::before {
+        content: "h2";
+      }
+      h3::before {
+        content: "h3";
+      }
+      h4::before {
+        content: "h4";
+      }
+      h5::before {
+        content: "h5";
+      }
+      h6::before {
+        content: "h6";
+      }
 
-      article, section, aside, nav, main, footer {
+      article,
+      section,
+      aside,
+      nav,
+      main,
+      footer {
         border: 1px dotted;
         padding: 0.25rem 1.5rem;
         padding-left: 2rem;
@@ -94,18 +136,31 @@ import { InViewport } from 'ember-primitives/viewport';
         }
       }
 
-      section, article {
+      section,
+      article {
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
       }
 
-      article::before { content: '<article>'; }
-      section::before { content: '<section>'; }
-      aside::before { content: '<aside>'; }
-      nav::before { content: '<nav>'; }
-      main::before { content: '<main>'; }
-      footer::before { content: '<footer>'; }
+      article::before {
+        content: "<article>";
+      }
+      section::before {
+        content: "<section>";
+      }
+      aside::before {
+        content: "<aside>";
+      }
+      nav::before {
+        content: "<nav>";
+      }
+      main::before {
+        content: "<main>";
+      }
+      footer::before {
+        content: "<footer>";
+      }
 
       main {
         display: grid;
@@ -116,12 +171,17 @@ import { InViewport } from 'ember-primitives/viewport';
           "nav content"
           "nav content"
           "nav content";
-
       }
 
-      >:first-child { grid-area: heading; }
-      nav { grid-area: nav; }
-      article { grid-area: content; }
+      > :first-child {
+        grid-area: heading;
+      }
+      nav {
+        grid-area: nav;
+      }
+      article {
+        grid-area: content;
+      }
     }
   </style>
 </template>
@@ -141,12 +201,13 @@ Introduced in [0.44.0](https://github.com/universal-ember/ember-primitives/relea
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/heading" 
-    @name="Heading" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/heading"
+    @name="Heading"
+  />
 </template>
 ```

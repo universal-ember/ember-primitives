@@ -4,25 +4,24 @@ Displays an indicator showing the completion progress of a task, typically displ
 
 <Callout>
 
-Before reaching for this component, consider if the [native `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) is sufficient for your use case. 
+Before reaching for this component, consider if the [native `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) is sufficient for your use case.
 
 </Callout>
 <br>
 
-
 <div class="featured-demo">
 
 ```gjs live preview
-import { Progress, Shadowed } from 'ember-primitives';
-import { cell, resource } from 'ember-resources';
+import { Progress, Shadowed } from "ember-primitives";
+import { cell, resource } from "ember-resources";
 
-const randomValue = resource(({on}) => {
+const randomValue = resource(({ on }) => {
   let value = cell(randomPercent());
-  let interval = setInterval(() => value.current = randomPercent(), 3000);
+  let interval = setInterval(() => (value.current = randomPercent()), 3000);
   on.cleanup(() => clearInterval(interval));
 
   return value;
-}); 
+});
 
 const randomPercent = () => Math.random() * 100;
 const translate = (v) => -(100 - v);
@@ -45,7 +44,7 @@ const translate = (v) => -(100 - v);
         background: conic-gradient(at -20% 15%, white 0%, #aaccff 72%);
       }
       [role="progressbar"] > div {
-        background: linear-gradient(45deg, #5E0091FF 0%, #004976FF 100%);
+        background: linear-gradient(45deg, #5e0091ff 0%, #004976ff 100%);
         width: 100%;
         height: 100%;
         border-radius: 1rem;
@@ -70,43 +69,52 @@ const translate = (v) => -(100 - v);
 <div class="featured-demo">
 
 ```gjs live preview
-import { Progress, Shadowed } from 'ember-primitives';
-import { cell, resource } from 'ember-resources';
+import { Progress, Shadowed } from "ember-primitives";
+import { cell, resource } from "ember-resources";
 
-const randomValue = resource(({on}) => {
+const randomValue = resource(({ on }) => {
   let value = cell(randomPercent());
-  let interval = setInterval(() => value.current = randomPercent(), 3000);
+  let interval = setInterval(() => (value.current = randomPercent()), 3000);
   on.cleanup(() => clearInterval(interval));
 
   return value;
-}); 
+});
 
 const randomPercent = () => Math.random() * 100;
 const r = 60;
 const size = Math.PI * 2 * r;
 const toOffset = (x) => ((100 - x) / 100) * size;
 
-const RandomProgress = 
-<template>
+const RandomProgress = <template>
   <Shadowed>
     <Progress @value={{(randomValue)}} ...attributes as |x|>
       <x.Indicator class="progress" />
       <svg width="200" height="200" viewPort="0 0 100 100">
-        <circle 
-          r={{r}} cx="100" cy="100" 
-          fill="transparent" 
-          stroke-dasharray={{size}} stroke-dashoffset="0"></circle>
         <circle
-          r={{r}} cx="100" cy="100" 
-          fill="transparent" 
+          r={{r}}
+          cx="100"
+          cy="100"
+          fill="transparent"
+          stroke-dasharray={{size}}
+          stroke-dashoffset="0"
+        ></circle>
+        <circle
+          r={{r}}
+          cx="100"
+          cy="100"
+          fill="transparent"
           style="stroke: {{@color}}"
           stroke-linecap="round"
-          stroke-dasharray={{size}} stroke-dashoffset="{{toOffset x.percent}}"></circle>
+          stroke-dasharray={{size}}
+          stroke-dashoffset="{{toOffset x.percent}}"
+        ></circle>
       </svg>
     </Progress>
 
     <style>
-      [role="progressbar"] { position: relative; }
+      [role="progressbar"] {
+        position: relative;
+      }
       svg circle {
         transition: stroke-dashoffset 0.5s linear;
         stroke: #555;
@@ -119,7 +127,7 @@ const RandomProgress =
         text-align: center;
       }
       .progress:after {
-        content: attr(data-percent)"%";
+        content: attr(data-percent) "%";
         line-height: 200px;
         font-size: 1.5rem;
       }
@@ -145,23 +153,22 @@ const RandomProgress =
 
 ## Features
 
-* Provides context for assistive technology to read the progress of a task.
-
+- Provides context for assistive technology to read the progress of a task.
 
 ## Anatomy
 
-```js 
-import { Progress } from 'ember-primitives';
+```js
+import { Progress } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Progress } from 'ember-primitives/components/progress';
+
+```js
+import { Progress } from "ember-primitives/components/progress";
 ```
 
-
-```gjs 
-import { Progress } from 'ember-primitives';
+```gjs
+import { Progress } from "ember-primitives";
 
 <template>
   <Progress aria-label="example" as |x|>
@@ -184,13 +191,14 @@ Note that a progressbar is [required to have a name](https://developer.mozilla.o
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/progress" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/progress"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -200,20 +208,19 @@ import { ComponentSignature } from 'kolay';
 
 #### `<Progress>`
 
-| key | description |  
-| :---: | :----------- |  
-| `data-state` | `'complete' \| 'indeterminate' \| 'loading'` | 
-| `data-value` | The current value. Will never be less than 0, and never more than `@max` 
-| `data-max` | The max value 
-| `data-min` | Always 0 
-| `data-percent` | The current value, rounded to two decimal places
-
+|      key       | description                                                              |
+| :------------: | :----------------------------------------------------------------------- |
+|  `data-state`  | `'complete' \| 'indeterminate' \| 'loading'`                             |
+|  `data-value`  | The current value. Will never be less than 0, and never more than `@max` |
+|   `data-max`   | The max value                                                            |
+|   `data-min`   | Always 0                                                                 |
+| `data-percent` | The current value, rounded to two decimal places                         |
 
 #### `<Indicator>`
 
-| key | description |  
-| :---: | :----------- |  
-| `data-state` | `'complete' \| 'indeterminate' \| 'loading'` | 
-| `data-value` | The current value. Will never be less than 0, and never more than `@max` 
-| `data-max` | The max value 
-| `data-percent` | The current value, rounded to two decimal places
+|      key       | description                                                              |
+| :------------: | :----------------------------------------------------------------------- |
+|  `data-state`  | `'complete' \| 'indeterminate' \| 'loading'`                             |
+|  `data-value`  | The current value. Will never be less than 0, and never more than `@max` |
+|   `data-max`   | The max value                                                            |
+| `data-percent` | The current value, rounded to two decimal places                         |

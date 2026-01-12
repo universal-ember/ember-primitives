@@ -7,22 +7,22 @@ This component implements a CSS/markup-only pattern for the above-described layo
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { StickyFooter } from 'ember-primitives';
-import { on } from '@ember/modifier';
-import { TrackedArray } from 'tracked-built-ins';
-import { loremIpsum } from 'lorem-ipsum';
+import { StickyFooter } from "ember-primitives";
+import { on } from "@ember/modifier";
+import { TrackedArray } from "tracked-built-ins";
+import { loremIpsum } from "lorem-ipsum";
 
 const content = new TrackedArray();
-const addContent = () => content.push(loremIpsum({ count: 1, units: 'paragraph' }));
+const addContent = () => content.push(loremIpsum({ count: 1, units: "paragraph" }));
 const removeContent = () => content.splice(-1);
 
 <template>
   <div class="fake-window">
     <StickyFooter>
       <:content>
-        <button {{on 'click' addContent}}>Add Content</button>
-        <button {{on 'click' removeContent}}>Remove Content</button>
-        <br>
+        <button {{on "click" addContent}}>Add Content</button>
+        <button {{on "click" removeContent}}>Remove Content</button>
+        <br />
 
         {{#each content as |paragraph|}}
           {{paragraph}}
@@ -37,7 +37,9 @@ const removeContent = () => content.splice(-1);
   </div>
   <style>
     /* styles for demo, not required */
-    footer { border: 1px solid; }
+    footer {
+      border: 1px solid;
+    }
     .fake-window {
       height: 200px;
       border: 1px solid;
@@ -57,22 +59,22 @@ In this example, there is an extra footer at the bottom, and we want the sticky 
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { StickyFooter } from 'ember-primitives';
-import { on } from '@ember/modifier';
-import { TrackedArray } from 'tracked-built-ins';
-import { loremIpsum } from 'lorem-ipsum';
+import { StickyFooter } from "ember-primitives";
+import { on } from "@ember/modifier";
+import { TrackedArray } from "tracked-built-ins";
+import { loremIpsum } from "lorem-ipsum";
 
 const content = new TrackedArray();
-const addContent = () => content.push(loremIpsum({ count: 1, units: 'paragraph' }));
+const addContent = () => content.push(loremIpsum({ count: 1, units: "paragraph" }));
 const removeContent = () => content.splice(-1);
 
 <template>
   <div class="fake-window2">
     <StickyFooter class="container">
       <:content>
-        <button {{on 'click' addContent}}>Add Content</button>
-        <button {{on 'click' removeContent}}>Remove Content</button>
-        <br>
+        <button {{on "click" addContent}}>Add Content</button>
+        <button {{on "click" removeContent}}>Remove Content</button>
+        <br />
 
         {{#each content as |paragraph|}}
           {{paragraph}}
@@ -81,7 +83,7 @@ const removeContent = () => content.splice(-1);
       <:footer>
         <footer class="sticky-footer">
           This is the footer
-          <br><br>
+          <br /><br />
           some information can be hidden until scrolled to.
         </footer>
       </:footer>
@@ -103,10 +105,18 @@ const removeContent = () => content.splice(-1);
       position: sticky;
       bottom: -38px;
     }
-    footer.sticky-footer, footer.site-footer { 
-      border: 1px solid; background: #333; 
+    footer.sticky-footer,
+    footer.site-footer {
+      border: 1px solid;
+      background: #333;
     }
-    footer.site-footer { height: 38px; position: absolute; bottom: 0; left: 0; right: 0; }
+    footer.site-footer {
+      height: 38px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
     .fake-window2 {
       padding-bottom: 38px;
       min-height: 150px;
@@ -122,32 +132,31 @@ const removeContent = () => content.splice(-1);
 
 </div>
 
-
 ## Install
 
 ```hbs live
 <SetupInstructions @src="components/layout/sticky-footer.gts" />
 ```
 
-
 ## Features
 
-* Footer sticks to the bottom of the window when there is less than a screen's worth of content
-* Footer sits below the content when there is enough content to overflow the containing element / body
+- Footer sticks to the bottom of the window when there is less than a screen's worth of content
+- Footer sits below the content when there is enough content to overflow the containing element / body
 
 ## Anatomy
 
-```js 
-import { StickyFooter } from 'ember-primitives';
+```js
+import { StickyFooter } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { StickyFooter } from 'ember-primitives/layout/sticky-footer';
+
+```js
+import { StickyFooter } from "ember-primitives/layout/sticky-footer";
 ```
 
-```gjs 
-import { StickyFooter } from 'ember-primitives';
+```gjs
+import { StickyFooter } from "ember-primitives";
 
 <template>
   <StickyFooter>
@@ -162,15 +171,16 @@ import { StickyFooter } from 'ember-primitives';
 ```
 
 There are 3 BEM-style classes on the elements to enable further customization or styling.
+
 ```css
-/* 
-  the containing element of both <:content> and <:footer> 
+/*
+  the containing element of both <:content> and <:footer>
   this is not the same element that `...attributes` is on.
-*/ 
+*/
 .ember-primitives__sticky-footer__container
-  /* for the <:content> block's containing element */ 
+  /* for the <:content> block's containing element */
   .ember-primitives__sticky-footer__content
-  /* for the <:footer> block's containing element */ 
+  /* for the <:footer> block's containing element */
   .ember-primitives__sticky-footer__footer
 ```
 
@@ -181,13 +191,13 @@ This component provides no accessibility patterns and using `<main>` / `<footer>
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/layout/sticky-footer" 
-    @name="StickyFooter" 
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/layout/sticky-footer"
+    @name="StickyFooter"
   />
 </template>
 ```

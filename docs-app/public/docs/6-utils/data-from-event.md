@@ -1,12 +1,13 @@
 # Data from `<form>`
 
-A utility function for extracting the FormData as an object from the native `<form>` 
+A utility function for extracting the FormData as an object from the native `<form>`
 element, allowing more ergonomic of usage of _The Platform_'s default form/fields usage.
 
 Each input within your `<form>` should have a `name` attribute.
 (or else the `<form>` element doesn't know what inputs are relevant)
 
 This will provide values for all types of controls/fields,
+
 - input: text, checkbox, radio, etc
 - select
   - behavior is fixed from browser default behavior, where
@@ -19,9 +20,9 @@ Try filling out some data in the form below, and click submit.
 
 <div class="featured-demo">
 
-```gjs live preview no-shadow 
-import { cell } from 'ember-resources';
-import { dataFromEvent } from 'ember-primitives/components/form';
+```gjs live preview no-shadow
+import { cell } from "ember-resources";
+import { dataFromEvent } from "ember-primitives/components/form";
 
 const dataPreview = cell({});
 
@@ -37,7 +38,7 @@ function handleSubmit(event) {
         First Name
         <input type="text" name="firstName" value="NVP" />
       </label>
-      <label> 
+      <label>
         Are you a human?
         <input type="checkbox" name="isHuman" value="nah" />
       </label>
@@ -101,29 +102,34 @@ function handleSubmit(event) {
 <SetupInstructions @name="form-data-utils" />
 ```
 
-
 otherwise, this is included with ember-primitives when using the `<Form />` component.
 
 ## Anatomy
 
 These are aliases of each other
+
 ```js
-import { dataFrom } from 'form-data-utils';
+import { dataFrom } from "form-data-utils";
 ```
-and 
+
+and
+
 ```js
-import { dataFromEvent } from 'ember-primitives/components/form';
+import { dataFromEvent } from "ember-primitives/components/form";
 ```
 
 `form-data-utils` was extracted from `ember-primitives` -- the re-export is kept for convenience.
 
-
 ## API Reference
 
 ```gjs live no-shadow
-import { APIDocs } from 'kolay';
+import { APIDocs } from "kolay";
 
 <template>
-  <APIDocs @package="ember-primitives" @module="declarations/components/form" @name="dataFromEvent" />
+  <APIDocs
+    @package="ember-primitives"
+    @module="declarations/components/form"
+    @name="dataFromEvent"
+  />
 </template>
 ```

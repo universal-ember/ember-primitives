@@ -7,13 +7,13 @@ Provides the markup necessary to render keyboard shortcuts and hotkeys and other
 <div class="featured-demo">
 
 ```gjs live preview
-import { Key, KeyCombo } from 'ember-primitives';
+import { Key, KeyCombo } from "ember-primitives";
 
 <template>
   A single key:
   <Key>a</Key>
-  <br><br>
-  A combination of keys: 
+  <br /><br />
+  A combination of keys:
   <KeyCombo @keys="ctrl+a" @mac="cmd+a" />
 
   <style>
@@ -32,7 +32,7 @@ import { Key, KeyCombo } from 'ember-primitives';
       padding: 2px 4px;
       white-space: nowrap;
       /* CSS from https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd */
-    } 
+    }
   </style>
 </template>
 ```
@@ -47,31 +47,31 @@ import { Key, KeyCombo } from 'ember-primitives';
 
 ## Features
 
-* Handling of auto-switching the display combination based on viewing operating system (macOS vs non-macOS)
-* Accepts array of keys, or `+`-separated string
+- Handling of auto-switching the display combination based on viewing operating system (macOS vs non-macOS)
+- Accepts array of keys, or `+`-separated string
 
 ## Anatomy
 
-```js 
-import { Key, KeyCombo } from 'ember-primitives';
+```js
+import { Key, KeyCombo } from "ember-primitives";
 ```
 
 or for non-tree-shaking environments:
-```js 
-import { Key, KeyCombo } from 'ember-primitives/components/keys';
+
+```js
+import { Key, KeyCombo } from "ember-primitives/components/keys";
 ```
 
-
-```gjs 
-import { Key, KeyCombo } from 'ember-primitives';
+```gjs
+import { Key, KeyCombo } from "ember-primitives";
 
 <template>
-    <Key>ctrl</Key>
-    <Key>anything here</Key>
+  <Key>ctrl</Key>
+  <Key>anything here</Key>
 
-    <KeyCombo @key="ctrl+x" />
-    <KeyCombo @key="ctrl+x" @mac="command+x" />
-    <KeyCombo @key={{array "ctrl" "x"}} @mac={{array "command" "x"}} />
+  <KeyCombo @key="ctrl+x" />
+  <KeyCombo @key="ctrl+x" @mac="command+x" />
+  <KeyCombo @key={{array "ctrl" "x"}} @mac={{array "command" "x"}} />
 </template>
 ```
 
@@ -86,13 +86,14 @@ There are two components in this module
 ### `<KeyCombo>`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/keys" 
-    @name="KeyComboSignature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/keys"
+    @name="KeyComboSignature"
+  />
 </template>
 ```
 
@@ -108,13 +109,14 @@ For styling with a stylesheet
 ### `<Key>`
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/keys" 
-    @name="KeySignature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/keys"
+    @name="KeySignature"
+  />
 </template>
 ```
 
@@ -123,6 +125,5 @@ import { ComponentSignature } from 'kolay';
 For styling with a stylesheet
 
 - `ember-primitives__key`
-
 
 </section>

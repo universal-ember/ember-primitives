@@ -96,9 +96,16 @@ import { Zoetrope } from "ember-primitives";
   </Zoetrope>
 
   <style>
-    /* some basic button styles */ .ember-primitives__zoetrope__controls button { background: #fff;
-    padding: 0.5rem; border-radius: 0.25rem; color: #333; } .ember-primitives__zoetrope__controls
-    button:disabled { opacity: 0.5; }
+    /* some basic button styles */
+    .ember-primitives__zoetrope__controls button {
+      background: #fff;
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      color: #333;
+    }
+    .ember-primitives__zoetrope__controls button:disabled {
+      opacity: 0.5;
+    }
   </style>
 </template>
 ```
@@ -211,12 +218,28 @@ import { on } from "@ember/modifier";
   </Zoetrope>
 
   <style>
-    .my-controls { display: flex; position: absolute; top: 50%; transform: translateY(-50%); height:
-    40%; width: 100%; padding-top: 2rem; pointer-events: none; } .my-controls button { height: 100%;
-    width: var(--zoetrope-offset); background: rgb(0 0 0 / 50%); pointer-events: auto; }
-    .my-controls button:nth-child(2) { margin-left: auto; } .my-controls button:disabled {
-    visibility: hidden; }
-
+    .my-controls {
+      display: flex;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 40%;
+      width: 100%;
+      padding-top: 2rem;
+      pointer-events: none;
+    }
+    .my-controls button {
+      height: 100%;
+      width: var(--zoetrope-offset);
+      background: rgb(0 0 0 / 50%);
+      pointer-events: auto;
+    }
+    .my-controls button:nth-child(2) {
+      margin-left: auto;
+    }
+    .my-controls button:disabled {
+      visibility: hidden;
+    }
   </style>
 </template>
 ```

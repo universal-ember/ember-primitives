@@ -1,7 +1,6 @@
 # Popover
 
-Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. 
-
+Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration.
 
 The `<Popover>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
@@ -15,9 +14,9 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 <div class="featured-demo">
 
 ```gjs live preview
-import { PortalTargets, Popover } from 'ember-primitives';
-import { array, hash } from '@ember/helper';
-import { loremIpsum } from 'lorem-ipsum';
+import { PortalTargets, Popover } from "ember-primitives";
+import { array, hash } from "@ember/helper";
+import { loremIpsum } from "lorem-ipsum";
 
 <template>
   <PortalTargets />
@@ -28,7 +27,8 @@ import { loremIpsum } from 'lorem-ipsum';
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.reference}}>
         the hook / anchor of the popover.
-        <br> it sticks the boundary of this element.
+        <br />
+        it sticks the boundary of this element.
       </div>
       <p.Content class="floatybit">
         The floaty bit here
@@ -51,7 +51,7 @@ import { loremIpsum } from 'lorem-ipsum';
       padding: 5px;
       border-radius: 4px;
       font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+      filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
       z-index: 10;
     }
     .arrow {
@@ -83,61 +83,60 @@ import { loremIpsum } from 'lorem-ipsum';
 
 It's often common to provide popover-using UIs in site headers, such as a settings menu, or navigation.
 
-
 <div class="featured-demo">
 
 ```gjs live preview
-import { PortalTargets, Popover } from 'ember-primitives';
-import { hash } from '@ember/helper';
-import { loremIpsum } from 'lorem-ipsum';
-import { cell } from 'ember-resources';
-import { on } from '@ember/modifier';
-import { focusTrap } from 'ember-focus-trap';
+import { PortalTargets, Popover } from "ember-primitives";
+import { hash } from "@ember/helper";
+import { loremIpsum } from "lorem-ipsum";
+import { cell } from "ember-resources";
+import { on } from "@ember/modifier";
+import { focusTrap } from "ember-focus-trap";
 
 const settings = cell(true);
 
 <template>
-    <div class="site">
-      <PortalTargets />
+  <div class="site">
+    <PortalTargets />
 
-        <header>
-            <span>My App</span>
+    <header>
+      <span>My App</span>
 
-            <Popover @offsetOptions={{8}} as |p|>
-              <button class="hook" {{p.reference}} {{on 'click' settings.toggle}}>
-                Settings
-              </button>
-              {{#if settings.current}}
-                <p.Content @as="dialog" open class="floatybit">
-                  <PortalTargets />
-                  <ul>
-                    <li>a</li>
-                    <li>not so big list</li>
-                    <li>of</li>
-                    <li>
-                      things<br>
+      <Popover @offsetOptions={{8}} as |p|>
+        <button class="hook" {{p.reference}} {{on "click" settings.toggle}}>
+          Settings
+        </button>
+        {{#if settings.current}}
+          <p.Content @as="dialog" open class="floatybit">
+            <PortalTargets />
+            <ul>
+              <li>a</li>
+              <li>not so big list</li>
+              <li>of</li>
+              <li>
+                things<br />
 
-                      <Popover @placement="left" @offsetOptions={{16}} as |pp|>
-                        <button {{pp.reference}}>view profile</button>
+                <Popover @placement="left" @offsetOptions={{16}} as |pp|>
+                  <button {{pp.reference}}>view profile</button>
 
-                        <pp.Content class="floatybit">
-                          View or edit your profile settings
-                          <div class="arrow" {{pp.arrow}}></div>
-                        </pp.Content>
-                      </Popover>
-                    </li>
-                  </ul>
-                  <div class="arrow" {{p.arrow}}></div>
-                </p.Content>
-              {{/if}}
-            </Popover>
+                  <pp.Content class="floatybit">
+                    View or edit your profile settings
+                    <div class="arrow" {{pp.arrow}}></div>
+                  </pp.Content>
+                </Popover>
+              </li>
+            </ul>
+            <div class="arrow" {{p.arrow}}></div>
+          </p.Content>
+        {{/if}}
+      </Popover>
 
-        </header>
+    </header>
 
-        <div class="main">
-          {{loremIpsum (hash count=2 units="paragraphs")}}
-        </div>
+    <div class="main">
+      {{loremIpsum (hash count=2 units="paragraphs")}}
     </div>
+  </div>
 
   <style>
     .floatybit {
@@ -151,7 +150,7 @@ const settings = cell(true);
       padding: 0.5rem;
       border-radius: 4px;
       font-size: 90%;
-      filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+      filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
       z-index: 10;
     }
     .floatybit .floatybit {
@@ -197,7 +196,9 @@ const settings = cell(true);
       overflow-y: auto;
       border: 1px solid;
     }
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
   </style>
 </template>
 ```
@@ -210,17 +211,17 @@ const settings = cell(true);
 <SetupInstructions @src="components/popover.gts" />
 ```
 
-
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/popover" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/popover"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -229,6 +230,7 @@ import { ComponentSignature } from 'kolay';
 The `Content` of a popover is focusable, so that keyboard (and screenreader) users can interact with the Popover content. Generally this is great for modals, but also extends to things like tooltips, so that folks can copy the content out.
 
 Since a `Popover` isn't an explicit design pattern provided by W3, but instead, `Popover` is a low level primitive that could be used to build the W3 examples of
+
 - [Modal Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/)
 - [Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)
 - [Date Picker Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-datepicker/)

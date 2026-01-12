@@ -1,13 +1,10 @@
-ember-primitives
-==============================================================================
+# ember-primitives
 
 Primitives for building UI faster.
 
 Docs: https://ember-primitives.pages.dev/
 
-
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
@@ -108,9 +105,6 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
 </table>
 <!-- readme: contributors -end -->
 
-
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
-

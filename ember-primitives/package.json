@@ -47,7 +47,7 @@
     "should-handle-link": "^1.2.2",
     "tabster": "^8.7.0",
     "tracked-built-ins": "^4.1.0",
-    "tracked-toolbox": "^2.0.0",
+    "tracked-toolbox": "^2.2.0",
     "which-heading-do-i-need": "workspace:*"
   },
   "devDependencies": {
@@ -67,9 +67,9 @@
     "@embroider/addon-dev": "^8.2.0",
     "@glimmer/component": "^2.0.0",
     "@glimmer/tracking": "^1.1.2",
-    "@glint/ember-tsc": "^1.0.8",
+    "@glint/ember-tsc": "^1.0.9",
     "@glint/template": "^1.7.3",
-    "@glint/tsserver-plugin": "^2.0.8",
+    "@glint/tsserver-plugin": "^2.0.9",
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@tsconfig/ember": "^3.0.12",
@@ -77,7 +77,7 @@
     "concurrently": "^9.2.1",
     "ember-modifier": "^4.2.2",
     "ember-resources": "^7.0.7",
-    "ember-source": "^6.9.0",
+    "ember-source": "^6.10.0",
     "ember-template-lint": "^7.9.3",
     "eslint": "^9.39.2",
     "execa": "^9.6.0",
@@ -85,7 +85,7 @@
     "prettier": "^3.7.4",
     "prettier-plugin-ember-template-tag": "^2.1.2",
     "publint": "^0.3.16",
-    "rollup": "^4.54.0",
+    "rollup": "^4.55.1",
     "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.9.3"
   },

@@ -13,7 +13,7 @@ The `Separator` is **80% documentation and 20% boilerplate reduction**.
 import { Separator } from "ember-primitives";
 
 <template>
-  <nav>
+  <nav aria-label="First Demo">
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
       <Separator @as="li" @decorative={{true}}>/</Separator>
@@ -32,6 +32,8 @@ import { Separator } from "ember-primitives";
         filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
         padding: 0.25rem 1rem;
         width: min-content;
+
+        ol { list-style-type: none; }
       }
 
       .breadcrumb-list {
@@ -111,7 +113,7 @@ This is important because in HTML, `<ol>` and `<ul>` elements should only have `
 
 ```gjs live preview
 <template>
-  <nav>
+  <nav aria-label="Demo with plain HTML">
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
       <li aria-hidden="true">/</li>
@@ -130,6 +132,8 @@ This is important because in HTML, `<ol>` and `<ul>` elements should only have `
         filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
         padding: 0.25rem 1rem;
         width: min-content;
+
+        ol { list-style-type: none; }
       }
 
       .breadcrumb-list {
@@ -183,9 +187,7 @@ import { Separator } from "ember-primitives/components/separator";
 </template>
 ```
 
-## Usage Examples
-
-### In Breadcrumbs
+## Example: In Breadcrumbs
 
 When using with Breadcrumb, the yielded `b.Separator` is automatically configured with `@as="li"`:
 
@@ -193,7 +195,7 @@ When using with Breadcrumb, the yielded `b.Separator` is automatically configure
 import { Breadcrumb } from "ember-primitives";
 
 <template>
-  <Breadcrumb as |b|>
+  <Breadcrumb class="not-prose" as |b|>
     <li><a href="/">Home</a></li>
     <b.Separator>/</b.Separator>
     <li><a href="/docs">Docs</a></li>
@@ -206,6 +208,7 @@ import { Breadcrumb } from "ember-primitives";
       nav {
         background: var(--color-page-background);
         padding: 0.25rem 1rem;
+        ol { list-style-type: none; }
       }
 
       nav ol {
@@ -239,7 +242,7 @@ import { Breadcrumb } from "ember-primitives";
 </template>
 ```
 
-### Custom Separators
+## Example: Custom Separators
 
 You can use any content as a separator, including icons or symbols:
 
@@ -247,7 +250,7 @@ You can use any content as a separator, including icons or symbols:
 import { Separator } from "ember-primitives";
 
 <template>
-  <nav>
+  <nav aria-label="Custom Separator component usage">
     <ol class="breadcrumb-list">
       <li><a href="/">Home</a></li>
       <Separator @as="li" @decorative={{true}}>&gt;</Separator>

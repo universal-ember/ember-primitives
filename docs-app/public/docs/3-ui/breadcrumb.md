@@ -10,9 +10,7 @@ Breadcrumbs help users understand their current location and provide a way to na
 import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
 <template>
-  <PortalTargets />
-
-  <Breadcrumb as |b|>
+  <Breadcrumb class="not-prose" as |b|>
     <li>
       <a href="/">Home</a>
     </li>
@@ -40,6 +38,7 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
     </li>
   </Breadcrumb>
 
+  <PortalTargets />
   <style>
     @scope { 
       nav {
@@ -183,7 +182,7 @@ You can use any link component, `<a>`, `<LinkTo>`, `<Link>`, etc:
 import { Breadcrumb, Link } from 'ember-primitives';
 
 <template>
-  <Breadcrumb @label="example-links" as |b|>
+  <Breadcrumb @label="example-links" class="not-prose" as |b|>
     <li>
       <Link @href="/">Home</Link>
     </li>
@@ -245,7 +244,7 @@ You can use any content as a separator, including icons or symbols:
 import { Breadcrumb } from 'ember-primitives';
 
 <template>
-  <Breadcrumb @label="example-separator" as |b|>
+  <Breadcrumb @label="example-separator" class="not-prose" as |b|>
     <li>
       <a href="/">Home</a>
     </li>
@@ -308,7 +307,7 @@ Since breadcrumbs can contain any component, you can even use buttons for non-na
 import { Breadcrumb } from 'ember-primitives';
 
 <template>
-  <Breadcrumb @label="button-example" as |b|>
+  <Breadcrumb @label="button-example" class="not-prose" as |b|>
     <li>
       <a href="/">Home</a>
     </li>
@@ -380,7 +379,7 @@ You can provide a custom accessible label for the breadcrumb navigation:
 import { Breadcrumb } from 'ember-primitives';
 
 <template>
-  <Breadcrumb @label="Page Navigation" as |b|>
+  <Breadcrumb @label="Page Navigation" class="not-prose" as |b|>
     <li>
       <a href="/">Home</a>
     </li>

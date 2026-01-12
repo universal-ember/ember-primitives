@@ -36,6 +36,7 @@ export { TARGETS as PORTALS } from './components/portal-targets.gts';
 export { Progress } from './components/progress.gts';
 export { Rating } from './components/rating.gts';
 export { Scroller } from './components/scroller.gts';
+export { Separator } from './components/separator.gts';
 export { Shadowed } from './components/shadowed.gts';
 export { Switch } from './components/switch.gts';
 export { Toggle } from './components/toggle.gts';

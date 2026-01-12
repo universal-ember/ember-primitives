@@ -1,17 +1,9 @@
 import { hash } from "@ember/helper";
 
-import type { TOC } from "@ember/component/template-only";
+import { Separator } from "./separator.gts";
 
-const Separator: TOC<{
-  Element: HTMLSpanElement;
-  Blocks: {
-    default: [];
-  };
-}> = <template>
-  <span aria-hidden="true" ...attributes>
-    {{yield}}
-  </span>
-</template>;
+import type { TOC } from "@ember/component/template-only";
+import type { WithBoundArgs } from "@glint/template";
 
 export interface Signature {
   Element: HTMLElement;
@@ -27,9 +19,10 @@ export interface Signature {
       {
         /**
          * A separator component to place between breadcrumb items.
-         * Typically renders as "/" or ">" with aria-hidden="true".
+         * Typically renders as "/" or ">" and is decorative (aria-hidden="true").
+         * Pre-configured to render as an <li> element for proper HTML structure.
          */
-        Separator: typeof Separator;
+        Separator: WithBoundArgs<typeof Separator, "as" | "decorative">;
       },
     ];
   };
@@ -65,7 +58,7 @@ export interface Signature {
 export const Breadcrumb: TOC<Signature> = <template>
   <nav aria-label={{if @label @label "Breadcrumb"}} ...attributes>
     <ol>
-      {{yield (hash Separator=Separator)}}
+      {{yield (hash Separator=(component Separator as="li" decorative=true))}}
     </ol>
   </nav>
 </template>;

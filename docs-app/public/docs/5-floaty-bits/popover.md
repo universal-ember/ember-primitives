@@ -23,7 +23,7 @@ import { loremIpsum } from 'lorem-ipsum';
   <PortalTargets />
 
   <div class="scroll-content" tabindex="0">
-    {{loremIpsum (hash count=1 units="paragraphs")}}
+    {{loremIpsum (hash count=1 units="sentence")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.reference}}>
@@ -142,14 +142,12 @@ const settings = cell(true);
   <style>
     @scope {
       .floatybit {
-        width: max-content;
+        width: 200px;
         position: absolute;
-        top: 0;
-        left: 0;
         background: #222;
         color: white;
         font-weight: bold;
-        padding: 0.5rem;
+        padding: 1rem;
         border-radius: 4px;
         font-size: 90%;
         filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
@@ -161,6 +159,7 @@ const settings = cell(true);
       }
       .floatybit .floatybit .arrow {
         background: #eee;
+        transform: translateY(-1rem) rotate(45deg);
       }
       ul {
         padding-left: 1rem;

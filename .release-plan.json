@@ -2,59 +2,33 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.50.1",
-      "newVersion": "0.51.0",
+      "oldVersion": "0.51.0",
+      "newVersion": "0.52.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        },
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "impact": "minor",
-      "oldVersion": "0.8.1",
-      "newVersion": "0.9.0",
+      "impact": "patch",
+      "oldVersion": "0.9.0",
+      "newVersion": "0.9.1",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
           "reason": "Has dependency `workspace:*` on ember-primitives"
-        },
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./packages/docs-support/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "patch",
-      "oldVersion": "0.2.3",
-      "newVersion": "0.2.4",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        }
-      ],
-      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
+      "oldVersion": "0.2.4"
     }
   },
-  "description": "## Release (2026-01-10)\n\n* ember-primitives 0.51.0 (minor)\n* @universal-ember/docs-support 0.9.0 (minor)\n* which-heading-do-i-need 0.2.4 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#630](https://github.com/universal-ember/ember-primitives/pull/630) Add Drawer component ([@Copilot](https://github.com/apps/copilot-swe-agent))\n* `ember-primitives`, `@universal-ember/docs-support`\n  * [#633](https://github.com/universal-ember/ember-primitives/pull/633) Add Breadcrumb component ([@Copilot](https://github.com/apps/copilot-swe-agent))\n\n#### :memo: Documentation\n* [#628](https://github.com/universal-ember/ember-primitives/pull/628) Document offcanvas sidebar using ember-mobile-menu ([@Copilot](https://github.com/apps/copilot-swe-agent))\n\n#### :house: Internal\n* Other\n  * [#639](https://github.com/universal-ember/ember-primitives/pull/639) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#635](https://github.com/universal-ember/ember-primitives/pull/635) Add Copilot instructions for ember-primitives repository ([@Copilot](https://github.com/apps/copilot-swe-agent))\n* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`\n  * [#631](https://github.com/universal-ember/ember-primitives/pull/631) Add dev command ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#618](https://github.com/universal-ember/ember-primitives/pull/618) Bring in docs-support to ember-primitives' monorepo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-01-12)\n\n* ember-primitives 0.52.0 (minor)\n* @universal-ember/docs-support 0.9.1 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#637](https://github.com/universal-ember/ember-primitives/pull/637) Create standalone Separator component with @as argument for dynamic element tags ([@Copilot](https://github.com/apps/copilot-swe-agent))\n\n#### Committers: 1\n- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))\n"
 }

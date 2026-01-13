@@ -76,6 +76,8 @@ import { Separator } from "ember-primitives";
 <SetupInstructions @src="components/separator.gts" />
 ```
 
+Introduced in [0.52.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.52.0-ember-primitives)
+
 ## What It Does
 
 The `Separator` component is primarily a **documentation and readability tool**. It:

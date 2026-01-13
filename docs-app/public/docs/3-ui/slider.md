@@ -12,7 +12,7 @@ const value = cell(50);
 
 <template>
   <Shadowed>
-    <Slider @value={{value.current}} @onValueChange={{fn (mut value.current)}} as |s|>
+    <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.values as |v index|}}
@@ -90,10 +90,12 @@ import { Slider, Shadowed } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 75]);
+const first = () => value.current[0];
+const second = () => value.current[1];
 
 <template>
   <Shadowed>
-    <Slider @value={{value.current}} @onValueChange={{fn (mut value.current)}} as |s|>
+    <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.values as |v index|}}
@@ -102,7 +104,7 @@ const value = cell([25, 75]);
       </s.Track>
     </Slider>
     
-    <p>Range: {{get value.current 0}} - {{get value.current 1}}</p>
+    <p>Range: {{ (first) }} - {{ (second) }}</p>
 
     <style>
       [data-slider] {
@@ -171,7 +173,7 @@ const value = cell(50);
     <div style="display: flex; justify-content: center; align-items: center; gap: 2rem;">
       <Slider 
         @value={{value.current}} 
-        @onValueChange={{fn (mut value.current)}}
+        @onValueChange={{value.set}}
         @orientation="vertical" 
         as |s|>
         <s.Track>

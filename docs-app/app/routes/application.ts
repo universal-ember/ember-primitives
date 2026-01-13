@@ -167,7 +167,7 @@ export default class Application extends Route {
             highlighter,
             {
               // Theme chosen by CSS variables in app/css/site/shiki.css
-              // defaultColor: false,
+              defaultColor: false,
               themes: {
                 light: 'github-light',
                 dark: 'github-dark',

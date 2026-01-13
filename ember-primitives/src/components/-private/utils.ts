@@ -3,8 +3,7 @@
  * otherwise fallback to the uncontrolled toggle
  */
 export function toggleWithFallback(
-  uncontrolledToggle: (...args: unknown[]) => void,
-
+  uncontrolledToggle: undefined | ((...args: any[]) => void) | (() => void),
   controlledToggle?: (...args: any[]) => void,
   ...args: unknown[]
 ) {
@@ -12,5 +11,5 @@ export function toggleWithFallback(
     return controlledToggle(...args);
   }
 
-  uncontrolledToggle(...args);
+  uncontrolledToggle?.(...args);
 }

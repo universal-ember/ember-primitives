@@ -65,22 +65,20 @@ export interface Signature {
 
 interface ControlSignature {
   Element: HTMLInputElement;
-  Args: { id: string; checked?: boolean; onChange: () => void };
+  Args: { id: string; checked?: ReturnType<typeof cell<boolean>>; onChange: () => void };
 }
 
 const Checkbox: TOC<ControlSignature> = <template>
-  {{#let (cell @checked) as |checked|}}
-    <input
-      id={{@id}}
-      type="checkbox"
-      role="switch"
-      checked={{checked.current}}
-      aria-checked={{checked.current}}
-      data-state={{if checked.current "on" "off"}}
-      {{on "click" (fn toggleWithFallback checked.toggle @onChange)}}
-      ...attributes
-    />
-  {{/let}}
+  <input
+    id={{@id}}
+    type="checkbox"
+    role="switch"
+    checked={{@checked.current}}
+    aria-checked={{@checked.current}}
+    data-state={{if @checked.current "on" "off"}}
+    {{on "click" (fn toggleWithFallback @checked.toggle @onChange)}}
+    ...attributes
+  />
 </template>;
 
 /**
@@ -88,14 +86,17 @@ const Checkbox: TOC<ControlSignature> = <template>
  */
 export const Switch: TOC<Signature> = <template>
   <div ...attributes data-prim-switch>
-    {{! @glint-nocheck }}
     {{#let (uniqueId) as |id|}}
-      {{yield
-        (hash
-          Control=(component Checkbox checked=@checked id=id onChange=@onChange)
-          Label=(component Label for=id)
-        )
-      }}
+      {{#let (cell @checked) as |checked|}}
+        {{! @glint-nocheck }}
+        {{yield
+          (hash
+            isChecked=checked.current
+            Control=(component Checkbox checked=checked id=id onChange=@onChange)
+            Label=(component Label for=id)
+          )
+        }}
+      {{/let}}
     {{/let}}
   </div>
 </template>;

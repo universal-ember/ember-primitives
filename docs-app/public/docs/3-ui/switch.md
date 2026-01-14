@@ -6,25 +6,226 @@ The Switch component is a user interface element used for toggling between two s
 
 ## Examples
 
-<details><summary><h3>Bootstrap</h3></summary>
-
-See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
+<details><summary><h3>Draggable</h3></summary>
 
 ```gjs live preview
 import { Switch } from 'ember-primitives/components/switch';
 import { Shadowed } from 'ember-primitives/components/shadowed';
+import { modifier } from 'ember-modifier';
+
+const draggableSwitch = modifier((element) => {
+  // Underlying control (from ember-primitives Switch)
+  const control =
+    element.querySelector('[role="switch"]') ??
+    element.querySelector('input[type="checkbox"]') ??
+    element.querySelector('button');
+
+  if (!control) return;
+
+  let pointerId = null;
+  let rect = null;
+
+  const getIsOn = () => {
+    const ariaChecked = control.getAttribute('aria-checked');
+    if (ariaChecked !== null) {
+      return ariaChecked === 'true';
+    }
+
+    if ('checked' in control && typeof control.checked === 'boolean') {
+      // @ts-expect-error: not all elements have checked
+      return control.checked;
+    }
+
+    return control.getAttribute('data-state') === 'on';
+  };
+
+  // Move the thumb via CSS custom property --thumb-translate (0–100%)
+  const updateThumb = (clientX) => {
+    if (!rect) return 0;
+
+    let fraction = (clientX - rect.left) / rect.width;
+    if (!Number.isFinite(fraction)) fraction = 0;
+
+    const clamped = Math.min(Math.max(fraction, 0), 1);
+    const percent = clamped * 100;
+
+    element.style.setProperty('--thumb-translate', `${percent}%`);
+
+    return clamped;
+  };
+
+  const handlePointerMove = (event) => {
+    if (event.pointerId !== pointerId) return;
+    updateThumb(event.clientX);
+  };
+
+  const handlePointerUpOrCancel = (event) => {
+    if (event.pointerId !== pointerId) return;
+
+    const position = updateThumb(event.clientX); // 0..1
+
+    // Let CSS go back to the resting state driven by data-state
+    element.style.removeProperty('--thumb-translate');
+    element.classList.remove('is-dragging');
+
+    element.releasePointerCapture?.(pointerId);
+    element.removeEventListener('pointermove', handlePointerMove);
+    element.removeEventListener('pointerup', handlePointerUpOrCancel);
+    element.removeEventListener('pointercancel', handlePointerUpOrCancel);
+
+    pointerId = null;
+    rect = null;
+  };
+
+  const handlePointerDown = (event) => {
+    if (event.button !== 0) return; // primary button only
+
+    pointerId = event.pointerId;
+    rect = element.getBoundingClientRect();
+
+    element.classList.add('is-dragging');
+    element.setPointerCapture?.(pointerId);
+
+    element.addEventListener('pointermove', handlePointerMove);
+    element.addEventListener('pointerup', handlePointerUpOrCancel);
+    element.addEventListener('pointercancel', handlePointerUpOrCancel);
+
+    updateThumb(event.clientX);
+  };
+
+  element.addEventListener('pointerdown', handlePointerDown);
+
+  return () => {
+    element.removeEventListener('pointerdown', handlePointerDown);
+    element.removeEventListener('pointermove', handlePointerMove);
+    element.removeEventListener('pointerup', handlePointerUpOrCancel);
+    element.removeEventListener('pointercancel', handlePointerUpOrCancel);
+  };
+});
 
 <template>
   <Shadowed>
-    <div class="p-4">
-      <Switch class="form-check form-switch" as |s|>
-        <s.Control class="form-check-input" />
-        <s.Label class="form-check-label">
-          Toggle on or off
-        </s.Label>
-      </Switch>
-    </div>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <Switch as |s|>
+      <s.Label
+        class="switch"
+        data-state={{if s.isChecked "on" "off"}}
+        {{draggableSwitch}}
+      >
+        Off
+        <s.Control />
+        On
+      </s.Label>
+      <br>
+      Result: {{s.isChecked}}
+    </Switch>
+
+    <style>
+
+
+.switch {
+  --switch-width: 90px;
+  --switch-height: 32px;
+  --switch-padding: 3px;
+
+  /* thumb position 0–100%, controlled by JS + data-state */
+  --thumb-translate: 0%;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  width: var(--switch-width);
+  height: var(--switch-height);
+  padding: 0 calc(var(--switch-padding) * 2);
+
+  border-radius: 999px;
+  border: 2px solid #4b5563;
+
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  cursor: pointer;
+  user-select: none;
+  touch-action: pan-x;
+}
+
+/* When the switch is on, resting thumb position is 100% */
+.switch[data-state="on"] {
+  --thumb-translate: 100%;
+}
+
+/* Dim "track" behind everything */
+.switch::before {
+  content: "";
+  position: absolute;
+  inset: var(--switch-padding);
+  border-radius: 999px;
+  background: #4b5563;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* Sliding thumb */
+.switch::after {
+  content: "";
+  position: absolute;
+  top: var(--switch-padding);
+  left: var(--switch-padding);
+
+  /* half the width of the track, minus padding */
+  width: calc(50% - var(--switch-padding));
+  height: calc(var(--switch-height) - 2 * var(--switch-padding));
+  border-radius: 999px;
+
+  background: #f9fafb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  transform: translateX(var(--thumb-translate));
+  transition:
+    transform 120ms ease-out,
+    background 120ms ease-out;
+  z-index: 0;
+}
+
+/* While dragging, remove easing so the thumb follows the pointer 1:1 */
+.switch.is-dragging::after {
+  transition: none;
+}
+
+/* Make sure Off / On text is visible above track + thumb */
+.switch > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional: nicer spacing if you wrap the labels in spans
+   <span>Off</span> <s.Control /> <span>On</span>
+*/
+.switch span {
+  flex: 1;
+  text-align: center;
+}
+
+/* Hide the real control visually but keep it focusable + clickable */
+.switch input,
+.switch [role="switch"] {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+/* Focus outline for keyboard users */
+.switch:focus-within {
+  outline: 2px solid #e5e7eb;
+  outline-offset: 2px;
+}
+    </style>
   </Shadowed>
 </template>
 ```
@@ -198,6 +399,30 @@ const Moon = <template>
   />
 </svg>
 </template>;
+```
+
+</details>
+<details><summary><h3>Bootstrap</h3></summary>
+
+See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
+
+```gjs live preview
+import { Switch } from 'ember-primitives/components/switch';
+import { Shadowed } from 'ember-primitives/components/shadowed';
+
+<template>
+  <Shadowed>
+    <div class="p-4">
+      <Switch class="form-check form-switch" as |s|>
+        <s.Control class="form-check-input" />
+        <s.Label class="form-check-label">
+          Toggle on or off
+        </s.Label>
+      </Switch>
+    </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  </Shadowed>
+</template>
 ```
 
 </details>

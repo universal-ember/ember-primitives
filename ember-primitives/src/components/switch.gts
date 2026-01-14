@@ -28,12 +28,26 @@ export interface Signature {
     default?: [
       {
         /**
+         * The current state of the Switch.
+         *
+         * ```gjs
+         * import { Switch } from 'ember-primitives/components/switch';
+         *
+         * <template>
+         *   <Switch as |s|>
+         *     {{s.isChecked}}
+         *   </Switch>
+         * </template>
+         * ```
+         */
+        isChecked: boolean;
+        /**
          * The Switch Element.
          * It has a pre-wired `id` so that the relevant Label is
          * appropriately associated via the `for` property of the Label.
          *
          * ```gjs
-         * import { Switch } from 'ember-primitives';
+         * import { Switch } from 'ember-primitives/components/switch';
          *
          * <template>
          *   <Switch as |s|>
@@ -48,7 +62,7 @@ export interface Signature {
          * the association to the Control by setting the `for` attribute to the `id` of the Control
          *
          * ```gjs
-         * import { Switch } from 'ember-primitives';
+         * import { Switch } from 'ember-primitive/components/switchs';
          *
          * <template>
          *   <Switch as |s|>
@@ -81,13 +95,17 @@ const Checkbox: TOC<ControlSignature> = <template>
   />
 </template>;
 
+function defaultFalse(value: unknown) {
+  return value ?? false;
+}
+
 /**
  * @public
  */
 export const Switch: TOC<Signature> = <template>
   <div ...attributes data-prim-switch>
     {{#let (uniqueId) as |id|}}
-      {{#let (cell @checked) as |checked|}}
+      {{#let (cell (defaultFalse @checked)) as |checked|}}
         {{! @glint-nocheck }}
         {{yield
           (hash

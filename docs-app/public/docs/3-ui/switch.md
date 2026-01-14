@@ -62,79 +62,86 @@ const toggleTheme = (e) =>
 
       * {box-sizing: border-box;}
 
-      div {
-        padding: 1rem;
-        font-family: "Montserrat", sans-serif;
-        background-color: #eee;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        margin: 0;
-        transition: background 0.2s linear;
-        width: 100%;
-      }
+      @scope {
+        div {
+          padding: 1rem;
+          font-family: "Montserrat", sans-serif;
+          background-color: #eee;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          text-align: center;
+          margin: 0;
+          transition: background 0.2s linear;
+          width: 100%;
+        }
 
-      div.dark {background-color: #292c35;}
-      div.dark label { background-color: #9b59b6; }
+        div.dark {background-color: #292c35;}
+        div.dark label { background-color: #9b59b6; }
 
 
-      input[type='checkbox'][role='switch'] {
-        opacity: 0;
-        position: absolute;
-      }
+        input[type='checkbox'][role='switch'] {
+          opacity: 0;
+          position: absolute;
+        }
 
-      .sr-only {
-        width: 0px;
-        max-width: 0px;
-        height: 0px;
-        max-height: 0px;
-        overflow: hidden;
-        margin-left: -0.5rem;
-      }
+        .sr-only {
+          width: 0px;
+          max-width: 0px;
+          height: 0px;
+          max-height: 0px;
+          overflow: hidden;
+          margin-left: -0.5rem;
+        }
 
-      label {
-        background-color: #aaaaff;
-        border: 1px solid;
-        width: 60px;
-        height: 32px;
-        border-radius: 50px;
-        position: relative;
-        padding: 5px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.5rem;
-      }
+        label {
+          background-color: #aaaaff;
+          border: 1px solid;
+          width: 60px;
+          height: 32px;
+          border-radius: 50px;
+          position: relative;
+          padding: 5px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.5rem;
+        }
 
-      svg { fill: currentColor; position: absolute; top: 3px; left: 3px; }
-      .fa-moon { color: #f1c40f; }
-      .sun { color: #f39c12; }
+        svg { fill: currentColor; position: absolute; top: 3px; left: 3px; }
+        .moon { color: #f1c4ff; }
+        .sun { color: #f39c12; }
 
-      label .ball {
-        background-color: #111;
-        width: 26px;
-        height: 26px;
-        position: absolute;
-        left: 2px;
-        top: 2px;
-        border-radius: 50%;
-        transition-property: transform;
-        transition-duration: 0.2s;
-        transition-timing-function: linear(0, 0.1, 0.25, 0.5, 0.68, 0.8, 0.88, 0.94, 0.98, 0.995, 1);;
-        border: 2px solid #f1c40f;
+        label .ball {
+          background-color: #111;
+          width: 26px;
+          height: 26px;
+          position: absolute;
+          left: 2px;
+          top: 2px;
+          border-radius: 50%;
+          transition-property: transform filter;
+          transition-duration: 0.2s;
+          transition-timing-function: linear(0, 0.1, 0.25, 0.5, 0.68, 0.8, 0.88, 0.94, 0.98, 0.995, 1);;
+          border: 2px solid #f1c40f;
 
-        &[data-state="on"] {
-          border: 2px solid purple;
+          &[data-state="on"] {
+            border: 2px solid #f1c4ff;
+          }
+        }
+
+        label:active .ball {
+          filter: drop-shadow(0 0 10px #f1c40f);
+        }
+        input[type='checkbox'][role='switch']:checked + label .ball {
+          transform: translateX(28px);
+        }
+        input[type='checkbox'][role='switch']:checked:active + label .ball {
+          filter: drop-shadow(0 0 10px #f1c4ff);
         }
       }
-
-      input[type='checkbox'][role='switch']:checked + label .ball {
-        transform: translateX(28px);
-      }
-
     </style>
   </Shadowed>
 </template>
@@ -286,3 +293,9 @@ Adheres to the `switch` [role requirements](https://www.w3.org/WAI/ARIA/apg/patt
 | <kbd>Enter</kbd> | Toggles the component's state |  
 
 In addition, a label is required so that users know what the switch is for.
+
+## References
+
+- https://web.dev/articles/building/a-switch-component
+- https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches
+- https://web.dev/articles/building/a-switch-component

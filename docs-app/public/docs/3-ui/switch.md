@@ -82,6 +82,7 @@ const toggleTheme = (e) =>
 
 
         input[type='checkbox'][role='switch'] {
+          touch-action: pan-y;
           opacity: 0;
           position: absolute;
         }
@@ -96,6 +97,7 @@ const toggleTheme = (e) =>
         }
 
         label {
+  touch-action: pan-y;
           background-color: #aaaaff;
           border: 1px solid;
           width: 60px;

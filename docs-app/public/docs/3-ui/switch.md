@@ -103,9 +103,10 @@ const draggableSwitch = modifier((element) => {
         data-state={{if s.isChecked "on" "off"}}
         {{draggableSwitch}}
       >
-        Off
-        <s.Control />
+        {{! Words reversed because the control is _over_  the word }}
         On
+        <s.Control />
+        Off
       </s.Label>
       <br><br>
       Result: {{s.isChecked}}
@@ -141,25 +142,28 @@ const draggableSwitch = modifier((element) => {
   cursor: pointer;
   user-select: none;
   touch-action: pan-x;
+
+  &[data-state="on"] {
+    border-color: #22ff66;
+    color: #22ff66;
 }
 
-/* When the switch is on, resting thumb position is 100% */
+}
+
 .switch[data-state="on"] {
   --thumb-translate: 100%;
 }
 
-/* Track behind everything, perfectly centered between borders */
 .switch::before {
   content: "";
   position: absolute;
-  inset: var(--switch-border); /* respects border thickness */
+  inset: var(--switch-border); 
   border-radius: inherit;
   background: #4b5563;
   opacity: 0.6;
   z-index: 0;
 }
 
-/* Sliding thumb, sized so it aligns perfectly in both positions */
 .switch::after {
   content: "";
   position: absolute;
@@ -167,11 +171,6 @@ const draggableSwitch = modifier((element) => {
   /* start right inside the border */
   top: var(--switch-border);
   left: var(--switch-border);
-
-  /* half of the *inner* width:
-     inner width = 100% - 2*border
-     thumb width = (inner / 2) = 50% - border
-   */
   width: calc(50% - var(--switch-border));
   height: calc(100% - 2 * var(--switch-border));
 
@@ -186,27 +185,20 @@ const draggableSwitch = modifier((element) => {
   z-index: 0;
 }
 
-/* While dragging, JS adds this to remove easing so it follows the pointer 1:1 */
 .switch.is-dragging::after {
   transition: none;
 }
 
-/* Make sure Off / On text is visible above track + thumb */
 .switch > * {
   position: relative;
   z-index: 1;
 }
 
-/* If you wrap the labels in spans:
-   <span>Off</span> <s.Control /> <span>On</span>
-   this centers them nicely in each half.
-*/
 .switch span {
   flex: 1;
   text-align: center;
 }
 
-/* Hide the real control visually but keep it focusable + clickable */
 .switch input,
 .switch [role="switch"] {
   position: absolute;
@@ -216,10 +208,13 @@ const draggableSwitch = modifier((element) => {
   cursor: inherit;
 }
 
-/* Focus outline for keyboard users */
 .switch:focus-within {
   outline: 2px solid #e5e7eb;
   outline-offset: 2px;
+
+  &[data-state="on"] {
+    outline: 2px solid #aaffaa;
+  }
 }
     </style>
   </Shadowed>

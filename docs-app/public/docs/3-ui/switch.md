@@ -6,25 +6,217 @@ The Switch component is a user interface element used for toggling between two s
 
 ## Examples
 
-<details><summary><h3>Bootstrap</h3></summary>
-
-See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
+<details><summary><h3>Draggable</h3></summary>
+<br>
 
 ```gjs live preview
 import { Switch } from 'ember-primitives/components/switch';
 import { Shadowed } from 'ember-primitives/components/shadowed';
+import { modifier } from 'ember-modifier';
+
+const draggableSwitch = modifier((element) => {
+  const control = element.querySelector('[role="switch"]');
+
+  let pointerId = null;
+  let rect = null;
+
+  const getIsOn = () => {
+    const ariaChecked = control.getAttribute('aria-checked');
+    if (ariaChecked !== null) {
+      return ariaChecked === 'true';
+    }
+
+    if ('checked' in control && typeof control.checked === 'boolean') {
+      return control.checked;
+    }
+
+    return control.getAttribute('data-state') === 'on';
+  };
+
+  const updateThumb = (clientX) => {
+    if (!rect) return 0;
+
+    let fraction = (clientX - rect.left) / rect.width;
+    if (!Number.isFinite(fraction)) fraction = 0;
+
+    const clamped = Math.min(Math.max(fraction, 0), 1);
+    const percent = clamped * 100;
+
+    element.style.setProperty('--thumb-translate', `${percent}%`);
+
+    return clamped;
+  };
+
+  const handlePointerMove = (event) => {
+    if (event.pointerId !== pointerId) return;
+    updateThumb(event.clientX);
+  };
+
+  const handlePointerUpOrCancel = (event) => {
+    if (event.pointerId !== pointerId) return;
+
+    updateThumb(event.clientX); // 0..1
+
+    element.style.removeProperty('--thumb-translate');
+    element.classList.remove('is-dragging');
+
+    element.releasePointerCapture?.(pointerId);
+    element.removeEventListener('pointermove', handlePointerMove);
+    element.removeEventListener('pointerup', handlePointerUpOrCancel);
+    element.removeEventListener('pointercancel', handlePointerUpOrCancel);
+
+    pointerId = null;
+    rect = null;
+  };
+
+  const handlePointerDown = (event) => {
+    if (event.button !== 0) return; 
+
+    pointerId = event.pointerId;
+    rect = element.getBoundingClientRect();
+
+    element.classList.add('is-dragging');
+    element.setPointerCapture?.(pointerId);
+
+    element.addEventListener('pointermove', handlePointerMove);
+    element.addEventListener('pointerup', handlePointerUpOrCancel);
+    element.addEventListener('pointercancel', handlePointerUpOrCancel);
+
+    updateThumb(event.clientX);
+  };
+
+  element.addEventListener('pointerdown', handlePointerDown);
+
+  return () => {
+    element.removeEventListener('pointerdown', handlePointerDown);
+    element.removeEventListener('pointermove', handlePointerMove);
+    element.removeEventListener('pointerup', handlePointerUpOrCancel);
+    element.removeEventListener('pointercancel', handlePointerUpOrCancel);
+  };
+});
 
 <template>
   <Shadowed>
-    <div class="p-4">
-      <Switch class="form-check form-switch" as |s|>
-        <s.Control class="form-check-input" />
-        <s.Label class="form-check-label">
-          Toggle on or off
-        </s.Label>
-      </Switch>
-    </div>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <Switch as |s|>
+      <s.Label
+        class="switch"
+        data-state={{if s.isChecked "on" "off"}}
+        {{draggableSwitch}}
+      >
+        {{! Words reversed because the control is _over_  the word }}
+        On
+        <s.Control />
+        Off
+      </s.Label>
+      <br><br>
+      Result: {{s.isChecked}}
+    </Switch>
+
+    <style>
+
+.switch {
+  --switch-width: 90px;
+  --switch-height: 32px;
+  --switch-border: 2px;
+  --thumb-translate: 0%; /* 0% = off, 100% = on */
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+  width: var(--switch-width);
+  height: var(--switch-height);
+
+  padding: 0 10px; /* space for "Off" / "On" text */
+
+  border-radius: 999px;
+  border: var(--switch-border) solid #4b5563;
+
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  cursor: pointer;
+  user-select: none;
+  touch-action: pan-x;
+
+  &[data-state="on"] {
+    border-color: #22ff66;
+    color: #22ff66;
+}
+
+}
+
+.switch[data-state="on"] {
+  --thumb-translate: 100%;
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  inset: var(--switch-border); 
+  border-radius: inherit;
+  background: #4b5563;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+
+  /* start right inside the border */
+  top: var(--switch-border);
+  left: var(--switch-border);
+  width: calc(50% - var(--switch-border));
+  height: calc(100% - 2 * var(--switch-border));
+
+  border-radius: inherit;
+  background: #f9fafb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  transform: translateX(var(--thumb-translate));
+  transition:
+    transform 120ms ease-out,
+    background 120ms ease-out;
+  z-index: 0;
+}
+
+.switch.is-dragging::after {
+  transition: none;
+}
+
+.switch > * {
+  position: relative;
+  z-index: 1;
+}
+
+.switch span {
+  flex: 1;
+  text-align: center;
+}
+
+.switch input,
+.switch [role="switch"] {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.switch:focus-within {
+  outline: 2px solid #e5e7eb;
+  outline-offset: 2px;
+
+  &[data-state="on"] {
+    outline: 2px solid #aaffaa;
+  }
+}
+    </style>
   </Shadowed>
 </template>
 ```
@@ -198,6 +390,30 @@ const Moon = <template>
   />
 </svg>
 </template>;
+```
+
+</details>
+<details><summary><h3>Bootstrap</h3></summary>
+
+See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
+
+```gjs live preview
+import { Switch } from 'ember-primitives/components/switch';
+import { Shadowed } from 'ember-primitives/components/shadowed';
+
+<template>
+  <Shadowed>
+    <div class="p-4">
+      <Switch class="form-check form-switch" as |s|>
+        <s.Control class="form-check-input" />
+        <s.Label class="form-check-label">
+          Toggle on or off
+        </s.Label>
+      </Switch>
+    </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+  </Shadowed>
+</template>
 ```
 
 </details>

@@ -145,6 +145,18 @@ export default class Application extends Route {
             };
           },
           'reactiveweb/remote-data': () => import('reactiveweb/remote-data'),
+          'reactiveweb/debounce': () => import('reactiveweb/debounce'),
+          'reactiveweb/sync': () => import('reactiveweb/sync'),
+          'reactiveweb/throttle': () => import('reactiveweb/throttle'),
+          'reactiveweb/link': () => import('reactiveweb/link'),
+          'reactiveweb/document-head': () => import('reactiveweb/document-head'),
+          'reactiveweb/effect': () => import('reactiveweb/effect'),
+          'reactiveweb/fps': () => import('reactiveweb/fps'),
+          'reactiveweb/function': () => import('reactiveweb/function'),
+          'reactiveweb/get-promise-state': () => import('reactiveweb/get-promise-state'),
+          'reactiveweb/image': () => import('reactiveweb/image'),
+          'reactiveweb/keep-latest': () => import('reactiveweb/keep-latest'),
+          'reactiveweb/wait-until': () => import('reactiveweb/wait-until'),
           'ember-focus-trap/modifiers/focus-trap': () =>
             // @ts-expect-error - no types provided
             import('ember-focus-trap/modifiers/focus-trap'),

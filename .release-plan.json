@@ -2,33 +2,67 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.51.0",
-      "newVersion": "0.52.0",
+      "oldVersion": "0.52.0",
+      "newVersion": "0.53.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
+        },
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.0",
-      "newVersion": "0.9.1",
+      "oldVersion": "0.9.1",
+      "newVersion": "0.9.2",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Has dependency `workspace:*` on ember-primitives"
+          "reason": "Has dependency `workspace:^` on ember-primitives"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./packages/docs-support/package.json"
     },
     "which-heading-do-i-need": {
-      "oldVersion": "0.2.4"
+      "impact": "patch",
+      "oldVersion": "0.2.4",
+      "newVersion": "0.2.5",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
     }
   },
-  "description": "## Release (2026-01-12)\n\n* ember-primitives 0.52.0 (minor)\n* @universal-ember/docs-support 0.9.1 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#637](https://github.com/universal-ember/ember-primitives/pull/637) Create standalone Separator component with @as argument for dynamic element tags ([@Copilot](https://github.com/apps/copilot-swe-agent))\n\n#### Committers: 1\n- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))\n"
+  "description": "## Release (2026-01-14)\n\n* ember-primitives 0.53.0 (minor)\n* @universal-ember/docs-support 0.9.2 (patch)\n* which-heading-do-i-need 0.2.5 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#646](https://github.com/universal-ember/ember-primitives/pull/646) Switch needs configurable thumb ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* Other\n  * [#643](https://github.com/universal-ember/ember-primitives/pull/643) Add release-versions ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#644](https://github.com/universal-ember/ember-primitives/pull/644) Update popover styles ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`\n  * [#641](https://github.com/universal-ember/ember-primitives/pull/641) Upgrade Kolay, the docs system our docs use ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`\n  * [#641](https://github.com/universal-ember/ember-primitives/pull/641) Upgrade Kolay, the docs system our docs use ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

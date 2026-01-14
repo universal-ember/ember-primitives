@@ -1,5 +1,29 @@
 # Changelog 
 
+## Release (2026-01-14)
+
+* ember-primitives 0.53.0 (minor)
+* @universal-ember/docs-support 0.9.2 (patch)
+* which-heading-do-i-need 0.2.5 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#646](https://github.com/universal-ember/ember-primitives/pull/646) Switch needs configurable thumb ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* Other
+  * [#643](https://github.com/universal-ember/ember-primitives/pull/643) Add release-versions ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#644](https://github.com/universal-ember/ember-primitives/pull/644) Update popover styles ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#641](https://github.com/universal-ember/ember-primitives/pull/641) Upgrade Kolay, the docs system our docs use ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#641](https://github.com/universal-ember/ember-primitives/pull/641) Upgrade Kolay, the docs system our docs use ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-01-12)
 
 * ember-primitives 0.52.0 (minor)

@@ -11,7 +11,8 @@ The Switch component is a user interface element used for toggling between two s
 See [Bootstrap Switch](https://getbootstrap.com/docs/5.3/forms/checks-radios/#switches) docs.
 
 ```gjs live preview
-import { Switch, Shadowed } from 'ember-primitives';
+import { Switch } from 'ember-primitives/components/switch';
+import { Shadowed } from 'ember-primitives/components/shadowed';
 
 <template>
   <Shadowed>
@@ -29,7 +30,6 @@ import { Switch, Shadowed } from 'ember-primitives';
 ```
 
 </details>
-
 <details open><summary><h3>Dark/Light Theme Switch</h3></summary>
 
 CSS inspired/taken from [this Codepen](https://codepen.io/Umer_Farooq/pen/eYJgKGN?editors=1100)
@@ -58,14 +58,11 @@ const toggleTheme = (e) =>
     </Switch>
 
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-
       * {box-sizing: border-box;}
 
       @scope {
         div {
           padding: 1rem;
-          font-family: "Montserrat", sans-serif;
           background-color: #eee;
           display: flex;
           justify-content: center;
@@ -97,7 +94,6 @@ const toggleTheme = (e) =>
         }
 
         label {
-  touch-action: pan-y;
           background-color: #aaaaff;
           border: 1px solid;
           width: 60px;
@@ -134,11 +130,17 @@ const toggleTheme = (e) =>
           }
         }
 
+        label:hover .ball {
+          filter: drop-shadow(0 0 3px #f1c40f);
+        }
         label:active .ball {
           filter: drop-shadow(0 0 10px #f1c40f);
         }
         input[type='checkbox'][role='switch']:checked + label .ball {
           transform: translateX(28px);
+        }
+        input[type='checkbox'][role='switch']:checked:hover + label .ball {
+          filter: drop-shadow(0 0 3px #f1c4ff);
         }
         input[type='checkbox'][role='switch']:checked:active + label .ball {
           filter: drop-shadow(0 0 10px #f1c4ff);

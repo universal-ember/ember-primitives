@@ -7,6 +7,7 @@ The Switch component is a user interface element used for toggling between two s
 ## Examples
 
 <details><summary><h3>Draggable</h3></summary>
+<br>
 
 ```gjs live preview
 import { Switch } from 'ember-primitives/components/switch';
@@ -115,20 +116,17 @@ const draggableSwitch = modifier((element) => {
         <s.Control />
         On
       </s.Label>
-      <br>
+      <br><br>
       Result: {{s.isChecked}}
     </Switch>
 
     <style>
 
-
 .switch {
   --switch-width: 90px;
   --switch-height: 32px;
-  --switch-padding: 3px;
-
-  /* thumb position 0–100%, controlled by JS + data-state */
-  --thumb-translate: 0%;
+  --switch-border: 2px;
+  --thumb-translate: 0%; /* 0% = off, 100% = on */
 
   position: relative;
   display: inline-flex;
@@ -138,10 +136,11 @@ const draggableSwitch = modifier((element) => {
 
   width: var(--switch-width);
   height: var(--switch-height);
-  padding: 0 calc(var(--switch-padding) * 2);
+
+  padding: 0 10px; /* space for "Off" / "On" text */
 
   border-radius: 999px;
-  border: 2px solid #4b5563;
+  border: var(--switch-border) solid #4b5563;
 
   background: transparent;
   color: #e5e7eb;
@@ -158,29 +157,34 @@ const draggableSwitch = modifier((element) => {
   --thumb-translate: 100%;
 }
 
-/* Dim "track" behind everything */
+/* Track behind everything, perfectly centered between borders */
 .switch::before {
   content: "";
   position: absolute;
-  inset: var(--switch-padding);
-  border-radius: 999px;
+  inset: var(--switch-border); /* respects border thickness */
+  border-radius: inherit;
   background: #4b5563;
   opacity: 0.6;
   z-index: 0;
 }
 
-/* Sliding thumb */
+/* Sliding thumb, sized so it aligns perfectly in both positions */
 .switch::after {
   content: "";
   position: absolute;
-  top: var(--switch-padding);
-  left: var(--switch-padding);
 
-  /* half the width of the track, minus padding */
-  width: calc(50% - var(--switch-padding));
-  height: calc(var(--switch-height) - 2 * var(--switch-padding));
-  border-radius: 999px;
+  /* start right inside the border */
+  top: var(--switch-border);
+  left: var(--switch-border);
 
+  /* half of the *inner* width:
+     inner width = 100% - 2*border
+     thumb width = (inner / 2) = 50% - border
+   */
+  width: calc(50% - var(--switch-border));
+  height: calc(100% - 2 * var(--switch-border));
+
+  border-radius: inherit;
   background: #f9fafb;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 
@@ -191,7 +195,7 @@ const draggableSwitch = modifier((element) => {
   z-index: 0;
 }
 
-/* While dragging, remove easing so the thumb follows the pointer 1:1 */
+/* While dragging, JS adds this to remove easing so it follows the pointer 1:1 */
 .switch.is-dragging::after {
   transition: none;
 }
@@ -202,8 +206,9 @@ const draggableSwitch = modifier((element) => {
   z-index: 1;
 }
 
-/* Optional: nicer spacing if you wrap the labels in spans
+/* If you wrap the labels in spans:
    <span>Off</span> <s.Control /> <span>On</span>
+   this centers them nicely in each half.
 */
 .switch span {
   flex: 1;

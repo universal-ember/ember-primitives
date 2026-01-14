@@ -2,6 +2,16 @@
 
 ## Release (2026-01-14)
 
+
+
+#### :memo: Documentation
+* [#648](https://github.com/universal-ember/ember-primitives/pull/648) Draggable Switch Demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2026-01-14)
+
 * ember-primitives 0.53.0 (minor)
 * @universal-ember/docs-support 0.9.2 (patch)
 * which-heading-do-i-need 0.2.5 (patch)

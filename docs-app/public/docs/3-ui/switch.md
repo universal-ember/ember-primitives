@@ -15,13 +15,7 @@ import { Shadowed } from 'ember-primitives/components/shadowed';
 import { modifier } from 'ember-modifier';
 
 const draggableSwitch = modifier((element) => {
-  // Underlying control (from ember-primitives Switch)
-  const control =
-    element.querySelector('[role="switch"]') ??
-    element.querySelector('input[type="checkbox"]') ??
-    element.querySelector('button');
-
-  if (!control) return;
+  const control = element.querySelector('[role="switch"]');
 
   let pointerId = null;
   let rect = null;
@@ -33,14 +27,12 @@ const draggableSwitch = modifier((element) => {
     }
 
     if ('checked' in control && typeof control.checked === 'boolean') {
-      // @ts-expect-error: not all elements have checked
       return control.checked;
     }
 
     return control.getAttribute('data-state') === 'on';
   };
 
-  // Move the thumb via CSS custom property --thumb-translate (0–100%)
   const updateThumb = (clientX) => {
     if (!rect) return 0;
 
@@ -63,9 +55,8 @@ const draggableSwitch = modifier((element) => {
   const handlePointerUpOrCancel = (event) => {
     if (event.pointerId !== pointerId) return;
 
-    const position = updateThumb(event.clientX); // 0..1
+    updateThumb(event.clientX); // 0..1
 
-    // Let CSS go back to the resting state driven by data-state
     element.style.removeProperty('--thumb-translate');
     element.classList.remove('is-dragging');
 
@@ -79,7 +70,7 @@ const draggableSwitch = modifier((element) => {
   };
 
   const handlePointerDown = (event) => {
-    if (event.button !== 0) return; // primary button only
+    if (event.button !== 0) return; 
 
     pointerId = event.pointerId;
     rect = element.getBoundingClientRect();

@@ -78,7 +78,7 @@
     "@glint/tsserver-plugin": "^2.0.9",
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
     "@rollup/plugin-babel": "^6.1.0",
-    "babel-plugin-ember-template-compilation": "^3.0.1",
+    "babel-plugin-ember-template-compilation": "^4.0.0",
     "concurrently": "^9.2.1",
     "ember-source": "^6.10.0",
     "ember-template-lint": "^7.9.3",

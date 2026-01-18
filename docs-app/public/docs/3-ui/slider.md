@@ -361,6 +361,7 @@ import { ComponentSignature } from 'kolay';
 
 ## References
 
+- W3 - [Slider Multithumb](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/)
 - CSS Tricks - [Multi Thumb Sliders](https://css-tricks.com/multi-thumb-sliders-particular-two-thumb-case/)
 - MDN - [ARIA: slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/slider_role)
 - MDN - [range input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range)

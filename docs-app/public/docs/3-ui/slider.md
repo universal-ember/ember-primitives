@@ -2,6 +2,31 @@
 
 An input where the user selects a value from within a given range. Inspired by [Radix UI Slider](https://www.radix-ui.com/docs/primitives/components/slider).
 
+<Callout>
+
+Before reaching for this component, consider if the [range `<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range) is sufficient for your use case.
+
+```gjs live preview
+// Native HTML range <input>
+<template>
+  <label>
+    Volume
+    <input type="range" name="volume" min="0" max="11" />
+  </label>
+
+  <style> 
+    @scope {
+      label { display: flex; gap: 1rem; }
+  </style>
+</template>
+```
+
+  However, if we need a multi-thumb range, _The Platform_ does not have a built in solution for us.
+
+</Callout>
+
+The general recommendation for multi-thumb sliders is to coordinate multiple raneg inputs, which involves some accessibility details, which this `<Slider>` component handles for you.
+
 <div class="featured-demo">
 
 ```gjs live preview
@@ -333,3 +358,11 @@ import { ComponentSignature } from 'kolay';
 | :---: | :----------- |  
 | `data-orientation` | `'horizontal' \| 'vertical'` - The orientation of the slider
 | `data-disabled` | Present when the thumb is disabled
+
+## References
+
+- CSS Tricks - [Multi Thumb Sliders](https://css-tricks.com/multi-thumb-sliders-particular-two-thumb-case/)
+- MDN - [ARIA: slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/slider_role)
+- MDN - [range input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range)
+- utilitybend Proposal - [rangegroup](https://utilitybend.com/blog/a-native-way-of-having-more-than-one-thumb-on-a-range-slider-in-html)
+  - open-ui [enhanced range input](https://open-ui.org/components/enhanced-range-input.explainer/)

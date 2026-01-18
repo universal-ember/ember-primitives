@@ -1,11 +1,9 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
-import { fn, hash } from "@ember/helper";
+import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
-import { modifier } from "ember-modifier";
-
 import type { TOC } from "@ember/component/template-only";
+import type Owner from "@ember/owner";
 import type { WithBoundArgs } from "@glint/template";
 
 export interface Signature {
@@ -44,11 +42,11 @@ export interface Signature {
     /**
      * Callback when the value changes during dragging.
      */
-    onValueChange?: (value: number[]) => void;
+    onValueChange?: (value: number | number[]) => void;
     /**
      * Callback when the value is committed (after dragging ends).
      */
-    onValueCommit?: (value: number[]) => void;
+    onValueCommit?: (value: number | number[]) => void;
   };
   Blocks: {
     default: [
@@ -56,7 +54,7 @@ export interface Signature {
         /**
          * The track element - the rail along which the thumb moves
          */
-        Track: WithBoundArgs<typeof Track, "orientation" | "onTrackRef">;
+        Track: WithBoundArgs<typeof Track, "orientation">;
         /**
          * The range element - the filled portion of the track
          */
@@ -66,12 +64,18 @@ export interface Signature {
          */
         Thumb: WithBoundArgs<
           typeof ThumbComponent,
-          "min" | "max" | "step" | "disabled" | "orientation" | "onPointerDown" | "onKeyDown"
+          "min" | "max" | "step" | "disabled" | "orientation" | "onInput" | "onChange"
         >;
         /**
          * The current value(s)
          */
         values: number[];
+
+        /**
+         * A stable list of thumbs to iterate over.
+         * Prefer this over iterating `values` directly to avoid DOM churn during dragging.
+         */
+        thumbs: SliderThumb[];
         /**
          * The minimum value
          */
@@ -89,55 +93,45 @@ export interface Signature {
   };
 }
 
+export interface SliderThumb {
+  index: number;
+  value: number;
+}
+
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 100;
 const DEFAULT_STEP = 1;
-
-function normalizeValue(value: number | number[] | undefined): number[] {
-  if (value === undefined) return [0];
-  if (Array.isArray(value)) return value;
-
-  return [value];
-}
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
 function roundToStep(value: number, step: number): number {
+  if (!Number.isFinite(step) || step <= 0) return value;
+
   return Math.round(value / step) * step;
 }
 
 function getPercentage(value: number, min: number, max: number): number {
-  return ((value - min) / (max - min)) * 100;
+  const range = max - min;
+
+  if (!Number.isFinite(range) || range === 0) return 0;
+
+  return ((value - min) / range) * 100;
 }
 
 interface TrackSignature {
   Element: HTMLSpanElement;
   Args: {
     orientation: "horizontal" | "vertical";
-    onTrackRef: (element: HTMLElement | null) => void;
   };
   Blocks: {
     default: [];
   };
 }
 
-const captureElement = modifier(
-  (element: HTMLElement, [callback]: [(element: HTMLElement | null) => void]) => {
-    callback(element);
-
-    return () => callback(null);
-  },
-);
-
 const Track: TOC<TrackSignature> = <template>
-  <span
-    ...attributes
-    data-orientation={{@orientation}}
-    role="presentation"
-    {{captureElement @onTrackRef}}
-  >
+  <span ...attributes data-slider-track data-orientation={{@orientation}}>
     {{yield}}
   </span>
 </template>;
@@ -151,11 +145,11 @@ interface RangeSignature {
 }
 
 const Range: TOC<RangeSignature> = <template>
-  <span ...attributes data-orientation={{@orientation}} role="presentation" style={{@rangeStyle}} />
+  <span ...attributes data-slider-range data-orientation={{@orientation}} style={{@rangeStyle}} />
 </template>;
 
 class ThumbComponent extends Component<{
-  Element: HTMLSpanElement;
+  Element: HTMLInputElement;
   Args: {
     value: number;
     index: number;
@@ -164,44 +158,68 @@ class ThumbComponent extends Component<{
     step: number;
     disabled?: boolean;
     orientation: "horizontal" | "vertical";
-    onPointerDown: (index: number, event: PointerEvent) => void;
-    onKeyDown: (index: number, event: KeyboardEvent) => void;
+    onInput: (index: number, value: number) => void;
+    onChange: (index: number, value: number) => void;
   };
 }> {
-  get thumbStyle(): string {
-    const percent = getPercentage(this.args.value, this.args.min, this.args.max);
+  private readValue(event: Event): number {
+    // In docs live previews the component may run in an iframe/shadow realm,
+    // where `instanceof HTMLInputElement` is not reliable. `currentTarget` is
+    // the element the handler is attached to.
+    const el = event.currentTarget as { value?: string } | null;
+    const raw = el?.value;
+    const parsed = raw === undefined ? NaN : Number.parseFloat(raw);
 
-    if (this.args.orientation === "horizontal") {
-      return `left: ${percent}%`;
-    } else {
-      return `bottom: ${percent}%`;
-    }
+    return Number.isFinite(parsed) ? parsed : this.args.value;
   }
 
+  private onInput = (event: Event) => {
+    this.args.onInput(this.args.index, this.readValue(event));
+  };
+
+  private onChange = (event: Event) => {
+    this.args.onChange(this.args.index, this.readValue(event));
+  };
+
   <template>
-    {{! template-lint-disable no-pointer-down-event-binding }}
-    <span
-      role="slider"
-      aria-valuemin={{@min}}
-      aria-valuemax={{@max}}
-      aria-valuenow={{@value}}
-      aria-orientation={{@orientation}}
-      aria-disabled={{@disabled}}
-      data-orientation={{@orientation}}
-      data-disabled={{@disabled}}
-      tabindex={{if @disabled "-1" "0"}}
-      style={{this.thumbStyle}}
-      {{on "pointerdown" (fn @onPointerDown @index)}}
-      {{on "keydown" (fn @onKeyDown @index)}}
+    <input
       ...attributes
+      data-slider-thumb
+      type="range"
+      min={{@min}}
+      max={{@max}}
+      step={{@step}}
+      value={{@value}}
+      disabled={{@disabled}}
+      data-orientation={{@orientation}}
+      data-disabled={{if @disabled "true"}}
+      {{on "input" this.onInput}}
+      {{on "change" this.onChange}}
     />
   </template>
 }
 
+class ThumbState implements SliderThumb {
+  constructor(
+    private slider: Slider,
+    public index: number,
+  ) {}
+
+  get value(): number {
+    return this.slider.values[this.index] ?? this.slider.min;
+  }
+}
+
 export class Slider extends Component<Signature> {
-  @tracked private activeThumbIndex: number | null = null;
-  @tracked private isDragging = false;
-  private trackElement: HTMLElement | null = null;
+  private thumbStates: ThumbState[] = [];
+
+  constructor(owner: Owner, args: Signature["Args"]) {
+    super(owner, args);
+
+    const initialCount = Array.isArray(args.value) ? Math.max(1, args.value.length) : 1;
+
+    this.thumbStates = Array.from({ length: initialCount }, (_, index) => new ThumbState(this, index));
+  }
 
   get min(): number {
     return this.args.min ?? DEFAULT_MIN;
@@ -220,9 +238,15 @@ export class Slider extends Component<Signature> {
   }
 
   get values(): number[] {
-    const normalized = normalizeValue(this.args.value);
+    const normalized = Array.isArray(this.args.value)
+      ? (this.args.value.length === 0 ? [this.min] : this.args.value)
+      : [this.args.value ?? this.min];
 
     return normalized.map((v) => clamp(roundToStep(v, this.step), this.min, this.max));
+  }
+
+  get thumbs(): SliderThumb[] {
+    return this.thumbStates;
   }
 
   get disabled(): boolean {
@@ -244,132 +268,56 @@ export class Slider extends Component<Signature> {
 
   private updateValue = (newValues: number[]) => {
     if (this.args.onValueChange) {
-      this.args.onValueChange(newValues);
+      this.args.onValueChange(this.coerceOutput(newValues));
     }
   };
 
   private commitValue = (newValues: number[]) => {
     if (this.args.onValueCommit) {
-      this.args.onValueCommit(newValues);
+      this.args.onValueCommit(this.coerceOutput(newValues));
     }
   };
 
-  private onTrackRef = (element: HTMLElement | null) => {
-    this.trackElement = element;
-  };
+  private coerceOutput(values: number[]): number | number[] {
+    if (Array.isArray(this.args.value)) return values;
 
-  private handlePointerDown = (index: number, event: PointerEvent) => {
+    return values[0] ?? this.min;
+  }
+
+  private applyThumbValue(index: number, rawValue: number): number[] {
+    const nextValues = [...this.values];
+    const stepped = clamp(roundToStep(rawValue, this.step), this.min, this.max);
+
+    let constrained = stepped;
+
+    if (nextValues.length > 1) {
+      const prev = nextValues[index - 1];
+      const next = nextValues[index + 1];
+
+      if (prev !== undefined) constrained = Math.max(constrained, prev);
+      if (next !== undefined) constrained = Math.min(constrained, next);
+    }
+
+    nextValues[index] = constrained;
+
+    return nextValues;
+  }
+
+  private handleThumbInput = (index: number, value: number) => {
     if (this.disabled) return;
 
-    event.preventDefault();
-    this.activeThumbIndex = index;
-    this.isDragging = true;
-
-    const target = event.currentTarget as HTMLElement;
-
-    try {
-      target.setPointerCapture(event.pointerId);
-    } catch {
-      // Silently fail if pointer capture is not supported or invalid
-    }
-
-    const handlePointerMove = (e: PointerEvent) => {
-      this.handlePointerMove(e);
-    };
-
-    const handlePointerUp = (e: PointerEvent) => {
-      this.isDragging = false;
-      this.commitValue(this.values);
-
-      try {
-        target.releasePointerCapture(e.pointerId);
-      } catch {
-        // Silently fail if pointer capture was not set
-      }
-
-      target.removeEventListener("pointermove", handlePointerMove);
-      target.removeEventListener("pointerup", handlePointerUp);
-    };
-
-    target.addEventListener("pointermove", handlePointerMove);
-    target.addEventListener("pointerup", handlePointerUp);
-  };
-
-  private handlePointerMove = (event: PointerEvent) => {
-    if (!this.isDragging || this.activeThumbIndex === null || !this.trackElement) return;
-
-    const rect = this.trackElement.getBoundingClientRect();
-    let percent: number;
-
-    if (this.orientation === "horizontal") {
-      percent = (event.clientX - rect.left) / rect.width;
-    } else {
-      percent = (rect.bottom - event.clientY) / rect.height;
-    }
-
-    const range = this.max - this.min;
-    let newValue = this.min + percent * range;
-
-    newValue = clamp(roundToStep(newValue, this.step), this.min, this.max);
-
-    const newValues = [...this.values];
-
-    newValues[this.activeThumbIndex] = newValue;
+    const newValues = this.applyThumbValue(index, value);
 
     this.updateValue(newValues);
   };
 
-  private handleKeyDown = (index: number, event: KeyboardEvent) => {
+  private handleThumbChange = (index: number, value: number) => {
     if (this.disabled) return;
 
-    const value = this.values[index];
+    const newValues = this.applyThumbValue(index, value);
 
-    if (value === undefined) return;
-
-    let newValue = value;
-
-    switch (event.key) {
-      case "ArrowLeft":
-      case "ArrowDown":
-        event.preventDefault();
-        newValue = clamp(value - this.step, this.min, this.max);
-
-        break;
-      case "ArrowRight":
-      case "ArrowUp":
-        event.preventDefault();
-        newValue = clamp(value + this.step, this.min, this.max);
-
-        break;
-      case "Home":
-        event.preventDefault();
-        newValue = this.min;
-
-        break;
-      case "End":
-        event.preventDefault();
-        newValue = this.max;
-
-        break;
-      case "PageDown":
-        event.preventDefault();
-        newValue = clamp(value - this.step * 10, this.min, this.max);
-
-        break;
-      case "PageUp":
-        event.preventDefault();
-        newValue = clamp(value + this.step * 10, this.min, this.max);
-
-        break;
-    }
-
-    if (newValue !== value) {
-      const newValues = [...this.values];
-
-      newValues[index] = newValue;
-      this.updateValue(newValues);
-      this.commitValue(newValues);
-    }
+    this.updateValue(newValues);
+    this.commitValue(newValues);
   };
 
   <template>
@@ -377,11 +325,11 @@ export class Slider extends Component<Signature> {
       ...attributes
       data-slider
       data-orientation={{this.orientation}}
-      data-disabled={{this.disabled}}
+      data-disabled={{if this.disabled "true"}}
     >
       {{yield
         (hash
-          Track=(component Track orientation=this.orientation onTrackRef=this.onTrackRef)
+          Track=(component Track orientation=this.orientation)
           Range=(component Range orientation=this.orientation rangeStyle=this.rangeStyle)
           Thumb=(component
             ThumbComponent
@@ -390,10 +338,11 @@ export class Slider extends Component<Signature> {
             step=this.step
             disabled=this.disabled
             orientation=this.orientation
-            onPointerDown=this.handlePointerDown
-            onKeyDown=this.handleKeyDown
+            onInput=this.handleThumbInput
+            onChange=this.handleThumbChange
           )
           values=this.values
+          thumbs=this.thumbs
           min=this.min
           max=this.max
           step=this.step

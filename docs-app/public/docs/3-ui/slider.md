@@ -25,7 +25,9 @@ Before reaching for this component, consider if the [range `<input>`](https://de
 
 </Callout>
 
-The general recommendation for multi-thumb sliders is to coordinate multiple raneg inputs, which involves some accessibility details, which this `<Slider>` component handles for you.
+The general recommendation for multi-thumb sliders is to coordinate multiple range inputs. This `<Slider>` component gives you the markup primitives to do that without forcing any styling.
+
+Prefer iterating `s.thumbs` rather than `s.values` so the thumb elements stay stable while the value changes.
 
 <div class="featured-demo">
 
@@ -40,8 +42,8 @@ const value = cell(50);
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
-        {{#each s.values as |v index|}}
-          <s.Thumb @value={{v}} @index={{index}} />
+        {{#each s.thumbs as |thumb|}}
+          <s.Thumb @value={{thumb.value}} @index={{thumb.index}} />
         {{/each}}
       </s.Track>
     </Slider>
@@ -58,7 +60,7 @@ const value = cell(50);
         margin: 2rem auto;
       }
       
-      [role="presentation"] {
+      [data-slider-track] {
         position: relative;
         flex: 1;
         height: 4px;
@@ -66,32 +68,65 @@ const value = cell(50);
         border-radius: 2px;
       }
       
-      [role="presentation"] > span {
+      [data-slider-range] {
         position: absolute;
         height: 100%;
         background: #1a73e8;
         border-radius: 2px;
       }
       
-      [role="slider"] {
-        display: block;
+      [data-slider-thumb] {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 20px;
+        margin: 0;
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        pointer-events: none;
+      }
+
+      [data-slider-thumb]::-webkit-slider-runnable-track {
+        background: transparent;
+        border: 0;
+      }
+
+      [data-slider-thumb]::-moz-range-track {
+        background: transparent;
+        border: 0;
+      }
+
+      [data-slider-thumb]::-webkit-slider-thumb {
+        pointer-events: auto;
+        appearance: none;
+        -webkit-appearance: none;
         width: 20px;
         height: 20px;
         background: #1a73e8;
         border: 2px solid white;
-        border-radius: 50%;
+        border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        position: absolute;
-        transform: translateX(-50%);
+        cursor: pointer;
+      }
+
+      [data-slider-thumb]::-moz-range-thumb {
+        pointer-events: auto;
+        width: 20px;
+        height: 20px;
+        background: #1a73e8;
+        border: 2px solid white;
+        border-radius: 999px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         cursor: pointer;
       }
       
-      [role="slider"]:focus {
+      [data-slider-thumb]:focus-visible::-webkit-slider-thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
       }
       
-      [role="slider"][aria-disabled="true"] {
+      [data-slider-thumb][disabled] {
         opacity: 0.5;
         cursor: not-allowed;
       }
@@ -123,8 +158,8 @@ const second = () => value.current[1];
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
-        {{#each s.values as |v index|}}
-          <s.Thumb @value={{v}} @index={{index}} />
+        {{#each s.thumbs as |thumb|}}
+          <s.Thumb @value={{thumb.value}} @index={{thumb.index}} />
         {{/each}}
       </s.Track>
     </Slider>
@@ -141,7 +176,7 @@ const second = () => value.current[1];
         margin: 2rem auto;
       }
       
-      [role="presentation"] {
+      [data-slider-track] {
         position: relative;
         flex: 1;
         height: 4px;
@@ -149,28 +184,61 @@ const second = () => value.current[1];
         border-radius: 2px;
       }
       
-      [role="presentation"] > span {
+      [data-slider-range] {
         position: absolute;
         height: 100%;
         background: #1a73e8;
         border-radius: 2px;
       }
       
-      [role="slider"] {
-        display: block;
+      [data-slider-thumb] {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 20px;
+        margin: 0;
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      [data-slider-thumb]::-webkit-slider-runnable-track {
+        background: transparent;
+        border: 0;
+      }
+
+      [data-slider-thumb]::-moz-range-track {
+        background: transparent;
+        border: 0;
+      }
+
+      [data-slider-thumb]::-webkit-slider-thumb {
+        pointer-events: auto;
+        appearance: none;
+        -webkit-appearance: none;
         width: 20px;
         height: 20px;
         background: #1a73e8;
         border: 2px solid white;
-        border-radius: 50%;
+        border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        position: absolute;
-        transform: translateX(-50%);
         cursor: pointer;
-        z-index: 1;
+      }
+
+      [data-slider-thumb]::-moz-range-thumb {
+        pointer-events: auto;
+        width: 20px;
+        height: 20px;
+        background: #1a73e8;
+        border: 2px solid white;
+        border-radius: 999px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        cursor: pointer;
       }
       
-      [role="slider"]:focus {
+      [data-slider-thumb]:focus-visible::-webkit-slider-thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
       }
@@ -203,8 +271,8 @@ const value = cell(50);
         as |s|>
         <s.Track>
           <s.Range />
-          {{#each s.values as |v index|}}
-            <s.Thumb @value={{v}} @index={{index}} />
+          {{#each s.thumbs as |thumb|}}
+            <s.Thumb @value={{thumb.value}} @index={{thumb.index}} />
           {{/each}}
         </s.Track>
       </Slider>
@@ -223,7 +291,7 @@ const value = cell(50);
         margin: 2rem auto;
       }
       
-      [data-orientation="vertical"] [role="presentation"] {
+      [data-orientation="vertical"] [data-slider-track] {
         position: relative;
         flex: 1;
         width: 4px;
@@ -231,27 +299,62 @@ const value = cell(50);
         border-radius: 2px;
       }
       
-      [data-orientation="vertical"] [role="presentation"] > span {
+      [data-orientation="vertical"] [data-slider-range] {
         position: absolute;
         width: 100%;
         background: #1a73e8;
         border-radius: 2px;
       }
       
-      [data-orientation="vertical"] [role="slider"] {
-        display: block;
+      [data-orientation="vertical"] [data-slider-thumb] {
+        position: absolute;
+        inset: 0;
+        width: 200px;
+        height: 20px;
+        margin: 0;
+        background: transparent;
+        appearance: none;
+        -webkit-appearance: none;
+        transform-origin: left top;
+        transform: rotate(-90deg) translateX(-200px);
+        pointer-events: none;
+      }
+
+      [data-orientation="vertical"] [data-slider-thumb]::-webkit-slider-runnable-track {
+        background: transparent;
+        border: 0;
+      }
+
+      [data-orientation="vertical"] [data-slider-thumb]::-moz-range-track {
+        background: transparent;
+        border: 0;
+      }
+
+      [data-orientation="vertical"] [data-slider-thumb]::-webkit-slider-thumb {
+        pointer-events: auto;
+        appearance: none;
+        -webkit-appearance: none;
         width: 20px;
         height: 20px;
         background: #1a73e8;
         border: 2px solid white;
-        border-radius: 50%;
+        border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        position: absolute;
-        transform: translateY(50%);
+        cursor: pointer;
+      }
+
+      [data-orientation="vertical"] [data-slider-thumb]::-moz-range-thumb {
+        pointer-events: auto;
+        width: 20px;
+        height: 20px;
+        background: #1a73e8;
+        border: 2px solid white;
+        border-radius: 999px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         cursor: pointer;
       }
       
-      [data-orientation="vertical"] [role="slider"]:focus {
+      [data-orientation="vertical"] [data-slider-thumb]:focus-visible::-webkit-slider-thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
       }
@@ -268,12 +371,12 @@ const value = cell(50);
 
 ## Features
 
-* Full keyboard navigation (Arrow keys, Home, End, Page Up/Down)
+* Uses native `<input type="range">` behavior for keyboard/pointer interactions
 * Supports single or multiple values (range selection)
 * Horizontal and vertical orientations
 * Customizable min, max, and step values
 * Disabled state
-* Provides context for assistive technology
+* Styleless primitives (you provide CSS)
 
 ## Anatomy
 
@@ -293,8 +396,8 @@ import { Slider } from 'ember-primitives';
   <Slider as |s|>
     <s.Track>
       <s.Range />
-      {{#each s.values as |value index|}}
-        <s.Thumb @value={{value}} @index={{index}} />
+      {{#each s.thumbs as |thumb|}}
+        <s.Thumb @value={{thumb.value}} @index={{thumb.index}} />
       {{/each}}
     </s.Track>
   </Slider>
@@ -303,18 +406,13 @@ import { Slider } from 'ember-primitives';
 
 ## Accessibility
 
-Adheres to the [`slider` role requirements](https://www.w3.org/WAI/ARIA/apg/patterns/slider).
+Each thumb is a native `<input type="range">`, so it gets browser keyboard interaction “for free”.
+
+For accessibility, make sure each thumb has an accessible name. For example, pass `aria-label` / `aria-labelledby` via `...attributes` to `<s.Thumb>`.
 
 ### Keyboard Navigation
 
-| Key | Description |
-| :---: | :----------- |
-| `ArrowLeft` / `ArrowDown` | Decreases the value by one step |
-| `ArrowRight` / `ArrowUp` | Increases the value by one step |
-| `Home` | Sets the value to its minimum |
-| `End` | Sets the value to its maximum |
-| `PageDown` | Decreases the value by 10 steps |
-| `PageUp` | Increases the value by 10 steps |
+Keyboard support is provided by the platform (and can vary slightly by browser/OS).
 
 ## API Reference
 
@@ -344,18 +442,21 @@ import { ComponentSignature } from 'kolay';
 
 | key | description |  
 | :---: | :----------- |  
+| `data-slider-track` | Present on the track element
 | `data-orientation` | `'horizontal' \| 'vertical'` - The orientation of the slider
 
 #### `<Range>`
 
 | key | description |  
 | :---: | :----------- |  
+| `data-slider-range` | Present on the range element
 | `data-orientation` | `'horizontal' \| 'vertical'` - The orientation of the slider
 
 #### `<Thumb>`
 
 | key | description |  
 | :---: | :----------- |  
+| `data-slider-thumb` | Present on the thumb element
 | `data-orientation` | `'horizontal' \| 'vertical'` - The orientation of the slider
 | `data-disabled` | Present when the thumb is disabled
 
@@ -363,7 +464,6 @@ import { ComponentSignature } from 'kolay';
 
 - W3 - [Slider Multithumb](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/)
 - CSS Tricks - [Multi Thumb Sliders](https://css-tricks.com/multi-thumb-sliders-particular-two-thumb-case/)
-- MDN - [ARIA: slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/slider_role)
 - MDN - [range input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range)
 - utilitybend Proposal - [rangegroup](https://utilitybend.com/blog/a-native-way-of-having-more-than-one-thumb-on-a-range-slider-in-html)
   - open-ui [enhanced range input](https://open-ui.org/components/enhanced-range-input.explainer/)

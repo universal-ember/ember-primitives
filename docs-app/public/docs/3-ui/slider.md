@@ -1,32 +1,12 @@
 # Slider
 
-An input where the user selects a value from within a given range. Inspired by [Radix UI Slider](https://www.radix-ui.com/docs/primitives/components/slider).
+An input where the user selects a value from within a given range. 
 
 <Callout>
 
 Before reaching for this component, consider if the [range `<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range) is sufficient for your use case.
 
-```gjs live
-import { Shadowed } from 'ember-primitives';
-
-// Native HTML range <input>
-<template>
-  <Shadowed>
-    <label class="native-range">
-      <span>Volume</span>
-      <input type="range" name="volume" min="0" max="11" />
-    </label>
-
-    <style>
-      .native-range {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-    </style>
-  </Shadowed>
-</template>
-```
+A custom slider -- as in this component -- is (currently) needed when you want a specific UX or you want to customize the look of the slider.
 
 </Callout>
 

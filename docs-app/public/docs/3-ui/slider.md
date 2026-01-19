@@ -42,6 +42,7 @@ Prefer iterating `s.thumbs` rather than `s.values` so the thumb elements stay st
 
 ```gjs live
 import { Slider, Shadowed } from 'ember-primitives';
+import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
 const basic = cell(50);
@@ -65,6 +66,12 @@ const eqBands = [
   { label: '4k', value: eq4k },
   { label: '16k', value: eq16k },
 ];
+
+const eqDraggingLabel = cell(null);
+
+const startEqDrag = (label) => () => eqDraggingLabel.set(label);
+const endEqDrag = () => eqDraggingLabel.set(null);
+const isEqDragging = (label) => eqDraggingLabel.current === label;
 
 const priceMin = 0;
 const priceMax = 1000;
@@ -235,8 +242,8 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
               {{/each}}
             </s.Track>
           </Slider>
-          <div class="v-readout" aria-hidden="true">{{vBasic.current}}</div>
         </div>
+        <div class="card-meta">Value: {{vBasic.current}}</div>
       </div>
 
       <div class="card">
@@ -258,8 +265,8 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
               {{/each}}
             </s.Track>
           </Slider>
-          <div class="v-readout" aria-hidden="true">{{vRange.current}}</div>
         </div>
+        <div class="card-meta">Range: {{vRange.current}}</div>
       </div>
 
       <div class="card">
@@ -284,9 +291,17 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
                       @index={{thumb.index}}
                       class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
                       aria-label={{band.label}}
+                      {{on "pointerdown" (startEqDrag band.label)}}
+                      {{on "gotpointercapture" (startEqDrag band.label)}}
+                      {{on "pointerup" endEqDrag}}
+                      {{on "pointercancel" endEqDrag}}
+                      {{on "lostpointercapture" endEqDrag}}
+                      {{on "blur" endEqDrag}}
                     />
                     <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
-                    <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
+                    {{#if (isEqDragging band.label)}}
+                      <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
+                    {{/if}}
                   {{/each}}
                 </s.Track>
               </Slider>
@@ -496,13 +511,6 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
         min-height: 170px;
       }
 
-      .v-readout {
-        font-variant-numeric: tabular-nums;
-        color: #333;
-        font-size: 0.9rem;
-        min-width: 6ch;
-      }
-
       .ember-primitives__slider--vertical {
         flex-direction: column;
         width: 24px;
@@ -540,7 +548,7 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
       .tooltip.tooltip--vertical {
         left: 50%;
         top: auto;
-        transform: translate(calc(100% + 12px), 50%);
+        transform: translate(14px, 50%);
       }
 
       .eq-mini {

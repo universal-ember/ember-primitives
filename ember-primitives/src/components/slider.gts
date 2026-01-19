@@ -250,6 +250,8 @@ class ThumbComponent extends Component<{
     <input
       ...attributes
       class="ember-primitives__slider__thumb"
+      {{! template-lint-disable no-inline-styles }}
+      style="pointer-events: none;"
       type="range"
       min={{@min}}
       max={{@max}}

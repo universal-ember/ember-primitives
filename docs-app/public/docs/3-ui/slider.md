@@ -23,760 +23,21 @@ import { Shadowed } from 'ember-primitives';
         align-items: center;
         gap: 1rem;
       }
-
-      .native-range input[type="range"] {
-        accent-color: #1a73e8;
-      }
     </style>
   </Shadowed>
 </template>
 ```
-
-  However, if we need a multi-thumb range, _The Platform_ does not have a built in solution for us.
 
 </Callout>
 
-The general recommendation for multi-thumb sliders is to coordinate multiple range inputs. This `<Slider>` component gives you the markup primitives to do that without forcing any styling.
 
-Prefer iterating `s.thumbs` rather than `s.values` so the thumb elements stay stable while the value changes.
+<div class="not-prose">
 
 ```gjs live
-import { Slider, Shadowed } from 'ember-primitives';
-import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
-
-const basic = cell(50);
-const range = cell([25, 75]);
-const ticks = [0, 10, 20, 30, 40, 50];
-const ticked = cell(20);
-const multi = cell([25, 50, 75]);
-const vBasic = cell(40);
-const vRange = cell([30, 70]);
-
-const eq60 = cell(2);
-const eq250 = cell(1);
-const eq1k = cell(-1);
-const eq4k = cell(-3);
-const eq16k = cell(2);
-
-const eqBands = [
-  { label: '60', value: eq60 },
-  { label: '250', value: eq250 },
-  { label: '1k', value: eq1k },
-  { label: '4k', value: eq4k },
-  { label: '16k', value: eq16k },
-];
-
-const eqDraggingLabel = cell(null);
-
-const startEqDrag = (label) => () => eqDraggingLabel.set(label);
-const endEqDrag = () => eqDraggingLabel.set(null);
-const isEqDragging = (label) => eqDraggingLabel.current === label;
-
-const priceMin = 0;
-const priceMax = 1000;
-
-// Fake histogram data (percent heights 10..100)
-const priceBins = [
-  { value: 0, height: 20 },
-  { value: 50, height: 35 },
-  { value: 100, height: 30 },
-  { value: 150, height: 55 },
-  { value: 200, height: 70 },
-  { value: 250, height: 62 },
-  { value: 300, height: 80 },
-  { value: 350, height: 60 },
-  { value: 400, height: 45 },
-  { value: 450, height: 50 },
-  { value: 500, height: 75 },
-  { value: 550, height: 68 },
-  { value: 600, height: 58 },
-  { value: 650, height: 48 },
-  { value: 700, height: 40 },
-  { value: 750, height: 52 },
-  { value: 800, height: 65 },
-  { value: 850, height: 42 },
-  { value: 900, height: 28 },
-  { value: 950, height: 18 },
-  { value: 1000, height: 12 },
-];
-
-const priceRange = cell([250, 750]);
-
-const priceIsInRange = (bin) => {
-  const lo = priceRange.current[0];
-  const hi = priceRange.current[1];
-
-  return bin.value >= lo && bin.value <= hi;
-};
-
-const percentAt = (index) => (index / (ticks.length - 1)) * 100;
+import { Gallery } from '#public/3-ui/slider/gallery';
 
 <template>
-  <Shadowed>
-    <div class="gallery">
-      <div class="card">
-        <div class="card-title">Basic</div>
-        <Slider @value={{basic.current}} @onValueChange={{basic.set}} as |s|>
-          <s.Track>
-            <s.Range />
-
-            {{#each s.thumbs as |thumb|}}
-              <s.Thumb
-                @value={{thumb.inputValue}}
-                @index={{thumb.index}}
-                class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
-                aria-label="Value"
-              />
-              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-            {{/each}}
-          </s.Track>
-        </Slider>
-        <div class="card-meta">Value: {{basic.current}}</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Range</div>
-        <Slider @value={{range.current}} @onValueChange={{range.set}} as |s|>
-          <s.Track>
-            <s.Range />
-
-            {{#each s.thumbs as |thumb|}}
-              <s.Thumb
-                @value={{thumb.inputValue}}
-                @index={{thumb.index}}
-                class="thumb-input {{if thumb.active 'is-active'}}"
-                aria-label="Value"
-              />
-              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-              <output class="tooltip" style="left: {{thumb.percent}}%;">{{thumb.value}}</output>
-            {{/each}}
-          </s.Track>
-        </Slider>
-        <div class="card-meta">Range: {{range.current}}</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Ticks (Discrete)</div>
-        <Slider @value={{ticked.current}} @step={{ticks}} @onValueChange={{ticked.set}} as |s|>
-          <s.Track>
-            <s.Range />
-
-            {{#each s.thumbs as |thumb|}}
-              <s.Thumb
-                @value={{thumb.inputValue}}
-                @index={{thumb.index}}
-                class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
-                aria-label="Value"
-              />
-              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-            {{/each}}
-          </s.Track>
-        </Slider>
-
-        <div class="ticks" aria-hidden="true">
-          {{#each ticks as |tick idx|}}
-            <span class="tick" style="left: {{percentAt idx}}%;">{{tick}}</span>
-          {{/each}}
-        </div>
-        <div class="card-meta">Value: {{ticked.current}}</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Multiple thumbs</div>
-        <Slider @value={{multi.current}} @onValueChange={{multi.set}} as |s|>
-          <s.Track>
-            <s.Range />
-
-            {{#each s.thumbs as |thumb|}}
-              <s.Thumb
-                @value={{thumb.inputValue}}
-                @index={{thumb.index}}
-                class="thumb-input {{if thumb.active 'is-active'}}"
-                aria-label="Value"
-              />
-              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-              <output class="tooltip" style="left: {{thumb.percent}}%;">{{thumb.value}}%</output>
-            {{/each}}
-          </s.Track>
-        </Slider>
-        <div class="card-meta">Values: {{multi.current}}</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Disabled</div>
-        <Slider @value={{60}} @disabled={{true}} as |s|>
-          <s.Track>
-            <s.Range />
-
-            {{#each s.thumbs as |thumb|}}
-              <s.Thumb
-                @value={{thumb.inputValue}}
-                @index={{thumb.index}}
-                class="thumb-input thumb-input--single"
-                aria-label="Value"
-              />
-              <div class="thumb is-disabled" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-            {{/each}}
-          </s.Track>
-        </Slider>
-        <div class="card-meta">Value: 60</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Vertical</div>
-        <div class="v-row">
-          <Slider @value={{vBasic.current}} @onValueChange={{vBasic.set}} @orientation="vertical" as |s|>
-            <s.Track>
-              <s.Range />
-
-              {{#each s.thumbs as |thumb|}}
-                <s.Thumb
-                  @value={{thumb.inputValue}}
-                  @index={{thumb.index}}
-                  class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
-                  aria-label="Value"
-                />
-                <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
-                <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
-              {{/each}}
-            </s.Track>
-          </Slider>
-        </div>
-        <div class="card-meta">Value: {{vBasic.current}}</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Vertical range</div>
-        <div class="v-row">
-          <Slider @value={{vRange.current}} @onValueChange={{vRange.set}} @orientation="vertical" as |s|>
-            <s.Track>
-              <s.Range />
-
-              {{#each s.thumbs as |thumb|}}
-                <s.Thumb
-                  @value={{thumb.inputValue}}
-                  @index={{thumb.index}}
-                  class="thumb-input {{if thumb.active 'is-active'}}"
-                  aria-label="Value"
-                />
-                <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
-                <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
-              {{/each}}
-            </s.Track>
-          </Slider>
-        </div>
-        <div class="card-meta">Range: {{vRange.current}}</div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Equalizer</div>
-        <div class="eq-mini" role="group" aria-label="Equalizer">
-          {{#each eqBands as |band|}}
-            <div class="eq-band">
-              <Slider
-                @value={{band.value.current}}
-                @onValueChange={{band.value.set}}
-                @min={{-5}}
-                @max={{5}}
-                @orientation="vertical"
-                as |s|
-              >
-                <s.Track>
-                  <s.Range />
-
-                  {{#each s.thumbs as |thumb|}}
-                    <s.Thumb
-                      @value={{thumb.inputValue}}
-                      @index={{thumb.index}}
-                      class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
-                      aria-label={{band.label}}
-                      {{on "pointerdown" (startEqDrag band.label)}}
-                      {{on "gotpointercapture" (startEqDrag band.label)}}
-                      {{on "input" (startEqDrag band.label)}}
-                      {{on "pointerup" endEqDrag}}
-                      {{on "pointercancel" endEqDrag}}
-                      {{on "lostpointercapture" endEqDrag}}
-                      {{on "change" endEqDrag}}
-                      {{on "blur" endEqDrag}}
-                    />
-                    <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
-                    {{#if (isEqDragging band.label)}}
-                      <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
-                    {{/if}}
-                  {{/each}}
-                </s.Track>
-              </Slider>
-
-              <div class="eq-label" aria-hidden="true">{{band.label}}</div>
-            </div>
-          {{/each}}
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">Histogram + Range</div>
-        <div class="price-mini">
-          <div class="hist-mini" aria-hidden="true">
-            {{#each priceBins as |bin|}}
-              <div class="bar-wrap">
-                <div
-                  class="bar {{if (priceIsInRange bin) 'active'}}"
-                  style="height: {{bin.height}}%;"
-                  title="{{bin.value}}"
-                />
-              </div>
-            {{/each}}
-          </div>
-
-          <Slider
-            @value={{priceRange.current}}
-            @onValueChange={{priceRange.set}}
-            @min={{priceMin}}
-            @max={{priceMax}}
-            @step={{10}}
-            as |s|
-          >
-            <s.Track>
-              <s.Range />
-
-              {{#each s.thumbs as |thumb|}}
-                <s.Thumb
-                  @value={{thumb.inputValue}}
-                  @index={{thumb.index}}
-                  class="thumb-input {{if thumb.active 'is-active'}}"
-                  aria-label="Price"
-                />
-                <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-              {{/each}}
-            </s.Track>
-          </Slider>
-
-          <div class="card-meta">Selected: {{priceRange.current}}</div>
-        </div>
-      </div>
-    </div>
-
-    <style>
-      .gallery {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
-        margin: 1rem auto 2rem;
-      }
-
-      .card {
-        flex: 1 1 260px;
-        max-width: 360px;
-        padding: 1rem;
-        border: 1px solid #eee;
-        border-radius: 12px;
-        background: white;
-      }
-
-      /* 3-up on wider screens */
-      @media (min-width: 980px) {
-        .card {
-          flex-basis: calc(33.333% - 0.75rem);
-          max-width: 380px;
-        }
-      }
-
-      .card-title {
-        font-weight: 600;
-        color: #111;
-        font-size: 0.95rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .card-meta {
-        margin-top: 0.75rem;
-        font-variant-numeric: tabular-nums;
-        color: #333;
-        font-size: 0.9rem;
-        text-align: center;
-      }
-
-      .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 32px;
-        margin: 0.75rem auto 0.25rem;
-      }
-
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-input {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 32px;
-        margin: 0;
-        opacity: 0;
-        -webkit-appearance: none;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .thumb-input.thumb-input--single {
-        pointer-events: auto;
-      }
-
-      .thumb-input.is-active {
-        z-index: 10;
-      }
-
-      .thumb-input:disabled {
-        cursor: not-allowed;
-      }
-
-      .thumb-input::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-input:hover::-webkit-slider-thumb,
-      .thumb-input:focus-visible::-webkit-slider-thumb,
-      .thumb-input.is-active::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb-input::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-input:hover::-moz-range-thumb,
-      .thumb-input:focus-visible::-moz-range-thumb,
-      .thumb-input.is-active::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
-        border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        z-index: 2;
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb.is-active {
-        z-index: 11;
-      }
-
-      .thumb.is-disabled {
-        opacity: 0.5;
-      }
-
-      .thumb-input:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-input:hover + .thumb,
-      .thumb-input:focus-visible + .thumb,
-      .thumb-input.is-active + .thumb {
-        --thumb-scale: 1.15;
-      }
-
-      .tooltip {
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, calc(-100% - 16px));
-        background: #111;
-        color: white;
-        font-size: 0.75rem;
-        line-height: 1;
-        padding: 0.15rem 0.35rem;
-        border-radius: 0.25rem;
-        white-space: nowrap;
-        user-select: none;
-        pointer-events: none;
-        z-index: 20;
-        font-variant-numeric: tabular-nums;
-        min-width: 2ch;
-        text-align: center;
-      }
-
-      .v-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.75rem;
-        min-height: 170px;
-      }
-
-      .ember-primitives__slider--vertical {
-        flex-direction: column;
-        width: 24px;
-        height: var(--gallery-v-height, 140px);
-        margin: 0.5rem 0;
-      }
-
-      .ember-primitives__slider--vertical .ember-primitives__slider__track {
-        width: 4px;
-        height: 100%;
-      }
-
-      .ember-primitives__slider--vertical .ember-primitives__slider__range {
-        width: 100%;
-        height: auto;
-      }
-
-      .ember-primitives__slider--vertical .thumb-input {
-        left: 0;
-        top: 0;
-        right: auto;
-        bottom: auto;
-        width: var(--gallery-v-height, 140px);
-        height: 24px;
-        transform: rotate(-90deg) translateX(calc(-1 * var(--gallery-v-height, 140px)));
-        transform-origin: left top;
-      }
-
-      .ember-primitives__slider--vertical .thumb {
-        left: 50%;
-        top: auto;
-        transform: translate(-50%, 50%);
-      }
-
-      .tooltip.tooltip--vertical {
-        left: 50%;
-        top: auto;
-        transform: translate(14px, 50%);
-      }
-
-      .eq-mini {
-        --gallery-v-height: 120px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        gap: 0.75rem;
-        padding: 0.25rem 0;
-      }
-
-      .eq-band {
-        display: grid;
-        justify-items: center;
-        gap: 0.25rem;
-      }
-
-      .eq-label {
-        font-size: 0.7rem;
-        color: #444;
-        user-select: none;
-      }
-
-      .price-mini {
-        width: 100%;
-      }
-
-      .hist-mini {
-        display: flex;
-        align-items: flex-end;
-        gap: 2px;
-        height: 64px;
-        padding: 0.5rem;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        background: #fafafa;
-      }
-
-      .hist-mini .bar-wrap {
-        flex: 1;
-        display: flex;
-        align-items: flex-end;
-        height: 100%;
-      }
-
-      .hist-mini .bar {
-        width: 100%;
-        background: #d8d8d8;
-        border-radius: 4px 4px 0 0;
-      }
-
-      .hist-mini .bar.active {
-        background: #1a73e8;
-      }
-
-      .ticks {
-        position: relative;
-        height: 18px;
-        margin-top: 0.25rem;
-      }
-
-      .tick {
-        position: absolute;
-        transform: translateX(-50%);
-        font-size: 0.7rem;
-        color: #444;
-        user-select: none;
-      }
-    </style>
-  </Shadowed>
-</template>
-```
-
-<div class="featured-demo">
-
-```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
-import { cell } from 'ember-resources';
-
-const value = cell(50);
-
-<template>
-  <Shadowed>
-    <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
-      <s.Track>
-        <s.Range />
-        {{#each s.thumbs as |thumb|}}
-          <div class="thumb-layer">
-            <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-            <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          </div>
-        {{/each}}
-      </s.Track>
-    </Slider>
-    
-    <p>Value: {{value.current}}</p>
-
-    <style>
-      .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 300px;
-        height: 20px;
-        margin: 2rem auto;
-      }
-      
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-      
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-      
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-      }
-
-      .thumb-layer.is-active {
-        z-index: 3;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        -webkit-appearance: none;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 20px;
-        height: 20px;
-        background: #1a73e8;
-        border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer.is-active input[type="range"] + .thumb {
-        --thumb-scale: 1.15;
-      }
-
-      .thumb-layer input[type="range"]:disabled + .thumb {
-        opacity: 0.5;
-      }
-      
-      p {
-        text-align: center;
-        font-size: 1.2rem;
-        margin-top: 2rem;
-      }
-    </style>
-  </Shadowed>
+  <Gallery />
 </template>
 ```
 
@@ -856,54 +117,29 @@ const second = () => value.current[1];
         opacity: 0;
         background: transparent;
         cursor: pointer;
+        appearance: none;
         /* Multiple full-width range inputs overlap.
-           Only the top layer receives pointer events by default.
-           Allow pointer events only on the native thumb so the thumb
-           you're grabbing can receive the drag.
+           The active layer is raised via z-index.
         */
         pointer-events: none;
       }
 
       .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb,
-      .thumb-layer.is-active input[type="range"]::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
+        cursor: pointer;
       }
 
       .thumb-layer input[type="range"]::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb,
-      .thumb-layer.is-active input[type="range"]::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
+        cursor: pointer;
       }
 
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 20px;
         height: 20px;
         background: #1a73e8;
@@ -911,6 +147,16 @@ const second = () => value.current[1];
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer:hover input[type="range"] + .thumb,
+      .thumb-layer input[type="range"]:focus + .thumb,
+      .thumb-layer input[type="range"]:focus-within + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb,
+      .thumb-layer input[type="range"]:active + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
@@ -928,13 +174,11 @@ const second = () => value.current[1];
 </template>
 ```
 
-## Slider With Ticks (Discrete Values)
+## Discrete Values
 
 When you want “ticks”, you typically want the slider to snap to a discrete set of values.
 
 Pass an array to `@step`.
-
-Note: tick positions are treated as evenly spaced steps.
 
 ```gjs live preview
 import { Slider, Shadowed } from 'ember-primitives';
@@ -1010,7 +254,19 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
         height: 20px;
         margin: 0;
         opacity: 0;
+        appearance: none;
         background: transparent;
+        cursor: pointer;
+        pointer-events: none;
+      }
+
+      .thumb-layer input[type="range"]::-webkit-slider-thumb {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+
+      .thumb-layer input[type="range"]::-moz-range-thumb {
+        pointer-events: auto;
         cursor: pointer;
       }
 
@@ -1028,6 +284,14 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
         transition: transform 120ms ease;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus + .thumb,
+      .thumb-layer input[type="range"]:focus-within + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb,
+      .thumb-layer input[type="range"]:active + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .ticks {
@@ -1124,7 +388,6 @@ const value = cell([25, 75]);
         height: 32px;
         margin: 0;
         opacity: 0;
-        -webkit-appearance: none;
         appearance: none;
         background: transparent;
         cursor: pointer;
@@ -1132,50 +395,26 @@ const value = cell([25, 75]);
         pointer-events: none;
       }
 
-      .thumb-input.is-active {
-        z-index: 10;
-      }
-
       .thumb-input::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
-      }
-
-      .thumb-input:hover::-webkit-slider-thumb,
-      .thumb-input:focus-visible::-webkit-slider-thumb,
-      .thumb-input.is-active::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
+        cursor: pointer;
       }
 
       .thumb-input::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+        cursor: pointer;
       }
 
-      .thumb-input:hover::-moz-range-thumb,
-      .thumb-input:focus-visible::-moz-range-thumb,
-      .thumb-input.is-active::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
+      .thumb-input.is-active {
+        z-index: 10;
       }
 
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -1184,6 +423,7 @@ const value = cell([25, 75]);
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         z-index: 2;
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb.is-active {
@@ -1193,6 +433,14 @@ const value = cell([25, 75]);
       .thumb-input:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-input:hover + .thumb,
+      .thumb-input:focus + .thumb,
+      .thumb-input:focus-within + .thumb,
+      .thumb-input:focus-visible + .thumb,
+      .thumb-input:active + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .tooltip {
@@ -1221,7 +469,7 @@ const value = cell([25, 75]);
 </template>
 ```
 
-## Slider With Labels (OriginUI-inspired)
+## Slider With Labels
 
 ```gjs live preview
 import { Slider, Shadowed } from 'ember-primitives';
@@ -1301,6 +549,7 @@ const value = cell(50);
         height: 20px;
         margin: 0;
         opacity: 0;
+        appearance: none;
         background: transparent;
         cursor: pointer;
       }
@@ -1327,9 +576,11 @@ const value = cell(50);
       }
 
       .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus + .thumb,
+      .thumb-layer input[type="range"]:focus-within + .thumb,
       .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer.is-active input[type="range"] + .thumb {
-        --thumb-scale: 1.15;
+      .thumb-layer input[type="range"]:active + .thumb {
+        --thumb-scale: 1.45;
       }
 
       p {
@@ -1342,7 +593,7 @@ const value = cell(50);
 </template>
 ```
 
-## Slider With Input (OriginUI-inspired)
+## Slider With Input
 
 This pattern keeps an `<input>` in sync with the slider, while letting users type and “commit” on blur / Enter.
 
@@ -1478,6 +729,7 @@ const onKeydown = (event) => {
         height: 20px;
         margin: 0;
         opacity: 0;
+        appearance: none;
         background: transparent;
         cursor: pointer;
       }
@@ -1485,7 +737,9 @@ const onKeydown = (event) => {
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -1493,6 +747,12 @@ const onKeydown = (event) => {
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
@@ -1504,7 +764,7 @@ const onKeydown = (event) => {
 </template>
 ```
 
-## Dual Range Slider With Input (OriginUI-inspired)
+## Dual Range Slider With Input
 
 ```gjs live preview
 import { Slider, Shadowed } from 'ember-primitives';
@@ -1664,53 +924,18 @@ const onKeydown = (commitFn) => (event) => {
         height: 20px;
         margin: 0;
         opacity: 0;
-        -webkit-appearance: none;
         appearance: none;
         background: transparent;
         cursor: pointer;
-        pointer-events: none;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb,
-      .thumb-layer.is-active input[type="range"]::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb,
-      .thumb-layer.is-active input[type="range"]::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
       }
 
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -1718,6 +943,13 @@ const onKeydown = (commitFn) => (event) => {
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer:hover input[type="range"] + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
@@ -1735,7 +967,7 @@ const onKeydown = (commitFn) => (event) => {
 </template>
 ```
 
-## Slider With Multiple Thumbs (OriginUI-inspired)
+## Slider With Multiple Thumbs
 
 ```gjs live preview
 import { Slider, Shadowed } from 'ember-primitives';
@@ -1799,52 +1031,15 @@ const value = cell([25, 50, 75]);
         height: 32px;
         margin: 0;
         opacity: 0;
-        -webkit-appearance: none;
         appearance: none;
         background: transparent;
         cursor: pointer;
         z-index: 1;
-        pointer-events: none;
+        pointer-events: auto;
       }
 
       .thumb-input.is-active {
         z-index: 10;
-      }
-
-      .thumb-input::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-input:hover::-webkit-slider-thumb,
-      .thumb-input:focus-visible::-webkit-slider-thumb,
-      .thumb-input.is-active::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb-input::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-input:hover::-moz-range-thumb,
-      .thumb-input:focus-visible::-moz-range-thumb,
-      .thumb-input.is-active::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
       }
 
       .thumb {
@@ -1874,9 +1069,8 @@ const value = cell([25, 50, 75]);
       }
 
       .thumb-input:hover + .thumb,
-      .thumb-input:focus-visible + .thumb,
-      .thumb-input.is-active + .thumb {
-        --thumb-scale: 1.15;
+      .thumb-input:focus-visible + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .tooltip {
@@ -1905,163 +1099,7 @@ const value = cell([25, 50, 75]);
 </template>
 ```
 
-## Vertical Slider
-
-```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
-import { cell } from 'ember-resources';
-
-const value = cell(50);
-
-<template>
-  <Shadowed>
-    <div style="display: flex; justify-content: center; align-items: center; gap: 2rem;">
-      <Slider 
-        @value={{value.current}} 
-        @onValueChange={{value.set}}
-        @orientation="vertical" 
-        as |s|>
-        <s.Track>
-          <s.Range />
-          {{#each s.thumbs as |thumb|}}
-            <div class="thumb-layer">
-              <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-              <div class="thumb" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
-            </div>
-          {{/each}}
-        </s.Track>
-      </Slider>
-      
-      <p class="readout">
-        <span>Value:</span>
-        <output>{{value.current}}</output>
-      </p>
-    </div>
-
-    <style>
-      .ember-primitives__slider--vertical {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 20px;
-        height: 200px;
-        margin: 2rem auto;
-      }
-      
-      .ember-primitives__slider--vertical .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        width: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-      
-      .ember-primitives__slider--vertical .ember-primitives__slider__range {
-        position: absolute;
-        width: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-      
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        inset: 0;
-        width: 200px;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        -webkit-appearance: none;
-        appearance: none;
-        background: transparent;
-        transform-origin: left top;
-        transform: rotate(-90deg) translateX(-200px);
-        cursor: pointer;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb {
-        position: absolute;
-        left: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, 50%) scale(var(--thumb-scale));
-        width: 20px;
-        height: 20px;
-        background: #1a73e8;
-        border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        --thumb-scale: 1.15;
-      }
-
-      .readout {
-        display: flex;
-        gap: 0.5rem;
-        align-items: baseline;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .readout output {
-        min-width: 3ch;
-        text-align: right;
-      }
-    </style>
-  </Shadowed>
-</template>
-```
-
-## Equalizer (OriginUI-inspired)
+## Equalizer
 
 ```gjs live preview
 import { Slider, Shadowed } from 'ember-primitives';
@@ -2178,46 +1216,11 @@ const bands = [
         height: 24px;
         margin: 0;
         opacity: 0;
-        -webkit-appearance: none;
         appearance: none;
         background: transparent;
         transform-origin: left top;
         transform: rotate(-90deg) translateX(-200px);
         cursor: pointer;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
       }
 
       .thumb {
@@ -2242,8 +1245,8 @@ const bands = [
       }
 
       .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        --thumb-scale: 1.15;
+      .thumb-layer input[type="range"]:focus-visible + .thumb  {
+        --thumb-scale: 1.45;
       }
 
       .tooltip {
@@ -2488,47 +1491,10 @@ const onKeydown = (commitFn) => (event) => {
         height: 20px;
         margin: 0;
         opacity: 0;
-        -webkit-appearance: none;
         appearance: none;
         background: transparent;
         cursor: pointer;
-        pointer-events: none;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb,
-      .thumb-layer.is-active input[type="range"]::-webkit-slider-thumb {
-        width: 24px;
-        height: 24px;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        width: 20px;
-        height: 20px;
-        border-radius: 999px;
-        background: transparent;
-        border: 0;
-        transition: width 120ms ease, height 120ms ease;
-        pointer-events: auto;
-      }
-
-      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
-      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb,
-      .thumb-layer.is-active input[type="range"]::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
       }
 
       .thumb {
@@ -2553,9 +1519,9 @@ const onKeydown = (commitFn) => (event) => {
       }
 
       .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer.is-active input[type="range"] + .thumb {
-        --thumb-scale: 1.15;
+      .thumb-layer:hover input[type="range"] + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb {
+        --thumb-scale: 1.45;
       }
 
       .inputs {

@@ -506,8 +506,8 @@ const value = cell([25, 75]);
 
       .tooltip {
         position: absolute;
-        top: 0;
-        transform: translate(-50%, calc(-100% - 10px));
+        top: 50%;
+        transform: translate(-50%, calc(-100% - 16px));
         background: #111;
         color: white;
         font-size: 0.75rem;
@@ -1112,15 +1112,18 @@ const value = cell([25, 50, 75]);
 
       .tooltip {
         position: absolute;
-        top: -1.75rem;
-        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, calc(-100% - 16px));
         background: #111;
         color: white;
         font-size: 0.75rem;
+        line-height: 1;
         padding: 0.15rem 0.35rem;
         border-radius: 0.25rem;
+        white-space: nowrap;
+        user-select: none;
         pointer-events: none;
-        z-index: 1;
+        z-index: 20;
       }
 
       p {

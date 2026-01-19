@@ -44,7 +44,7 @@ export default class AnimationPage extends Component {
 }
 
 const ReportingAnIssue = <template>
-  <ExternalLink href="https://github.com/universal-ember/ember-primitives/issues/new">
+  <ExternalLink @href="https://github.com/universal-ember/ember-primitives/issues/new">
     reporting an issue
   </ExternalLink>
 </template>;

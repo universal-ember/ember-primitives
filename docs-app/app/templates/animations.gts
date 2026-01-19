@@ -34,7 +34,7 @@ export default class Animations extends Component {
       </:error>
       <:editLink as |Link|>
         <Link
-          @href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{this.selectedPath}}.md"
+          href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{this.selectedPath}}.md"
         >
           Edit this page
         </Link>

@@ -271,10 +271,7 @@ const second = () => value.current[1];
 
 When you want “ticks”, you typically want the slider to snap to a discrete set of values.
 
-Pass either:
-
-- `@tickValues` (recommended), or
-- an array to `@step` (supported for OriginUI parity)
+Pass an array to `@step`.
 
 Note: tick positions are treated as evenly spaced steps.
 
@@ -288,7 +285,7 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 <template>
   <Shadowed>
-    <Slider @value={{value.current}} @tickValues={{tickValues}} @onValueChange={{value.set}} as |s|>
+    <Slider @value={{value.current}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
 
@@ -1700,7 +1697,7 @@ const onKeydown = (commitFn) => (event) => {
 * Uses native `<input type="range">` behavior for keyboard/pointer interactions
 * Supports single or multiple values (range selection)
 * Horizontal and vertical orientations
-* Customizable min, max, step, and discrete tick values (`@tickValues` / array `@step`)
+* Customizable min, max, step, and discrete tick values (array `@step`)
 * Disabled state
 * Styleless primitives (you provide CSS)
 

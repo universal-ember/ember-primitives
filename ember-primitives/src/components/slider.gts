@@ -27,15 +27,13 @@ export interface Signature {
      */
     max?: number;
     /**
-     * The stepping interval.
-     * Defaults to 1.
+      * The stepping interval.
+      *
+      * When passed a number, the slider moves in fixed increments.
+      * When passed an array of numbers, the slider snaps to those discrete values.
+      * Defaults to 1.
      */
     step?: number | number[];
-    /**
-     * A discrete list of allowed values.
-     * When provided, the slider will snap to these values.
-     */
-    tickValues?: number[];
     /**
      * The orientation of the slider.
      * Defaults to 'horizontal'.
@@ -110,7 +108,7 @@ export interface SliderThumb {
   /**
    * The value to pass to `<input type="range">`.
    *
-   * When using `@tickValues` (or array `@step`), this is the internal index
+   * When using an array `@step`, this is the internal index
    * (0..n-1). Otherwise it's the same as `value`.
    */
   inputValue: number;
@@ -320,9 +318,8 @@ export class Slider extends Component<Signature> {
   }
 
   get tickValues(): number[] | null {
-    const fromArgs = this.args.tickValues;
     const fromStep = Array.isArray(this.args.step) ? this.args.step : undefined;
-    const raw = fromArgs ?? fromStep;
+    const raw = fromStep;
 
     if (!raw) return null;
 

@@ -71,7 +71,7 @@ export interface Signature {
          */
         Thumb: WithBoundArgs<
           typeof ThumbComponent,
-          "min" | "max" | "step" | "disabled" | "onInput" | "onChange" | "onActivate"
+          "store"
         >;
         /**
          * The current value(s)
@@ -134,17 +134,24 @@ const Range: TOC<RangeSignature> = <template>
 class ThumbComponent extends Component<{
   Element: HTMLInputElement;
   Args: {
-    value: number;
-    index: number;
-    min: number;
-    max: number;
-    step: number;
-    disabled?: boolean;
-    onInput: (index: number, value: number) => void;
-    onChange: (index: number, value: number) => void;
-    onActivate: (index: number) => void;
+    store: SliderStore;
+    /**
+     * Optional convenience: pass the full thumb object instead of `@value` + `@index`.
+     */
+    thumb?: SliderThumb;
+    value?: number;
+    index?: number;
   };
 }> {
+  get index(): number {
+    return this.args.thumb?.index ?? this.args.index ?? 0;
+  }
+
+  get value(): number {
+    // When using tick values, the `input` needs the internal index.
+    return this.args.thumb?.inputValue ?? this.args.value ?? this.args.store.internalMin;
+  }
+
   private readValue(event: Event): number {
     // In docs live previews the component may run in an iframe/shadow realm,
     // where `instanceof HTMLInputElement` is not reliable. `currentTarget` is
@@ -153,29 +160,29 @@ class ThumbComponent extends Component<{
     const raw = el?.value;
     const parsed = raw === undefined ? NaN : Number.parseFloat(raw);
 
-    return Number.isFinite(parsed) ? parsed : this.args.value;
+    return Number.isFinite(parsed) ? parsed : this.value;
   }
 
   private onInput = (event: Event) => {
-    this.args.onActivate(this.args.index);
-    this.args.onInput(this.args.index, this.readValue(event));
+    this.args.store.handleThumbActivate(this.index);
+    this.args.store.handleThumbInput(this.index, this.readValue(event));
   };
 
   private onChange = (event: Event) => {
-    this.args.onActivate(this.args.index);
-    this.args.onChange(this.args.index, this.readValue(event));
+    this.args.store.handleThumbActivate(this.index);
+    this.args.store.handleThumbChange(this.index, this.readValue(event));
   };
 
   private onPointerUp = () => {
-    this.args.onActivate(this.args.index);
+    this.args.store.handleThumbActivate(this.index);
   };
 
   private onGotPointerCapture = () => {
-    this.args.onActivate(this.args.index);
+    this.args.store.handleThumbActivate(this.index);
   };
 
   private onFocus = () => {
-    this.args.onActivate(this.args.index);
+    this.args.store.handleThumbActivate(this.index);
   };
 
   <template>
@@ -183,11 +190,11 @@ class ThumbComponent extends Component<{
       ...attributes
       class="ember-primitives__slider__thumb"
       type="range"
-      min={{@min}}
-      max={{@max}}
-      step={{@step}}
-      value={{@value}}
-      disabled={{@disabled}}
+      min={{@store.internalMin}}
+      max={{@store.internalMax}}
+      step={{@store.internalStep}}
+      value={{this.value}}
+      disabled={{@store.disabled}}
       {{on "gotpointercapture" this.onGotPointerCapture}}
       {{on "pointerup" this.onPointerUp}}
       {{on "focus" this.onFocus}}
@@ -218,13 +225,7 @@ export class Slider extends Component<Signature> {
             Range=(component Range rangeStyle=this.store.rangeStyle)
             Thumb=(component
               ThumbComponent
-              min=this.store.internalMin
-              max=this.store.internalMax
-              step=this.store.internalStep
-              disabled=this.store.disabled
-              onInput=this.store.handleThumbInput
-              onChange=this.store.handleThumbChange
-              onActivate=this.store.handleThumbActivate
+              store=this.store
             )
             values=this.store.values
             tickValues=this.store.tickValues
@@ -240,15 +241,8 @@ export class Slider extends Component<Signature> {
 
           {{#each this.store.thumbs as |thumb|}}
             <ThumbComponent
-              @value={{thumb.inputValue}}
-              @index={{thumb.index}}
-              @min={{this.store.internalMin}}
-              @max={{this.store.internalMax}}
-              @step={{this.store.internalStep}}
-              @disabled={{this.store.disabled}}
-              @onInput={{this.store.handleThumbInput}}
-              @onChange={{this.store.handleThumbChange}}
-              @onActivate={{this.store.handleThumbActivate}}
+              @store={{this.store}}
+              @thumb={{thumb}}
               aria-label={{this.store.defaultThumbLabel thumb.index}}
             />
           {{/each}}

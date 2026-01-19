@@ -411,10 +411,13 @@ const value = cell([25, 75]);
         <s.Range />
 
         {{#each s.thumbs as |thumb|}}
-          <div class="thumb-layer {{if thumb.active 'is-active'}}">
-            <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-            <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          </div>
+          <s.Thumb
+            @value={{thumb.inputValue}}
+            @index={{thumb.index}}
+            class="thumb-input {{if thumb.active 'is-active'}}"
+            aria-label="Value"
+          />
+          <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
           <output class="tooltip" style="left: {{thumb.percent}}%;">
             {{thumb.value}}
           </output>
@@ -450,17 +453,7 @@ const value = cell([25, 75]);
         border-radius: 2px;
       }
 
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-      }
-
-      .thumb-layer.is-active {
-        z-index: 3;
-      }
-
-      .thumb-layer input[type="range"] {
+      .thumb-input {
         position: absolute;
         left: 0;
         right: 0;
@@ -472,14 +465,19 @@ const value = cell([25, 75]);
         opacity: 0;
         background: transparent;
         cursor: pointer;
+        z-index: 1;
         pointer-events: none;
       }
 
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
+      .thumb-input.is-active {
+        z-index: 10;
+      }
+
+      .thumb-input::-webkit-slider-thumb {
         pointer-events: auto;
       }
 
-      .thumb-layer input[type="range"]::-moz-range-thumb {
+      .thumb-input::-moz-range-thumb {
         pointer-events: auto;
       }
 
@@ -493,10 +491,15 @@ const value = cell([25, 75]);
         border: 2px solid white;
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        z-index: 2;
         pointer-events: none;
       }
 
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
+      .thumb.is-active {
+        z-index: 11;
+      }
+
+      .thumb-input:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
       }
@@ -1016,10 +1019,13 @@ const value = cell([25, 50, 75]);
       <s.Track>
         <s.Range />
         {{#each s.thumbs as |thumb|}}
-          <div class="thumb-layer {{if thumb.active 'is-active'}}">
-            <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-            <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          </div>
+          <s.Thumb
+            @value={{thumb.inputValue}}
+            @index={{thumb.index}}
+            class="thumb-input {{if thumb.active 'is-active'}}"
+            aria-label="Value"
+          />
+          <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
           <output class="tooltip" style="left: {{thumb.percent}}%;">{{thumb.value}}%</output>
         {{/each}}
       </s.Track>
@@ -1053,17 +1059,7 @@ const value = cell([25, 50, 75]);
         border-radius: 2px;
       }
 
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-      }
-
-      .thumb-layer.is-active {
-        z-index: 10;
-      }
-
-      .thumb-layer input[type="range"] {
+      .thumb-input {
         position: absolute;
         left: 0;
         right: 0;
@@ -1075,14 +1071,19 @@ const value = cell([25, 50, 75]);
         opacity: 0;
         background: transparent;
         cursor: pointer;
+        z-index: 1;
         pointer-events: none;
       }
 
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
+      .thumb-input.is-active {
+        z-index: 10;
+      }
+
+      .thumb-input::-webkit-slider-thumb {
         pointer-events: auto;
       }
 
-      .thumb-layer input[type="range"]::-moz-range-thumb {
+      .thumb-input::-moz-range-thumb {
         pointer-events: auto;
       }
 
@@ -1096,10 +1097,15 @@ const value = cell([25, 50, 75]);
         border: 2px solid white;
         border-radius: 6px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        z-index: 2;
         pointer-events: none;
       }
 
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
+      .thumb.is-active {
+        z-index: 11;
+      }
+
+      .thumb-input:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
       }

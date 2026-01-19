@@ -6,7 +6,7 @@ An input where the user selects a value from within a given range. Inspired by [
 
 Before reaching for this component, consider if the [range `<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range) is sufficient for your use case.
 
-```gjs live preview
+```gjs live
 import { Shadowed } from 'ember-primitives';
 
 // Native HTML range <input>
@@ -25,7 +25,6 @@ import { Shadowed } from 'ember-primitives';
       }
 
       .native-range input[type="range"] {
-        flex: 1;
         accent-color: #1a73e8;
       }
     </style>
@@ -40,6 +39,580 @@ import { Shadowed } from 'ember-primitives';
 The general recommendation for multi-thumb sliders is to coordinate multiple range inputs. This `<Slider>` component gives you the markup primitives to do that without forcing any styling.
 
 Prefer iterating `s.thumbs` rather than `s.values` so the thumb elements stay stable while the value changes.
+
+```gjs live
+import { Slider, Shadowed } from 'ember-primitives';
+import { cell } from 'ember-resources';
+
+const basic = cell(50);
+const range = cell([25, 75]);
+const ticks = [0, 10, 20, 30, 40, 50];
+const ticked = cell(20);
+const multi = cell([25, 50, 75]);
+const vBasic = cell(40);
+const vRange = cell([30, 70]);
+
+const eq60 = cell(2);
+const eq250 = cell(1);
+const eq1k = cell(-1);
+const eq4k = cell(-3);
+const eq16k = cell(2);
+
+const eqBands = [
+  { label: '60', value: eq60 },
+  { label: '250', value: eq250 },
+  { label: '1k', value: eq1k },
+  { label: '4k', value: eq4k },
+  { label: '16k', value: eq16k },
+];
+
+const priceMin = 0;
+const priceMax = 1000;
+
+// Fake histogram data (percent heights 10..100)
+const priceBins = [
+  { value: 0, height: 20 },
+  { value: 50, height: 35 },
+  { value: 100, height: 30 },
+  { value: 150, height: 55 },
+  { value: 200, height: 70 },
+  { value: 250, height: 62 },
+  { value: 300, height: 80 },
+  { value: 350, height: 60 },
+  { value: 400, height: 45 },
+  { value: 450, height: 50 },
+  { value: 500, height: 75 },
+  { value: 550, height: 68 },
+  { value: 600, height: 58 },
+  { value: 650, height: 48 },
+  { value: 700, height: 40 },
+  { value: 750, height: 52 },
+  { value: 800, height: 65 },
+  { value: 850, height: 42 },
+  { value: 900, height: 28 },
+  { value: 950, height: 18 },
+  { value: 1000, height: 12 },
+];
+
+const priceRange = cell([250, 750]);
+
+const priceIsInRange = (bin) => {
+  const lo = priceRange.current[0];
+  const hi = priceRange.current[1];
+
+  return bin.value >= lo && bin.value <= hi;
+};
+
+const percentAt = (index) => (index / (ticks.length - 1)) * 100;
+
+<template>
+  <Shadowed>
+    <div class="gallery">
+      <div class="card">
+        <div class="card-title">Basic</div>
+        <Slider @value={{basic.current}} @onValueChange={{basic.set}} as |s|>
+          <s.Track>
+            <s.Range />
+
+            {{#each s.thumbs as |thumb|}}
+              <s.Thumb
+                @value={{thumb.inputValue}}
+                @index={{thumb.index}}
+                class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
+                aria-label="Value"
+              />
+              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
+            {{/each}}
+          </s.Track>
+        </Slider>
+        <div class="card-meta">Value: {{basic.current}}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Range</div>
+        <Slider @value={{range.current}} @onValueChange={{range.set}} as |s|>
+          <s.Track>
+            <s.Range />
+
+            {{#each s.thumbs as |thumb|}}
+              <s.Thumb
+                @value={{thumb.inputValue}}
+                @index={{thumb.index}}
+                class="thumb-input {{if thumb.active 'is-active'}}"
+                aria-label="Value"
+              />
+              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
+              <output class="tooltip" style="left: {{thumb.percent}}%;">{{thumb.value}}</output>
+            {{/each}}
+          </s.Track>
+        </Slider>
+        <div class="card-meta">Range: {{range.current}}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Ticks (Discrete)</div>
+        <Slider @value={{ticked.current}} @step={{ticks}} @onValueChange={{ticked.set}} as |s|>
+          <s.Track>
+            <s.Range />
+
+            {{#each s.thumbs as |thumb|}}
+              <s.Thumb
+                @value={{thumb.inputValue}}
+                @index={{thumb.index}}
+                class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
+                aria-label="Value"
+              />
+              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
+            {{/each}}
+          </s.Track>
+        </Slider>
+
+        <div class="ticks" aria-hidden="true">
+          {{#each ticks as |tick idx|}}
+            <span class="tick" style="left: {{percentAt idx}}%;">{{tick}}</span>
+          {{/each}}
+        </div>
+        <div class="card-meta">Value: {{ticked.current}}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Multiple thumbs</div>
+        <Slider @value={{multi.current}} @onValueChange={{multi.set}} as |s|>
+          <s.Track>
+            <s.Range />
+
+            {{#each s.thumbs as |thumb|}}
+              <s.Thumb
+                @value={{thumb.inputValue}}
+                @index={{thumb.index}}
+                class="thumb-input {{if thumb.active 'is-active'}}"
+                aria-label="Value"
+              />
+              <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
+              <output class="tooltip" style="left: {{thumb.percent}}%;">{{thumb.value}}%</output>
+            {{/each}}
+          </s.Track>
+        </Slider>
+        <div class="card-meta">Values: {{multi.current}}</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Disabled</div>
+        <Slider @value={{60}} @disabled={{true}} as |s|>
+          <s.Track>
+            <s.Range />
+
+            {{#each s.thumbs as |thumb|}}
+              <s.Thumb
+                @value={{thumb.inputValue}}
+                @index={{thumb.index}}
+                class="thumb-input thumb-input--single"
+                aria-label="Value"
+              />
+              <div class="thumb is-disabled" style="left: {{thumb.percent}}%;" aria-hidden="true" />
+            {{/each}}
+          </s.Track>
+        </Slider>
+        <div class="card-meta">Value: 60</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Vertical</div>
+        <div class="v-row">
+          <Slider @value={{vBasic.current}} @onValueChange={{vBasic.set}} @orientation="vertical" as |s|>
+            <s.Track>
+              <s.Range />
+
+              {{#each s.thumbs as |thumb|}}
+                <s.Thumb
+                  @value={{thumb.inputValue}}
+                  @index={{thumb.index}}
+                  class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
+                  aria-label="Value"
+                />
+                <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
+                <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
+              {{/each}}
+            </s.Track>
+          </Slider>
+          <div class="v-readout" aria-hidden="true">{{vBasic.current}}</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Vertical range</div>
+        <div class="v-row">
+          <Slider @value={{vRange.current}} @onValueChange={{vRange.set}} @orientation="vertical" as |s|>
+            <s.Track>
+              <s.Range />
+
+              {{#each s.thumbs as |thumb|}}
+                <s.Thumb
+                  @value={{thumb.inputValue}}
+                  @index={{thumb.index}}
+                  class="thumb-input {{if thumb.active 'is-active'}}"
+                  aria-label="Value"
+                />
+                <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
+                <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
+              {{/each}}
+            </s.Track>
+          </Slider>
+          <div class="v-readout" aria-hidden="true">{{vRange.current}}</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Equalizer</div>
+        <div class="eq-mini" role="group" aria-label="Equalizer">
+          {{#each eqBands as |band|}}
+            <div class="eq-band">
+              <Slider
+                @value={{band.value.current}}
+                @onValueChange={{band.value.set}}
+                @min={{-5}}
+                @max={{5}}
+                @orientation="vertical"
+                as |s|
+              >
+                <s.Track>
+                  <s.Range />
+
+                  {{#each s.thumbs as |thumb|}}
+                    <s.Thumb
+                      @value={{thumb.inputValue}}
+                      @index={{thumb.index}}
+                      class="thumb-input thumb-input--single {{if thumb.active 'is-active'}}"
+                      aria-label={{band.label}}
+                    />
+                    <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
+                    <output class="tooltip tooltip--vertical" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
+                  {{/each}}
+                </s.Track>
+              </Slider>
+
+              <div class="eq-label" aria-hidden="true">{{band.label}}</div>
+            </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Histogram + Range</div>
+        <div class="price-mini">
+          <div class="hist-mini" aria-hidden="true">
+            {{#each priceBins as |bin|}}
+              <div class="bar-wrap">
+                <div
+                  class="bar {{if (priceIsInRange bin) 'active'}}"
+                  style="height: {{bin.height}}%;"
+                  title="{{bin.value}}"
+                />
+              </div>
+            {{/each}}
+          </div>
+
+          <Slider
+            @value={{priceRange.current}}
+            @onValueChange={{priceRange.set}}
+            @min={{priceMin}}
+            @max={{priceMax}}
+            @step={{10}}
+            as |s|
+          >
+            <s.Track>
+              <s.Range />
+
+              {{#each s.thumbs as |thumb|}}
+                <s.Thumb
+                  @value={{thumb.inputValue}}
+                  @index={{thumb.index}}
+                  class="thumb-input {{if thumb.active 'is-active'}}"
+                  aria-label="Price"
+                />
+                <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
+              {{/each}}
+            </s.Track>
+          </Slider>
+
+          <div class="card-meta">Selected: {{priceRange.current}}</div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        margin: 1rem auto 2rem;
+      }
+
+      .card {
+        flex: 1 1 260px;
+        max-width: 360px;
+        padding: 1rem;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        background: white;
+      }
+
+      /* 3-up on wider screens */
+      @media (min-width: 980px) {
+        .card {
+          flex-basis: calc(33.333% - 0.75rem);
+          max-width: 380px;
+        }
+      }
+
+      .card-title {
+        font-weight: 600;
+        color: #111;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-meta {
+        margin-top: 0.75rem;
+        font-variant-numeric: tabular-nums;
+        color: #333;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      .ember-primitives__slider {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 32px;
+        margin: 0.75rem auto 0.25rem;
+      }
+
+      .ember-primitives__slider__track {
+        position: relative;
+        flex: 1;
+        height: 4px;
+        background: #ddd;
+        border-radius: 2px;
+        overflow: visible;
+      }
+
+      .ember-primitives__slider__range {
+        position: absolute;
+        height: 100%;
+        background: #1a73e8;
+        border-radius: 2px;
+      }
+
+      .thumb-input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 32px;
+        margin: 0;
+        opacity: 0;
+        background: transparent;
+        cursor: pointer;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .thumb-input.thumb-input--single {
+        pointer-events: auto;
+      }
+
+      .thumb-input.is-active {
+        z-index: 10;
+      }
+
+      .thumb-input:disabled {
+        cursor: not-allowed;
+      }
+
+      .thumb-input::-webkit-slider-thumb {
+        pointer-events: auto;
+      }
+
+      .thumb-input::-moz-range-thumb {
+        pointer-events: auto;
+      }
+
+      .thumb {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 18px;
+        height: 18px;
+        background: #1a73e8;
+        border: 2px solid white;
+        border-radius: 999px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .thumb.is-active {
+        z-index: 11;
+      }
+
+      .thumb.is-disabled {
+        opacity: 0.5;
+      }
+
+      .thumb-input:focus-visible + .thumb {
+        outline: 2px solid #1a73e8;
+        outline-offset: 2px;
+      }
+
+      .tooltip {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, calc(-100% - 16px));
+        background: #111;
+        color: white;
+        font-size: 0.75rem;
+        line-height: 1;
+        padding: 0.15rem 0.35rem;
+        border-radius: 0.25rem;
+        white-space: nowrap;
+        user-select: none;
+        pointer-events: none;
+        z-index: 20;
+        font-variant-numeric: tabular-nums;
+        min-width: 2ch;
+        text-align: center;
+      }
+
+      .v-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        min-height: 170px;
+      }
+
+      .v-readout {
+        font-variant-numeric: tabular-nums;
+        color: #333;
+        font-size: 0.9rem;
+        min-width: 6ch;
+      }
+
+      .ember-primitives__slider--vertical {
+        flex-direction: column;
+        width: 24px;
+        height: var(--gallery-v-height, 140px);
+        margin: 0.5rem 0;
+      }
+
+      .ember-primitives__slider--vertical .ember-primitives__slider__track {
+        width: 4px;
+        height: 100%;
+      }
+
+      .ember-primitives__slider--vertical .ember-primitives__slider__range {
+        width: 100%;
+        height: auto;
+      }
+
+      .ember-primitives__slider--vertical .thumb-input {
+        left: 0;
+        top: 0;
+        right: auto;
+        bottom: auto;
+        width: var(--gallery-v-height, 140px);
+        height: 24px;
+        transform: rotate(-90deg) translateX(calc(-1 * var(--gallery-v-height, 140px)));
+        transform-origin: left top;
+      }
+
+      .ember-primitives__slider--vertical .thumb {
+        left: 50%;
+        top: auto;
+        transform: translate(-50%, 50%);
+      }
+
+      .tooltip.tooltip--vertical {
+        left: 50%;
+        top: auto;
+        transform: translate(calc(100% + 12px), 50%);
+      }
+
+      .eq-mini {
+        --gallery-v-height: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 0.75rem;
+        padding: 0.25rem 0;
+      }
+
+      .eq-band {
+        display: grid;
+        justify-items: center;
+        gap: 0.25rem;
+      }
+
+      .eq-label {
+        font-size: 0.7rem;
+        color: #444;
+        user-select: none;
+      }
+
+      .price-mini {
+        width: 100%;
+      }
+
+      .hist-mini {
+        display: flex;
+        align-items: flex-end;
+        gap: 2px;
+        height: 64px;
+        padding: 0.5rem;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        background: #fafafa;
+      }
+
+      .hist-mini .bar-wrap {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        height: 100%;
+      }
+
+      .hist-mini .bar {
+        width: 100%;
+        background: #d8d8d8;
+        border-radius: 4px 4px 0 0;
+      }
+
+      .hist-mini .bar.active {
+        background: #1a73e8;
+      }
+
+      .ticks {
+        position: relative;
+        height: 18px;
+        margin-top: 0.25rem;
+      }
+
+      .tick {
+        position: absolute;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        color: #444;
+        user-select: none;
+      }
+    </style>
+  </Shadowed>
+</template>
+```
 
 <div class="featured-demo">
 

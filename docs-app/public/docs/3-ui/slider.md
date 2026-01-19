@@ -293,9 +293,11 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
                       aria-label={{band.label}}
                       {{on "pointerdown" (startEqDrag band.label)}}
                       {{on "gotpointercapture" (startEqDrag band.label)}}
+                      {{on "input" (startEqDrag band.label)}}
                       {{on "pointerup" endEqDrag}}
                       {{on "pointercancel" endEqDrag}}
                       {{on "lostpointercapture" endEqDrag}}
+                      {{on "change" endEqDrag}}
                       {{on "blur" endEqDrag}}
                     />
                     <div class="thumb {{if thumb.active 'is-active'}}" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
@@ -431,6 +433,8 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
         height: 32px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         cursor: pointer;
         z-index: 1;
@@ -450,17 +454,47 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
       }
 
       .thumb-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
       }
 
+      .thumb-input:hover::-webkit-slider-thumb,
+      .thumb-input:focus-visible::-webkit-slider-thumb,
+      .thumb-input.is-active::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb-input::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+      }
+
+      .thumb-input:hover::-moz-range-thumb,
+      .thumb-input:focus-visible::-moz-range-thumb,
+      .thumb-input.is-active::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
 
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -469,6 +503,7 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         z-index: 2;
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb.is-active {
@@ -482,6 +517,12 @@ const percentAt = (index) => (index / (ticks.length - 1)) * 100;
       .thumb-input:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-input:hover + .thumb,
+      .thumb-input:focus-visible + .thumb,
+      .thumb-input.is-active + .thumb {
+        --thumb-scale: 1.15;
       }
 
       .tooltip {
@@ -692,6 +733,8 @@ const value = cell(50);
         height: 20px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         cursor: pointer;
       }
@@ -699,7 +742,9 @@ const value = cell(50);
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 20px;
         height: 20px;
         background: #1a73e8;
@@ -707,11 +752,18 @@ const value = cell(50);
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb,
+      .thumb-layer.is-active input[type="range"] + .thumb {
+        --thumb-scale: 1.15;
       }
 
       .thumb-layer input[type="range"]:disabled + .thumb {
@@ -813,11 +865,39 @@ const second = () => value.current[1];
       }
 
       .thumb-layer input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
       }
 
+      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb,
+      .thumb-layer.is-active input[type="range"]::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb-layer input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb,
+      .thumb-layer.is-active input[type="range"]::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
 
       .thumb {
@@ -937,7 +1017,9 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -945,6 +1027,7 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .ticks {
@@ -1041,6 +1124,8 @@ const value = cell([25, 75]);
         height: 32px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         cursor: pointer;
         z-index: 1;
@@ -1052,11 +1137,39 @@ const value = cell([25, 75]);
       }
 
       .thumb-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
       }
 
+      .thumb-input:hover::-webkit-slider-thumb,
+      .thumb-input:focus-visible::-webkit-slider-thumb,
+      .thumb-input.is-active::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb-input::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+      }
+
+      .thumb-input:hover::-moz-range-thumb,
+      .thumb-input:focus-visible::-moz-range-thumb,
+      .thumb-input.is-active::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
 
       .thumb {
@@ -1195,7 +1308,9 @@ const value = cell(50);
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -1203,11 +1318,18 @@ const value = cell(50);
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb,
+      .thumb-layer.is-active input[type="range"] + .thumb {
+        --thumb-scale: 1.15;
       }
 
       p {
@@ -1542,17 +1664,47 @@ const onKeydown = (commitFn) => (event) => {
         height: 20px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         cursor: pointer;
         pointer-events: none;
       }
 
       .thumb-layer input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
       }
 
+      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb,
+      .thumb-layer.is-active input[type="range"]::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb-layer input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb,
+      .thumb-layer.is-active input[type="range"]::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
 
       .thumb {
@@ -1647,6 +1799,8 @@ const value = cell([25, 50, 75]);
         height: 32px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         cursor: pointer;
         z-index: 1;
@@ -1658,17 +1812,47 @@ const value = cell([25, 50, 75]);
       }
 
       .thumb-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
       }
 
+      .thumb-input:hover::-webkit-slider-thumb,
+      .thumb-input:focus-visible::-webkit-slider-thumb,
+      .thumb-input.is-active::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb-input::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+      }
+
+      .thumb-input:hover::-moz-range-thumb,
+      .thumb-input:focus-visible::-moz-range-thumb,
+      .thumb-input.is-active::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
 
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -1677,6 +1861,7 @@ const value = cell([25, 50, 75]);
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         z-index: 2;
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb.is-active {
@@ -1686,6 +1871,12 @@ const value = cell([25, 50, 75]);
       .thumb-input:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-input:hover + .thumb,
+      .thumb-input:focus-visible + .thumb,
+      .thumb-input.is-active + .thumb {
+        --thumb-scale: 1.15;
       }
 
       .tooltip {
@@ -1786,16 +1977,54 @@ const value = cell(50);
         height: 20px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         transform-origin: left top;
         transform: rotate(-90deg) translateX(-200px);
         cursor: pointer;
       }
 
+      .thumb-layer input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
+        pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
+      .thumb-layer input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
+        pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb {
         position: absolute;
         left: 50%;
-        transform: translate(-50%, 50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, 50%) scale(var(--thumb-scale));
         width: 20px;
         height: 20px;
         background: #1a73e8;
@@ -1803,11 +2032,17 @@ const value = cell(50);
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb {
+        --thumb-scale: 1.15;
       }
 
       .readout {
@@ -1943,16 +2178,54 @@ const bands = [
         height: 24px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         transform-origin: left top;
         transform: rotate(-90deg) translateX(-200px);
         cursor: pointer;
       }
 
+      .thumb-layer input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
+        pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
+      .thumb-layer input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
+        pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb {
         position: absolute;
         left: 50%;
-        transform: translate(-50%, 50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, 50%) scale(var(--thumb-scale));
         width: 16px;
         height: 20px;
         background: #1a73e8;
@@ -1960,11 +2233,17 @@ const bands = [
         border-radius: 6px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb {
+        --thumb-scale: 1.15;
       }
 
       .tooltip {
@@ -2209,23 +2488,55 @@ const onKeydown = (commitFn) => (event) => {
         height: 20px;
         margin: 0;
         opacity: 0;
+        -webkit-appearance: none;
+        appearance: none;
         background: transparent;
         cursor: pointer;
         pointer-events: none;
       }
 
       .thumb-layer input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
       }
 
+      .thumb-layer input[type="range"]:hover::-webkit-slider-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-webkit-slider-thumb,
+      .thumb-layer.is-active input[type="range"]::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+
       .thumb-layer input[type="range"]::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+        background: transparent;
+        border: 0;
+        transition: width 120ms ease, height 120ms ease;
         pointer-events: auto;
+      }
+
+      .thumb-layer input[type="range"]:hover::-moz-range-thumb,
+      .thumb-layer input[type="range"]:focus-visible::-moz-range-thumb,
+      .thumb-layer.is-active input[type="range"]::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
 
       .thumb {
         position: absolute;
         top: 50%;
-        transform: translate(-50%, -50%);
+        --thumb-scale: 1;
+        transform-origin: 50% 50%;
+        transform: translate(-50%, -50%) scale(var(--thumb-scale));
         width: 18px;
         height: 18px;
         background: #1a73e8;
@@ -2233,11 +2544,18 @@ const onKeydown = (commitFn) => (event) => {
         border-radius: 999px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         pointer-events: none;
+        transition: transform 120ms ease;
       }
 
       .thumb-layer input[type="range"]:focus-visible + .thumb {
         outline: 2px solid #1a73e8;
         outline-offset: 2px;
+      }
+
+      .thumb-layer input[type="range"]:hover + .thumb,
+      .thumb-layer input[type="range"]:focus-visible + .thumb,
+      .thumb-layer.is-active input[type="range"] + .thumb {
+        --thumb-scale: 1.15;
       }
 
       .inputs {

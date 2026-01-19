@@ -23,6 +23,8 @@ import { Gallery } from '#public/3-ui/slider/gallery';
 
 </div>
 
+The CSS technique for moving the sliders involves positioning and rotating an invisible `<input type="range">` over the styled UI -- this maintains `<form>` semantics, and better than accessibility than other techniques.
+
 ## Range Slider
 
 ```gjs live preview

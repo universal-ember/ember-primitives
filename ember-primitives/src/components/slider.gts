@@ -198,7 +198,7 @@ class ThumbComponent extends Component<{
 }
 
 export class Slider extends Component<Signature> {
-  private store: SliderStore;
+  store: SliderStore;
 
   constructor(owner: Owner, args: Signature["Args"]) {
     super(owner, args);
@@ -206,122 +206,50 @@ export class Slider extends Component<Signature> {
     this.store = new SliderStore(() => this.args);
   }
 
-  get min(): number {
-    return this.store.min;
-  }
-
-  get max(): number {
-    return this.store.max;
-  }
-
-  get step(): number {
-    return this.store.step;
-  }
-
-  get tickValues(): number[] | null {
-    return this.store.tickValues;
-  }
-
-  get orientation(): "horizontal" | "vertical" {
-    return this.store.orientation;
-  }
-
-  get rootClass(): string {
-    return this.store.rootClass;
-  }
-
-  private get internalMin(): number {
-    return this.store.internalMin;
-  }
-
-  private get internalMax(): number {
-    return this.store.internalMax;
-  }
-
-  private get internalStep(): number {
-    return this.store.internalStep;
-  }
-
-  get values(): number[] {
-    return this.store.values;
-  }
-
-  get thumbs(): SliderThumb[] {
-    return this.store.thumbs;
-  }
-
-  get thumbPercents(): number[] {
-    return this.store.thumbPercents;
-  }
-
-  get disabled(): boolean {
-    return this.store.disabled;
-  }
-
-  get rangeStyle(): string {
-    return this.store.rangeStyle;
-  }
-
-  private handleThumbInput = (index: number, value: number) => {
-    this.store.handleThumbInput(index, value);
-  };
-
-  private handleThumbChange = (index: number, value: number) => {
-    this.store.handleThumbChange(index, value);
-  };
-
-  private handleThumbActivate = (index: number) => {
-    this.store.handleThumbActivate(index);
-  };
-
-  private defaultThumbLabel(index: number): string {
-    return this.store.defaultThumbLabel(index);
-  }
-
   <template>
     <span
       ...attributes
-      class={{this.rootClass}}
+      class={{this.store.rootClass}}
     >
       {{#if (has-block)}}
         {{yield
           (hash
             Track=Track
-            Range=(component Range rangeStyle=this.rangeStyle)
+            Range=(component Range rangeStyle=this.store.rangeStyle)
             Thumb=(component
               ThumbComponent
-              min=this.internalMin
-              max=this.internalMax
-              step=this.internalStep
-              disabled=this.disabled
-              onInput=this.handleThumbInput
-              onChange=this.handleThumbChange
-              onActivate=this.handleThumbActivate
+              min=this.store.internalMin
+              max=this.store.internalMax
+              step=this.store.internalStep
+              disabled=this.store.disabled
+              onInput=this.store.handleThumbInput
+              onChange=this.store.handleThumbChange
+              onActivate=this.store.handleThumbActivate
             )
-            values=this.values
-            tickValues=this.tickValues
-            thumbs=this.thumbs
-            min=this.min
-            max=this.max
-            step=this.step
+            values=this.store.values
+            tickValues=this.store.tickValues
+            thumbs=this.store.thumbs
+            min=this.store.min
+            max=this.store.max
+            step=this.store.step
           )
         }}
       {{else}}
         <Track>
-          <Range @rangeStyle={{this.rangeStyle}} />
+          <Range @rangeStyle={{this.store.rangeStyle}} />
 
-          {{#each this.thumbs as |thumb|}}
+          {{#each this.store.thumbs as |thumb|}}
             <ThumbComponent
               @value={{thumb.inputValue}}
               @index={{thumb.index}}
-              @min={{this.internalMin}}
-              @max={{this.internalMax}}
-              @step={{this.internalStep}}
-              @disabled={{this.disabled}}
-              @onInput={{this.handleThumbInput}}
-              @onChange={{this.handleThumbChange}}
-              @onActivate={{this.handleThumbActivate}}
-              aria-label={{this.defaultThumbLabel thumb.index}}
+              @min={{this.store.internalMin}}
+              @max={{this.store.internalMax}}
+              @step={{this.store.internalStep}}
+              @disabled={{this.store.disabled}}
+              @onInput={{this.store.handleThumbInput}}
+              @onChange={{this.store.handleThumbChange}}
+              @onActivate={{this.store.handleThumbActivate}}
+              aria-label={{this.store.defaultThumbLabel thumb.index}}
             />
           {{/each}}
         </Track>

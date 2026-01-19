@@ -328,12 +328,12 @@ export class SliderStore {
     this.activeThumbIndex = index;
   };
 
-  defaultThumbLabel(index: number): string {
+  defaultThumbLabel = (index: number): string => {
     const count = this.internalValues.length;
 
     if (count <= 1) return "Value";
     if (count === 2) return index === 0 ? "Minimum" : "Maximum";
 
     return `Value ${index + 1}`;
-  }
+  };
 }

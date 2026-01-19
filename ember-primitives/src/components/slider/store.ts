@@ -84,17 +84,21 @@ function findNearestIndex(values: number[], target: number): number {
 }
 
 class ThumbState implements SliderThumb {
+  #slider: SliderStore;
+
   constructor(
-    private slider: SliderStore,
+    slider: SliderStore,
     public index: number,
-  ) {}
+  ) {
+    this.#slider = slider;
+  }
 
   get value(): number {
-    return this.slider.values[this.index] ?? this.slider.min;
+    return this.#slider.values[this.index] ?? this.#slider.min;
   }
 
   get inputValue(): number {
-    const ticks = this.slider.tickValues;
+    const ticks = this.#slider.tickValues;
 
     if (!ticks) return this.value;
 
@@ -102,47 +106,47 @@ class ThumbState implements SliderThumb {
   }
 
   get percent(): number {
-    return this.slider.thumbPercents[this.index] ?? 0;
+    return this.#slider.thumbPercents[this.index] ?? 0;
   }
 
   get active(): boolean {
-    return this.slider.activeThumbIndex === this.index;
+    return this.#slider.activeThumbIndex === this.index;
   }
 }
 
 export class SliderStore {
-  private thumbStates: ThumbState[] = [];
-  private getArgs: () => SliderStoreArgs;
+  #thumbStates: ThumbState[] = [];
+  #getArgs: () => SliderStoreArgs;
 
   @tracked activeThumbIndex: number | null = null;
 
   constructor(getArgs: () => SliderStoreArgs) {
-    this.getArgs = getArgs;
+    this.#getArgs = getArgs;
 
-    const args = this.getArgs();
+    const args = this.#getArgs();
     const initialCount = Array.isArray(args.value) ? Math.max(1, args.value.length) : 1;
 
-    this.thumbStates = Array.from({ length: initialCount }, (_, index) => new ThumbState(this, index));
+    this.#thumbStates = Array.from({ length: initialCount }, (_, index) => new ThumbState(this, index));
   }
 
-  private get args(): SliderStoreArgs {
-    return this.getArgs();
+  get #args(): SliderStoreArgs {
+    return this.#getArgs();
   }
 
   get min(): number {
-    return this.args.min ?? DEFAULT_MIN;
+    return this.#args.min ?? DEFAULT_MIN;
   }
 
   get max(): number {
-    return this.args.max ?? DEFAULT_MAX;
+    return this.#args.max ?? DEFAULT_MAX;
   }
 
   get step(): number {
-    return typeof this.args.step === "number" ? this.args.step : DEFAULT_STEP;
+    return typeof this.#args.step === "number" ? this.#args.step : DEFAULT_STEP;
   }
 
   get tickValues(): number[] | null {
-    const fromStep = Array.isArray(this.args.step) ? this.args.step : undefined;
+    const fromStep = Array.isArray(this.#args.step) ? this.#args.step : undefined;
     const raw = fromStep;
 
     if (!raw) return null;
@@ -153,11 +157,11 @@ export class SliderStore {
   }
 
   get orientation(): "horizontal" | "vertical" {
-    return this.args.orientation ?? "horizontal";
+    return this.#args.orientation ?? "horizontal";
   }
 
   get disabled(): boolean {
-    return this.args.disabled ?? false;
+    return this.#args.disabled ?? false;
   }
 
   get rootClass(): string {
@@ -194,9 +198,9 @@ export class SliderStore {
 
   get internalValues(): number[] {
     const ticks = this.tickValues;
-    const normalized = Array.isArray(this.args.value)
-      ? (this.args.value.length === 0 ? [ticks?.[0] ?? this.min] : this.args.value)
-      : [this.args.value ?? (ticks?.[0] ?? this.min)];
+    const normalized = Array.isArray(this.#args.value)
+      ? (this.#args.value.length === 0 ? [ticks?.[0] ?? this.min] : this.#args.value)
+      : [this.#args.value ?? (ticks?.[0] ?? this.min)];
 
     if (ticks) {
       return normalized.map((v) => {
@@ -226,9 +230,9 @@ export class SliderStore {
   }
 
   get thumbs(): SliderThumb[] {
-    this.ensureThumbCount(this.internalValues.length);
+    this.#ensureThumbCount(this.internalValues.length);
 
-    return this.thumbStates;
+    return this.#thumbStates;
   }
 
   get thumbPercents(): number[] {
@@ -253,40 +257,40 @@ export class SliderStore {
   }
 
   updateValue = (newValues: number[]) => {
-    if (this.args.onValueChange) {
-      this.args.onValueChange(this.coerceOutput(newValues));
+    if (this.#args.onValueChange) {
+      this.#args.onValueChange(this.coerceOutput(newValues));
     }
   };
 
   commitValue = (newValues: number[]) => {
-    if (this.args.onValueCommit) {
-      this.args.onValueCommit(this.coerceOutput(newValues));
+    if (this.#args.onValueCommit) {
+      this.#args.onValueCommit(this.coerceOutput(newValues));
     }
   };
 
   coerceOutput(values: number[]): number | number[] {
-    if (Array.isArray(this.args.value)) return values;
+    if (Array.isArray(this.#args.value)) return values;
 
     return values[0] ?? this.min;
   }
 
-  private ensureThumbCount(count: number) {
-    if (count === this.thumbStates.length) return;
+  #ensureThumbCount(count: number) {
+    if (count === this.#thumbStates.length) return;
 
-    if (count < this.thumbStates.length) {
-      this.thumbStates = this.thumbStates.slice(0, count);
+    if (count < this.#thumbStates.length) {
+      this.#thumbStates = this.#thumbStates.slice(0, count);
 
       return;
     }
 
-    const startIndex = this.thumbStates.length;
+    const startIndex = this.#thumbStates.length;
 
     for (let index = startIndex; index < count; index++) {
-      this.thumbStates.push(new ThumbState(this, index));
+      this.#thumbStates.push(new ThumbState(this, index));
     }
   }
 
-  private applyThumbInternalValue(index: number, rawValue: number): number[] {
+  #applyThumbInternalValue(index: number, rawValue: number): number[] {
     const nextValues = [...this.internalValues];
     const stepped = clamp(roundToStep(rawValue, this.internalStep), this.internalMin, this.internalMax);
 
@@ -308,7 +312,7 @@ export class SliderStore {
   handleThumbInput = (index: number, value: number) => {
     if (this.disabled) return;
 
-    const internalValues = this.applyThumbInternalValue(index, value);
+    const internalValues = this.#applyThumbInternalValue(index, value);
     const newValues = this.outputValuesFromInternal(internalValues);
 
     this.updateValue(newValues);
@@ -317,7 +321,7 @@ export class SliderStore {
   handleThumbChange = (index: number, value: number) => {
     if (this.disabled) return;
 
-    const internalValues = this.applyThumbInternalValue(index, value);
+    const internalValues = this.#applyThumbInternalValue(index, value);
     const newValues = this.outputValuesFromInternal(internalValues);
 
     this.updateValue(newValues);

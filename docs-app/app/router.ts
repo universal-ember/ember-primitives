@@ -16,4 +16,12 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   addRoutes(this);
+  
+  this.route('animations', function () {
+    this.route('page', { path: '/:page' });
+  });
+  
+  this.route('blocks', function () {
+    this.route('page', { path: '/:page' });
+  });
 });

@@ -8,7 +8,7 @@ import { selected } from 'kolay';
 
 import { OopsError, PageLayout } from '@universal-ember/docs-support';
 
-export default class Page extends Component {
+export default class AnimationPage extends Component {
   get selectedPath() {
     return selected(this).path;
   }

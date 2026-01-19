@@ -1,4 +1,5 @@
 import Component from "@glimmer/component";
+import { tracked } from "@glimmer/tracking";
 import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
@@ -29,7 +30,12 @@ export interface Signature {
      * The stepping interval.
      * Defaults to 1.
      */
-    step?: number;
+    step?: number | number[];
+    /**
+     * A discrete list of allowed values.
+     * When provided, the slider will snap to these values.
+     */
+    tickValues?: number[];
     /**
      * The orientation of the slider.
      * Defaults to 'horizontal'.
@@ -54,22 +60,27 @@ export interface Signature {
         /**
          * The track element - the rail along which the thumb moves
          */
-        Track: WithBoundArgs<typeof Track, "orientation">;
+        Track: typeof Track;
         /**
          * The range element - the filled portion of the track
          */
-        Range: WithBoundArgs<typeof Range, "orientation" | "rangeStyle">;
+        Range: WithBoundArgs<typeof Range, "rangeStyle">;
         /**
          * The thumb element - the draggable handle(s)
          */
         Thumb: WithBoundArgs<
           typeof ThumbComponent,
-          "min" | "max" | "step" | "disabled" | "orientation" | "onInput" | "onChange"
+          "min" | "max" | "step" | "disabled" | "onInput" | "onChange" | "onActivate"
         >;
         /**
          * The current value(s)
          */
         values: number[];
+
+        /**
+         * The tick values, if any.
+         */
+        tickValues: number[] | null;
 
         /**
          * A stable list of thumbs to iterate over.
@@ -96,6 +107,15 @@ export interface Signature {
 export interface SliderThumb {
   index: number;
   value: number;
+  /**
+   * The value to pass to `<input type="range">`.
+   *
+   * When using `@tickValues` (or array `@step`), this is the internal index
+   * (0..n-1). Otherwise it's the same as `value`.
+   */
+  inputValue: number;
+  percent: number;
+  active: boolean;
 }
 
 const DEFAULT_MIN = 0;
@@ -120,18 +140,52 @@ function getPercentage(value: number, min: number, max: number): number {
   return ((value - min) / range) * 100;
 }
 
+function normalizeTickValues(values: number[]): number[] {
+  const uniques = new Set<number>();
+
+  for (const value of values) {
+    if (Number.isFinite(value)) uniques.add(value);
+  }
+
+  return Array.from(uniques).sort((a, b) => a - b);
+}
+
+function findNearestIndex(values: number[], target: number): number {
+  if (values.length === 0) return 0;
+
+  const first = values[0];
+
+  if (first === undefined) return 0;
+
+  let nearestIndex = 0;
+  let nearestDistance = Math.abs(first - target);
+
+  for (let index = 1; index < values.length; index++) {
+    const candidate = values[index];
+
+    if (candidate === undefined) continue;
+
+    const distance = Math.abs(candidate - target);
+
+    if (distance < nearestDistance) {
+      nearestIndex = index;
+      nearestDistance = distance;
+    }
+  }
+
+  return nearestIndex;
+}
+
 interface TrackSignature {
   Element: HTMLSpanElement;
-  Args: {
-    orientation: "horizontal" | "vertical";
-  };
+  Args: Record<string, never>;
   Blocks: {
     default: [];
   };
 }
 
 const Track: TOC<TrackSignature> = <template>
-  <span ...attributes data-slider-track data-orientation={{@orientation}}>
+  <span ...attributes class="ember-primitives__slider__track">
     {{yield}}
   </span>
 </template>;
@@ -139,13 +193,12 @@ const Track: TOC<TrackSignature> = <template>
 interface RangeSignature {
   Element: HTMLSpanElement;
   Args: {
-    orientation: "horizontal" | "vertical";
     rangeStyle: string;
   };
 }
 
 const Range: TOC<RangeSignature> = <template>
-  <span ...attributes data-slider-range data-orientation={{@orientation}} style={{@rangeStyle}} />
+  <span ...attributes class="ember-primitives__slider__range" style={{@rangeStyle}} />
 </template>;
 
 class ThumbComponent extends Component<{
@@ -157,9 +210,9 @@ class ThumbComponent extends Component<{
     max: number;
     step: number;
     disabled?: boolean;
-    orientation: "horizontal" | "vertical";
     onInput: (index: number, value: number) => void;
     onChange: (index: number, value: number) => void;
+    onActivate: (index: number) => void;
   };
 }> {
   private readValue(event: Event): number {
@@ -174,25 +227,40 @@ class ThumbComponent extends Component<{
   }
 
   private onInput = (event: Event) => {
+    this.args.onActivate(this.args.index);
     this.args.onInput(this.args.index, this.readValue(event));
   };
 
   private onChange = (event: Event) => {
+    this.args.onActivate(this.args.index);
     this.args.onChange(this.args.index, this.readValue(event));
+  };
+
+  private onPointerUp = () => {
+    this.args.onActivate(this.args.index);
+  };
+
+  private onGotPointerCapture = () => {
+    this.args.onActivate(this.args.index);
+  };
+
+  private onFocus = () => {
+    this.args.onActivate(this.args.index);
   };
 
   <template>
     <input
       ...attributes
-      data-slider-thumb
+      class="ember-primitives__slider__thumb"
       type="range"
       min={{@min}}
       max={{@max}}
       step={{@step}}
       value={{@value}}
       disabled={{@disabled}}
-      data-orientation={{@orientation}}
-      data-disabled={{if @disabled "true"}}
+      {{on "gotpointercapture" this.onGotPointerCapture}}
+      {{on "pointerup" this.onPointerUp}}
+      {{on "focus" this.onFocus}}
       {{on "input" this.onInput}}
       {{on "change" this.onChange}}
     />
@@ -208,10 +276,28 @@ class ThumbState implements SliderThumb {
   get value(): number {
     return this.slider.values[this.index] ?? this.slider.min;
   }
+
+  get inputValue(): number {
+    const ticks = this.slider.tickValues;
+
+    if (!ticks) return this.value;
+
+    return clamp(findNearestIndex(ticks, this.value), 0, Math.max(0, ticks.length - 1));
+  }
+
+  get percent(): number {
+    return this.slider.thumbPercents[this.index] ?? 0;
+  }
+
+  get active(): boolean {
+    return this.slider.activeThumbIndex === this.index;
+  }
 }
 
 export class Slider extends Component<Signature> {
   private thumbStates: ThumbState[] = [];
+
+  @tracked activeThumbIndex: number | null = null;
 
   constructor(owner: Owner, args: Signature["Args"]) {
     super(owner, args);
@@ -230,23 +316,100 @@ export class Slider extends Component<Signature> {
   }
 
   get step(): number {
-    return this.args.step ?? DEFAULT_STEP;
+    return typeof this.args.step === "number" ? this.args.step : DEFAULT_STEP;
+  }
+
+  get tickValues(): number[] | null {
+    const fromArgs = this.args.tickValues;
+    const fromStep = Array.isArray(this.args.step) ? this.args.step : undefined;
+    const raw = fromArgs ?? fromStep;
+
+    if (!raw) return null;
+
+    const normalized = normalizeTickValues(raw);
+
+    return normalized.length === 0 ? null : normalized;
   }
 
   get orientation(): "horizontal" | "vertical" {
     return this.args.orientation ?? "horizontal";
   }
 
-  get values(): number[] {
+  get rootClass(): string {
+    const classes = ["ember-primitives__slider", `ember-primitives__slider--${this.orientation}`];
+
+    if (this.disabled) classes.push("ember-primitives__slider--disabled");
+
+    return classes.join(" ");
+  }
+
+  private get internalMin(): number {
+    const ticks = this.tickValues;
+
+    if (ticks) return 0;
+
+    return this.min;
+  }
+
+  private get internalMax(): number {
+    const ticks = this.tickValues;
+
+    if (ticks) return Math.max(0, ticks.length - 1);
+
+    return this.max;
+  }
+
+  private get internalStep(): number {
+    const ticks = this.tickValues;
+
+    if (ticks) return 1;
+
+    return this.step;
+  }
+
+  private get internalValues(): number[] {
+    const ticks = this.tickValues;
     const normalized = Array.isArray(this.args.value)
-      ? (this.args.value.length === 0 ? [this.min] : this.args.value)
-      : [this.args.value ?? this.min];
+      ? (this.args.value.length === 0
+          ? [ticks?.[0] ?? this.min]
+          : this.args.value)
+      : [this.args.value ?? (ticks?.[0] ?? this.min)];
+
+    if (ticks) {
+      return normalized.map((v) => {
+        const index = findNearestIndex(ticks, v);
+
+        return clamp(index, this.internalMin, this.internalMax);
+      });
+    }
 
     return normalized.map((v) => clamp(roundToStep(v, this.step), this.min, this.max));
   }
 
+  private outputValuesFromInternal(internalValues: number[]): number[] {
+    const ticks = this.tickValues;
+
+    if (!ticks) return internalValues;
+
+    return internalValues.map((internal) => {
+      const index = clamp(Math.round(internal), 0, ticks.length - 1);
+
+      return ticks[index] ?? ticks[0] ?? this.min;
+    });
+  }
+
+  get values(): number[] {
+    return this.outputValuesFromInternal(this.internalValues);
+  }
+
   get thumbs(): SliderThumb[] {
+    this.ensureThumbCount(this.internalValues.length);
+
     return this.thumbStates;
+  }
+
+  get thumbPercents(): number[] {
+    return this.internalValues.map((value) => getPercentage(value, this.internalMin, this.internalMax));
   }
 
   get disabled(): boolean {
@@ -254,10 +417,14 @@ export class Slider extends Component<Signature> {
   }
 
   get rangeStyle(): string {
-    const rangeMin = Math.min(...this.values);
-    const rangeMax = Math.max(...this.values);
-    const startPercent = getPercentage(rangeMin, this.min, this.max);
-    const endPercent = getPercentage(rangeMax, this.min, this.max);
+    const internalValues = this.internalValues;
+
+    // For a single-thumb slider, the "range" should fill from the start to the
+    // thumb. For multi-thumb, it fills between the min/max thumbs.
+    const internalRangeMin = internalValues.length <= 1 ? this.internalMin : Math.min(...internalValues);
+    const internalRangeMax = internalValues[0] === undefined ? this.internalMin : Math.max(...internalValues);
+    const startPercent = getPercentage(internalRangeMin, this.internalMin, this.internalMax);
+    const endPercent = getPercentage(internalRangeMax, this.internalMin, this.internalMax);
 
     if (this.orientation === "horizontal") {
       return `left: ${startPercent}%; right: ${100 - endPercent}%`;
@@ -284,9 +451,25 @@ export class Slider extends Component<Signature> {
     return values[0] ?? this.min;
   }
 
-  private applyThumbValue(index: number, rawValue: number): number[] {
-    const nextValues = [...this.values];
-    const stepped = clamp(roundToStep(rawValue, this.step), this.min, this.max);
+  private ensureThumbCount(count: number) {
+    if (count === this.thumbStates.length) return;
+
+    if (count < this.thumbStates.length) {
+      this.thumbStates = this.thumbStates.slice(0, count);
+
+      return;
+    }
+
+    const startIndex = this.thumbStates.length;
+
+    for (let index = startIndex; index < count; index++) {
+      this.thumbStates.push(new ThumbState(this, index));
+    }
+  }
+
+  private applyThumbInternalValue(index: number, rawValue: number): number[] {
+    const nextValues = [...this.internalValues];
+    const stepped = clamp(roundToStep(rawValue, this.internalStep), this.internalMin, this.internalMax);
 
     let constrained = stepped;
 
@@ -306,7 +489,8 @@ export class Slider extends Component<Signature> {
   private handleThumbInput = (index: number, value: number) => {
     if (this.disabled) return;
 
-    const newValues = this.applyThumbValue(index, value);
+    const internalValues = this.applyThumbInternalValue(index, value);
+    const newValues = this.outputValuesFromInternal(internalValues);
 
     this.updateValue(newValues);
   };
@@ -314,40 +498,74 @@ export class Slider extends Component<Signature> {
   private handleThumbChange = (index: number, value: number) => {
     if (this.disabled) return;
 
-    const newValues = this.applyThumbValue(index, value);
+    const internalValues = this.applyThumbInternalValue(index, value);
+    const newValues = this.outputValuesFromInternal(internalValues);
 
     this.updateValue(newValues);
     this.commitValue(newValues);
   };
 
+  private handleThumbActivate = (index: number) => {
+    this.activeThumbIndex = index;
+  };
+
+  private defaultThumbLabel(index: number): string {
+    const count = this.internalValues.length;
+
+    if (count <= 1) return "Value";
+    if (count === 2) return index === 0 ? "Minimum" : "Maximum";
+
+    return `Value ${index + 1}`;
+  }
+
   <template>
     <span
       ...attributes
-      data-slider
-      data-orientation={{this.orientation}}
-      data-disabled={{if this.disabled "true"}}
+      class={{this.rootClass}}
     >
-      {{yield
-        (hash
-          Track=(component Track orientation=this.orientation)
-          Range=(component Range orientation=this.orientation rangeStyle=this.rangeStyle)
-          Thumb=(component
-            ThumbComponent
+      {{#if (has-block)}}
+        {{yield
+          (hash
+            Track=Track
+            Range=(component Range rangeStyle=this.rangeStyle)
+            Thumb=(component
+              ThumbComponent
+              min=this.internalMin
+              max=this.internalMax
+              step=this.internalStep
+              disabled=this.disabled
+              onInput=this.handleThumbInput
+              onChange=this.handleThumbChange
+              onActivate=this.handleThumbActivate
+            )
+            values=this.values
+            tickValues=this.tickValues
+            thumbs=this.thumbs
             min=this.min
             max=this.max
             step=this.step
-            disabled=this.disabled
-            orientation=this.orientation
-            onInput=this.handleThumbInput
-            onChange=this.handleThumbChange
           )
-          values=this.values
-          thumbs=this.thumbs
-          min=this.min
-          max=this.max
-          step=this.step
-        )
-      }}
+        }}
+      {{else}}
+        <Track>
+          <Range @rangeStyle={{this.rangeStyle}} />
+
+          {{#each this.thumbs as |thumb|}}
+            <ThumbComponent
+              @value={{thumb.inputValue}}
+              @index={{thumb.index}}
+              @min={{this.internalMin}}
+              @max={{this.internalMax}}
+              @step={{this.internalStep}}
+              @disabled={{this.disabled}}
+              @onInput={{this.handleThumbInput}}
+              @onChange={{this.handleThumbChange}}
+              @onActivate={{this.handleThumbActivate}}
+              aria-label={{this.defaultThumbLabel thumb.index}}
+            />
+          {{/each}}
+        </Track>
+      {{/if}}
     </span>
   </template>
 }

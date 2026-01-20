@@ -1159,7 +1159,7 @@ const bands = [
         width: 24px;
       }
 
-      .ember-primitives__slider--vertical {
+      .ember-primitives__slider[data-orientation="vertical"] {
         position: absolute;
         inset: 0;
         display: flex;
@@ -1170,7 +1170,7 @@ const bands = [
         margin: 0;
       }
 
-      .ember-primitives__slider--vertical .ember-primitives__slider__track {
+      .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__track {
         position: relative;
         flex: 1;
         width: 4px;
@@ -1179,7 +1179,7 @@ const bands = [
         overflow: visible;
       }
 
-      .ember-primitives__slider--vertical .ember-primitives__slider__range {
+      .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__range {
         position: absolute;
         width: 100%;
         background: #1a73e8;
@@ -1606,9 +1606,13 @@ import { ComponentSignature } from 'kolay';
 | key | description |  
 | :---: | :----------- |  
 | `ember-primitives__slider` | Base class for the slider root
-| `ember-primitives__slider--horizontal` | Present when `@orientation="horizontal"` (default)
-| `ember-primitives__slider--vertical` | Present when `@orientation="vertical"`
-| `ember-primitives__slider--disabled` | Present when `@disabled={{true}}`
+
+#### Data Attributes
+
+| key | description |
+| :---: | :----------- |
+| `data-orientation` | Set to `"horizontal"` (default) or `"vertical"`
+| `data-disabled` | Present when `@disabled={{true}}`
 
 #### `<Track>`
 

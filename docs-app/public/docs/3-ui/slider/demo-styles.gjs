@@ -136,24 +136,24 @@ export const SliderDemoStyles = <template>
       text-align: center;
     }
 
-    .ember-primitives__slider--vertical {
+    .ember-primitives__slider[data-orientation="vertical"] {
       flex-direction: column;
       width: var(--slider-v-width);
       height: var(--slider-v-height);
       margin: 0.5rem 0;
     }
 
-    .ember-primitives__slider--vertical .ember-primitives__slider__track {
+    .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__track {
       width: 4px;
       height: 100%;
     }
 
-    .ember-primitives__slider--vertical .ember-primitives__slider__range {
+    .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__range {
       width: 100%;
       height: auto;
     }
 
-    .ember-primitives__slider--vertical .thumb-input {
+    .ember-primitives__slider[data-orientation="vertical"] .thumb-input {
       left: 0;
       top: 0;
       right: auto;
@@ -164,7 +164,7 @@ export const SliderDemoStyles = <template>
       transform-origin: left top;
     }
 
-    .ember-primitives__slider--vertical .thumb {
+    .ember-primitives__slider[data-orientation="vertical"] .thumb {
       left: 50%;
       top: auto;
       transform: translate(-50%, 50%) scale(var(--thumb-scale));

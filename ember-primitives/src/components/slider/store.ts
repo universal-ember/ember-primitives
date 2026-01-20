@@ -164,14 +164,6 @@ export class SliderStore {
     return this.#args.disabled ?? false;
   }
 
-  get rootClass(): string {
-    const classes = ["ember-primitives__slider", `ember-primitives__slider--${this.orientation}`];
-
-    if (this.disabled) classes.push("ember-primitives__slider--disabled");
-
-    return classes.join(" ");
-  }
-
   get internalMin(): number {
     const ticks = this.tickValues;
 

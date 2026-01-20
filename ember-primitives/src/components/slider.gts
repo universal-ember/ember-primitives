@@ -216,7 +216,9 @@ export class Slider extends Component<Signature> {
   <template>
     <span
       ...attributes
-      class={{this.store.rootClass}}
+      class="ember-primitives__slider"
+      data-orientation={{this.store.orientation}}
+      data-disabled={{if this.store.disabled ""}}
     >
       {{#if (has-block)}}
         {{yield

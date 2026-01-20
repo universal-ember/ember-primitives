@@ -2,7 +2,7 @@ import { concat } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 
-import { Shadowed,Slider } from 'ember-primitives';
+import { Shadowed, Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -61,13 +61,13 @@ export const EqualizerDemo = <template>
                 />
                 <div
                   class="thumb {{if thumb.active 'is-active'}}"
-                  style={{htmlSafe (concat "bottom: " thumb.percent "%;" )}}
+                  style={{htmlSafe (concat "bottom: " thumb.percent "%;")}}
                   aria-hidden="true"
                 />
                 {{#if (isDragging band.label)}}
                   <output
                     class="tooltip tooltip--vertical"
-                    style={{htmlSafe (concat "bottom: " thumb.percent "%;" )}}
+                    style={{htmlSafe (concat "bottom: " thumb.percent "%;")}}
                   >
                     {{thumb.value}}
                   </output>

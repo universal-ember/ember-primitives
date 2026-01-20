@@ -1,6 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
-import { Slider, Shadowed } from 'ember-primitives';
+
+import { Shadowed, Slider } from 'ember-primitives';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
 
@@ -19,7 +20,7 @@ export const DisabledDemo = <template>
           />
           <div
             class="thumb is-disabled"
-            style={{htmlSafe (concat "left: " thumb.percent "%;" )}}
+            style={{htmlSafe (concat "left: " thumb.percent "%;")}}
             aria-hidden="true"
           />
         {{/each}}

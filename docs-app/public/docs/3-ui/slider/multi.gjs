@@ -1,7 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { Shadowed,Slider } from 'ember-primitives';
+import { Shadowed, Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -23,10 +23,13 @@ export const MultiThumbDemo = <template>
           />
           <div
             class="thumb {{if thumb.active 'is-active'}}"
-            style={{htmlSafe (concat "left: " thumb.percent "%;" )}}
+            style={{htmlSafe (concat "left: " thumb.percent "%;")}}
             aria-hidden="true"
           />
-          <output class="tooltip" style={{htmlSafe (concat "left: " thumb.percent "%;" )}}>{{thumb.value}}%</output>
+          <output
+            class="tooltip"
+            style={{htmlSafe (concat "left: " thumb.percent "%;")}}
+          >{{thumb.value}}%</output>
         {{/each}}
       </s.Track>
     </Slider>

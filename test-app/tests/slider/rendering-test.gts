@@ -158,8 +158,6 @@ module('<Slider />', function (hooks) {
   });
 
   test('calls onValueChange callback', async function (assert) {
-    assert.expect(1);
-
     const handleChange = (value: number[]) => {
       assert.step('onValueChange');
     };
@@ -179,7 +177,7 @@ module('<Slider />', function (hooks) {
 
     // Note: Testing actual pointer/keyboard interaction would require more setup
     // This test verifies the component accepts the callback
-    assert.ok(typeof handleChange === 'function');
+    assert.strictEqual(typeof handleChange, 'function');
   });
 
   test('exposes values, min, max, step', async function (assert) {

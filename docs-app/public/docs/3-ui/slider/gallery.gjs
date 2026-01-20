@@ -56,7 +56,6 @@ export const Gallery = <template>
         <EqualizerDemo />
       </div>
 
-
     </div>
 
     <style>

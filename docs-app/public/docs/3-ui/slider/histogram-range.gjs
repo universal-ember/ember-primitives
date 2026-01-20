@@ -1,7 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { Shadowed,Slider } from 'ember-primitives';
+import { Shadowed, Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -50,14 +50,21 @@ export const HistogramRangeDemo = <template>
           <div class="bar-wrap">
             <div
               class="bar {{if (isInRange bin) 'active'}}"
-              style={{htmlSafe (concat "height: " bin.height "%;" )}}
+              style={{htmlSafe (concat "height: " bin.height "%;")}}
               title="{{bin.value}}"
             />
           </div>
         {{/each}}
       </div>
 
-      <Slider @value={{range.current}} @onValueChange={{range.set}} @min={{min}} @max={{max}} @step={{10}} as |s|>
+      <Slider
+        @value={{range.current}}
+        @onValueChange={{range.set}}
+        @min={{min}}
+        @max={{max}}
+        @step={{10}}
+        as |s|
+      >
         <s.Track>
           <s.Range />
 
@@ -70,7 +77,7 @@ export const HistogramRangeDemo = <template>
             />
             <div
               class="thumb {{if thumb.active 'is-active'}}"
-              style={{htmlSafe (concat "left: " thumb.percent "%;" )}}
+              style={{htmlSafe (concat "left: " thumb.percent "%;")}}
               aria-hidden="true"
             />
           {{/each}}

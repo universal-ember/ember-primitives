@@ -1,5 +1,15 @@
 # Changelog 
 
+## Release (2026-01-23)
+
+
+
+#### :memo: Documentation
+* [#648](https://github.com/universal-ember/ember-primitives/pull/648) Draggable Switch Demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-01-14)
 
 * ember-primitives 0.53.0 (minor)

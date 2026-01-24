@@ -8,7 +8,7 @@ import { selected } from 'kolay';
 
 import { OopsError, PageLayout } from '@universal-ember/docs-support';
 
-export default class Page extends Component {
+export default class AnimationPage extends Component {
   get selectedPath() {
     return selected(this).path;
   }
@@ -44,7 +44,7 @@ export default class Page extends Component {
 }
 
 const ReportingAnIssue = <template>
-  <ExternalLink href="https://github.com/universal-ember/ember-primitives/issues/new">
+  <ExternalLink @href="https://github.com/universal-ember/ember-primitives/issues/new">
     reporting an issue
   </ExternalLink>
 </template>;

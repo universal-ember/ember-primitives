@@ -39,6 +39,7 @@ export const PageLayout: TOC<{
   Blocks: {
     logoLink: [];
     topRight: [];
+    centerNav: [];
     editLink: [typeof EditLink];
     error: [error: string];
   };
@@ -54,7 +55,7 @@ export const PageLayout: TOC<{
           }}"
         {{onWindowScroll}}
       >
-        <div class="outer-content flex flex-none flex-wrap items-center justify-between py-4">
+        <div class="outer-content flex flex-none flex-wrap items-center justify-between py-4 relative">
           <div class="flex mr-6 lg:hidden">
             <Toggle />
           </div>
@@ -63,6 +64,9 @@ export const PageLayout: TOC<{
               {{yield to="logoLink"}}
             </a>
           </div>
+          {{#if (has-block "centerNav")}}
+            {{yield to="centerNav"}}
+          {{/if}}
           {{!
             If we ever have a search bar
               <div class="mr-6 -my-5 sm:mr-8 md:mr-0">

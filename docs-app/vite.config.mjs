@@ -1,9 +1,10 @@
-import { classicEmberSupport, ember, extensions } from "@embroider/vite";
+import { ember, extensions } from "@embroider/vite";
 
 import { babel } from "@rollup/plugin-babel";
 import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
 import { scopedCSS } from "ember-scoped-css/vite";
+import rehypeShiki from "@shikijs/rehype";
 
 export default defineConfig(async (/* { mode } */) => {
   return {
@@ -18,12 +19,33 @@ export default defineConfig(async (/* { mode } */) => {
     },
     plugins: [
       scopedCSS(),
-      classicEmberSupport(),
       ember(),
       kolay({
-        src: "public/docs",
-        groups: [],
         packages: ["ember-primitives", "which-heading-do-i-need"],
+        rehypePlugins: [
+          [
+            rehypeShiki,
+            {
+              themes: {
+                light: "github-light",
+                dark: "github-dark",
+              },
+              defaultColor: "light-dark()",
+            },
+          ],
+        ],
+        scope: `
+          import { SetupInstructions } from '#src/components/setup.gts';
+          import {
+            comment, APIDocs, Comment,
+            ComponentSignature, ModifierSignature
+          } from '#src/routes/api-docs.gts';
+
+          import { Shadowed } from 'ember-primitives/components/shadowed';
+          import { InViewport } from 'ember-primitives/viewport';
+
+          import { Callout } from '@universal-ember/docs-support';
+        `,
       }),
       babel({
         babelHelpers: "runtime",

@@ -87,7 +87,7 @@ Feel free to inspect element here to see how the styles are done.
 
 <!-- tabster doesn't work across the shadow boundary -->
 ```gjs live 
-import { Demo } from '#public/3-ui/tabs/layout-demo';
+import { Demo } from '#docs/3-ui/tabs/layout-demo';
 
 <template>
   <Demo />

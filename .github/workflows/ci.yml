@@ -57,7 +57,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          node-version: 18.18.1
+          node-version: 22
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm turbo test --filter test-app

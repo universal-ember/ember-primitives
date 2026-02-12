@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "chrome-devtools": {
+      "command": "pnpm",
+      "args": ["dlx", "chrome-devtools-mcp@latest"]
+    },
+    "ember": {
+      "command": "pnpm",
+      "args": ["dlx", "ember-mcp"]
+    }
+  },
+  "inputs": []
+}

@@ -1,6 +1,8 @@
 import { fileURLToPath } from "node:url";
 import { scopedCSS } from "ember-scoped-css/babel";
-import { babelCompatSupport, templateCompatSupport } from "@embroider/compat/babel";
+import { buildMacros } from "@embroider/macros/babel";
+
+const macros = buildMacros();
 
 export default {
   plugins: [
@@ -22,7 +24,7 @@ export default {
           "ember-cli-htmlbars-inline-precompile",
           "htmlbars-inline-precompile",
         ],
-        transforms: [...templateCompatSupport(), scopedCSS.template({})],
+        transforms: [...macros.templateMacros, scopedCSS.template({})],
       },
     ],
     [
@@ -41,7 +43,7 @@ export default {
         regenerator: false,
       },
     ],
-    ...babelCompatSupport(),
+    ...macros.babelMacros,
   ],
 
   generatorOpts: {

@@ -15,7 +15,6 @@ function removeLoader() {
   document.querySelector('#initial-loader')?.remove();
 }
 
- 
 function resetScroll(..._args: unknown[]) {
   document.querySelector('html')?.scrollTo(0, 0);
 }
@@ -35,12 +34,86 @@ const onWindowScroll = modifier(() => {
   };
 });
 
+export const PageLoader: TOC<{
+  Blocks: {
+    defaultl: [];
+  };
+}> = <template>
+  <div class="loading-page" role="status">
+    {{yield}}
+  </div>
+
+  <style>
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    .loading-page {
+      position: fixed;
+      top: 0rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(
+        90deg,
+        rgba(40, 40, 50, 0.9),
+        rgba(60, 60, 70, 0.9),
+        rgba(40, 40, 50, 0.9)
+      );
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+      filter: drop-shadow(0 0.5rem 0.5rem rgba(0, 0, 0, 0.8));
+      color: white;
+      right: 0;
+      width: 100%;
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .loading-page {
+        animation: shimmer 10s infinite;
+      }
+    }
+  </style>
+</template>;
+
+export function hasReason(error: unknown): error is { reason: string; original: Error } {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'reason' in error &&
+    typeof error.reason === 'string'
+  );
+}
+
+export const PageError: TOC<{
+  Args: {
+    error: string | { reason: string; original: Error };
+  };
+}> = <template>
+  <div class="error" data-page-error role="alert">
+    {{#if (hasReason @error)}}
+      {{@error.reason}}
+      <details>
+        <summary>Original error</summary>
+        <pre>{{@error.original.stack}}</pre>
+      </details>
+    {{else}}
+      {{@error}}
+    {{/if}}
+  </div>
+</template>;
+
 export const PageLayout: TOC<{
   Blocks: {
     logoLink: [];
     topRight: [];
     editLink: [typeof EditLink];
-    error: [error: string];
+    error: [error: string | { reason: string; original: Error }];
   };
 }> = <template>
   <ResponsiveMenuLayout>
@@ -80,11 +153,9 @@ export const PageLayout: TOC<{
         <Article>
           <Page>
             <:pending>
-              <div
-                class="fixed top-12 p-4 rounded z-50 transition border border-slate-800 duration-500 shadow-xl shadow-slate-900/5 bg-white/95 'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'"
-              >
+              <PageLoader>
                 Loading, Compiling, etc
-              </div>
+              </PageLoader>
             </:pending>
 
             <:error as |error|>

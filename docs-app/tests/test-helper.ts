@@ -4,7 +4,7 @@ import { setup } from 'qunit-dom';
 import { start as qunitStart } from 'ember-qunit';
 
 import Application from 'docs-app/app';
-import config from 'docs-app/config/environment';
+import config, { enterTestMode } from 'docs-app/config/environment';
 
 QUnit.config.urlConfig.push({
   id: 'debugA11yAudit',
@@ -12,6 +12,7 @@ QUnit.config.urlConfig.push({
 });
 
 export function start() {
+  enterTestMode();
   setApplication(Application.create(config.APP));
 
   setup(QUnit.assert);

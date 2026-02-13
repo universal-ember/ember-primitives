@@ -61,6 +61,21 @@ export default defineConfig(async (/* { mode } */) => {
         // Because we rely on postcss processing
         "@universal-ember/docs-support",
       ],
+      include: [
+        "@shikijs/rehype",
+        "shiki",
+        "reactiveweb/get-promise-state",
+        "ember-focus-trap",
+        "ember-primitives > tabster",
+        "ember-primitives > tracked-built-ins",
+        "ember-primitives > tracked-toolbox",
+        "ember-primitives > @floating-ui/dom",
+        "kolay/components",
+        "lorem-ipsum",
+        "ember-modifier",
+        "limber-ui",
+        "decorator-transforms",
+      ],
       // for top-level-await, etc
       esbuildOptions: {
         target: "esnext",

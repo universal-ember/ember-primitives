@@ -15,7 +15,7 @@ import { setup } from 'qunit-dom';
 import { start as qunitStart } from 'ember-qunit';
 
 import Application from 'test-app/app';
-import config from 'test-app/config/environment';
+import config, { enterTestMode } from 'test-app/config/environment';
 
 Object.assign(window, {
   getSettledState,
@@ -27,6 +27,7 @@ Object.assign(window, {
 });
 
 export function start() {
+  enterTestMode();
   setApplication(Application.create(config.APP));
 
   setup(QUnit.assert);

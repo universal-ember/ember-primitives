@@ -37,17 +37,17 @@
     "prepack": "rollup --config"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/plugin-transform-typescript": "^7.28.5",
-    "@babel/runtime": "^7.28.4",
+    "@babel/core": "^7.29.0",
+    "@babel/plugin-transform-typescript": "^7.28.6",
+    "@babel/runtime": "^7.28.6",
     "@ember/library-tsconfig": "^2.0.0",
-    "@embroider/addon-dev": "^8.2.0",
+    "@embroider/addon-dev": "^8.3.0",
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
     "@rollup/plugin-babel": "^6.1.0",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.2",
-    "prettier": "^3.7.4",
-    "rollup": "^4.55.1",
+    "prettier": "^3.8.1",
+    "rollup": "^4.57.1",
     "typescript": "^5.9.3"
   }
 }

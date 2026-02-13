@@ -32,7 +32,7 @@ export default class Application extends Route {
       engine: createOnigurumaEngine(() => import('shiki/wasm')),
     });
 
-    const [manifest] = await Promise.all([
+    await Promise.all([
       setupTabster(this),
       setupKolay(this, {
         // This won't work, because the compiler can't find the element to rendedr in to.
@@ -62,8 +62,6 @@ export default class Application extends Route {
           comment,
         },
         modules: {
-          // us
-          '#src/api-docs': () => import('./api-docs.gts'),
           /*********************************
            *
            * importing from: "#public/*"
@@ -96,13 +94,13 @@ export default class Application extends Route {
            ********************************/
           ...(() => {
             const modules = import.meta.glob('./**/*.{gjs,gts,js,ts}', {
-              base: '../../public/docs',
+              base: '../templates',
             });
 
             const reformatted: Record<string, unknown> = {};
 
             for (const [relativePath, module] of Object.entries(modules)) {
-              const availableName = relativePath.replace(/^./, '#public').replace('.gjs', '');
+              const availableName = relativePath.replace(/^./, '#docs').replace('.gjs', '');
 
               reformatted[availableName] = module;
             }
@@ -189,7 +187,5 @@ export default class Application extends Route {
         ],
       }),
     ]);
-
-    return { manifest };
   }
 }

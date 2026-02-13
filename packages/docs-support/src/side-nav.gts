@@ -4,7 +4,6 @@ import { service } from '@ember/service';
 
 import { sentenceCase } from 'change-case';
 import { link } from 'ember-primitives/helpers';
-import { selected } from 'kolay';
 import { PageNav } from 'kolay/components';
 import { getAnchor } from 'should-handle-link';
 
@@ -125,18 +124,7 @@ export class SideNav extends Component<{
     onClick?: () => void;
   };
 }> {
-  get #selected() {
-    return selected(this);
-  }
   @service('router') declare router: RouterService;
-
-  get humanSelected() {
-    const path = this.#selected?.path;
-
-    if (!path) return undefined;
-
-    return path.split('/').filter(Boolean).map(titleize).join(' / ');
-  }
 
   get rootUrl() {
     return this.router.rootURL;

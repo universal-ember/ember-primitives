@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { click, visit } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
@@ -36,10 +35,10 @@ module('@properLinks', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
+      <template>
         <a href="/foo">Foo</a>
         <a href="/bar">Bar</a>
-      `
+      </template>
     );
 
     await visit('/');
@@ -64,11 +63,11 @@ module('@properLinks', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
+      <template>
         <a href="/foo">Foo</a>
         <a href="/foo/foo-foo">Foo Foo</a>
         <a href="/bar">Bar</a>
-      `
+      </template>
     );
 
     await visit('/');
@@ -100,10 +99,10 @@ module('@properLinks', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
+      <template>
         <a href="/the-root/foo">Foo</a>
         <a href="/the-root/bar">Bar</a>
-      `
+      </template>
     );
 
     await visit('/');
@@ -131,11 +130,11 @@ module('@properLinks', function (hooks) {
 
     this.owner.register(
       'template:application',
-      hbs`
+      <template>
         <a href="/foo?greeting='hello%20there'">Foo</a>
         <a href="/foo?greeting='general%20kenobi'">Foo</a>
         <a href="/bar">Bar</a>
-      `
+      </template>
     );
 
     this.owner.register(

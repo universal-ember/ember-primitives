@@ -1,14 +1,10 @@
 import 'decorator-transforms/globals';
 import './styles/app.css';
 
-import Application from '@ember/application';
-import compatModules from '@embroider/virtual/compat-modules';
-
-import loadInitializers from 'ember-load-initializers';
+import PageTitleService from 'ember-page-title/services/page-title';
 import { sync } from 'ember-primitives/color-scheme';
-import Resolver from 'ember-resolver';
+import Application from 'ember-strict-application-resolver';
 
-import config from './config/environment';
 import { install } from './icons';
 
 sync();
@@ -24,9 +20,10 @@ Object.assign(window, {
 });
 
 export default class App extends Application {
-  modulePrefix = config.modulePrefix;
-  podModulePrefix = config.podModulePrefix;
-  Resolver = Resolver.withModules(compatModules);
+  modules = {
+    ...import.meta.glob('./router.ts', { eager: true }),
+    ...import.meta.glob('./templates/**/*.{gjs,gts,md}', { eager: true }),
+    ...import.meta.glob('./routes/**/*.{gjs,gts,js,ts,md}', { eager: true }),
+    './services/page-title': PageTitleService,
+  };
 }
-
-loadInitializers(App, config.modulePrefix, compatModules);

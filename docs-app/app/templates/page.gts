@@ -1,16 +1,24 @@
 import Component from '@glimmer/component';
+import { service } from '@ember/service';
 
 import { GitHubLink, TestsLink } from 'docs-app/components/header';
 import { Logo, Logomark } from 'docs-app/components/icons';
 import { ExternalLink } from 'ember-primitives';
-import { selected } from 'kolay';
 
 import { OopsError, PageLayout } from '@universal-ember/docs-support';
 
+import type RouterService from '@ember/routing/router-service';
+
+const baseDocs =
+  'https://github.com/universal-ember/ember-primitives/edit/main/docs-app/app/templates';
+
+function urlFor(path: string) {
+  return `${baseDocs}/${path.replace('.md', '')}.gjs.md`;
+}
+
 export default class Page extends Component {
-  get selectedPath() {
-    return selected(this).path;
-  }
+  @service declare router: RouterService;
+
   <template>
     <PageLayout>
       <:logoLink>
@@ -29,11 +37,11 @@ export default class Page extends Component {
         </OopsError>
       </:error>
       <:editLink as |Link|>
-        <Link
-          @href="https://github.com/universal-ember/ember-primitives/edit/main/docs-app/public/docs{{this.selectedPath}}.md"
-        >
-          Edit this page
-        </Link>
+        {{#if this.router.currentURL}}
+          <Link @href={{urlFor this.router.currentURL}}>
+            Edit this page
+          </Link>
+        {{/if}}
       </:editLink>
     </PageLayout>
   </template>

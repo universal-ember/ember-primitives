@@ -5,9 +5,6 @@
     <title>ember-primitives</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    {{content-for "head"}}
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,20 +13,13 @@
       as="font"
       rel="font/woff2"
     />
-
-    {{content-for "head-footer"}}
   </head>
   <body class="bg-white dark:bg-slate-900">
-    {{content-for "body"}}
-
-    <script src="/@embroider/virtual/vendor.js"></script>
     <script type="module">
       import Application from "./app/app";
       import environment from "./app/config/environment";
 
       Application.create(environment.APP);
     </script>
-
-    {{content-for "body-footer"}}
   </body>
 </html>

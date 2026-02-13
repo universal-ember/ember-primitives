@@ -1,5 +1,4 @@
 import { fileURLToPath } from "node:url";
-import { scopedCSS } from "ember-scoped-css/babel";
 import { buildMacros } from "@embroider/macros/babel";
 
 const macros = buildMacros();
@@ -14,7 +13,6 @@ export default {
         allowDeclareFields: true,
       },
     ],
-    scopedCSS(),
     [
       "babel-plugin-ember-template-compilation",
       {
@@ -24,13 +22,15 @@ export default {
           "ember-cli-htmlbars-inline-precompile",
           "htmlbars-inline-precompile",
         ],
-        transforms: [...macros.templateMacros, scopedCSS.template({})],
+        transforms: [...macros.templateMacros],
       },
     ],
     [
       "module:decorator-transforms",
       {
         runtime: {
+          // requires package.json#exports
+
           import: fileURLToPath(import.meta.resolve("decorator-transforms/runtime-esm")),
         },
       },

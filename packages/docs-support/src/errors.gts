@@ -1,7 +1,9 @@
+import { PageError } from './page-layout.gts';
+
 import type { TOC } from '@ember/component/template-only';
 
 export const OopsError: TOC<{
-  Args: { error: string };
+  Args: { error: any };
   Blocks: { default: [] };
 }> = <template>
   <div
@@ -10,7 +12,7 @@ export const OopsError: TOC<{
     style="border: 1px solid red; padding: 1rem; word-break: break-all;"
   >
     <h1>Oops!</h1><br />
-    {{@error}}
+    <PageError @error={{@error}} />
 
     <br />
     <br />

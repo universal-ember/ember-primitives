@@ -11,7 +11,7 @@ Violations that can be caught via CSS are highlighted in the UI so that the deve
 For example, an `<ExternalLink />` missing an href
 
 ![image of a link without the href, being highlighted in text that can't be ignored](/images/link-missing-href.png)
-<!--
+
 ```gjs live no-shadow
 import { ExternalLink } from 'ember-primitives';
 
@@ -21,14 +21,12 @@ import { ExternalLink } from 'ember-primitives';
   </ExternalLink>
 </template>
 ```
--->
 
 
 Another example, a `<Switch />` without a label:
 
 ![image of a switch without a label, being highlighted in text that can't be ignored](/images/checkbox-missing-label.png)
 
-<!--
 ```gjs live no-shadow
 import { Switch } from 'ember-primitives';
 
@@ -38,7 +36,6 @@ import { Switch } from 'ember-primitives';
   </Switch>
 </template>
 ```
--->
 
 This only happens during development, and in production, the CSS that applies these warnings is not included.
 

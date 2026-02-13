@@ -1,12 +1,6 @@
 # Link
 
-```gjs live
-import { Comment } from '#src/api-docs';
-
-<template>
-  <Comment @name="Link" @declaration="components/link" />
-</template>
-```
+<Comment @name="Link" @declaration="components/link" />
 
 <Callout>
 

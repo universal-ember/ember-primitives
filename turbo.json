@@ -97,7 +97,7 @@
         "EMBER_TRY_CURRENT_SCENARIO",
         "EMBROIDER_TEST_SETUP_OPTIONS"
       ],
-      "dependsOn": ["^build"]
+      "dependsOn": ["_syncPnpm", "^build"]
     },
     // All scenarios
     "test:scenarios": {
@@ -131,12 +131,12 @@
 
     "_:lint:fix": {
       "cache": false,
-      "dependsOn": ["lint:js:fix", "lint:prettier:fix", "lint:hbs:fix"]
+      "dependsOn": ["lint:js:fix", "lint:hbs:fix", "format"]
     },
     // Prettier can alter files too, so let's prevent race conditions for multiple
     // writing to the same files.
     "lint:js:fix": { "cache": false },
     "lint:hbs:fix": { "cache": false },
-    "lint:prettier:fix": { "cache": false, "dependsOn": ["lint:js:fix", "lint:hbs:fix"] }
+    "format": { "cache": false, "dependsOn": ["lint:js:fix", "lint:hbs:fix"] }
   }
 }

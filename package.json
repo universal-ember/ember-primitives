@@ -17,19 +17,18 @@
     "test": "turbo run test --output-logs errors-only"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@nullvoxpopuli/dev": "workspace:*",
+    "@babel/core": "^7.29.0",
     "concurrently": "^9.2.1",
     "ember-primitives": "workspace:^",
-    "prettier": "^3.7.4",
-    "prettier-plugin-ember-template-tag": "^2.1.2",
-    "release-plan": "^0.17.0",
-    "turbo": "^2.7.4",
+    "prettier": "^3.8.1",
+    "prettier-plugin-ember-template-tag": "^2.1.3",
+    "release-plan": "^0.17.4",
+    "turbo": "^2.8.7",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@10.28.2",
   "engines": {
-    "node": ">= 20.*",
+    "node": ">= 22.*",
     "npm": "use pnpm",
     "yarn": "use pnpm"
   },
@@ -46,18 +45,18 @@
       ]
     },
     "overrides": {
-      "@embroider/macros": "^1.19.6",
+      "@embroider/macros": "^1.19.7",
       "@glimmer/component": "^2.0.0",
-      "babel-plugin-ember-template-compilation": "^3.0.1",
-      "decorator-transformS": "2.3.1",
-      "ember-cli-babel": "^8.2.0",
+      "@glint/template": "1.7.4",
+      "babel-plugin-ember-template-compilation": "^4.0.0",
+      "decorator-transforms": "2.3.1",
+      "ember-cli-babel": "^8.3.1",
       "ember-element-helper": "^0.8.8",
       "ember-primitives": "workspace:^",
-      "ember-repl": "^7.2.3",
-      "ember-source": "^6.9.0",
-      "kolay": "^4.0.5",
+      "ember-repl": "^7.3.5",
+      "ember-source": "^6.10.1",
       "reactiveweb": "^1.9.1",
-      "tracked-toolbox": "^2.0.0"
+      "tracked-toolbox": "^2.2.0"
     },
     "patchedDependencies": {},
     "packageExtensions": {

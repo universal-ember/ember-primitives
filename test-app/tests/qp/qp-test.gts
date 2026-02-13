@@ -4,7 +4,6 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
 import { qp } from 'ember-primitives/qp';
-import Route from 'ember-route-template';
 
 module('qp', function (hooks) {
   setupApplicationTest(hooks);
@@ -12,11 +11,9 @@ module('qp', function (hooks) {
   test('it wokrs', async function (assert) {
     this.owner.register(
       'template:application',
-      Route(
-        <template>
-          <output>{{qp "foo"}}</output>
-        </template>
-      )
+      <template>
+        <output>{{qp "foo"}}</output>
+      </template>
     );
     this.owner.register(
       'controller:application',

@@ -2,22 +2,17 @@
 
 A slider style element built using browser native scrolling to create netflix style carousels.
 
-<div class="hidden">
-```gjs live preview
-<!-- demo styles -->
-<template>
-  <style>
-    .featured-demo h2 { margin: 0; } .featured-demo .glimdown-render { padding-left: 0; padding-right: 0; }
-    .card { background: red; color: #fff; height: 150px; padding: 24px; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); width: 200px; }
-    .card:nth-child(1n) { background: blue; } .card:nth-child(2n) { background: green; }
-    .card:nth-child(3n) { background: yellow; } .card:nth-child(4n) { background: purple; }
-    .card:nth-child(5n) { background: orange; } .card:nth-child(6n) { background: pink; }
-    .card:nth-child(7n) { background: brown; } .card:nth-child(8n) { background: black; }
-    .card:nth-child(9n) { background: mediumaquamarine; } .card:nth-child(10n) { background: gray; }
-  </style>
-</template>
-```
-</div>
+<style>
+@scope {
+  .featured-demo h2 { margin: 0; } .featured-demo .glimdown-render { padding-left: 0; padding-right: 0; }
+  .card { background: red; color: #fff; height: 150px; padding: 24px; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); width: 200px; }
+  .card:nth-child(1n) { background: blue; } .card:nth-child(2n) { background: green; }
+  .card:nth-child(3n) { background: yellow; } .card:nth-child(4n) { background: purple; }
+  .card:nth-child(5n) { background: orange; } .card:nth-child(6n) { background: pink; }
+  .card:nth-child(7n) { background: brown; } .card:nth-child(8n) { background: black; }
+  .card:nth-child(9n) { background: mediumaquamarine; } .card:nth-child(10n) { background: gray; }
+}
+</style>
 
 <div data-tabster='{"uncontrolled": {}}'>
 <div class="featured-demo auto-height">

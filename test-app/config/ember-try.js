@@ -5,7 +5,7 @@ const getChannelURL = require('ember-source-channel-url');
 module.exports = async function () {
   return {
     usePnpm: true,
-    command: 'pnpm turbo run test',
+    command: 'pnpm turbo run test:ember',
     buildManagerOptions() {
       return ['--ignore-scripts', '--no-frozen-lockfile'];
     },

@@ -97,7 +97,7 @@
         "EMBER_TRY_CURRENT_SCENARIO",
         "EMBROIDER_TEST_SETUP_OPTIONS"
       ],
-      "dependsOn": ["^build"]
+      "dependsOn": ["_syncPnpm", "^build"]
     },
     // All scenarios
     "test:scenarios": {

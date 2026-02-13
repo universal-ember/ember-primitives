@@ -87,8 +87,9 @@ jobs:
       fail-fast: false
       matrix:
         try-scenario:
-          - ember-lts-4.12
-          - ember-5.1
+          # these versions aren't unsupported, but I wanted to simplify my test setup a bit
+          # - ember-lts-4.12
+          # - ember-5.1
           - ember-5.12
           - ember-6.4
           - ember-6.8

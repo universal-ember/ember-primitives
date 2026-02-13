@@ -23,6 +23,8 @@ jobs:
     timeout-minutes: 10
     outputs:
       pending: ${{ steps.set-pending.outputs.pending }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
     steps:
       - uses: wyvox/action@v1
         with:

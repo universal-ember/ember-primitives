@@ -1,11 +1,11 @@
-import { tracked } from "@glimmer/tracking";
+import { tracked } from '@glimmer/tracking';
 
 export interface SliderStoreArgs {
   value?: number | number[];
   min?: number;
   max?: number;
   step?: number | number[];
-  orientation?: "horizontal" | "vertical";
+  orientation?: 'horizontal' | 'vertical';
   disabled?: boolean;
   onValueChange?: (value: number | number[]) => void;
   onValueCommit?: (value: number | number[]) => void;
@@ -88,7 +88,7 @@ class ThumbState implements SliderThumb {
 
   constructor(
     slider: SliderStore,
-    public index: number,
+    public index: number
   ) {
     this.#slider = slider;
   }
@@ -126,7 +126,10 @@ export class SliderStore {
     const args = this.#getArgs();
     const initialCount = Array.isArray(args.value) ? Math.max(1, args.value.length) : 1;
 
-    this.#thumbStates = Array.from({ length: initialCount }, (_, index) => new ThumbState(this, index));
+    this.#thumbStates = Array.from(
+      { length: initialCount },
+      (_, index) => new ThumbState(this, index)
+    );
   }
 
   get #args(): SliderStoreArgs {
@@ -142,7 +145,7 @@ export class SliderStore {
   }
 
   get step(): number {
-    return typeof this.#args.step === "number" ? this.#args.step : DEFAULT_STEP;
+    return typeof this.#args.step === 'number' ? this.#args.step : DEFAULT_STEP;
   }
 
   get tickValues(): number[] | null {
@@ -156,8 +159,8 @@ export class SliderStore {
     return normalized.length === 0 ? null : normalized;
   }
 
-  get orientation(): "horizontal" | "vertical" {
-    return this.#args.orientation ?? "horizontal";
+  get orientation(): 'horizontal' | 'vertical' {
+    return this.#args.orientation ?? 'horizontal';
   }
 
   get disabled(): boolean {
@@ -191,8 +194,10 @@ export class SliderStore {
   get internalValues(): number[] {
     const ticks = this.tickValues;
     const normalized = Array.isArray(this.#args.value)
-      ? (this.#args.value.length === 0 ? [ticks?.[0] ?? this.min] : this.#args.value)
-      : [this.#args.value ?? (ticks?.[0] ?? this.min)];
+      ? this.#args.value.length === 0
+        ? [ticks?.[0] ?? this.min]
+        : this.#args.value
+      : [this.#args.value ?? ticks?.[0] ?? this.min];
 
     if (ticks) {
       return normalized.map((v) => {
@@ -228,7 +233,9 @@ export class SliderStore {
   }
 
   get thumbPercents(): number[] {
-    return this.internalValues.map((value) => getPercentage(value, this.internalMin, this.internalMax));
+    return this.internalValues.map((value) =>
+      getPercentage(value, this.internalMin, this.internalMax)
+    );
   }
 
   get rangeStyle(): string {
@@ -236,12 +243,14 @@ export class SliderStore {
 
     // For a single-thumb slider, the "range" should fill from the start to the
     // thumb. For multi-thumb, it fills between the min/max thumbs.
-    const internalRangeMin = internalValues.length <= 1 ? this.internalMin : Math.min(...internalValues);
-    const internalRangeMax = internalValues[0] === undefined ? this.internalMin : Math.max(...internalValues);
+    const internalRangeMin =
+      internalValues.length <= 1 ? this.internalMin : Math.min(...internalValues);
+    const internalRangeMax =
+      internalValues[0] === undefined ? this.internalMin : Math.max(...internalValues);
     const startPercent = getPercentage(internalRangeMin, this.internalMin, this.internalMax);
     const endPercent = getPercentage(internalRangeMax, this.internalMin, this.internalMax);
 
-    if (this.orientation === "horizontal") {
+    if (this.orientation === 'horizontal') {
       return `left: ${startPercent}%; right: ${100 - endPercent}%`;
     } else {
       return `bottom: ${startPercent}%; top: ${100 - endPercent}%`;
@@ -284,7 +293,11 @@ export class SliderStore {
 
   #applyThumbInternalValue(index: number, rawValue: number): number[] {
     const nextValues = [...this.internalValues];
-    const stepped = clamp(roundToStep(rawValue, this.internalStep), this.internalMin, this.internalMax);
+    const stepped = clamp(
+      roundToStep(rawValue, this.internalStep),
+      this.internalMin,
+      this.internalMax
+    );
 
     let constrained = stepped;
 
@@ -327,8 +340,8 @@ export class SliderStore {
   defaultThumbLabel = (index: number): string => {
     const count = this.internalValues.length;
 
-    if (count <= 1) return "Value";
-    if (count === 2) return index === 0 ? "Minimum" : "Maximum";
+    if (count <= 1) return 'Value';
+    if (count === 2) return index === 0 ? 'Minimum' : 'Maximum';
 
     return `Value ${index + 1}`;
   };

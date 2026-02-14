@@ -1,7 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { Shadowed,Slider } from 'ember-primitives';
+import { Shadowed, Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -25,7 +25,7 @@ export const TicksDemo = <template>
           />
           <div
             class="thumb {{if thumb.active 'is-active'}}"
-            style={{htmlSafe (concat "left: " thumb.percent "%;" )}}
+            style={{htmlSafe (concat "left: " thumb.percent "%;")}}
             aria-hidden="true"
           />
         {{/each}}
@@ -34,7 +34,7 @@ export const TicksDemo = <template>
 
     <div class="ticks" aria-hidden="true">
       {{#each tickValues as |tick idx|}}
-        <span class="tick" style={{htmlSafe (concat "left: " (percentAt idx) "%;" )}}>{{tick}}</span>
+        <span class="tick" style={{htmlSafe (concat "left: " (percentAt idx) "%;")}}>{{tick}}</span>
       {{/each}}
     </div>
 

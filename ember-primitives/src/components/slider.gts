@@ -30,11 +30,11 @@ export interface Signature {
      */
     max?: number;
     /**
-      * The stepping interval.
-      *
-      * When passed a number, the slider moves in fixed increments.
-      * When passed an array of numbers, the slider snaps to those discrete values.
-      * Defaults to 1.
+     * The stepping interval.
+     *
+     * When passed a number, the slider moves in fixed increments.
+     * When passed an array of numbers, the slider snaps to those discrete values.
+     * Defaults to 1.
      */
     step?: number | number[];
     /**
@@ -69,10 +69,7 @@ export interface Signature {
         /**
          * The thumb element - the draggable handle(s)
          */
-        Thumb: WithBoundArgs<
-          typeof ThumbComponent,
-          "store"
-        >;
+        Thumb: WithBoundArgs<typeof ThumbComponent, "store">;
         /**
          * The current value(s)
          */
@@ -104,7 +101,6 @@ export interface Signature {
     ];
   };
 }
-
 
 interface TrackSignature {
   Element: HTMLSpanElement;
@@ -225,10 +221,7 @@ export class Slider extends Component<Signature> {
           (hash
             Track=Track
             Range=(component Range rangeStyle=this.store.rangeStyle)
-            Thumb=(component
-              ThumbComponent
-              store=this.store
-            )
+            Thumb=(component ThumbComponent store=this.store)
             values=this.store.values
             tickValues=this.store.tickValues
             thumbs=this.store.thumbs

@@ -11,13 +11,9 @@ module('<Slider />', function (hooks) {
   test('renders simply', async function (assert) {
     const handleChange = (v: number | number[]) => {
       assert.step(String(v));
-    }
+    };
 
-    await render(
-      <template>
-        <Slider @value={{43}} @onValueChange={{handleChange}} />
-      </template>
-    );
+    await render(<template><Slider @value={{43}} @onValueChange={{handleChange}} /></template>);
 
     const slider = '[data-slider]';
     const track = '[role="presentation"]';
@@ -32,8 +28,7 @@ module('<Slider />', function (hooks) {
     assert.dom(thumb).hasAttribute('aria-valuemax', '100');
     assert.dom(thumb).hasAttribute('aria-valuenow', '43');
     assert.dom(thumb).hasAttribute('aria-orientation', 'horizontal');
-
-});
+  });
 
   test('renders with default single value', async function (assert) {
     await render(

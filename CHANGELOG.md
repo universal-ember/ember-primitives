@@ -1,5 +1,21 @@
 # Changelog 
 
+## Release (2026-02-14)
+
+* ember-primitives 0.53.1 (patch)
+* @universal-ember/docs-support 0.9.3 (patch)
+* which-heading-do-i-need 0.2.6 (patch)
+
+#### :memo: Documentation
+* [#648](https://github.com/universal-ember/ember-primitives/pull/648) Draggable Switch Demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#661](https://github.com/universal-ember/ember-primitives/pull/661) Upgrade random deps / internal infra ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-01-14)
 
 * ember-primitives 0.53.0 (minor)

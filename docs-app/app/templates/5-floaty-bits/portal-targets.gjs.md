@@ -4,7 +4,7 @@ The portal targets are stable element references that can be nested over and ove
 
 **`<PortalTargets />` renders three hardcoded default portal targets in the DOM:**
 - `popover` - for popover elements
-- `tooltip` - for tooltip elements  
+- `tooltip` - for tooltip elements
 - `modal` - for modal dialogs
 
 These render as three `<div>` elements with `data-portal-name` attributes:
@@ -14,7 +14,7 @@ These render as three `<div>` elements with `data-portal-name` attributes:
 <div data-portal-name="ember-primitives__portal-targets__modal"></div>
 ```
 
-You can reference these defaults by passing their names to `<Portal @to="popover">`, `<Portal @to="tooltip">`, or `<Portal @to="modal">`. 
+You can reference these defaults by passing their names to `<Portal @to="popover">`, `<Portal @to="tooltip">`, or `<Portal @to="modal">`.
 
 For example, given a z-index order like 
  - `1` popover

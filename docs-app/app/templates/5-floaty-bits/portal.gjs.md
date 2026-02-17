@@ -4,6 +4,8 @@ A `<Portal>` allows teleporting elements to another place in the DOM tree. This 
 
 `<Portal>` must be combined with `<PortalTargets>`, or your own portal targets that match the requirements of portalling.  Additionally, a `<Portal>` will render in to the nearest `<PortalTargets>` it can find, allowing for UI layering, e.g.: Modals have their own `<PortalTargets>` so they can have their own tooltips and popovers.  _For use with popovers_, this portalling can be a way to support [popover](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover) on older browsers. But there are many other use cases outside of popovers as well.
 
+**The `@to` argument accepts any valid CSS selector** (like `[data-portal-target]`, `.my-class`, `#my-id`), a PortalTarget name (like `popover`, `tooltip`, or `modal`), or an Element object.
+
 <h2 visually-hidden>Usage</h2>
 
 The following example demonstrates Portal-nesting:

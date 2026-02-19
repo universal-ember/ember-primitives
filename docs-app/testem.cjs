@@ -1,9 +1,12 @@
 'use strict';
 
 if (typeof module !== 'undefined') {
+  const { a11yMiddleware } = require('ember-a11y-testing/middleware');
+
   module.exports = {
     test_page: 'tests/index.html?hidepassed',
     cwd: 'dist',
+    middleware: [a11yMiddleware],
     disable_watching: true,
     launch_in_ci: ['Chrome'],
     launch_in_dev: ['Chrome'],

@@ -156,7 +156,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
-      - run: pnpm test:ember --filter docs-app
+      - run: pnpm test:ember
+        working-directory: docs-app
 
   DeployProduction:
     name: "Deploy: Production"

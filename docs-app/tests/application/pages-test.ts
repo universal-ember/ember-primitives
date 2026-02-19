@@ -4,12 +4,7 @@ import { setupApplicationTest } from 'ember-qunit';
 
 import { colorScheme } from 'ember-primitives/color-scheme';
 
-// import { a11yAudit } from 'ember-a11y-testing/test-support';
-
-async function a11yAudit(_options: any) {
-  await Promise.resolve();
-  console.debug(`a11y audit disabled until ember-a11y-testing supports native vite apps`);
-}
+import { a11yAudit } from 'ember-a11y-testing/test-support';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
 const pages: { path: string }[] = (window as any).__pages__;

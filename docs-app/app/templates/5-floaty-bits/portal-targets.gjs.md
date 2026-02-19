@@ -8,6 +8,7 @@ The portal targets are stable element references that can be nested over and ove
 - `modal` - for modal dialogs
 
 These render as three `<div>` elements with `data-portal-name` attributes:
+
 ```html
 <div data-portal-name="ember-primitives__portal-targets__popover"></div>
 <div data-portal-name="ember-primitives__portal-targets__tooltip"></div>

@@ -216,6 +216,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.24
         version: 10.4.24(postcss@8.5.6)
+      axe-core:
+        specifier: ^4.11.1
+        version: 4.11.1
       babel-plugin-ember-template-compilation:
         specifier: ^4.0.0
         version: 4.0.0
@@ -227,7 +230,7 @@ importers:
         version: 9.2.1
       ember-a11y-testing:
         specifier: ^8.0.0
-        version: 8.0.0(8f6680e560f21dec363bf0a7b38f1b44)
+        version: 8.0.0(19cccef23085f3afa42c3811585d9e95)
       ember-page-title:
         specifier: ^9.0.3
         version: 9.0.3
@@ -3100,6 +3103,10 @@ packages:
   available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
+
+  axe-core@4.11.1:
+    resolution: {integrity: sha512-BASOg+YwO2C+346x3LZOeoovTIoTrRqEsqMa6fmfAV0P+U9mFr9NsyOEpiYvFjbc64NMrSswhV50WdXzdb/Z5A==}
+    engines: {node: '>=4'}
 
   babel-core@7.0.0-bridge.0:
     resolution: {integrity: sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==}
@@ -10802,6 +10809,8 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
+  axe-core@4.11.1: {}
+
   babel-core@7.0.0-bridge.0(@babel/core@7.29.0):
     dependencies:
       '@babel/core': 7.29.0
@@ -11663,11 +11672,12 @@ snapshots:
 
   electron-to-chromium@1.5.267: {}
 
-  ember-a11y-testing@8.0.0(8f6680e560f21dec363bf0a7b38f1b44):
+  ember-a11y-testing@8.0.0(19cccef23085f3afa42c3811585d9e95):
     dependencies:
       '@ember/test-helpers': 5.4.1(882cf82caec78f226fcbd647b89f3bbe)
       '@ember/test-waiters': 4.1.1(882cf82caec78f226fcbd647b89f3bbe)
       '@embroider/addon-shim': 1.10.2
+      axe-core: 4.11.1
       decorator-transforms: 2.3.1(@babel/core@7.29.0)
     optionalDependencies:
       qunit: 2.25.0

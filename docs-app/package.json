@@ -45,7 +45,7 @@
     "hash": "^0.2.1",
     "highlight.js": "^11.8.0",
     "highlightjs-glimmer": "^2.2.1",
-    "kolay": "^5.0.1",
+    "kolay": "^5.1.1",
     "limber-ui": "^4.1.1",
     "lorem-ipsum": "^2.0.8",
     "nvp.ui": "^0.5.3",

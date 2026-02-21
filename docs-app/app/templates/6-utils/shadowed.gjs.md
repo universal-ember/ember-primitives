@@ -4,7 +4,7 @@
 import { CommentQuery } from 'kolay';
 
 <template>
-  <CommentQuery @module="components/shadowed" @name="Shadowed" />
+  <CommentQuery @package="ember-primitives" @module="declarations/components/shadowed" @name="Shadowed" />
 </template>
 ```
 

@@ -65,7 +65,7 @@ jobs:
           node-version: 22
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
-      - run: pnpm turbo test --filter test-app
+      - run: pnpm turbo test:ember --filter test-app
 
   floating:
     name: "Floating Dependencies"
@@ -80,7 +80,7 @@ jobs:
           pnpm-args: --no-lockfile
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
-      - run: pnpm turbo test --filter test-app
+      - run: pnpm turbo test:ember --filter test-app
 
   compatibility:
     needs: ["test", "setup"]
@@ -156,7 +156,8 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
-      - run: pnpm test --filter docs-app
+      - run: pnpm test:ember
+        working-directory: docs-app
 
   DeployProduction:
     name: "Deploy: Production"

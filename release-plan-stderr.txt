@@ -1,0 +1,10 @@
+# Unlabeled Changes
+
+* `@universal-ember/docs-support`
+  * [#667](https://github.com/universal-ember/ember-primitives/pull/667) Re enable a11y testing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* Other
+  * [#670](https://github.com/universal-ember/ember-primitives/pull/670) Fix missing @package in CommentQuery causing a11y test failures ([@Copilot](https://github.com/apps/copilot-swe-agent))
+  * [#669](https://github.com/universal-ember/ember-primitives/pull/669) Remove manifest-fetching script from test HTML ([@Copilot](https://github.com/apps/copilot-swe-agent))
+
+
+*Cannot plan release until the above changes are labeled*.

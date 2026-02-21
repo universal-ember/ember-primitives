@@ -105,8 +105,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2(highlight.js@11.11.1)
       kolay:
-        specifier: ^5.1.1
-        version: 5.1.1(15154816125fed0e29765e90eb0b5252)
+        specifier: ^5.1.2
+        version: 5.1.2(15154816125fed0e29765e90eb0b5252)
       limber-ui:
         specifier: ^4.1.1
         version: 4.1.1(882cf82caec78f226fcbd647b89f3bbe)
@@ -494,8 +494,8 @@ importers:
         specifier: ^4.0.2
         version: 4.1.1
       kolay:
-        specifier: ^5.1.1
-        version: 5.1.1(15154816125fed0e29765e90eb0b5252)
+        specifier: ^5.1.2
+        version: 5.1.2(15154816125fed0e29765e90eb0b5252)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -5486,8 +5486,8 @@ packages:
   known-css-properties@0.37.0:
     resolution: {integrity: sha512-JCDrsP4Z1Sb9JwG0aJ8Eo2r7k4Ou5MwmThS/6lcIe1ICyb7UBJKGRIUUdqc2ASdE/42lgz6zFUnzAIhtXnBVrQ==}
 
-  kolay@5.1.1:
-    resolution: {integrity: sha512-VwTUEuPOxFgvmbq9lzx5dvzO0nye6fqlophAI5VGtY0JPpqDT8QdAoVu/TnRawpv/iNrilT5iEGAEFGixFYezA==}
+  kolay@5.1.2:
+    resolution: {integrity: sha512-+c+aRqCl14ybeCmIIakayTXldOFE2xqJt7guIp7Otp1RPclEY14PaVzm81N4d3E6ldZgX1401F5xNqMJIl8eLg==}
     engines: {node: '>= 18'}
 
   ky@1.14.2:
@@ -13829,7 +13829,7 @@ snapshots:
 
   known-css-properties@0.37.0: {}
 
-  kolay@5.1.1(15154816125fed0e29765e90eb0b5252):
+  kolay@5.1.2(15154816125fed0e29765e90eb0b5252):
     dependencies:
       '@ember/test-waiters': 4.1.1(882cf82caec78f226fcbd647b89f3bbe)
       '@embroider/addon-shim': 1.10.2

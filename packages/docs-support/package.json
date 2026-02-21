@@ -62,7 +62,7 @@
     "ember-primitives": "workspace:^",
     "ember-resources": "^7.0.7",
     "inter-ui": "^4.0.2",
-    "kolay": "^5.1.1",
+    "kolay": "^5.1.2",
     "package-up": "^5.0.0",
     "read-package-up": "^12.0.0",
     "should-handle-link": "^1.2.2",

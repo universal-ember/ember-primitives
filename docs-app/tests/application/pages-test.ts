@@ -3,11 +3,9 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 
 import { colorScheme } from 'ember-primitives/color-scheme';
+import { docsManager } from 'kolay';
 
 import { a11yAudit } from 'ember-a11y-testing/test-support';
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-const pages: { path: string }[] = (window as any).__pages__;
 
 /**
  * per-page settings
@@ -66,8 +64,7 @@ async function checkA11y(assert: Assert, path: string, theme: string, settings: 
       }
     }
 
-    const message =
-      `no a11y errors found for ${path} using the ${theme} theme` + `\n\n` + errorText;
+    const message = `${path}: no a11y errors found using the ${theme} theme` + `\n\n` + errorText;
 
     if (window.location.search.includes('debugA11yAudit')) {
       console.error(errorText);
@@ -80,22 +77,39 @@ async function checkA11y(assert: Assert, path: string, theme: string, settings: 
 module('Application | Pages', function (hooks) {
   setupApplicationTest(hooks);
 
-  for (const page of pages) {
-    test(`${page.path}`, async function (assert) {
-      const path = page.path.replace('.md', '');
+  test('Pages all fit a11y criteria', async function (assert) {
+    await visit('/');
+
+    const pages: { path: string }[] = [];
+
+    const docsService = docsManager(this);
+    const groups = docsService.manifest.groups;
+
+    for (const group of groups) {
+      for (const page of group.list) {
+        pages.push(page);
+      }
+    }
+
+    assert.ok(pages.length > 10, `There are at least a few pages`);
+
+    for (const page of pages) {
+      const path = page.path.replace('.gjs.md', '').replace('.md', '');
       const settings: object = a11yChecks[page.path] ?? {};
 
       await visit(path);
       await waitUntil(() => findAll('nav a').length !== 0);
       await checkA11y(assert, path, 'default', settings);
 
-      assert.dom('[data-page-error]').doesNotExist();
+      assert
+        .dom('[data-page-error]')
+        .doesNotExist(`${page.path}: does not contain [data-page-error]`);
 
       colorScheme.update('dark');
       await checkA11y(assert, path, 'dark', settings);
 
       colorScheme.update('light');
       await checkA11y(assert, path, 'light', settings);
-    });
-  }
+    }
+  });
 });

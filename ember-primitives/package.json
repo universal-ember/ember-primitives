@@ -77,7 +77,7 @@
     "ember-resources": "^7.0.7",
     "ember-source": "^6.10.1",
     "ember-template-lint": "^7.9.3",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "execa": "^9.6.0",
     "fix-bad-declaration-output": "^1.1.5",
     "prettier": "^3.8.1",

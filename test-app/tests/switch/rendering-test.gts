@@ -45,7 +45,7 @@ module('Switch', function (hooks) {
   });
 
   test('@onChange is called with (checked: boolean, event: Event)', async function (assert) {
-    let calls: Array<[boolean, Event]> = [];
+    const calls: Array<[boolean, Event]> = [];
     const handleChange = (checked: boolean, event: Event) => calls.push([checked, event]);
 
     await render(
@@ -58,7 +58,7 @@ module('Switch', function (hooks) {
 
     await click('[role=switch]');
     assert.strictEqual(calls.length, 1, 'onChange called once');
-    assert.strictEqual(calls[0]![0], true, 'first arg is new checked state (true)');
-    assert.ok(calls[0]![1] instanceof Event, 'second arg is an Event');
+    assert.true(calls[0]?.[0], 'first arg is new checked state (true)');
+    assert.ok(calls[0]?.[1] instanceof Event, 'second arg is an Event');
   });
 });

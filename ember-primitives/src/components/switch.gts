@@ -79,7 +79,11 @@ export interface Signature {
 
 interface ControlSignature {
   Element: HTMLInputElement;
-  Args: { id: string; checked?: ReturnType<typeof cell<boolean>>; onChange?: (checked: boolean, event: Event) => void };
+  Args: {
+    id: string;
+    checked?: ReturnType<typeof cell<boolean>>;
+    onChange?: (checked: boolean, event: Event) => void;
+  };
 }
 
 class Checkbox extends Component<ControlSignature> {

@@ -1,11 +1,11 @@
-import { fn, hash } from "@ember/helper";
+import Component from "@glimmer/component";
+import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
 import { cell } from "ember-resources";
 
 import { uniqueId } from "../utils.ts";
 import { Label } from "./-private/typed-elements.gts";
-import { toggleWithFallback } from "./-private/utils.ts";
 
 import type { TOC } from "@ember/component/template-only";
 import type { WithBoundArgs } from "@glint/template";
@@ -79,21 +79,33 @@ export interface Signature {
 
 interface ControlSignature {
   Element: HTMLInputElement;
-  Args: { id: string; checked?: ReturnType<typeof cell<boolean>>; onChange: () => void };
+  Args: { id: string; checked?: ReturnType<typeof cell<boolean>>; onChange?: (checked: boolean, event: Event) => void };
 }
 
-const Checkbox: TOC<ControlSignature> = <template>
-  <input
-    id={{@id}}
-    type="checkbox"
-    role="switch"
-    checked={{@checked.current}}
-    aria-checked={{@checked.current}}
-    data-state={{if @checked.current "on" "off"}}
-    {{on "click" (fn toggleWithFallback @checked.toggle @onChange)}}
-    ...attributes
-  />
-</template>;
+class Checkbox extends Component<ControlSignature> {
+  handleClick = (event: Event) => {
+    const newChecked = !this.args.checked?.current;
+
+    if (this.args.onChange) {
+      this.args.onChange(newChecked, event);
+    } else {
+      this.args.checked?.toggle();
+    }
+  };
+
+  <template>
+    <input
+      id={{@id}}
+      type="checkbox"
+      role="switch"
+      checked={{@checked.current}}
+      aria-checked={{@checked.current}}
+      data-state={{if @checked.current "on" "off"}}
+      {{on "click" this.handleClick}}
+      ...attributes
+    />
+  </template>
+}
 
 function defaultFalse(value: unknown) {
   return value ?? false;

@@ -1,5 +1,33 @@
 # Changelog 
 
+## Release (2026-02-24)
+
+* ember-primitives 0.53.1 (patch)
+* @universal-ember/docs-support 0.9.3 (patch)
+* which-heading-do-i-need 0.2.6 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#674](https://github.com/universal-ember/ember-primitives/pull/674) Fix Switch `@onChange` argument order — pass `(checked: boolean, event: Event)` ([@Copilot](https://github.com/apps/copilot-swe-agent))
+
+#### :memo: Documentation
+* [#670](https://github.com/universal-ember/ember-primitives/pull/670) Fix missing @package in CommentQuery causing a11y test failures ([@Copilot](https://github.com/apps/copilot-swe-agent))
+* [#669](https://github.com/universal-ember/ember-primitives/pull/669) Remove manifest-fetching script from test HTML ([@Copilot](https://github.com/apps/copilot-swe-agent))
+* [#665](https://github.com/universal-ember/ember-primitives/pull/665) Clarify Portal CSS selector support and PortalTargets defaults ([@Copilot](https://github.com/apps/copilot-swe-agent))
+* [#648](https://github.com/universal-ember/ember-primitives/pull/648) Draggable Switch Demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `@universal-ember/docs-support`
+  * [#667](https://github.com/universal-ember/ember-primitives/pull/667) Re enable a11y testing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* Other
+  * [#666](https://github.com/universal-ember/ember-primitives/pull/666) Add context7.json with URL and public key ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#661](https://github.com/universal-ember/ember-primitives/pull/661) Upgrade random deps / internal infra ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-01-14)
 
 * ember-primitives 0.53.0 (minor)

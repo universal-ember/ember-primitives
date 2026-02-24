@@ -88,7 +88,7 @@ interface ControlSignature {
 
 class Checkbox extends Component<ControlSignature> {
   handleClick = (event: Event) => {
-    const newChecked = !this.args.checked?.current;
+    const newChecked = (event.target as HTMLInputElement).checked;
 
     if (this.args.onChange) {
       this.args.onChange(newChecked, event);

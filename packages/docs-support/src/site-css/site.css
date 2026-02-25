@@ -1,6 +1,4 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@reference "tailwindcss";
 
 html,
 body {
@@ -10,7 +8,9 @@ body {
 
 @layer base {
   body {
-    @apply font-sans text-gray-900 bg-white;
+    font-family: var(--font-sans);
+    color: var(--color-gray-900);
+    background-color: var(--color-white);
   }
 
   [inert] ::-webkit-scrollbar {
@@ -32,6 +32,7 @@ textarea,
   &:focus-visible {
     @apply outline-none;
   }
+
   &:focus-visible {
     @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
   }
@@ -57,7 +58,8 @@ nav[aria-label="Main Navigation"] {
     @apply space-y-9;
 
     h2 {
-      @apply font-medium font-display text-slate-900 dark:text-white;
+      @apply font-medium text-slate-900 dark:text-white;
+      font-family: var(--font-display);
     }
 
     ul {
@@ -70,7 +72,8 @@ nav[aria-label="Main Navigation"] {
 
     > li {
       > a {
-        @apply font-medium font-display;
+        @apply font-medium;
+        font-family: var(--font-display);
       }
     }
   }

@@ -149,7 +149,7 @@ export class SideNav extends Component<{
    *  The links themselves remain the actual interactive elements.
    */
   <template>
-    <aside class="bg-white dark:bg-slate-900" ...attributes>
+    <aside class="bg-white dark:bg-[#02020e]" ...attributes>
       <PageNav aria-label="Main Navigation">
         <:page as |x|>
           <SubSectionLink

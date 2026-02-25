@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 .featured-demo .glimdown-render,
 .featured-demo .repl-sdk__demo {
   @apply w-full max-w-full p-20 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl max-h-80 text-slate-50;

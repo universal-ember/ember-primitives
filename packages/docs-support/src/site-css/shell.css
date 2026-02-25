@@ -16,7 +16,7 @@
   aside nav {
     background: white;
 
-    @variant dark {
+    :is(html[style*="color-scheme: dark"]) & {
       background: #02020e;
     }
   }

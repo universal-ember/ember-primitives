@@ -10,14 +10,12 @@ import { CommentQuery } from 'kolay';
 
 ## Example
 
-Almost all demos within these docs are rendered within a `<Shadowed />` wrapper.
-
 ```gjs live preview 
 import { Shadowed } from 'ember-primitives';
 
 <template>
   <style> 
-    p {
+    p.shadow-demo {
       border: 1px solid;
       padding: 0.75rem;
       transform: skew(5deg, 5deg); 
@@ -25,12 +23,12 @@ import { Shadowed } from 'ember-primitives';
     }
   </style>
 
-  <p>
+  <p class="shadow-demo">
     This element is affected by the global styles
   </p>
 
   <Shadowed>
-    <p>
+    <p class="shadow-demo">
       This element is not affected by global sytles
     </p>
   </Shadowed>

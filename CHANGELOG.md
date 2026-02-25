@@ -1,5 +1,20 @@
 # Changelog 
 
+## Release (2026-02-25)
+
+* @universal-ember/docs-support 0.9.4 (patch)
+
+#### :house: Internal
+* Other
+  * [#680](https://github.com/universal-ember/ember-primitives/pull/680) Add '--isolated' argument to chrome-devtools command ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#677](https://github.com/universal-ember/ember-primitives/pull/677) Delete push-dist because this repo publishes more than one package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `@universal-ember/docs-support`
+  * [#679](https://github.com/universal-ember/ember-primitives/pull/679) Eject tailwind ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#675](https://github.com/universal-ember/ember-primitives/pull/675) Tailwind 4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-02-24)
 
 * ember-primitives 0.53.1 (patch)

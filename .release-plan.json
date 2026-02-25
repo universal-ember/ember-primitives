@@ -1,30 +1,12 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.53.0",
-      "newVersion": "0.53.1",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        },
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
-        }
-      ],
-      "pkgJSONPath": "./ember-primitives/package.json"
+      "oldVersion": "0.53.1"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.2",
-      "newVersion": "0.9.3",
+      "oldVersion": "0.9.3",
+      "newVersion": "0.9.4",
       "tagName": "latest",
       "constraints": [
         {
@@ -35,18 +17,8 @@
       "pkgJSONPath": "./packages/docs-support/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "patch",
-      "oldVersion": "0.2.5",
-      "newVersion": "0.2.6",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        }
-      ],
-      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
+      "oldVersion": "0.2.6"
     }
   },
-  "description": "## Release (2026-02-24)\n\n* ember-primitives 0.53.1 (patch)\n* @universal-ember/docs-support 0.9.3 (patch)\n* which-heading-do-i-need 0.2.6 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#674](https://github.com/universal-ember/ember-primitives/pull/674) Fix Switch `@onChange` argument order — pass `(checked: boolean, event: Event)` ([@Copilot](https://github.com/apps/copilot-swe-agent))\n\n#### :memo: Documentation\n* [#670](https://github.com/universal-ember/ember-primitives/pull/670) Fix missing @package in CommentQuery causing a11y test failures ([@Copilot](https://github.com/apps/copilot-swe-agent))\n* [#669](https://github.com/universal-ember/ember-primitives/pull/669) Remove manifest-fetching script from test HTML ([@Copilot](https://github.com/apps/copilot-swe-agent))\n* [#665](https://github.com/universal-ember/ember-primitives/pull/665) Clarify Portal CSS selector support and PortalTargets defaults ([@Copilot](https://github.com/apps/copilot-swe-agent))\n* [#648](https://github.com/universal-ember/ember-primitives/pull/648) Draggable Switch Demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `@universal-ember/docs-support`\n  * [#667](https://github.com/universal-ember/ember-primitives/pull/667) Re enable a11y testing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* Other\n  * [#666](https://github.com/universal-ember/ember-primitives/pull/666) Add context7.json with URL and public key ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`\n  * [#661](https://github.com/universal-ember/ember-primitives/pull/661) Upgrade random deps / internal infra ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Copilot [Bot] ([@copilot-swe-agent](https://github.com/apps/copilot-swe-agent))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-02-25)\n\n* @universal-ember/docs-support 0.9.4 (patch)\n\n#### :house: Internal\n* Other\n  * [#680](https://github.com/universal-ember/ember-primitives/pull/680) Add '--isolated' argument to chrome-devtools command ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#677](https://github.com/universal-ember/ember-primitives/pull/677) Delete push-dist because this repo publishes more than one package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `@universal-ember/docs-support`\n  * [#679](https://github.com/universal-ember/ember-primitives/pull/679) Eject tailwind ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#675](https://github.com/universal-ember/ember-primitives/pull/675) Tailwind 4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

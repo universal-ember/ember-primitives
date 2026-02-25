@@ -28,7 +28,6 @@ textarea,
 [role="tab"],
 [role="tab"][aria-selected],
 [tabindex] {
-
   &:focus,
   &:focus-visible {
     @apply outline-none;
@@ -39,7 +38,7 @@ textarea,
   }
 }
 
-[role="switch"][name="color-scheme"]:focus-visible+label .ball {
+[role="switch"][name="color-scheme"]:focus-visible + label .ball {
   @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
 }
 
@@ -55,7 +54,7 @@ textarea,
 nav[aria-label="Main Navigation"] {
   @apply text-base;
 
-  >ul {
+  > ul {
     @apply space-y-9;
 
     h2 {
@@ -71,8 +70,8 @@ nav[aria-label="Main Navigation"] {
       @apply pl-4 relative;
     }
 
-    >li {
-      >a {
+    > li {
+      > a {
         @apply font-medium;
         font-family: var(--font-display);
       }

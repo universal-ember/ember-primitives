@@ -1,24 +1,103 @@
-@reference "tailwindcss";
+/* Lightbulb icon (callout) */
+.lightbulb-icon {
+  --icon-foreground: #0f172a;
+  --icon-background: white;
+}
+
+.icon-bg-fill {
+  fill: var(--icon-background);
+}
+
+.icon-fg-fill {
+  fill: var(--icon-foreground);
+}
+
+.lightbulb-light {
+  display: block;
+}
+
+.lightbulb-dark {
+  display: none;
+}
+
+:is(html[style*="color-scheme: dark"]) .lightbulb-light {
+  display: none;
+}
+
+:is(html[style*="color-scheme: dark"]) .lightbulb-dark {
+  display: inline;
+}
 
 .edit-page:after {
   content: "➚";
-  @apply pl-1;
+  padding-left: 0.25rem;
 }
 
 .prose details {
-  @apply px-6 py-3 mb-6 -mt-0 border rounded-xl dark:border-slate-800;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  margin-top: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+
+  :is(html[style*="color-scheme: dark"]) & {
+    border-color: #1e293b;
+  }
 }
 
 .prose summary {
-  @apply font-medium cursor-default select-none text-slate-900 dark:text-slate-200;
+  font-weight: 500;
+  cursor: default;
+  user-select: none;
+  color: #0f172a;
+
+  :is(html[style*="color-scheme: dark"]) & {
+    color: #e2e8f0;
+  }
 }
 
 .prose summary h1,
 .prose summary h2,
 .prose summary h3 {
-  @apply inline m-0;
+  display: inline;
+  margin: 0;
 }
 
 .prose pre {
   max-height: 520px;
+}
+
+/* Styled links used in Links component */
+.styled-link {
+  --link-prose-background: #fff;
+  --link-prose-underline: #7dd3fc;
+  --link-prose-underline-size: 4px;
+
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow:
+    inset 0 -2px 0 0 var(--link-prose-background),
+    inset 0 calc(-1 * (var(--link-prose-underline-size) + 2px)) 0 0 var(--link-prose-underline);
+}
+
+.styled-link:hover {
+  --link-prose-underline-size: 6px;
+}
+
+:is(html[style*="color-scheme: dark"]) .styled-link {
+  --link-prose-background: #0f172a;
+  --link-prose-underline: #075985;
+
+  color: #38bdf8;
+  box-shadow:
+    inset 0 calc(-1 * var(--link-prose-underline-size, 2px)) 0 0 var(--link-prose-underline);
+}
+
+:is(html[style*="color-scheme: dark"]) .styled-link:hover {
+  --link-prose-underline-size: 6px;
 }

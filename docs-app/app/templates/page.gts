@@ -22,8 +22,8 @@ export default class Page extends Component {
   <template>
     <PageLayout>
       <:logoLink>
-        <Logomark class="h-9 w-28 lg:hidden" />
-        <Logo class="hidden w-auto h-9 fill-slate-700 lg:block dark:fill-sky-100" />
+        <Logomark class="logo-small" />
+        <Logo class="logo-large" />
       </:logoLink>
       <:topRight>
         <TestsLink />
@@ -44,6 +44,36 @@ export default class Page extends Component {
         {{/if}}
       </:editLink>
     </PageLayout>
+
+    <style scoped>
+      .logo-small {
+        height: 2.25rem;
+        width: 7rem;
+      }
+
+      @media (min-width: 1024px) {
+        .logo-small {
+          display: none;
+        }
+      }
+
+      .logo-large {
+        display: none;
+        width: auto;
+        height: 2.25rem;
+        fill: #334155;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .logo-large {
+        fill: #e0f2fe;
+      }
+
+      @media (min-width: 1024px) {
+        .logo-large {
+          display: block;
+        }
+      }
+    </style>
   </template>
 }
 

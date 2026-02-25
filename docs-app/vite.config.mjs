@@ -1,7 +1,6 @@
 import { ember, extensions } from "@embroider/vite";
 
 import { babel } from "@rollup/plugin-babel";
-import tailwindcss from "@tailwindcss/vite";
 import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
 import { scopedCSS } from "ember-scoped-css/vite";
@@ -16,7 +15,6 @@ export default defineConfig(async (/* { mode } */) => {
       extensions,
     },
     plugins: [
-      tailwindcss(),
       scopedCSS(),
       ember(),
       kolay({

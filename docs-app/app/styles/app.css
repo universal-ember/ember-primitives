@@ -1,17 +1,64 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-@source "../../node_modules/@universal-ember/docs-support/**/*.{js,ts,hbs,gjs,gts,html,md}";
+/*
+ * CSS Reset (modern minimal)
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-@custom-variant dark (&:is(.dark, .dark *));
+* {
+  margin: 0;
+}
 
-@theme {
-  --font-sans:
-    "InterVariable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/*
+ * Custom properties (replaces @theme)
+ */
+:root {
+  --font-sans: "InterVariable", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display: "Helvetica", "Arial", sans-serif;
   --max-width-8xl: 88rem;
 }
 
+body {
+  font-family: var(--font-sans);
+}
+
+/*
+ * Prose overrides
+ */
 .prose :where(code):not(:where([class~="not-prose"], [class~="not-prose"] *))::before {
   content: "" !important;
 }
@@ -36,6 +83,9 @@
   color: black;
 }
 
+/*
+ * TypeDoc overrides
+ */
 .typedoc__declaration-children {
   max-width: 800px;
 }
@@ -47,6 +97,9 @@
   display: block;
 }
 
+/*
+ * Theme variables
+ */
 .theme-light {
   --color-page-background: white;
   --color-foreground: black;

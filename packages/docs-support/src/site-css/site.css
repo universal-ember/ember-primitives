@@ -1,5 +1,3 @@
-@reference "tailwindcss";
-
 html,
 body {
   /*overflow: hidden;*/
@@ -9,8 +7,13 @@ body {
 @layer base {
   body {
     font-family: var(--font-sans);
-    color: var(--color-gray-900);
-    background-color: var(--color-white);
+    color: #111827;
+    background-color: white;
+  }
+
+  :is(html[style*="color-scheme: dark"]) body {
+    color: #f1f5f9;
+    background-color: #02020e;
   }
 
   [inert] ::-webkit-scrollbar {
@@ -30,16 +33,18 @@ textarea,
 [tabindex] {
   &:focus,
   &:focus-visible {
-    @apply outline-none;
+    outline: none;
   }
 
   &:focus-visible {
-    @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
+    box-shadow: 0 0 0 2px black, 0 0 0 4px #e04e39;
+    border-radius: 0.25rem;
   }
 }
 
 [role="switch"][name="color-scheme"]:focus-visible + label .ball {
-  @apply ring-2 ring-offset-2 ring-[#e04e39] ring-offset-black rounded;
+  box-shadow: 0 0 0 2px black, 0 0 0 4px #e04e39;
+  border-radius: 0.25rem;
 }
 
 .facade-header {
@@ -52,27 +57,50 @@ textarea,
 }
 
 nav[aria-label="Main Navigation"] {
-  @apply text-base;
+  font-size: 1rem;
+  line-height: 1.5rem;
 
   > ul {
-    @apply space-y-9;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
 
     h2 {
-      @apply font-medium text-slate-900 dark:text-white;
+      font-weight: 500;
+      color: #0f172a;
       font-family: var(--font-display);
+
+      :is(html[style*="color-scheme: dark"]) & {
+        color: white;
+      }
     }
 
     ul {
-      @apply mt-2 space-y-2 border-l-2 border-slate-100 lg:mt-4 lg:space-y-4 lg:border-slate-200 dark:border-slate-800;
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      border-left: 2px solid #f1f5f9;
+
+      :is(html[style*="color-scheme: dark"]) & {
+        border-color: #1e293b;
+      }
+
+      @media (min-width: 1024px) {
+        margin-top: 1rem;
+        gap: 1rem;
+        border-color: #e2e8f0;
+      }
     }
 
     li {
-      @apply pl-4 relative;
+      padding-left: 1rem;
+      position: relative;
     }
 
     > li {
       > a {
-        @apply font-medium;
+        font-weight: 500;
         font-family: var(--font-display);
       }
     }

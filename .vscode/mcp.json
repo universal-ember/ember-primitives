@@ -2,7 +2,7 @@
   "servers": {
     "chrome-devtools": {
       "command": "pnpm",
-      "args": ["dlx", "chrome-devtools-mcp@latest"]
+      "args": ["dlx", "chrome-devtools-mcp@latest", "--isolated"]
     },
     "ember": {
       "command": "pnpm",

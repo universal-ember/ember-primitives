@@ -1,11 +1,15 @@
-@reference "tailwindcss";
-
 .featured-demo .glimdown-render,
 .featured-demo .repl-sdk__demo {
-  @apply w-full max-w-full p-20 bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl max-h-80 text-slate-50;
+  width: 100%;
+  max-width: 100%;
+  padding: 5rem;
+  background: linear-gradient(to right, #7c3aed, #4f46e5);
+  border-radius: 0.75rem;
+  max-height: 20rem;
+  color: #f8fafc;
 }
 
 .featured-demo.auto-height .glimdown-render,
 .featured-demo.auto-height .repl-sdk__demo {
-  @apply max-h-none;
+  max-height: none;
 }

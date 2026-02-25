@@ -118,30 +118,16 @@ export const PageLayout: TOC<{
 }> = <template>
   <ResponsiveMenuLayout>
     <:header as |Toggle|>
-      <header
-        class="sticky top-0 z-50 transition duration-500 shadow-md shadow-slate-900/5 dark:shadow-none bg-white/95
-          {{if
-            isScrolled.current
-            'dark:bg-[#02020e]/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-[#02020e]/75'
-            'dark:bg-[#02020e]/95'
-          }}"
-        {{onWindowScroll}}
-      >
-        <div class="outer-content flex flex-none flex-wrap items-center justify-between py-4">
-          <div class="flex mr-6 lg:hidden">
+      <header class="page-header {{if isScrolled.current 'is-scrolled'}}" {{onWindowScroll}}>
+        <div class="outer-content page-header__inner">
+          <div class="page-header__toggle">
             <Toggle />
           </div>
-          <div class="relative flex items-center flex-grow basis-0">
+          <div class="page-header__logo">
             <a href="/" aria-label="Home page">
               {{yield to="logoLink"}}
             </a>
           </div>
-          {{!
-            If we ever have a search bar
-              <div class="mr-6 -my-5 sm:mr-8 md:mr-0">
-                  input here
-              </div>
-            }}
           <TopRight>
             {{yield to="topRight"}}
           </TopRight>
@@ -149,7 +135,7 @@ export const PageLayout: TOC<{
       </header>
     </:header>
     <:content>
-      <section data-main-scroll-container class="flex-auto max-w-2xl min-w-0 py-4 lg:max-w-none">
+      <section data-main-scroll-container class="page-content">
         <Article>
           <Page>
             <:pending>
@@ -167,15 +153,6 @@ export const PageLayout: TOC<{
             <:success as |prose|>
               <prose />
               {{(removeLoader)}}
-              {{! this is probably really bad, and anti-patterny
-                  but ember doesn't have a good way to have libraries
-                  tie in to the URL without a bunch of setup -- which is maybe fine?
-                  needs some experimenting -- there is a bit of a disconnect with
-                  deriving data from the URL, and the timing of the model hooks.
-                  It might be possible to have an afterModel hook wait until the page is
-                  compiled.
-                  (that's why we have async state, because we're compiling, not loading)
-              }}
               {{resetScroll prose}}
             </:success>
           </Page>
@@ -183,7 +160,7 @@ export const PageLayout: TOC<{
 
         {{#if (has-block "editLink")}}
 
-          <div class="flex justify-end pt-6 mt-12 border-t border-slate-200 dark:border-slate-800">
+          <div class="edit-link-container">
 
             {{yield EditLink to="editLink"}}
           </div>
@@ -192,17 +169,120 @@ export const PageLayout: TOC<{
     </:content>
 
   </ResponsiveMenuLayout>
+
+  <style scoped>
+    .page-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: all 0.5s;
+      box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.05);
+      background-color: rgb(255 255 255 / 0.95);
+    }
+
+    :is(html[style*="color-scheme: dark"]) .page-header {
+      box-shadow: none;
+      background-color: rgb(2 2 14 / 0.95);
+    }
+
+    :is(html[style*="color-scheme: dark"]) .page-header.is-scrolled {
+      backdrop-filter: blur(12px);
+    }
+
+    @supports (backdrop-filter: blur(0)) {
+      :is(html[style*="color-scheme: dark"]) .page-header.is-scrolled {
+        background-color: rgb(2 2 14 / 0.75);
+      }
+    }
+
+    .page-header__inner {
+      display: flex;
+      flex: none;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .page-header__toggle {
+      display: flex;
+      margin-right: 1.5rem;
+    }
+
+    @media (min-width: 1024px) {
+      .page-header__toggle {
+        display: none;
+      }
+    }
+
+    .page-header__logo {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      flex-basis: 0;
+    }
+
+    .page-content {
+      flex: 1 1 auto;
+      max-width: 42rem;
+      min-width: 0;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    @media (min-width: 1024px) {
+      .page-content {
+        max-width: none;
+      }
+    }
+
+    .edit-link-container {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 1.5rem;
+      margin-top: 3rem;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    :is(html[style*="color-scheme: dark"]) .edit-link-container {
+      border-color: #1e293b;
+    }
+  </style>
 </template>;
 
 const EditLink: TOC<{ Args: { href: string }; Blocks: { default: [] } }> = <template>
-  <Link class="edit-page flex" href={{@href}}>
+  <Link class="edit-page" style="display: flex;" href={{@href}}>
     {{yield}}
   </Link>
 </template>;
 
 export const TopRight: TOC<{ Blocks: { default: [] } }> = <template>
-  <div class="relative flex justify-end gap-6 basis-0 sm:gap-8 md:flex-grow">
+  <div class="top-right">
     <ThemeToggle />
     {{yield}}
   </div>
+
+  <style scoped>
+    .top-right {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1.5rem;
+      flex-basis: 0;
+    }
+
+    @media (min-width: 640px) {
+      .top-right {
+        gap: 2rem;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .top-right {
+        flex-grow: 1;
+      }
+    }
+  </style>
 </template>;

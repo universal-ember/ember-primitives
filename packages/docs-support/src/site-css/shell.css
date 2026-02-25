@@ -1,5 +1,3 @@
-@reference "tailwindcss";
-
 .mobile-menu-wrapper {
   height: 100dvh;
   overflow: auto !important;
@@ -26,9 +24,20 @@
    */
   .outer-content {
     max-width: 80rem;
-    @apply sm:px-2 lg:px-8 xl:px-12;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     display: grid;
     gap: 0.5rem;
+
+    @media (min-width: 1024px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    @media (min-width: 1280px) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
   }
 
   .mobile-menu-wrapper__content {
@@ -100,7 +109,8 @@ header button.mobile-menu__toggle {
     .outer-content {
       grid-template-columns: 1fr;
 
-      @apply px-4;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 

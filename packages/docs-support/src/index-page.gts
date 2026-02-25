@@ -14,17 +14,20 @@ export const IndexPage: TOC<{
     footer: [];
   };
 }> = <template>
-  <Hero class="shadow-xl shadow-slate-900/5 gradient-background">
-    <header class="absolute md:sticky right-0 bottom-0 md:top-0 z-50 p-4 flex items-center">
+  <Hero class="index-hero gradient-background">
+    <header class="index-hero__header">
       {{yield to="header"}}
     </header>
 
-    <div class="h-full flex flex-col gap-8 justify-center items-center">
-      <div style="width: 66%; margin: 0 auto; transform: translateY(-20%);" class="grid gap-4">
+    <div class="index-hero__body">
+      <div
+        style="width: 66%; margin: 0 auto; transform: translateY(-20%);"
+        class="index-hero__grid"
+      >
         <h1 style="filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
           {{yield to="logo"}}
         </h1>
-        <p class="italic text-white w-full md:w-1/2 mx-auto">
+        <p class="index-hero__tagline">
           {{yield to="tagline"}}
         </p>
       </div>
@@ -35,7 +38,67 @@ export const IndexPage: TOC<{
   {{yield to="content"}}
 
   <hr />
-  <footer style="padding: 3rem; width: 66%;" class="mx-auto gap-12 flex-wrap flex justify-between">
+  <footer style="padding: 3rem; width: 66%;" class="index-footer">
     {{yield to="footer"}}
   </footer>
+
+  <style scoped>
+    .index-hero {
+      box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.05);
+    }
+
+    .index-hero__header {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 50;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .index-hero__header {
+        position: sticky;
+        top: 0;
+      }
+    }
+
+    .index-hero__body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .index-hero__grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .index-hero__tagline {
+      font-style: italic;
+      color: white;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (min-width: 768px) {
+      .index-hero__tagline {
+        width: 50%;
+      }
+    }
+
+    .index-footer {
+      margin-left: auto;
+      margin-right: auto;
+      gap: 3rem;
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
 </template>;

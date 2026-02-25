@@ -51,19 +51,19 @@ import {
       <br /><br />
       <br /><br />
 
-      <div class="flex justify-center items-center">
+      <div style="display: flex; justify-content: center; align-items: center;">
         <GetStarted />
       </div>
 
       <br /><br />
 
-      <div class="mx-auto" style="width: 66%">
-        <Article class="flex flex-wrap gap-12 justify-around">
+      <div style="width: 66%; margin: 0 auto;">
+        <Article style="display: flex; flex-wrap: wrap; gap: 3rem; justify-content: space-around;">
 
           <div>
             <H2>Building on the backs of giants.</H2>
 
-            <ul class="dark:text-white text:slate-900">
+            <ul class="adaptive-text">
               <li>
                 <strong><em style="text-transform: uppercase; letter-spacing: 0.5rem;">The Platform</em></strong><br
                 />
@@ -149,7 +149,7 @@ import {
 
       <div>
         <Text>Dependencies / Projects used by ember-primitives that are worth looking at.</Text>
-        <nav class="dark:text-white text:slate-900">
+        <nav class="adaptive-text">
           <ul>
             <li>
               <Link href="https://github.com/universal-ember/reactiveweb">
@@ -190,26 +190,43 @@ import {
 </template>
 
 const Socials = <template>
-  <div class="flex gap-3">
+  <div class="socials">
     <ExternalLink href="https://github.com/NullVoxPopuli/">
-      <GitHub class="dark:fill-white fill-slate-900 h-6 w-6" />
+      <GitHub class="social-icon" />
     </ExternalLink>
     <ExternalLink href="http://discord.gg/cTvtmJhFNY">
-      <Discord class="dark:fill-white fill-slate-900 h-6 w-6" />
+      <Discord class="social-icon" />
     </ExternalLink>
     <ExternalLink href="https://x.com/nullvoxpopuli">
-      <XTwitter class="dark:fill-white fill-slate-900 h-6 w-6" />
+      <XTwitter class="social-icon" />
     </ExternalLink>
     <ExternalLink href="https://mastodon.coffee/@nullvoxpopuli">
-      <Mastodon class="dark:fill-white fill-slate-900 h-6 w-6" />
+      <Mastodon class="social-icon" />
     </ExternalLink>
     <ExternalLink href="https://bsky.app/profile/nullvoxpopuli.bsky.social">
-      <BlueSky class="dark:fill-white fill-slate-900 h-6 w-6" />
+      <BlueSky class="social-icon" />
     </ExternalLink>
     <ExternalLink href="https://www.threads.net/@nullvoxpopuli">
-      <Threads class="dark:fill-white fill-slate-900 h-6 w-6" />
+      <Threads class="social-icon" />
     </ExternalLink>
   </div>
+
+  <style scoped>
+    .socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      fill: #0f172a;
+    }
+
+    :is(html[style*="color-scheme: dark"]) .social-icon {
+      fill: white;
+    }
+  </style>
 </template>;
 
 const GetStarted = <template>
@@ -221,8 +238,8 @@ const GetStarted = <template>
 const Content = <template>
   <br /><br />
 
-  <div class="mx-auto" style="width: 66%">
-    <Article class="flex flex-wrap gap-12 justify-between">
+  <div style="width: 66%; margin: 0 auto;">
+    <Article style="display: flex; flex-wrap: wrap; gap: 3rem; justify-content: space-between;">
       <div>
         <H2>Projects using...</H2>
 

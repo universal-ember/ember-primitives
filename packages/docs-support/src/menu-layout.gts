@@ -13,7 +13,7 @@ const Toggle: TOC<{
   };
 }> = <template>
   <@toggle>
-    <Menu class="w-6 h-6 stroke-slate-500" />
+    <Menu style="width: 1.5rem; height: 1.5rem; stroke: #64748b;" />
   </@toggle>
 </template>;
 
@@ -34,10 +34,23 @@ export const ResponsiveMenuLayout: TOC<{
       <div class="outer-content">
         <SideNav />
 
-        <main class="relative grid justify-center flex-auto w-full mx-auto max-w-8xl">
+        <main class="page-main">
           {{yield to="content"}}
         </main>
       </div>
     </mmw.Content>
   </MenuWrapper>
+
+  <style scoped>
+    .page-main {
+      position: relative;
+      display: grid;
+      justify-content: center;
+      flex: 1 1 auto;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 88rem;
+    }
+  </style>
 </template>;

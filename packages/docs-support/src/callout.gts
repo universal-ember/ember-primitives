@@ -3,16 +3,56 @@ import { LightBulb } from './icons.gts';
 import type { TOC } from '@ember/component/template-only';
 
 export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
-  <div
-    class="flex p-6 my-8 rounded-3xl bg-sky-50 dark:bg-slate-800/60 dark:ring-1 dark:ring-slate-300/10"
-  >
-    <LightBulb class="flex-none w-8 h-8" />
-    <div class="flex-auto min-w-0 ml-4">
-      <div
-        class="text-sky-800 [--tw-prose-background:theme(colors.sky.50)] prose-a:text-sky-900 dark:text-slate-50 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
-      >
+  <div class="callout">
+    <LightBulb class="callout__icon" />
+    <div class="callout__body">
+      <div class="callout__content">
         {{yield}}
       </div>
     </div>
   </div>
+
+  <style scoped>
+    .callout {
+      display: flex;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 1.5rem;
+      background-color: #f0f9ff;
+    }
+
+    :is(html[style*="color-scheme: dark"]) .callout {
+      background-color: rgb(30 41 59 / 0.6);
+      outline: 1px solid rgb(203 213 225 / 0.1);
+    }
+
+    .callout__icon {
+      flex: none;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .callout__body {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin-left: 1rem;
+    }
+
+    .callout__content {
+      color: #075985;
+    }
+
+    .callout__content > *:first-child {
+      margin-top: 0;
+    }
+
+    .callout__content > *:last-child {
+      margin-bottom: 0;
+    }
+
+    :is(html[style*="color-scheme: dark"]) .callout__content {
+      color: #f8fafc;
+    }
+  </style>
 </template>;

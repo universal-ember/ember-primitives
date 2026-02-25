@@ -8,7 +8,7 @@ export const OopsError: TOC<{
 }> = <template>
   <div
     data-page-error
-    class="dark:text-white text:slate-900"
+    class="adaptive-text"
     style="border: 1px solid red; padding: 1rem; word-break: break-all;"
   >
     <h1>Oops!</h1><br />
@@ -18,4 +18,13 @@ export const OopsError: TOC<{
     <br />
     {{yield}}
   </div>
+
+  <style scoped>
+    .adaptive-text {
+      color: #0f172a;
+    }
+    :is(html[style*="color-scheme: dark"]) .adaptive-text {
+      color: white;
+    }
+  </style>
 </template>;

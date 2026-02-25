@@ -77,12 +77,7 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
     {{#let (link @href) as |l|}}
       <a
         href={{@href}}
-        class="font-medium font-display
-          {{if
-            l.isActive
-            'text-sky-500'
-            'text-slate-900 hover:text-slate-600 dark:text-white  dark:hover:text-slate-300'
-          }}"
+        class="section-link {{if l.isActive 'is-active'}}"
         {{on "click" l.handleClick}}
         ...attributes
       >
@@ -100,12 +95,7 @@ const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; na
     {{#let (link @href) as |l|}}
       <a
         href={{@href}}
-        class="block w-full before:pointer-events-none before:absolute before:-left-1 before:top-1/2 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full
-          {{if
-            l.isActive
-            'font-semibold text-sky-500 before:bg-sky-500'
-            'text-slate-500 before:hidden before:bg-slate-300 hover:text-slate-600 hover:before:block dark:text-slate-400 dark:before:bg-slate-700 dark:hover:text-slate-300'
-          }}"
+        class="subsection-link {{if l.isActive 'is-active'}}"
         {{on "click" l.handleClick}}
         ...attributes
       >
@@ -149,7 +139,7 @@ export class SideNav extends Component<{
    *  The links themselves remain the actual interactive elements.
    */
   <template>
-    <aside class="bg-white dark:bg-[#02020e]" ...attributes>
+    <aside class="side-nav" ...attributes>
       <PageNav aria-label="Main Navigation">
         <:page as |x|>
           <SubSectionLink
@@ -174,5 +164,101 @@ export class SideNav extends Component<{
         </:collection>
       </PageNav>
     </aside>
+
+    <style scoped>
+      .side-nav {
+        background-color: white;
+      }
+
+      .side-nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .side-nav h2 {
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: var(--font-display, "Helvetica", "Arial", sans-serif);
+        color: #0f172a;
+        margin: 0;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .side-nav h2 {
+        color: white;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .side-nav {
+        background-color: #02020e;
+      }
+
+      .section-link {
+        font-weight: 500;
+        font-family: var(--font-display, "Helvetica", "Arial", sans-serif);
+        color: #0f172a;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .section-link {
+        color: white;
+      }
+
+      .section-link:hover {
+        color: #475569;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .section-link:hover {
+        color: #cbd5e1;
+      }
+
+      .section-link.is-active {
+        color: #0ea5e9;
+      }
+
+      .subsection-link {
+        display: block;
+        width: 100%;
+        position: relative;
+        color: #64748b;
+      }
+
+      .subsection-link::before {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        left: -0.25rem;
+        top: 50%;
+        height: 0.375rem;
+        width: 0.375rem;
+        transform: translateY(-50%);
+        border-radius: 9999px;
+        background-color: #cbd5e1;
+        display: none;
+      }
+
+      .subsection-link:hover {
+        color: #475569;
+      }
+
+      .subsection-link:hover::before {
+        display: block;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .subsection-link {
+        color: #94a3b8;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .subsection-link::before {
+        background-color: #334155;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .subsection-link:hover {
+        color: #cbd5e1;
+      }
+
+      .subsection-link.is-active {
+        font-weight: 600;
+        color: #0ea5e9;
+      }
+    </style>
   </template>
 }

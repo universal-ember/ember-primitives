@@ -90,13 +90,7 @@ export const Moon: TOC<{ Element: SVGElement }> = <template>
 </template>;
 
 export const LightBulb: TOC<{ Element: SVGElement }> = <template>
-  <svg
-    aria-hidden="true"
-    viewBox="0 0 32 32"
-    fill="none"
-    class="lightbulb-icon"
-    ...attributes
-  >
+  <svg aria-hidden="true" viewBox="0 0 32 32" fill="none" class="lightbulb-icon" ...attributes>
     <defs>
       <radialGradient
         cx="0"

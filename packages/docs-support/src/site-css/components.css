@@ -94,8 +94,8 @@
   --link-prose-underline: #075985;
 
   color: #38bdf8;
-  box-shadow:
-    inset 0 calc(-1 * var(--link-prose-underline-size, 2px)) 0 0 var(--link-prose-underline);
+  box-shadow: inset 0 calc(-1 * var(--link-prose-underline-size, 2px)) 0 0
+    var(--link-prose-underline);
 }
 
 :is(html[style*="color-scheme: dark"]) .styled-link:hover {

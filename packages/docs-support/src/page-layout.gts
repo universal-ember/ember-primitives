@@ -118,11 +118,7 @@ export const PageLayout: TOC<{
 }> = <template>
   <ResponsiveMenuLayout>
     <:header as |Toggle|>
-      <header
-        class="page-header
-          {{if isScrolled.current 'is-scrolled'}}"
-        {{onWindowScroll}}
-      >
+      <header class="page-header {{if isScrolled.current 'is-scrolled'}}" {{onWindowScroll}}>
         <div class="outer-content page-header__inner">
           <div class="page-header__toggle">
             <Toggle />

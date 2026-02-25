@@ -32,7 +32,8 @@ export const Logo: TOC<{ Element: SVGElement }> = <template>
       fill: #f8fafc;
     }
   </style>
-</template>;export const Logomark: TOC<{ Element: SVGElement }> = <template>
+</template>;
+export const Logomark: TOC<{ Element: SVGElement }> = <template>
   <svg viewBox="0 0 806.5 200" ...attributes>
     <g fill="none" fill-rule="evenodd">
       <g stroke-width=".4">

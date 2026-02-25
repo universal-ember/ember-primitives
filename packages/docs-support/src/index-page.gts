@@ -20,7 +20,10 @@ export const IndexPage: TOC<{
     </header>
 
     <div class="index-hero__body">
-      <div style="width: 66%; margin: 0 auto; transform: translateY(-20%);" class="index-hero__grid">
+      <div
+        style="width: 66%; margin: 0 auto; transform: translateY(-20%);"
+        class="index-hero__grid"
+      >
         <h1 style="filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
           {{yield to="logo"}}
         </h1>

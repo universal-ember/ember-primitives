@@ -19,9 +19,6 @@ export default {
         transforms: [scopedCSS.template({})],
       },
     ],
-    [
-      "module:decorator-transforms",
-      { runtime: { import: "decorator-transforms/runtime" } },
-    ],
+    ["module:decorator-transforms", { runtime: { import: "decorator-transforms/runtime" } }],
   ],
 };

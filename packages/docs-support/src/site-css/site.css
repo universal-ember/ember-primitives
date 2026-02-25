@@ -37,13 +37,17 @@ textarea,
   }
 
   &:focus-visible {
-    box-shadow: 0 0 0 2px black, 0 0 0 4px #e04e39;
+    box-shadow:
+      0 0 0 2px black,
+      0 0 0 4px #e04e39;
     border-radius: 0.25rem;
   }
 }
 
 [role="switch"][name="color-scheme"]:focus-visible + label .ball {
-  box-shadow: 0 0 0 2px black, 0 0 0 4px #e04e39;
+  box-shadow:
+    0 0 0 2px black,
+    0 0 0 4px #e04e39;
   border-radius: 0.25rem;
 }
 

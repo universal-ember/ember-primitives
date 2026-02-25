@@ -195,7 +195,9 @@
   color: var(--prose-code);
   font-weight: 600;
   font-size: 0.875em;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 }
 
 :is(html[style*="color-scheme: dark"]) .prose :where(code) {
@@ -214,7 +216,9 @@
   margin-bottom: 1.714em;
   border-radius: 0.75rem;
   padding: 0.857em 1.143em;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 :is(html[style*="color-scheme: dark"]) .prose :where(pre) {

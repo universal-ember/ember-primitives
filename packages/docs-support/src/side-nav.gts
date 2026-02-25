@@ -176,6 +176,18 @@ export class SideNav extends Component<{
         padding: 0;
       }
 
+      .side-nav h2 {
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: var(--font-display, "Helvetica", "Arial", sans-serif);
+        color: #0f172a;
+        margin: 0;
+      }
+
+      :is(html[style*="color-scheme: dark"]) .side-nav h2 {
+        color: white;
+      }
+
       :is(html[style*="color-scheme: dark"]) .side-nav {
         background-color: #02020e;
       }

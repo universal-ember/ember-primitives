@@ -42,6 +42,13 @@ h6 {
   overflow-wrap: break-word;
 }
 
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 /*
  * Custom properties (replaces @theme)
  */

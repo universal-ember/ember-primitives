@@ -53,7 +53,7 @@
       "ember-cli-babel": "^8.3.1",
       "ember-element-helper": "^0.8.8",
       "ember-primitives": "workspace:^",
-      "ember-repl": "^7.3.5",
+      "ember-repl": "^8.0.0",
       "ember-source": "^6.10.1",
       "reactiveweb": "^1.9.1",
       "tracked-toolbox": "^2.2.0"

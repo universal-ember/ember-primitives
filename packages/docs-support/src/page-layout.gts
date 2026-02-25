@@ -122,8 +122,8 @@ export const PageLayout: TOC<{
         class="sticky top-0 z-50 transition duration-500 shadow-md shadow-slate-900/5 dark:shadow-none bg-white/95
           {{if
             isScrolled.current
-            'dark:bg-slate-900/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-slate-900/75'
-            'dark:bg-slate-900/95'
+            'dark:bg-[#02020e]/95 dark:backdrop-blur dark:[@supports(backdrop-filter:blur(0))]:bg-[#02020e]/75'
+            'dark:bg-[#02020e]/95'
           }}"
         {{onWindowScroll}}
       >

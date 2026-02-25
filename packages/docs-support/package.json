@@ -66,7 +66,7 @@
     "package-up": "^5.0.0",
     "read-package-up": "^12.0.0",
     "should-handle-link": "^1.2.2",
-    "tailwindcss": "^3.4.14"
+    "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

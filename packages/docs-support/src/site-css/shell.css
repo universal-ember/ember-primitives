@@ -1,3 +1,5 @@
+@reference "tailwindcss";
+
 .mobile-menu-wrapper {
   height: 100dvh;
   overflow: auto !important;
@@ -12,7 +14,11 @@
 
   aside,
   aside nav {
-    @apply bg-white dark:bg-slate-900;
+    background: white;
+
+    @variant dark {
+      background: #02020e;
+    }
   }
 
   /**
@@ -24,6 +30,7 @@
     display: grid;
     gap: 0.5rem;
   }
+
   .mobile-menu-wrapper__content {
     .outer-content {
       display: grid;
@@ -96,6 +103,7 @@ header button.mobile-menu__toggle {
       @apply px-4;
     }
   }
+
   .mobile-menu-wrapper__content aside {
     display: none;
   }

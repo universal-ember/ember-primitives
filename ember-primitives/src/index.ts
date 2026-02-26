@@ -38,6 +38,7 @@ export { Rating } from './components/rating.gts';
 export { Scroller } from './components/scroller.gts';
 export { Separator } from './components/separator.gts';
 export { Shadowed } from './components/shadowed.gts';
+export { Slider } from './components/slider.gts';
 export { Switch } from './components/switch.gts';
 export { Toggle } from './components/toggle.gts';
 export { ToggleGroup } from './components/toggle-group.gts';

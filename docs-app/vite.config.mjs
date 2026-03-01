@@ -5,6 +5,11 @@ import { kolay } from "kolay/vite";
 import { defineConfig } from "vite";
 import { scopedCSS } from "ember-scoped-css/vite";
 import rehypeShiki from "@shikijs/rehype";
+import { visit } from "unist-util-visit";
+
+function flatReplaceAt(array, index, replacement) {
+  array.splice(index, 1, ...replacement);
+}
 
 export default defineConfig(async (/* { mode } */) => {
   return {
@@ -19,6 +24,29 @@ export default defineConfig(async (/* { mode } */) => {
       ember(),
       kolay({
         packages: ["ember-primitives", "which-heading-do-i-need"],
+        remarkPlugins: [
+          [
+            function codeToRepl(/* options */) {
+              return (tree) => {
+                return visit(tree, ["code"], function (node, index, parent) {
+                  if (node.meta?.includes("repl")) {
+                    let { value, lang, meta } = node;
+
+                    let newNode = {
+                      value: `<REPL @code="${JSON.stringify(value)}" @format="${lang}" />`,
+                      data: {},
+                      type: "glimmer_raw",
+                      children: [],
+                    };
+                    flatReplaceAt(parent.children, index, [newNode]);
+                    return;
+                  }
+                });
+              };
+            },
+            {},
+          ],
+        ],
         rehypePlugins: [
           [
             rehypeShiki,
@@ -42,6 +70,7 @@ export default defineConfig(async (/* { mode } */) => {
           import { InViewport } from 'ember-primitives/viewport';
 
           import { Callout } from '@universal-ember/docs-support';
+          import { REPL } from 'limber-ui';
         `,
       }),
       babel({

@@ -1,42 +1,24 @@
+import Component from "@glimmer/component";
 import { hash } from "@ember/helper";
+import { guidFor } from "@ember/object/internals";
 
-import { arrow } from "@floating-ui/dom";
 import { element } from "ember-element-helper";
 import { modifier as eModifier } from "ember-modifier";
-import { cell } from "ember-resources";
 
-import { FloatingUI } from "../floating-ui.ts";
 import { Portal } from "./portal.gts";
 import { TARGETS } from "./portal-targets.gts";
 
-import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.ts";
-import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
 import type { TOC } from "@ember/component/template-only";
-import type { ElementContext, Middleware } from "@floating-ui/dom";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
+
+type Direction = "top" | "bottom" | "left" | "right";
+type Placement = `${Direction}${"" | "-start" | "-end"}`;
 
 export interface Signature {
   Args: {
     /**
-     * See the Floating UI's [flip docs](https://floating-ui.com/docs/flip) for possible values.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    flipOptions?: HookSignature["Args"]["Named"]["flipOptions"];
-    /**
-     * Array of one or more objects to add to Floating UI's list of [middleware](https://floating-ui.com/docs/middleware)
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    middleware?: HookSignature["Args"]["Named"]["middleware"];
-    /**
-     * See the Floating UI's [offset docs](https://floating-ui.com/docs/offset) for possible values.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    offsetOptions?: HookSignature["Args"]["Named"]["offsetOptions"];
-    /**
-     * One of the possible [`placements`](https://floating-ui.com/docs/computeposition#placement). The default is 'bottom'.
+     * Where to place the floating element relative to its reference element.
+     * The default is 'bottom'.
      *
      * Possible values are
      * - top
@@ -46,23 +28,9 @@ export interface Signature {
      *
      * And may optionally have `-start` or `-end` added to adjust position along the side.
      *
-     * This argument is forwarded to the `<FloatingUI>` component.
+     * Uses CSS anchor positioning (`position-area`) under the hood.
      */
-    placement?: `${"top" | "bottom" | "left" | "right"}${"" | "-start" | "-end"}`;
-    /**
-     * See the Floating UI's [shift docs](https://floating-ui.com/docs/shift) for possible values.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    shiftOptions?: HookSignature["Args"]["Named"]["shiftOptions"];
-    /**
-     * CSS position property, either `fixed` or `absolute`.
-     *
-     * Pros and cons of each strategy are explained on [Floating UI's Docs](https://floating-ui.com/docs/computePosition#strategy)
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    strategy?: HookSignature["Args"]["Named"]["strategy"];
+    placement?: Placement;
 
     /**
      * By default, the popover is portaled.
@@ -76,11 +44,9 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        reference: FloatingUiComponentSignature["Blocks"]["default"][0];
-        setReference: FloatingUiComponentSignature["Blocks"]["default"][2]["setReference"];
-        Content: WithBoundArgs<typeof Content, "floating">;
-        data: FloatingUiComponentSignature["Blocks"]["default"][2]["data"];
-        arrow: ModifierLike<{ Element: HTMLElement }>;
+        reference: ModifierLike<{ Element: HTMLElement | SVGElement }>;
+        setReference: (element: HTMLElement | SVGElement) => void;
+        Content: WithBoundArgs<typeof Content, "floating" | "inline">;
       },
     ];
   };
@@ -139,110 +105,73 @@ const Content: TOC<{
   {{/let}}
 </template>;
 
-interface AttachArrowSignature {
-  Element: HTMLElement;
-  Args: {
-    Named: {
-      arrowElement: ReturnType<typeof ArrowElement>;
-      data:
-        | undefined
-        | {
-            placement: string;
-            middlewareData?: {
-              arrow?: { x?: number; y?: number };
-            };
-          };
-    };
-  };
-}
-
-const arrowSides = {
-  top: "bottom",
-  right: "left",
-  bottom: "top",
-  left: "right",
+const PLACEMENT_TO_POSITION_AREA: Record<string, string> = {
+  bottom: "bottom",
+  top: "top",
+  left: "left",
+  right: "right",
+  "bottom-start": "bottom left",
+  "bottom-end": "bottom right",
+  "top-start": "top left",
+  "top-end": "top right",
+  "left-start": "left top",
+  "left-end": "left bottom",
+  "right-start": "right top",
+  "right-end": "right bottom",
 };
 
-type Direction = "top" | "bottom" | "left" | "right";
-type Placement = `${Direction}${"" | "-start" | "-end"}`;
+const applyAnchorName = eModifier<{
+  Element: HTMLElement | SVGElement;
+  Args: { Named: { anchorName: string } };
+}>((el, _, { anchorName }) => {
+  el.style.setProperty("anchor-name", anchorName);
 
-const attachArrow: ModifierLike<AttachArrowSignature> = eModifier<AttachArrowSignature>(
-  (element, _: [], named) => {
-    if (element === named.arrowElement.current) {
-      if (!named.data) return;
-      if (!named.data.middlewareData) return;
-
-      const { arrow } = named.data.middlewareData;
-      const { placement } = named.data;
-
-      if (!arrow) return;
-      if (!placement) return;
-
-      const { x: arrowX, y: arrowY } = arrow;
-      const otherSide = (placement as Placement).split("-")[0] as Direction;
-      const staticSide = arrowSides[otherSide];
-
-      Object.assign(named.arrowElement.current.style, {
-        left: arrowX != null ? `${arrowX}px` : "",
-        top: arrowY != null ? `${arrowY}px` : "",
-        right: "",
-        bottom: "",
-        [staticSide]: "-4px",
-      });
-
-      return;
-    }
-
-    void (async () => {
-      await Promise.resolve();
-      named.arrowElement.set(element);
-    })();
-  },
-);
-
-const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
-
-function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
-  const result = [...(middleware || [])];
-
-  if (element) {
-    result.push(arrow({ element }));
-  }
-
-  return result;
-}
-
-function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
-  return {
-    elementContext: "reference" as ElementContext,
-    ...options,
+  return () => {
+    el.style.removeProperty("anchor-name");
   };
-}
+});
 
-export const Popover: TOC<Signature> = <template>
-  {{#let (ArrowElement) as |arrowElement|}}
-    <FloatingUI
-      @placement={{@placement}}
-      @strategy={{@strategy}}
-      @middleware={{maybeAddArrow @middleware arrowElement.current}}
-      @flipOptions={{flipOptions @flipOptions}}
-      @shiftOptions={{@shiftOptions}}
-      @offsetOptions={{@offsetOptions}}
-      as |reference floating extra|
-    >
-      {{#let (modifier attachArrow arrowElement=arrowElement data=extra.data) as |arrow|}}
-        {{yield
-          (hash
-            reference=reference
-            setReference=extra.setReference
-            Content=(component Content floating=floating inline=@inline)
-            data=extra.data
-            arrow=arrow
-          )
-        }}
-      {{/let}}
-    </FloatingUI>
-  {{/let}}
-</template>;
+const applyAnchorPositioning = eModifier<{
+  Element: HTMLElement;
+  Args: { Named: { anchorName: string; placement?: Placement } };
+}>((el, _, { anchorName, placement = "bottom" }) => {
+  const positionArea = PLACEMENT_TO_POSITION_AREA[placement] ?? "bottom";
+
+  el.style.setProperty("position", "fixed");
+  el.style.setProperty("position-anchor", anchorName);
+  el.style.setProperty("position-area", positionArea);
+  el.style.setProperty("position-try-fallbacks", "flip-block, flip-inline, flip-block flip-inline");
+
+  return () => {
+    el.style.removeProperty("position");
+    el.style.removeProperty("position-anchor");
+    el.style.removeProperty("position-area");
+    el.style.removeProperty("position-try-fallbacks");
+  };
+});
+
+export class Popover extends Component<Signature> {
+  anchorName = `--popover-${guidFor(this)}`;
+
+  setReference = (el: HTMLElement | SVGElement) => {
+    el.style.setProperty("anchor-name", this.anchorName);
+  };
+
+  <template>
+    {{#let
+      (modifier applyAnchorName anchorName=this.anchorName)
+      (modifier applyAnchorPositioning anchorName=this.anchorName placement=@placement)
+      as |reference floating|
+    }}
+      {{yield
+        (hash
+          reference=reference
+          setReference=this.setReference
+          Content=(component Content floating=floating inline=@inline)
+        )
+      }}
+    {{/let}}
+  </template>
+}
 
 export default Popover;

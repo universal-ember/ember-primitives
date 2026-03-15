@@ -123,8 +123,6 @@ export function handle(
 
     if (routeInfo) {
       event.preventDefault();
-      event.stopImmediatePropagation();
-      event.stopPropagation();
 
       router.transitionTo(withoutRootURL);
 

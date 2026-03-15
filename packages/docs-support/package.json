@@ -1,6 +1,6 @@
 {
   "name": "@universal-ember/docs-support",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "The default blueprint for Embroider v2 addons.",
   "keywords": [
     "ember-addon"

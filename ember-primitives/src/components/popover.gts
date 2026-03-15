@@ -140,6 +140,8 @@ const applyAnchorPositioning = eModifier<{
   el.style.setProperty("position", "fixed");
   el.style.setProperty("position-anchor", anchorName);
   el.style.setProperty("position-area", positionArea);
+  // Try flipping along the block axis, inline axis, or both before overflowing — analogous
+  // to the flip/shift middleware from Floating UI.
   el.style.setProperty("position-try-fallbacks", "flip-block, flip-inline, flip-block flip-inline");
 
   return () => {
@@ -154,6 +156,8 @@ export class Popover extends Component<Signature> {
   anchorName = `--popover-${guidFor(this)}`;
 
   setReference = (el: HTMLElement | SVGElement) => {
+    // Programmatic alternative to the `{{reference}}` modifier — used when the caller manages
+    // the element reference directly (e.g. the Menu trigger modifier) rather than via template.
     el.style.setProperty("anchor-name", this.anchorName);
   };
 

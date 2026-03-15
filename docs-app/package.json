@@ -67,7 +67,7 @@
     "@babel/plugin-transform-runtime": "^7.29.0",
     "@babel/plugin-transform-typescript": "^7.28.6",
     "@babel/runtime": "^7.28.6",
-    "@ember/app-tsconfig": "^1.0.0",
+    "@ember/app-tsconfig": "^2.0.0",
     "@ember/optional-features": "^3.0.0",
     "@ember/string": "^4.0.0",
     "@ember/test-helpers": "^5.4.1",
@@ -80,7 +80,7 @@
     "@glint/template": "1.7.4",
     "@glint/tsserver-plugin": "^2.1.0",
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
-    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-babel": "^7.0.0",
     "@types/babel__core": "^7.20.5",
     "@types/babel__standalone": "^7.1.7",
     "@types/eslint__js": "^9.14.0",
@@ -98,7 +98,7 @@
     "ember-source": "^6.10.1",
     "ember-template-lint": "^7.9.3",
     "ember-welcome-page": "^8.0.5",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "file-loader": "^6.2.0",
     "globby": "^16.1.0",
     "inter-ui": "^4.0.2",
@@ -111,7 +111,7 @@
     "testem": "^3.17.0",
     "typedoc": "^0.28.15",
     "typescript": "^5.9.3",
-    "vite": "^7.3.1"
+    "vite": "^8.0.0"
   },
   "engines": {
     "node": ">= 20"

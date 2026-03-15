@@ -328,11 +328,7 @@ export class Menu extends Component<Signature> {
 
   <template>
     {{#let (IsOpen) (TriggerElement) as |isOpen triggerEl|}}
-      <Popover
-        @placement={{@placement}}
-        @inline={{@inline}}
-        as |p|
-      >
+      <Popover @placement={{@placement}} @inline={{@inline}} as |p|>
         {{#let
           (modifier
             trigger

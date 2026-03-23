@@ -17,7 +17,7 @@ So, we need to run some JavaScript to synchronize all this.
 
 ## App-based theme preference?
 
-The `color-scheme` property can be used at any nesting level in the DOM, so if the user wishes to set their preferred color scheme to "dark mode" in your app, even though their browser reports that their `prefers-color-scheme` value is "light mode", dark mode is what we want to render. This is persisted across refreshes.
+The `color-scheme` property can be used at any nesting level in the DOM, so if the user wishes to set their preferred color scheme to "dark mode" in your app, even though their browser reports that their `prefers-color-scheme` value is "light mode", dark mode is what we want to render. This is persisted across refreshes and synced between open tabs.
 
 ```gjs live preview 
 import { 

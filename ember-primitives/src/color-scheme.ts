@@ -184,3 +184,33 @@ function styleOf(element?: HTMLElement) {
 }
 
 sync();
+
+window.addEventListener('storage', (e: StorageEvent) => {
+  try {
+    if (e.key !== LOCAL_PREF_KEY) return;
+
+    // If the key was removed in another tab, fall back to system preference
+    if (e.newValue === null) {
+      if (prefers.dark()) {
+        colorScheme.update('dark');
+
+        return;
+      } else if (prefers.light()) {
+        colorScheme.update('light');
+
+        return;
+      }
+
+      // default to light
+      colorScheme.update('light');
+
+      return;
+    }
+
+    const newScheme = e.newValue;
+
+    colorScheme.update(newScheme);
+  } catch {
+    // swallow errors from storage event handling
+  }
+});

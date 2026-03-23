@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.53.1",
-      "newVersion": "0.54.0",
+      "oldVersion": "0.54.0",
+      "newVersion": "0.55.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -15,17 +15,13 @@
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.3",
-      "newVersion": "0.9.4",
+      "oldVersion": "0.9.4",
+      "newVersion": "0.9.5",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
           "reason": "Has dependency `workspace:^` on ember-primitives"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./packages/docs-support/package.json"
@@ -34,5 +30,5 @@
       "oldVersion": "0.2.6"
     }
   },
-  "description": "## Release (2026-03-15)\n\n* ember-primitives 0.54.0 (minor)\n* @universal-ember/docs-support 0.9.4 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#684](https://github.com/universal-ember/ember-primitives/pull/684) Simplify event handling in proper-links.ts ([@evoactivity](https://github.com/evoactivity))\n\n#### :house: Internal\n* Other\n  * [#680](https://github.com/universal-ember/ember-primitives/pull/680) Add '--isolated' argument to chrome-devtools command ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#677](https://github.com/universal-ember/ember-primitives/pull/677) Delete push-dist because this repo publishes more than one package ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `@universal-ember/docs-support`\n  * [#679](https://github.com/universal-ember/ember-primitives/pull/679) Eject tailwind ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#675](https://github.com/universal-ember/ember-primitives/pull/675) Tailwind 4 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- Liam Potter ([@evoactivity](https://github.com/evoactivity))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-03-23)\n\n* ember-primitives 0.55.0 (minor)\n* @universal-ember/docs-support 0.9.5 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#689](https://github.com/universal-ember/ember-primitives/pull/689) Implement storage event listener for color scheme ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam ([@evoactivity](https://github.com/evoactivity))\n"
 }

@@ -1,5 +1,17 @@
 # Changelog 
 
+## Release (2026-03-23)
+
+* ember-primitives 0.55.0 (minor)
+* @universal-ember/docs-support 0.9.5 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#689](https://github.com/universal-ember/ember-primitives/pull/689) Implement storage event listener for color scheme ([@evoactivity](https://github.com/evoactivity))
+
+#### Committers: 1
+- Liam ([@evoactivity](https://github.com/evoactivity))
+
 ## Release (2026-03-15)
 
 * ember-primitives 0.54.0 (minor)

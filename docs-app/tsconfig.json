@@ -1,6 +1,5 @@
 {
   "extends": "@ember/app-tsconfig",
-  "include": ["app", "tests", "types"],
   "compilerOptions": {
     "paths": {
       "docs-app/tests/*": ["./tests/*"],

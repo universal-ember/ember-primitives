@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2026-04-04)
+
+* ember-primitives 0.55.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#695](https://github.com/universal-ember/ember-primitives/pull/695) Give glint/template peer dep semver range ([@bendemboski](https://github.com/bendemboski))
+
+#### Committers: 1
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+
 ## Release (2026-03-23)
 
 * ember-primitives 0.55.0 (minor)

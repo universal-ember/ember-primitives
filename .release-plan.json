@@ -1,34 +1,24 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.54.0",
-      "newVersion": "0.55.0",
+      "impact": "patch",
+      "oldVersion": "0.55.0",
+      "newVersion": "0.55.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "impact": "patch",
-      "oldVersion": "0.9.4",
-      "newVersion": "0.9.5",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:^` on ember-primitives"
-        }
-      ],
-      "pkgJSONPath": "./packages/docs-support/package.json"
+      "oldVersion": "0.9.5"
     },
     "which-heading-do-i-need": {
       "oldVersion": "0.2.6"
     }
   },
-  "description": "## Release (2026-03-23)\n\n* ember-primitives 0.55.0 (minor)\n* @universal-ember/docs-support 0.9.5 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#689](https://github.com/universal-ember/ember-primitives/pull/689) Implement storage event listener for color scheme ([@evoactivity](https://github.com/evoactivity))\n\n#### Committers: 1\n- Liam ([@evoactivity](https://github.com/evoactivity))\n"
+  "description": "## Release (2026-04-04)\n\n* ember-primitives 0.55.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#695](https://github.com/universal-ember/ember-primitives/pull/695) Give glint/template peer dep semver range ([@bendemboski](https://github.com/bendemboski))\n\n#### Committers: 1\n- Ben Demboski ([@bendemboski](https://github.com/bendemboski))\n"
 }

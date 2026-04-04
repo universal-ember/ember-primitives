@@ -157,8 +157,7 @@ const cssAnchorPosition = eModifier<{
   const offsetOptions = named.offsetOptions ?? 0;
   const mainAxis =
     typeof offsetOptions === "number" ? offsetOptions : (offsetOptions?.mainAxis ?? 0);
-  const crossAxis =
-    typeof offsetOptions === "number" ? 0 : (offsetOptions?.crossAxis ?? 0);
+  const crossAxis = typeof offsetOptions === "number" ? 0 : (offsetOptions?.crossAxis ?? 0);
 
   element.style.setProperty("position", named.strategy);
   element.style.setProperty("position-anchor", named.anchorName);
@@ -341,7 +340,8 @@ export class Popover extends Component<Signature> {
     {{#let
       (modifier applyReference this.setReference)
       (modifier attachArrow anchorName=this.anchorName placement=this.placement)
-    as |referenceModifier arrowModifier|}}
+      as |referenceModifier arrowModifier|
+    }}
       {{yield
         (hash
           reference=referenceModifier

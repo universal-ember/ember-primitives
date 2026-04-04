@@ -71,10 +71,12 @@ module('Rendering | popover', function (hooks) {
 
     const floatingEl = document.querySelector('#floating') as HTMLElement;
 
-    assert.strictEqual(
-      floatingEl.style.getPropertyValue('position-area'),
-      'top span-left',
-      'top-end maps to position-area: top span-left'
+    // Browser may normalize "top span-left" to "span-left top"
+    const positionArea = floatingEl.style.getPropertyValue('position-area');
+
+    assert.ok(
+      positionArea === 'top span-left' || positionArea === 'span-left top',
+      `top-end maps to position-area containing top and span-left, got: ${positionArea}`
     );
     assert.strictEqual(
       floatingEl.style.getPropertyValue('justify-self'),

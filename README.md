@@ -76,6 +76,13 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/bendemboski">
+                    <img src="https://avatars.githubusercontent.com/u/559001?v=4" width="100;" alt="bendemboski"/>
+                    <br />
+                    <sub><b>Ben Demboski</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/bartocc">
                     <img src="https://avatars.githubusercontent.com/u/47953?v=4" width="100;" alt="bartocc"/>
                     <br />
@@ -96,6 +103,8 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>ember-tomster</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/johanrd">
                     <img src="https://avatars.githubusercontent.com/u/4601554?v=4" width="100;" alt="johanrd"/>

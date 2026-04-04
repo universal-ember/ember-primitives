@@ -38,7 +38,6 @@ export interface Signature {
   Blocks: {
     default: [
       {
-        arrow: PopoverBlockParams["arrow"];
         trigger: WithBoundArgs<
           typeof trigger,
           "triggerElement" | "contentId" | "isOpen" | "setReference"
@@ -329,16 +328,7 @@ export class Menu extends Component<Signature> {
 
   <template>
     {{#let (IsOpen) (TriggerElement) as |isOpen triggerEl|}}
-      <Popover
-        @flipOptions={{@flipOptions}}
-        @middleware={{@middleware}}
-        @offsetOptions={{@offsetOptions}}
-        @placement={{@placement}}
-        @shiftOptions={{@shiftOptions}}
-        @strategy={{@strategy}}
-        @inline={{@inline}}
-        as |p|
-      >
+      <Popover @placement={{@placement}} @inline={{@inline}} as |p|>
         {{#let
           (modifier
             trigger
@@ -360,7 +350,6 @@ export class Menu extends Component<Signature> {
                 triggerElement=triggerEl
                 contentId=this.contentId
               )
-              arrow=p.arrow
               isOpen=isOpen.current
             )
           }}

@@ -68,6 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+          repository: ${{ github.event.workflow_run.head_repository.full_name || github.repository }}
           ref: ${{ github.event.workflow_run.head_branch }}
       - name: TurboRepo local server
         uses: felixmosh/turborepo-gh-artifacts@v3

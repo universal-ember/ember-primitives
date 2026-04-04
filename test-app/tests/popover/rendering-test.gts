@@ -73,9 +73,11 @@ module('Rendering | popover', function (hooks) {
 
     // Browser may normalize "top span-left" to "span-left top"
     const positionArea = floatingEl.style.getPropertyValue('position-area');
+    const parts = positionArea.split(' ').sort();
 
-    assert.ok(
-      positionArea === 'top span-left' || positionArea === 'span-left top',
+    assert.deepEqual(
+      parts,
+      ['span-left', 'top'],
       `top-end maps to position-area containing top and span-left, got: ${positionArea}`
     );
     assert.strictEqual(

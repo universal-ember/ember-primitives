@@ -26,7 +26,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -44,7 +44,7 @@ jobs:
     needs: [setup]
     timeout-minutes: 5
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -59,7 +59,7 @@ jobs:
     timeout-minutes: 5
     # if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           node-version: 22
@@ -74,7 +74,7 @@ jobs:
     timeout-minutes: 5
     # if: ${{ fromJSON(needs.setup.outputs.pending).test-app.test.status == 'MISS' }}
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pnpm-args: --no-lockfile
@@ -93,7 +93,7 @@ jobs:
     name: "${{ matrix.name }}"
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -133,7 +133,7 @@ jobs:
           - typescript@5.9
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -151,7 +151,7 @@ jobs:
     timeout-minutes: 5
     needs: [setup]
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -179,7 +179,7 @@ jobs:
       deployments: write
 
     steps:
-      - uses: wyvox/action@v1
+      - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm build
@@ -187,10 +187,8 @@ jobs:
       - run: pnpm build:dev # should be prod. it is prod. but the script is named wrong
         working-directory: docs-app
       - name: Publish ${{ matrix.app.id }}
-        uses: cloudflare/pages-action@v1.5.0
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ${{ matrix.app.cloudflareName }}
-          directory: ${{ matrix.app.path }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy ${{ matrix.app.path }} --project-name=${{ matrix.app.cloudflareName }}

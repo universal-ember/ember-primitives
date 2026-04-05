@@ -41,7 +41,8 @@
         "@glimmer/syntax"
       ],
       "ignoreMissing": [
-        "rsvp"
+        "rsvp",
+        "webpack"
       ]
     },
     "overrides": {

@@ -50,7 +50,7 @@
     "overrides": {
       "@embroider/macros": "^1.19.7",
       "@glimmer/component": "^2.0.0",
-      "@glint/template": "1.7.4",
+      "@glint/template": "1.7.7",
       "babel-plugin-ember-template-compilation": "^4.0.0",
       "decorator-transforms": "2.3.1",
       "ember-cli-babel": "^8.3.1",

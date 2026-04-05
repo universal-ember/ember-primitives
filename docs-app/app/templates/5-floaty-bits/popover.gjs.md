@@ -1,12 +1,12 @@
 # Popover
 
-Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues, no portals needed.
+Popovers use [CSS Anchor Positioning][docs-anchor] for positioning floating elements relative to their anchor, with automatic flip fallbacks via `position-try-fallbacks` and viewport-aware visibility via `position-visibility`. No JavaScript positioning library needed.
+
+The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues — no portals needed.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
-[docs-floating-ui]: /5-floaty-bits/floating-ui.md
-[docs-floating]: https://floating-ui.com/
-[docs-popper]: https://popper.js.org/
+[docs-anchor]: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
 [docs-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
 
 <div class="featured-demo">
@@ -374,6 +374,29 @@ The `@inline` argument has been removed. All popover content now renders inline 
 ```diff
 - <p.Content @inline={{true}}>
 + <p.Content>
+```
+
+### Remove Floating UI–specific arguments
+
+Positioning is now handled by [CSS Anchor Positioning][docs-anchor] instead of Floating UI. The arguments that mapped onto Floating UI middleware no longer exist on `<Popover>` (or `<Menu>`):
+
+- `@flipOptions` — flip behavior is now provided by `position-try-fallbacks: flip-block`.
+- `@middleware` — there is no JS middleware pipeline anymore.
+- `@shiftOptions` — the browser handles shifting via `position-area`.
+- `@strategy` — the component sets `position: fixed` itself; there is no `absolute` strategy to opt into.
+
+`@offsetOptions` and `@placement` continue to work the same way.
+
+```diff
+  <Popover
+-   @flipOptions={{...}}
+-   @middleware={{...}}
+-   @shiftOptions={{...}}
+-   @strategy="absolute"
+    @offsetOptions={{8}}
+    @placement="bottom"
+    as |p|
+  >
 ```
 
 ### CSS considerations

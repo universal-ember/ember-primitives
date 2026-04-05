@@ -1,15 +1,12 @@
 # Popover
 
-Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. 
-
+Popovers use [CSS Anchor Positioning][docs-anchor] for positioning floating elements relative to their anchor, with automatic flip fallbacks via `position-try-fallbacks` and viewport-aware visibility via `position-visibility`. No JavaScript positioning library needed.
 
 The `<Popover>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
-[docs-floating-ui]: /5-floaty-bits/floating-ui.md
-[docs-floating]: https://floating-ui.com/
-[docs-popper]: https://popper.js.org/
+[docs-anchor]: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
 [docs-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
 
 <div class="featured-demo">

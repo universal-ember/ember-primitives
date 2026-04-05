@@ -469,6 +469,9 @@ importers:
       ember-resources:
         specifier: ^7.0.7
         version: 7.0.7(972e7a9dd19717b828f7a881726685f7)
+      ember-scoped-css:
+        specifier: ^2.0.4
+        version: 2.0.4(ember-template-lint@7.9.3)
       inter-ui:
         specifier: ^4.0.2
         version: 4.1.1
@@ -524,9 +527,6 @@ importers:
       concurrently:
         specifier: ^9.2.1
         version: 9.2.1
-      ember-scoped-css:
-        specifier: ^2.0.4
-        version: 2.0.4(ember-template-lint@7.9.3)
       ember-source:
         specifier: ^6.10.1
         version: 6.10.1(@glimmer/component@2.0.0)(rsvp@4.8.5)

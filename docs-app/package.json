@@ -24,7 +24,7 @@
     "format": "prettier --write .",
     "start": "pnpm vite",
     "dev": "vite",
-    "_syncPnpm": "pnpm install --frozen-lockfile",
+    "_syncPnpm": "pnpm install",
     "sync": "echo 'pnpm is syncing injected deps. (this is configured in .npmrc)'",
     "test:ember": "vite build --mode development && testem ci --port 0"
   },

@@ -79,7 +79,7 @@
       "outputs": ["dist/**", "dist-types/**", "declarations/**", "docs.json"],
       "dependsOn": ["_syncPnpm", "//#sync"]
     },
-    "//#sync": {},
+    "//#sync": { "cache": false },
     "_syncPnpm": {
       "dependsOn": ["^build"],
       "cache": false

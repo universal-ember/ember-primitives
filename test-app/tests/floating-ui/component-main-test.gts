@@ -112,7 +112,7 @@ module('floating-ui | component (main)', function (hooks) {
         </template>
       );
 
-      assert.dom('#hook').hasText('offset flip shift hide', 'has expected middleware');
+      assert.dom('#hook').hasText('offset flip shift hide metadata', 'has expected middleware');
     });
   });
 

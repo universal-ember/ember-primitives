@@ -120,7 +120,6 @@ const StyledTab: TOC<
           {{/if}}
         </Content>
       {{else}}
-        {{! @glint-expect-error The types here are too crazy so I ignore them and define the public API}}
         {{yield Button Content}}
       {{/if}}
     {{/let}}

@@ -156,9 +156,7 @@ export default class Application extends Route {
           'reactiveweb/keep-latest': () => import('reactiveweb/keep-latest'),
           'reactiveweb/wait-until': () => import('reactiveweb/wait-until'),
           'ember-focus-trap/modifiers/focus-trap': () =>
-            // @ts-expect-error - no types provided
             import('ember-focus-trap/modifiers/focus-trap'),
-          // @ts-expect-error - no types provided
           'ember-focus-trap': () => import('ember-focus-trap'),
           'ember-element-helper': () => import('ember-element-helper'),
           'which-heading-do-i-need': () => import('which-heading-do-i-need'),

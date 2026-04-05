@@ -67,6 +67,7 @@ export interface ButtonSignature {
 }
 
 const TabButton: TOC<{
+  Element: HTMLButtonElement;
   Args: {
     /**
      * @internal

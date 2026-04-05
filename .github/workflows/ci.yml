@@ -77,7 +77,7 @@ jobs:
       - uses: wyvox/action@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          pnpm-args: --no-lockfile
+          pnpm-args: --no-lockfile --config.strict-peer-dependents=false
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm turbo test:ember --filter test-app

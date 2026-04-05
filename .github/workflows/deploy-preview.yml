@@ -82,9 +82,9 @@ jobs:
         run: |
           if [ -n "${{ github.event.inputs.prNum }}" ]; then
             PR_NUM="${{ github.event.inputs.prNum }}"
-            PR_JSON=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json headRefName,headRepository)
+            PR_JSON=$(gh pr view "$PR_NUM" --repo "${{ github.repository }}" --json headRefName,headRepository,headRepositoryOwner)
             BRANCH=$(echo "$PR_JSON" | jq -r '.headRefName')
-            REPO=$(echo "$PR_JSON" | jq -r '.headRepository.owner.login + "/" + .headRepository.name')
+            REPO=$(echo "$PR_JSON" | jq -r '.headRepositoryOwner.login + "/" + .headRepository.name')
           else
             PR_NUM="${{ github.event.workflow_run.pull_requests[0].number }}"
             BRANCH="${{ github.event.workflow_run.head_branch }}"

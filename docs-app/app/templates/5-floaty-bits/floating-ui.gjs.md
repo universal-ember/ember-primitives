@@ -1,12 +1,18 @@
 # Floating UI
 
-The `FloatingUI` component provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc). 
-
 <Callout>
 
-The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) lands and is widely supported (This component and modifier will still exist for the purpose of wiring up the ids between anchor and target). 
+**Higher-level components use CSS Anchor Positioning.** `<Popover>`, `<Menu>`, and other built-in components now use native [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) instead of Floating UI. For most use cases, prefer [`<Popover>`](/5-floaty-bits/popover.md) or [`<Menu>`](/5-floaty-bits/menu.md) directly.
+
+The `<FloatingUI>` component and `anchorTo` modifier remain available for:
+- **Environments without CSS Anchor Positioning support** — if you need to support browsers that don't yet implement CSS Anchor Positioning, use `<FloatingUI>` directly for JS-based positioning
+- **Advanced use cases** where you need direct access to [Floating UI](https://floating-ui.com/) middleware
+
+Note that Floating UI is entirely JS-based and does not use CSS Anchor Positioning internally — these are two separate positioning approaches.
 
 </Callout>
+
+The `FloatingUI` component provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc).
 
 Several of Floating UI's functions and [middleware](https://floating-ui.com/docs/middleware) are used to create an experience out of the box that is useful and expected.
 See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) for more information on any of the following included functionality.

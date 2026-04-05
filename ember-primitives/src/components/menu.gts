@@ -329,16 +329,7 @@ export class Menu extends Component<Signature> {
 
   <template>
     {{#let (IsOpen) (TriggerElement) as |isOpen triggerEl|}}
-      <Popover
-        @flipOptions={{@flipOptions}}
-        @middleware={{@middleware}}
-        @offsetOptions={{@offsetOptions}}
-        @placement={{@placement}}
-        @shiftOptions={{@shiftOptions}}
-        @strategy={{@strategy}}
-        @inline={{@inline}}
-        as |p|
-      >
+      <Popover @offsetOptions={{@offsetOptions}} @placement={{@placement}} as |p|>
         {{#let
           (modifier
             trigger

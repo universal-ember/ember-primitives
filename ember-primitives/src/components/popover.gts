@@ -1,42 +1,38 @@
+import Component from "@glimmer/component";
 import { hash } from "@ember/helper";
+import { guidFor } from "@ember/object/internals";
+import { htmlSafe } from "@ember/template";
 
-import { arrow } from "@floating-ui/dom";
-import { element } from "ember-element-helper";
 import { modifier as eModifier } from "ember-modifier";
-import { cell } from "ember-resources";
 
-import { FloatingUI } from "../floating-ui.ts";
-import { Portal } from "./portal.gts";
-import { TARGETS } from "./portal-targets.gts";
-
-import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.ts";
-import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
 import type { TOC } from "@ember/component/template-only";
-import type { ElementContext, Middleware } from "@floating-ui/dom";
+import type { SafeString } from "@ember/template";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
+
+type Placement =
+  | "top"
+  | "top-start"
+  | "top-end"
+  | "bottom"
+  | "bottom-start"
+  | "bottom-end"
+  | "left"
+  | "left-start"
+  | "left-end"
+  | "right"
+  | "right-start"
+  | "right-end";
 
 export interface Signature {
   Args: {
     /**
-     * See the Floating UI's [flip docs](https://floating-ui.com/docs/flip) for possible values.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
+     * Offset distance between the reference and floating elements.
+     * Can be a number (pixels) or an object with `mainAxis` and/or `crossAxis` values.
      */
-    flipOptions?: HookSignature["Args"]["Named"]["flipOptions"];
+    offsetOptions?: number | { mainAxis?: number; crossAxis?: number };
     /**
-     * Array of one or more objects to add to Floating UI's list of [middleware](https://floating-ui.com/docs/middleware)
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    middleware?: HookSignature["Args"]["Named"]["middleware"];
-    /**
-     * See the Floating UI's [offset docs](https://floating-ui.com/docs/offset) for possible values.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    offsetOptions?: HookSignature["Args"]["Named"]["offsetOptions"];
-    /**
-     * One of the possible [`placements`](https://floating-ui.com/docs/computeposition#placement). The default is 'bottom'.
+     * Where to place the floating element relative to its reference element.
+     * The default is 'bottom'.
      *
      * Possible values are
      * - top
@@ -45,204 +41,272 @@ export interface Signature {
      * - left
      *
      * And may optionally have `-start` or `-end` added to adjust position along the side.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
      */
-    placement?: `${"top" | "bottom" | "left" | "right"}${"" | "-start" | "-end"}`;
-    /**
-     * See the Floating UI's [shift docs](https://floating-ui.com/docs/shift) for possible values.
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    shiftOptions?: HookSignature["Args"]["Named"]["shiftOptions"];
-    /**
-     * CSS position property, either `fixed` or `absolute`.
-     *
-     * Pros and cons of each strategy are explained on [Floating UI's Docs](https://floating-ui.com/docs/computePosition#strategy)
-     *
-     * This argument is forwarded to the `<FloatingUI>` component.
-     */
-    strategy?: HookSignature["Args"]["Named"]["strategy"];
-
-    /**
-     * By default, the popover is portaled.
-     * If you don't control your CSS, and the positioning of the popover content
-     * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
-     *
-     * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
-     */
-    inline?: boolean;
+    placement?: Placement;
   };
   Blocks: {
     default: [
       {
-        reference: FloatingUiComponentSignature["Blocks"]["default"][0];
-        setReference: FloatingUiComponentSignature["Blocks"]["default"][2]["setReference"];
-        Content: WithBoundArgs<typeof Content, "floating">;
-        data: FloatingUiComponentSignature["Blocks"]["default"][2]["data"];
+        reference: ModifierLike<{ Element: HTMLElement | SVGElement }>;
+        setReference: (element: HTMLElement | SVGElement) => void;
+        Content: WithBoundArgs<typeof Content, "style">;
+        data: undefined;
         arrow: ModifierLike<{ Element: HTMLElement }>;
       },
     ];
   };
 }
 
-function getElementTag(tagName: undefined | string) {
-  return tagName || "div";
+interface PlacementConfig {
+  positionArea: string;
+  selfProp: string;
+  selfValue: string;
+  offsetMargin: string;
+  crossOffsetMargin: string;
+  arrowSide: string;
+  arrowIsVertical: boolean;
 }
 
 /**
- * Allows lazy evaluation of the portal target (do nothing until rendered)
- * This is useful because the algorithm for finding the portal target isn't cheap.
+ * Static lookup for CSS Anchor Positioning properties per placement.
+ *
+ * The position-area grid has the anchor element at center.
+ * For -start/-end variants, we use span-right/span-left (or span-bottom/span-top)
+ * to create an area starting at the anchor's edge, then align within that area.
  */
-const Content: TOC<{
-  Element: HTMLDivElement;
+const PLACEMENT_CONFIG: Record<Placement, PlacementConfig> = {
+  top: {
+    positionArea: "top",
+    selfProp: "justify-self",
+    selfValue: "anchor-center",
+    offsetMargin: "margin-bottom",
+    crossOffsetMargin: "margin-left",
+    arrowSide: "bottom",
+    arrowIsVertical: true,
+  },
+  "top-start": {
+    positionArea: "top span-right",
+    selfProp: "justify-self",
+    selfValue: "start",
+    offsetMargin: "margin-bottom",
+    crossOffsetMargin: "margin-left",
+    arrowSide: "bottom",
+    arrowIsVertical: true,
+  },
+  "top-end": {
+    positionArea: "top span-left",
+    selfProp: "justify-self",
+    selfValue: "end",
+    offsetMargin: "margin-bottom",
+    crossOffsetMargin: "margin-left",
+    arrowSide: "bottom",
+    arrowIsVertical: true,
+  },
+  bottom: {
+    positionArea: "bottom",
+    selfProp: "justify-self",
+    selfValue: "anchor-center",
+    offsetMargin: "margin-top",
+    crossOffsetMargin: "margin-left",
+    arrowSide: "top",
+    arrowIsVertical: true,
+  },
+  "bottom-start": {
+    positionArea: "bottom span-right",
+    selfProp: "justify-self",
+    selfValue: "start",
+    offsetMargin: "margin-top",
+    crossOffsetMargin: "margin-left",
+    arrowSide: "top",
+    arrowIsVertical: true,
+  },
+  "bottom-end": {
+    positionArea: "bottom span-left",
+    selfProp: "justify-self",
+    selfValue: "end",
+    offsetMargin: "margin-top",
+    crossOffsetMargin: "margin-left",
+    arrowSide: "top",
+    arrowIsVertical: true,
+  },
+  left: {
+    positionArea: "left",
+    selfProp: "align-self",
+    selfValue: "anchor-center",
+    offsetMargin: "margin-right",
+    crossOffsetMargin: "margin-top",
+    arrowSide: "right",
+    arrowIsVertical: false,
+  },
+  "left-start": {
+    positionArea: "left span-bottom",
+    selfProp: "align-self",
+    selfValue: "start",
+    offsetMargin: "margin-right",
+    crossOffsetMargin: "margin-top",
+    arrowSide: "right",
+    arrowIsVertical: false,
+  },
+  "left-end": {
+    positionArea: "left span-top",
+    selfProp: "align-self",
+    selfValue: "end",
+    offsetMargin: "margin-right",
+    crossOffsetMargin: "margin-top",
+    arrowSide: "right",
+    arrowIsVertical: false,
+  },
+  right: {
+    positionArea: "right",
+    selfProp: "align-self",
+    selfValue: "anchor-center",
+    offsetMargin: "margin-left",
+    crossOffsetMargin: "margin-top",
+    arrowSide: "left",
+    arrowIsVertical: false,
+  },
+  "right-start": {
+    positionArea: "right span-bottom",
+    selfProp: "align-self",
+    selfValue: "start",
+    offsetMargin: "margin-left",
+    crossOffsetMargin: "margin-top",
+    arrowSide: "left",
+    arrowIsVertical: false,
+  },
+  "right-end": {
+    positionArea: "right span-top",
+    selfProp: "align-self",
+    selfValue: "end",
+    offsetMargin: "margin-left",
+    crossOffsetMargin: "margin-top",
+    arrowSide: "left",
+    arrowIsVertical: false,
+  },
+};
+
+function anchorPositionStyle(
+  placement: Placement,
+  anchorName: string,
+  offsetOptions?: number | { mainAxis?: number; crossAxis?: number },
+): SafeString {
+  const config = PLACEMENT_CONFIG[placement];
+
+  const offsetOpts = offsetOptions ?? 0;
+  const mainAxis = typeof offsetOpts === "number" ? offsetOpts : (offsetOpts?.mainAxis ?? 0);
+  const crossAxis = typeof offsetOpts === "number" ? 0 : (offsetOpts?.crossAxis ?? 0);
+
+  let style = `position: fixed; inset: auto; overflow: visible; border: none; position-anchor: ${anchorName}; position-area: ${config.positionArea}; ${config.selfProp}: ${config.selfValue}; width: max-content; margin: 0; position-try-fallbacks: flip-block; position-visibility: anchors-visible`;
+
+  if (mainAxis) {
+    style += `; ${config.offsetMargin}: ${mainAxis}px`;
+  }
+
+  if (crossAxis) {
+    style += `; ${config.crossOffsetMargin}: ${crossAxis}px`;
+  }
+
+  return htmlSafe(style);
+}
+
+const attachArrow = eModifier<{
+  Element: Element;
   Args: {
-    floating: ModifierLike<{ Element: HTMLElement }>;
-    inline?: boolean;
-    /**
-     * By default the popover content is wrapped in a div.
-     * You may change this by supplying the name of an element here.
-     *
-     * For example:
-     * ```gjs
-     * <Popover as |p|>
-     *  <p.Content @as="dialog">
-     *    this is now focus trapped
-     *  </p.Content>
-     * </Popover>
-     * ```
-     */
-    as?: string;
+    Named: {
+      placement: Placement;
+    };
+  };
+}>((el, _: [], { placement }) => {
+  if (!(el instanceof HTMLElement)) return;
+
+  const config = PLACEMENT_CONFIG[placement];
+
+  el.style.setProperty("position", "absolute");
+
+  if (config.arrowIsVertical) {
+    el.style.setProperty("left", "50%");
+    el.style.setProperty("translate", "-50% 0");
+  } else {
+    el.style.setProperty("top", "50%");
+    el.style.setProperty("translate", "0 -50%");
+  }
+
+  el.style.setProperty(config.arrowSide, "-4px");
+});
+
+const Content: TOC<{
+  Element: HTMLDialogElement;
+  Args: {
+    style: SafeString;
   };
   Blocks: { default: [] };
 }> = <template>
-  {{#let (element (getElementTag @as)) as |El|}}
-    {{#if @inline}}
-      {{! @glint-ignore
-            https://github.com/tildeio/ember-element-helper/issues/91
-            https://github.com/typed-ember/glint/issues/610
-      }}
-      <El {{@floating}} ...attributes>
-        {{yield}}
-      </El>
-    {{else}}
-      <Portal @to={{TARGETS.popover}}>
-        {{! @glint-ignore
-              https://github.com/tildeio/ember-element-helper/issues/91
-              https://github.com/typed-ember/glint/issues/610
-        }}
-        <El {{@floating}} ...attributes>
-          {{yield}}
-        </El>
-      </Portal>
-    {{/if}}
-  {{/let}}
+  <dialog open role="none" style={{@style}} ...attributes>
+    {{yield}}
+  </dialog>
 </template>;
 
-interface AttachArrowSignature {
-  Element: HTMLElement;
+const applyReference = eModifier<{
+  Element: HTMLElement | SVGElement;
   Args: {
-    Named: {
-      arrowElement: ReturnType<typeof ArrowElement>;
-      data:
-        | undefined
-        | {
-            placement: string;
-            middlewareData?: {
-              arrow?: { x?: number; y?: number };
-            };
-          };
-    };
+    Positional: [setRef: (element: HTMLElement | SVGElement) => void];
   };
-}
+}>((element, [setRef]) => {
+  setRef(element);
+});
 
-const arrowSides = {
-  top: "bottom",
-  right: "left",
-  bottom: "top",
-  left: "right",
-};
+/**
+ * Popover component using CSS Anchor Positioning for placement.
+ *
+ * Positions a floating element relative to a reference element using the native
+ * [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning)
+ * API, with automatic flip fallbacks via `position-try-fallbacks` and viewport-aware
+ * visibility via `position-visibility`.
+ *
+ * Example usage:
+ * ```gjs
+ * import { Popover } from 'ember-primitives';
+ *
+ * <template>
+ *   <Popover @placement="bottom" @offsetOptions={{8}} as |p|>
+ *     <button {{p.reference}}>Anchor</button>
+ *     <p.Content>Floating content</p.Content>
+ *   </Popover>
+ * </template>
+ * ```
+ */
+export class Popover extends Component<Signature> {
+  anchorName = `--ep-${guidFor(this)}`;
+  data = undefined;
 
-type Direction = "top" | "bottom" | "left" | "right";
-type Placement = `${Direction}${"" | "-start" | "-end"}`;
-
-const attachArrow: ModifierLike<AttachArrowSignature> = eModifier<AttachArrowSignature>(
-  (element, _: [], named) => {
-    if (element === named.arrowElement.current) {
-      if (!named.data) return;
-      if (!named.data.middlewareData) return;
-
-      const { arrow } = named.data.middlewareData;
-      const { placement } = named.data;
-
-      if (!arrow) return;
-      if (!placement) return;
-
-      const { x: arrowX, y: arrowY } = arrow;
-      const otherSide = (placement as Placement).split("-")[0] as Direction;
-      const staticSide = arrowSides[otherSide];
-
-      Object.assign(named.arrowElement.current.style, {
-        left: arrowX != null ? `${arrowX}px` : "",
-        top: arrowY != null ? `${arrowY}px` : "",
-        right: "",
-        bottom: "",
-        [staticSide]: "-4px",
-      });
-
-      return;
-    }
-
-    void (async () => {
-      await Promise.resolve();
-      named.arrowElement.set(element);
-    })();
-  },
-);
-
-const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
-
-function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
-  const result = [...(middleware || [])];
-
-  if (element) {
-    result.push(arrow({ element }));
+  get placement(): Placement {
+    return this.args.placement ?? "bottom";
   }
 
-  return result;
-}
-
-function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
-  return {
-    elementContext: "reference" as ElementContext,
-    ...options,
+  setReference = (element: HTMLElement | SVGElement) => {
+    element.style.setProperty("anchor-name", this.anchorName);
   };
-}
 
-export const Popover: TOC<Signature> = <template>
-  {{#let (ArrowElement) as |arrowElement|}}
-    <FloatingUI
-      @placement={{@placement}}
-      @strategy={{@strategy}}
-      @middleware={{maybeAddArrow @middleware arrowElement.current}}
-      @flipOptions={{flipOptions @flipOptions}}
-      @shiftOptions={{@shiftOptions}}
-      @offsetOptions={{@offsetOptions}}
-      as |reference floating extra|
-    >
-      {{#let (modifier attachArrow arrowElement=arrowElement data=extra.data) as |arrow|}}
-        {{yield
-          (hash
-            reference=reference
-            setReference=extra.setReference
-            Content=(component Content floating=floating inline=@inline)
-            data=extra.data
-            arrow=arrow
-          )
-        }}
-      {{/let}}
-    </FloatingUI>
-  {{/let}}
-</template>;
+  get contentStyle(): SafeString {
+    return anchorPositionStyle(this.placement, this.anchorName, this.args.offsetOptions);
+  }
+
+  <template>
+    {{#let
+      (modifier applyReference this.setReference) (modifier attachArrow placement=this.placement)
+      as |referenceModifier arrowModifier|
+    }}
+      {{yield
+        (hash
+          reference=referenceModifier
+          setReference=this.setReference
+          Content=(component Content style=this.contentStyle)
+          data=this.data
+          arrow=arrowModifier
+        )
+      }}
+    {{/let}}
+  </template>
+}
 
 export default Popover;

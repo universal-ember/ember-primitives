@@ -36,7 +36,6 @@
   "dependencies": {
     "@babel/runtime": "^7.28.6",
     "@embroider/addon-shim": "^1.10.2",
-    "@embroider/macros": "^1.19.7",
     "@floating-ui/dom": "^1.7.5",
     "decorator-transforms": "2.3.1",
     "ember-element-helper": "^0.8.8",
@@ -63,13 +62,14 @@
     "@ember/test-helpers": "^5.4.1",
     "@ember/test-waiters": "^4.1.0",
     "@embroider/addon-dev": "^8.3.0",
+    "@embroider/macros": "^1.19.7",
     "@glimmer/component": "^2.0.0",
     "@glimmer/tracking": "^1.1.2",
     "@glint/ember-tsc": "^1.1.1",
-    "@glint/template": "1.7.4",
+    "@glint/template": "1.7.7",
     "@glint/tsserver-plugin": "^2.1.0",
     "@nullvoxpopuli/eslint-configs": "^5.5.0",
-    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-babel": "^7.0.0",
     "@tsconfig/ember": "^3.0.12",
     "babel-plugin-ember-template-compilation": "^4.0.0",
     "concurrently": "^9.2.1",
@@ -85,7 +85,7 @@
     "publint": "^0.3.17",
     "rollup": "^4.57.1",
     "rollup-plugin-copy": "^3.5.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

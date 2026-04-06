@@ -1,5 +1,6 @@
 {
   "extends": "@ember/library-tsconfig",
+  "include": ["src", "unpublished-development-types"],
   "compilerOptions": {
     "rootDir": "./src",
     "types": ["ember-source/types", "@glint/ember-tsc/types"]

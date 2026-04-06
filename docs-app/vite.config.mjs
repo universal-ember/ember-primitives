@@ -8,12 +8,6 @@ import rehypeShiki from "@shikijs/rehype";
 
 export default defineConfig(async (/* { mode } */) => {
   return {
-    build: {
-      target: ["esnext"],
-    },
-    resolve: {
-      extensions,
-    },
     plugins: [
       scopedCSS(),
       ember(),
@@ -73,9 +67,6 @@ export default defineConfig(async (/* { mode } */) => {
         "decorator-transforms",
       ],
       // for top-level-await, etc
-      esbuildOptions: {
-        target: "esnext",
-      },
     },
   };
 });

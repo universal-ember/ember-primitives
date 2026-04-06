@@ -159,25 +159,12 @@ jobs:
       - run: pnpm test:ember
         working-directory: docs-app
 
-  DeployProduction:
-    name: "Deploy: Production"
+  BuildProduction:
+    name: "Build: Production"
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: [setup]
-    strategy:
-      matrix:
-        app:
-          - {
-              path: "./docs-app/dist",
-              cloudflareName: "ember-primitives",
-              name: "docs",
-            }
-
-    permissions:
-      contents: read
-      deployments: write
-
     steps:
       - uses: wyvox/action@v2
         with:
@@ -186,9 +173,33 @@ jobs:
       - run: pnpm i -f # sync for some reason isn't running before lint
       - run: pnpm build:dev # should be prod. it is prod. but the script is named wrong
         working-directory: docs-app
-      - name: Publish ${{ matrix.app.id }}
+      - uses: actions/upload-artifact@v7
+        with:
+          name: docs-app-dist
+          if-no-files-found: error
+          path: |
+            ./docs-app/dist/**/*
+            !node_modules/
+            !./**/node_modules/
+
+  DeployProduction:
+    name: "Deploy: Production"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [BuildProduction]
+
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: docs-app-dist
+          path: docs-app-dist
+      - name: Publish
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy ${{ matrix.app.path }} --project-name=${{ matrix.app.cloudflareName }}
+          command: pages deploy ./docs-app-dist/ --project-name=ember-primitives

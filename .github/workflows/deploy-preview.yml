@@ -109,7 +109,7 @@ jobs:
         uses: felixmosh/turborepo-gh-artifacts@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: wyvox/action-setup-pnpm@v3
+      - uses: wyvox/action-setup-pnpm@v4
       - run: pnpm turbo build:dev
       - uses: actions/upload-artifact@v6
         with:
@@ -134,19 +134,16 @@ jobs:
       contents: read
       deployments: write
     outputs:
-      docsUrl: ${{ steps.deploy.outputs.url }}
+      docsUrl: ${{ steps.deploy.outputs.deployment-url }}
     steps:
       - uses: actions/download-artifact@v8
         name: deploy-prep-dist
       - id: deploy
-        uses: cloudflare/pages-action@v1.5.0
+        uses: cloudflare/wrangler-action@v3
         with:
-          branch: ${{ needs.determinePR.outputs.branch }}
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: ember-primitives
-          directory: ./deploy-prep-dist/
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy ./deploy-prep-dist/ --project-name=ember-primitives --branch=${{ needs.determinePR.outputs.branch }}
 
   PostComment:
     name: Post Preview URL as comment to PR
@@ -155,7 +152,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: marocchino/sticky-pull-request-comment@v2
+      - uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: preview-urls
           number: ${{ needs.determinePR.outputs.number }}

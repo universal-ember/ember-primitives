@@ -16,7 +16,7 @@ function isString(x: unknown): x is string {
   return typeof x === 'string';
 }
 
-const StyledButton: TOC<{ Args: { button: ButtonType }; Blocks: { default: [] } }> = <template>
+const StyledButton: TOC<{ Element: HTMLButtonElement; Args: { button: ButtonType }; Blocks: { default: [] } }> = <template>
   <@button class="tab">
     {{yield}}
   </@button>
@@ -45,7 +45,7 @@ const StyledButton: TOC<{ Args: { button: ButtonType }; Blocks: { default: [] } 
   </style>
 </template>;
 
-const StyledContent: TOC<{ Args: { content: ContentType }; Blocks: { default: [] } }> = <template>
+const StyledContent: TOC<{ Element: HTMLDivElement; Args: { content: ContentType }; Blocks: { default: [] } }> = <template>
   <@content class="tabpanel">
     {{yield}}
   </@content>

@@ -110,6 +110,7 @@ const queries = {
 };
 
 queries.dark.addEventListener('change', (e) => {
+  if (localPreference.isSet()) return;
   const mode = e.matches ? 'dark' : 'light';
 
   colorScheme.update(mode);

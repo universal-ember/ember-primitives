@@ -45,6 +45,7 @@ import { loremIpsum } from "lorem-ipsum";
         font-weight: bold;
         padding: 5px;
         border-radius: 4px;
+        border: none;
         font-size: 90%;
         filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
         z-index: 10;

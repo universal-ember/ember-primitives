@@ -80,11 +80,15 @@ function getElementTag(tagName: undefined | string) {
 }
 
 const showPopover = eModifier<{ Element: Element }>((element) => {
-  (element as HTMLElement).showPopover();
+  const el = element as HTMLElement;
+
+  // Reset [popover] UA overflow default that clips arrows positioned outside
+  el.style.setProperty("overflow", "visible");
+  el.showPopover();
 
   return () => {
     try {
-      (element as HTMLElement).hidePopover();
+      el.hidePopover();
     } catch {
       /* already hidden */
     }

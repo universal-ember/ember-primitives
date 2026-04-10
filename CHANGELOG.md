@@ -1,5 +1,42 @@
 # Changelog 
 
+## Release (2026-04-10)
+
+* ember-primitives 0.55.2 (patch)
+* @universal-ember/docs-support 0.9.6 (patch)
+* which-heading-do-i-need 0.2.7 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#721](https://github.com/universal-ember/ember-primitives/pull/721) Prevent color scheme update if local preference is set ([@evoactivity](https://github.com/evoactivity))
+
+#### :memo: Documentation
+* [#698](https://github.com/universal-ember/ember-primitives/pull/698) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### :house: Internal
+* `ember-primitives`, `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#719](https://github.com/universal-ember/ember-primitives/pull/719) Update devdeps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* Other
+  * [#720](https://github.com/universal-ember/ember-primitives/pull/720) Fix Deploy: Production wrangler install failure ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#718](https://github.com/universal-ember/ember-primitives/pull/718) Fix deploy preview comments on fork PRs ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#717](https://github.com/universal-ember/ember-primitives/pull/717) Upgrade all CI actions to latest versions ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#716](https://github.com/universal-ember/ember-primitives/pull/716) Fix deploy-preview concurrency group to be per-PR ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#707](https://github.com/universal-ember/ember-primitives/pull/707) Hoist ember-primitives to fix transitive dep resolution ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#706](https://github.com/universal-ember/ember-primitives/pull/706) Fix headRepository owner lookup in deploy preview ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#705](https://github.com/universal-ember/ember-primitives/pull/705) Fix deploy preview workflow_dispatch by resolving PR info upfront ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#704](https://github.com/universal-ember/ember-primitives/pull/704) Move injected deps sync to _syncPnpm (runs after builds) ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#703](https://github.com/universal-ember/ember-primitives/pull/703) Fix injected deps sync when turbo replays cached builds ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#702](https://github.com/universal-ember/ember-primitives/pull/702) Fix injected deps sync when turbo replays cached builds ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#701](https://github.com/universal-ember/ember-primitives/pull/701) Fix deploy preview checkout for fork PRs ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+* `ember-primitives`
+  * [#713](https://github.com/universal-ember/ember-primitives/pull/713) Upgrade pnpm from 10.30.3 to 10.33.0 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 4
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+- Liam ([@evoactivity](https://github.com/evoactivity))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-04-04)
 
 * ember-primitives 0.55.1 (patch)

@@ -336,7 +336,6 @@ export class Menu extends Component<Signature> {
         @placement={{@placement}}
         @shiftOptions={{@shiftOptions}}
         @strategy={{@strategy}}
-        @inline={{@inline}}
         as |p|
       >
         {{#let

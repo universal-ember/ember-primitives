@@ -6,8 +6,6 @@ import { modifier as eModifier } from "ember-modifier";
 import { cell } from "ember-resources";
 
 import { FloatingUI } from "../floating-ui.ts";
-import { Portal } from "./portal.gts";
-import { TARGETS } from "./portal-targets.gts";
 
 import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.ts";
 import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
@@ -63,15 +61,6 @@ export interface Signature {
      * This argument is forwarded to the `<FloatingUI>` component.
      */
     strategy?: HookSignature["Args"]["Named"]["strategy"];
-
-    /**
-     * By default, the popover is portaled.
-     * If you don't control your CSS, and the positioning of the popover content
-     * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
-     *
-     * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
-     */
-    inline?: boolean;
   };
   Blocks: {
     default: [
@@ -90,15 +79,22 @@ function getElementTag(tagName: undefined | string) {
   return tagName || "div";
 }
 
-/**
- * Allows lazy evaluation of the portal target (do nothing until rendered)
- * This is useful because the algorithm for finding the portal target isn't cheap.
- */
+const showPopover = eModifier<{ Element: Element }>((element) => {
+  (element as HTMLElement).showPopover();
+
+  return () => {
+    try {
+      (element as HTMLElement).hidePopover();
+    } catch {
+      /* already hidden */
+    }
+  };
+});
+
 const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
-    inline?: boolean;
     /**
      * By default the popover content is wrapped in a div.
      * You may change this by supplying the name of an element here.
@@ -117,25 +113,13 @@ const Content: TOC<{
   Blocks: { default: [] };
 }> = <template>
   {{#let (element (getElementTag @as)) as |El|}}
-    {{#if @inline}}
-      {{! @glint-ignore
-            https://github.com/tildeio/ember-element-helper/issues/91
-            https://github.com/typed-ember/glint/issues/610
-      }}
-      <El {{@floating}} ...attributes>
-        {{yield}}
-      </El>
-    {{else}}
-      <Portal @to={{TARGETS.popover}}>
-        {{! @glint-ignore
-              https://github.com/tildeio/ember-element-helper/issues/91
-              https://github.com/typed-ember/glint/issues/610
-        }}
-        <El {{@floating}} ...attributes>
-          {{yield}}
-        </El>
-      </Portal>
-    {{/if}}
+    {{! @glint-ignore
+          https://github.com/tildeio/ember-element-helper/issues/91
+          https://github.com/typed-ember/glint/issues/610
+    }}
+    <El popover="manual" {{showPopover}} {{@floating}} ...attributes>
+      {{yield}}
+    </El>
   {{/let}}
 </template>;
 
@@ -235,7 +219,7 @@ export const Popover: TOC<Signature> = <template>
           (hash
             reference=reference
             setReference=extra.setReference
-            Content=(component Content floating=floating inline=@inline)
+            Content=(component Content floating=floating)
             data=extra.data
             arrow=arrow
           )

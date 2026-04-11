@@ -180,7 +180,7 @@ const settings = cell(false);
   <div class="site not-prose">
 
     <header>
-      <span style="color: black">My App: click settings -&gt;</span>
+      <span>My App: click settings -&gt;</span>
 
       <Popover @offsetOptions={{8}} as |p|>
         <button class="hook" {{p.reference}} {{on "click" settings.toggle}}>
@@ -235,15 +235,15 @@ const settings = cell(false);
         border: 1px solid rgba(0, 255, 255, 0.6);
       }
       .floatybit .floatybit {
-        background: #eee;
-        color: black;
+        background: light-dark(#eee, #334155);
+        color: light-dark(black, #f8fafc);
       }
       .floatybit .floatybit .arrow {
-        background: #eee;
+        background: light-dark(#eee, #334155);
         transform: translateY(-1rem) rotate(45deg);
 
         &::before {
-          background: #eee;
+          background: light-dark(#eee, #334155);
           border-top: 1px solid rgba(0, 255, 255, 0.6);
           transform: rotate(45deg) translateY(7px) translateX(-8px);
           border-left: none;
@@ -274,28 +274,33 @@ const settings = cell(false);
       }
       .hook {
         padding: 0.5rem;
-        border: 1px solid;
+        border: 1px solid currentColor;
         display: inline-block;
-        color: black;
+        color: inherit;
+        background: light-dark(white, #1e293b);
+        border-radius: 4px;
       }
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: white;
+        background: light-dark(white, #1e293b);
+        color: light-dark(black, #f8fafc);
         position: sticky;
         top: 0;
         width: 100%;
-        padding: 0.25rem;
-        filter: drop-shadow(0px 3px 6px #000000aa);
+        padding: 0.25rem 0.5rem;
+        box-shadow: 0px 3px 6px #000000aa;
       }
       .main {
         padding: 0.5rem;
+        color: light-dark(black, #cbd5e1);
       }
       .site {
         max-height: 200px;
         overflow-y: auto;
-        border: 1px solid;
+        border: 1px solid light-dark(#ccc, #334155);
+        color-scheme: light dark;
       }
       * {
         box-sizing: border-box;

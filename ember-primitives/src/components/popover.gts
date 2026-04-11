@@ -84,13 +84,7 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
   // popover already handles layering. Adding both to the top layer causes
   // stacking issues where the parent renders on top of the child.
   if (el.parentElement?.closest("[popover]")) {
-    // Nested inside another popover — don't add to top layer separately.
-    // Remove popover attr and ensure element is visible.
     el.removeAttribute("popover");
-
-    if (el instanceof HTMLDialogElement) {
-      el.setAttribute("open", "");
-    }
   } else {
     el.showPopover();
   }
@@ -105,25 +99,21 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
 });
 
 /**
- * Content uses `<dialog popover="manual">` + `showPopover()` to promote
+ * Content uses `popover="manual"` + `showPopover()` to promote
  * the element to the browser's top layer. This escapes all ancestor
  * overflow clipping and stacking contexts — the same guarantee that
  * portalling provided, but using the browser's native mechanism.
- *
- * We use `<dialog>` rather than `<div>` so that nested popovers
- * (which opt out of the top layer) can fall back to `<dialog open>`
- * and remain visible without JS.
  */
 const Content: TOC<{
-  Element: HTMLDialogElement;
+  Element: HTMLDivElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
   };
   Blocks: { default: [] };
 }> = <template>
-  <dialog popover="manual" role="none" {{showPopover}} {{@floating}} ...attributes>
+  <div popover="manual" {{showPopover}} {{@floating}} ...attributes>
     {{yield}}
-  </dialog>
+  </div>
 </template>;
 
 interface AttachArrowSignature {

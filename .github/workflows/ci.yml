@@ -30,6 +30,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm i -f # ensure all bin symlinks are created
+      - run: ls packages/docs-support/node_modules/.bin/ember-tsc || pnpm --filter @universal-ember/docs-support install
       - run: pnpm build
       - id: set-pending
         run: echo "pending=$(./cache-status.sh)" >> $GITHUB_OUTPUT

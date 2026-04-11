@@ -1,6 +1,7 @@
 import { hash } from "@ember/helper";
 
 import { arrow } from "@floating-ui/dom";
+import { element } from "ember-element-helper";
 import { modifier as eModifier } from "ember-modifier";
 import { cell } from "ember-resources";
 
@@ -98,6 +99,10 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
   };
 });
 
+function getElementTag(tagName: undefined | string) {
+  return tagName || "div";
+}
+
 /**
  * Content uses `popover="manual"` + `showPopover()` to promote
  * the element to the browser's top layer. This escapes all ancestor
@@ -108,12 +113,32 @@ const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
+    /**
+     * By default the popover content is wrapped in a div.
+     * You may change this by supplying the name of an element here.
+     *
+     * For example:
+     * ```gjs
+     * <Popover as |p|>
+     *  <p.Content @as="dialog">
+     *    this is now focus trapped
+     *  </p.Content>
+     * </Popover>
+     * ```
+     */
+    as?: string;
   };
   Blocks: { default: [] };
 }> = <template>
-  <div popover="manual" {{showPopover}} {{@floating}} ...attributes>
-    {{yield}}
-  </div>
+  {{#let (element (getElementTag @as)) as |El|}}
+    {{! @glint-ignore
+          https://github.com/tildeio/ember-element-helper/issues/91
+          https://github.com/typed-ember/glint/issues/610
+    }}
+    <El popover="manual" {{showPopover}} {{@floating}} ...attributes>
+      {{yield}}
+    </El>
+  {{/let}}
 </template>;
 
 interface AttachArrowSignature {

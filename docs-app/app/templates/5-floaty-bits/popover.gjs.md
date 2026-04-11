@@ -235,15 +235,15 @@ const settings = cell(false);
         border: 1px solid rgba(0, 255, 255, 0.6);
       }
       .floatybit .floatybit {
-        background: light-dark(#eee, #334155);
-        color: light-dark(black, #f8fafc);
+        background: light-dark(#eee, #1e293b);
+        color: light-dark(black, #f1f5f9);
       }
       .floatybit .floatybit .arrow {
-        background: light-dark(#eee, #334155);
+        background: light-dark(#eee, #1e293b);
         transform: translateY(-1rem) rotate(45deg);
 
         &::before {
-          background: light-dark(#eee, #334155);
+          background: light-dark(#eee, #1e293b);
           border-top: 1px solid rgba(0, 255, 255, 0.6);
           transform: rotate(45deg) translateY(7px) translateX(-8px);
           border-left: none;
@@ -274,18 +274,18 @@ const settings = cell(false);
       }
       .hook {
         padding: 0.5rem;
-        border: 1px solid currentColor;
+        border: 1px solid light-dark(#000, #e2e8f0);
         display: inline-block;
-        color: inherit;
-        background: light-dark(white, #1e293b);
+        color: light-dark(black, #f1f5f9);
+        background: light-dark(white, #0f172a);
         border-radius: 4px;
       }
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: light-dark(white, #1e293b);
-        color: light-dark(black, #f8fafc);
+        background: light-dark(white, #0f172a);
+        color: light-dark(black, #f1f5f9);
         position: sticky;
         top: 0;
         width: 100%;
@@ -294,12 +294,12 @@ const settings = cell(false);
       }
       .main {
         padding: 0.5rem;
-        color: light-dark(black, #cbd5e1);
+        color: light-dark(black, #94a3b8);
       }
       .site {
         max-height: 200px;
         overflow-y: auto;
-        border: 1px solid light-dark(#ccc, #334155);
+        border: 1px solid light-dark(#e2e8f0, #1e293b);
         color-scheme: light dark;
       }
       * {

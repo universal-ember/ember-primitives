@@ -99,15 +99,20 @@ import { Popover } from "ember-primitives";
 
   <style>
     @scope {
+      :scope {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .fancy-btn {
         padding: 0.5rem 1.5rem;
-        border-radius: 6px;
-        border: 1px solid #666;
-        background: #e2e8f0;
-        color: #334155;
+        border-radius: 4px;
+        border: 1px solid;
+        display: inline-block;
+        color: black;
+        background: white;
         font-weight: 600;
         cursor: not-allowed;
-        position: relative;
 
         &:hover + .tooltip,
         &:focus-visible + .tooltip {
@@ -120,15 +125,16 @@ import { Popover } from "ember-primitives";
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.15s;
-        padding: 0.5rem 0.75rem;
         width: max-content;
         max-width: 260px;
-        background: #1e293b;
-        color: #f8fafc;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 4px;
         border: none;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        font-size: 90%;
+        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
         z-index: 10;
 
         &:hover,
@@ -140,7 +146,7 @@ import { Popover } from "ember-primitives";
       }
       .arrow {
         position: absolute;
-        background: #1e293b;
+        background: #222;
         width: 8px;
         height: 8px;
         transform: rotate(45deg);

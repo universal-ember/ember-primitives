@@ -84,7 +84,20 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
 
   // Reset [popover] UA overflow default that clips arrows positioned outside
   el.style.setProperty("overflow", "visible");
-  el.showPopover();
+
+  // Don't promote to top layer if already inside a popover — the parent
+  // popover already handles layering. Adding both to the top layer causes
+  // stacking issues where the parent renders on top of the child.
+  if (el.parentElement?.closest("[popover]")) {
+    // Nested inside another popover — don't add to top layer separately.
+    // Remove popover attr and ensure element is visible.
+    el.removeAttribute("popover");
+    if (el instanceof HTMLDialogElement) {
+      el.setAttribute("open", "");
+    }
+  } else {
+    el.showPopover();
+  }
 
   return () => {
     try {

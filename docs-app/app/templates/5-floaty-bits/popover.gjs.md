@@ -76,6 +76,84 @@ import { loremIpsum } from "lorem-ipsum";
 
 </div>
 
+## Disabled button with tooltip
+
+A common pattern is a button that explains _why_ it's disabled. The tooltip appears on hover and focus, and is itself focusable so screen reader users can read the reason.
+
+<div class="featured-demo">
+
+```gjs live preview
+import { Popover } from "ember-primitives";
+
+<template>
+  <Popover @placement="top" @offsetOptions={{6}} as |p|>
+    <button class="fancy-btn" aria-disabled="true" {{p.reference}}>
+      Submit
+    </button>
+
+    <p.Content @as="dialog" class="tooltip">
+      You must fill out all required fields before submitting.
+      <div class="arrow" {{p.arrow}}></div>
+    </p.Content>
+  </Popover>
+
+  <style>
+    @scope {
+      .fancy-btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 6px;
+        border: 1px solid #666;
+        background: #e2e8f0;
+        color: #334155;
+        font-weight: 600;
+        cursor: not-allowed;
+        position: relative;
+
+        &:hover + .tooltip,
+        &:focus-visible + .tooltip {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      .tooltip {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s;
+        padding: 0.5rem 0.75rem;
+        width: max-content;
+        max-width: 260px;
+        background: #1e293b;
+        color: #f8fafc;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+        z-index: 10;
+
+        &:hover,
+        &:focus,
+        &:focus-visible {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      .arrow {
+        position: absolute;
+        background: #1e293b;
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+      }
+    }
+  </style>
+</template>
+```
+
+</div>
+
+The tooltip is always in the DOM (for screen readers) but visually hidden via `opacity: 0`. On hover or focus of the button, CSS transitions it to `opacity: 1`. The tooltip itself is also hoverable/focusable so users can interact with it.
+
 ## Usage within a header
 
 It's often common to provide popover-using UIs in site headers, such as a settings menu, or navigation.

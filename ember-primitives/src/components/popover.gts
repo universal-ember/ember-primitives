@@ -87,6 +87,7 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
     // Nested inside another popover — don't add to top layer separately.
     // Remove popover attr and ensure element is visible.
     el.removeAttribute("popover");
+
     if (el instanceof HTMLDialogElement) {
       el.setAttribute("open", "");
     }

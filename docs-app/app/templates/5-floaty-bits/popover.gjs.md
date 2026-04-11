@@ -91,7 +91,7 @@ import { Popover } from "ember-primitives";
       Submit
     </button>
 
-    <p.Content @as="dialog" class="tooltip">
+    <p.Content class="tooltip">
       You must fill out all required fields before submitting.
       <div class="arrow" {{p.arrow}}></div>
     </p.Content>

@@ -152,7 +152,7 @@ import { Popover } from "ember-primitives";
 
 </div>
 
-The tooltip is always in the DOM (for screen readers) but visually hidden via `opacity: 0`. On hover or focus of the button, CSS transitions it to `opacity: 1`. The tooltip itself is also hoverable/focusable so users can interact with it.
+The tooltip is always in the DOM (for screen readers) but visually hidden via `opacity: 0`. On hover or focus of the button, CSS transitions it to `opacity: 1`. The tooltip itself is hoverable and focusable, so users can select and copy the text within it — unlike native `title` attributes which don't allow interaction.
 
 ## Usage within a header
 

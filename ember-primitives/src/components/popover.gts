@@ -1,7 +1,6 @@
 import { hash } from "@ember/helper";
 
 import { arrow } from "@floating-ui/dom";
-import { element } from "ember-element-helper";
 import { modifier as eModifier } from "ember-modifier";
 import { cell } from "ember-resources";
 
@@ -75,10 +74,6 @@ export interface Signature {
   };
 }
 
-function getElementTag(tagName: undefined | string) {
-  return tagName || "div";
-}
-
 const showPopover = eModifier<{ Element: Element }>((element) => {
   const el = element as HTMLElement;
 
@@ -108,36 +103,26 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
   };
 });
 
+/**
+ * Content uses `<dialog popover="manual">` + `showPopover()` to promote
+ * the element to the browser's top layer. This escapes all ancestor
+ * overflow clipping and stacking contexts — the same guarantee that
+ * portalling provided, but using the browser's native mechanism.
+ *
+ * We use `<dialog>` rather than `<div>` so that nested popovers
+ * (which opt out of the top layer) can fall back to `<dialog open>`
+ * and remain visible without JS.
+ */
 const Content: TOC<{
-  Element: HTMLDivElement;
+  Element: HTMLDialogElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
-    /**
-     * By default the popover content is wrapped in a div.
-     * You may change this by supplying the name of an element here.
-     *
-     * For example:
-     * ```gjs
-     * <Popover as |p|>
-     *  <p.Content @as="dialog">
-     *    this is now focus trapped
-     *  </p.Content>
-     * </Popover>
-     * ```
-     */
-    as?: string;
   };
   Blocks: { default: [] };
 }> = <template>
-  {{#let (element (getElementTag @as)) as |El|}}
-    {{! @glint-ignore
-          https://github.com/tildeio/ember-element-helper/issues/91
-          https://github.com/typed-ember/glint/issues/610
-    }}
-    <El popover="manual" {{showPopover}} {{@floating}} ...attributes>
-      {{yield}}
-    </El>
-  {{/let}}
+  <dialog popover="manual" role="none" {{showPopover}} {{@floating}} ...attributes>
+    {{yield}}
+  </dialog>
 </template>;
 
 interface AttachArrowSignature {

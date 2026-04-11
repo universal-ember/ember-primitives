@@ -182,7 +182,7 @@ const settings = cell(false);
         </button>
 
         {{#if settings.current}}
-          <p.Content @as="dialog" open class="floatybit">
+          <p.Content open class="floatybit">
 
             <ul>
               <li>a</li>
@@ -194,7 +194,7 @@ const settings = cell(false);
                 <Popover @placement="left" @offsetOptions={{16}} as |pp|>
                   <button {{pp.reference}}>view profile</button>
 
-                  <pp.Content @as="dialog" class="floatybit">
+                  <pp.Content class="floatybit">
                     View or edit your profile settings
                     <div class="arrow" {{pp.arrow}}></div>
                   </pp.Content>

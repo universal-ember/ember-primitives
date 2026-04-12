@@ -1,6 +1,6 @@
 # Popover
 
-Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues — no portals needed.
+Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues, no portals needed.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
@@ -344,3 +344,43 @@ Since a `Popover` isn't an explicit design pattern provided by W3, but instead, 
 - [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
 - [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)
 - and more
+
+## Migrating from <= v0.55
+
+The `<Popover>` component now uses the browser's [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering instead of portals.
+
+### Remove `<PortalTargets />`
+
+You no longer need `<PortalTargets />` in your templates. The Popover API promotes floating content to the browser's top layer natively.
+
+```diff
+- import { PortalTargets, Popover } from 'ember-primitives';
++ import { Popover } from 'ember-primitives';
+
+  <template>
+-   <PortalTargets />
+    <Popover as |p|>
+      <button {{p.reference}}>Toggle</button>
+      <p.Content>Floating content</p.Content>
+    </Popover>
+  </template>
+```
+
+### Remove `@inline`
+
+The `@inline` argument has been removed. All popover content now renders inline in the DOM and uses the Popover API for layering. If you were using `@inline={{true}}`, simply remove it.
+
+```diff
+- <p.Content @inline={{true}}>
++ <p.Content>
+```
+
+### CSS considerations
+
+The Popover API adds some default styles to `[popover]` elements (`border`, `padding`, `overflow`). The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the default border:
+
+```css
+.my-popover-content {
+  border: none;
+}
+```

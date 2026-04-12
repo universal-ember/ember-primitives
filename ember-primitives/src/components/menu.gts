@@ -154,6 +154,7 @@ const installContent = eModifier<{
 }>((element, _: [], { isOpen, triggerElement }) => {
   // Focus first focusable element when the popover opens.
   // The toggle event fires natively after showPopover() completes.
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event
   function onToggle(e: ToggleEvent) {
     if (e.newState !== "open") return;
 

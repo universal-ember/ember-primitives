@@ -1,9 +1,6 @@
 # Popover
 
-Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. 
-
-
-The `<Popover>` component uses portals in a way that totally solves layering issues. No more worrying about tooltips on varying layers of your UI sometimes appearing behind other floaty bits. See the `<Portal>` and `<PortalTargets>` pages for more information.
+Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues, no portals needed.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
@@ -15,20 +12,19 @@ One thing to note is that the position of the popover can _escape_ the boundary 
 <div class="featured-demo">
 
 ```gjs live preview
-import { PortalTargets, Popover } from 'ember-primitives';
-import { array, hash } from '@ember/helper';
-import { loremIpsum } from 'lorem-ipsum';
+import { Popover } from "ember-primitives";
+import { array, hash } from "@ember/helper";
+import { loremIpsum } from "lorem-ipsum";
 
 <template>
-  <PortalTargets />
-
   <div class="scroll-content" tabindex="0">
     {{loremIpsum (hash count=1 units="sentence")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>
       <div class="hook" {{p.reference}}>
         the hook / anchor of the popover.
-        <br> it sticks the boundary of this element.
+        <br />
+        it sticks the boundary of this element.
       </div>
       <p.Content class="floatybit">
         The floaty bit here
@@ -49,8 +45,9 @@ import { loremIpsum } from 'lorem-ipsum';
         font-weight: bold;
         padding: 5px;
         border-radius: 4px;
+        border: none;
         font-size: 90%;
-        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
         z-index: 10;
       }
       .arrow {
@@ -79,66 +76,148 @@ import { loremIpsum } from 'lorem-ipsum';
 
 </div>
 
-## Usage within a header
+## Disabled button with tooltip
 
-It's often common to provide popover-using UIs in site headers, such as a settings menu, or navigation.
-
+A common pattern is a button that explains _why_ it's disabled. The tooltip appears on hover and focus, and is itself focusable so screen reader users can read the reason.
 
 <div class="featured-demo">
 
 ```gjs live preview
-import { PortalTargets, Popover } from 'ember-primitives';
-import { hash } from '@ember/helper';
-import { loremIpsum } from 'lorem-ipsum';
-import { cell } from 'ember-resources';
-import { on } from '@ember/modifier';
-import { focusTrap } from 'ember-focus-trap';
+import { Popover } from "ember-primitives";
+
+<template>
+  <Popover @placement="top" @offsetOptions={{6}} as |p|>
+    <button class="fancy-btn" aria-disabled="true" {{p.reference}}>
+      Submit
+    </button>
+
+    <p.Content class="tooltip">
+      You must fill out all required fields before submitting.
+      <div class="arrow" {{p.arrow}}></div>
+    </p.Content>
+  </Popover>
+
+  <style>
+    @scope {
+      :scope {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .fancy-btn {
+        padding: 0.5rem 1.5rem;
+        border-radius: 4px;
+        border: 1px solid;
+        display: inline-block;
+        color: black;
+        background: white;
+        font-weight: 600;
+        cursor: not-allowed;
+
+        &:hover + .tooltip,
+        &:focus-visible + .tooltip {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      .tooltip {
+        display: block;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.15s;
+        width: max-content;
+        max-width: 260px;
+        background: #222;
+        color: white;
+        font-weight: bold;
+        padding: 5px;
+        border-radius: 4px;
+        border: none;
+        font-size: 90%;
+        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
+        z-index: 10;
+
+        &:hover,
+        &:focus,
+        &:focus-visible {
+          opacity: 1;
+          pointer-events: all;
+        }
+      }
+      .arrow {
+        position: absolute;
+        background: #222;
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+      }
+    }
+  </style>
+</template>
+```
+
+</div>
+
+The tooltip is always in the DOM (for screen readers) but visually hidden via `opacity: 0`. On hover or focus of the button, CSS transitions it to `opacity: 1`. The tooltip itself is hoverable and focusable, so users can select and copy the text within it — unlike native `title` attributes which don't allow interaction.
+
+## Usage within a header
+
+It's often common to provide popover-using UIs in site headers, such as a settings menu, or navigation.
+
+<div class="featured-demo">
+
+```gjs live preview
+import { Popover } from "ember-primitives";
+import { hash } from "@ember/helper";
+import { loremIpsum } from "lorem-ipsum";
+import { cell } from "ember-resources";
+import { on } from "@ember/modifier";
+import { focusTrap } from "ember-focus-trap";
 
 const settings = cell(false);
 
 <template>
-    <div class="site not-prose">
-      <PortalTargets />
+  <div class="site not-prose">
 
-        <header>
-            <span style="color: black">My App: click settings -&gt;</span>
+    <header>
+      <span>My App: click settings -&gt;</span>
 
-            <Popover @offsetOptions={{8}} as |p|>
-              <button class="hook" {{p.reference}} {{on 'click' settings.toggle}}>
-                Settings
-              </button>
+      <Popover @offsetOptions={{8}} as |p|>
+        <button class="hook" {{p.reference}} {{on "click" settings.toggle}}>
+          Settings
+        </button>
 
-              {{#if settings.current}}
-                <p.Content @as="dialog" open class="floatybit">
-                  <PortalTargets />
-                  <ul>
-                    <li>a</li>
-                    <li>not so big list</li>
-                    <li>of</li>
-                    <li>
-                      things<br>
+        {{#if settings.current}}
+          <p.Content @as="dialog" class="floatybit">
 
-                      <Popover @placement="left" @offsetOptions={{16}} as |pp|>
-                        <button {{pp.reference}}>view profile</button>
+            <ul>
+              <li>a</li>
+              <li>not so big list</li>
+              <li>of</li>
+              <li>
+                things<br />
 
-                        <pp.Content class="floatybit">
-                          View or edit your profile settings
-                          <div class="arrow" {{pp.arrow}}></div>
-                        </pp.Content>
-                      </Popover>
-                    </li>
-                  </ul>
-                  <div class="arrow" {{p.arrow}}></div>
-                </p.Content>
-              {{/if}}
-            </Popover>
+                <Popover @placement="left" @offsetOptions={{16}} as |pp|>
+                  <button {{pp.reference}}>view profile</button>
 
-        </header>
+                  <pp.Content class="floatybit">
+                    View or edit your profile settings
+                    <div class="arrow" {{pp.arrow}}></div>
+                  </pp.Content>
+                </Popover>
+              </li>
+            </ul>
+            <div class="arrow" {{p.arrow}}></div>
+          </p.Content>
+        {{/if}}
+      </Popover>
 
-        <div class="main">
-          {{loremIpsum (hash count=2 units="paragraphs")}}
-        </div>
+    </header>
+
+    <div class="main">
+      {{loremIpsum (hash count=2 units="paragraphs")}}
     </div>
+  </div>
 
   <style>
     @scope {
@@ -151,20 +230,20 @@ const settings = cell(false);
         padding: 1rem;
         border-radius: 4px;
         font-size: 90%;
-        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.4));
+        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
         z-index: 10;
         border: 1px solid rgba(0, 255, 255, 0.6);
       }
       .floatybit .floatybit {
-        background: #eee;
-        color: black;
+        background: light-dark(#eee, #1e293b);
+        color: light-dark(black, #f1f5f9);
       }
       .floatybit .floatybit .arrow {
-        background: #eee;
+        background: light-dark(#eee, #1e293b);
         transform: translateY(-1rem) rotate(45deg);
 
         &::before {
-          background: #eee;
+          background: light-dark(#eee, #1e293b);
           border-top: 1px solid rgba(0, 255, 255, 0.6);
           transform: rotate(45deg) translateY(7px) translateX(-8px);
           border-left: none;
@@ -183,7 +262,7 @@ const settings = cell(false);
         border: 1px solid rgba(0, 255, 255, 0.6);
 
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           display: block;
           width: 1rem;
@@ -191,35 +270,41 @@ const settings = cell(false);
           background: #222;
           transform: rotate(45deg);
           border-left: 1px solid rgba(0, 255, 255, 0.6);
-
         }
       }
       .hook {
         padding: 0.5rem;
-        border: 1px solid;
+        border: 1px solid light-dark(#000, #e2e8f0);
         display: inline-block;
-        color: black;
+        color: light-dark(black, #f1f5f9);
+        background: light-dark(white, #0f172a);
+        border-radius: 4px;
       }
       header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: white;
+        background: light-dark(white, #0f172a);
+        color: light-dark(black, #f1f5f9);
         position: sticky;
         top: 0;
         width: 100%;
-        padding: 0.25rem;
-        filter: drop-shadow(0px 3px 6px #000000aa);
+        padding: 0.25rem 0.5rem;
+        box-shadow: 0px 3px 6px #000000aa;
       }
       .main {
         padding: 0.5rem;
+        color: light-dark(black, #94a3b8);
       }
       .site {
         max-height: 200px;
         overflow-y: auto;
-        border: 1px solid;
+        border: 1px solid light-dark(#e2e8f0, #1e293b);
+        color-scheme: light dark;
       }
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
     }
   </style>
 </template>
@@ -233,17 +318,17 @@ const settings = cell(false);
 <SetupInstructions @src="components/popover.gts" />
 ```
 
-
 ## API Reference
 
 ```gjs live no-shadow
-import { ComponentSignature } from 'kolay';
+import { ComponentSignature } from "kolay";
 
 <template>
-  <ComponentSignature 
-    @package="ember-primitives" 
-    @module="declarations/components/popover" 
-    @name="Signature" />
+  <ComponentSignature
+    @package="ember-primitives"
+    @module="declarations/components/popover"
+    @name="Signature"
+  />
 </template>
 ```
 
@@ -252,9 +337,51 @@ import { ComponentSignature } from 'kolay';
 The `Content` of a popover is focusable, so that keyboard (and screenreader) users can interact with the Popover content. Generally this is great for modals, but also extends to things like tooltips, so that folks can copy the content out.
 
 Since a `Popover` isn't an explicit design pattern provided by W3, but instead, `Popover` is a low level primitive that could be used to build the W3 examples of
+
 - [Modal Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/)
 - [Date Picker Dialog](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/)
 - [Date Picker Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-datepicker/)
 - [Select-Only Combobox](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/)
 - [Menu Button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/)
 - and more
+
+## Migrating from <= v0.55
+
+The `<Popover>` component now uses the browser's [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering instead of portals.
+
+### Remove `<PortalTargets />`
+
+You no longer need `<PortalTargets />` in your templates. The Popover API promotes floating content to the browser's top layer natively.
+
+```diff
+- import { PortalTargets } from 'ember-primitives/components/portal-targets';
+- import { Popover } from 'ember-primitives/components/popover';
++ import { Popover } from 'ember-primitives/components/popover';
+
+  <template>
+-   <PortalTargets />
+    <Popover as |p|>
+      <button {{p.reference}}>Toggle</button>
+      <p.Content>Floating content</p.Content>
+    </Popover>
+  </template>
+```
+
+### Remove `@inline`
+
+The `@inline` argument has been removed. All popover content now renders inline in the DOM and uses the Popover API for layering. If you were using `@inline={{true}}`, simply remove it.
+
+```diff
+- <p.Content @inline={{true}}>
++ <p.Content>
+```
+
+### CSS considerations
+
+The `popover` HTML attribute has a browser UA stylesheet that adds default `border`, `padding`, and `overflow` styles to elements with `[popover]`. The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the browser's default `[popover]` border:
+
+```css
+.my-popover-content {
+  border: none;
+}
+```

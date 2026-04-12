@@ -152,13 +152,21 @@ const installContent = eModifier<{
     };
   };
 }>((element, _: [], { isOpen, triggerElement }) => {
-  // focus first focusable element on the content
-  const tabster = getTabster(window);
-  const firstFocusable = tabster?.focusable.findFirst({
-    container: element,
-  });
+  // Focus first focusable element when the popover opens.
+  // The toggle event fires natively after showPopover() completes.
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event
+  function onToggle(e: ToggleEvent) {
+    if (e.newState !== "open") return;
 
-  firstFocusable?.focus();
+    const tabster = getTabster(window);
+    const firstFocusable = tabster?.focusable.findFirst({
+      container: element,
+    });
+
+    firstFocusable?.focus();
+  }
+
+  element.addEventListener("toggle", onToggle as EventListener);
 
   // listen for "outside" clicks
   function onDocumentClick(e: MouseEvent) {
@@ -183,6 +191,7 @@ const installContent = eModifier<{
   document.addEventListener("keydown", onDocumentKeydown);
 
   return () => {
+    element.removeEventListener("toggle", onToggle as EventListener);
     document.removeEventListener("click", onDocumentClick);
     document.removeEventListener("keydown", onDocumentKeydown);
   };
@@ -336,7 +345,6 @@ export class Menu extends Component<Signature> {
         @placement={{@placement}}
         @shiftOptions={{@shiftOptions}}
         @strategy={{@strategy}}
-        @inline={{@inline}}
         as |p|
       >
         {{#let

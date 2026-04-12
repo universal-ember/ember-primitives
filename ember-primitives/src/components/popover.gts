@@ -1,5 +1,4 @@
 import { hash } from "@ember/helper";
-import { schedule } from "@ember/runloop";
 
 import { arrow } from "@floating-ui/dom";
 import { element } from "ember-element-helper";
@@ -100,10 +99,10 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
     // move focus into the first focusable child after entering the
     // top layer. This is needed because the top layer doesn't
     // automatically receive focus like portaled content did.
-    // Uses afterRender so Ember's test helpers (await click, etc.)
-    // wait for this to complete.
     if (el.hasAttribute("tabindex")) {
-      schedule("afterRender", () => {
+      requestAnimationFrame(() => {
+        if (!el.isConnected) return;
+
         const firstFocusable = el.querySelector<HTMLElement>(
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
         );

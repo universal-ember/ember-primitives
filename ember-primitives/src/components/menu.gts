@@ -152,11 +152,10 @@ const installContent = eModifier<{
     };
   };
 }>((element, _: [], { isOpen, triggerElement }) => {
-  // Focus first focusable element on the content.
-  // Deferred via microtask so the popover API's showPopover()
-  // runs first, ensuring the element is in the top layer.
-  void Promise.resolve().then(() => {
-    if (!element.isConnected) return;
+  // Focus first focusable element when the popover opens.
+  // The toggle event fires natively after showPopover() completes.
+  function onToggle(e: ToggleEvent) {
+    if (e.newState !== "open") return;
 
     const tabster = getTabster(window);
     const firstFocusable = tabster?.focusable.findFirst({
@@ -164,7 +163,9 @@ const installContent = eModifier<{
     });
 
     firstFocusable?.focus();
-  });
+  }
+
+  element.addEventListener("toggle", onToggle as EventListener);
 
   // listen for "outside" clicks
   function onDocumentClick(e: MouseEvent) {
@@ -189,6 +190,7 @@ const installContent = eModifier<{
   document.addEventListener("keydown", onDocumentKeydown);
 
   return () => {
+    element.removeEventListener("toggle", onToggle as EventListener);
     document.removeEventListener("click", onDocumentClick);
     document.removeEventListener("keydown", onDocumentKeydown);
   };

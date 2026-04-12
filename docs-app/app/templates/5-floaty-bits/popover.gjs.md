@@ -188,7 +188,7 @@ const settings = cell(false);
         </button>
 
         {{#if settings.current}}
-          <p.Content open class="floatybit">
+          <p.Content @as="dialog" class="floatybit">
 
             <ul>
               <li>a</li>
@@ -354,8 +354,8 @@ The `<Popover>` component now uses the browser's [Popover API](https://developer
 You no longer need `<PortalTargets />` in your templates. The Popover API promotes floating content to the browser's top layer natively.
 
 ```diff
-- import { PortalTargets, Popover } from 'ember-primitives';
-+ import { Popover } from 'ember-primitives';
+- import { PortalTargets, Popover } from 'ember-primitives/components/popover';
++ import { Popover } from 'ember-primitives/components/popover';
 
   <template>
 -   <PortalTargets />
@@ -377,7 +377,7 @@ The `@inline` argument has been removed. All popover content now renders inline 
 
 ### CSS considerations
 
-The Popover API adds some default styles to `[popover]` elements (`border`, `padding`, `overflow`). The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the default border:
+The browser's `[popover]` UA stylesheet adds default `border`, `padding`, and `overflow` styles to popover elements. The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the browser's default border:
 
 ```css
 .my-popover-content {

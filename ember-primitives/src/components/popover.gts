@@ -86,6 +86,12 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
   // stacking issues where the parent renders on top of the child.
   if (el.parentElement?.closest("[popover]")) {
     el.removeAttribute("popover");
+
+    // <dialog> elements are hidden by default — ensure they're visible
+    // when opting out of the top layer.
+    if (el instanceof HTMLDialogElement) {
+      el.setAttribute("open", "");
+    }
   } else {
     el.showPopover();
 

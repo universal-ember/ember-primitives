@@ -48,6 +48,7 @@ jobs:
       - uses: wyvox/action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm i -f # ensure all bin symlinks are created
       - run: pnpm build
       - run: pnpm i -f # sync for some reason isn't running before lint
       - run: ls -la ember-primitives/

@@ -152,13 +152,19 @@ const installContent = eModifier<{
     };
   };
 }>((element, _: [], { isOpen, triggerElement }) => {
-  // focus first focusable element on the content
-  const tabster = getTabster(window);
-  const firstFocusable = tabster?.focusable.findFirst({
-    container: element,
-  });
+  // Focus first focusable element on the content.
+  // Deferred via microtask so the popover API's showPopover()
+  // runs first, ensuring the element is in the top layer.
+  void Promise.resolve().then(() => {
+    if (!element.isConnected) return;
 
-  firstFocusable?.focus();
+    const tabster = getTabster(window);
+    const firstFocusable = tabster?.focusable.findFirst({
+      container: element,
+    });
+
+    firstFocusable?.focus();
+  });
 
   // listen for "outside" clicks
   function onDocumentClick(e: MouseEvent) {

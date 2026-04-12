@@ -94,26 +94,6 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
     }
   } else {
     el.showPopover();
-
-    // If the element is focusable (e.g. Menu content with tabindex),
-    // move focus into the first focusable child after entering the
-    // top layer. This is needed because the top layer doesn't
-    // automatically receive focus like portaled content did.
-    if (el.hasAttribute("tabindex")) {
-      requestAnimationFrame(() => {
-        if (!el.isConnected) return;
-
-        const firstFocusable = el.querySelector<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        );
-
-        if (firstFocusable) {
-          firstFocusable.focus();
-        } else {
-          el.focus();
-        }
-      });
-    }
   }
 
   return () => {

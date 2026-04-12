@@ -88,6 +88,12 @@ const showPopover = eModifier<{ Element: Element }>((element) => {
     el.removeAttribute("popover");
   } else {
     el.showPopover();
+
+    // If the element is focusable (e.g. Menu content with tabindex),
+    // move focus into it after entering the top layer.
+    if (el.hasAttribute("tabindex")) {
+      el.focus();
+    }
   }
 
   return () => {

@@ -378,7 +378,7 @@ The `@inline` argument has been removed. All popover content now renders inline 
 
 ### CSS considerations
 
-The browser's `[popover]` UA stylesheet adds default `border`, `padding`, and `overflow` styles to popover elements. The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the browser's default border:
+The `popover` HTML attribute has a browser UA stylesheet that adds default `border`, `padding`, and `overflow` styles to elements with `[popover]`. The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the browser's default `[popover]` border:
 
 ```css
 .my-popover-content {

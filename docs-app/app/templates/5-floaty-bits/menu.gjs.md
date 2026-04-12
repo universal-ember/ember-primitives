@@ -170,4 +170,4 @@ The `@inline` argument has been removed. Menu content now renders inline in the 
 
 ### CSS considerations
 
-The browser's `[popover]` UA stylesheet adds default `border` and `overflow` styles. You may need to set `border: none` on your menu content if you don't want the browser's default border. The component resets `overflow: visible` automatically.
+The `popover` HTML attribute has a browser UA stylesheet that adds default `border` and `overflow` styles to elements with `[popover]`. You may need to set `border: none` on your menu content if you don't want the browser's default `[popover]` border. The component resets `overflow: visible` automatically.

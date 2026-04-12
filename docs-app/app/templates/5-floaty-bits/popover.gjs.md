@@ -354,7 +354,8 @@ The `<Popover>` component now uses the browser's [Popover API](https://developer
 You no longer need `<PortalTargets />` in your templates. The Popover API promotes floating content to the browser's top layer natively.
 
 ```diff
-- import { PortalTargets, Popover } from 'ember-primitives/components/popover';
+- import { PortalTargets } from 'ember-primitives/components/portal-targets';
+- import { Popover } from 'ember-primitives/components/popover';
 + import { Popover } from 'ember-primitives/components/popover';
 
   <template>

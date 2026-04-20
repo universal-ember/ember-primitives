@@ -6,8 +6,6 @@ import { modifier as eModifier } from "ember-modifier";
 import { cell } from "ember-resources";
 
 import { FloatingUI } from "../floating-ui.ts";
-import { Portal } from "./portal.gts";
-import { TARGETS } from "./portal-targets.gts";
 
 import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.ts";
 import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
@@ -63,15 +61,6 @@ export interface Signature {
      * This argument is forwarded to the `<FloatingUI>` component.
      */
     strategy?: HookSignature["Args"]["Named"]["strategy"];
-
-    /**
-     * By default, the popover is portaled.
-     * If you don't control your CSS, and the positioning of the popover content
-     * is misbehaving, you may pass "@inline={{true}}" to opt out of portalling.
-     *
-     * Inline may also be useful in nested menus, where you know exactly how the nesting occurs
-     */
-    inline?: boolean;
   };
   Blocks: {
     default: [
@@ -86,19 +75,50 @@ export interface Signature {
   };
 }
 
+const showPopover = eModifier<{ Element: Element }>((element) => {
+  const el = element as HTMLElement;
+
+  // Reset [popover] UA overflow default that clips arrows positioned outside
+  el.style.setProperty("overflow", "visible");
+
+  // Don't promote to top layer if already inside a popover — the parent
+  // popover already handles layering. Adding both to the top layer causes
+  // stacking issues where the parent renders on top of the child.
+  if (el.parentElement?.closest("[popover]")) {
+    el.removeAttribute("popover");
+
+    // <dialog> elements are hidden by default — ensure they're visible
+    // when opting out of the top layer.
+    if (el instanceof HTMLDialogElement) {
+      el.setAttribute("open", "");
+    }
+  } else {
+    el.showPopover();
+  }
+
+  return () => {
+    try {
+      el.hidePopover();
+    } catch {
+      /* already hidden */
+    }
+  };
+});
+
 function getElementTag(tagName: undefined | string) {
   return tagName || "div";
 }
 
 /**
- * Allows lazy evaluation of the portal target (do nothing until rendered)
- * This is useful because the algorithm for finding the portal target isn't cheap.
+ * Content uses `popover="manual"` + `showPopover()` to promote
+ * the element to the browser's top layer. This escapes all ancestor
+ * overflow clipping and stacking contexts — the same guarantee that
+ * portalling provided, but using the browser's native mechanism.
  */
 const Content: TOC<{
   Element: HTMLDivElement;
   Args: {
     floating: ModifierLike<{ Element: HTMLElement }>;
-    inline?: boolean;
     /**
      * By default the popover content is wrapped in a div.
      * You may change this by supplying the name of an element here.
@@ -117,25 +137,13 @@ const Content: TOC<{
   Blocks: { default: [] };
 }> = <template>
   {{#let (element (getElementTag @as)) as |El|}}
-    {{#if @inline}}
-      {{! @glint-ignore
-            https://github.com/tildeio/ember-element-helper/issues/91
-            https://github.com/typed-ember/glint/issues/610
-      }}
-      <El {{@floating}} ...attributes>
-        {{yield}}
-      </El>
-    {{else}}
-      <Portal @to={{TARGETS.popover}}>
-        {{! @glint-ignore
-              https://github.com/tildeio/ember-element-helper/issues/91
-              https://github.com/typed-ember/glint/issues/610
-        }}
-        <El {{@floating}} ...attributes>
-          {{yield}}
-        </El>
-      </Portal>
-    {{/if}}
+    {{! @glint-ignore
+          https://github.com/tildeio/ember-element-helper/issues/91
+          https://github.com/typed-ember/glint/issues/610
+    }}
+    <El popover="manual" {{showPopover}} {{@floating}} ...attributes>
+      {{yield}}
+    </El>
   {{/let}}
 </template>;
 
@@ -235,7 +243,7 @@ export const Popover: TOC<Signature> = <template>
           (hash
             reference=reference
             setReference=extra.setReference
-            Content=(component Content floating=floating inline=@inline)
+            Content=(component Content floating=floating)
             data=extra.data
             arrow=arrow
           )

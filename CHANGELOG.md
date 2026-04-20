@@ -1,5 +1,17 @@
 # Changelog 
 
+## Release (2026-04-20)
+
+* ember-primitives 0.56.0 (minor)
+* @universal-ember/docs-support 0.9.7 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#722](https://github.com/universal-ember/ember-primitives/pull/722) Replace portals with Popover API for layering ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 1
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
 ## Release (2026-04-10)
 
 * ember-primitives 0.55.2 (patch)

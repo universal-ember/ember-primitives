@@ -387,7 +387,7 @@ module('Rendering | menu', function (hooks) {
     assert.dom(items[0]).isFocused();
 
     await triggerEvent(items[2] as HTMLElement, 'pointermove');
-    assert.dom(items[2] as HTMLElement).isFocused();
+    assert.dom(items[2]).isFocused();
   });
 
   test('yielded isOpen has correct value', async function (assert) {

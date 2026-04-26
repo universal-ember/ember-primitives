@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.55.2",
-      "newVersion": "0.56.0",
+      "oldVersion": "0.56.0",
+      "newVersion": "0.57.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -15,8 +15,8 @@
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.6",
-      "newVersion": "0.9.7",
+      "oldVersion": "0.9.7",
+      "newVersion": "0.9.8",
       "tagName": "latest",
       "constraints": [
         {
@@ -30,5 +30,5 @@
       "oldVersion": "0.2.7"
     }
   },
-  "description": "## Release (2026-04-20)\n\n* ember-primitives 0.56.0 (minor)\n* @universal-ember/docs-support 0.9.7 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#722](https://github.com/universal-ember/ember-primitives/pull/722) Replace portals with Popover API for layering ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 1\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n"
+  "description": "## Release (2026-04-26)\n\n* ember-primitives 0.57.0 (minor)\n* @universal-ember/docs-support 0.9.8 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#727](https://github.com/universal-ember/ember-primitives/pull/727) Update tracked-toolbox to v3 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 1\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n"
 }

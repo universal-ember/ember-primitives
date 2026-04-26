@@ -59,7 +59,7 @@
       "ember-repl": "^8.0.0",
       "ember-source": "^6.10.1",
       "reactiveweb": "^1.9.1",
-      "tracked-toolbox": "^2.2.0"
+      "tracked-toolbox": "^3.0.0"
     },
     "patchedDependencies": {},
     "packageExtensions": {

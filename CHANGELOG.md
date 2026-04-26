@@ -1,5 +1,17 @@
 # Changelog 
 
+## Release (2026-04-26)
+
+* ember-primitives 0.57.0 (minor)
+* @universal-ember/docs-support 0.9.8 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#727](https://github.com/universal-ember/ember-primitives/pull/727) Update tracked-toolbox to v3 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 1
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
 ## Release (2026-04-20)
 
 * ember-primitives 0.56.0 (minor)

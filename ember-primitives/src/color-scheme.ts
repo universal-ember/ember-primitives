@@ -141,6 +141,19 @@ export const localPreference = {
 };
 
 /**
+ * The attribute name mirrored alongside the inline `color-scheme`
+ * style. Inline-style declarations aren't selectable from CSS, so we
+ * also write the value to a plain HTML attribute that authors can
+ * target with selectors like `:root[data-color-scheme='dark']`.
+ *
+ * Some CSS pipelines (notably lightning-css, which Vite uses by
+ * default) don't reliably resolve the `light-dark()` function — any
+ * variables defined with it can come through computed-empty. Selecting
+ * on this attribute side-steps that whole class of issue.
+ */
+export const COLOR_SCHEME_ATTRIBUTE = 'data-color-scheme';
+
+/**
  * For the given element, returns the `color-scheme` of that element.
  */
 export function getColorScheme(element?: HTMLElement) {
@@ -154,13 +167,13 @@ export function setColorScheme(value: string): void;
 
 export function setColorScheme(...args: [string] | [HTMLElement, string]): void {
   if (typeof args[0] === 'string') {
-    styleOf().setProperty('color-scheme', args[0]);
+    apply(elementOf(), args[0]);
 
     return;
   }
 
   if (typeof args[1] === 'string') {
-    styleOf(args[0]).setProperty('color-scheme', args[1]);
+    apply(args[0], args[1]);
 
     return;
   }
@@ -172,17 +185,23 @@ export function setColorScheme(...args: [string] | [HTMLElement, string]): void 
  * Removes the `color-scheme` from the given element
  */
 export function removeColorScheme(element?: HTMLElement) {
-  const style = styleOf(element);
+  const el = elementOf(element);
 
-  style.removeProperty('color-scheme');
+  el.style.removeProperty('color-scheme');
+  el.removeAttribute(COLOR_SCHEME_ATTRIBUTE);
+}
+
+function apply(element: HTMLElement, value: string) {
+  element.style.setProperty('color-scheme', value);
+  element.setAttribute(COLOR_SCHEME_ATTRIBUTE, value);
 }
 
 function styleOf(element?: HTMLElement) {
-  if (element) {
-    return element.style;
-  }
+  return elementOf(element).style;
+}
 
-  return document.documentElement.style;
+function elementOf(element?: HTMLElement): HTMLElement {
+  return element ?? document.documentElement;
 }
 
 sync();

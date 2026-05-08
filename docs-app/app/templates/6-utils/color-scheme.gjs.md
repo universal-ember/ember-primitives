@@ -11,6 +11,16 @@ However, when using prefers-color-scheme, there are some rough edges around the 
 
 So, we need to run some JavaScript to synchronize all this.
 
+`setColorScheme` (and the `colorScheme.update` setter that calls it) writes the value as both an inline `style="color-scheme: …"` declaration _and_ a `data-color-scheme="…"` attribute on the same element, so authors can target it directly from CSS:
+
+```css
+:root[data-color-scheme='dark'] {
+  --bg: #151515;
+}
+```
+
+The attribute-based selector is also the recommended pattern when your CSS pipeline is lightning-css (Vite's default since v5). lightning-css doesn't reliably resolve the `light-dark()` CSS function, so variables defined as `--bg: light-dark(#fff, #151515)` can come through computed-empty; selecting on `:root[data-color-scheme='dark']` and assigning literal values side-steps the issue.
+
 [mdn-prefers-color-scheme]: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
 [mdn-color-scheme]: https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme 
 

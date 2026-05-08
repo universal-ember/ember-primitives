@@ -3,6 +3,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import {
+  COLOR_SCHEME_ATTRIBUTE,
   colorScheme,
   getColorScheme,
   localPreference,
@@ -55,29 +56,54 @@ module('color-scheme', function (hooks) {
   });
 
   test('get/set/remove ColorScheme', function (assert) {
+    const root = document.documentElement;
+
     setColorScheme('synthwave');
     assert.strictEqual(getColorScheme(), 'synthwave');
+    assert.strictEqual(
+      root.getAttribute(COLOR_SCHEME_ATTRIBUTE),
+      'synthwave',
+      'mirrors onto data attribute'
+    );
 
     setColorScheme('dark');
     assert.strictEqual(getColorScheme(), 'dark');
+    assert.strictEqual(root.getAttribute(COLOR_SCHEME_ATTRIBUTE), 'dark');
 
     removeColorScheme();
     assert.strictEqual(getColorScheme(), '');
+    assert.strictEqual(
+      root.getAttribute(COLOR_SCHEME_ATTRIBUTE),
+      null,
+      'attribute is cleared on remove'
+    );
   });
 
   test('get/set/remove ColorScheme on an element', function (assert) {
     const el = document.createElement('div');
 
     assert.strictEqual(getColorScheme(el), '');
+    assert.strictEqual(el.getAttribute(COLOR_SCHEME_ATTRIBUTE), null);
 
     setColorScheme(el, 'synthwave');
     assert.strictEqual(getColorScheme(el), 'synthwave');
+    assert.strictEqual(
+      el.getAttribute(COLOR_SCHEME_ATTRIBUTE),
+      'synthwave',
+      'mirrors onto element data attribute'
+    );
 
     setColorScheme(el, 'dark');
     assert.strictEqual(getColorScheme(el), 'dark');
+    assert.strictEqual(el.getAttribute(COLOR_SCHEME_ATTRIBUTE), 'dark');
 
     removeColorScheme(el);
     assert.strictEqual(getColorScheme(el), '');
+    assert.strictEqual(
+      el.getAttribute(COLOR_SCHEME_ATTRIBUTE),
+      null,
+      'attribute is cleared on remove'
+    );
   });
 
   test('localPreference', function (assert) {

@@ -43,7 +43,7 @@ function queueUpdate() {
  *
  * Folks can set classes in their html and we don't want to mess with those
  */
-function updateBodyClass() {
+function updateBodyClass(): void {
   const toAdd = classNames();
 
   for (const name of previousRegistrations) {

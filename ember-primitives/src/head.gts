@@ -9,7 +9,7 @@ export interface Signature {
   };
 }
 
-function getHead() {
+function getHead(): HTMLHeadElement {
   return document.head;
 }
 

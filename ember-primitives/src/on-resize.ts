@@ -32,7 +32,7 @@ class OnResize extends Modifier<Signature> {
   #callback: ((entry: ResizeObserverEntry) => void) | null = null;
   #element: Element | null = null;
 
-  #resizeObserver = resizeObserver(this);
+  #resizeObserver: ReturnType<typeof resizeObserver> = resizeObserver(this);
 
   constructor(owner: Owner, args: ArgsFor<Signature>) {
     super(owner, args);
@@ -44,7 +44,7 @@ class OnResize extends Modifier<Signature> {
     });
   }
 
-  modify(element: Element, [callback]: [callback: (entry: ResizeObserverEntry) => void]) {
+  modify(element: Element, [callback]: [callback: (entry: ResizeObserverEntry) => void]): void {
     assert(
       `{{onResize}}: callback must be a function, but was ${callback as unknown as string}`,
       typeof callback === 'function'

@@ -1,5 +1,6 @@
 import { Addon } from "@embroider/addon-dev/rollup";
 
+import UnpluginIsolatedDecl from "unplugin-isolated-decl/rollup";
 import { babel } from "@rollup/plugin-babel";
 import copy from "rollup-plugin-copy";
 
@@ -35,10 +36,19 @@ export default {
     babel({ extensions, babelHelpers: "inline" }),
     addon.gjs(),
     addon.keepAssets(["**/*.css"]),
-    addon.declarations(
-      "declarations",
-      "pnpm ember-tsc --declaration --declarationDir declarations",
-    ),
+    UnpluginIsolatedDecl({
+      include: ["**/*.{ts,gts}"],
+      transformer: "oxc",
+      extraOutDir: "declarations",
+      transformOptions: {
+        stripInternal: true,
+        sourcemap: true,
+      },
+    }),
+    // addon.declarations(
+    //   "declarations",
+    //   "pnpm ember-tsc --declaration --declarationDir declarations",
+    // ),
     addon.clean(),
     copy({
       targets: [

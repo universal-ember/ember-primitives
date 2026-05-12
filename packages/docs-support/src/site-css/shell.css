@@ -10,6 +10,17 @@
     background: transparent;
   }
 
+  /**
+   * ember-mobile-menu sets will-change: transform on the content wrapper,
+   * which changes the containing block for position: fixed descendants.
+   * This breaks CSS Anchor Positioning's position-try-fallbacks (flip)
+   * and position-visibility (hide on scroll), which need the viewport
+   * as the containing block. Override it here.
+   */
+  .mobile-menu-wrapper__content {
+    will-change: auto;
+  }
+
   aside,
   aside nav {
     background: white;

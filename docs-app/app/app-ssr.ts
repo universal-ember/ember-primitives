@@ -1,5 +1,3 @@
-import { settled } from '@ember/test-helpers';
-
 import PageTitleService from 'ember-page-title/services/page-title';
 import Application from 'ember-strict-application-resolver';
 
@@ -15,20 +13,15 @@ export default class SsrApp extends Application {
   };
 }
 
+/**
+ * Exported so vite-ember-ssr's worker can await it with a timeout per
+ * render (`settledTimeout`, default 10s). Demos with `ReactiveImage`
+ * register `waitForPromise` waiters that never resolve under Node
+ * (happy-dom doesn't fire `<img>` onload), so an unbounded `settled()`
+ * inside `app.visit` would hang the whole render forever.
+ */
+export { settled } from '@ember/test-helpers';
+
 export function createSsrApp() {
-  const app = SsrApp.create({ autoboot: false });
-
-  const originalVisit = app.visit.bind(app);
-
-  Object.assign(app, {
-    visit: async (...args: Parameters<typeof originalVisit>) => {
-      const instance = await originalVisit(...args);
-
-      await settled();
-
-      return instance;
-    },
-  });
-
-  return app;
+  return SsrApp.create({ autoboot: false });
 }

@@ -99,6 +99,25 @@ export default defineConfig(async ({ isSsrBuild } = {}) => {
                 "    globalThis.window.HTMLElement.prototype.hidePopover ??= function() {};",
                 "    globalThis.window.HTMLElement.prototype.togglePopover ??= function() {};",
                 "  }",
+                /**
+                 * happy-dom never fires onload/onerror on `<img>`
+                 * elements (no resource fetching). Make src setter
+                 * synthesise an onload microtask so `ReactiveImage`'s
+                 * waitForPromise waiter resolves and settled() can
+                 * complete without hitting the per-route timeout.
+                 */
+                "  const HTMLImageElement = globalThis.window.HTMLImageElement;",
+                "  if (HTMLImageElement) {",
+                "    const desc = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src');",
+                "    Object.defineProperty(HTMLImageElement.prototype, 'src', {",
+                "      configurable: true,",
+                "      get() { return desc?.get ? desc.get.call(this) : this.getAttribute('src'); },",
+                "      set(v) {",
+                "        if (desc?.set) desc.set.call(this, v); else this.setAttribute('src', v);",
+                "        queueMicrotask(() => { try { this.onload?.(new Event('load')); } catch {} });",
+                "      },",
+                "    });",
+                "  }",
                 "}",
               ].join("\n"),
             },

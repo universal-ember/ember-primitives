@@ -68,7 +68,7 @@ export default defineConfig(async ({ isSsrBuild } = {}) => {
       ? {
           rollupOptions: {
             output: {
-              inlineDynamicImports: true,
+              codeSplitting: false,
               banner: [
                 "globalThis.process ??= { env: {} };",
                 "globalThis.Buffer ??= {};",

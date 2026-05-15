@@ -7,7 +7,7 @@ import { cell } from "ember-resources";
 
 import { FloatingUI } from "../floating-ui.ts";
 
-import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.ts";
+import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.gts";
 import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
 import type { TOC } from "@ember/component/template-only";
 import type { ElementContext, Middleware } from "@floating-ui/dom";

@@ -11,7 +11,7 @@
  * </template>
  * ```
  */
-export const inIframe = () => window.self !== window.top;
+export const inIframe: () => boolean = () => window.self !== window.top;
 
 /**
  * Returns true if the current frame is not within an iframe.
@@ -28,4 +28,4 @@ export const inIframe = () => window.self !== window.top;
  * </template>
  * ```
  */
-export const notInIframe = () => !inIframe();
+export const notInIframe: () => boolean = () => !inIframe();

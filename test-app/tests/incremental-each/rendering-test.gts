@@ -1,4 +1,5 @@
 import { tracked } from '@glimmer/tracking';
+import { renderSettled } from '@ember/renderer';
 import { findAll, render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -94,5 +95,69 @@ module('Rendering | IncrementalEach', function (hooks) {
 
     assert.strictEqual(findAll('.row').length, 7, 'new collection rendered');
     assert.dom('.row').hasText('b-0', 'first row belongs to the new collection');
+  });
+
+  test('changing tracked state on one item only re-renders that item', async function (assert) {
+    class Row {
+      @tracked label: string;
+      constructor(label: string) {
+        this.label = label;
+      }
+    }
+
+    const a = new Row('A');
+    const b = new Row('B');
+    const c = new Row('C');
+    const items = [a, b, c];
+    const trace = (label: string) => assert.step(`render:${label}`);
+
+    await render(
+      <template>
+        <IncrementalEach @items={{items}} @batchSize={{10}} as |row|>
+          {{trace row.label}}
+          <span class="row">{{row.label}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    assert.verifySteps(
+      ['render:A', 'render:B', 'render:C'],
+      'each yield runs once on initial render'
+    );
+
+    b.label = 'B-mutated';
+    await settled();
+
+    assert.verifySteps(['render:B-mutated'], 'only the mutated yield re-runs');
+    assert.dom('.row:nth-of-type(2)').hasText('B-mutated');
+  });
+
+  test('quickly replacing @items between renders ends up on the final collection', async function (assert) {
+    class State {
+      @tracked items: string[] = ['a-0', 'a-1', 'a-2', 'a-3', 'a-4'];
+    }
+
+    const state = new State();
+
+    await render(
+      <template>
+        <IncrementalEach @items={{state.items}} @batchSize={{2}} as |item|>
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    // Swap to a second collection, let exactly one render flush, then
+    // swap again without giving the idle queue a chance to drain. Any
+    // stale idle callback from `a-*` or `b-*` that survives the swap
+    // would push wrong items into `c-*` once settled.
+    state.items = ['b-0', 'b-1', 'b-2'];
+    await renderSettled();
+    state.items = ['c-0', 'c-1', 'c-2', 'c-3'];
+    await settled();
+
+    const labels = findAll('.row').map((el) => el.textContent);
+
+    assert.deepEqual(labels, ['c-0', 'c-1', 'c-2', 'c-3'], 'only the final collection renders');
   });
 });

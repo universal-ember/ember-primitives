@@ -155,6 +155,11 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   /* eslint-enable ember/no-side-effects */
 
   #scheduleNextBatch() {
+    // Defensive: if a batch is already pending, drop it before
+    // queueing a new one. The `visible` getter already guards on
+    // `#idleHandle === null`, but a future caller might not.
+    this.#cancel();
+
     this.#waiterToken = waiter.beginAsync();
 
     // The `timeout` cap ensures forward progress even when the host

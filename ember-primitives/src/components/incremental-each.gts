@@ -1,11 +1,12 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
+import { assert } from "@ember/debug";
 import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
 import { buildWaiter } from "@ember/test-waiters";
 
 import type Owner from "@ember/owner";
 
-const DEFAULT_BATCH_SIZE = 10;
+const DEFAULT_BATCH_SIZE = 50;
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
@@ -28,7 +29,8 @@ export interface Signature<T = unknown> {
      * The very first batch is also scheduled via an animation frame, so the
      * initial paint isn't delayed by item rendering.
      *
-     * Defaults to `10`. Values `<= 0` are coerced to the default.
+     * Defaults to `50`. Must be a positive integer — a value of `0` or less
+     * would never finish rendering and is asserted against in development.
      */
     batchSize?: number;
 
@@ -117,13 +119,18 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   }
 
   /**
-   * Effective batch size, clamped to at least 1. A non-positive batch size
-   * would never finish rendering, so anything `<= 0` is treated as the default.
+   * Effective batch size. A non-positive value would never finish rendering,
+   * so anything `<= 0` is asserted against in development.
    */
   get batchSize(): number {
     const requested = this.args.batchSize ?? DEFAULT_BATCH_SIZE;
 
-    return requested > 0 ? requested : DEFAULT_BATCH_SIZE;
+    assert(
+      `<IncrementalEach> @batchSize must be a positive number, got ${requested}`,
+      requested > 0,
+    );
+
+    return requested;
   }
 
   /**
@@ -166,7 +173,8 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
    *
    * A test waiter is opened so `await settled()` in tests waits for the
    * full list to render. The frame is a no-op if the component (or its
-   * owner) was torn down before the frame fired.
+   * owner) was torn down before the frame fired — the registered
+   * destructor takes care of closing the waiter in that case.
    */
   private scheduleNextBatch() {
     this.waiterToken = waiter.beginAsync();
@@ -174,11 +182,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     this.frame = requestAnimationFrame(() => {
       this.frame = null;
 
-      if (isDestroyed(this) || isDestroying(this)) {
-        this.endWaiter();
-
-        return;
-      }
+      if (isDestroyed(this) || isDestroying(this)) return;
 
       const items = this.args.items ?? [];
       const next = Math.min(this.renderedCount + this.batchSize, items.length);

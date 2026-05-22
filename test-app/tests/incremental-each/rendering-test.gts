@@ -25,8 +25,8 @@ module('Rendering | IncrementalEach', function (hooks) {
     assert.strictEqual(findAll('.row').length, 25, 'all items rendered after settle');
   });
 
-  test('default batch size is 10', async function (assert) {
-    const items = Array.from({ length: 12 }, (_, i) => i);
+  test('default batch size is 50', async function (assert) {
+    const items = Array.from({ length: 60 }, (_, i) => i);
 
     await render(
       <template>
@@ -36,7 +36,7 @@ module('Rendering | IncrementalEach', function (hooks) {
       </template>
     );
 
-    assert.strictEqual(findAll('.row').length, 12, 'renders all items by the time we settle');
+    assert.strictEqual(findAll('.row').length, 60, 'renders all items by the time we settle');
   });
 
   test('yields item and index', async function (assert) {
@@ -71,21 +71,6 @@ module('Rendering | IncrementalEach', function (hooks) {
     );
 
     assert.strictEqual(findAll('.row').length, 0);
-  });
-
-  test('a non-positive batch size is treated as the default', async function (assert) {
-    const items = Array.from({ length: 5 }, (_, i) => i);
-
-    await render(
-      <template>
-        <IncrementalEach @items={{items}} @batchSize={{0}} as |item|>
-          <span class="row">{{item}}</span>
-        </IncrementalEach>
-      </template>
-    );
-
-    // 0 would render forever — should fall back to default and complete
-    assert.strictEqual(findAll('.row').length, 5);
   });
 
   test('replacing @items restarts rendering and onDone fires for the new collection', async function (assert) {

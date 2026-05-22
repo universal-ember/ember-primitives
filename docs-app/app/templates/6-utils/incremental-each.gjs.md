@@ -38,11 +38,11 @@ windowed/virtual list will use less memory and produce less DOM —
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
 
-const rows = Array.from({ length: 200 }, (_, i) => `Row ${i + 1}`);
+const rows = Array.from({ length: 10_000 }, (_, i) => `Row ${i + 1}`);
 
 <template>
   <ul class="incremental-demo">
-    <IncrementalEach @items={{rows}} @batchSize={{20}} as |row index|>
+    <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
       <li>{{index}}: {{row}}</li>
     </IncrementalEach>
   </ul>
@@ -64,8 +64,9 @@ const rows = Array.from({ length: 200 }, (_, i) => `Row ${i + 1}`);
 ## Batch size
 
 Pass `@batchSize` to control how many items are added to the DOM per
-animation frame. Defaults to `10`. Values `<= 0` are treated as the
-default (a non-positive batch size would never finish).
+animation frame. Defaults to `50`. Must be a positive number — a value
+of `0` or less would never finish rendering and is asserted against in
+development.
 
 ```gjs
 import { IncrementalEach } from 'ember-primitives';

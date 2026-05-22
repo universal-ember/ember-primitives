@@ -1,5 +1,4 @@
 import Component from "@glimmer/component";
-import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
 import { buildWaiter } from "@ember/test-waiters";
@@ -138,7 +137,6 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   // callback. Autotrack stays consistent because the only synchronous
   // write here (`#count = 0`) happens before `#count` is read.
   /* eslint-disable ember/no-side-effects */
-  @cached
   get visible(): readonly T[] {
     const items = this.args.items ?? [];
 
@@ -159,16 +157,23 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   #scheduleNextBatch() {
     this.#waiterToken = waiter.beginAsync();
 
-    this.#idleHandle = requestIdleCallback(() => {
-      this.#idleHandle = null;
+    // The `timeout` cap ensures forward progress even when the host
+    // is CPU-bound and the browser never reports a free idle slot.
+    // In normal use this is a no-op because real idle time arrives
+    // far sooner.
+    this.#idleHandle = requestIdleCallback(
+      () => {
+        this.#idleHandle = null;
 
-      if (isDestroyed(this) || isDestroying(this)) return;
+        if (isDestroyed(this) || isDestroying(this)) return;
 
-      const items = this.args.items ?? [];
+        const items = this.args.items ?? [];
 
-      this.#count.current = Math.min(this.#count.current + this.#batchSize, items.length);
-      this.#endWaiter();
-    });
+        this.#count.current = Math.min(this.#count.current + this.#batchSize, items.length);
+        this.#endWaiter();
+      },
+      { timeout: 100 },
+    );
   }
 
   #cancel() {

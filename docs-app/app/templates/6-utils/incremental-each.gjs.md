@@ -1,9 +1,12 @@
 # IncrementalEach
 
 A component that renders a collection a batch at a time, on consecutive
-animation frames, instead of all at once. Useful when you want every item
-in the DOM eventually, but can't afford to render the whole list in a
-single frame.
+animation frames, instead of all at once. It lets you put **every item
+in the DOM eventually** — so the browser's built-in <kbd>Ctrl</kbd>+<kbd>F</kbd>
+/ <kbd>Cmd</kbd>+<kbd>F</kbd> find, in-page anchor links, print, and SEO
+all work over the full list — **while keeping the page responsive**
+during the initial render by yielding back to the browser between
+batches.
 
 ## When to reach for this
 
@@ -17,13 +20,19 @@ cases:
   what to render.
 - Items have variable, content-driven heights you don't want to measure
   up front.
-- You want the entire list eventually in the DOM (for in-page search,
-  anchor links, browser-find, accessibility) but want to break the
-  rendering work across several frames so the page paints quickly.
+- You want the entire list eventually in the DOM — so browser
+  <kbd>Ctrl</kbd>+<kbd>F</kbd> / <kbd>Cmd</kbd>+<kbd>F</kbd> hits every
+  row, anchor links resolve, screen readers can walk the whole list, and
+  the page is crawlable — but you want to break the rendering work
+  across several frames so the page stays responsive (clicks, scrolling,
+  hover effects keep working) instead of stalling on a single long task.
 
 If your items render inside a scrollable viewport of known size, a
 windowed/virtual list will use less memory and produce less DOM —
-`IncrementalEach` is **not** a replacement for that.
+`IncrementalEach` is **not** a replacement for that. The trade-off:
+virtual lists keep the DOM small but break browser find, anchor links,
+and search-engine indexing for off-screen rows. `IncrementalEach` keeps
+those working at the cost of a larger DOM.
 
 ## Install
 
@@ -33,12 +42,18 @@ windowed/virtual list will use less memory and produce less DOM —
 
 ## Usage
 
+The demo below renders 1,000 rows in batches of 100. Open
+<kbd>Ctrl</kbd>+<kbd>F</kbd> / <kbd>Cmd</kbd>+<kbd>F</kbd> after it
+finishes and search for any row number — every row is real DOM and is
+findable. The same approach scales to 10,000+ rows; the demo stays
+modest here only to keep the docs page snappy.
+
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
 
-const rows = Array.from({ length: 10_000 }, (_, i) => `Row ${i + 1}`);
+const rows = Array.from({ length: 1_000 }, (_, i) => `Row ${i + 1}`);
 
 <template>
   <ul class="incremental-demo">

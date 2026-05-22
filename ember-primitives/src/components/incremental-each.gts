@@ -1,8 +1,10 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
+import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
 import { buildWaiter } from "@ember/test-waiters";
+
+import { cell } from "ember-resources";
 
 import type Owner from "@ember/owner";
 
@@ -96,23 +98,27 @@ export interface Signature<T = unknown> {
  * ```
  */
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
-  @tracked private renderedCount = 0;
+  // How many items have been committed to the DOM so far. Bumped one
+  // batch at a time by the idle callback. Wrapped in a `cell` because
+  // `@tracked` doesn't compose with `#`-private fields under this
+  // codebase's decorator transform.
+  #count = cell(0);
 
-  // Plain field (not tracked) so identity checks don't add a render-time
-  // dependency on top of `args.items`.
-  private itemsRef: readonly T[] | null = null;
+  // Plain field so identity checks don't add a render-time dependency
+  // on top of `args.items`.
+  #itemsRef: readonly T[] | null = null;
 
-  private idleHandle: number | null = null;
+  #idleHandle: number | null = null;
 
-  private waiterToken: unknown = null;
+  #waiterToken: unknown = null;
 
   constructor(owner: Owner, args: Signature<T>["Args"]) {
     super(owner, args);
 
-    registerDestructor(this, () => this.cancel());
+    registerDestructor(this, () => this.#cancel());
   }
 
-  get batchSize(): number {
+  get #batchSize(): number {
     const requested = this.args.batchSize ?? DEFAULT_BATCH_SIZE;
 
     assert(
@@ -123,64 +129,67 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
+  // The items that should currently be rendered. `@cached` keeps the
+  // returned slice stable across renders that don't change `#count` or
+  // `args.items`, so Glimmer's `{{#each}}` doesn't see a fresh array on
+  // every render and we only slice once per batch landing. This is
+  // also where scheduling is driven from: `@items` identity changes
+  // reset `#count` to zero, and missing items queue the next idle
+  // callback. Autotrack stays consistent because the only synchronous
+  // write here (`#count = 0`) happens before `#count` is read.
+  /* eslint-disable ember/no-side-effects */
+  @cached
   get visible(): readonly T[] {
-    return (this.args.items ?? []).slice(0, this.renderedCount);
-  }
-
-  // Called from the template before `{{#each}}` reads `visible`. The
-  // write-before-read order keeps autotrack happy on the same render pass.
-  tick = () => {
     const items = this.args.items ?? [];
 
-    if (items !== this.itemsRef) {
-      this.itemsRef = items;
-      this.cancel();
-      this.renderedCount = 0;
+    if (items !== this.#itemsRef) {
+      this.#itemsRef = items;
+      this.#cancel();
+      this.#count.current = 0;
     }
 
-    if (this.renderedCount < items.length && this.idleHandle === null) {
-      this.scheduleNextBatch();
+    if (this.#count.current < items.length && this.#idleHandle === null) {
+      this.#scheduleNextBatch();
     }
-  };
 
-  private scheduleNextBatch() {
-    this.waiterToken = waiter.beginAsync();
+    return items.slice(0, this.#count.current);
+  }
+  /* eslint-enable ember/no-side-effects */
 
-    this.idleHandle = requestIdleCallback(() => {
-      this.idleHandle = null;
+  #scheduleNextBatch() {
+    this.#waiterToken = waiter.beginAsync();
+
+    this.#idleHandle = requestIdleCallback(() => {
+      this.#idleHandle = null;
 
       if (isDestroyed(this) || isDestroying(this)) return;
 
       const items = this.args.items ?? [];
-      const next = Math.min(this.renderedCount + this.batchSize, items.length);
 
-      this.renderedCount = next;
-      this.endWaiter();
+      this.#count.current = Math.min(this.#count.current + this.#batchSize, items.length);
+      this.#endWaiter();
     });
   }
 
-  private cancel() {
-    if (this.idleHandle !== null) {
-      cancelIdleCallback(this.idleHandle);
-      this.idleHandle = null;
+  #cancel() {
+    if (this.#idleHandle !== null) {
+      cancelIdleCallback(this.#idleHandle);
+      this.#idleHandle = null;
     }
 
-    this.endWaiter();
+    this.#endWaiter();
   }
 
-  private endWaiter() {
-    if (this.waiterToken !== null) {
-      waiter.endAsync(this.waiterToken);
-      this.waiterToken = null;
+  #endWaiter() {
+    if (this.#waiterToken !== null) {
+      waiter.endAsync(this.#waiterToken);
+      this.#waiterToken = null;
     }
   }
 
   <template>
-    {{(this.tick)}}
     {{#each this.visible as |item index|}}
       {{yield item index}}
     {{/each}}
   </template>
 }
-
-export default IncrementalEach;

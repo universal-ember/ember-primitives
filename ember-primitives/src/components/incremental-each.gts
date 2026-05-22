@@ -10,32 +10,53 @@ const DEFAULT_BATCH_SIZE = 50;
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
+/**
+ * `requestIdleCallback` isn't available in every host (older Safari, some
+ * SSR environments). Fall back to `setTimeout` so the component still
+ * renders, even though we lose the "only run when idle" pacing.
+ */
+function scheduleIdle(cb: () => void): number {
+  if (typeof requestIdleCallback === "function") {
+    return requestIdleCallback(cb);
+  }
+
+  return setTimeout(cb, 1);
+}
+
+function cancelIdle(id: number): void {
+  if (typeof cancelIdleCallback === "function") {
+    cancelIdleCallback(id);
+
+    return;
+  }
+
+  clearTimeout(id);
+}
+
 export interface Signature<T = unknown> {
   Args: {
     /**
      * The collection of items to render.
      *
-     * Replacing the array (new identity) restarts rendering from the first batch.
+     * Replacing the array (new identity) restarts rendering from the
+     * first batch.
      */
     items: readonly T[];
 
     /**
-     * How many items to render per animation frame.
+     * How many items to add per idle callback.
+     *
+     * Larger batches add more items per chunk; smaller batches yield to
+     * the browser more often.
      *
      * Default: 50. Must be positive; `0` or less asserts in development.
      */
     batchSize?: number;
-
-    /**
-     * Called once after the last batch has been committed to the DOM.
-     *
-     * Re-fires if `@items` is replaced and the new collection finishes rendering.
-     */
-    onDone?: () => void;
   };
   Blocks: {
     /**
-     * Yielded for each rendered item, with the index in the original `@items` array.
+     * Yielded for each rendered item, with the index in the original
+     * `@items` array.
      */
     default: [item: T, index: number];
   };
@@ -43,12 +64,12 @@ export interface Signature<T = unknown> {
 
 /**
  * A drop-in replacement for `{{#each}}` that renders a large collection a
- * batch at a time, on consecutive animation frames, instead of all at once.
+ * batch at a time during the browser's idle periods, instead of all at once.
  *
  * Every item ends up in the DOM, so browser find (Ctrl+F / Cmd+F), anchor
  * links, screen readers, print, and SEO all work against the full list.
- * Spreading the work across frames keeps the page responsive during the
- * initial render.
+ * Yielding the main thread between batches keeps the page responsive while
+ * the rest of the list is filling in.
  *
  * Intended for non-scrollable containers, or anywhere a virtual/windowed
  * list does not apply (variable item heights, lists that grow the page,
@@ -74,7 +95,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   // dependency on top of `args.items`.
   private itemsRef: readonly T[] | null = null;
 
-  private frame: number | null = null;
+  private idleHandle: number | null = null;
 
   private waiterToken: unknown = null;
 
@@ -110,7 +131,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
       this.renderedCount = 0;
     }
 
-    if (this.renderedCount < items.length && this.frame === null) {
+    if (this.renderedCount < items.length && this.idleHandle === null) {
       this.scheduleNextBatch();
     }
   };
@@ -118,8 +139,8 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   private scheduleNextBatch() {
     this.waiterToken = waiter.beginAsync();
 
-    this.frame = requestAnimationFrame(() => {
-      this.frame = null;
+    this.idleHandle = scheduleIdle(() => {
+      this.idleHandle = null;
 
       if (isDestroyed(this) || isDestroying(this)) return;
 
@@ -128,17 +149,13 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
       this.renderedCount = next;
       this.endWaiter();
-
-      if (next >= items.length) {
-        this.args.onDone?.();
-      }
     });
   }
 
   private cancel() {
-    if (this.frame !== null) {
-      cancelAnimationFrame(this.frame);
-      this.frame = null;
+    if (this.idleHandle !== null) {
+      cancelIdle(this.idleHandle);
+      this.idleHandle = null;
     }
 
     this.endWaiter();

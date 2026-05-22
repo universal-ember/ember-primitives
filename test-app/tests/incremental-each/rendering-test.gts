@@ -8,7 +8,7 @@ import { IncrementalEach } from 'ember-primitives';
 module('Rendering | IncrementalEach', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('renders the first batch on initial paint and the rest after settle', async function (assert) {
+  test('renders every item across batches by the time we settle', async function (assert) {
     const items = Array.from({ length: 25 }, (_, i) => `item-${i}`);
 
     await render(
@@ -21,7 +21,6 @@ module('Rendering | IncrementalEach', function (hooks) {
       </template>
     );
 
-    // After settle, every batch should be flushed
     assert.strictEqual(findAll('.row').length, 25, 'all items rendered after settle');
   });
 
@@ -73,17 +72,16 @@ module('Rendering | IncrementalEach', function (hooks) {
     assert.strictEqual(findAll('.row').length, 0);
   });
 
-  test('replacing @items restarts rendering and onDone fires for the new collection', async function (assert) {
+  test('replacing @items restarts rendering with the new collection', async function (assert) {
     class State {
       @tracked items: string[] = Array.from({ length: 3 }, (_, i) => `a-${i}`);
     }
 
     const state = new State();
-    const onDone = () => assert.step('onDone');
 
     await render(
       <template>
-        <IncrementalEach @items={{state.items}} @batchSize={{5}} @onDone={{onDone}} as |item|>
+        <IncrementalEach @items={{state.items}} @batchSize={{5}} as |item|>
           <span class="row">{{item}}</span>
         </IncrementalEach>
       </template>
@@ -95,22 +93,6 @@ module('Rendering | IncrementalEach', function (hooks) {
     await settled();
 
     assert.strictEqual(findAll('.row').length, 7, 'new collection rendered');
-    assert.verifySteps(['onDone', 'onDone'], 'onDone fired once per fully rendered collection');
-  });
-
-  test('onDone is called once per collection that fully renders', async function (assert) {
-    const items = Array.from({ length: 4 }, (_, i) => i);
-    const onDone = () => assert.step('onDone');
-
-    await render(
-      <template>
-        <IncrementalEach @items={{items}} @batchSize={{2}} @onDone={{onDone}} as |item|>
-          <span class="row">{{item}}</span>
-        </IncrementalEach>
-      </template>
-    );
-
-    assert.strictEqual(findAll('.row').length, 4);
-    assert.verifySteps(['onDone']);
+    assert.dom('.row').hasText('b-0', 'first row belongs to the new collection');
   });
 });

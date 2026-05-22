@@ -16,14 +16,14 @@ Use this for non-scrollable containers, or anywhere a virtual/windowed list does
 
 ## Usage
 
-The demo renders 1,000 rows in batches of 100. The same shape scales to 10,000+ rows.
+The demo renders 10,000 rows in batches of 100. After it finishes, hit Ctrl+F / Cmd+F and search for any row number to confirm every row is real DOM.
 
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
 
-const rows = Array.from({ length: 1_000 }, (_, i) => `Row ${i + 1}`);
+const rows = Array.from({ length: 10_000 }, (_, i) => `Row ${i + 1}`);
 
 <template>
   <ul class="incremental-demo">

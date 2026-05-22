@@ -40,6 +40,16 @@ export interface Signature<T = unknown> {
      *
      * Replacing the array (new identity) restarts rendering from the
      * first batch.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} as |row|>
+     *     <my-row @row={{row}} />
+     *   </IncrementalEach>
+     * </template>
+     * ```
      */
     items: readonly T[];
 
@@ -50,6 +60,16 @@ export interface Signature<T = unknown> {
      * the browser more often.
      *
      * Default: 50. Must be positive; `0` or less asserts in development.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} @batchSize={{100}} as |row|>
+     *     <my-row @row={{row}} />
+     *   </IncrementalEach>
+     * </template>
+     * ```
      */
     batchSize?: number;
   };
@@ -57,6 +77,16 @@ export interface Signature<T = unknown> {
     /**
      * Yielded for each rendered item, with the index in the original
      * `@items` array.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} as |row index|>
+     *     {{index}}: {{row.label}}
+     *   </IncrementalEach>
+     * </template>
+     * ```
      */
     default: [item: T, index: number];
   };

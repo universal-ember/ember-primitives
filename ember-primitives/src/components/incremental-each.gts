@@ -10,29 +10,6 @@ const DEFAULT_BATCH_SIZE = 50;
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
-/**
- * `requestIdleCallback` isn't available in every host (older Safari, some
- * SSR environments). Fall back to `setTimeout` so the component still
- * renders, even though we lose the "only run when idle" pacing.
- */
-function scheduleIdle(cb: () => void): number {
-  if (typeof requestIdleCallback === "function") {
-    return requestIdleCallback(cb);
-  }
-
-  return setTimeout(cb, 1);
-}
-
-function cancelIdle(id: number): void {
-  if (typeof cancelIdleCallback === "function") {
-    cancelIdleCallback(id);
-
-    return;
-  }
-
-  clearTimeout(id);
-}
-
 export interface Signature<T = unknown> {
   Args: {
     /**
@@ -169,7 +146,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   private scheduleNextBatch() {
     this.waiterToken = waiter.beginAsync();
 
-    this.idleHandle = scheduleIdle(() => {
+    this.idleHandle = requestIdleCallback(() => {
       this.idleHandle = null;
 
       if (isDestroyed(this) || isDestroying(this)) return;
@@ -184,7 +161,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   private cancel() {
     if (this.idleHandle !== null) {
-      cancelIdle(this.idleHandle);
+      cancelIdleCallback(this.idleHandle);
       this.idleHandle = null;
     }
 

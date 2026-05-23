@@ -270,17 +270,13 @@ module('Rendering | IncrementalEach', function (hooks) {
     class State {
       @tracked items: string[] = ['a-0', 'a-1', 'a-2'];
     }
+
     const state = new State();
     const onDone = () => assert.step(`done:${state.items[0]}`);
 
     await render(
       <template>
-        <IncrementalEach
-          @items={{state.items}}
-          @batchSize={{2}}
-          @onDone={{onDone}}
-          as |item|
-        >
+        <IncrementalEach @items={{state.items}} @batchSize={{2}} @onDone={{onDone}} as |item|>
           <span class="row">{{item}}</span>
         </IncrementalEach>
       </template>

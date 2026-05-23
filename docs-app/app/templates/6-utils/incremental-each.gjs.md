@@ -29,15 +29,25 @@ The first batch lands synchronously by default (`@first="sync"`), so the user se
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
+import { cell } from 'ember-resources';
+import { on } from '@ember/modifier';
 
 const rows = Array.from({ length: 10_000 }, (_, i) => `Row ${i + 1}`);
+const visible = cell(true);
+const toggle = () => (visible.current = !visible.current);
 
 <template>
-  <ul class="incremental-demo">
-    <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
-      <li>{{index}}: {{row}}</li>
-    </IncrementalEach>
-  </ul>
+  <button type="button" {{on "click" toggle}}>
+    {{if visible.current "Hide" "Show"}} rows
+  </button>
+
+  {{#if visible.current}}
+    <ul class="incremental-demo">
+      <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
+        <li>{{index}}: {{row}}</li>
+      </IncrementalEach>
+    </ul>
+  {{/if}}
 
   <style>
     .incremental-demo {

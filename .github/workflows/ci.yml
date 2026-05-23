@@ -151,7 +151,7 @@ jobs:
     name: "Docs' Tests"
     # if: ${{ fromJSON(needs.setup.outputs.pending).docs-app.test.status == 'MISS' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     needs: [setup]
     steps:
       - uses: wyvox/action@v2

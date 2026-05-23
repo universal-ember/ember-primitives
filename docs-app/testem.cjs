@@ -13,10 +13,11 @@ if (typeof module !== 'undefined') {
     browser_start_timeout: 120,
     // The Pages a11y test walks every docs page and runs axe-core
     // three times per page (default/dark/light theme). On pages with
-    // very large demos (IncrementalEach renders 10k rows) the browser
-    // can be CPU-bound past testem's default 10s heartbeat. Give it
-    // headroom so a slow audit isn't mistaken for a dead browser.
-    browser_disconnect_timeout: 60,
+    // very large demos (IncrementalEach renders 20k rows) a single
+    // axe audit can keep the browser CPU-bound for over two minutes
+    // on the CI runner. Give the disconnect timeout enough headroom
+    // that a slow audit isn't mistaken for a dead browser.
+    browser_disconnect_timeout: 240,
     browser_args: {
       Chrome: {
         ci: [

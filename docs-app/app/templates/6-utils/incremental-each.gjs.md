@@ -26,53 +26,95 @@ The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { trackedObject } from '@ember/reactive/collections';
 import { on } from '@ember/modifier';
 
+const BATCH_SIZE = 100;
 const rows = Array.from({ length: 20_000 }, (_, i) => `Row ${i + 1}`);
-const visible = cell(true);
-const startedAt = cell(performance.now());
-const elapsedMs = cell(null);
 
-const toggle = () => {
-  if (visible.current) {
-    visible.current = false;
-    elapsedMs.current = null;
-  } else {
-    startedAt.current = performance.now();
-    visible.current = true;
+const state = trackedObject({
+  visible: true,
+  elapsedMs: 0,
+  batches: 0,
+  done: false,
+});
+
+// Not tracked: plain mutable state used to drive `state.elapsedMs`.
+// Reading it from a render path doesn't entangle with anything.
+let startedAt = performance.now();
+let tickId = null;
+
+const stopTicker = () => {
+  if (tickId !== null) {
+    clearInterval(tickId);
+    tickId = null;
   }
 };
 
-const handleDone = () => {
-  elapsedMs.current = Math.round(performance.now() - startedAt.current);
+const sample = () => {
+  state.elapsedMs = Math.round(performance.now() - startedAt);
+  const rendered = document.querySelectorAll('.incremental-demo li').length;
+  state.batches = Math.ceil(rendered / BATCH_SIZE);
 };
+
+const startTicker = () => {
+  stopTicker();
+  tickId = setInterval(sample, 50);
+};
+
+const handleDone = () => {
+  state.done = true;
+  state.elapsedMs = Math.round(performance.now() - startedAt);
+  // Use the source-of-truth count instead of polling the DOM here —
+  // `@onDone` runs in a microtask before Glimmer has committed the
+  // final batch to the DOM, so a `querySelectorAll` count would
+  // under-report by one batch.
+  state.batches = Math.ceil(rows.length / BATCH_SIZE);
+  stopTicker();
+};
+
+const toggle = () => {
+  if (state.visible) {
+    state.visible = false;
+    state.done = false;
+    state.elapsedMs = 0;
+    state.batches = 0;
+    stopTicker();
+  } else {
+    startedAt = performance.now();
+    state.done = false;
+    state.elapsedMs = 0;
+    state.batches = 0;
+    state.visible = true;
+    startTicker();
+  }
+};
+
+startTicker();
 
 <template>
   <div class="incremental-card not-prose">
     <div class="incremental-controls">
       <button type="button" {{on "click" toggle}}>
-        {{if visible.current "Hide" "Show"}} rows
+        {{if state.visible "Hide" "Show"}} rows
       </button>
-      {{#if visible.current}}
+      {{#if state.visible}}
         <span class="incremental-count">
-          {{rows.length}} rows
-          {{#if elapsedMs.current}}
-            · rendered in {{elapsedMs.current}}ms
-          {{/if}}
+          {{rows.length}} rows · {{state.batches}} batches ·
+          {{state.elapsedMs}}ms{{if state.done " (done)"}}
         </span>
       {{/if}}
     </div>
 
-    {{#if visible.current}}
+    {{#if state.visible}}
       <ul class="incremental-demo">
         <IncrementalEach
           @items={{rows}}
-          @batchSize={{100}}
+          @batchSize={{BATCH_SIZE}}
           @onDone={{handleDone}}
-          as |row index|
+          as |row|
         >
-          <li>{{index}}: {{row}}</li>
+          <li>{{row}}</li>
         </IncrementalEach>
       </ul>
     {{/if}}

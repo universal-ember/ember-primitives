@@ -18,9 +18,9 @@ Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/relea
 
 ## Usage
 
-The demo renders 10,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM.
+The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM. Toggle the button to unmount and re-mount the list — each "Show" brings back the first batch in the same paint, then the rest streams in via idle callbacks.
 
-The first batch lands synchronously by default (`@first="sync"`), so the user sees content on the very first paint and the rest of the list fills in via idle callbacks. Pass `@first="batched"` to defer the first batch to an idle callback as well — useful when even the first batch is expensive enough that you'd rather show an empty container than delay the first paint.
+The first batch lands synchronously by default (`@initial="sync"`), so the user sees content on the very first paint and the rest of the list fills in via idle callbacks. Pass `@initial="lazy"` to defer the first batch to an idle callback as well — useful when even the first batch is expensive enough that you'd rather show an empty container than delay the first paint.
 
 > [!WARNING]
 > Don't nest `<IncrementalEach>` inside another `<IncrementalEach>`. Each level adds an idle-callback delay before its content paints, and nesting compounds those delays — inner rows appear to flicker in with missing sub-content. When you have nested loops, only the outermost one should be `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.
@@ -32,14 +32,16 @@ import { IncrementalEach } from 'ember-primitives';
 import { cell } from 'ember-resources';
 import { on } from '@ember/modifier';
 
-const rows = Array.from({ length: 10_000 }, (_, i) => `Row ${i + 1}`);
+const rows = Array.from({ length: 20_000 }, (_, i) => `Row ${i + 1}`);
 const visible = cell(true);
 const toggle = () => (visible.current = !visible.current);
 
 <template>
-  <button type="button" {{on "click" toggle}}>
-    {{if visible.current "Hide" "Show"}} rows
-  </button>
+  <div class="incremental-controls">
+    <button type="button" {{on "click" toggle}}>
+      {{if visible.current "Hide" "Show"}} rows
+    </button>
+  </div>
 
   {{#if visible.current}}
     <ul class="incremental-demo">
@@ -50,6 +52,17 @@ const toggle = () => (visible.current = !visible.current);
   {{/if}}
 
   <style>
+    .incremental-controls {
+      margin-bottom: 0.75rem;
+    }
+    .incremental-controls button {
+      padding: 0.4rem 0.9rem;
+      font: inherit;
+      border: 1px solid gray;
+      border-radius: 0.25rem;
+      background: white;
+      cursor: pointer;
+    }
     .incremental-demo {
       max-height: 240px;
       overflow: auto;
@@ -83,7 +96,7 @@ import { IncrementalEach } from 'ember-primitives';
   <IncrementalEach
     @items={{this.items}}
     @batchSize={{50}}
-    @first="sync"
+    @initial="sync"
     as |item index|
   >
     {{index}}: {{item}}

@@ -8,20 +8,9 @@ import { cell } from "ember-resources";
 import type Owner from "@ember/owner";
 
 const DEFAULT_BATCH_SIZE = 50;
-const DEFAULT_FIRST = "sync";
+const DEFAULT_INITIAL = "sync";
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
-
-/**
- * Controls how the first batch of `<IncrementalEach>` is committed.
- *
- * - `"sync"` (default): the first batch lands in the same render as
- *   mount / `@items` change, so there is no empty-then-content flicker
- *   on first paint.
- * - `"batched"`: even the first batch waits for an idle callback,
- *   matching every subsequent batch.
- */
-export type IncrementalEachFirst = "sync" | "batched";
 
 export interface Signature<T = unknown> {
   Args: {
@@ -64,7 +53,7 @@ export interface Signature<T = unknown> {
     batchSize?: number;
 
     /**
-     * Controls how the first batch is committed.
+     * Controls how the initial batch is committed.
      *
      * - `"sync"` (default): the first `@batchSize` items render in the
      *   same render pass as mount / `@items` change. The user sees
@@ -72,7 +61,7 @@ export interface Signature<T = unknown> {
      *   fills in via idle callbacks. This is the right default for
      *   most lists — even a perceived "empty for one frame" is worse
      *   than rendering a few extra items synchronously.
-     * - `"batched"`: even the first batch waits for an idle callback,
+     * - `"lazy"`: even the first batch waits for an idle callback,
      *   so the initial paint is empty and content arrives one batch
      *   per idle tick. Use this when the first batch itself would be
      *   expensive enough to block the first paint, and you'd rather
@@ -84,13 +73,13 @@ export interface Signature<T = unknown> {
      * import { IncrementalEach } from 'ember-primitives';
      *
      * <template>
-     *   <IncrementalEach @items={{this.rows}} @first="batched" as |row|>
+     *   <IncrementalEach @items={{this.rows}} @initial="lazy" as |row|>
      *     <my-row @row={{row}} />
      *   </IncrementalEach>
      * </template>
      * ```
      */
-    first?: IncrementalEachFirst;
+    initial?: "sync" | "lazy";
   };
   Blocks: {
     /**
@@ -121,7 +110,7 @@ export interface Signature<T = unknown> {
  * the rest of the list is filling in.
  *
  * By default the first batch lands synchronously, so the user sees content
- * on the very first paint. Pass `@first="batched"` to defer the first batch
+ * on the very first paint. Pass `@initial="lazy"` to defer the first batch
  * to an idle callback as well.
  *
  * Intended for non-scrollable containers, or anywhere a virtual/windowed
@@ -179,12 +168,12 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
-  get #first(): IncrementalEachFirst {
-    const requested = this.args.first ?? DEFAULT_FIRST;
+  get #initial(): "sync" | "lazy" {
+    const requested = this.args.initial ?? DEFAULT_INITIAL;
 
     assert(
-      `<IncrementalEach> @first must be "sync" or "batched", got ${requested}`,
-      requested === "sync" || requested === "batched",
+      `<IncrementalEach> @initial must be "sync" or "lazy", got ${requested}`,
+      requested === "sync" || requested === "lazy",
     );
 
     return requested;
@@ -192,8 +181,8 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   // The items that should currently be rendered. This is also where
   // scheduling is driven from: `@items` identity changes reset
-  // `#count` (to the first batch under `@first="sync"`, or to zero
-  // under `@first="batched"`), and any remaining items queue the next
+  // `#count` (to the first batch under `@initial="sync"`, or to zero
+  // under `@initial="lazy"`), and any remaining items queue the next
   // idle callback. Autotrack stays consistent because the only
   // synchronous writes here (`#count.current = ...`) happen before
   // `#count` is read.
@@ -204,7 +193,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     if (items !== this.#itemsRef) {
       this.#itemsRef = items;
       this.#cancel();
-      this.#count.current = this.#first === "sync" ? Math.min(this.#batchSize, items.length) : 0;
+      this.#count.current = this.#initial === "sync" ? Math.min(this.#batchSize, items.length) : 0;
     }
 
     if (this.#count.current < items.length && this.#idleHandle === null) {

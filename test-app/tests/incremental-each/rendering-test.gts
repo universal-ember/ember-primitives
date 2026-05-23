@@ -132,12 +132,12 @@ module('Rendering | IncrementalEach', function (hooks) {
     assert.dom('.row:nth-of-type(2)').hasText('B-mutated');
   });
 
-  test('@first="sync" (default) commits the first batch on the initial paint', async function (assert) {
+  test('@initial="sync" (default) commits the first batch on the initial paint', async function (assert) {
     const items = Array.from({ length: 25 }, (_, i) => `item-${i}`);
 
     // Kick off render but don't await its full settle. `renderSettled`
     // resolves after the next Glimmer render commit — under
-    // `@first="sync"` (the default) that commit already includes the
+    // `@initial="sync"` (the default) that commit already includes the
     // first batch.
     render(
       <template>
@@ -154,12 +154,12 @@ module('Rendering | IncrementalEach', function (hooks) {
     assert.strictEqual(findAll('.row').length, 25, 'remaining batches fill in');
   });
 
-  test('@first="batched" leaves the first paint empty', async function (assert) {
+  test('@initial="lazy" leaves the first paint empty', async function (assert) {
     const items = Array.from({ length: 25 }, (_, i) => `item-${i}`);
 
     render(
       <template>
-        <IncrementalEach @items={{items}} @batchSize={{10}} @first="batched" as |item|>
+        <IncrementalEach @items={{items}} @batchSize={{10}} @initial="lazy" as |item|>
           <span class="row">{{item}}</span>
         </IncrementalEach>
       </template>
@@ -169,14 +169,14 @@ module('Rendering | IncrementalEach', function (hooks) {
     assert.strictEqual(
       findAll('.row').length,
       0,
-      'no rows on the first paint when @first="batched"'
+      'no rows on the first paint when @initial="lazy"'
     );
 
     await settled();
     assert.strictEqual(findAll('.row').length, 25, 'all items rendered once settled');
   });
 
-  test('@first="sync" applies to @items swaps too', async function (assert) {
+  test('@initial="sync" applies to @items swaps too', async function (assert) {
     class State {
       @tracked items: string[] = Array.from({ length: 3 }, (_, i) => `a-${i}`);
     }

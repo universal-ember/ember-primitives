@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release (2026-05-23)
+
+* ember-primitives 0.58.0 (minor)
+* @universal-ember/docs-support 0.9.9 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#740](https://github.com/universal-ember/ember-primitives/pull/740) Add IncrementalEach: render large lists a batch at a time ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :house: Internal
+* `ember-primitives`
+  * [#737](https://github.com/universal-ember/ember-primitives/pull/737) Fix internal types ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-04-26)
 
 * ember-primitives 0.57.0 (minor)

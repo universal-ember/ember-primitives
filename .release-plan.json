@@ -2,21 +2,25 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.56.0",
-      "newVersion": "0.57.0",
+      "oldVersion": "0.57.0",
+      "newVersion": "0.58.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.7",
-      "newVersion": "0.9.8",
+      "oldVersion": "0.9.8",
+      "newVersion": "0.9.9",
       "tagName": "latest",
       "constraints": [
         {
@@ -30,5 +34,5 @@
       "oldVersion": "0.2.7"
     }
   },
-  "description": "## Release (2026-04-26)\n\n* ember-primitives 0.57.0 (minor)\n* @universal-ember/docs-support 0.9.8 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#727](https://github.com/universal-ember/ember-primitives/pull/727) Update tracked-toolbox to v3 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 1\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n"
+  "description": "## Release (2026-05-23)\n\n* ember-primitives 0.58.0 (minor)\n* @universal-ember/docs-support 0.9.9 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#740](https://github.com/universal-ember/ember-primitives/pull/740) Add IncrementalEach: render large lists a batch at a time ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#737](https://github.com/universal-ember/ember-primitives/pull/737) Fix internal types ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

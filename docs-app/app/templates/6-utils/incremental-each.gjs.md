@@ -22,7 +22,7 @@ The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for
 
 
 
-<div class="featured-demo">
+<div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
@@ -34,38 +34,74 @@ const visible = cell(true);
 const toggle = () => (visible.current = !visible.current);
 
 <template>
-  <div class="incremental-controls">
-    <button type="button" {{on "click" toggle}}>
-      {{if visible.current "Hide" "Show"}} rows
-    </button>
+  <div class="incremental-card not-prose">
+    <div class="incremental-controls">
+      <button type="button" {{on "click" toggle}}>
+        {{if visible.current "Hide" "Show"}} rows
+      </button>
+      {{#if visible.current}}
+        <span class="incremental-count">{{rows.length}} rows</span>
+      {{/if}}
+    </div>
+
+    {{#if visible.current}}
+      <ul class="incremental-demo">
+        <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
+          <li>{{index}}: {{row}}</li>
+        </IncrementalEach>
+      </ul>
+    {{/if}}
   </div>
 
-  {{#if visible.current}}
-    <ul class="incremental-demo">
-      <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
-        <li>{{index}}: {{row}}</li>
-      </IncrementalEach>
-    </ul>
-  {{/if}}
-
   <style>
+    .incremental-card {
+      background: #fff;
+      color: #111827;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow:
+        0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
     .incremental-controls {
-      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
     .incremental-controls button {
       padding: 0.4rem 0.9rem;
       font: inherit;
-      border: 1px solid gray;
-      border-radius: 0.25rem;
-      background: white;
+      color: #fff;
+      background: #4f46e5;
+      border: 0;
+      border-radius: 6px;
       cursor: pointer;
     }
+    .incremental-controls button:hover {
+      background: #4338ca;
+    }
+    .incremental-count {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
     .incremental-demo {
-      max-height: 240px;
+      max-height: 320px;
       overflow: auto;
-      border: 1px solid gray;
-      padding: 1rem;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
       margin: 0;
+      list-style: none;
+    }
+    .incremental-demo li {
+      padding: 0.125rem 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.875rem;
+      color: #111827;
     }
   </style>
 </template>

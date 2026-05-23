@@ -22,7 +22,6 @@ The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for
 
 
 > [!WARNING]
-> Don't nest `<IncrementalEach>` inside another `<IncrementalEach>`. Each level adds an idle-callback delay before its content paints, and nesting compounds those delays — inner rows appear to flicker in with missing sub-content. When you have nested loops, only the outermost one should be `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.
 
 <div class="featured-demo">
 

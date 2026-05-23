@@ -78,10 +78,11 @@ module('Application | Pages', function (hooks) {
   setupApplicationTest(hooks);
 
   test('Pages all fit a11y criteria', async function (assert) {
-    // The IncrementalEach docs page renders 10k rows, and axe-core
+    // The IncrementalEach docs page renders 20k rows, and axe-core
     // walks them three times per page (default/dark/light theme).
-    // QUnit's default 60s testTimeout isn't enough headroom on CI.
-    assert.timeout(180_000);
+    // QUnit's default 60s testTimeout isn't enough headroom on CI;
+    // bump the per-test budget to ten minutes.
+    assert.timeout(600_000);
 
     await visit('/');
 

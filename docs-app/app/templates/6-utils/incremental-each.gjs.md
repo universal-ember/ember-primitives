@@ -13,6 +13,8 @@ Use this for non-scrollable containers, or anywhere a virtual/windowed list does
 <SetupInstructions @src="components/incremental-each.gts" />
 ```
 
+Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.58.0-ember-primitives)
+
 
 ## Usage
 

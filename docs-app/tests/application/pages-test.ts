@@ -119,23 +119,17 @@ module('Application | Pages', function (hooks) {
       await visit(path);
       await waitUntil(() => findAll('nav a').length !== 0);
 
-      if (skipAudit) {
-        assert.ok(true, `a11y audit skipped for ${path} (see a11ySkipped)`);
-      } else {
-        await checkA11y(assert, path, 'default', settings);
+      const themes = skipAudit ? [] : (['default', 'dark', 'light'] as const);
+
+      for (const theme of themes) {
+        if (theme === 'dark') colorScheme.update('dark');
+        if (theme === 'light') colorScheme.update('light');
+        await checkA11y(assert, path, theme, settings);
       }
 
       assert
         .dom('[data-page-error]')
         .doesNotExist(`${page.path}: does not contain [data-page-error]`);
-
-      if (skipAudit) continue;
-
-      colorScheme.update('dark');
-      await checkA11y(assert, path, 'dark', settings);
-
-      colorScheme.update('light');
-      await checkA11y(assert, path, 'light', settings);
     }
   });
 });

@@ -31,7 +31,22 @@ import { on } from '@ember/modifier';
 
 const rows = Array.from({ length: 20_000 }, (_, i) => `Row ${i + 1}`);
 const visible = cell(true);
-const toggle = () => (visible.current = !visible.current);
+const startedAt = cell(performance.now());
+const elapsedMs = cell(null);
+
+const toggle = () => {
+  if (visible.current) {
+    visible.current = false;
+    elapsedMs.current = null;
+  } else {
+    startedAt.current = performance.now();
+    visible.current = true;
+  }
+};
+
+const handleDone = () => {
+  elapsedMs.current = Math.round(performance.now() - startedAt.current);
+};
 
 <template>
   <div class="incremental-card not-prose">
@@ -40,13 +55,23 @@ const toggle = () => (visible.current = !visible.current);
         {{if visible.current "Hide" "Show"}} rows
       </button>
       {{#if visible.current}}
-        <span class="incremental-count">{{rows.length}} rows</span>
+        <span class="incremental-count">
+          {{rows.length}} rows
+          {{#if elapsedMs.current}}
+            · rendered in {{elapsedMs.current}}ms
+          {{/if}}
+        </span>
       {{/if}}
     </div>
 
     {{#if visible.current}}
       <ul class="incremental-demo">
-        <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
+        <IncrementalEach
+          @items={{rows}}
+          @batchSize={{100}}
+          @onDone={{handleDone}}
+          as |row index|
+        >
           <li>{{index}}: {{row}}</li>
         </IncrementalEach>
       </ul>

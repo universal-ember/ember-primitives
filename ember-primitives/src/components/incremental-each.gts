@@ -80,6 +80,31 @@ export interface Signature<T = unknown> {
      * ```
      */
     initial?: "sync" | "lazy";
+
+    /**
+     * Called once with no arguments when every item in `@items` has
+     * been committed to the DOM. Fires after the final batch lands;
+     * does not fire on intermediate batches.
+     *
+     * Fires again on a fresh swap (new `@items` identity) once that
+     * new collection finishes rendering. An empty `@items` array
+     * does not fire the callback.
+     *
+     * Useful for marking the list as ready for screenshot tests,
+     * dismissing a loading indicator, or measuring how long the
+     * whole render took.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} @onDone={{this.handleDone}} as |row|>
+     *     <my-row @row={{row}} />
+     *   </IncrementalEach>
+     * </template>
+     * ```
+     */
+    onDone?: () => void;
   };
   Blocks: {
     /**
@@ -151,6 +176,11 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   #waiterToken: unknown = null;
 
+  // The `@items` reference we have already fired `@onDone` for. Reset
+  // to `null` on every `@items` swap so a new collection can fire its
+  // own completion callback.
+  #onDoneFiredFor: readonly T[] | null = null;
+
   constructor(owner: Owner, args: Signature<T>["Args"]) {
     super(owner, args);
 
@@ -192,17 +222,40 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
     if (items !== this.#itemsRef) {
       this.#itemsRef = items;
+      this.#onDoneFiredFor = null;
       this.#cancel();
       this.#count.current = this.#initial === "sync" ? Math.min(this.#batchSize, items.length) : 0;
     }
 
     if (this.#count.current < items.length && this.#idleHandle === null) {
       this.#scheduleNextBatch();
+    } else {
+      // Already at the end (sync mode finished the whole list in one
+      // batch, or batches landed and we just re-rendered). Schedule
+      // `@onDone` so it fires after this render commits.
+      this.#maybeFireDone();
     }
 
     return items.slice(0, this.#count.current);
   }
   /* eslint-enable ember/no-side-effects */
+
+  #maybeFireDone() {
+    const items = this.#itemsRef ?? [];
+
+    if (items.length === 0) return;
+    if (this.#count.current < items.length) return;
+    if (this.#onDoneFiredFor === items) return;
+
+    this.#onDoneFiredFor = items;
+
+    // Defer to a microtask so the callback runs after the current
+    // render commits, not during it.
+    queueMicrotask(() => {
+      if (isDestroyed(this) || isDestroying(this)) return;
+      this.args.onDone?.();
+    });
+  }
 
   #scheduleNextBatch() {
     // Defensive: if a batch is already pending, drop it before
@@ -226,6 +279,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
         this.#count.current = Math.min(this.#count.current + this.#batchSize, items.length);
         this.#endWaiter();
+        this.#maybeFireDone();
       },
       { timeout: 100 },
     );

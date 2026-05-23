@@ -234,4 +234,63 @@ module('Rendering | IncrementalEach', function (hooks) {
 
     assert.deepEqual(labels, ['c-0', 'c-1', 'c-2', 'c-3'], 'only the final collection renders');
   });
+
+  test('@onDone fires once after the final batch lands', async function (assert) {
+    const items = Array.from({ length: 25 }, (_, i) => `item-${i}`);
+    const onDone = () => assert.step('done');
+
+    await render(
+      <template>
+        <IncrementalEach @items={{items}} @batchSize={{10}} @onDone={{onDone}} as |item|>
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    assert.strictEqual(findAll('.row').length, 25);
+    assert.verifySteps(['done'], '@onDone fires exactly once');
+  });
+
+  test('@onDone does not fire for an empty collection', async function (assert) {
+    const items: string[] = [];
+    const onDone = () => assert.step('done');
+
+    await render(
+      <template>
+        <IncrementalEach @items={{items}} @onDone={{onDone}} as |item|>
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    assert.verifySteps([], 'no @onDone for an empty array');
+  });
+
+  test('@onDone fires again on every @items swap', async function (assert) {
+    class State {
+      @tracked items: string[] = ['a-0', 'a-1', 'a-2'];
+    }
+    const state = new State();
+    const onDone = () => assert.step(`done:${state.items[0]}`);
+
+    await render(
+      <template>
+        <IncrementalEach
+          @items={{state.items}}
+          @batchSize={{2}}
+          @onDone={{onDone}}
+          as |item|
+        >
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    assert.verifySteps(['done:a-0'], 'fires after the first collection finishes');
+
+    state.items = ['b-0', 'b-1'];
+    await settled();
+
+    assert.verifySteps(['done:b-0'], 'fires again for the new collection');
+  });
 });

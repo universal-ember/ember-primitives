@@ -18,6 +18,11 @@ Use this for non-scrollable containers, or anywhere a virtual/windowed list does
 
 The demo renders 10,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM.
 
+The first batch lands synchronously by default (`@first="sync"`), so the user sees content on the very first paint and the rest of the list fills in via idle callbacks. Pass `@first="batched"` to defer the first batch to an idle callback as well — useful when even the first batch is expensive enough that you'd rather show an empty container than delay the first paint.
+
+> [!WARNING]
+> Don't nest `<IncrementalEach>` inside another `<IncrementalEach>`. Each level adds an idle-callback delay before its content paints, and nesting compounds those delays — inner rows appear to flicker in with missing sub-content. When you have nested loops, only the outermost one should be `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.
+
 <div class="featured-demo">
 
 ```gjs live preview no-shadow
@@ -63,7 +68,12 @@ import { IncrementalEach } from 'ember-primitives/components/incremental-each';
 import { IncrementalEach } from 'ember-primitives';
 
 <template>
-  <IncrementalEach @items={{this.items}} @batchSize={{50}} as |item index|>
+  <IncrementalEach
+    @items={{this.items}}
+    @batchSize={{50}}
+    @first="sync"
+    as |item index|
+  >
     {{index}}: {{item}}
   </IncrementalEach>
 </template>

@@ -8,8 +8,20 @@ import { cell } from "ember-resources";
 import type Owner from "@ember/owner";
 
 const DEFAULT_BATCH_SIZE = 50;
+const DEFAULT_FIRST = "sync";
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
+
+/**
+ * Controls how the first batch of `<IncrementalEach>` is committed.
+ *
+ * - `"sync"` (default): the first batch lands in the same render as
+ *   mount / `@items` change, so there is no empty-then-content flicker
+ *   on first paint.
+ * - `"batched"`: even the first batch waits for an idle callback,
+ *   matching every subsequent batch.
+ */
+export type IncrementalEachFirst = "sync" | "batched";
 
 export interface Signature<T = unknown> {
   Args: {
@@ -50,6 +62,35 @@ export interface Signature<T = unknown> {
      * ```
      */
     batchSize?: number;
+
+    /**
+     * Controls how the first batch is committed.
+     *
+     * - `"sync"` (default): the first `@batchSize` items render in the
+     *   same render pass as mount / `@items` change. The user sees
+     *   content on the very first paint, and the rest of the list
+     *   fills in via idle callbacks. This is the right default for
+     *   most lists — even a perceived "empty for one frame" is worse
+     *   than rendering a few extra items synchronously.
+     * - `"batched"`: even the first batch waits for an idle callback,
+     *   so the initial paint is empty and content arrives one batch
+     *   per idle tick. Use this when the first batch itself would be
+     *   expensive enough to block the first paint, and you'd rather
+     *   show an empty container than delay it.
+     *
+     * Default: `"sync"`.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} @first="batched" as |row|>
+     *     <my-row @row={{row}} />
+     *   </IncrementalEach>
+     * </template>
+     * ```
+     */
+    first?: IncrementalEachFirst;
   };
   Blocks: {
     /**
@@ -79,9 +120,19 @@ export interface Signature<T = unknown> {
  * Yielding the main thread between batches keeps the page responsive while
  * the rest of the list is filling in.
  *
+ * By default the first batch lands synchronously, so the user sees content
+ * on the very first paint. Pass `@first="batched"` to defer the first batch
+ * to an idle callback as well.
+ *
  * Intended for non-scrollable containers, or anywhere a virtual/windowed
  * list does not apply (variable item heights, lists that grow the page,
  * surfaces that need every row indexable).
+ *
+ * Do not nest one `<IncrementalEach>` inside another. Each level adds an
+ * idle-callback delay before its content paints; nesting compounds those
+ * delays, so inner rows appear to flicker in with missing sub-content.
+ * If you have nested loops, only the outermost one should be
+ * `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.
  *
  * @example
  * ```gjs
@@ -128,14 +179,24 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
-  // The items that should currently be rendered. `@cached` keeps the
-  // returned slice stable across renders that don't change `#count` or
-  // `args.items`, so Glimmer's `{{#each}}` doesn't see a fresh array on
-  // every render and we only slice once per batch landing. This is
-  // also where scheduling is driven from: `@items` identity changes
-  // reset `#count` to zero, and missing items queue the next idle
-  // callback. Autotrack stays consistent because the only synchronous
-  // write here (`#count = 0`) happens before `#count` is read.
+  get #first(): IncrementalEachFirst {
+    const requested = this.args.first ?? DEFAULT_FIRST;
+
+    assert(
+      `<IncrementalEach> @first must be "sync" or "batched", got ${requested}`,
+      requested === "sync" || requested === "batched",
+    );
+
+    return requested;
+  }
+
+  // The items that should currently be rendered. This is also where
+  // scheduling is driven from: `@items` identity changes reset
+  // `#count` (to the first batch under `@first="sync"`, or to zero
+  // under `@first="batched"`), and any remaining items queue the next
+  // idle callback. Autotrack stays consistent because the only
+  // synchronous writes here (`#count.current = ...`) happen before
+  // `#count` is read.
   /* eslint-disable ember/no-side-effects */
   get visible(): readonly T[] {
     const items = this.args.items ?? [];
@@ -143,7 +204,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     if (items !== this.#itemsRef) {
       this.#itemsRef = items;
       this.#cancel();
-      this.#count.current = 0;
+      this.#count.current = this.#first === "sync" ? Math.min(this.#batchSize, items.length) : 0;
     }
 
     if (this.#count.current < items.length && this.#idleHandle === null) {

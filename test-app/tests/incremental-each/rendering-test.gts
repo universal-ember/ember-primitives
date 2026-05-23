@@ -132,6 +132,80 @@ module('Rendering | IncrementalEach', function (hooks) {
     assert.dom('.row:nth-of-type(2)').hasText('B-mutated');
   });
 
+  test('@first="sync" (default) commits the first batch on the initial paint', async function (assert) {
+    const items = Array.from({ length: 25 }, (_, i) => `item-${i}`);
+
+    // Kick off render but don't await its full settle. `renderSettled`
+    // resolves after the next Glimmer render commit — under
+    // `@first="sync"` (the default) that commit already includes the
+    // first batch.
+    render(
+      <template>
+        <IncrementalEach @items={{items}} @batchSize={{10}} as |item|>
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    await renderSettled();
+    assert.strictEqual(findAll('.row').length, 10, 'first batch visible on first paint');
+
+    await settled();
+    assert.strictEqual(findAll('.row').length, 25, 'remaining batches fill in');
+  });
+
+  test('@first="batched" leaves the first paint empty', async function (assert) {
+    const items = Array.from({ length: 25 }, (_, i) => `item-${i}`);
+
+    render(
+      <template>
+        <IncrementalEach @items={{items}} @batchSize={{10}} @first="batched" as |item|>
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    await renderSettled();
+    assert.strictEqual(
+      findAll('.row').length,
+      0,
+      'no rows on the first paint when @first="batched"'
+    );
+
+    await settled();
+    assert.strictEqual(findAll('.row').length, 25, 'all items rendered once settled');
+  });
+
+  test('@first="sync" applies to @items swaps too', async function (assert) {
+    class State {
+      @tracked items: string[] = Array.from({ length: 3 }, (_, i) => `a-${i}`);
+    }
+
+    const state = new State();
+
+    await render(
+      <template>
+        <IncrementalEach @items={{state.items}} @batchSize={{2}} as |item|>
+          <span class="row">{{item}}</span>
+        </IncrementalEach>
+      </template>
+    );
+
+    state.items = Array.from({ length: 5 }, (_, i) => `b-${i}`);
+    await renderSettled();
+
+    const labels = findAll('.row').map((el) => el.textContent);
+
+    assert.deepEqual(
+      labels,
+      ['b-0', 'b-1'],
+      'first batch of the new collection visible immediately, no stale rows'
+    );
+
+    await settled();
+    assert.strictEqual(findAll('.row').length, 5, 'remaining batches fill in');
+  });
+
   test('quickly replacing @items between renders ends up on the final collection', async function (assert) {
     class State {
       @tracked items: string[] = ['a-0', 'a-1', 'a-2', 'a-3', 'a-4'];

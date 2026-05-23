@@ -24,6 +24,7 @@ export { Dialog, Dialog as Modal } from './components/dialog.gts';
 export { Drawer } from './components/drawer.gts';
 export { ExternalLink } from './components/external-link.gts';
 export { Form } from './components/form.gts';
+export { IncrementalEach } from './components/incremental-each.gts';
 export { Key, KeyCombo } from './components/keys.gts';
 export { StickyFooter } from './components/layout/sticky-footer.gts';
 export { Link } from './components/link.gts';

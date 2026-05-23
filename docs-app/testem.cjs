@@ -11,6 +11,12 @@ if (typeof module !== 'undefined') {
     launch_in_ci: ['Chrome'],
     launch_in_dev: ['Chrome'],
     browser_start_timeout: 120,
+    // The Pages a11y test walks every docs page and runs axe-core
+    // three times per page (default/dark/light theme). On pages with
+    // very large demos (IncrementalEach renders 10k rows) the browser
+    // can be CPU-bound past testem's default 10s heartbeat. Give it
+    // headroom so a slow audit isn't mistaken for a dead browser.
+    browser_disconnect_timeout: 60,
     browser_args: {
       Chrome: {
         ci: [

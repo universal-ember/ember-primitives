@@ -33,7 +33,7 @@ export default class Application extends Route {
     });
 
     await Promise.all([
-      setupTabster(this),
+      import.meta.env?.SSR ? Promise.resolve() : setupTabster(this),
       setupKolay(this, {
         // This won't work, because the compiler can't find the element to rendedr in to.
         // remarkPlugins: [

@@ -13,13 +13,10 @@
       as="font"
       rel="font/woff2"
     />
+    <!-- VITE_EMBER_SSR_HEAD -->
   </head>
   <body>
-    <script type="module">
-      import Application from "./app/app";
-      import environment from "./app/config/environment";
-
-      Application.create(environment.APP);
-    </script>
+    <!-- VITE_EMBER_SSR_BODY -->
+    <script type="module" src="./app/boot.ts"></script>
   </body>
 </html>

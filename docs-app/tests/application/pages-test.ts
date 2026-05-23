@@ -47,7 +47,11 @@ const a11yChecks: {
  * component itself has its own rendering tests in `test-app`; this
  * page is the demo, not the API surface.
  */
-const a11ySkipped = new Set<string>(['/6-utils/incremental-each.md']);
+const a11ySkippedSuffixes = ['incremental-each.gjs.md', 'incremental-each.md'];
+
+function isA11ySkipped(pagePath: string): boolean {
+  return a11ySkippedSuffixes.some((s) => pagePath.endsWith(s));
+}
 
 /**
  * a11yAudit halts tests, this gets around that
@@ -114,7 +118,10 @@ module('Application | Pages', function (hooks) {
     for (const page of pages) {
       const path = page.path.replace('.gjs.md', '').replace('.md', '');
       const settings: object = a11yChecks[page.path] ?? {};
-      const skipAudit = a11ySkipped.has(page.path);
+      const skipAudit = isA11ySkipped(page.path);
+
+      // eslint-disable-next-line no-console
+      console.log(`[pages-test] ${page.path} skip=${skipAudit}`);
 
       await visit(path);
       await waitUntil(() => findAll('nav a').length !== 0);

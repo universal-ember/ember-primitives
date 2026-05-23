@@ -21,7 +21,6 @@ Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/relea
 The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM. Toggle the button to unmount and re-mount the list — each "Show" brings back the first batch in the same paint, then the rest streams in via idle callbacks.
 
 
-> [!WARNING]
 
 <div class="featured-demo">
 

@@ -47,7 +47,7 @@ const a11yChecks: {
  * component itself has its own rendering tests in `test-app`; this
  * page is the demo, not the API surface.
  */
-const a11ySkipped = new Set<string>(['/6-utils/incremental-each.gjs.md']);
+const a11ySkipped = new Set<string>(['/6-utils/incremental-each.md']);
 
 /**
  * a11yAudit halts tests, this gets around that

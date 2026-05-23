@@ -209,42 +209,64 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
-  // The items that should currently be rendered. This is also where
-  // scheduling is driven from: `@items` identity changes reset
-  // `#count` (to the first batch under `@initial="sync"`, or to zero
-  // under `@initial="lazy"`), and any remaining items queue the next
-  // idle callback. Autotrack stays consistent because the only
-  // synchronous writes here (`#count.current = ...`) happen before
-  // `#count` is read.
-  /* eslint-disable ember/no-side-effects */
-  get visible(): readonly T[] {
-    const items = this.args.items ?? [];
+  // How many items to commit in the first render after an `@items`
+  // identity change. `"sync"` lands a full batch immediately;
+  // `"lazy"` defers everything to the first idle callback.
+  get #firstSlice(): number {
+    const length = (this.args.items ?? []).length;
 
-    if (items !== this.#itemsRef) {
+    return this.#initial === "sync" ? Math.min(this.#batchSize, length) : 0;
+  }
+
+  // Indirect read of the tracked `#count` cell so callers don't have
+  // to know it's wrapped in a `cell()`.
+  get #currentCount(): number {
+    return this.#count.current;
+  }
+
+  // The items that should currently be rendered. Side-effects
+  // (detecting an `@items` swap, resetting `#count`, scheduling the
+  // next batch) all live in `#prepare`; this getter is just a
+  // window over the args.
+  get visible(): readonly T[] {
+    this.#prepare();
+
+    return (this.args.items ?? []).slice(0, this.#currentCount);
+  }
+
+  // Drives the state machine on every render: detect `@items`
+  // identity changes (reset `#count` and clear the onDone marker),
+  // and ensure an idle callback is queued whenever there is more
+  // work to do — or, on a fresh `@items` change, even when the
+  // sync first batch already finished the whole list, so that the
+  // batch path is the single place `#maybeFireDone` fires from.
+  // Autotrack stays consistent: any tracked write here happens
+  // before the corresponding read elsewhere in the same render
+  // computation.
+  #prepare() {
+    const items = this.args.items ?? [];
+    const itemsChanged = items !== this.#itemsRef;
+
+    if (itemsChanged) {
       this.#itemsRef = items;
       this.#onDoneFiredFor = null;
       this.#cancel();
-      this.#count.current = this.#initial === "sync" ? Math.min(this.#batchSize, items.length) : 0;
+      this.#count.current = this.#firstSlice;
     }
 
-    if (this.#count.current < items.length && this.#idleHandle === null) {
+    const hasMore = this.#currentCount < items.length;
+    const needsCompletionTick = itemsChanged && items.length > 0;
+
+    if ((hasMore || needsCompletionTick) && this.#idleHandle === null) {
       this.#scheduleNextBatch();
-    } else {
-      // Already at the end (sync mode finished the whole list in one
-      // batch, or batches landed and we just re-rendered). Schedule
-      // `@onDone` so it fires after this render commits.
-      this.#maybeFireDone();
     }
-
-    return items.slice(0, this.#count.current);
   }
-  /* eslint-enable ember/no-side-effects */
 
   #maybeFireDone() {
     const items = this.#itemsRef ?? [];
 
     if (items.length === 0) return;
-    if (this.#count.current < items.length) return;
+    if (this.#currentCount < items.length) return;
     if (this.#onDoneFiredFor === items) return;
 
     this.#onDoneFiredFor = items;
@@ -259,7 +281,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   #scheduleNextBatch() {
     // Defensive: if a batch is already pending, drop it before
-    // queueing a new one. The `visible` getter already guards on
+    // queueing a new one. `#prepare` already guards on
     // `#idleHandle === null`, but a future caller might not.
     this.#cancel();
 
@@ -277,7 +299,10 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
         const items = this.args.items ?? [];
 
-        this.#count.current = Math.min(this.#count.current + this.#batchSize, items.length);
+        if (this.#currentCount < items.length) {
+          this.#count.current = Math.min(this.#currentCount + this.#batchSize, items.length);
+        }
+
         this.#endWaiter();
         this.#maybeFireDone();
       },

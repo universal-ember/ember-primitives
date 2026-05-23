@@ -33,7 +33,7 @@ export interface Signature<T = unknown> {
     items: readonly T[];
 
     /**
-     * How many items to add per idle callback.
+     * How many items to add per animation frame.
      *
      * Larger batches add more items per chunk; smaller batches yield to
      * the browser more often.
@@ -58,14 +58,14 @@ export interface Signature<T = unknown> {
      * - `"sync"` (default): the first `@batchSize` items render in the
      *   same render pass as mount / `@items` change. The user sees
      *   content on the very first paint, and the rest of the list
-     *   fills in via idle callbacks. This is the right default for
-     *   most lists — even a perceived "empty for one frame" is worse
-     *   than rendering a few extra items synchronously.
-     * - `"lazy"`: even the first batch waits for an idle callback,
-     *   so the initial paint is empty and content arrives one batch
-     *   per idle tick. Use this when the first batch itself would be
-     *   expensive enough to block the first paint, and you'd rather
-     *   show an empty container than delay it.
+     *   fills in one batch per animation frame. This is the right
+     *   default for most lists — even a perceived "empty for one
+     *   frame" is worse than rendering a few extra items synchronously.
+     * - `"lazy"`: even the first batch waits for an animation frame, so
+     *   the initial paint is empty and content arrives one batch per
+     *   frame. Use this when the first batch itself would be expensive
+     *   enough to block the first paint, and you'd rather show an
+     *   empty container than delay it.
      *
      * Default: `"sync"`.
      *
@@ -126,8 +126,8 @@ export interface Signature<T = unknown> {
 }
 
 /**
- * A drop-in replacement for `{{#each}}` that renders a large collection a
- * batch at a time during the browser's idle periods, instead of all at once.
+ * A drop-in replacement for `{{#each}}` that renders a large collection
+ * a batch at a time on each animation frame, instead of all at once.
  *
  * Every item ends up in the DOM, so browser find (Ctrl+F / Cmd+F), anchor
  * links, screen readers, print, and SEO all work against the full list.
@@ -136,14 +136,14 @@ export interface Signature<T = unknown> {
  *
  * By default the first batch lands synchronously, so the user sees content
  * on the very first paint. Pass `@initial="lazy"` to defer the first batch
- * to an idle callback as well.
+ * to an animation frame as well.
  *
  * Intended for non-scrollable containers, or anywhere a virtual/windowed
  * list does not apply (variable item heights, lists that grow the page,
  * surfaces that need every row indexable).
  *
  * Do not nest one `<IncrementalEach>` inside another. Each level adds an
- * idle-callback delay before its content paints; nesting compounds those
+ * animation-frame delay before its content paints; nesting compounds those
  * delays, so inner rows appear to flicker in with missing sub-content.
  * If you have nested loops, only the outermost one should be
  * `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.
@@ -163,16 +163,16 @@ export interface Signature<T = unknown> {
  */
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   // How many items have been committed to the DOM so far. Bumped one
-  // batch at a time by the idle callback. Wrapped in a `cell` because
-  // `@tracked` doesn't compose with `#`-private fields under this
-  // codebase's decorator transform.
+  // batch at a time by the animation-frame callback. Wrapped in a
+  // `cell` because `@tracked` doesn't compose with `#`-private fields
+  // under this codebase's decorator transform.
   #count = cell(0);
 
   // Plain field so identity checks don't add a render-time dependency
   // on top of `args.items`.
   #itemsRef: readonly T[] | null = null;
 
-  #idleHandle: number | null = null;
+  #rafHandle: number | null = null;
 
   #waiterToken: unknown = null;
 
@@ -211,7 +211,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   // How many items to commit in the first render after an `@items`
   // identity change. `"sync"` lands a full batch immediately;
-  // `"lazy"` defers everything to the first idle callback.
+  // `"lazy"` defers everything to the first animation frame.
   get #firstSlice(): number {
     const length = (this.args.items ?? []).length;
 
@@ -236,7 +236,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   // Drives the state machine on every render: detect `@items`
   // identity changes (reset `#count` and clear the onDone marker),
-  // and ensure an idle callback is queued whenever there is more
+  // and ensure an animation frame is queued whenever there is more
   // work to do — or, on a fresh `@items` change, even when the
   // sync first batch already finished the whole list, so that the
   // batch path is the single place `#maybeFireDone` fires from.
@@ -257,7 +257,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     const hasMore = this.#currentCount < items.length;
     const needsCompletionTick = itemsChanged && items.length > 0;
 
-    if ((hasMore || needsCompletionTick) && this.#idleHandle === null) {
+    if ((hasMore || needsCompletionTick) && this.#rafHandle === null) {
       this.#scheduleNextBatch();
     }
   }
@@ -282,38 +282,31 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   #scheduleNextBatch() {
     // Defensive: if a batch is already pending, drop it before
     // queueing a new one. `#prepare` already guards on
-    // `#idleHandle === null`, but a future caller might not.
+    // `#rafHandle === null`, but a future caller might not.
     this.#cancel();
 
     this.#waiterToken = waiter.beginAsync();
 
-    // The `timeout` cap ensures forward progress even when the host
-    // is CPU-bound and the browser never reports a free idle slot.
-    // In normal use this is a no-op because real idle time arrives
-    // far sooner.
-    this.#idleHandle = requestIdleCallback(
-      () => {
-        this.#idleHandle = null;
+    this.#rafHandle = requestAnimationFrame(() => {
+      this.#rafHandle = null;
 
-        if (isDestroyed(this) || isDestroying(this)) return;
+      if (isDestroyed(this) || isDestroying(this)) return;
 
-        const items = this.args.items ?? [];
+      const items = this.args.items ?? [];
 
-        if (this.#currentCount < items.length) {
-          this.#count.current = Math.min(this.#currentCount + this.#batchSize, items.length);
-        }
+      if (this.#currentCount < items.length) {
+        this.#count.current = Math.min(this.#currentCount + this.#batchSize, items.length);
+      }
 
-        this.#endWaiter();
-        this.#maybeFireDone();
-      },
-      { timeout: 100 },
-    );
+      this.#endWaiter();
+      this.#maybeFireDone();
+    });
   }
 
   #cancel() {
-    if (this.#idleHandle !== null) {
-      cancelIdleCallback(this.#idleHandle);
-      this.#idleHandle = null;
+    if (this.#rafHandle !== null) {
+      cancelAnimationFrame(this.#rafHandle);
+      this.#rafHandle = null;
     }
 
     this.#endWaiter();

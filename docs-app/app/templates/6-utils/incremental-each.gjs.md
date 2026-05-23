@@ -20,7 +20,6 @@ Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/relea
 
 The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM. Toggle the button to unmount and re-mount the list — each "Show" brings back the first batch in the same paint, then the rest streams in via idle callbacks.
 
-The first batch lands synchronously by default (`@initial="sync"`), so the user sees content on the very first paint and the rest of the list fills in via idle callbacks. Pass `@initial="lazy"` to defer the first batch to an idle callback as well — useful when even the first batch is expensive enough that you'd rather show an empty container than delay the first paint.
 
 > [!WARNING]
 > Don't nest `<IncrementalEach>` inside another `<IncrementalEach>`. Each level adds an idle-callback delay before its content paints, and nesting compounds those delays — inner rows appear to flicker in with missing sub-content. When you have nested loops, only the outermost one should be `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.

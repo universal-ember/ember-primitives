@@ -26,152 +26,155 @@ The demo renders 20,000 rows in batches of 400. Use Ctrl+F / Cmd+F to search for
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
-import { trackedObject } from '@ember/reactive/collections';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { registerDestructor } from '@ember/destroyable';
 import { on } from '@ember/modifier';
 
 const BATCH_SIZE = 400;
 const rows = Array.from({ length: 20_000 }, (_, i) => `Row ${i + 1}`);
 
-const state = trackedObject({
-  visible: true,
-  elapsedMs: 0,
-  batches: 0,
-  done: false,
-  mode: 'lazy',
-});
+export default class IncrementalEachDemo extends Component {
+  @tracked visible = true;
+  @tracked elapsedMs = 0;
+  @tracked batches = 0;
+  @tracked done = false;
+  @tracked mode = 'lazy';
 
-<template>
-  <div class="incremental-card not-prose">
-    <div class="incremental-controls">
-      <button type="button" {{on "click" toggleMode}}>
-        Mode: {{state.mode}}
-      </button>
-      <button type="button" {{on "click" toggle}}>
-        {{if state.visible "Hide" "Show"}} rows
-      </button>
-      {{#if state.visible}}
-        <span class="incremental-count">
-          {{rows.length}} rows · {{state.batches}} batches ·
-          {{state.elapsedMs}}ms{{if state.done " (done)"}}
-        </span>
+  startedAt = performance.now();
+  tickId = null;
+
+  constructor(owner, args) {
+    super(owner, args);
+    this.startTicker();
+    registerDestructor(this, () => this.stopTicker());
+  }
+
+  stopTicker = () => clearInterval(this.tickId);
+
+  sample = () => {
+    this.elapsedMs = Math.round(performance.now() - this.startedAt);
+    const rendered = document.querySelectorAll('.incremental-demo li').length;
+    this.batches = Math.ceil(rendered / BATCH_SIZE);
+  };
+
+  startTicker = () => {
+    this.stopTicker();
+    this.tickId = setInterval(this.sample, 50);
+  };
+
+  handleDone = () => {
+    this.done = true;
+    this.elapsedMs = Math.round(performance.now() - this.startedAt);
+    this.batches = Math.ceil(rows.length / BATCH_SIZE);
+    this.stopTicker();
+  };
+
+  toggleMode = () => {
+    this.mode = this.mode === 'lazy' ? 'sync' : 'lazy';
+    this.startTicker();
+  };
+
+  toggle = () => {
+    if (this.visible) {
+      this.visible = false;
+      this.done = false;
+      this.elapsedMs = 0;
+      this.batches = 0;
+      this.stopTicker();
+    } else {
+      this.startedAt = performance.now();
+      this.done = false;
+      this.elapsedMs = 0;
+      this.batches = 0;
+      this.visible = true;
+      this.startTicker();
+    }
+  };
+
+  <template>
+    <div class="incremental-card not-prose">
+      <div class="incremental-controls">
+        <button type="button" {{on "click" this.toggleMode}}>
+          Mode: {{this.mode}}
+        </button>
+        <button type="button" {{on "click" this.toggle}}>
+          {{if this.visible "Hide" "Show"}} rows
+        </button>
+        {{#if this.visible}}
+          <span class="incremental-count">
+            {{rows.length}} rows · {{this.batches}} batches ·
+            {{this.elapsedMs}}ms{{if this.done " (done)"}}
+          </span>
+        {{/if}}
+      </div>
+
+      {{#if this.visible}}
+        <ul class="incremental-demo">
+          <IncrementalEach
+            @items={{rows}}
+            @batchSize={{BATCH_SIZE}}
+            @initial={{this.mode}}
+            @onDone={{this.handleDone}}
+            as |row|
+          ><li>{{row}}</li></IncrementalEach>
+        </ul>
       {{/if}}
     </div>
 
-    {{#if state.visible}}
-      <ul class="incremental-demo">
-        <IncrementalEach
-          @items={{rows}}
-          @batchSize={{BATCH_SIZE}}
-          @initial={{state.mode}}
-          @onDone={{handleDone}}
-          as |row|
-        ><li>{{row}}</li></IncrementalEach>
-      </ul>
-    {{/if}}
-  </div>
-
-  <style>
-    .incremental-card {
-      background: #fff;
-      color: #111827;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow:
-        0 10px 15px -3px rgb(0 0 0 / 0.1),
-        0 4px 6px -4px rgb(0 0 0 / 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .incremental-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .incremental-controls button {
-      padding: 0.4rem 0.9rem;
-      font: inherit;
-      color: #fff;
-      background: #4f46e5;
-      border: 0;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .incremental-controls button:hover {
-      background: #4338ca;
-    }
-    .incremental-count {
-      color: #6b7280;
-      font-size: 0.875rem;
-    }
-    .incremental-demo {
-      max-height: 320px;
-      overflow: auto;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 6px;
-      padding: 0.75rem 1rem;
-      margin: 0;
-      list-style: none;
-    }
-    .incremental-demo li {
-      padding: 0.125rem 0;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.875rem;
-      color: #111827;
-    }
-  </style>
-</template>
-
-// Not tracked: plain mutable state used to drive `state.elapsedMs`.
-// Reading it from a render path doesn't entangle with anything.
-let startedAt = performance.now();
-let tickId = null;
-
-const stopTicker = () => clearInterval(tickId);
-
-function sample() {
-  state.elapsedMs = Math.round(performance.now() - startedAt);
-  const rendered = document.querySelectorAll('.incremental-demo li').length;
-  state.batches = Math.ceil(rendered / BATCH_SIZE);
-};
-
-function startTicker() {
-  stopTicker();
-  tickId = setInterval(sample, 50);
-};
-
-function handleDone() {
-  state.done = true;
-  state.elapsedMs = Math.round(performance.now() - startedAt);
-  state.batches = Math.ceil(rows.length / BATCH_SIZE);
-  stopTicker();
+    <style>
+      .incremental-card {
+        background: #fff;
+        color: #111827;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .incremental-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .incremental-controls button {
+        padding: 0.4rem 0.9rem;
+        font: inherit;
+        color: #fff;
+        background: #4f46e5;
+        border: 0;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .incremental-controls button:hover {
+        background: #4338ca;
+      }
+      .incremental-count {
+        color: #6b7280;
+        font-size: 0.875rem;
+      }
+      .incremental-demo {
+        max-height: 320px;
+        overflow: auto;
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0.75rem 1rem;
+        margin: 0;
+        list-style: none;
+      }
+      .incremental-demo li {
+        padding: 0.125rem 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.875rem;
+        color: #111827;
+      }
+    </style>
+  </template>
 }
-
-function toggleMode() {
-  state.mode === 'lazy' ? (state.mode = 'sync') : (state.mode = 'lazy');
-  startTicker();
-}
-
-function toggle() {
-  if (state.visible) {
-    state.visible = false;
-    state.done = false;
-    state.elapsedMs = 0;
-    state.batches = 0;
-    stopTicker();
-  } else {
-    startedAt = performance.now();
-    state.done = false;
-    state.elapsedMs = 0;
-    state.batches = 0;
-    state.visible = true;
-    startTicker();
-  }
-};
-
-startTicker();
-
 ```
 
 </div>

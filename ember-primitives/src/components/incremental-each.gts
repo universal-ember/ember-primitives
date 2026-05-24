@@ -15,11 +15,12 @@ const DEFAULT_INITIAL = "sync";
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
 function splitIntoBuckets<T>(arr: readonly T[], n: number): T[][] {
-  const buckets = Array.from({ length: n }, () => []);
+  const buckets: T[][] = Array.from({ length: n }, () => []);
+  const len = arr.length;
 
-  for (let i = 0; i < arr.length; i++) {
-    buckets[((i * n) / arr.length) | 0].push(arr[i]);
-  }
+  arr.forEach((item, i) => {
+    buckets[((i * n) / len) | 0]?.push(item);
+  });
 
   return buckets;
 }

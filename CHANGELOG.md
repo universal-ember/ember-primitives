@@ -2,6 +2,20 @@
 
 ## Release (2026-05-24)
 
+* ember-primitives 0.59.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#747](https://github.com/universal-ember/ember-primitives/pull/747) Polyfill requestIdleCallback for Safari ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :house: Internal
+* [#748](https://github.com/universal-ember/ember-primitives/pull/748) Convert IncrementalEach docs demo to a class component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 1
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+## Release (2026-05-24)
+
 * ember-primitives 0.59.0 (minor)
 * @universal-ember/docs-support 0.9.10 (patch)
 

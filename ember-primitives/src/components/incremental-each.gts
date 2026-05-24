@@ -2,7 +2,6 @@ import Component from "@glimmer/component";
 import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
-import { trackedArray } from "@ember/reactive/collections";
 import { buildWaiter } from "@ember/test-waiters";
 
 import { cell } from "ember-resources";
@@ -14,16 +13,22 @@ const DEFAULT_INITIAL = "sync";
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
-function splitIntoBuckets<T>(arr: readonly T[], n: number): T[][] {
-  const buckets: T[][] = Array.from({ length: n }, () => []);
-  const len = arr.length;
-
-  arr.forEach((item, i) => {
-    buckets[((i * n) / len) | 0]?.push(item);
-  });
-
-  return buckets;
+interface Bucket<T> {
+  items: readonly T[];
+  offset: number;
 }
+
+function chunk<T>(arr: readonly T[], size: number): Bucket<T>[] {
+  const out: Bucket<T>[] = [];
+
+  for (let i = 0; i < arr.length; i += size) {
+    out.push({ items: arr.slice(i, i + size), offset: i });
+  }
+
+  return out;
+}
+
+const sumOf = (a: number, b: number) => a + b;
 
 export interface Signature<T = unknown> {
   Args: {
@@ -176,24 +181,42 @@ export interface Signature<T = unknown> {
  */
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   #count = cell(0);
+  #itemsRef: readonly T[] | null = null;
+  #idleHandle: number | null = null;
   #waiterToken: unknown = null;
+  #doneFor: object | null = null;
 
   constructor(owner: Owner, args: Signature<T>["Args"]) {
     super(owner, args);
 
-    registerDestructor(this, () => this.#endWaiter());
+    registerDestructor(this, () => this.#cancel());
   }
 
+  // Reset progress when `@items` identity changes so a swap restarts at
+  // the first batch (and so `@onDone` can fire again for the new
+  // collection). Mutating `#count` from a getter is safe here because
+  // the write happens before any consumer reads `#count` in the same
+  // render pass.
+  /* eslint-disable ember/no-side-effects */
   get #items(): readonly T[] {
     const items = this.args.items;
 
     assert(`@items must be an array`, items);
 
+    if (items !== this.#itemsRef) {
+      this.#itemsRef = items;
+      this.#count.current = 0;
+      this.#doneFor = null;
+    }
+
     return items;
   }
+  /* eslint-enable ember/no-side-effects */
 
+  // `"sync"` keeps bucket 0 visible at count=0 (`i = 0 >= 0`); `"lazy"`
+  // starts one step behind so even bucket 0 needs a tick.
   get #start() {
-    return this.#initial === "sync" ? -1 : 0;
+    return this.#initial === "sync" ? 0 : -1;
   }
 
   get i() {
@@ -202,16 +225,13 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   @cached
   get bucketed() {
-    const batches = this.#items.length / this.#batchSize;
-
-    return trackedArray(
-      splitIntoBuckets(this.#items, batches).map((bucket, i) => {
-        return {
-          isReady: () => this.i >= i,
-          item: bucket,
-        };
-      }),
-    );
+    return chunk(this.#items, this.#batchSize).map(({ items, offset }, b) => {
+      return {
+        isReady: () => this.i >= b,
+        items,
+        offset,
+      };
+    });
   }
 
   get #batchSize(): number {
@@ -237,31 +257,63 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   }
 
   tick = () => {
-    if (this.#count.current < this.#items.length) {
-      requestIdleCallback(() => this.#count.current++, { timeout: 10 });
-    }
+    const lastIdx = this.bucketed.length - 1;
+
+    if (lastIdx < 0) return;
+    if (this.i >= lastIdx) return;
+    if (this.#waiterToken !== null) return;
+
+    this.#waiterToken = waiter.beginAsync();
+    this.#idleHandle = requestIdleCallback(
+      () => {
+        this.#idleHandle = null;
+
+        if (isDestroyed(this) || isDestroying(this)) {
+          this.#endWaiter();
+
+          return;
+        }
+
+        this.#count.current++;
+        this.#endWaiter();
+      },
+      { timeout: 10 },
+    );
   };
 
   checkDone = () => {
-    if (this.#count.current >= this.bucketed.length - 1) {
-      queueMicrotask(() => {
-        if (isDestroyed(this) || isDestroying(this)) return;
-        this.args.onDone?.();
-        this.#endWaiter();
-      });
-    }
+    const bucketed = this.bucketed;
+
+    if (this.#doneFor === bucketed) return;
+    if (this.i < bucketed.length - 1) return;
+
+    this.#doneFor = bucketed;
+    queueMicrotask(() => {
+      if (isDestroyed(this) || isDestroying(this)) return;
+      this.args.onDone?.();
+    });
   };
+
+  #cancel() {
+    if (this.#idleHandle !== null) {
+      cancelIdleCallback(this.#idleHandle);
+      this.#idleHandle = null;
+    }
+
+    this.#endWaiter();
+  }
 
   #endWaiter() {
     if (this.#waiterToken !== null) {
       waiter.endAsync(this.#waiterToken);
+      this.#waiterToken = null;
     }
   }
 
   <template>
     {{(this.tick)}}{{#each this.bucketed as |bucket|}}{{#if (bucket.isReady)}}{{#each
-          bucket.item
-          as |item|
-        }}{{yield item}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
+          bucket.items
+          as |item innerIdx|
+        }}{{yield item (sumOf bucket.offset innerIdx)}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
   </template>
 }

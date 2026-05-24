@@ -78,6 +78,7 @@
     "ember-source": "^6.10.1",
     "ember-template-lint": "^7.9.3",
     "eslint": "^9.39.2",
+    "eslint-plugin-compat": "^7.0.2",
     "execa": "^9.6.0",
     "fix-bad-declaration-output": "^1.1.5",
     "prettier": "^3.8.1",
@@ -138,6 +139,12 @@
     "ember-modifier": ">= 4.1.0",
     "ember-resources": ">= 6.1.0"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
   "peerDependenciesMeta": {
     "@ember/test-helpers": {
       "optional": true

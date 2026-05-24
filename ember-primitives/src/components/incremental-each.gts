@@ -13,16 +13,11 @@ const DEFAULT_INITIAL = "sync";
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
-interface Bucket<T> {
-  items: readonly T[];
-  offset: number;
-}
-
-function chunk<T>(arr: readonly T[], size: number): Bucket<T>[] {
-  const out: Bucket<T>[] = [];
+function chunk<T>(arr: readonly T[], size: number): T[][] {
+  const out: T[][] = [];
 
   for (let i = 0; i < arr.length; i += size) {
-    out.push({ items: arr.slice(i, i + size), offset: i });
+    out.push(arr.slice(i, i + size));
   }
 
   return out;
@@ -225,11 +220,13 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   @cached
   get bucketed() {
-    return chunk(this.#items, this.#batchSize).map(({ items, offset }, b) => {
+    const size = this.#batchSize;
+
+    return chunk(this.#items, size).map((items, b) => {
       return {
         isReady: () => this.i >= b,
         items,
-        offset,
+        offset: b * size,
       };
     });
   }

@@ -1,10 +1,12 @@
 import Component from "@glimmer/component";
 import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
-import { isDestroyed, isDestroying } from "@ember/destroyable";
+import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
 import { buildWaiter } from "@ember/test-waiters";
 
 import { cell } from "ember-resources";
+
+import type Owner from "@ember/owner";
 
 const DEFAULT_BATCH_SIZE = 50;
 const DEFAULT_INITIAL = "sync";
@@ -173,13 +175,21 @@ export interface Signature<T = unknown> {
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   #count = cell(0);
   #itemsRef: readonly T[] | null = null;
+  #waiterToken: unknown = null;
   #doneFor: object | null = null;
 
-  // Reset progress when `@items` identity changes so a swap restarts at
-  // the first batch (and so `@onDone` can fire again for the new
-  // collection). Mutating `#count` from a getter is safe here because
-  // the write happens before any consumer reads `#count` in the same
-  // render pass.
+  constructor(owner: Owner, args: Signature<T>["Args"]) {
+    super(owner, args);
+
+    registerDestructor(this, () => this.#endWaiter());
+  }
+
+  // Reset progress and (re)open the test-waiter when `@items` identity
+  // changes, so a swap restarts at the first batch, `@onDone` can fire
+  // again for the new collection, and `await settled()` knows to wait
+  // until `checkDone` closes the waiter. Mutating from a getter is safe
+  // here because the writes happen before any consumer reads them in
+  // the same render pass.
   /* eslint-disable ember/no-side-effects */
   get #items(): readonly T[] {
     const items = this.args.items;
@@ -189,7 +199,11 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     if (items !== this.#itemsRef) {
       this.#itemsRef = items;
       this.#count.current = 0;
-      this.#doneFor = null;
+      this.#endWaiter();
+
+      if (items.length > 0) {
+        this.#waiterToken = waiter.beginAsync();
+      }
     }
 
     return items;
@@ -242,26 +256,13 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
+  // `#items` is read before `#count` so the count-reset inside `#items`
+  // (on `@items` swap) lands before this read of count this render —
+  // otherwise tracked-value backtracking asserts.
   tick = () => {
-    // Read `bucketed` before `i` so the count-reset inside `#items`
-    // (on `@items` swap) happens before any read of `#count` this
-    // render — otherwise tracked-value backtracking asserts.
-    const lastIdx = this.bucketed.length - 1;
-
-    if (this.i >= lastIdx) return;
-
-    const token = waiter.beginAsync();
-
-    requestIdleCallback(
-      () => {
-        if (!isDestroyed(this) && !isDestroying(this)) {
-          this.#count.current++;
-        }
-
-        waiter.endAsync(token);
-      },
-      { timeout: 10 },
-    );
+    if (this.#items.length > this.#count.current) {
+      requestIdleCallback(() => this.#count.current++, { timeout: 10 });
+    }
   };
 
   checkDone = () => {
@@ -274,8 +275,13 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     queueMicrotask(() => {
       if (isDestroyed(this) || isDestroying(this)) return;
       this.args.onDone?.();
+      this.#endWaiter();
     });
   };
+
+  #endWaiter() {
+    if (this.#waiterToken) waiter.endAsync(this.#waiterToken);
+  }
 
   <template>
     {{(this.tick)}}{{#each this.bucketed as |bucket|}}{{#if (bucket.isReady)}}{{#each

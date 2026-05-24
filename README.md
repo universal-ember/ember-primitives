@@ -46,21 +46,12 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/lukasnys">
-                    <img src="https://avatars.githubusercontent.com/u/22593230?v=4" width="100;" alt="lukasnys"/>
+                <a href="https://github.com/pulien">
+                    <img src="https://avatars.githubusercontent.com/u/120576344?v=4" width="100;" alt="pulien"/>
                     <br />
-                    <sub><b>Lukas Nys</b></sub>
+                    <sub><b>pulien</b></sub>
                 </a>
             </td>
-            <td align="center">
-                <a href="https://github.com/rtablada">
-                    <img src="https://avatars.githubusercontent.com/u/2532004?v=4" width="100;" alt="rtablada"/>
-                    <br />
-                    <sub><b>Ryan Tablada</b></sub>
-                </a>
-            </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/kaermorchen">
                     <img src="https://avatars.githubusercontent.com/u/11972062?v=4" width="100;" alt="kaermorchen"/>
@@ -68,11 +59,27 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>Stanislav Romanov</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
-                <a href="https://github.com/pulien">
-                    <img src="https://avatars.githubusercontent.com/u/120576344?v=4" width="100;" alt="pulien"/>
+                <a href="https://github.com/rtablada">
+                    <img src="https://avatars.githubusercontent.com/u/2532004?v=4" width="100;" alt="rtablada"/>
                     <br />
-                    <sub><b>pulien</b></sub>
+                    <sub><b>Ryan Tablada</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/lukasnys">
+                    <img src="https://avatars.githubusercontent.com/u/22593230?v=4" width="100;" alt="lukasnys"/>
+                    <br />
+                    <sub><b>Lukas Nys</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/NullVoxPopuli-ai-agent">
+                    <img src="https://avatars.githubusercontent.com/u/268630448?v=4" width="100;" alt="NullVoxPopuli-ai-agent"/>
+                    <br />
+                    <sub><b>@NullVoxPopuli's reduced-access machine account for AI usage</b></sub>
                 </a>
             </td>
             <td align="center">
@@ -96,6 +103,8 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>Martin Muñoz</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/ember-tomster">
                     <img src="https://avatars.githubusercontent.com/u/17934356?v=4" width="100;" alt="ember-tomster"/>
@@ -103,8 +112,6 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>ember-tomster</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/johanrd">
                     <img src="https://avatars.githubusercontent.com/u/4601554?v=4" width="100;" alt="johanrd"/>

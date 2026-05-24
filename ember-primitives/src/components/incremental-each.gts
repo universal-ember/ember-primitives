@@ -23,8 +23,6 @@ function chunk<T>(arr: readonly T[], size: number): T[][] {
   return out;
 }
 
-const sumOf = (a: number, b: number) => a + b;
-
 export interface Signature<T = unknown> {
   Args: {
     /**
@@ -223,10 +221,11 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     const size = this.#batchSize;
 
     return chunk(this.#items, size).map((items, b) => {
+      const start = b * size;
+
       return {
         isReady: () => this.i >= b,
-        items,
-        offset: b * size,
+        items: items.map((value, j) => ({ value, index: start + j })),
       };
     });
   }
@@ -310,7 +309,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   <template>
     {{(this.tick)}}{{#each this.bucketed as |bucket|}}{{#if (bucket.isReady)}}{{#each
           bucket.items
-          as |item innerIdx|
-        }}{{yield item (sumOf bucket.offset innerIdx)}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
+          as |entry|
+        }}{{yield entry.value entry.index}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
   </template>
 }

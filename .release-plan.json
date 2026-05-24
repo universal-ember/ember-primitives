@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.57.0",
-      "newVersion": "0.58.0",
+      "oldVersion": "0.58.0",
+      "newVersion": "0.59.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -12,15 +12,19 @@
         },
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.8",
-      "newVersion": "0.9.9",
+      "oldVersion": "0.9.9",
+      "newVersion": "0.9.10",
       "tagName": "latest",
       "constraints": [
         {
@@ -34,5 +38,5 @@
       "oldVersion": "0.2.7"
     }
   },
-  "description": "## Release (2026-05-23)\n\n* ember-primitives 0.58.0 (minor)\n* @universal-ember/docs-support 0.9.9 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#740](https://github.com/universal-ember/ember-primitives/pull/740) Add IncrementalEach: render large lists a batch at a time ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#737](https://github.com/universal-ember/ember-primitives/pull/737) Fix internal types ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-05-24)\n\n* ember-primitives 0.59.0 (minor)\n* @universal-ember/docs-support 0.9.10 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#743](https://github.com/universal-ember/ember-primitives/pull/743) Improve `<IncrementalEach>` performance, update docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#744](https://github.com/universal-ember/ember-primitives/pull/744) Fix TS errors in IncrementalEach splitIntoBuckets ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :memo: Documentation\n* `ember-primitives`\n  * [#743](https://github.com/universal-ember/ember-primitives/pull/743) Improve `<IncrementalEach>` performance, update docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

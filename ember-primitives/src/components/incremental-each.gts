@@ -1,12 +1,10 @@
 import Component from "@glimmer/component";
 import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
-import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
+import { isDestroyed, isDestroying } from "@ember/destroyable";
 import { buildWaiter } from "@ember/test-waiters";
 
 import { cell } from "ember-resources";
-
-import type Owner from "@ember/owner";
 
 const DEFAULT_BATCH_SIZE = 50;
 const DEFAULT_INITIAL = "sync";
@@ -175,15 +173,7 @@ export interface Signature<T = unknown> {
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   #count = cell(0);
   #itemsRef: readonly T[] | null = null;
-  #idleHandle: number | null = null;
-  #waiterToken: unknown = null;
   #doneFor: object | null = null;
-
-  constructor(owner: Owner, args: Signature<T>["Args"]) {
-    super(owner, args);
-
-    registerDestructor(this, () => this.#cancel());
-  }
 
   // Reset progress when `@items` identity changes so a swap restarts at
   // the first batch (and so `@onDone` can fire again for the new
@@ -253,25 +243,22 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   }
 
   tick = () => {
+    // Read `bucketed` before `i` so the count-reset inside `#items`
+    // (on `@items` swap) happens before any read of `#count` this
+    // render — otherwise tracked-value backtracking asserts.
     const lastIdx = this.bucketed.length - 1;
 
-    if (lastIdx < 0) return;
     if (this.i >= lastIdx) return;
-    if (this.#waiterToken !== null) return;
 
-    this.#waiterToken = waiter.beginAsync();
-    this.#idleHandle = requestIdleCallback(
+    const token = waiter.beginAsync();
+
+    requestIdleCallback(
       () => {
-        this.#idleHandle = null;
-
-        if (isDestroyed(this) || isDestroying(this)) {
-          this.#endWaiter();
-
-          return;
+        if (!isDestroyed(this) && !isDestroying(this)) {
+          this.#count.current++;
         }
 
-        this.#count.current++;
-        this.#endWaiter();
+        waiter.endAsync(token);
       },
       { timeout: 10 },
     );
@@ -289,22 +276,6 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
       this.args.onDone?.();
     });
   };
-
-  #cancel() {
-    if (this.#idleHandle !== null) {
-      cancelIdleCallback(this.#idleHandle);
-      this.#idleHandle = null;
-    }
-
-    this.#endWaiter();
-  }
-
-  #endWaiter() {
-    if (this.#waiterToken !== null) {
-      waiter.endAsync(this.#waiterToken);
-      this.#waiterToken = null;
-    }
-  }
 
   <template>
     {{(this.tick)}}{{#each this.bucketed as |bucket|}}{{#if (bucket.isReady)}}{{#each

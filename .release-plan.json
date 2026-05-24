@@ -1,42 +1,24 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.58.0",
-      "newVersion": "0.59.0",
+      "impact": "patch",
+      "oldVersion": "0.59.0",
+      "newVersion": "0.59.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        },
-        {
           "impact": "patch",
           "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "impact": "patch",
-      "oldVersion": "0.9.9",
-      "newVersion": "0.9.10",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:^` on ember-primitives"
-        }
-      ],
-      "pkgJSONPath": "./packages/docs-support/package.json"
+      "oldVersion": "0.9.10"
     },
     "which-heading-do-i-need": {
       "oldVersion": "0.2.7"
     }
   },
-  "description": "## Release (2026-05-24)\n\n* ember-primitives 0.59.0 (minor)\n* @universal-ember/docs-support 0.9.10 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#743](https://github.com/universal-ember/ember-primitives/pull/743) Improve `<IncrementalEach>` performance, update docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#744](https://github.com/universal-ember/ember-primitives/pull/744) Fix TS errors in IncrementalEach splitIntoBuckets ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :memo: Documentation\n* `ember-primitives`\n  * [#743](https://github.com/universal-ember/ember-primitives/pull/743) Improve `<IncrementalEach>` performance, update docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-05-24)\n\n* ember-primitives 0.59.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#747](https://github.com/universal-ember/ember-primitives/pull/747) Polyfill requestIdleCallback for Safari ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* [#748](https://github.com/universal-ember/ember-primitives/pull/748) Convert IncrementalEach docs demo to a class component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 1\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n"
 }

@@ -23,6 +23,15 @@ function chunk<T>(arr: readonly T[], size: number): T[][] {
   return out;
 }
 
+// Safari has `requestIdleCallback` behind a flag, effectively absent
+// for end users. Fall back to `setTimeout(cb, 0)` — Safari users get
+// the chunking benefit (one batch per task) without the idle-priority
+// hint that other browsers honor.
+const ric: typeof requestIdleCallback =
+  typeof requestIdleCallback === "function"
+    ? requestIdleCallback
+    : (cb) => setTimeout(() => cb({ timeRemaining: () => 0, didTimeout: true }), 0);
+
 export interface Signature<T = unknown> {
   Args: {
     /**
@@ -261,7 +270,7 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   // otherwise tracked-value backtracking asserts.
   tick = () => {
     if (this.#items.length > this.#count.current) {
-      requestIdleCallback(() => this.#count.current++, { timeout: 10 });
+      ric(() => this.#count.current++, { timeout: 10 });
     }
   };
 

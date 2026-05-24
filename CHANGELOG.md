@@ -1,5 +1,26 @@
 # Changelog 
 
+## Release (2026-05-24)
+
+* ember-primitives 0.59.0 (minor)
+* @universal-ember/docs-support 0.9.10 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#743](https://github.com/universal-ember/ember-primitives/pull/743) Improve `<IncrementalEach>` performance, update docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#744](https://github.com/universal-ember/ember-primitives/pull/744) Fix TS errors in IncrementalEach splitIntoBuckets ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :memo: Documentation
+* `ember-primitives`
+  * [#743](https://github.com/universal-ember/ember-primitives/pull/743) Improve `<IncrementalEach>` performance, update docs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-05-23)
 
 * ember-primitives 0.58.0 (minor)

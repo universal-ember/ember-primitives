@@ -286,7 +286,16 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     this.#cancel();
 
     this.#waiterToken = waiter.beginAsync();
+    this.#tick();
+  }
 
+  // Bumps `#count` by `#batchSize` on the next animation frame, then
+  // immediately re-arms itself from inside the rAF callback (before
+  // Glimmer's re-render commits) until the whole list is rendered.
+  // Decoupling the rAF chain from the renderer this way removes the
+  // per-batch wait for a commit that the old `visible`-driven scheme
+  // had, so frames land back-to-back at the browser's natural cadence.
+  #tick() {
     this.#rafHandle = requestAnimationFrame(() => {
       this.#rafHandle = null;
 
@@ -298,8 +307,12 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
         this.#count.current = Math.min(this.#currentCount + this.#batchSize, items.length);
       }
 
-      this.#endWaiter();
-      this.#maybeFireDone();
+      if (this.#currentCount < items.length) {
+        this.#tick();
+      } else {
+        this.#endWaiter();
+        this.#maybeFireDone();
+      }
     });
   }
 

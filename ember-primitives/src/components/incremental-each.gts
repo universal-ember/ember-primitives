@@ -1,4 +1,5 @@
 import Component from "@glimmer/component";
+import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
 import { buildWaiter } from "@ember/test-waiters";
@@ -8,8 +9,19 @@ import { cell } from "ember-resources";
 import type Owner from "@ember/owner";
 
 const DEFAULT_BATCH_SIZE = 50;
+const DEFAULT_INITIAL = "sync";
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
+
+function chunk<T>(arr: readonly T[], size: number): T[][] {
+  const out: T[][] = [];
+
+  for (let i = 0; i < arr.length; i += size) {
+    out.push(arr.slice(i, i + size));
+  }
+
+  return out;
+}
 
 export interface Signature<T = unknown> {
   Args: {
@@ -32,7 +44,7 @@ export interface Signature<T = unknown> {
     items: readonly T[];
 
     /**
-     * How many items to add per idle callback.
+     * How many items to add per animation frame.
      *
      * Larger batches add more items per chunk; smaller batches yield to
      * the browser more often.
@@ -50,6 +62,60 @@ export interface Signature<T = unknown> {
      * ```
      */
     batchSize?: number;
+
+    /**
+     * Controls how the initial batch is committed.
+     *
+     * - `"sync"` (default): the first `@batchSize` items render in the
+     *   same render pass as mount / `@items` change. The user sees
+     *   content on the very first paint, and the rest of the list
+     *   fills in one batch per animation frame. This is the right
+     *   default for most lists — even a perceived "empty for one
+     *   frame" is worse than rendering a few extra items synchronously.
+     * - `"lazy"`: even the first batch waits for an animation frame, so
+     *   the initial paint is empty and content arrives one batch per
+     *   frame. Use this when the first batch itself would be expensive
+     *   enough to block the first paint, and you'd rather show an
+     *   empty container than delay it.
+     *
+     * Default: `"sync"`.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} @initial="lazy" as |row|>
+     *     <my-row @row={{row}} />
+     *   </IncrementalEach>
+     * </template>
+     * ```
+     */
+    initial?: "sync" | "lazy";
+
+    /**
+     * Called once with no arguments when every item in `@items` has
+     * been committed to the DOM. Fires after the final batch lands;
+     * does not fire on intermediate batches.
+     *
+     * Fires again on a fresh swap (new `@items` identity) once that
+     * new collection finishes rendering. An empty `@items` array
+     * does not fire the callback.
+     *
+     * Useful for marking the list as ready for screenshot tests,
+     * dismissing a loading indicator, or measuring how long the
+     * whole render took.
+     *
+     * ```gjs
+     * import { IncrementalEach } from 'ember-primitives';
+     *
+     * <template>
+     *   <IncrementalEach @items={{this.rows}} @onDone={{this.handleDone}} as |row|>
+     *     <my-row @row={{row}} />
+     *   </IncrementalEach>
+     * </template>
+     * ```
+     */
+    onDone?: () => void;
   };
   Blocks: {
     /**
@@ -71,17 +137,27 @@ export interface Signature<T = unknown> {
 }
 
 /**
- * A drop-in replacement for `{{#each}}` that renders a large collection a
- * batch at a time during the browser's idle periods, instead of all at once.
+ * A drop-in replacement for `{{#each}}` that renders a large collection
+ * a batch at a time on each animation frame, instead of all at once.
  *
  * Every item ends up in the DOM, so browser find (Ctrl+F / Cmd+F), anchor
  * links, screen readers, print, and SEO all work against the full list.
  * Yielding the main thread between batches keeps the page responsive while
  * the rest of the list is filling in.
  *
+ * By default the first batch lands synchronously, so the user sees content
+ * on the very first paint. Pass `@initial="lazy"` to defer the first batch
+ * to an animation frame as well.
+ *
  * Intended for non-scrollable containers, or anywhere a virtual/windowed
  * list does not apply (variable item heights, lists that grow the page,
  * surfaces that need every row indexable).
+ *
+ * Do not nest one `<IncrementalEach>` inside another. Each level adds an
+ * animation-frame delay before its content paints; nesting compounds those
+ * delays, so inner rows appear to flicker in with missing sub-content.
+ * If you have nested loops, only the outermost one should be
+ * `<IncrementalEach>`; leave deeper loops as plain `{{#each}}`.
  *
  * @example
  * ```gjs
@@ -97,24 +173,65 @@ export interface Signature<T = unknown> {
  * ```
  */
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
-  // How many items have been committed to the DOM so far. Bumped one
-  // batch at a time by the idle callback. Wrapped in a `cell` because
-  // `@tracked` doesn't compose with `#`-private fields under this
-  // codebase's decorator transform.
   #count = cell(0);
-
-  // Plain field so identity checks don't add a render-time dependency
-  // on top of `args.items`.
   #itemsRef: readonly T[] | null = null;
-
-  #idleHandle: number | null = null;
-
   #waiterToken: unknown = null;
+  #doneFor: object | null = null;
 
   constructor(owner: Owner, args: Signature<T>["Args"]) {
     super(owner, args);
 
-    registerDestructor(this, () => this.#cancel());
+    registerDestructor(this, () => this.#endWaiter());
+  }
+
+  // Reset progress and (re)open the test-waiter when `@items` identity
+  // changes, so a swap restarts at the first batch, `@onDone` can fire
+  // again for the new collection, and `await settled()` knows to wait
+  // until `checkDone` closes the waiter. Mutating from a getter is safe
+  // here because the writes happen before any consumer reads them in
+  // the same render pass.
+  /* eslint-disable ember/no-side-effects */
+  get #items(): readonly T[] {
+    const items = this.args.items;
+
+    assert(`@items must be an array`, items);
+
+    if (items !== this.#itemsRef) {
+      this.#itemsRef = items;
+      this.#count.current = 0;
+      this.#endWaiter();
+
+      if (items.length > 0) {
+        this.#waiterToken = waiter.beginAsync();
+      }
+    }
+
+    return items;
+  }
+  /* eslint-enable ember/no-side-effects */
+
+  // `"sync"` keeps bucket 0 visible at count=0 (`i = 0 >= 0`); `"lazy"`
+  // starts one step behind so even bucket 0 needs a tick.
+  get #start() {
+    return this.#initial === "sync" ? 0 : -1;
+  }
+
+  get i() {
+    return this.#start + this.#count.current;
+  }
+
+  @cached
+  get bucketed() {
+    const size = this.#batchSize;
+
+    return chunk(this.#items, size).map((items, b) => {
+      const start = b * size;
+
+      return {
+        isReady: () => this.i >= b,
+        items: items.map((value, j) => ({ value, index: start + j })),
+      };
+    });
   }
 
   get #batchSize(): number {
@@ -128,78 +245,48 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
-  // The items that should currently be rendered. `@cached` keeps the
-  // returned slice stable across renders that don't change `#count` or
-  // `args.items`, so Glimmer's `{{#each}}` doesn't see a fresh array on
-  // every render and we only slice once per batch landing. This is
-  // also where scheduling is driven from: `@items` identity changes
-  // reset `#count` to zero, and missing items queue the next idle
-  // callback. Autotrack stays consistent because the only synchronous
-  // write here (`#count = 0`) happens before `#count` is read.
-  /* eslint-disable ember/no-side-effects */
-  get visible(): readonly T[] {
-    const items = this.args.items ?? [];
+  get #initial(): "sync" | "lazy" {
+    const requested = this.args.initial ?? DEFAULT_INITIAL;
 
-    if (items !== this.#itemsRef) {
-      this.#itemsRef = items;
-      this.#cancel();
-      this.#count.current = 0;
-    }
-
-    if (this.#count.current < items.length && this.#idleHandle === null) {
-      this.#scheduleNextBatch();
-    }
-
-    return items.slice(0, this.#count.current);
-  }
-  /* eslint-enable ember/no-side-effects */
-
-  #scheduleNextBatch() {
-    // Defensive: if a batch is already pending, drop it before
-    // queueing a new one. The `visible` getter already guards on
-    // `#idleHandle === null`, but a future caller might not.
-    this.#cancel();
-
-    this.#waiterToken = waiter.beginAsync();
-
-    // The `timeout` cap ensures forward progress even when the host
-    // is CPU-bound and the browser never reports a free idle slot.
-    // In normal use this is a no-op because real idle time arrives
-    // far sooner.
-    this.#idleHandle = requestIdleCallback(
-      () => {
-        this.#idleHandle = null;
-
-        if (isDestroyed(this) || isDestroying(this)) return;
-
-        const items = this.args.items ?? [];
-
-        this.#count.current = Math.min(this.#count.current + this.#batchSize, items.length);
-        this.#endWaiter();
-      },
-      { timeout: 100 },
+    assert(
+      `<IncrementalEach> @initial must be "sync" or "lazy", got ${requested}`,
+      requested === "sync" || requested === "lazy",
     );
+
+    return requested;
   }
 
-  #cancel() {
-    if (this.#idleHandle !== null) {
-      cancelIdleCallback(this.#idleHandle);
-      this.#idleHandle = null;
+  // `#items` is read before `#count` so the count-reset inside `#items`
+  // (on `@items` swap) lands before this read of count this render —
+  // otherwise tracked-value backtracking asserts.
+  tick = () => {
+    if (this.#items.length > this.#count.current) {
+      requestIdleCallback(() => this.#count.current++, { timeout: 10 });
     }
+  };
 
-    this.#endWaiter();
-  }
+  checkDone = () => {
+    const bucketed = this.bucketed;
+
+    if (this.#doneFor === bucketed) return;
+    if (this.i < bucketed.length - 1) return;
+
+    this.#doneFor = bucketed;
+    queueMicrotask(() => {
+      if (isDestroyed(this) || isDestroying(this)) return;
+      this.args.onDone?.();
+      this.#endWaiter();
+    });
+  };
 
   #endWaiter() {
-    if (this.#waiterToken !== null) {
-      waiter.endAsync(this.#waiterToken);
-      this.#waiterToken = null;
-    }
+    if (this.#waiterToken) waiter.endAsync(this.#waiterToken);
   }
 
   <template>
-    {{#each this.visible as |item index|}}
-      {{yield item index}}
-    {{/each}}
+    {{(this.tick)}}{{#each this.bucketed as |bucket|}}{{#if (bucket.isReady)}}{{#each
+          bucket.items
+          as |entry|
+        }}{{yield entry.value entry.index}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
   </template>
 }

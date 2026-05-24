@@ -13,35 +13,165 @@ Use this for non-scrollable containers, or anywhere a virtual/windowed list does
 <SetupInstructions @src="components/incremental-each.gts" />
 ```
 
+Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.58.0-ember-primitives)
+
 
 ## Usage
 
-The demo renders 10,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM.
+The demo renders 20,000 rows in batches of 400. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM. Toggle the button to unmount and re-mount the list — each "Show" brings back the first batch in the same paint, then the rest streams in.
 
-<div class="featured-demo">
+
+
+<div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
+import { trackedObject } from '@ember/reactive/collections';
+import { on } from '@ember/modifier';
 
-const rows = Array.from({ length: 10_000 }, (_, i) => `Row ${i + 1}`);
+const BATCH_SIZE = 400;
+const rows = Array.from({ length: 20_000 }, (_, i) => `Row ${i + 1}`);
+
+const state = trackedObject({
+  visible: true,
+  elapsedMs: 0,
+  batches: 0,
+  done: false,
+  mode: 'lazy',
+});
 
 <template>
-  <ul class="incremental-demo">
-    <IncrementalEach @items={{rows}} @batchSize={{100}} as |row index|>
-      <li>{{index}}: {{row}}</li>
-    </IncrementalEach>
-  </ul>
+  <div class="incremental-card not-prose">
+    <div class="incremental-controls">
+      <button type="button" {{on "click" toggleMode}}>
+        Mode: {{state.mode}}
+      </button>
+      <button type="button" {{on "click" toggle}}>
+        {{if state.visible "Hide" "Show"}} rows
+      </button>
+      {{#if state.visible}}
+        <span class="incremental-count">
+          {{rows.length}} rows · {{state.batches}} batches ·
+          {{state.elapsedMs}}ms{{if state.done " (done)"}}
+        </span>
+      {{/if}}
+    </div>
+
+    {{#if state.visible}}
+      <ul class="incremental-demo">
+        <IncrementalEach
+          @items={{rows}}
+          @batchSize={{BATCH_SIZE}}
+          @initial={{state.mode}}
+          @onDone={{handleDone}}
+          as |row|
+        ><li>{{row}}</li></IncrementalEach>
+      </ul>
+    {{/if}}
+  </div>
 
   <style>
-    .incremental-demo {
-      max-height: 240px;
-      overflow: auto;
-      border: 1px solid gray;
+    .incremental-card {
+      background: #fff;
+      color: #111827;
+      border-radius: 8px;
       padding: 1rem;
+      box-shadow:
+        0 10px 15px -3px rgb(0 0 0 / 0.1),
+        0 4px 6px -4px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .incremental-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .incremental-controls button {
+      padding: 0.4rem 0.9rem;
+      font: inherit;
+      color: #fff;
+      background: #4f46e5;
+      border: 0;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .incremental-controls button:hover {
+      background: #4338ca;
+    }
+    .incremental-count {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+    .incremental-demo {
+      max-height: 320px;
+      overflow: auto;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
       margin: 0;
+      list-style: none;
+    }
+    .incremental-demo li {
+      padding: 0.125rem 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.875rem;
+      color: #111827;
     }
   </style>
 </template>
+
+// Not tracked: plain mutable state used to drive `state.elapsedMs`.
+// Reading it from a render path doesn't entangle with anything.
+let startedAt = performance.now();
+let tickId = null;
+
+const stopTicker = () => clearInterval(tickId);
+
+function sample() {
+  state.elapsedMs = Math.round(performance.now() - startedAt);
+  const rendered = document.querySelectorAll('.incremental-demo li').length;
+  state.batches = Math.ceil(rendered / BATCH_SIZE);
+};
+
+function startTicker() {
+  stopTicker();
+  tickId = setInterval(sample, 50);
+};
+
+function handleDone() {
+  state.done = true;
+  state.elapsedMs = Math.round(performance.now() - startedAt);
+  state.batches = Math.ceil(rows.length / BATCH_SIZE);
+  stopTicker();
+}
+
+function toggleMode() {
+  state.mode === 'lazy' ? (state.mode = 'sync') : (state.mode = 'lazy');
+  startTicker();
+}
+
+function toggle() {
+  if (state.visible) {
+    state.visible = false;
+    state.done = false;
+    state.elapsedMs = 0;
+    state.batches = 0;
+    stopTicker();
+  } else {
+    startedAt = performance.now();
+    state.done = false;
+    state.elapsedMs = 0;
+    state.batches = 0;
+    state.visible = true;
+    startTicker();
+  }
+};
+
+startTicker();
+
 ```
 
 </div>
@@ -63,7 +193,12 @@ import { IncrementalEach } from 'ember-primitives/components/incremental-each';
 import { IncrementalEach } from 'ember-primitives';
 
 <template>
-  <IncrementalEach @items={{this.items}} @batchSize={{50}} as |item index|>
+  <IncrementalEach
+    @items={{this.items}}
+    @batchSize={{50}}
+    @initial="sync"
+    as |item index|
+  >
     {{index}}: {{item}}
   </IncrementalEach>
 </template>

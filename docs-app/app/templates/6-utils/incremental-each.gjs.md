@@ -18,7 +18,7 @@ Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/relea
 
 ## Usage
 
-The demo renders 20,000 rows in batches of 100. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM. Toggle the button to unmount and re-mount the list — each "Show" brings back the first batch in the same paint, then the rest streams in.
+The demo renders 20,000 rows in batches of 400. Use Ctrl+F / Cmd+F to search for any row number to confirm every row is real DOM. Toggle the button to unmount and re-mount the list — each "Show" brings back the first batch in the same paint, then the rest streams in.
 
 
 
@@ -29,7 +29,7 @@ import { IncrementalEach } from 'ember-primitives';
 import { trackedObject } from '@ember/reactive/collections';
 import { on } from '@ember/modifier';
 
-const BATCH_SIZE = 50;
+const BATCH_SIZE = 400;
 const rows = Array.from({ length: 20_000 }, (_, i) => `Row ${i + 1}`);
 
 const state = trackedObject({
@@ -37,64 +37,15 @@ const state = trackedObject({
   elapsedMs: 0,
   batches: 0,
   done: false,
+  mode: 'lazy',
 });
-
-// Not tracked: plain mutable state used to drive `state.elapsedMs`.
-// Reading it from a render path doesn't entangle with anything.
-let startedAt = performance.now();
-let tickId = null;
-
-const stopTicker = () => {
-  if (tickId !== null) {
-    clearInterval(tickId);
-    tickId = null;
-  }
-};
-
-const sample = () => {
-  state.elapsedMs = Math.round(performance.now() - startedAt);
-  const rendered = document.querySelectorAll('.incremental-demo li').length;
-  state.batches = Math.ceil(rendered / BATCH_SIZE);
-};
-
-const startTicker = () => {
-  stopTicker();
-  tickId = setInterval(sample, 50);
-};
-
-const handleDone = () => {
-  state.done = true;
-  state.elapsedMs = Math.round(performance.now() - startedAt);
-  // Use the source-of-truth count instead of polling the DOM here —
-  // `@onDone` runs in a microtask before Glimmer has committed the
-  // final batch to the DOM, so a `querySelectorAll` count would
-  // under-report by one batch.
-  state.batches = Math.ceil(rows.length / BATCH_SIZE);
-  stopTicker();
-};
-
-const toggle = () => {
-  if (state.visible) {
-    state.visible = false;
-    state.done = false;
-    state.elapsedMs = 0;
-    state.batches = 0;
-    stopTicker();
-  } else {
-    startedAt = performance.now();
-    state.done = false;
-    state.elapsedMs = 0;
-    state.batches = 0;
-    state.visible = true;
-    startTicker();
-  }
-};
-
-startTicker();
 
 <template>
   <div class="incremental-card not-prose">
     <div class="incremental-controls">
+      <button type="button" {{on "click" toggleMode}}>
+        Mode: {{state.mode}}
+      </button>
       <button type="button" {{on "click" toggle}}>
         {{if state.visible "Hide" "Show"}} rows
       </button>
@@ -111,7 +62,7 @@ startTicker();
         <IncrementalEach
           @items={{rows}}
           @batchSize={{BATCH_SIZE}}
-          @initial="lazy"
+          @initial={{state.mode}}
           @onDone={{handleDone}}
           as |row|
         ><li>{{row}}</li></IncrementalEach>
@@ -171,6 +122,56 @@ startTicker();
     }
   </style>
 </template>
+
+// Not tracked: plain mutable state used to drive `state.elapsedMs`.
+// Reading it from a render path doesn't entangle with anything.
+let startedAt = performance.now();
+let tickId = null;
+
+const stopTicker = () => clearInterval(tickId);
+
+function sample() {
+  state.elapsedMs = Math.round(performance.now() - startedAt);
+  const rendered = document.querySelectorAll('.incremental-demo li').length;
+  state.batches = Math.ceil(rendered / BATCH_SIZE);
+};
+
+function startTicker() {
+  stopTicker();
+  tickId = setInterval(sample, 50);
+};
+
+function handleDone() {
+  state.done = true;
+  state.elapsedMs = Math.round(performance.now() - startedAt);
+  state.batches = Math.ceil(rows.length / BATCH_SIZE);
+  stopTicker();
+}
+
+function toggleMode() {
+  state.mode === 'lazy' ? (state.mode = 'sync') : (state.mode = 'lazy');
+  startTicker();
+}
+
+function toggle() {
+  if (state.visible) {
+    state.visible = false;
+    state.done = false;
+    state.elapsedMs = 0;
+    state.batches = 0;
+    stopTicker();
+  } else {
+    startedAt = performance.now();
+    state.done = false;
+    state.elapsedMs = 0;
+    state.batches = 0;
+    state.visible = true;
+    startTicker();
+  }
+};
+
+startTicker();
+
 ```
 
 </div>

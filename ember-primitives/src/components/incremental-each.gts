@@ -242,11 +242,11 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   };
 
   checkDone = () => {
-    if (this.#count.current >= this.bucketed.length) {
-      this.#endWaiter();
+    if (this.#count.current >= this.bucketed.length - 1) {
       queueMicrotask(() => {
         if (isDestroyed(this) || isDestroying(this)) return;
         this.args.onDone?.();
+        this.#endWaiter();
       });
     }
   };

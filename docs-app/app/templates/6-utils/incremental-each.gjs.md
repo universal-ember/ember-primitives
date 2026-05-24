@@ -23,6 +23,7 @@ The demo renders 20,000 rows in batches of 400. Use Ctrl+F / Cmd+F to search for
 
 
 <div class="featured-demo auto-height">
+<InViewport>
 
 ```gjs live preview no-shadow
 import { IncrementalEach } from 'ember-primitives';
@@ -174,6 +175,7 @@ startTicker();
 
 ```
 
+</InViewport>
 </div>
 
 

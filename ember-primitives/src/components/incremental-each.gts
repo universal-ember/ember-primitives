@@ -2,7 +2,6 @@ import Component from "@glimmer/component";
 import { cached } from "@glimmer/tracking";
 import { assert } from "@ember/debug";
 import { isDestroyed, isDestroying, registerDestructor } from "@ember/destroyable";
-import { trackedArray } from "@ember/reactive/collections";
 import { buildWaiter } from "@ember/test-waiters";
 
 import { cell } from "ember-resources";
@@ -14,14 +13,14 @@ const DEFAULT_INITIAL = "sync";
 
 const waiter = buildWaiter("ember-primitives:incremental-each");
 
-function splitIntoBuckets<T>(arr: readonly T[], n: number): T[][] {
-  const buckets = Array.from({ length: n }, () => []);
+function chunk<T>(arr: readonly T[], size: number): T[][] {
+  const out: T[][] = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    buckets[((i * n) / arr.length) | 0].push(arr[i]);
+  for (let i = 0; i < arr.length; i += size) {
+    out.push(arr.slice(i, i + size));
   }
 
-  return buckets;
+  return out;
 }
 
 export interface Signature<T = unknown> {
@@ -175,7 +174,9 @@ export interface Signature<T = unknown> {
  */
 export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
   #count = cell(0);
+  #itemsRef: readonly T[] | null = null;
   #waiterToken: unknown = null;
+  #doneFor: object | null = null;
 
   constructor(owner: Owner, args: Signature<T>["Args"]) {
     super(owner, args);
@@ -183,16 +184,36 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     registerDestructor(this, () => this.#endWaiter());
   }
 
+  // Reset progress and (re)open the test-waiter when `@items` identity
+  // changes, so a swap restarts at the first batch, `@onDone` can fire
+  // again for the new collection, and `await settled()` knows to wait
+  // until `checkDone` closes the waiter. Mutating from a getter is safe
+  // here because the writes happen before any consumer reads them in
+  // the same render pass.
+  /* eslint-disable ember/no-side-effects */
   get #items(): readonly T[] {
     const items = this.args.items;
 
     assert(`@items must be an array`, items);
 
+    if (items !== this.#itemsRef) {
+      this.#itemsRef = items;
+      this.#count.current = 0;
+      this.#endWaiter();
+
+      if (items.length > 0) {
+        this.#waiterToken = waiter.beginAsync();
+      }
+    }
+
     return items;
   }
+  /* eslint-enable ember/no-side-effects */
 
+  // `"sync"` keeps bucket 0 visible at count=0 (`i = 0 >= 0`); `"lazy"`
+  // starts one step behind so even bucket 0 needs a tick.
   get #start() {
-    return this.#initial === "sync" ? -1 : 0;
+    return this.#initial === "sync" ? 0 : -1;
   }
 
   get i() {
@@ -201,16 +222,16 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
 
   @cached
   get bucketed() {
-    const batches = this.#items.length / this.#batchSize;
+    const size = this.#batchSize;
 
-    return trackedArray(
-      splitIntoBuckets(this.#items, batches).map((bucket, i) => {
-        return {
-          isReady: () => this.i >= i,
-          item: bucket,
-        };
-      }),
-    );
+    return chunk(this.#items, size).map((items, b) => {
+      const start = b * size;
+
+      return {
+        isReady: () => this.i >= b,
+        items: items.map((value, j) => ({ value, index: start + j })),
+      };
+    });
   }
 
   get #batchSize(): number {
@@ -235,32 +256,37 @@ export class IncrementalEach<T = unknown> extends Component<Signature<T>> {
     return requested;
   }
 
+  // `#items` is read before `#count` so the count-reset inside `#items`
+  // (on `@items` swap) lands before this read of count this render —
+  // otherwise tracked-value backtracking asserts.
   tick = () => {
-    if (this.#count.current < this.#items.length) {
+    if (this.#items.length > this.#count.current) {
       requestIdleCallback(() => this.#count.current++, { timeout: 10 });
     }
   };
 
   checkDone = () => {
-    if (this.#count.current >= this.bucketed.length - 1) {
-      queueMicrotask(() => {
-        if (isDestroyed(this) || isDestroying(this)) return;
-        this.args.onDone?.();
-        this.#endWaiter();
-      });
-    }
+    const bucketed = this.bucketed;
+
+    if (this.#doneFor === bucketed) return;
+    if (this.i < bucketed.length - 1) return;
+
+    this.#doneFor = bucketed;
+    queueMicrotask(() => {
+      if (isDestroyed(this) || isDestroying(this)) return;
+      this.args.onDone?.();
+      this.#endWaiter();
+    });
   };
 
   #endWaiter() {
-    if (this.#waiterToken !== null) {
-      waiter.endAsync(this.#waiterToken);
-    }
+    if (this.#waiterToken) waiter.endAsync(this.#waiterToken);
   }
 
   <template>
     {{(this.tick)}}{{#each this.bucketed as |bucket|}}{{#if (bucket.isReady)}}{{#each
-          bucket.item
-          as |item|
-        }}{{yield item}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
+          bucket.items
+          as |entry|
+        }}{{yield entry.value entry.index}}{{/each}}{{(this.checkDone)}}{{/if}}{{/each}}
   </template>
 }

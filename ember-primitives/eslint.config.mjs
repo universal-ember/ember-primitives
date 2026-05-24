@@ -1,10 +1,15 @@
 // eslint.config.js
 import { configs } from "@nullvoxpopuli/eslint-configs";
+import compat from "eslint-plugin-compat";
 
 const config = configs.ember(import.meta.dirname);
 
 export default [
   ...config,
+  {
+    ...compat.configs["flat/recommended"],
+    files: ["src/**/*.{js,ts,gjs,gts}"],
+  },
   {
     files: ["./src/components/toggle-group.gts"],
     rules: {

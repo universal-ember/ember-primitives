@@ -53,6 +53,7 @@ export default class IncrementalEachDemo extends Component {
   stopTicker = () => clearInterval(this.tickId);
 
   sample = () => {
+    if (this.done) return;
     this.elapsedMs = Math.round(performance.now() - this.startedAt);
     const rendered = document.querySelectorAll('.incremental-demo li').length;
     this.batches = Math.ceil(rendered / BATCH_SIZE);
@@ -60,7 +61,7 @@ export default class IncrementalEachDemo extends Component {
 
   startTicker = () => {
     this.stopTicker();
-    this.tickId = setInterval(this.sample, 50);
+    this.tickId = setInterval(this.sample, 100);
   };
 
   handleDone = () => {
@@ -70,26 +71,41 @@ export default class IncrementalEachDemo extends Component {
     this.stopTicker();
   };
 
-  toggleMode = () => {
+  toggleMode = async () => {
+    this.handleDone();
+    this.stop(); 
     this.mode = this.mode === 'lazy' ? 'sync' : 'lazy';
-    this.startTicker();
+    // we have to give enough time for ember to delete all the nodes from 
+    // the stop() call above
+    requestAnimationFrame(() => {
+      this.start();
+    });
   };
+
+  start = () => {
+    this.startedAt = performance.now();
+    this.done = false;
+    this.elapsedMs = 0;
+    this.batches = 0;
+    this.visible = true;
+    this.startTicker();
+  }
+
+  stop = () => {
+    this.visible = false;
+    this.done = false;
+    this.elapsedMs = 0;
+    this.batches = 0;
+    this.stopTicker();
+  }
 
   toggle = () => {
     if (this.visible) {
-      this.visible = false;
-      this.done = false;
-      this.elapsedMs = 0;
-      this.batches = 0;
-      this.stopTicker();
-    } else {
-      this.startedAt = performance.now();
-      this.done = false;
-      this.elapsedMs = 0;
-      this.batches = 0;
-      this.visible = true;
-      this.startTicker();
+      this.stop();
+      return;
     }
+
+    this.start();
   };
 
   <template>

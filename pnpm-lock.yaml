@@ -152,7 +152,7 @@ importers:
         version: 7.28.6(@babel/core@7.29.0)
       '@babel/runtime':
         specifier: ^7.28.6
-        version: 7.29.2
+        version: 7.29.7
       '@ember/app-tsconfig':
         specifier: ^2.0.0
         version: 2.0.0
@@ -293,7 +293,7 @@ importers:
     dependencies:
       '@babel/runtime':
         specifier: ^7.28.6
-        version: 7.29.2
+        version: 7.29.7
       '@embroider/addon-shim':
         specifier: ^1.10.2
         version: 1.10.2
@@ -496,7 +496,7 @@ importers:
         version: 7.28.6(@babel/core@7.29.0)
       '@babel/runtime':
         specifier: ^7.28.6
-        version: 7.29.2
+        version: 7.29.7
       '@ember/library-tsconfig':
         specifier: ^2.0.0
         version: 2.0.0
@@ -565,7 +565,7 @@ importers:
         version: 7.28.6(@babel/core@7.29.0)
       '@babel/runtime':
         specifier: ^7.28.6
-        version: 7.29.2
+        version: 7.29.7
       '@ember/library-tsconfig':
         specifier: ^2.0.0
         version: 2.0.0
@@ -632,7 +632,7 @@ importers:
         version: 7.28.6(@babel/core@7.29.0)
       '@babel/runtime':
         specifier: ^7.28.6
-        version: 7.29.2
+        version: 7.29.7
       '@ember/app-tsconfig':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1371,8 +1371,8 @@ packages:
   '@babel/runtime@7.12.18':
     resolution: {integrity: sha512-BogPQ7ciE6SYAUPtlm9tWbgI9+2AgqSam6QivMgXgAT+fKbgppaj4ZX15MHeLC1PVF5sNk70huBu20XxWOs8Cg==}
 
-  '@babel/runtime@7.29.2':
-    resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
+  '@babel/runtime@7.29.7':
+    resolution: {integrity: sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.28.6':
@@ -8405,7 +8405,7 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.13.11
 
-  '@babel/runtime@7.29.2': {}
+  '@babel/runtime@7.29.7': {}
 
   '@babel/template@7.28.6':
     dependencies:
@@ -9855,7 +9855,7 @@ snapshots:
   '@testing-library/dom@10.4.1':
     dependencies:
       '@babel/code-frame': 7.29.0
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
       dom-accessibility-api: 0.5.16
@@ -11420,7 +11420,7 @@ snapshots:
 
   ember-primitives@file:ember-primitives(5c0eaebf1b4b32661be1beb69576d86a):
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@ember/test-waiters': 4.1.1(c8332dc3f90c0e60eb130a3a85f980b9)
       '@embroider/addon-shim': 1.10.2
       '@floating-ui/dom': 1.7.6

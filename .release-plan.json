@@ -2,13 +2,17 @@
   "solution": {
     "ember-primitives": {
       "impact": "patch",
-      "oldVersion": "0.59.0",
-      "newVersion": "0.59.1",
+      "oldVersion": "0.59.1",
+      "newVersion": "0.59.2",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
@@ -17,8 +21,18 @@
       "oldVersion": "0.9.10"
     },
     "which-heading-do-i-need": {
-      "oldVersion": "0.2.7"
+      "impact": "minor",
+      "oldVersion": "0.2.7",
+      "newVersion": "0.3.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        }
+      ],
+      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
     }
   },
-  "description": "## Release (2026-05-24)\n\n* ember-primitives 0.59.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#747](https://github.com/universal-ember/ember-primitives/pull/747) Polyfill requestIdleCallback for Safari ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* [#748](https://github.com/universal-ember/ember-primitives/pull/748) Convert IncrementalEach docs demo to a class component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 1\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n"
+  "description": "## Release (2026-06-01)\n\n* ember-primitives 0.59.2 (patch)\n* which-heading-do-i-need 0.3.0 (minor)\n\n#### :rocket: Enhancement\n* `which-heading-do-i-need`\n  * [#761](https://github.com/universal-ember/ember-primitives/pull/761) Use more strict type for heading level ([@bertdeblock](https://github.com/bertdeblock))\n\n#### :memo: Documentation\n* [#763](https://github.com/universal-ember/ember-primitives/pull/763) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* [#756](https://github.com/universal-ember/ember-primitives/pull/756) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### :house: Internal\n* Other\n  * [#758](https://github.com/universal-ember/ember-primitives/pull/758) Update demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`\n  * [#755](https://github.com/universal-ember/ember-primitives/pull/755) Add eslint-plugin-compat to lint addon source against supported browsers ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 4\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

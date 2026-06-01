@@ -90,12 +90,21 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/bertdeblock">
+                    <img src="https://avatars.githubusercontent.com/u/7403183?v=4" width="100;" alt="bertdeblock"/>
+                    <br />
+                    <sub><b>Bert De Block</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/bartocc">
                     <img src="https://avatars.githubusercontent.com/u/47953?v=4" width="100;" alt="bartocc"/>
                     <br />
                     <sub><b>Julien Palmas</b></sub>
                 </a>
             </td>
+		</tr>
+		<tr>
             <td align="center">
                 <a href="https://github.com/mmun">
                     <img src="https://avatars.githubusercontent.com/u/1151810?v=4" width="100;" alt="mmun"/>
@@ -103,8 +112,6 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                     <sub><b>Martin Muñoz</b></sub>
                 </a>
             </td>
-		</tr>
-		<tr>
             <td align="center">
                 <a href="https://github.com/ember-tomster">
                     <img src="https://avatars.githubusercontent.com/u/17934356?v=4" width="100;" alt="ember-tomster"/>

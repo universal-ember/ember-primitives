@@ -1,5 +1,30 @@
 # Changelog 
 
+## Release (2026-06-01)
+
+* ember-primitives 0.59.2 (patch)
+* which-heading-do-i-need 0.3.0 (minor)
+
+#### :rocket: Enhancement
+* `which-heading-do-i-need`
+  * [#761](https://github.com/universal-ember/ember-primitives/pull/761) Use more strict type for heading level ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :memo: Documentation
+* [#763](https://github.com/universal-ember/ember-primitives/pull/763) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+* [#756](https://github.com/universal-ember/ember-primitives/pull/756) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### :house: Internal
+* Other
+  * [#758](https://github.com/universal-ember/ember-primitives/pull/758) Update demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`
+  * [#755](https://github.com/universal-ember/ember-primitives/pull/755) Add eslint-plugin-compat to lint addon source against supported browsers ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 4
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-05-24)
 
 * ember-primitives 0.59.1 (patch)

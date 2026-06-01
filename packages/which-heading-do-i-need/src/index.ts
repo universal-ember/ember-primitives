@@ -1,4 +1,6 @@
-const LOOKUP = new WeakMap<Text, number>();
+type Level = 1 | 2 | 3 | 4 | 5 | 6;
+
+const LOOKUP = new WeakMap<Text, Level>();
 
 const BOUNDARY_ELEMENTS = new Set([
   'SECTION',
@@ -51,17 +53,17 @@ function isRoot(element: Element) {
 function findHeadingIn(
   node: ParentNode | ChildNode,
   previousNode?: ParentNode,
-): number | undefined {
+): Level | undefined {
   if (!(node instanceof Element)) return;
 
   if (SECTION_HEADINGS.has(node.tagName)) {
     const level = parseInt(node.tagName.replace('h', '').replace('H', ''));
 
-    return level;
+    return level as Level;
   }
 
   /**
-   * Previous traversal does not search within the section boundaies
+   * Previous traversal does not search within the section boundaries
    * This is because previous traversal is looking for a similar heading level, and crossing a section boundary changes the section level.
    */
   if (previousNode) {
@@ -146,7 +148,7 @@ function nearestAncestor(
  *  encounter other boundary elements.
  *
  */
-function levelOf(node: Text): number {
+function levelOf(node: Text): Level {
   const ourBoundary = nearestAncestor(node, (el) =>
     BOUNDARY_ELEMENTS.has(el.tagName),
   );
@@ -177,7 +179,7 @@ function levelOf(node: Text): number {
     const level = findHeadingIn(current, previous);
 
     if (level) {
-      return level + 1;
+      return (level + 1) as Level;
     }
 
     if (current === stopAt) break;
@@ -226,7 +228,7 @@ export function getSectionHeadingLevel(
      *
      * Defaults to 1 (as in h1)
      */
-    startAt?: number;
+    startAt?: Level;
   },
 ) {
   const existing = LOOKUP.get(node);

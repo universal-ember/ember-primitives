@@ -1,4 +1,4 @@
-import { Shadowed, Slider } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -6,7 +6,7 @@ import { SliderDemoStyles } from './demo-styles.gjs';
 const values = cell([25, 50, 75]);
 
 export const MultiThumbDemo = <template>
-  <Shadowed>
+  <div class="slider-demo">
     <Slider @value={{values.current}} @onValueChange={{values.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -22,5 +22,5 @@ export const MultiThumbDemo = <template>
     <div class="meta">Values: {{values.current}}</div>
 
     <SliderDemoStyles />
-  </Shadowed>
+  </div>
 </template>;

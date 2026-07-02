@@ -32,7 +32,7 @@ All of the structural CSS needed for this technique (positioning, hiding the nat
 Pass an array to `@value` to get one thumb per value.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 75]);
@@ -40,7 +40,7 @@ const first = () => value.current[0];
 const second = () => value.current[1];
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -53,6 +53,7 @@ const second = () => value.current[1];
     <p>Range: {{ (first) }} - {{ (second) }}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
         color: #1a73e8;
         width: 300px;
@@ -69,8 +70,9 @@ const second = () => value.current[1];
         font-size: 1.2rem;
         margin-top: 2rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -81,7 +83,7 @@ When you want “ticks”, you typically want the slider to snap to a discrete s
 Pass an array to `@step`.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const tickValues = [0, 10, 20, 30, 40, 50];
@@ -89,7 +91,7 @@ const value = cell(20);
 const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -110,6 +112,7 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
     <p>Value: {{value.current}}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
         color: #1a73e8;
         width: 300px;
@@ -136,8 +139,9 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
         font-size: 1.2rem;
         margin-top: 0.75rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -148,13 +152,13 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 (For positioning elements *outside* the thumb, each yielded `thumb` also provides `percent` and a ready-made `positionStyle`.)
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 75]);
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -170,6 +174,7 @@ const value = cell([25, 75]);
     <p>Range: {{value.current}}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
         color: #1a73e8;
         width: 300px;
@@ -202,21 +207,22 @@ const value = cell([25, 75]);
         font-size: 1.2rem;
         margin-top: 2rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Slider With Labels
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell(50);
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="labels" aria-hidden="true">
       <span>Low</span>
       <span>High</span>
@@ -227,6 +233,7 @@ const value = cell(50);
     <p>Value: {{value.current}}</p>
 
     <style>
+      @scope {
       .labels {
         display: flex;
         width: 300px;
@@ -248,8 +255,9 @@ const value = cell(50);
         font-size: 1.2rem;
         margin-top: 0.75rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -258,7 +266,7 @@ const value = cell(50);
 This pattern keeps an `<input>` in sync with the slider, while letting users type and “commit” on blur / Enter.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
@@ -295,7 +303,7 @@ const onKeydown = (event) => {
 };
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="row">
       <Slider @value={{value.current}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} />
 
@@ -314,6 +322,7 @@ const onKeydown = (event) => {
     </div>
 
     <style>
+      @scope {
       .row {
         display: flex;
         align-items: center;
@@ -343,15 +352,16 @@ const onKeydown = (event) => {
         color: #1a73e8;
         width: 300px;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Dual Range Slider With Input
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
@@ -399,7 +409,7 @@ const onKeydown = (commitFn) => (event) => {
 };
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="row">
       <label class="input">
         <span class="sr-only">Minimum</span>
@@ -440,6 +450,7 @@ const onKeydown = (commitFn) => (event) => {
     <p>Range: {{range.current}}</p>
 
     <style>
+      @scope {
       .row {
         display: flex;
         align-items: center;
@@ -480,8 +491,9 @@ const onKeydown = (commitFn) => (event) => {
         font-size: 1.2rem;
         margin-top: 0;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -490,13 +502,13 @@ const onKeydown = (commitFn) => (event) => {
 Any number of values is supported -- each gets a thumb, and thumbs cannot cross each other.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 50, 75]);
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -511,6 +523,7 @@ const value = cell([25, 50, 75]);
     <p>Values: {{value.current}}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
         color: #1a73e8;
         width: 300px;
@@ -544,8 +557,9 @@ const value = cell([25, 50, 75]);
         font-size: 1.2rem;
         margin-top: 2rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -554,7 +568,7 @@ const value = cell([25, 50, 75]);
 Vertical orientation is handled by the component (via `writing-mode` on the native inputs) -- set the length with `--ember-primitives__slider__vertical-size`.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const hz60 = cell(2);
@@ -572,7 +586,7 @@ const bands = [
 ];
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="equalizer" role="group" aria-label="Equalizer">
       {{#each bands as |band|}}
         <div class="band">
@@ -598,6 +612,7 @@ const bands = [
     </div>
 
     <style>
+      @scope {
       .equalizer {
         display: flex;
         justify-content: center;
@@ -648,8 +663,9 @@ const bands = [
         min-width: 2ch;
         text-align: center;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -658,7 +674,7 @@ const bands = [
 This demonstrates composing a “price slider” UI (histogram + dual-range selection + inputs) on top of the primitive.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
@@ -738,7 +754,7 @@ const onKeydown = (commitFn) => (event) => {
 };
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="price">
       <div class="hist" aria-hidden="true">
         {{#each bins as |bin|}}
@@ -793,6 +809,7 @@ const onKeydown = (commitFn) => (event) => {
     </div>
 
     <style>
+      @scope {
       .price {
         width: 420px;
         margin: 2rem auto;
@@ -858,8 +875,9 @@ const onKeydown = (commitFn) => (event) => {
         font-size: 1.1rem;
         margin-top: 1rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -915,7 +933,7 @@ Each `<s.Thumb>` renders two elements: an invisible native `<input type="range">
 
 ## Styling
 
-Structural CSS ships with the component. It is attached via [`adoptedStyleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/Document/adoptedStyleSheets) on the root the slider renders into, so it also works inside shadow roots (the demos on this page are all rendered in shadow DOM). Everything lives in `@layer ember-primitives`, and appearance defaults additionally use `:where()` (zero specificity) and derive from `currentColor` -- any rule you write overrides them, so styling can be as simple as:
+Structural CSS ships with the component. It is attached via [`adoptedStyleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/Document/adoptedStyleSheets) on the root the slider renders into, so it also works inside shadow roots. Everything lives in `@layer ember-primitives`, and appearance defaults additionally use `:where()` (zero specificity) and derive from `currentColor` -- any rule you write overrides them, so styling can be as simple as:
 
 ```css
 .ember-primitives__slider {
@@ -923,6 +941,8 @@ Structural CSS ships with the component. It is attached via [`adoptedStyleSheets
   width: 300px;
 }
 ```
+
+The demos on this page each scope their appearance CSS with a prelude-less [`@scope`](https://developer.mozilla.org/en-US/docs/Web/CSS/@scope) block, which scopes rules to the `<style>` tag's parent element -- style isolation without shadow DOM (and without shadow DOM's focus-navigation quirks).
 
 The visual thumb is centered using the CSS `translate` property, so hover/active effects using `scale` or `transform` compose with it instead of clobbering the positioning:
 

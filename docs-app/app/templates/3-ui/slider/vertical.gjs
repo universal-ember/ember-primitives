@@ -1,4 +1,4 @@
-import { Shadowed, Slider } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -6,7 +6,7 @@ import { SliderDemoStyles } from './demo-styles.gjs';
 const value = cell(40);
 
 export const VerticalDemo = <template>
-  <Shadowed>
+  <div class="slider-demo">
     <div class="v-row">
       <Slider @value={{value.current}} @onValueChange={{value.set}} @orientation="vertical" as |s|>
         <s.Track>
@@ -26,12 +26,14 @@ export const VerticalDemo = <template>
     <SliderDemoStyles />
 
     <style>
-      .v-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 170px;
+      @scope {
+        .v-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 170px;
+        }
       }
     </style>
-  </Shadowed>
+  </div>
 </template>;

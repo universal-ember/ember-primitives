@@ -1,7 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { Shadowed, Slider } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -11,7 +11,7 @@ const value = cell(20);
 const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 export const TicksDemo = <template>
-  <Shadowed>
+  <div class="slider-demo">
     <Slider @value={{value.current}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -33,19 +33,21 @@ export const TicksDemo = <template>
     <SliderDemoStyles />
 
     <style>
-      .ticks {
-        position: relative;
-        margin-top: 0.25rem;
-        height: 18px;
-      }
+      @scope {
+        .ticks {
+          position: relative;
+          margin-top: 0.25rem;
+          height: 18px;
+        }
 
-      .tick {
-        position: absolute;
-        transform: translateX(-50%);
-        font-size: 0.75rem;
-        color: #444;
-        user-select: none;
+        .tick {
+          position: absolute;
+          transform: translateX(-50%);
+          font-size: 0.75rem;
+          color: #444;
+          user-select: none;
+        }
       }
     </style>
-  </Shadowed>
+  </div>
 </template>;

@@ -1,6 +1,6 @@
 import { on } from '@ember/modifier';
 
-import { Shadowed, Slider } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -26,7 +26,7 @@ const endDrag = () => draggingLabel.set(null);
 const isDragging = (label) => draggingLabel.current === label;
 
 export const EqualizerDemo = <template>
-  <Shadowed>
+  <div class="slider-demo">
     <div class="eq-mini" role="group" aria-label="Equalizer">
       {{#each bands as |band|}}
         <div class="eq-band">
@@ -71,24 +71,26 @@ export const EqualizerDemo = <template>
     <SliderDemoStyles />
 
     <style>
-      .eq-mini {
-        display: flex;
-        justify-content: center;
-        gap: 0.75rem;
-        padding: 0.25rem 0;
-      }
+      @scope {
+        .eq-mini {
+          display: flex;
+          justify-content: center;
+          gap: 0.75rem;
+          padding: 0.25rem 0;
+        }
 
-      .eq-band {
-        display: grid;
-        justify-items: center;
-        gap: 0.25rem;
-      }
+        .eq-band {
+          display: grid;
+          justify-items: center;
+          gap: 0.25rem;
+        }
 
-      .eq-label {
-        font-size: 0.7rem;
-        color: #333;
-        user-select: none;
+        .eq-label {
+          font-size: 0.7rem;
+          color: #333;
+          user-select: none;
+        }
       }
     </style>
-  </Shadowed>
+  </div>
 </template>;

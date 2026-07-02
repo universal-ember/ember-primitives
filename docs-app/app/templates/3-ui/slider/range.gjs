@@ -1,4 +1,4 @@
-import { Shadowed, Slider } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -6,7 +6,7 @@ import { SliderDemoStyles } from './demo-styles.gjs';
 const range = cell([25, 75]);
 
 export const RangeDemo = <template>
-  <Shadowed>
+  <div class="slider-demo">
     <Slider @value={{range.current}} @onValueChange={{range.set}} as |s|>
       <s.Track>
         <s.Range />
@@ -22,5 +22,5 @@ export const RangeDemo = <template>
     <div class="meta">Range: {{range.current}}</div>
 
     <SliderDemoStyles />
-  </Shadowed>
+  </div>
 </template>;

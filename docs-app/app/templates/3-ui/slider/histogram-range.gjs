@@ -69,17 +69,7 @@ export const HistogramRangeDemo = <template>
           <s.Range />
 
           {{#each s.thumbs as |thumb|}}
-            <s.Thumb
-              @value={{thumb.inputValue}}
-              @index={{thumb.index}}
-              class="thumb-input {{if thumb.active 'is-active'}}"
-              aria-label="Price"
-            />
-            <div
-              class="thumb {{if thumb.active 'is-active'}}"
-              style={{htmlSafe (concat "left: " thumb.percent "%;")}}
-              aria-hidden="true"
-            />
+            <s.Thumb @thumb={{thumb}} aria-label="Price" />
           {{/each}}
         </s.Track>
       </Slider>
@@ -120,14 +110,6 @@ export const HistogramRangeDemo = <template>
 
       .hist-mini .bar.active {
         background: #1a73e8;
-      }
-
-      .meta {
-        margin-top: 0.75rem;
-        font-variant-numeric: tabular-nums;
-        color: #333;
-        font-size: 0.9rem;
-        text-align: center;
       }
     </style>
   </Shadowed>

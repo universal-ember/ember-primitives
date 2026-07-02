@@ -1,6 +1,4 @@
-import { concat } from '@ember/helper';
 import { on } from '@ember/modifier';
-import { htmlSafe } from '@ember/template';
 
 import { Shadowed, Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
@@ -33,7 +31,7 @@ export const EqualizerDemo = <template>
       {{#each bands as |band|}}
         <div class="eq-band">
           <Slider
-            style="--slider-v-height: 120px;"
+            style="--ember-primitives__slider__vertical-size: 120px;"
             @value={{band.value.current}}
             @onValueChange={{band.value.set}}
             @min={{-5}}
@@ -46,9 +44,7 @@ export const EqualizerDemo = <template>
 
               {{#each s.thumbs as |thumb|}}
                 <s.Thumb
-                  @value={{thumb.inputValue}}
-                  @index={{thumb.index}}
-                  class="thumb-input {{if thumb.active 'is-active'}}"
+                  @thumb={{thumb}}
                   aria-label={{band.label}}
                   {{on "pointerup" (startDrag band.label)}}
                   {{on "gotpointercapture" (startDrag band.label)}}
@@ -58,20 +54,11 @@ export const EqualizerDemo = <template>
                   {{on "lostpointercapture" endDrag}}
                   {{on "change" endDrag}}
                   {{on "blur" endDrag}}
-                />
-                <div
-                  class="thumb {{if thumb.active 'is-active'}}"
-                  style={{htmlSafe (concat "bottom: " thumb.percent "%;")}}
-                  aria-hidden="true"
-                />
-                {{#if (isDragging band.label)}}
-                  <output
-                    class="tooltip tooltip--vertical"
-                    style={{htmlSafe (concat "bottom: " thumb.percent "%;")}}
-                  >
-                    {{thumb.value}}
-                  </output>
-                {{/if}}
+                >
+                  {{#if (isDragging band.label)}}
+                    <output class="tooltip tooltip--vertical">{{thumb.value}}</output>
+                  {{/if}}
+                </s.Thumb>
               {{/each}}
             </s.Track>
           </Slider>

@@ -1,4 +1,11 @@
 import { tracked } from '@glimmer/tracking';
+import { htmlSafe } from '@ember/template';
+
+/**
+ * `style` attribute values need to be SafeStrings to avoid Ember's
+ * style-binding warning.
+ */
+export type StyleString = ReturnType<typeof htmlSafe>;
 
 export interface SliderStoreArgs {
   value?: number | number[];
@@ -23,6 +30,11 @@ export interface SliderThumb {
   inputValue: number;
   percent: number;
   active: boolean;
+  /**
+   * Inline style positioning this thumb along the track
+   * (`left: x%` or `bottom: x%`, depending on orientation).
+   */
+  positionStyle: StyleString;
 }
 
 const DEFAULT_MIN = 0;
@@ -111,6 +123,10 @@ class ThumbState implements SliderThumb {
 
   get active(): boolean {
     return this.#slider.activeThumbIndex === this.index;
+  }
+
+  get positionStyle(): StyleString {
+    return this.#slider.thumbPositionStyle(this.percent);
   }
 }
 
@@ -238,7 +254,17 @@ export class SliderStore {
     );
   }
 
-  get rangeStyle(): string {
+  get isMulti(): boolean {
+    return this.internalValues.length > 1;
+  }
+
+  thumbPositionStyle = (percent: number): StyleString => {
+    const property = this.orientation === 'horizontal' ? 'left' : 'bottom';
+
+    return htmlSafe(`${property}: ${percent}%`);
+  };
+
+  get rangeStyle(): StyleString {
     const internalValues = this.internalValues;
 
     // For a single-thumb slider, the "range" should fill from the start to the
@@ -251,9 +277,9 @@ export class SliderStore {
     const endPercent = getPercentage(internalRangeMax, this.internalMin, this.internalMax);
 
     if (this.orientation === 'horizontal') {
-      return `left: ${startPercent}%; right: ${100 - endPercent}%`;
+      return htmlSafe(`left: ${startPercent}%; right: ${100 - endPercent}%`);
     } else {
-      return `bottom: ${startPercent}%; top: ${100 - endPercent}%`;
+      return htmlSafe(`bottom: ${startPercent}%; top: ${100 - endPercent}%`);
     }
   }
 

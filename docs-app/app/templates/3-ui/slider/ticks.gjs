@@ -17,17 +17,7 @@ export const TicksDemo = <template>
         <s.Range />
 
         {{#each s.thumbs as |thumb|}}
-          <s.Thumb
-            @value={{thumb.inputValue}}
-            @index={{thumb.index}}
-            class="thumb-input {{if thumb.active 'is-active'}}"
-            aria-label="Value"
-          />
-          <div
-            class="thumb {{if thumb.active 'is-active'}}"
-            style={{htmlSafe (concat "left: " thumb.percent "%;")}}
-            aria-hidden="true"
-          />
+          <s.Thumb @thumb={{thumb}} aria-label="Value" />
         {{/each}}
       </s.Track>
     </Slider>
@@ -55,14 +45,6 @@ export const TicksDemo = <template>
         font-size: 0.75rem;
         color: #444;
         user-select: none;
-      }
-
-      .meta {
-        margin-top: 0.75rem;
-        font-variant-numeric: tabular-nums;
-        color: #333;
-        font-size: 0.9rem;
-        text-align: center;
       }
     </style>
   </Shadowed>

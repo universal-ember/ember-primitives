@@ -1,7 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { Shadowed, Slider } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
@@ -43,7 +43,7 @@ const isInRange = (bin) => {
 };
 
 export const HistogramRangeDemo = <template>
-  <Shadowed>
+  <div class="slider-demo">
     <div class="price-mini">
       <div class="hist-mini" aria-hidden="true">
         {{#each bins as |bin|}}
@@ -69,17 +69,7 @@ export const HistogramRangeDemo = <template>
           <s.Range />
 
           {{#each s.thumbs as |thumb|}}
-            <s.Thumb
-              @value={{thumb.inputValue}}
-              @index={{thumb.index}}
-              class="thumb-input {{if thumb.active 'is-active'}}"
-              aria-label="Price"
-            />
-            <div
-              class="thumb {{if thumb.active 'is-active'}}"
-              style={{htmlSafe (concat "left: " thumb.percent "%;")}}
-              aria-hidden="true"
-            />
+            <s.Thumb @thumb={{thumb}} aria-label="Price" />
           {{/each}}
         </s.Track>
       </Slider>
@@ -90,45 +80,39 @@ export const HistogramRangeDemo = <template>
     <SliderDemoStyles />
 
     <style>
-      .price-mini {
-        width: 100%;
-      }
+      @scope {
+        .price-mini {
+          width: 100%;
+        }
 
-      .hist-mini {
-        display: flex;
-        gap: 2px;
-        height: 56px;
-        align-items: flex-end;
-        background: #fafafa;
-        border-radius: 6px;
-        padding: 6px;
-        margin-bottom: 0.5rem;
-      }
+        .hist-mini {
+          display: flex;
+          gap: 2px;
+          height: 56px;
+          align-items: flex-end;
+          background: #fafafa;
+          border-radius: 6px;
+          padding: 6px;
+          margin-bottom: 0.5rem;
+        }
 
-      .hist-mini .bar-wrap {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        align-items: flex-end;
-      }
+        .hist-mini .bar-wrap {
+          flex: 1;
+          height: 100%;
+          display: flex;
+          align-items: flex-end;
+        }
 
-      .hist-mini .bar {
-        width: 100%;
-        background: #cfd8e3;
-        border-radius: 4px 4px 0 0;
-      }
+        .hist-mini .bar {
+          width: 100%;
+          background: #cfd8e3;
+          border-radius: 4px 4px 0 0;
+        }
 
-      .hist-mini .bar.active {
-        background: #1a73e8;
-      }
-
-      .meta {
-        margin-top: 0.75rem;
-        font-variant-numeric: tabular-nums;
-        color: #333;
-        font-size: 0.9rem;
-        text-align: center;
+        .hist-mini .bar.active {
+          background: #1a73e8;
+        }
       }
     </style>
-  </Shadowed>
+  </div>
 </template>;

@@ -2,7 +2,8 @@ import Component from "@glimmer/component";
 import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
-import { SliderStore, type SliderThumb } from "./slider/store.ts";
+import { SliderStore, type SliderThumb, type StyleString } from "./slider/store.ts";
+import { adoptStyles } from "./slider/style.ts";
 
 import type { TOC } from "@ember/component/template-only";
 import type Owner from "@ember/owner";
@@ -119,7 +120,7 @@ const Track: TOC<TrackSignature> = <template>
 interface RangeSignature {
   Element: HTMLSpanElement;
   Args: {
-    rangeStyle: string;
+    rangeStyle: StyleString;
   };
 }
 
@@ -128,6 +129,10 @@ const Range: TOC<RangeSignature> = <template>
 </template>;
 
 class ThumbComponent extends Component<{
+  /**
+   * `...attributes` land on the invisible native input, which is the
+   * interactive element (pass `aria-label` / `aria-labelledby` here).
+   */
   Element: HTMLInputElement;
   Args: {
     store: SliderStore;
@@ -138,6 +143,12 @@ class ThumbComponent extends Component<{
     value?: number;
     index?: number;
   };
+  Blocks: {
+    /**
+     * Rendered inside the visual thumb — useful for tooltips / value labels.
+     */
+    default: [];
+  };
 }> {
   get index(): number {
     return this.args.thumb?.index ?? this.args.index ?? 0;
@@ -146,6 +157,16 @@ class ThumbComponent extends Component<{
   get value(): number {
     // When using tick values, the `input` needs the internal index.
     return this.args.thumb?.inputValue ?? this.args.value ?? this.args.store.internalMin;
+  }
+
+  get isActive(): boolean {
+    return this.args.store.activeThumbIndex === this.index;
+  }
+
+  get positionStyle() {
+    const percent = this.args.thumb?.percent ?? this.args.store.thumbPercents[this.index] ?? 0;
+
+    return this.args.store.thumbPositionStyle(percent);
   }
 
   private readValue(event: Event): number {
@@ -184,19 +205,27 @@ class ThumbComponent extends Component<{
   <template>
     <input
       ...attributes
-      class="ember-primitives__slider__thumb"
+      class="ember-primitives__slider__thumb-input"
       type="range"
       min={{@store.internalMin}}
       max={{@store.internalMax}}
       step={{@store.internalStep}}
       value={{this.value}}
       disabled={{@store.disabled}}
+      data-active={{if this.isActive ""}}
       {{on "gotpointercapture" this.onGotPointerCapture}}
       {{on "pointerup" this.onPointerUp}}
       {{on "focus" this.onFocus}}
       {{on "input" this.onInput}}
       {{on "change" this.onChange}}
     />
+    <span
+      class="ember-primitives__slider__thumb"
+      style={{this.positionStyle}}
+      data-active={{if this.isActive ""}}
+      data-disabled={{if @store.disabled ""}}
+      aria-hidden="true"
+    >{{yield}}</span>
   </template>
 }
 
@@ -215,6 +244,8 @@ export class Slider extends Component<Signature> {
       class="ember-primitives__slider"
       data-orientation={{this.store.orientation}}
       data-disabled={{if this.store.disabled ""}}
+      data-multi={{if this.store.isMulti ""}}
+      {{adoptStyles}}
     >
       {{#if (has-block)}}
         {{yield

@@ -14,7 +14,7 @@ A custom slider -- as in this component -- is (currently) needed when you want a
 <div class="not-prose">
 
 ```gjs live
-import { Gallery } from '#public/3-ui/slider/gallery';
+import { Gallery } from '#docs/3-ui/slider/gallery';
 
 <template>
   <Gallery />
@@ -23,12 +23,16 @@ import { Gallery } from '#public/3-ui/slider/gallery';
 
 </div>
 
-The CSS technique for moving the sliders involves positioning and rotating an invisible `<input type="range">` over the styled UI -- this maintains `<form>` semantics, and better than accessibility than other techniques.
+Each thumb is an invisible native `<input type="range">` stretched over the styled UI -- this maintains `<form>` semantics and accessibility, without re-implementing keyboard or pointer behavior.
+
+All of the structural CSS needed for this technique (positioning, hiding the native inputs, routing pointer events for multi-thumb sliders, vertical orientation) ships with the component. You only style the appearance: colors, sizes, borders, etc. By default the track, range, and thumb derive their colors from `currentColor`, and every appearance rule has zero specificity -- any selector of yours overrides it.
 
 ## Range Slider
 
+Pass an array to `@value` to get one thumb per value.
+
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 75]);
@@ -36,124 +40,39 @@ const first = () => value.current[0];
 const second = () => value.current[1];
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.thumbs as |thumb|}}
-          <div class="thumb-layer {{if thumb.active 'is-active'}}">
-            <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-            <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          </div>
+          <s.Thumb @thumb={{thumb}} aria-label="Value" />
         {{/each}}
       </s.Track>
     </Slider>
-    
+
     <p>Range: {{ (first) }} - {{ (second) }}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 20px;
         margin: 2rem auto;
       }
-      
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-      
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-      
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 1;
-      }
 
-      .thumb-layer.is-active {
-        z-index: 3;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        background: transparent;
-        cursor: pointer;
-        appearance: none;
-        /* Multiple full-width range inputs overlap.
-           The active layer is raised via z-index.
-        */
-        pointer-events: none;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 20px;
-        height: 20px;
-        background: #1a73e8;
+      .ember-primitives__slider__thumb {
         border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer:hover input[type="range"] + .thumb,
-      .thumb-layer input[type="range"]:focus + .thumb,
-      .thumb-layer input[type="range"]:focus-within + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer input[type="range"]:active + .thumb {
-        --thumb-scale: 1.45;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-      
       p {
         text-align: center;
         font-size: 1.2rem;
         margin-top: 2rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -164,7 +83,7 @@ When you want “ticks”, you typically want the slider to snap to a discrete s
 Pass an array to `@step`.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const tickValues = [0, 10, 20, 30, 40, 50];
@@ -172,16 +91,12 @@ const value = cell(20);
 const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
-
         {{#each s.thumbs as |thumb|}}
-          <div class="thumb-layer">
-            <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-            <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          </div>
+          <s.Thumb @thumb={{thumb}} aria-label="Value" />
         {{/each}}
       </s.Track>
     </Slider>
@@ -197,84 +112,11 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
     <p>Value: {{value.current}}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 20px;
         margin: 2rem auto 0.5rem;
-      }
-
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-        pointer-events: none;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
-        border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus + .thumb,
-      .thumb-layer input[type="range"]:focus-within + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer input[type="range"]:active + .thumb {
-        --thumb-scale: 1.45;
       }
 
       .ticks {
@@ -297,38 +139,34 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
         font-size: 1.2rem;
         margin-top: 0.75rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Slider With Tooltip (Composed)
 
-The primitive yields `thumb.percent`, which is useful for positioning a tooltip/label.
+`<s.Thumb>` accepts a block, rendered inside the visual thumb -- anything absolutely-positioned in that block moves with the thumb for free.
+
+(For positioning elements *outside* the thumb, each yielded `thumb` also provides `percent` and a ready-made `positionStyle`.)
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 75]);
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
 
         {{#each s.thumbs as |thumb|}}
-          <s.Thumb
-            @value={{thumb.inputValue}}
-            @index={{thumb.index}}
-            class="thumb-input {{if thumb.active 'is-active'}}"
-            aria-label="Value"
-          />
-          <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          <output class="tooltip" style="left: {{thumb.percent}}%;">
-            {{thumb.value}}
-          </output>
+          <s.Thumb @thumb={{thumb}} aria-label="Value">
+            <output class="tooltip">{{thumb.value}}</output>
+          </s.Thumb>
         {{/each}}
       </s.Track>
     </Slider>
@@ -336,100 +174,23 @@ const value = cell([25, 75]);
     <p>Range: {{value.current}}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 32px;
         margin: 2rem auto;
       }
 
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-input {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 32px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-        z-index: 1;
-        pointer-events: none;
-      }
-
-      .thumb-input::-webkit-slider-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb-input::-moz-range-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb-input.is-active {
-        z-index: 10;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
+      .ember-primitives__slider__thumb {
         border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        z-index: 2;
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb.is-active {
-        z-index: 11;
-      }
-
-      .thumb-input:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-input:hover + .thumb,
-      .thumb-input:focus + .thumb,
-      .thumb-input:focus-within + .thumb,
-      .thumb-input:focus-visible + .thumb,
-      .thumb-input:active + .thumb {
-        --thumb-scale: 1.45;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .tooltip {
         position: absolute;
-        top: 50%;
-        transform: translate(-50%, calc(-100% - 16px));
+        bottom: calc(100% + 10px);
+        left: 50%;
+        translate: -50% 0;
         background: #111;
         color: white;
         font-size: 0.75rem;
@@ -438,8 +199,7 @@ const value = cell([25, 75]);
         border-radius: 0.25rem;
         white-space: nowrap;
         user-select: none;
-        pointer-events: none;
-        z-index: 20;
+        font-variant-numeric: tabular-nums;
       }
 
       p {
@@ -447,41 +207,33 @@ const value = cell([25, 75]);
         font-size: 1.2rem;
         margin-top: 2rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Slider With Labels
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell(50);
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="labels" aria-hidden="true">
       <span>Low</span>
       <span>High</span>
     </div>
 
-    <Slider @value={{value.current}} @onValueChange={{value.set}} @step={{10}} as |s|>
-      <s.Track>
-        <s.Range />
-        {{#each s.thumbs as |thumb|}}
-          <div class="thumb-layer">
-            <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-            <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          </div>
-        {{/each}}
-      </s.Track>
-    </Slider>
+    <Slider @value={{value.current}} @onValueChange={{value.set}} @step={{10}} />
 
     <p>Value: {{value.current}}</p>
 
     <style>
+      @scope {
       .labels {
         display: flex;
         width: 300px;
@@ -493,77 +245,9 @@ const value = cell(50);
       }
 
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 20px;
         margin: 0 auto;
-      }
-
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
-        border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus + .thumb,
-      .thumb-layer input[type="range"]:focus-within + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer input[type="range"]:active + .thumb {
-        --thumb-scale: 1.45;
       }
 
       p {
@@ -571,8 +255,9 @@ const value = cell(50);
         font-size: 1.2rem;
         margin-top: 0.75rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -581,7 +266,7 @@ const value = cell(50);
 This pattern keeps an `<input>` in sync with the slider, while letting users type and “commit” on blur / Enter.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
@@ -618,19 +303,9 @@ const onKeydown = (event) => {
 };
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="row">
-      <Slider @value={{value.current}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} as |s|>
-        <s.Track>
-          <s.Range />
-          {{#each s.thumbs as |thumb|}}
-            <div class="thumb-layer">
-              <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-              <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-            </div>
-          {{/each}}
-        </s.Track>
-      </Slider>
+      <Slider @value={{value.current}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} />
 
       <label class="input">
         <span class="sr-only">Value</span>
@@ -647,6 +322,7 @@ const onKeydown = (event) => {
     </div>
 
     <style>
+      @scope {
       .row {
         display: flex;
         align-items: center;
@@ -673,84 +349,19 @@ const onKeydown = (event) => {
       }
 
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 20px;
-        margin: 0;
       }
-
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
-        border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        --thumb-scale: 1.45;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
       }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Dual Range Slider With Input
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
@@ -798,7 +409,7 @@ const onKeydown = (commitFn) => (event) => {
 };
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="row">
       <label class="input">
         <span class="sr-only">Minimum</span>
@@ -817,10 +428,7 @@ const onKeydown = (commitFn) => (event) => {
         <s.Track>
           <s.Range />
           {{#each s.thumbs as |thumb|}}
-            <div class="thumb-layer {{if thumb.active 'is-active'}}">
-              <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Value" />
-              <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-            </div>
+            <s.Thumb @thumb={{thumb}} aria-label="Value" />
           {{/each}}
         </s.Track>
       </Slider>
@@ -842,6 +450,7 @@ const onKeydown = (commitFn) => (event) => {
     <p>Range: {{range.current}}</p>
 
     <style>
+      @scope {
       .row {
         display: flex;
         align-items: center;
@@ -868,133 +477,45 @@ const onKeydown = (commitFn) => (event) => {
       }
 
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 20px;
-        margin: 2rem auto;
-      }
-      
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-      
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-      
-      .thumb-layer {
-        position: absolute;
-        pointer-events: none;
-        inset: 0;
-        z-index: 1;
       }
 
-      .thumb-layer.is-active {
-        z-index: 3;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        background: transparent;
-        cursor: pointer;
-        appearance: none;
-        /* Multiple full-width range inputs overlap.
-           The active layer is raised via z-index.
-        */
-        pointer-events: none;
-      }
-
-      .thumb-layer input[type="range"]::-webkit-slider-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb-layer input[type="range"]::-moz-range-thumb {
-        pointer-events: auto;
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 20px;
-        height: 20px;
-        background: #1a73e8;
+      .ember-primitives__slider__thumb {
         border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer:hover input[type="range"] + .thumb,
-      .thumb-layer input[type="range"]:focus + .thumb,
-      .thumb-layer input[type="range"]:focus-within + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb,
-      .thumb-layer input[type="range"]:active + .thumb {
-        --thumb-scale: 1.45;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-      
 
       p {
         text-align: center;
         font-size: 1.2rem;
         margin-top: 0;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Slider With Multiple Thumbs
 
+Any number of values is supported -- each gets a thumb, and thumbs cannot cross each other.
+
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const value = cell([25, 50, 75]);
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.thumbs as |thumb|}}
-          <s.Thumb
-            @value={{thumb.inputValue}}
-            @index={{thumb.index}}
-            class="thumb-input {{if thumb.active 'is-active'}}"
-            aria-label="Value"
-          />
-          <div class="thumb {{if thumb.active 'is-active'}}" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-          <output class="tooltip" style="left: {{thumb.percent}}%;">{{thumb.value}}%</output>
+          <s.Thumb @thumb={{thumb}} aria-label="Value">
+            <output class="tooltip">{{thumb.value}}%</output>
+          </s.Thumb>
         {{/each}}
       </s.Track>
     </Slider>
@@ -1002,87 +523,24 @@ const value = cell([25, 50, 75]);
     <p>Values: {{value.current}}</p>
 
     <style>
+      @scope {
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
+        color: #1a73e8;
         width: 300px;
-        height: 32px;
         margin: 2rem auto;
       }
 
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-input {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 32px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-        z-index: 1;
-        pointer-events: auto;
-      }
-
-      .thumb-input.is-active {
-        z-index: 10;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
+      .ember-primitives__slider__thumb {
         border: 2px solid white;
         border-radius: 6px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        z-index: 2;
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb.is-active {
-        z-index: 11;
-      }
-
-      .thumb-input:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-input:hover + .thumb,
-      .thumb-input:focus-visible + .thumb {
-        --thumb-scale: 1.45;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .tooltip {
         position: absolute;
-        top: 50%;
-        transform: translate(-50%, calc(-100% - 16px));
+        bottom: calc(100% + 10px);
+        left: 50%;
+        translate: -50% 0;
         background: #111;
         color: white;
         font-size: 0.75rem;
@@ -1091,8 +549,7 @@ const value = cell([25, 50, 75]);
         border-radius: 0.25rem;
         white-space: nowrap;
         user-select: none;
-        pointer-events: none;
-        z-index: 20;
+        font-variant-numeric: tabular-nums;
       }
 
       p {
@@ -1100,15 +557,18 @@ const value = cell([25, 50, 75]);
         font-size: 1.2rem;
         margin-top: 2rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
 ## Equalizer
 
+Vertical orientation is handled by the component (via `writing-mode` on the native inputs) -- set the length with `--ember-primitives__slider__vertical-size`.
+
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const hz60 = cell(2);
@@ -1126,36 +586,33 @@ const bands = [
 ];
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="equalizer" role="group" aria-label="Equalizer">
       {{#each bands as |band|}}
         <div class="band">
-          <div class="slider-wrap">
-            <Slider
-              @value={{band.value.current}}
-              @onValueChange={{band.value.set}}
-              @min={{-5}}
-              @max={{5}}
-              @orientation="vertical"
-              as |s|>
-              <s.Track>
-                <s.Range />
-                {{#each s.thumbs as |thumb|}}
-                  <div class="thumb-layer">
-                    <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label={{band.label}} />
-                    <div class="thumb" style="bottom: {{thumb.percent}}%;" aria-hidden="true" />
-                  </div>
-                  <output class="tooltip" style="bottom: {{thumb.percent}}%;">{{thumb.value}}</output>
-                {{/each}}
-              </s.Track>
-            </Slider>
-          </div>
+          <Slider
+            @value={{band.value.current}}
+            @onValueChange={{band.value.set}}
+            @min={{-5}}
+            @max={{5}}
+            @orientation="vertical"
+            as |s|>
+            <s.Track>
+              <s.Range />
+              {{#each s.thumbs as |thumb|}}
+                <s.Thumb @thumb={{thumb}} aria-label={{band.label}}>
+                  <output class="tooltip">{{thumb.value}}</output>
+                </s.Thumb>
+              {{/each}}
+            </s.Track>
+          </Slider>
           <div class="band-label" aria-hidden="true">{{band.label}}</div>
         </div>
       {{/each}}
     </div>
 
     <style>
+      @scope {
       .equalizer {
         display: flex;
         justify-content: center;
@@ -1177,102 +634,38 @@ const bands = [
         user-select: none;
       }
 
-      .slider-wrap {
-        position: relative;
-        height: 200px;
-        width: 24px;
+      .ember-primitives__slider {
+        color: #1a73e8;
+        --ember-primitives__slider__vertical-size: 200px;
       }
 
-      .ember-primitives__slider[data-orientation="vertical"] {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 24px;
-        height: 200px;
-        margin: 0;
-      }
-
-      .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        width: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__range {
-        position: absolute;
-        width: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        inset: 0;
-        width: 200px;
-        height: 24px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        transform-origin: left top;
-        transform: rotate(-90deg) translateX(-200px);
-        cursor: pointer;
-      }
-
-      .thumb {
-        position: absolute;
-        left: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, 50%) scale(var(--thumb-scale));
+      .ember-primitives__slider__thumb {
         width: 16px;
         height: 20px;
-        background: #1a73e8;
         border: 2px solid white;
         border-radius: 6px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb  {
-        --thumb-scale: 1.45;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .tooltip {
         position: absolute;
-        left: 50%;
-        transform: translate(-50%, 50%);
+        bottom: 50%;
+        left: calc(100% + 10px);
+        translate: 0 50%;
         background: #111;
         color: white;
         font-size: 0.75rem;
         padding: 0.15rem 0.35rem;
         border-radius: 0.25rem;
         pointer-events: none;
-        z-index: 1;
         white-space: nowrap;
         font-variant-numeric: tabular-nums;
         min-width: 2ch;
         text-align: center;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -1281,7 +674,7 @@ const bands = [
 This demonstrates composing a “price slider” UI (histogram + dual-range selection + inputs) on top of the primitive.
 
 ```gjs live preview
-import { Slider, Shadowed } from 'ember-primitives';
+import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
 import { cell } from 'ember-resources';
 
@@ -1361,7 +754,7 @@ const onKeydown = (commitFn) => (event) => {
 };
 
 <template>
-  <Shadowed>
+  <div class="demo">
     <div class="price">
       <div class="hist" aria-hidden="true">
         {{#each bins as |bin|}}
@@ -1379,10 +772,7 @@ const onKeydown = (commitFn) => (event) => {
         <s.Track>
           <s.Range />
           {{#each s.thumbs as |thumb|}}
-            <div class="thumb-layer {{if thumb.active 'is-active'}}">
-              <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} aria-label="Price" />
-              <div class="thumb" style="left: {{thumb.percent}}%;" aria-hidden="true" />
-            </div>
+            <s.Thumb @thumb={{thumb}} aria-label="Price" />
           {{/each}}
         </s.Track>
       </Slider>
@@ -1419,6 +809,7 @@ const onKeydown = (commitFn) => (event) => {
     </div>
 
     <style>
+      @scope {
       .price {
         width: 420px;
         margin: 2rem auto;
@@ -1453,81 +844,13 @@ const onKeydown = (commitFn) => (event) => {
       }
 
       .ember-primitives__slider {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 20px;
+        color: #1a73e8;
         margin: 1rem 0;
       }
 
-      .ember-primitives__slider__track {
-        position: relative;
-        flex: 1;
-        height: 4px;
-        background: #ddd;
-        border-radius: 2px;
-        overflow: visible;
-      }
-
-      .ember-primitives__slider__range {
-        position: absolute;
-        height: 100%;
-        background: #1a73e8;
-        border-radius: 2px;
-      }
-
-      .thumb-layer {
-        position: absolute;
-        inset: 0;
-        z-index: 1;
-      }
-
-      .thumb-layer.is-active {
-        z-index: 3;
-      }
-
-      .thumb-layer input[type="range"] {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 100%;
-        height: 20px;
-        margin: 0;
-        opacity: 0;
-        appearance: none;
-        background: transparent;
-        cursor: pointer;
-        pointer-events: auto;
-      }
-
-      .thumb {
-        position: absolute;
-        top: 50%;
-        --thumb-scale: 1;
-        transform-origin: 50% 50%;
-        transform: translate(-50%, -50%) scale(var(--thumb-scale));
-        width: 18px;
-        height: 18px;
-        background: #1a73e8;
+      .ember-primitives__slider__thumb {
         border: 2px solid white;
-        border-radius: 999px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        pointer-events: none;
-        transition: transform 120ms ease;
-      }
-
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        outline: 2px solid #1a73e8;
-        outline-offset: 2px;
-      }
-
-      .thumb-layer input[type="range"]:hover + .thumb,
-      .thumb-layer:hover input[type="range"] + .thumb,
-      .thumb-layer input[type="range"]:focus-visible + .thumb {
-        --thumb-scale: 1.45;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
       }
 
       .inputs {
@@ -1552,8 +875,9 @@ const onKeydown = (commitFn) => (event) => {
         font-size: 1.1rem;
         margin-top: 1rem;
       }
+      }
     </style>
-  </Shadowed>
+  </div>
 </template>
 ```
 
@@ -1570,7 +894,8 @@ const onKeydown = (commitFn) => (event) => {
 * Horizontal and vertical orientations
 * Customizable min, max, step, and discrete tick values (array `@step`)
 * Disabled state
-* Styleless primitives (you provide CSS)
+* Structural CSS is included -- you only style the appearance (colors, sizes)
+* Default appearance derives from `currentColor` and has zero specificity, so any of your rules override it
 
 ## Anatomy
 
@@ -1587,22 +912,64 @@ import { Slider } from 'ember-primitives/components/slider';
 import { Slider } from 'ember-primitives';
 
 <template>
+  {{! renders the track, range, and thumb(s) for you }}
+  <Slider />
+
+  {{! or compose the pieces yourself }}
   <Slider as |s|>
     <s.Track>
       <s.Range />
       {{#each s.thumbs as |thumb|}}
-        <s.Thumb @value={{thumb.inputValue}} @index={{thumb.index}} />
+        <s.Thumb @thumb={{thumb}} aria-label="Value">
+          {{! optional: rendered inside the visual thumb (tooltips, etc) }}
+        </s.Thumb>
       {{/each}}
     </s.Track>
   </Slider>
 </template>
 ```
 
+Each `<s.Thumb>` renders two elements: an invisible native `<input type="range">` (which receives `...attributes`) and a visual thumb element, positioned along the track for you.
+
+## Styling
+
+Structural CSS ships with the component. It is attached via [`adoptedStyleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/Document/adoptedStyleSheets) on the root the slider renders into, so it also works inside shadow roots. Everything lives in `@layer ember-primitives`, and appearance defaults additionally use `:where()` (zero specificity) and derive from `currentColor` -- any rule you write overrides them, so styling can be as simple as:
+
+```css
+.ember-primitives__slider {
+  color: rebeccapurple;
+  width: 300px;
+}
+```
+
+The demos on this page each scope their appearance CSS with a prelude-less [`@scope`](https://developer.mozilla.org/en-US/docs/Web/CSS/@scope) block, which scopes rules to the `<style>` tag's parent element -- style isolation without shadow DOM (and without shadow DOM's focus-navigation quirks).
+
+The visual thumb is centered using the CSS `translate` property, so hover/active effects using `scale` or `transform` compose with it instead of clobbering the positioning:
+
+```css
+.ember-primitives__slider__thumb-input:hover + .ember-primitives__slider__thumb {
+  scale: 1.4;
+}
+```
+
+### CSS Custom Properties
+
+| property | description |
+| :---: | :----------- |
+| `--ember-primitives__slider__hit-area` | Size of the pointer target (default `24px`)
+| `--ember-primitives__slider__thumb-size` | Size of the visual thumb (default `16px`)
+| `--ember-primitives__slider__track-thickness` | Thickness of the rail (default `4px`)
+| `--ember-primitives__slider__vertical-size` | Length of a vertical slider (default `10rem`)
+
 ## Accessibility
 
 Each thumb is a native `<input type="range">`, so it gets browser keyboard interaction “for free”.
 
-For accessibility, make sure each thumb has an accessible name. For example, pass `aria-label` / `aria-labelledby` via `...attributes` to `<s.Thumb>`.
+For accessibility, make sure each thumb has an accessible name. For example, pass `aria-label` / `aria-labelledby` via `...attributes` to `<s.Thumb>`. When no block is given to `<Slider>`, default labels are provided (`Value`, or `Minimum` / `Maximum` for a two-thumb range).
+
+To submit the value as part of a `<form>`, pass a `name` (and optionally `id`) to `<s.Thumb>` the same way -- each thumb is a real form control.
+
+The pointer target of each thumb defaults to 24px (`--ember-primitives__slider__hit-area`), the [WCAG 2.2 minimum target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html). Increase the variable for touch-heavy UIs.
 
 ### Keyboard Navigation
 
@@ -1637,6 +1004,7 @@ import { ComponentSignature } from 'kolay';
 | :---: | :----------- |
 | `data-orientation` | Set to `"horizontal"` (default) or `"vertical"`
 | `data-disabled` | Present when `@disabled={{true}}`
+| `data-multi` | Present when the slider has more than one thumb
 
 #### `<Track>`
 
@@ -1654,13 +1022,17 @@ import { ComponentSignature } from 'kolay';
 
 | key | description |  
 | :---: | :----------- |  
-| `ember-primitives__slider__thumb` | Present on each thumb `<input type="range">`
-| `disabled` | Standard HTML attribute when the thumb is disabled
+| `ember-primitives__slider__thumb-input` | Present on the invisible `<input type="range">` (receives `...attributes`)
+| `ember-primitives__slider__thumb` | Present on the visual thumb element (positioned for you; renders the block)
+| `data-active` | Present on both elements while the thumb is the most-recently-interacted-with
+| `data-disabled` | Present on the visual thumb when the slider is disabled
+| `disabled` | Standard HTML attribute on the input when the slider is disabled
 
 ## References
 
 - W3 - [Slider Multithumb](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/)
 - CSS Tricks - [Multi Thumb Sliders](https://css-tricks.com/multi-thumb-sliders-particular-two-thumb-case/)
 - MDN - [range input](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range)
+- MDN - [Creating vertical form controls](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_writing_modes/Vertical_controls)
 - utilitybend Proposal - [rangegroup](https://utilitybend.com/blog/a-native-way-of-having-more-than-one-thumb-on-a-range-slider-in-html)
   - open-ui [enhanced range input](https://open-ui.org/components/enhanced-range-input.explainer/)

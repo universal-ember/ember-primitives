@@ -1,33 +1,33 @@
 import { tracked } from '@glimmer/tracking';
-import { click, render, rerender } from '@ember/test-helpers';
+import { fillIn, render, rerender } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { Slider } from 'ember-primitives';
 
+const slider = '.ember-primitives__slider';
+const track = '.ember-primitives__slider__track';
+const thumbInput = '.ember-primitives__slider__thumb-input';
+const thumb = '.ember-primitives__slider__thumb';
+
 module('<Slider />', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('renders simply', async function (assert) {
-    const handleChange = (v: number | number[]) => {
-      assert.step(String(v));
-    };
-
-    await render(<template><Slider @value={{43}} @onValueChange={{handleChange}} /></template>);
-
-    const slider = '[data-slider]';
-    const track = '[role="presentation"]';
-    const thumb = '[role="slider"]';
+  test('renders simply (without a block)', async function (assert) {
+    await render(<template><Slider @value={{43}} /></template>);
 
     assert.dom(slider).exists();
     assert.dom(track).exists();
-    assert.dom(thumb).exists();
+    assert.dom(thumbInput).exists({ count: 1 });
+    assert.dom(thumb).exists({ count: 1 });
     assert.dom(slider).hasAttribute('data-orientation', 'horizontal');
-    assert.dom(slider).hasAttribute('data-disabled', 'false');
-    assert.dom(thumb).hasAttribute('aria-valuemin', '0');
-    assert.dom(thumb).hasAttribute('aria-valuemax', '100');
-    assert.dom(thumb).hasAttribute('aria-valuenow', '43');
-    assert.dom(thumb).hasAttribute('aria-orientation', 'horizontal');
+    assert.dom(slider).doesNotHaveAttribute('data-disabled');
+    assert.dom(slider).doesNotHaveAttribute('data-multi');
+    assert.dom(thumbInput).hasAttribute('min', '0');
+    assert.dom(thumbInput).hasAttribute('max', '100');
+    assert.dom(thumbInput).hasValue('43');
+    assert.dom(thumbInput).hasAria('label', 'Value');
+    assert.dom(thumb).hasAttribute('style', 'left: 43%');
   });
 
   test('renders with default single value', async function (assert) {
@@ -36,27 +36,21 @@ module('<Slider />', function (hooks) {
         <Slider as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const slider = '[data-slider]';
-    const track = '[role="presentation"]';
-    const thumb = '[role="slider"]';
-
     assert.dom(slider).exists();
     assert.dom(track).exists();
-    assert.dom(thumb).exists();
-    assert.dom(slider).hasAttribute('data-orientation', 'horizontal');
-    assert.dom(slider).hasAttribute('data-disabled', 'false');
-    assert.dom(thumb).hasAttribute('aria-valuemin', '0');
-    assert.dom(thumb).hasAttribute('aria-valuemax', '100');
-    assert.dom(thumb).hasAttribute('aria-valuenow', '0');
-    assert.dom(thumb).hasAttribute('aria-orientation', 'horizontal');
+    assert.dom(thumbInput).exists({ count: 1 });
+    assert.dom(thumb).exists({ count: 1 });
+    assert.dom(thumbInput).hasAttribute('min', '0');
+    assert.dom(thumbInput).hasAttribute('max', '100');
+    assert.dom(thumbInput).hasValue('0');
   });
 
   test('renders with a custom value', async function (assert) {
@@ -71,22 +65,22 @@ module('<Slider />', function (hooks) {
         <Slider @value={{state.value}} as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const thumb = '[role="slider"]';
-
-    assert.dom(thumb).hasAttribute('aria-valuenow', '50');
+    assert.dom(thumbInput).hasValue('50');
+    assert.dom(thumb).hasAttribute('style', 'left: 50%');
 
     state.value = 75;
     await rerender();
 
-    assert.dom(thumb).hasAttribute('aria-valuenow', '75');
+    assert.dom(thumbInput).hasValue('75');
+    assert.dom(thumb).hasAttribute('style', 'left: 75%');
   });
 
   test('renders with custom min, max, and step', async function (assert) {
@@ -95,40 +89,36 @@ module('<Slider />', function (hooks) {
         <Slider @value={{50}} @min={{10}} @max={{200}} @step={{5}} as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const thumb = '[role="slider"]';
-
-    assert.dom(thumb).hasAttribute('aria-valuemin', '10');
-    assert.dom(thumb).hasAttribute('aria-valuemax', '200');
-    assert.dom(thumb).hasAttribute('aria-valuenow', '50');
+    assert.dom(thumbInput).hasAttribute('min', '10');
+    assert.dom(thumbInput).hasAttribute('max', '200');
+    assert.dom(thumbInput).hasAttribute('step', '5');
+    assert.dom(thumbInput).hasValue('50');
   });
 
   test('renders with vertical orientation', async function (assert) {
     await render(
       <template>
-        <Slider @orientation="vertical" as |s|>
+        <Slider @value={{40}} @orientation="vertical" as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const slider = '[data-slider]';
-    const thumb = '[role="slider"]';
-
     assert.dom(slider).hasAttribute('data-orientation', 'vertical');
-    assert.dom(thumb).hasAttribute('aria-orientation', 'vertical');
+    assert.dom(thumb).hasAttribute('style', 'bottom: 40%');
   });
 
   test('renders with disabled state', async function (assert) {
@@ -137,20 +127,17 @@ module('<Slider />', function (hooks) {
         <Slider @disabled={{true}} as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const slider = '[data-slider]';
-    const thumb = '[role="slider"]';
-
-    assert.dom(slider).hasAttribute('data-disabled', 'true');
-    assert.dom(thumb).hasAttribute('aria-disabled', 'true');
-    assert.dom(thumb).hasAttribute('tabindex', '-1');
+    assert.dom(slider).hasAttribute('data-disabled');
+    assert.dom(thumbInput).isDisabled();
+    assert.dom(thumb).hasAttribute('data-disabled');
   });
 
   test('renders with multiple values (range)', async function (assert) {
@@ -161,52 +148,144 @@ module('<Slider />', function (hooks) {
         <Slider @value={{rangeValue}} as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const thumbs = '[role="slider"]';
+    assert.dom(slider).hasAttribute('data-multi');
+    assert.dom(thumbInput).exists({ count: 2 });
+    assert.dom(thumb).exists({ count: 2 });
 
-    assert.dom(thumbs).exists({ count: 2 });
+    const [input1, input2] = document.querySelectorAll<HTMLInputElement>(thumbInput);
 
-    const [thumb1, thumb2] = Array.from(document.querySelectorAll(thumbs));
-
-    assert.strictEqual(thumb1.getAttribute('aria-valuenow'), '20');
-    assert.strictEqual(thumb2.getAttribute('aria-valuenow'), '80');
+    assert.strictEqual(input1?.value, '20');
+    assert.strictEqual(input2?.value, '80');
   });
 
-  test('calls onValueChange callback', async function (assert) {
-    const handleChange = (value: number[]) => {
-      assert.step('onValueChange');
+  test('calls onValueChange and onValueCommit when a thumb moves', async function (assert) {
+    class State {
+      @tracked value = 50;
+    }
+
+    const state = new State();
+
+    const handleChange = (value: number | number[]) => {
+      assert.step(`change:${value}`);
+      state.value = value as number;
+    };
+
+    const handleCommit = (value: number | number[]) => {
+      assert.step(`commit:${value}`);
     };
 
     await render(
       <template>
-        <Slider @value={{50}} @onValueChange={{handleChange}} as |s|>
+        <Slider
+          @value={{state.value}}
+          @onValueChange={{handleChange}}
+          @onValueCommit={{handleCommit}}
+          as |s|
+        >
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    // Note: Testing actual pointer/keyboard interaction would require more setup
-    // This test verifies the component accepts the callback
-    assert.strictEqual(typeof handleChange, 'function');
+    await fillIn(thumbInput, '60');
+
+    // fillIn fires `input` and then `change`
+    assert.verifySteps(['change:60', 'change:60', 'commit:60']);
+    assert.strictEqual(state.value, 60);
+  });
+
+  test('thumbs cannot cross each other', async function (assert) {
+    class State {
+      @tracked value = [20, 80];
+    }
+
+    const state = new State();
+
+    const handleChange = (value: number | number[]) => {
+      state.value = value as number[];
+    };
+
+    await render(
+      <template>
+        <Slider @value={{state.value}} @onValueChange={{handleChange}} as |s|>
+          <s.Track>
+            <s.Range />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
+            {{/each}}
+          </s.Track>
+        </Slider>
+      </template>
+    );
+
+    const firstInput = document.querySelector<HTMLInputElement>(thumbInput);
+
+    assert.ok(firstInput, 'first thumb input exists');
+
+    // try to drag the lower thumb past the upper thumb
+    await fillIn(firstInput as HTMLInputElement, '95');
+
+    assert.deepEqual(state.value, [80, 80], 'lower thumb is constrained by the upper thumb');
+  });
+
+  test('supports discrete tick values via an array @step', async function (assert) {
+    const ticks = [0, 10, 20, 30, 40, 50];
+
+    class State {
+      @tracked value = 20;
+    }
+
+    const state = new State();
+
+    const handleChange = (value: number | number[]) => {
+      state.value = value as number;
+    };
+
+    await render(
+      <template>
+        <Slider @value={{state.value}} @step={{ticks}} @onValueChange={{handleChange}} as |s|>
+          <s.Track>
+            <s.Range />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
+            {{/each}}
+          </s.Track>
+        </Slider>
+      </template>
+    );
+
+    // internally, the input works on tick indices
+    assert.dom(thumbInput).hasAttribute('min', '0');
+    assert.dom(thumbInput).hasAttribute('max', '5');
+    assert.dom(thumbInput).hasAttribute('step', '1');
+    assert.dom(thumbInput).hasValue('2');
+
+    // moving to index 4 emits the tick value (40)
+    await fillIn(thumbInput, '4');
+
+    assert.strictEqual(state.value, 40);
   });
 
   test('exposes values, min, max, step', async function (assert) {
     await render(
       <template>
         <Slider @value={{50}} @min={{0}} @max={{100}} @step={{10}} as |s|>
-          <div data-test-values>{{s.values}}</div>
+          <div data-test-values>
+            {{#each s.values as |value|}}{{value}}{{/each}}
+          </div>
           <div data-test-min>{{s.min}}</div>
           <div data-test-max>{{s.max}}</div>
           <div data-test-step>{{s.step}}</div>
@@ -226,18 +305,16 @@ module('<Slider />', function (hooks) {
         <Slider @value={{150}} @min={{0}} @max={{100}} as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const thumb = '[role="slider"]';
-
     // Value should be clamped to max
-    assert.dom(thumb).hasAttribute('aria-valuenow', '100');
+    assert.dom(thumbInput).hasValue('100');
   });
 
   test('rounds values to step', async function (assert) {
@@ -246,17 +323,15 @@ module('<Slider />', function (hooks) {
         <Slider @value={{53}} @step={{10}} as |s|>
           <s.Track>
             <s.Range />
-            {{#each s.values as |value index|}}
-              <s.Thumb @value={{value}} @index={{index}} />
+            {{#each s.thumbs as |t|}}
+              <s.Thumb @thumb={{t}} aria-label="Value" />
             {{/each}}
           </s.Track>
         </Slider>
       </template>
     );
 
-    const thumb = '[role="slider"]';
-
     // Value should be rounded to nearest step (50)
-    assert.dom(thumb).hasAttribute('aria-valuenow', '50');
+    assert.dom(thumbInput).hasValue('50');
   });
 });

@@ -20,4 +20,16 @@ export default [
       "n/no-unsupported-features": "off",
     },
   },
+
+  // Public docs demos live in `public/docs/**/*.gjs`.
+  // In a monorepo, the TS ESLint parser can see multiple tsconfig roots;
+  // pin it to this package to avoid "No tsconfigRootDir was set" errors.
+  {
+    files: ["**/*.gjs"],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
 ];

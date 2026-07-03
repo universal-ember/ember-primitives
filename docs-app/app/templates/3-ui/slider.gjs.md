@@ -967,6 +967,10 @@ Each thumb is a native `<input type="range">`, so it gets browser keyboard inter
 
 For accessibility, make sure each thumb has an accessible name. For example, pass `aria-label` / `aria-labelledby` via `...attributes` to `<s.Thumb>`. When no block is given to `<Slider>`, default labels are provided (`Value`, or `Minimum` / `Maximum` for a two-thumb range).
 
+To submit the value as part of a `<form>`, pass a `name` (and optionally `id`) to `<s.Thumb>` the same way -- each thumb is a real form control.
+
+The pointer target of each thumb defaults to 24px (`--ember-primitives__slider__hit-area`), the [WCAG 2.2 minimum target size](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html). Increase the variable for touch-heavy UIs.
+
 ### Keyboard Navigation
 
 Keyboard support is provided by the platform (and can vary slightly by browser/OS).

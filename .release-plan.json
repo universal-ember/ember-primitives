@@ -1,14 +1,22 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.59.1",
-      "newVersion": "0.59.2",
+      "impact": "minor",
+      "oldVersion": "0.59.2",
+      "newVersion": "0.60.0",
       "tagName": "latest",
       "constraints": [
         {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
           "impact": "patch",
           "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         },
         {
           "impact": "patch",
@@ -18,21 +26,35 @@
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "oldVersion": "0.9.10"
+      "impact": "patch",
+      "oldVersion": "0.9.10",
+      "newVersion": "0.9.11",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:^` on ember-primitives"
+        }
+      ],
+      "pkgJSONPath": "./packages/docs-support/package.json"
     },
     "which-heading-do-i-need": {
       "impact": "minor",
-      "oldVersion": "0.2.7",
-      "newVersion": "0.3.0",
+      "oldVersion": "0.3.0",
+      "newVersion": "0.4.0",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "minor",
           "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
     }
   },
-  "description": "## Release (2026-06-01)\n\n* ember-primitives 0.59.2 (patch)\n* which-heading-do-i-need 0.3.0 (minor)\n\n#### :rocket: Enhancement\n* `which-heading-do-i-need`\n  * [#761](https://github.com/universal-ember/ember-primitives/pull/761) Use more strict type for heading level ([@bertdeblock](https://github.com/bertdeblock))\n\n#### :memo: Documentation\n* [#763](https://github.com/universal-ember/ember-primitives/pull/763) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* [#756](https://github.com/universal-ember/ember-primitives/pull/756) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### :house: Internal\n* Other\n  * [#758](https://github.com/universal-ember/ember-primitives/pull/758) Update demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`\n  * [#755](https://github.com/universal-ember/ember-primitives/pull/755) Add eslint-plugin-compat to lint addon source against supported browsers ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 4\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-07-03)\n\n* ember-primitives 0.60.0 (minor)\n* @universal-ember/docs-support 0.9.11 (patch)\n* which-heading-do-i-need 0.4.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#654](https://github.com/universal-ember/ember-primitives/pull/654) New component: `<Slider>` (supports range, multiple thumbs, etc) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `which-heading-do-i-need`\n  * [#761](https://github.com/universal-ember/ember-primitives/pull/761) Use more strict type for heading level ([@bertdeblock](https://github.com/bertdeblock))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#772](https://github.com/universal-ember/ember-primitives/pull/772) Slider ergonomics: ship the structural CSS with the component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :memo: Documentation\n* [#763](https://github.com/universal-ember/ember-primitives/pull/763) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* [#756](https://github.com/universal-ember/ember-primitives/pull/756) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#773](https://github.com/universal-ember/ember-primitives/pull/773) Slider: replace adopted-stylesheet modifier with a static CSS import ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n  * [#755](https://github.com/universal-ember/ember-primitives/pull/755) Add eslint-plugin-compat to lint addon source against supported browsers ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n* `ember-primitives`, `which-heading-do-i-need`\n  * [#757](https://github.com/universal-ember/ember-primitives/pull/757) Prepare Release ([@github-actions[bot]](https://github.com/apps/github-actions))\n* Other\n  * [#758](https://github.com/universal-ember/ember-primitives/pull/758) Update demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 4\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

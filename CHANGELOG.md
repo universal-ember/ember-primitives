@@ -1,5 +1,40 @@
 # Changelog 
 
+## Release (2026-07-03)
+
+* ember-primitives 0.60.0 (minor)
+* @universal-ember/docs-support 0.9.11 (patch)
+* which-heading-do-i-need 0.4.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#654](https://github.com/universal-ember/ember-primitives/pull/654) New component: `<Slider>` (supports range, multiple thumbs, etc) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `which-heading-do-i-need`
+  * [#761](https://github.com/universal-ember/ember-primitives/pull/761) Use more strict type for heading level ([@bertdeblock](https://github.com/bertdeblock))
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#772](https://github.com/universal-ember/ember-primitives/pull/772) Slider ergonomics: ship the structural CSS with the component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :memo: Documentation
+* [#763](https://github.com/universal-ember/ember-primitives/pull/763) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+* [#756](https://github.com/universal-ember/ember-primitives/pull/756) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+
+#### :house: Internal
+* `ember-primitives`
+  * [#773](https://github.com/universal-ember/ember-primitives/pull/773) Slider: replace adopted-stylesheet modifier with a static CSS import ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#755](https://github.com/universal-ember/ember-primitives/pull/755) Add eslint-plugin-compat to lint addon source against supported browsers ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+* `ember-primitives`, `which-heading-do-i-need`
+  * [#757](https://github.com/universal-ember/ember-primitives/pull/757) Prepare Release ([@github-actions[bot]](https://github.com/apps/github-actions))
+* Other
+  * [#758](https://github.com/universal-ember/ember-primitives/pull/758) Update demo ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 4
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- Bert De Block ([@bertdeblock](https://github.com/bertdeblock))
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-06-01)
 
 * ember-primitives 0.59.2 (patch)

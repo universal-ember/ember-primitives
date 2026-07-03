@@ -933,7 +933,7 @@ Each `<s.Thumb>` renders two elements: an invisible native `<input type="range">
 
 ## Styling
 
-Structural CSS ships with the component. It is attached via [`adoptedStyleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/Document/adoptedStyleSheets) on the root the slider renders into, so it also works inside shadow roots. Everything lives in `@layer ember-primitives`, and appearance defaults additionally use `:where()` (zero specificity) and derive from `currentColor` -- any rule you write overrides them, so styling can be as simple as:
+Structural CSS ships with the component as a regular stylesheet (bundled with your app's CSS), so it is present at first paint -- there is no runtime style injection. Everything lives in `@layer ember-primitives`, and appearance defaults additionally use `:where()` (zero specificity) and derive from `currentColor` -- any rule you write overrides them, so styling can be as simple as:
 
 ```css
 .ember-primitives__slider {
@@ -943,6 +943,8 @@ Structural CSS ships with the component. It is attached via [`adoptedStyleSheets
 ```
 
 The demos on this page each scope their appearance CSS with a prelude-less [`@scope`](https://developer.mozilla.org/en-US/docs/Web/CSS/@scope) block, which scopes rules to the `<style>` tag's parent element -- style isolation without shadow DOM (and without shadow DOM's focus-navigation quirks).
+
+If you render the slider inside a shadow root, document-level stylesheets won't reach it -- bring `ember-primitives/dist/components/slider.css` into the shadow tree yourself (e.g. `@import` it, or adopt it).
 
 The visual thumb is centered using the CSS `translate` property, so hover/active effects using `scale` or `transform` compose with it instead of clobbering the positioning:
 

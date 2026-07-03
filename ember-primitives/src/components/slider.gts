@@ -1,9 +1,10 @@
+import "./slider.css";
+
 import Component from "@glimmer/component";
 import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 
 import { SliderStore, type SliderThumb, type StyleString } from "./slider/store.ts";
-import { adoptStyles } from "./slider/style.ts";
 
 import type { TOC } from "@ember/component/template-only";
 import type Owner from "@ember/owner";
@@ -245,7 +246,6 @@ export class Slider extends Component<Signature> {
       data-orientation={{this.store.orientation}}
       data-disabled={{if this.store.disabled ""}}
       data-multi={{if this.store.isMulti ""}}
-      {{adoptStyles}}
     >
       {{#if (has-block)}}
         {{yield

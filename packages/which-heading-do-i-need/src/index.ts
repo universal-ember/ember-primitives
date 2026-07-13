@@ -13,6 +13,18 @@ const BOUNDARY_ELEMENTS = new Set([
 ]);
 
 /**
+ * The subset of BOUNDARY_ELEMENTS that starts a new section of its own
+ * ([sectioning content][mdn-sc]).
+ *
+ * The others (header, footer, main) belong to the section they are in --
+ * in particular, a <header> typically *contains* its section's heading,
+ * so traversal must be able to look inside it.
+ *
+ * [mdn-sc]: https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Content_categories#sectioning_content
+ */
+const SECTIONING_CONTENT = new Set(['SECTION', 'ARTICLE', 'ASIDE', 'NAV']);
+
+/**
  * A set with both cases is more performant than calling toLowerCase
  */
 const SECTION_HEADINGS = new Set([
@@ -96,9 +108,15 @@ function findHeadingIn(
    * Fallback traversal if we still haven't found the
    * heading level, we check all the children
    * of the current node, because headings can be
-   * within <a> tags and such.
+   * within <a> tags, <header>s, and such.
+   *
+   * Like the previous-sibling traversal above, this does not descend
+   * into sectioning content: headings within a nested <section> (etc)
+   * belong to that section, and are not context for our heading.
    */
   for (const child of node.children) {
+    if (SECTIONING_CONTENT.has(child.tagName)) continue;
+
     const level = findHeadingIn(child);
 
     if (level) return level;
@@ -160,7 +178,7 @@ function levelOf(node: Text): Level {
     return 1;
   }
 
-  const stopAt = nearestAncestor(ourBoundary, (el) => {
+  let stopAt = nearestAncestor(ourBoundary, (el) => {
     if (BOUNDARY_ELEMENTS.has(el.tagName)) return true;
 
     return isRoot(el);
@@ -182,7 +200,25 @@ function levelOf(node: Text): Level {
       return (level + 1) as Level;
     }
 
-    if (current === stopAt) break;
+    if (current === stopAt) {
+      /**
+       * A boundary with no heading (between its start and our position)
+       * has no heading level of its own to nest under, so it is
+       * transparent: keep searching outward for context, rather than
+       * concluding <h1>.
+       */
+      if (current instanceof Element && !isRoot(current)) {
+        stopAt = nearestAncestor(current, (el) => {
+          if (BOUNDARY_ELEMENTS.has(el.tagName)) return true;
+
+          return isRoot(el);
+        });
+
+        if (!stopAt) break;
+      } else {
+        break;
+      }
+    }
 
     if (current instanceof ShadowRoot) {
       current = current.host;

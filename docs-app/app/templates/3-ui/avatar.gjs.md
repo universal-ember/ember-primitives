@@ -3,9 +3,7 @@
 An image element with a fallback for representing the user.
 
 
-<div class="featured-demo">
-
-```gjs live preview no-shadow
+```gjs repl 
 import { Avatar } from 'ember-primitives';
 
 <template>
@@ -60,8 +58,6 @@ import { Avatar } from 'ember-primitives';
   </style>
 </template>
 ```
-
-</div>
 
 ## Install
 

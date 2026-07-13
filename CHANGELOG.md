@@ -1,5 +1,17 @@
 # Changelog 
 
+## Release (2026-07-13)
+
+* ember-primitives 0.60.1 (patch)
+* which-heading-do-i-need 0.4.1 (patch)
+
+#### :bug: Bug Fix
+* `which-heading-do-i-need`
+  * [#776](https://github.com/universal-ember/ember-primitives/pull/776) which-heading-do-i-need: nested sections are not heading context; heading-less boundaries are transparent ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 1
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
 ## Release (2026-07-03)
 
 * ember-primitives 0.60.0 (minor)

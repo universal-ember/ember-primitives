@@ -25,6 +25,55 @@ module('Unit | getSectionHeadingLevel', function () {
     assert.strictEqual(level, 4);
   });
 
+  test('heading-less sections are transparent (no reset to h1)', function (assert) {
+    const doc = `
+        <h2>
+          hello there
+        </h2>
+        <section>
+          <section>
+          </section>
+        </section>
+      `;
+
+    const root = document.createElement('div');
+
+    root.innerHTML = doc;
+
+    const ref = document.createTextNode('');
+
+    root.querySelector('section section')?.append(ref);
+
+    const level = getSectionHeadingLevel(ref);
+
+    assert.strictEqual(level, 3);
+  });
+
+  test('headings within sibling sections are not context', function (assert) {
+    const doc = `
+        <h2>
+          hello there
+        </h2>
+        <section>
+          <h3>a sibling section's heading</h3>
+        </section>
+        <section>
+        </section>
+      `;
+
+    const root = document.createElement('div');
+
+    root.innerHTML = doc;
+
+    const ref = document.createTextNode('');
+
+    root.querySelector('section + section')?.append(ref);
+
+    const level = getSectionHeadingLevel(ref);
+
+    assert.strictEqual(level, 3);
+  });
+
   test('no existing heading', function (assert) {
     const doc = `
         <section>

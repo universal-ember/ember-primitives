@@ -57,7 +57,7 @@ import { Resizable } from 'ember-primitives';
 
 </div>
 
-## i3, but it's a demo
+## i3: a tree-based window manager
 
 Because groups nest, a whole tiling window manager layout is just a tree of `<Resizable>`s.
 Click a window to focus it, then split or kill it, i3wm style. Drag or <kbd>Tab</kbd> to the borders to resize.
@@ -331,6 +331,80 @@ Dragging uses pointer capture, so resizing keeps working when the pointer passes
 ## Persisting the layout
 
 `@onLayoutChange` is called with the panels' sizes (percentages, in document order) whenever the layout changes, and `@defaultSize` sets the initial size -- together they make persistence straightforward (localStorage, query params, etc.).
+
+With nested groups, each group persists its own sizes under its own key. Resize the panels below, then reload the page -- the layout is remembered.
+
+<div class="featured-demo auto-height">
+
+```gjs live preview no-shadow
+import { Resizable } from 'ember-primitives';
+
+const KEY = 'docs:resizable:persisted-demo';
+
+function load() {
+  try {
+    return JSON.parse(localStorage.getItem(KEY)) ?? {};
+  } catch {
+    return {};
+  }
+}
+
+const saved = load();
+
+const persist = (group) => (sizes) => {
+  saved[group] = sizes;
+  localStorage.setItem(KEY, JSON.stringify(saved));
+};
+
+const sizeOf = (group, index) => saved[group]?.[index];
+
+<template>
+  <div class="rz-persisted">
+    <Resizable @onLayoutChange={{persist "outer"}} as |r|>
+      <r.Panel @defaultSize={{sizeOf "outer" 0}} @minSize={{15}}>
+        <div class="rz-pane">files</div>
+      </r.Panel>
+      <r.Handle aria-label="Resize files" />
+      <r.Panel @defaultSize={{sizeOf "outer" 1}}>
+        <Resizable @orientation="vertical" @onLayoutChange={{persist "inner"}} as |inner|>
+          <inner.Panel @defaultSize={{sizeOf "inner" 0}}>
+            <div class="rz-pane">editor</div>
+          </inner.Panel>
+          <inner.Handle aria-label="Resize output" />
+          <inner.Panel @defaultSize={{sizeOf "inner" 1}} @minSize={{10}}>
+            <div class="rz-pane">output</div>
+          </inner.Panel>
+        </Resizable>
+      </r.Panel>
+    </Resizable>
+  </div>
+  <style>
+    /* styles for the demo, not required */
+    .rz-persisted {
+      height: 220px;
+      border: 1px solid gray;
+    }
+    .rz-persisted .rz-pane {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      font-family: monospace;
+    }
+    .rz-persisted .ember-primitives__resizable__handle {
+      background: gray;
+      opacity: 0.4;
+    }
+    .rz-persisted .ember-primitives__resizable__handle:hover,
+    .rz-persisted .ember-primitives__resizable__handle:focus-visible,
+    .rz-persisted .ember-primitives__resizable__handle[data-resizing] {
+      opacity: 1;
+      background: dodgerblue;
+    }
+  </style>
+</template>
+```
+
+</div>
 
 ## Accessibility
 

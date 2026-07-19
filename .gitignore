@@ -28,3 +28,6 @@ node_modules/
 /.node_modules.ember-try/
 /package.json.ember-try
 /yarn.lock.ember-try
+
+# generated during docs-app test runs
+ember-a11y-report/

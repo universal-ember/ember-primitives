@@ -79,11 +79,26 @@ module('Rendering | <Resizable>', function (hooks) {
       assert.dom('[data-test-handle]').hasAria('valuemin', '0');
       assert.dom('[data-test-handle]').hasAria('valuemax', '100');
 
-      const controls = document.querySelector('[data-test-handle]')?.getAttribute('aria-controls');
-      const panelId = document.querySelector('[data-test-a]')?.getAttribute('id');
+      // ids are global, so none are generated
+      assert.dom('[data-test-a]').doesNotHaveAttribute('id');
+      assert.dom('[data-test-handle]').doesNotHaveAttribute('aria-controls');
+    });
 
-      assert.ok(panelId, 'the panel has an id');
-      assert.strictEqual(controls, panelId, 'aria-controls references the preceding panel');
+    test('aria-controls references a consumer-provided panel id', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel id="my-editor" data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      assert.dom('[data-test-handle]').hasAria('controls', 'my-editor');
     });
 
     test('dragging the handle resizes both panels', async function (assert) {
@@ -143,7 +158,7 @@ module('Rendering | <Resizable>', function (hooks) {
             <Resizable>
               <Panel data-test-a>a</Panel>
               <Handle data-test-handle />
-              <Panel data-test-b>b</Panel>
+              <Panel id="panel-b" data-test-b>b</Panel>
               <Handle data-test-handle-2 />
               <Panel data-test-c>c</Panel>
             </Resizable>
@@ -153,14 +168,10 @@ module('Rendering | <Resizable>', function (hooks) {
     });
 
     test('each handle describes the panel immediately before it', async function (assert) {
-      const handle2 = document.querySelector('[data-test-handle-2]');
-      const panelB = document.querySelector('[data-test-b]');
-
-      assert.strictEqual(
-        handle2?.getAttribute('aria-controls'),
-        panelB?.getAttribute('id'),
-        'the second handle controls the middle panel'
-      );
+      assert.dom('[data-test-handle-2]').hasAria('controls', 'panel-b');
+      assert
+        .dom('[data-test-handle]')
+        .doesNotHaveAttribute('aria-controls', 'no id was provided for panel a');
     });
 
     test('dragging a handle only affects its two adjacent panels', async function (assert) {

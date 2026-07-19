@@ -6,7 +6,6 @@ import { on } from "@ember/modifier";
 import { modifier } from "ember-modifier";
 
 import { Consume, Provide } from "../dom-context.gts";
-import { uniqueId } from "../utils.ts";
 import { GroupState } from "./resizable/state.ts";
 
 import type { Orientation } from "./resizable/state.ts";
@@ -54,19 +53,16 @@ export interface PanelSignature {
  * Panel may contain another `<Resizable>` to nest layouts.
  */
 export const Panel: TOC<PanelSignature> = <template>
-  {{#let (uniqueId) as |id|}}
-    <div
-      id={{id}}
-      class="ember-primitives__resizable__panel"
-      data-min-size={{@minSize}}
-      data-max-size={{@maxSize}}
-      data-size={{@size}}
-      data-collapsible={{if @collapsible "true"}}
-      ...attributes
-    >
-      {{yield}}
-    </div>
-  {{/let}}
+  <div
+    class="ember-primitives__resizable__panel"
+    data-min-size={{@minSize}}
+    data-max-size={{@maxSize}}
+    data-size={{@size}}
+    data-collapsible={{if @collapsible "true"}}
+    ...attributes
+  >
+    {{yield}}
+  </div>
 </template>;
 
 export interface HandleSignature {

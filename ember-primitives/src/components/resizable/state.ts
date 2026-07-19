@@ -14,8 +14,6 @@ const DEFAULT_MAX = 100;
 const KEYBOARD_STEP = 1;
 const KEYBOARD_STEP_COARSE = 10;
 
-let panelId = 0;
-
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
@@ -432,10 +430,12 @@ export class GroupState {
 
       if (!prev) continue;
 
-      // Panels render their own id; this only fires for hand-written markup
-      if (!prev.id) prev.id = `ember-primitives__resizable__panel--${panelId++}`;
+      /**
+       * ids are global, so we never generate one -- but when the
+       * consumer gave their panel an id, the handle references it.
+       */
+      if (prev.id) setAttribute(handle, 'aria-controls', prev.id);
 
-      setAttribute(handle, 'aria-controls', prev.id);
       setAttribute(handle, 'aria-valuemin', `${minSizeOf(prev)}`);
       setAttribute(handle, 'aria-valuemax', `${maxSizeOf(prev)}`);
       setAttribute(handle, 'aria-valuenow', `${Math.round(this.#sizes.get(prev) ?? 0)}`);

@@ -688,6 +688,8 @@ module('Rendering | <Resizable>', function (hooks) {
         </template>
       );
 
+      const spy = recordMutations(['[data-test-a]', '[data-test-b]'], { attributes: true });
+
       state.showThird = true;
       await settled();
 
@@ -696,6 +698,8 @@ module('Rendering | <Resizable>', function (hooks) {
       assert.dom('[data-test-c]').doesNotHaveAttribute('style');
       assert.dom('[data-test-handle]').hasAria('valuenow', '33');
       assert.dom('[data-test-handle-2]').hasAria('valuenow', '33');
+
+      assert.deepEqual(spy.stop(), [], 'existing panels saw zero attribute writes');
     });
 
     test('a resize only materializes styles for the panels that moved', async function (assert) {

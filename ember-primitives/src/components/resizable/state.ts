@@ -432,6 +432,7 @@ export class GroupState {
 
       if (!prev) continue;
 
+      // Panels render their own id; this only fires for hand-written markup
       if (!prev.id) prev.id = `ember-primitives__resizable__panel--${panelId++}`;
 
       setAttribute(handle, 'aria-controls', prev.id);

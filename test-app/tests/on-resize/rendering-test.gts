@@ -1,15 +1,42 @@
 import { tracked } from '@glimmer/tracking';
-import { later } from '@ember/runloop';
 import { find, render, resetOnerror, settled, setupOnerror } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { onResize } from 'ember-primitives/on-resize';
 
-async function delay(ms = 50) {
-  await new Promise((resolve) => {
-    setTimeout(resolve, ms);
+/**
+ * Waits for a full frame boundary to pass.
+ *
+ * ResizeObserver notifications are delivered during frame rendering,
+ * after that frame's requestAnimationFrame callbacks run (and after
+ * style/layout are recalculated). So a mutation made before this call
+ * is captured by the first frame's delivery step, and by the time a
+ * second, consecutive requestAnimationFrame callback runs, that
+ * delivery is guaranteed to have happened.
+ */
+async function waitForFrame() {
+  await new Promise<void>((resolve) => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => resolve());
+    });
   });
+}
+
+/**
+ * Deterministically flushes {{onResize}} activity:
+ * - settled(): any pending render (e.g. a modifier re-run) completes,
+ *   so observations are installed before we count frames
+ * - waitForFrame(): the ResizeObserver delivery for anything mutated
+ *   so far has happened
+ * - settled(): anything the callback scheduled has flushed
+ *
+ * This is also safe for negative assertions: if a mutation was going
+ * to trigger a notification, it has been delivered by now.
+ */
+async function flushResizeObserver() {
+  await settled();
+  await waitForFrame();
   await settled();
 }
 
@@ -17,8 +44,6 @@ function setStyle(el: Element | null, key: string, value: string | number) {
   if (el instanceof HTMLElement) {
     Object.assign(el.style, { [key]: value });
   }
-
-  return delay(50);
 }
 
 function setSize(el: Element | null, { width, height }: { width?: number; height?: number }) {
@@ -31,8 +56,6 @@ function setSize(el: Element | null, { width, height }: { width?: number; height
       el.style.height = `${height}px`;
     }
   }
-
-  return delay(50);
 }
 
 module('{{onResize}}', function (hooks) {
@@ -60,7 +83,7 @@ module('{{onResize}}', function (hooks) {
       </template>
     );
 
-    await delay();
+    await flushResizeObserver();
     assert.verifySteps(['called']);
   });
 
@@ -81,16 +104,19 @@ module('{{onResize}}', function (hooks) {
 
     const element = find('[data-test]');
 
-    await delay();
+    await flushResizeObserver();
     assert.verifySteps(['called: 100 x 100']);
 
-    await setSize(element, { width: 50 });
+    setSize(element, { width: 50 });
+    await flushResizeObserver();
     assert.verifySteps(['called: 50 x 100']);
 
-    await setSize(element, { height: 50 });
+    setSize(element, { height: 50 });
+    await flushResizeObserver();
     assert.verifySteps(['called: 50 x 50']);
 
-    await setSize(element, { width: 50 });
+    setSize(element, { width: 50 });
+    await flushResizeObserver();
     assert.verifySteps([], 'did not call onResize when size is not changed');
   });
 
@@ -111,10 +137,11 @@ module('{{onResize}}', function (hooks) {
 
     const element = find('[data-test]');
 
-    await delay();
+    await flushResizeObserver();
     assert.verifySteps(['called: 100 x 100']);
 
-    await setStyle(element, 'display', 'none');
+    setStyle(element, 'display', 'none');
+    await flushResizeObserver();
     assert.verifySteps(['called: 0 x 0']);
   });
 
@@ -141,14 +168,25 @@ module('{{onResize}}', function (hooks) {
 
     const element = find('[data-test]');
 
-    await delay();
+    await flushResizeObserver();
     assert.verifySteps(['1 called: 100 x 100']);
 
-    await setSize(element, { width: 50 });
+    setSize(element, { width: 50 });
+    await flushResizeObserver();
     assert.verifySteps(['1 called: 50 x 100']);
 
     state.handleResize1 = createCallback(2);
-    await setSize(element, { width: 20 });
+
+    // flushResizeObserver settles first, so the modifier re-runs
+    // (installing the new callback) before any frames are counted.
+    // Since this element only has one {{onResize}}, swapping the
+    // callback unobserves and re-observes the element, which triggers
+    // a fresh "initial" notification for the new callback.
+    await flushResizeObserver();
+    assert.verifySteps(['2 called: 50 x 100'], 'new callback receives an initial notification');
+
+    setSize(element, { width: 20 });
+    await flushResizeObserver();
     assert.verifySteps(['2 called: 20 x 100']);
   });
 
@@ -181,14 +219,24 @@ module('{{onResize}}', function (hooks) {
 
     const element = find('[data-test]');
 
-    await delay();
+    await flushResizeObserver();
     assert.verifySteps(['1 called: 100 x 100', '2 called: 100 x 100']);
 
-    await setSize(element, { width: 50 });
+    setSize(element, { width: 50 });
+    await flushResizeObserver();
     assert.verifySteps(['1 called: 50 x 100', '2 called: 50 x 100']);
 
     state.handleResize1 = createCallback(3);
-    await setSize(element, { width: 20 });
+
+    // flushResizeObserver settles first, so the modifier re-runs
+    // (installing the new callback) before resizing below. Because the
+    // element still has another observed callback, no "initial"
+    // notification fires for the swapped-in callback.
+    await flushResizeObserver();
+    assert.verifySteps([]);
+
+    setSize(element, { width: 20 });
+    await flushResizeObserver();
     assert.verifySteps(['2 called: 20 x 100', '3 called: 20 x 100']);
   });
 
@@ -255,6 +303,8 @@ module('{{onResize}}', function (hooks) {
       </template>
     );
 
-    delay();
+    // Give the ResizeObserver a chance to loop (and would-be errors a
+    // chance to be reported) before the test tears down.
+    await flushResizeObserver();
   });
 });

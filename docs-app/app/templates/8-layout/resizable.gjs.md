@@ -66,7 +66,7 @@ Click a window to focus it, then split or kill it, i3wm style. Drag or <kbd>Tab<
 
 ```gjs live preview no-shadow
 import { tracked } from '@glimmer/tracking';
-import { TrackedArray } from 'tracked-built-ins';
+import { trackedArray } from '@ember/reactive/collections';
 import { Resizable } from 'ember-primitives';
 
 const PROGRAMS = ['URxvt', 'firefox', 'emacs', 'htop', 'ncmpcpp', 'ranger', 'weechat', 'neomutt'];
@@ -90,7 +90,7 @@ class Split {
 
   constructor(orientation, children) {
     this.orientation = orientation;
-    this.children = new TrackedArray(children);
+    this.children = trackedArray(children);
   }
 }
 

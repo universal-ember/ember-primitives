@@ -420,7 +420,7 @@ import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable'
 
 Panels are discovered from the DOM, so managing a layout is just managing what you render: `{{#each}}` over your own state, add or remove entries, nest a `<Resizable>` for a split.
 
-Click a panel to focus it (highlighted). **Add panel** inserts a sibling after the focused panel, **Split** wraps the focused panel in a new cross-oriented group (so further additions land *inside* the split), **Rotate** flips the focused panel's group, and **Remove** deletes the focused panel -- groups left with a single child dissolve.
+Click a panel to focus it (highlighted). **Add panel** inserts a sibling after the focused panel, **Split h** / **Split v** wrap the focused panel in a new group of that orientation -- dividing its space in half, with further additions landing *inside* the split -- **Rotate** flips the focused panel's group, and **Remove** deletes the focused panel -- groups left with a single child dissolve.
 
 <div class="featured-demo auto-height">
 
@@ -481,14 +481,14 @@ const addPanel = () => {
   focused.set(panel);
 };
 
-const split = () => {
+const split = (orientation) => {
   const target = focused.current;
   const parent = findParent(root, target);
 
   if (!parent) return;
 
   const panel = new PanelNode();
-  const group = new GroupNode(cross(parent.orientation), [target, panel]);
+  const group = new GroupNode(orientation, [target, panel]);
 
   parent.children.splice(parent.children.indexOf(target), 1, group);
   focused.set(panel);
@@ -544,7 +544,8 @@ const Tree = <template>
 <template>
   <div class="rz-dynamic-bar">
     <button type="button" {{on "click" addPanel}}>Add panel</button>
-    <button type="button" {{on "click" split}}>Split</button>
+    <button type="button" {{on "click" (fn split "horizontal")}}>Split h</button>
+    <button type="button" {{on "click" (fn split "vertical")}}>Split v</button>
     <button type="button" {{on "click" removePanel}}>Remove</button>
     <button type="button" {{on "click" rotate}}>Rotate</button>
     <span>
@@ -740,10 +741,9 @@ const Output = <template>
     /* in the narrow sliver, the whole button row rotates 90° to fit */
     .limber-minimized[data-orientation='horizontal'] .limber-controls {
       top: 0.375rem;
-      right: auto;
-      left: 100%;
-      transform: rotate(90deg);
-      transform-origin: top left;
+      right: 100%;
+      transform: rotate(-90deg);
+      transform-origin: top right;
     }
     .limber-minimized[data-orientation='vertical'] .limber-sliver {
       height: 2rem;

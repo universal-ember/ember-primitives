@@ -60,7 +60,7 @@ import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable'
 ## i3: a tree-based window manager
 
 Because groups nest, a whole tiling window manager layout is just a tree of `<Resizable>`s.
-Click a window to focus it, then split or kill it, i3wm style. Drag or <kbd>Tab</kbd> to the borders to resize.
+Click a window to focus it, then split it, flip its container's layout, or kill it, i3wm style. Drag or <kbd>Tab</kbd> to the borders to resize.
 
 <div class="featured-demo auto-height">
 
@@ -85,7 +85,7 @@ class AppWindow {
 }
 
 class Split {
-  orientation;
+  @tracked orientation;
   children;
 
   constructor(orientation, children) {
@@ -144,6 +144,16 @@ class WindowManager {
     this.focused = win;
   };
 
+  toggleLayout = () => {
+    const { focused, root } = this;
+    const parent = focused ? findParent(root, focused) : root;
+
+    if (!parent) return;
+
+    // i3's $mod+e: flip the container's split direction; panels keep their sizes
+    parent.orientation = parent.orientation === 'horizontal' ? 'vertical' : 'horizontal';
+  };
+
   kill = () => {
     const { focused, root } = this;
 
@@ -198,6 +208,7 @@ const Tree = <template>
     <div class="i3-bar">
       <button type="button" {{on "click" (fn wm.split "horizontal")}}>$mod+Enter (split h)</button>
       <button type="button" {{on "click" (fn wm.split "vertical")}}>$mod+v (split v)</button>
+      <button type="button" {{on "click" wm.toggleLayout}}>$mod+e (toggle layout)</button>
       <button type="button" {{on "click" wm.kill}}>$mod+Shift+q (kill)</button>
       <span class="i3-status">1: {{if wm.focused wm.focused.title "(empty)"}}</span>
     </div>
@@ -405,18 +416,102 @@ import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable'
 
 </div>
 
-## Persisting the layout
+## Adding, removing, and splitting panels
 
-`@onLayoutChange` is called with the panels' sizes (percentages, in document order) whenever the layout changes, and `@size` sets the initial size -- together they make persistence straightforward (localStorage, query params, etc.).
-
-With nested groups, each group persists its own sizes under its own key. Resize the panels below, then reload the page -- the layout is remembered.
+Panels are discovered from the DOM, so managing a layout is just managing what you render: `{{#each}}` over your own state, add or remove entries, nest a `<Resizable>` for a split. New panels take an equal share (existing panels scale down to make room), removed panels give their space back, and the whole group can be rotated at any time.
 
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
+import { cell } from 'ember-resources';
+import { trackedArray } from '@ember/reactive/collections';
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
+
+let nextId = 1;
+const entries = trackedArray([{ id: nextId++, split: false }]);
+const orientation = cell('horizontal');
+const crossOrientation = () => (orientation.current === 'horizontal' ? 'vertical' : 'horizontal');
+
+const addPanel = () => entries.push({ id: nextId++, split: false });
+const addSplit = () => entries.push({ id: nextId++, split: true });
+const removeLast = () => entries.length > 1 && entries.pop();
+const rotate = () => orientation.set(crossOrientation());
+
+<template>
+  <div class="rz-dynamic-bar">
+    <button type="button" {{on "click" addPanel}}>Add panel</button>
+    <button type="button" {{on "click" addSplit}}>Add split</button>
+    <button type="button" {{on "click" removeLast}}>Remove last</button>
+    <button type="button" {{on "click" rotate}}>Rotate ({{orientation.current}})</button>
+  </div>
+
+  <div class="rz-dynamic">
+    <Resizable @orientation={{orientation.current}}>
+      {{#each entries key="id" as |entry index|}}
+        {{#if index}}
+          <Handle aria-label="Resize" />
+        {{/if}}
+        <Panel @minSize={{5}}>
+          {{#if entry.split}}
+            <Resizable @orientation={{(crossOrientation)}}>
+              <Panel><div class="rz-pane">{{entry.id}}a</div></Panel>
+              <Handle aria-label="Resize split" />
+              <Panel><div class="rz-pane">{{entry.id}}b</div></Panel>
+            </Resizable>
+          {{else}}
+            <div class="rz-pane">{{entry.id}}</div>
+          {{/if}}
+        </Panel>
+      {{/each}}
+    </Resizable>
+  </div>
+  <style>
+    /* styles for the demo, not required */
+    .rz-dynamic-bar {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .rz-dynamic {
+      height: 220px;
+      margin-top: 0.5rem;
+      border: 1px solid gray;
+    }
+    .rz-dynamic .rz-pane {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      font-family: monospace;
+    }
+    .rz-dynamic .ember-primitives__resizable__handle {
+      background: gray;
+      opacity: 0.4;
+    }
+    .rz-dynamic .ember-primitives__resizable__handle:hover,
+    .rz-dynamic .ember-primitives__resizable__handle:focus-visible,
+    .rz-dynamic .ember-primitives__resizable__handle[data-resizing] {
+      opacity: 1;
+      background: dodgerblue;
+    }
+  </style>
+</template>
+```
+
+</div>
+
+## Persisting the layout
+
+`@onLayoutChange` is called with the panels' sizes (percentages, in document order) whenever the layout changes, and `@size` sets the initial size -- together they make persistence straightforward (localStorage, query params, etc.).
+
+With nested groups, each group persists its own sizes under its own key. Resize the panels below, then unmount and remount the whole layout (or reload the page) -- it comes back exactly as you left it.
+
+<div class="featured-demo auto-height">
+
+```gjs live preview no-shadow
+import { cell } from 'ember-resources';
 import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
 const KEY = 'docs:resizable:persisted-demo';
+const isShown = cell(true);
 
 function load() {
   try {
@@ -436,8 +531,13 @@ const persist = (group) => (sizes) => {
 const sizeOf = (group, index) => saved[group]?.[index];
 
 <template>
+  <button type="button" {{on "click" isShown.toggle}}>
+    {{if isShown.current "Unmount" "Remount"}} the layout
+  </button>
+
   <div class="rz-persisted">
-    <Resizable @onLayoutChange={{persist "outer"}}>
+    {{#if isShown.current}}
+      <Resizable @onLayoutChange={{persist "outer"}}>
       <Panel @size={{sizeOf "outer" 0}} @minSize={{15}}>
         <div class="rz-pane">files</div>
       </Panel>
@@ -453,7 +553,10 @@ const sizeOf = (group, index) => saved[group]?.[index];
           </Panel>
         </Resizable>
       </Panel>
-    </Resizable>
+      </Resizable>
+    {{else}}
+      <div class="rz-pane">(unmounted)</div>
+    {{/if}}
   </div>
   <style>
     /* styles for the demo, not required */

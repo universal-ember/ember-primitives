@@ -206,10 +206,10 @@ const Tree = <template>
 <template>
   <div class="i3">
     <div class="i3-bar">
-      <button type="button" {{on "click" (fn wm.split "horizontal")}}>$mod+Enter (split h)</button>
-      <button type="button" {{on "click" (fn wm.split "vertical")}}>$mod+v (split v)</button>
-      <button type="button" {{on "click" wm.toggleLayout}}>$mod+e (toggle layout)</button>
-      <button type="button" {{on "click" wm.kill}}>$mod+Shift+q (kill)</button>
+      <button type="button" {{on "click" (fn wm.split "horizontal")}}>split h</button>
+      <button type="button" {{on "click" (fn wm.split "vertical")}}>split v</button>
+      <button type="button" {{on "click" wm.toggleLayout}}>toggle layout</button>
+      <button type="button" {{on "click" wm.kill}}>kill</button>
       <span class="i3-status">1: {{if wm.focused wm.focused.title "(empty)"}}</span>
     </div>
     <div class="i3-workspace">

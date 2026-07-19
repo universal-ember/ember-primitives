@@ -106,7 +106,6 @@ export class GroupState {
   element: HTMLElement | null = null;
 
   #options: GroupOptions;
-  #observer: MutationObserver | null = null;
   #drag: DragState | null = null;
 
   /**
@@ -129,6 +128,18 @@ export class GroupState {
    */
   #knownPanels: HTMLElement[] = [];
   #knownHandles: HTMLElement[] = [];
+
+  /**
+   * The percentage that a flex-grow of 1 represents in this group.
+   *
+   * Panels without an inline style render at the CSS default
+   * (`flex: 1 1 0px`), so an all-equal group needs no styles at all --
+   * mounting one writes nothing. The unit is fixed the first time a
+   * panel actually diverges, and from then on grow values are written
+   * relative to it, so panels whose share doesn't change keep their
+   * (possibly absent) style untouched.
+   */
+  #unit: number | null = null;
 
   constructor(options: GroupOptions) {
     this.#options = options;
@@ -169,6 +180,83 @@ export class GroupState {
   }
 
   /**
+   * One MutationObserver for every group on the page. Each record is
+   * routed to the group that owns it (the nearest group ancestor), so
+   * churn inside a nested group never even pings its ancestors.
+   */
+  static #observed = new Map<HTMLElement, GroupState>();
+  static #observer: MutationObserver | null = null;
+
+  static #observerOptions: MutationObserverInit = {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['data-orientation'],
+  };
+
+  static #handleMutations(mutations: MutationRecord[]): void {
+    /**
+     * true = the group's own data-orientation changed,
+     * false = something in its subtree changed (membership check needed)
+     */
+    const affected = new Map<GroupState, boolean>();
+
+    for (const mutation of mutations) {
+      const target = mutation.target;
+
+      if (!(target instanceof Element)) continue;
+
+      if (mutation.type === 'attributes') {
+        const group = GroupState.#observed.get(target as HTMLElement);
+
+        if (group) affected.set(group, true);
+        continue;
+      }
+
+      const groupElement = target.closest<HTMLElement>(GROUP_SELECTOR);
+      const group = groupElement && GroupState.#observed.get(groupElement);
+
+      if (group && !affected.has(group)) affected.set(group, false);
+    }
+
+    for (const [group, orientationChanged] of affected) {
+      if (orientationChanged || group.#membershipChanged()) group.#layout();
+    }
+  }
+
+  static #observe(element: HTMLElement, group: GroupState): void {
+    GroupState.#observed.set(element, group);
+    GroupState.#observer ??= new MutationObserver((mutations) =>
+      GroupState.#handleMutations(mutations)
+    );
+    GroupState.#observer.observe(element, GroupState.#observerOptions);
+  }
+
+  static #unobserve(element: HTMLElement): void {
+    GroupState.#observed.delete(element);
+
+    const observer = GroupState.#observer;
+
+    if (!observer) return;
+
+    /**
+     * MutationObserver has no per-target unobserve; disconnect and
+     * re-observe the remaining groups (rare -- teardown only).
+     */
+    observer.disconnect();
+
+    if (GroupState.#observed.size === 0) {
+      GroupState.#observer = null;
+
+      return;
+    }
+
+    for (const remaining of GroupState.#observed.keys()) {
+      observer.observe(remaining, GroupState.#observerOptions);
+    }
+  }
+
+  /**
    * Called (via modifier) when the group element is inserted.
    * Watches for panels being added/removed (and the orientation
    * changing) and performs the initial layout.
@@ -176,38 +264,15 @@ export class GroupState {
   attach = (element: HTMLElement): (() => void) => {
     this.element = element;
 
-    this.#observer = new MutationObserver((mutations) => this.#onMutation(mutations));
-    this.#observer.observe(element, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['data-orientation'],
-    });
+    GroupState.#observe(element, this);
 
     this.#layout();
 
     return () => {
-      this.#observer?.disconnect();
-      this.#observer = null;
+      GroupState.#unobserve(element);
       this.element = null;
     };
   };
-
-  /**
-   * Subtree observation is required (panels may sit behind wrapper
-   * elements), which means this also fires for churn inside nested
-   * groups and for content changes within panels. Rather than
-   * classifying every mutation, we answer the only question that
-   * matters -- did *this* group's membership actually change? --
-   * and no-op otherwise.
-   */
-  #onMutation(mutations: MutationRecord[]): void {
-    const orientationChanged = mutations.some(
-      (mutation) => mutation.type === 'attributes' && mutation.target === this.element
-    );
-
-    if (orientationChanged || this.#membershipChanged()) this.#layout();
-  }
 
   #membershipChanged(): boolean {
     return (
@@ -322,18 +387,32 @@ export class GroupState {
 
   /**
    * Writes the layout back to the DOM: flex sizing for exactly the
-   * panels that changed, plus the handles' ARIA attributes (which are
-   * guarded per-attribute). (`data-collapsed` is managed at the
-   * explicit collapse/expand points, not derived from sizes --
-   * rendered pixel sizes include borders/padding, so a collapsed
-   * panel rarely measures exactly 0.)
+   * candidate panels whose rendered share would actually change, plus
+   * the handles' ARIA attributes (which are guarded per-attribute).
+   * (`data-collapsed` is managed at the explicit collapse/expand
+   * points, not derived from sizes -- rendered pixel sizes include
+   * borders/padding, so a collapsed panel rarely measures exactly 0.)
    */
-  #apply(changedPanels: HTMLElement[]): void {
-    for (const panel of changedPanels) {
-      const size = this.#sizes.get(panel);
+  #apply(candidates: HTMLElement[]): void {
+    if (candidates.length > 0) {
+      /**
+       * With no unit fixed yet, nothing has ever been written, so every
+       * panel renders at the CSS default -- an equal 1/n share.
+       */
+      const unit = this.#unit ?? 100 / this.panels.length;
 
-      if (size !== undefined) {
-        panel.style.flex = `${size} 1 0px`;
+      for (const panel of candidates) {
+        const size = this.#sizes.get(panel);
+
+        if (size === undefined) continue;
+
+        const inlineGrow = panel.style.flexGrow;
+        const impliedPercent = (inlineGrow === '' ? 1 : parseFloat(inlineGrow)) * unit;
+
+        if (isSameSize(impliedPercent, size)) continue;
+
+        this.#unit ??= unit;
+        panel.style.flex = `${size / unit} 1 0px`;
       }
     }
 

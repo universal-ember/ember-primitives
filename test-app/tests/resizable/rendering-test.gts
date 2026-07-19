@@ -640,6 +640,91 @@ module('Rendering | <Resizable>', function (hooks) {
       };
     }
 
+    test('an all-default group mounts without writing any styles', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel data-test-c>c</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      // equal shares are what the stylesheet already renders,
+      // so no inline styles are needed at all
+      assert.dom('[data-test-a]').doesNotHaveAttribute('style');
+      assert.dom('[data-test-b]').doesNotHaveAttribute('style');
+      assert.dom('[data-test-c]').doesNotHaveAttribute('style');
+      assert.dom('[data-test-handle]').hasAria('valuenow', '33');
+    });
+
+    test('membership changes that keep shares equal write no styles', async function (assert) {
+      class State {
+        @tracked showThird = false;
+      }
+
+      const state = new State();
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              {{#if state.showThird}}
+                <Handle data-test-handle-2 />
+                <Panel data-test-c>c</Panel>
+              {{/if}}
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      state.showThird = true;
+      await settled();
+
+      assert.dom('[data-test-a]').doesNotHaveAttribute('style');
+      assert.dom('[data-test-b]').doesNotHaveAttribute('style');
+      assert.dom('[data-test-c]').doesNotHaveAttribute('style');
+      assert.dom('[data-test-handle]').hasAria('valuenow', '33');
+      assert.dom('[data-test-handle-2]').hasAria('valuenow', '33');
+    });
+
+    test('a resize only materializes styles for the panels that moved', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel data-test-c>c</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      const cBefore = widthOf('[data-test-c]');
+
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'ArrowRight', { shiftKey: true });
+
+      assert.dom('[data-test-a]').hasAttribute('style');
+      assert.dom('[data-test-b]').hasAttribute('style');
+      assert.dom('[data-test-c]').doesNotHaveAttribute('style');
+      assert.strictEqual(widthOf('[data-test-c]'), cBefore, 'c still renders the same size');
+      assert.dom('[data-test-handle]').hasAria('valuenow', '43');
+    });
+
     test('panels not adjacent to the dragged handle are never touched', async function (assert) {
       await render(
         <template>

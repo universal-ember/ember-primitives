@@ -418,69 +418,147 @@ import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable'
 
 ## Adding, removing, and splitting panels
 
-Panels are discovered from the DOM, so managing a layout is just managing what you render: `{{#each}}` over your own state, add or remove entries, nest a `<Resizable>` for a split. New panels take an equal share (existing panels scale down to make room), removed panels give their space back, and the whole group can be rotated at any time.
+Panels are discovered from the DOM, so managing a layout is just managing what you render: `{{#each}}` over your own state, add or remove entries, nest a `<Resizable>` for a split.
+
+Click a panel to focus its `<Resizable>` (highlighted) -- the buttons apply to the focused group. New panels take an equal share (existing panels scale down to make room), and removed panels give their space back.
 
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
+import { tracked } from '@glimmer/tracking';
 import { cell } from 'ember-resources';
 import { trackedArray } from '@ember/reactive/collections';
 import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
 let nextId = 1;
-const entries = trackedArray([{ id: nextId++, split: false }]);
-const orientation = cell('horizontal');
-const crossOrientation = () => (orientation.current === 'horizontal' ? 'vertical' : 'horizontal');
 
-const addPanel = () => entries.push({ id: nextId++, split: false });
-const addSplit = () => entries.push({ id: nextId++, split: true });
-const removeLast = () => entries.length > 1 && entries.pop();
-const rotate = () => orientation.set(crossOrientation());
+class PanelNode {
+  id = nextId++;
+}
+
+class GroupNode {
+  id = nextId++;
+  @tracked orientation;
+  children;
+
+  constructor(orientation, children) {
+    this.orientation = orientation;
+    this.children = trackedArray(children);
+  }
+}
+
+const isGroup = (node) => node instanceof GroupNode;
+const cross = (orientation) => (orientation === 'horizontal' ? 'vertical' : 'horizontal');
+
+const root = new GroupNode('horizontal', [new PanelNode(), new PanelNode()]);
+const focused = cell(root);
+
+const focus = (group) => focused.set(group);
+
+function findParent(node, target) {
+  if (!isGroup(node)) return null;
+
+  for (const child of node.children) {
+    if (child === target) return node;
+
+    const found = findParent(child, target);
+
+    if (found) return found;
+  }
+
+  return null;
+}
+
+const addPanel = () => focused.current.children.push(new PanelNode());
+
+const addSplit = () => {
+  const group = new GroupNode(cross(focused.current.orientation), [
+    new PanelNode(),
+    new PanelNode(),
+  ]);
+
+  focused.current.children.push(group);
+  focused.set(group);
+};
+
+const removeLast = () => {
+  const group = focused.current;
+
+  group.children.pop();
+
+  // an emptied group (other than the root) disappears entirely
+  if (group !== root && group.children.length === 0) {
+    const parent = findParent(root, group);
+
+    parent.children.splice(parent.children.indexOf(group), 1);
+    focused.set(parent);
+  }
+};
+
+const rotate = () => (focused.current.orientation = cross(focused.current.orientation));
+
+const Tree = <template>
+  <Resizable
+    @orientation={{@node.orientation}}
+    class={{if (eq focused.current @node) "is-focused"}}
+  >
+    {{#each @node.children key="id" as |child index|}}
+      {{#if index}}
+        <Handle aria-label="Resize" />
+      {{/if}}
+      <Panel @minSize={{10}}>
+        {{#if (isGroup child)}}
+          <Tree @node={{child}} />
+        {{else}}
+          <button type="button" class="rz-pane" {{on "click" (fn focus @node)}}>
+            {{child.id}}
+          </button>
+        {{/if}}
+      </Panel>
+    {{/each}}
+  </Resizable>
+</template>;
 
 <template>
   <div class="rz-dynamic-bar">
     <button type="button" {{on "click" addPanel}}>Add panel</button>
     <button type="button" {{on "click" addSplit}}>Add split</button>
     <button type="button" {{on "click" removeLast}}>Remove last</button>
-    <button type="button" {{on "click" rotate}}>Rotate ({{orientation.current}})</button>
+    <button type="button" {{on "click" rotate}}>Rotate</button>
+    <span>focused: group {{focused.current.id}} ({{focused.current.orientation}})</span>
   </div>
 
   <div class="rz-dynamic">
-    <Resizable @orientation={{orientation.current}}>
-      {{#each entries key="id" as |entry index|}}
-        {{#if index}}
-          <Handle aria-label="Resize" />
-        {{/if}}
-        <Panel @minSize={{5}}>
-          {{#if entry.split}}
-            <Resizable @orientation={{(crossOrientation)}}>
-              <Panel><div class="rz-pane">{{entry.id}}a</div></Panel>
-              <Handle aria-label="Resize split" />
-              <Panel><div class="rz-pane">{{entry.id}}b</div></Panel>
-            </Resizable>
-          {{else}}
-            <div class="rz-pane">{{entry.id}}</div>
-          {{/if}}
-        </Panel>
-      {{/each}}
-    </Resizable>
+    <Tree @node={{root}} />
   </div>
   <style>
     /* styles for the demo, not required */
     .rz-dynamic-bar {
       display: flex;
       gap: 0.5rem;
+      align-items: center;
     }
     .rz-dynamic {
       height: 220px;
       margin-top: 0.5rem;
       border: 1px solid gray;
     }
+    .rz-dynamic .ember-primitives__resizable.is-focused {
+      outline: 2px solid dodgerblue;
+      outline-offset: -2px;
+    }
     .rz-dynamic .rz-pane {
       display: grid;
       place-items: center;
+      width: 100%;
       height: 100%;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: inherit;
       font-family: monospace;
+      font-size: 1rem;
+      cursor: pointer;
     }
     .rz-dynamic .ember-primitives__resizable__handle {
       background: gray;

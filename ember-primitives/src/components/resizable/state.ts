@@ -430,6 +430,9 @@ export class GroupState {
 
       if (!prev) continue;
 
+      // Panels render their own (component-owned, incrementing) id
+      if (prev.id) setAttribute(handle, 'aria-controls', prev.id);
+
       setAttribute(handle, 'aria-valuemin', `${minSizeOf(prev)}`);
       setAttribute(handle, 'aria-valuemax', `${maxSizeOf(prev)}`);
       setAttribute(handle, 'aria-valuenow', `${Math.round(this.#sizes.get(prev) ?? 0)}`);

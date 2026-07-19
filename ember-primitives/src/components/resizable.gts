@@ -52,17 +52,28 @@ export interface PanelSignature {
  * discovers them with DOM queries -- there is no registration, and a
  * Panel may contain another `<Resizable>` to nest layouts.
  */
+let panelId = 0;
+
+function nextPanelId(): string {
+  return `ember-primitives__resizable__panel--${panelId++}`;
+}
+
 export const Panel: TOC<PanelSignature> = <template>
-  <div
-    class="ember-primitives__resizable__panel"
-    data-min-size={{@minSize}}
-    data-max-size={{@maxSize}}
-    data-size={{@size}}
-    data-collapsible={{if @collapsible "true"}}
-    ...attributes
-  >
-    {{yield}}
-  </div>
+  {{#let (nextPanelId) as |id|}}
+    <div
+      class="ember-primitives__resizable__panel"
+      data-min-size={{@minSize}}
+      data-max-size={{@maxSize}}
+      data-size={{@size}}
+      data-collapsible={{if @collapsible "true"}}
+      ...attributes
+      {{! after ...attributes: the id is component-owned (the handles'
+          aria-controls depends on it being present and unique) }}
+      id={{id}}
+    >
+      {{yield}}
+    </div>
+  {{/let}}
 </template>;
 
 export interface HandleSignature {

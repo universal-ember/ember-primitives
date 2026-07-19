@@ -79,10 +79,33 @@ module('Rendering | <Resizable>', function (hooks) {
       assert.dom('[data-test-handle]').hasAria('valuemin', '0');
       assert.dom('[data-test-handle]').hasAria('valuemax', '100');
 
-      // ids are global, so none are generated; consumers who want
-      // aria-controls can set both id and aria-controls themselves
-      assert.dom('[data-test-a]').doesNotHaveAttribute('id');
-      assert.dom('[data-test-handle]').doesNotHaveAttribute('aria-controls');
+      const panelId = document.querySelector('[data-test-a]')?.getAttribute('id');
+
+      assert.ok(
+        panelId?.startsWith('ember-primitives__resizable__panel--'),
+        `the panel has a generated id (${panelId})`
+      );
+      assert.dom('[data-test-handle]').hasAria('controls', `${panelId}`);
+    });
+
+    test('the panel id is component-owned and cannot be overridden', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel id="custom" data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      const panelId = document.querySelector('[data-test-a]')?.getAttribute('id');
+
+      assert.notStrictEqual(panelId, 'custom', 'the generated id wins');
+      assert.dom('[data-test-handle]').hasAria('controls', `${panelId}`);
     });
 
     test('dragging the handle resizes both panels', async function (assert) {
@@ -152,6 +175,10 @@ module('Rendering | <Resizable>', function (hooks) {
     });
 
     test('each handle describes the panel immediately before it', async function (assert) {
+      const panelB = document.querySelector('[data-test-b]')?.getAttribute('id');
+
+      assert.ok(panelB, 'the middle panel has a generated id');
+      assert.dom('[data-test-handle-2]').hasAria('controls', `${panelB}`);
       assert.dom('[data-test-handle]').hasAria('valuenow', '33');
       assert.dom('[data-test-handle-2]').hasAria('valuenow', '33');
     });

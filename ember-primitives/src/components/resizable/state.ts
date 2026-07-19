@@ -211,12 +211,19 @@ export class GroupState {
 
     if (panels.length === 0) return;
 
+    let changed = false;
+
     // forget sizes of panels that left the DOM
     for (const known of Array.from(this.#sizes.keys())) {
-      if (!panels.includes(known)) this.#sizes.delete(known);
+      if (!panels.includes(known)) {
+        this.#sizes.delete(known);
+        changed = true;
+      }
     }
 
-    const next = new Map<HTMLElement, number>();
+    // scratch space for the math below; #sizes itself is only
+    // touched at the end, and only where values actually changed
+    const computed = new Map<HTMLElement, number>();
     const unspecified: HTMLElement[] = [];
     let specifiedTotal = 0;
 
@@ -232,7 +239,7 @@ export class GroupState {
         ? preferred
         : clamp(preferred, minSizeOf(panel), maxSizeOf(panel));
 
-      next.set(panel, size);
+      computed.set(panel, size);
       specifiedTotal += size;
     }
 
@@ -253,31 +260,45 @@ export class GroupState {
         if (specifiedTotal > 0) {
           const scale = Math.max(100 - share * unspecified.length, 0) / specifiedTotal;
 
-          for (const [panel, size] of next) {
-            next.set(panel, size * scale);
+          for (const [panel, size] of computed) {
+            computed.set(panel, size * scale);
           }
         }
       }
 
       for (const panel of unspecified) {
-        next.set(panel, clamp(share, minSizeOf(panel), maxSizeOf(panel)));
+        computed.set(panel, clamp(share, minSizeOf(panel), maxSizeOf(panel)));
       }
     }
 
     // normalize to 100
     let total = 0;
 
-    for (const size of next.values()) total += size;
+    for (const size of computed.values()) total += size;
 
     if (total > 0 && Math.abs(total - 100) > 0.01) {
-      for (const [panel, size] of next) {
-        next.set(panel, (size / total) * 100);
+      for (const [panel, size] of computed) {
+        computed.set(panel, (size / total) * 100);
       }
     }
 
-    this.#sizes = next;
+    /**
+     * Commit minimally: keep the #sizes map, update only entries whose
+     * value actually changed (with a small tolerance, so float dust
+     * from re-normalizing doesn't count as a change).
+     */
+    for (const [panel, size] of computed) {
+      const existing = this.#sizes.get(panel);
+
+      if (existing === undefined || Math.abs(existing - size) > 0.0001) {
+        this.#sizes.set(panel, size);
+        changed = true;
+      }
+    }
+
     this.#apply();
-    this.#notify();
+
+    if (changed) this.#notify();
   }
 
   /**

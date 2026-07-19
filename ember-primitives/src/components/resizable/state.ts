@@ -64,6 +64,15 @@ function isSameSize(existing: number | undefined, size: number): boolean {
 }
 
 /**
+ * Pixel measurements round to device pixels, so re-measuring a layout
+ * yields values that differ from the stored ones by sub-pixel noise.
+ * Only differences beyond this (in %) count as real drift worth
+ * adopting -- re-encoding identical pixels as slightly different
+ * percentages would dirty every panel for no visual change.
+ */
+const MEASUREMENT_TOLERANCE = 0.25;
+
+/**
  * Skips the write when the attribute already has the desired value,
  * so unchanged elements are left untouched.
  */
@@ -296,31 +305,35 @@ export class GroupState {
      * value actually changed (with a small tolerance, so float dust
      * from re-normalizing doesn't count as a change).
      */
+    const changedPanels: HTMLElement[] = [];
+
     for (const [panel, size] of computed) {
       if (!isSameSize(this.#sizes.get(panel), size)) {
         this.#sizes.set(panel, size);
+        changedPanels.push(panel);
         changed = true;
       }
     }
 
-    this.#apply();
+    this.#apply(changedPanels);
 
     if (changed) this.#notify();
   }
 
   /**
-   * Writes the layout back to the DOM: flex sizing and the handles'
-   * ARIA attributes. (`data-collapsed` is managed at the explicit
-   * collapse/expand points, not derived from sizes -- rendered pixel
-   * sizes include borders/padding, so a collapsed panel rarely
-   * measures exactly 0.)
+   * Writes the layout back to the DOM: flex sizing for exactly the
+   * panels that changed, plus the handles' ARIA attributes (which are
+   * guarded per-attribute). (`data-collapsed` is managed at the
+   * explicit collapse/expand points, not derived from sizes --
+   * rendered pixel sizes include borders/padding, so a collapsed
+   * panel rarely measures exactly 0.)
    */
-  #apply(): void {
-    for (const [panel, size] of this.#sizes) {
-      const flex = `${size} 1 0px`;
+  #apply(changedPanels: HTMLElement[]): void {
+    for (const panel of changedPanels) {
+      const size = this.#sizes.get(panel);
 
-      if (panel.style.flex !== flex) {
-        panel.style.flex = flex;
+      if (size !== undefined) {
+        panel.style.flex = `${size} 1 0px`;
       }
     }
 
@@ -385,8 +398,9 @@ export class GroupState {
 
     panels.forEach((panel, index) => {
       const size = ((px[index] ?? 0) / total) * 100;
+      const existing = this.#sizes.get(panel);
 
-      if (!isSameSize(this.#sizes.get(panel), size)) {
+      if (existing === undefined || Math.abs(existing - size) > MEASUREMENT_TOLERANCE) {
         this.#sizes.set(panel, size);
       }
     });
@@ -484,7 +498,7 @@ export class GroupState {
     this.#sizes.set(prev, target);
     this.#sizes.set(next, total - target);
 
-    this.#apply();
+    this.#apply([prev, next]);
     this.#notify();
   }
 
@@ -653,7 +667,7 @@ export class GroupState {
       this.#sizes.set(next, nextSize + prevSize);
     }
 
-    this.#apply();
+    this.#apply([prev, next]);
     this.#notify();
   }
 }

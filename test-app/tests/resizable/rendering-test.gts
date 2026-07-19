@@ -605,6 +605,151 @@ module('Rendering | <Resizable>', function (hooks) {
   });
 
   module('mutation efficiency', function () {
+    /**
+     * Collects every mutation on the given elements, so tests can
+     * assert that uninvolved panels are never touched.
+     */
+    function recordMutations(selectors: string[], options?: MutationObserverInit) {
+      const records: string[] = [];
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          records.push(`${mutation.type}:${mutation.attributeName ?? ''}`);
+        }
+      });
+
+      for (const selector of selectors) {
+        const element = document.querySelector(selector);
+
+        if (!element) throw new Error(`Could not find ${selector}`);
+
+        observer.observe(element, options ?? { attributes: true, childList: true, subtree: true });
+      }
+
+      return {
+        stop() {
+          const pending = observer.takeRecords();
+
+          for (const mutation of pending) {
+            records.push(`${mutation.type}:${mutation.attributeName ?? ''}`);
+          }
+
+          observer.disconnect();
+
+          return records;
+        },
+      };
+    }
+
+    test('panels not adjacent to the dragged handle are never touched', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel style="min-width: 200px" data-test-c>c</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      const spy = recordMutations(['[data-test-c]']);
+
+      await drag('[data-test-handle]', { from: 100, to: 130 });
+      await drag('[data-test-handle]', { from: 130, to: 110 });
+
+      assert.deepEqual(spy.stop(), [], 'panel c saw zero mutations during the drags');
+    });
+
+    test('keyboard resizes do not touch non-adjacent panels', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel style="min-width: 200px" data-test-c>c</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      const spy = recordMutations(['[data-test-c]']);
+
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'ArrowRight');
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'ArrowRight');
+
+      assert.deepEqual(spy.stop(), [], 'panel c saw zero mutations');
+    });
+
+    test('resizing a nested group does not touch the outer group', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 408px;">
+            <Resizable>
+              <Panel data-test-left>left</Panel>
+              <Handle data-test-outer-handle />
+              <Panel data-test-right>
+                <Resizable @orientation="vertical">
+                  <Panel data-test-top>top</Panel>
+                  <Handle data-test-inner-handle />
+                  <Panel data-test-bottom>bottom</Panel>
+                </Resizable>
+              </Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      // the right panel contains the inner group, so only observe its
+      // own attributes (not its subtree)
+      const spy = recordMutations(
+        ['[data-test-left]', '[data-test-right]', '[data-test-outer-handle]'],
+        {
+          attributes: true,
+        }
+      );
+
+      await drag('[data-test-inner-handle]', { from: 200, to: 150, axis: 'y' });
+
+      assert.deepEqual(spy.stop(), [], 'the outer group was never touched');
+    });
+
+    test('interactions that change nothing write nothing', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel @minSize={{20}} data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      // pin the boundary at panel a's minSize
+      await drag('[data-test-handle]', { from: 250, to: -1000 });
+
+      const spy = recordMutations(['[data-test-a]', '[data-test-b]']);
+
+      // Enter on a non-collapsible panel is a no-op
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'Enter');
+
+      // dragging further past the limit changes nothing
+      await drag('[data-test-handle]', { from: 0, to: -500 });
+
+      assert.deepEqual(spy.stop(), [], 'no writes for no-op interactions');
+    });
+
     test('content changes inside a panel do not relayout the group', async function (assert) {
       class State {
         @tracked split = false;

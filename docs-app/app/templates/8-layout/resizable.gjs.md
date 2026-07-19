@@ -120,7 +120,9 @@ class WindowManager {
   root = new Split('horizontal', [new AppWindow()]);
   @tracked focused = firstWindow(this.root);
 
-  focus = (node) => (this.focused = node);
+  focus = (node) => {
+    if (this.focused !== node) this.focused = node;
+  };
 
   split = (orientation) => {
     const win = new AppWindow();
@@ -451,7 +453,9 @@ const cross = (orientation) => (orientation === 'horizontal' ? 'vertical' : 'hor
 
 const root = new GroupNode('horizontal', [new PanelNode(), new PanelNode()]);
 const focused = cell(root.children[0]);
-const focus = (panel) => focused.set(panel);
+const focus = (panel) => {
+  if (focused.current !== panel) focused.set(panel);
+};
 
 function findParent(node, target) {
   if (!isGroup(node)) return null;

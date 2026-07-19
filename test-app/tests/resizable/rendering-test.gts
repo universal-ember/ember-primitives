@@ -686,5 +686,54 @@ module('Rendering | <Resizable>', function (hooks) {
         [51, 49]
       );
     });
+
+    test('drags past a limit do not re-report unchanged sizes', async function (assert) {
+      const onLayoutChange = () => assert.step('layout-changed');
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable @onLayoutChange={{onLayoutChange}}>
+              <Panel @minSize={{20}} data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      assert.verifySteps(['layout-changed'], 'initial layout');
+
+      await triggerEvent('[data-test-handle]', 'pointerdown', {
+        button: 0,
+        pointerId: 1,
+        clientX: 250,
+        clientY: 0,
+      });
+      await triggerEvent('[data-test-handle]', 'pointermove', {
+        pointerId: 1,
+        clientX: -1000,
+        clientY: 0,
+      });
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '20');
+      assert.verifySteps(['layout-changed'], 'hitting the limit is reported once');
+
+      // further movement past the limit changes nothing
+      await triggerEvent('[data-test-handle]', 'pointermove', {
+        pointerId: 1,
+        clientX: -2000,
+        clientY: 0,
+      });
+      await triggerEvent('[data-test-handle]', 'pointermove', {
+        pointerId: 1,
+        clientX: -3000,
+        clientY: 0,
+      });
+      await triggerEvent('[data-test-handle]', 'pointerup', { pointerId: 1 });
+
+      assert.verifySteps([], 'no re-reports while pinned at the limit');
+    });
   });
 });

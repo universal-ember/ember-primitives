@@ -56,6 +56,14 @@ function sameMembers(a: HTMLElement[], b: HTMLElement[]): boolean {
 }
 
 /**
+ * Sizes are floats that get re-derived (measurement, normalization),
+ * so "unchanged" means within a small tolerance.
+ */
+function isSameSize(existing: number | undefined, size: number): boolean {
+  return existing !== undefined && Math.abs(existing - size) < 0.0001;
+}
+
+/**
  * Skips the write when the attribute already has the desired value,
  * so unchanged elements are left untouched.
  */
@@ -205,9 +213,10 @@ export class GroupState {
    */
   #layout(): void {
     const panels = this.panels;
+    const handles = this.handles;
 
-    this.#knownPanels = panels;
-    this.#knownHandles = this.handles;
+    if (!sameMembers(panels, this.#knownPanels)) this.#knownPanels = panels;
+    if (!sameMembers(handles, this.#knownHandles)) this.#knownHandles = handles;
 
     if (panels.length === 0) return;
 
@@ -288,9 +297,7 @@ export class GroupState {
      * from re-normalizing doesn't count as a change).
      */
     for (const [panel, size] of computed) {
-      const existing = this.#sizes.get(panel);
-
-      if (existing === undefined || Math.abs(existing - size) > 0.0001) {
+      if (!isSameSize(this.#sizes.get(panel), size)) {
         this.#sizes.set(panel, size);
         changed = true;
       }
@@ -355,6 +362,8 @@ export class GroupState {
   }
 
   #setCollapsed(panel: HTMLElement, collapsed: boolean): void {
+    if (collapsed === panel.hasAttribute('data-collapsed')) return;
+
     if (collapsed) {
       panel.setAttribute('data-collapsed', '');
     } else {
@@ -375,7 +384,11 @@ export class GroupState {
     if (total <= 0) return;
 
     panels.forEach((panel, index) => {
-      this.#sizes.set(panel, ((px[index] ?? 0) / total) * 100);
+      const size = ((px[index] ?? 0) / total) * 100;
+
+      if (!isSameSize(this.#sizes.get(panel), size)) {
+        this.#sizes.set(panel, size);
+      }
     });
   }
 
@@ -448,6 +461,17 @@ export class GroupState {
 
     // both panels' constraints cannot be satisfied at once
     if (!isCollapsible(prev) && (target < minSizeOf(prev) || target > maxSizeOf(prev))) return;
+
+    /**
+     * Nothing to do when the clamped result matches the current sizes
+     * (e.g. every pointermove past a min/max limit).
+     */
+    if (
+      isSameSize(this.#sizes.get(prev), target) &&
+      isSameSize(this.#sizes.get(next), total - target)
+    ) {
+      return;
+    }
 
     if (isCollapsible(prev)) {
       if (target === 0 && !this.#isCollapsed(prev)) {

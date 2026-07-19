@@ -75,16 +75,10 @@ let launches = 0;
 
 class AppWindow {
   @tracked title;
-  /**
-   * Focus is a per-window flag (not a comparison against a shared
-   * `focused` value) so a focus change only invalidates the two
-   * windows involved -- every other window's class binding stays
-   * untouched, and observers see no writes on them.
-   */
-  @tracked isFocused = false;
   content;
 
   constructor() {
+    this.id = launches;
     this.title = PROGRAMS[launches % PROGRAMS.length];
     this.content = PROMPTS[launches % PROMPTS.length];
     launches++;
@@ -123,26 +117,63 @@ function firstWindow(node) {
   return node.children.length ? firstWindow(node.children[0]) : null;
 }
 
-class WindowManager {
-  root = new Split('horizontal', [new AppWindow()]);
-  @tracked focused = firstWindow(this.root);
+function windowById(node, id) {
+  if (!isSplit(node)) return node.id === id ? node : null;
 
-  constructor() {
-    if (this.focused) this.focused.isFocused = true;
+  for (const child of node.children) {
+    const found = windowById(child, id);
+
+    if (found) return found;
   }
 
-  focus = (node) => {
-    if (this.focused === node) return;
+  return null;
+}
 
-    if (this.focused) this.focused.isFocused = false;
-    if (node) node.isFocused = true;
+/**
+ * Focus lives in the DOM: the windows are buttons, so clicking one
+ * focuses it, the highlight is plain CSS `:focus`, and the toolbar
+ * reads document.activeElement to find its target. No focus state to
+ * keep in sync, and focusing a window writes nothing anywhere else.
+ */
+function focusedWindow(root) {
+  const element = document.activeElement?.closest?.('.i3-window');
 
-    this.focused = node;
+  return element ? windowById(root, Number(element.dataset.id)) : null;
+}
+
+// the new window's element exists after the next render
+function focusWindow(win) {
+  if (!win) return;
+
+  requestAnimationFrame(() => document.querySelector(`.i3-window[data-id="${win.id}"]`)?.focus());
+}
+
+// on the toolbar: keep focus on the window the button operates on
+const keepFocus = (event) => event.preventDefault();
+
+class WindowManager {
+  root = new Split('horizontal', [new AppWindow()]);
+
+  /**
+   * Mirrors document.activeElement for the status bar (activeElement
+   * itself is not reactive); everything else reads the DOM directly.
+   */
+  @tracked focused = null;
+
+  syncFocus = (event) => {
+    const element = event.type === 'focusout' ? event.relatedTarget : event.target;
+    const win = element?.closest?.('.i3-window');
+    const node = win ? windowById(this.root, Number(win.dataset.id)) : null;
+
+    // focusout fires mid-render when the focused element is removed
+    // (split, kill); the tracked write has to happen outside of it
+    queueMicrotask(() => (this.focused = node));
   };
 
   split = (orientation) => {
     const win = new AppWindow();
-    const { focused, root } = this;
+    const root = this.root;
+    const focused = focusedWindow(root);
     const parent = focused ? findParent(root, focused) : root;
 
     if (!parent) return;
@@ -159,11 +190,12 @@ class WindowManager {
       parent.children.splice(parent.children.indexOf(focused), 1, wrapped);
     }
 
-    this.focus(win);
+    focusWindow(win);
   };
 
   toggleLayout = () => {
-    const { focused, root } = this;
+    const root = this.root;
+    const focused = focusedWindow(root);
     const parent = focused ? findParent(root, focused) : root;
 
     if (!parent) return;
@@ -173,7 +205,8 @@ class WindowManager {
   };
 
   kill = () => {
-    const { focused, root } = this;
+    const root = this.root;
+    const focused = focusedWindow(root);
 
     if (!focused) return;
 
@@ -191,7 +224,7 @@ class WindowManager {
       grandparent.children.splice(grandparent.children.indexOf(parent), 1, only);
     }
 
-    this.focus(firstWindow(parent.children.length ? parent : root));
+    focusWindow(firstWindow(parent.children.length ? parent : root));
   };
 }
 
@@ -210,11 +243,7 @@ const Tree = <template>
       {{/each}}
     </Resizable>
   {{else}}
-    <button
-      type="button"
-      class="i3-window {{if @node.isFocused 'is-focused'}}"
-      {{on "click" (fn wm.focus @node)}}
-    >
+    <button type="button" class="i3-window" data-id="{{@node.id}}">
       <span class="i3-title">{{@node.title}}</span>
       <span class="i3-body">{{@node.content}}</span>
     </button>
@@ -224,13 +253,25 @@ const Tree = <template>
 <template>
   <div class="i3">
     <div class="i3-bar">
-      <button type="button" {{on "click" (fn wm.split "horizontal")}}>split h</button>
-      <button type="button" {{on "click" (fn wm.split "vertical")}}>split v</button>
-      <button type="button" {{on "click" wm.toggleLayout}}>toggle layout</button>
-      <button type="button" {{on "click" wm.kill}}>kill</button>
+      <button
+        type="button"
+        {{on "mousedown" keepFocus}}
+        {{on "click" (fn wm.split "horizontal")}}
+      >split h</button>
+      <button
+        type="button"
+        {{on "mousedown" keepFocus}}
+        {{on "click" (fn wm.split "vertical")}}
+      >split v</button>
+      <button
+        type="button"
+        {{on "mousedown" keepFocus}}
+        {{on "click" wm.toggleLayout}}
+      >toggle layout</button>
+      <button type="button" {{on "mousedown" keepFocus}} {{on "click" wm.kill}}>kill</button>
       <span class="i3-status">1: {{if wm.focused wm.focused.title "(empty)"}}</span>
     </div>
-    <div class="i3-workspace">
+    <div class="i3-workspace" {{on "focusin" wm.syncFocus}} {{on "focusout" wm.syncFocus}}>
       <Tree @node={{wm.root}} />
     </div>
   </div>
@@ -282,8 +323,9 @@ const Tree = <template>
       border: 2px solid #333;
       cursor: pointer;
     }
-    .i3-window.is-focused {
+    .i3-window:focus {
       border-color: #285577;
+      outline: none;
     }
     .i3-title {
       display: block;
@@ -292,7 +334,7 @@ const Tree = <template>
       background: #333;
       color: #888;
     }
-    .i3-window.is-focused .i3-title {
+    .i3-window:focus .i3-title {
       background: #285577;
       color: #fff;
     }
@@ -452,13 +494,6 @@ let nextId = 1;
 
 class PanelNode {
   id = nextId++;
-  /**
-   * A per-panel flag (rather than comparing against the shared
-   * `focused` value in the template) so a focus change only
-   * invalidates the two panels involved -- nothing is written to any
-   * other panel, not even a same-value `class`.
-   */
-  @tracked isFocused = false;
 }
 
 class GroupNode {
@@ -475,18 +510,53 @@ const isGroup = (node) => node instanceof GroupNode;
 const cross = (orientation) => (orientation === 'horizontal' ? 'vertical' : 'horizontal');
 
 const root = new GroupNode('horizontal', [new PanelNode(), new PanelNode()]);
-const focused = cell(root.children[0]);
 
-focused.current.isFocused = true;
+/**
+ * Focus lives in the DOM: the panels are buttons, so clicking one
+ * focuses it, the highlight is plain CSS `:focus`, and the toolbar
+ * reads document.activeElement to find its target. The cell only
+ * mirrors the focused panel's id for the status text (activeElement
+ * itself is not reactive).
+ */
+const focusedId = cell(null);
 
-const focus = (panel) => {
-  if (focused.current === panel) return;
+const syncFocus = (event) => {
+  const element = event.type === 'focusout' ? event.relatedTarget : event.target;
+  const pane = element?.closest?.('.rz-pane');
+  const id = pane ? Number(pane.dataset.id) : null;
 
-  if (focused.current) focused.current.isFocused = false;
-  if (panel) panel.isFocused = true;
-
-  focused.set(panel);
+  // focusout fires mid-render when the focused element is removed
+  // (split, remove); the tracked write has to happen outside of it
+  queueMicrotask(() => focusedId.set(id));
 };
+
+function panelById(node, id) {
+  if (!isGroup(node)) return node.id === id ? node : null;
+
+  for (const child of node.children) {
+    const found = panelById(child, id);
+
+    if (found) return found;
+  }
+
+  return null;
+}
+
+function focusedPanel() {
+  const pane = document.activeElement?.closest?.('.rz-pane');
+
+  return pane ? panelById(root, Number(pane.dataset.id)) : null;
+}
+
+// the new panel's element exists after the next render
+function focusPanel(panel) {
+  if (!panel) return;
+
+  requestAnimationFrame(() => document.querySelector(`.rz-pane[data-id="${panel.id}"]`)?.focus());
+}
+
+// on the toolbar: keep focus on the panel the button operates on
+const keepFocus = (event) => event.preventDefault();
 
 function findParent(node, target) {
   if (!isGroup(node)) return null;
@@ -509,16 +579,17 @@ function firstPanel(node) {
 }
 
 const addPanel = () => {
-  const parent = findParent(root, focused.current) ?? root;
+  const target = focusedPanel();
+  const parent = (target && findParent(root, target)) ?? root;
   const panel = new PanelNode();
 
-  parent.children.splice(parent.children.indexOf(focused.current) + 1, 0, panel);
-  focus(panel);
+  parent.children.splice(parent.children.indexOf(target) + 1, 0, panel);
+  focusPanel(panel);
 };
 
 const split = (orientation) => {
-  const target = focused.current;
-  const parent = findParent(root, target);
+  const target = focusedPanel();
+  const parent = target && findParent(root, target);
 
   if (!parent) return;
 
@@ -526,12 +597,12 @@ const split = (orientation) => {
   const group = new GroupNode(orientation, [target, panel]);
 
   parent.children.splice(parent.children.indexOf(target), 1, group);
-  focus(panel);
+  focusPanel(panel);
 };
 
 const removePanel = () => {
-  const target = focused.current;
-  const parent = findParent(root, target);
+  const target = focusedPanel();
+  const parent = target && findParent(root, target);
 
   if (!parent) return;
 
@@ -544,11 +615,12 @@ const removePanel = () => {
     grandparent.children.splice(grandparent.children.indexOf(parent), 1, parent.children[0]);
   }
 
-  focus(firstPanel(parent.children.length ? parent : root));
+  focusPanel(firstPanel(parent.children.length ? parent : root));
 };
 
 const rotate = () => {
-  const parent = findParent(root, focused.current);
+  const target = focusedPanel();
+  const parent = target && findParent(root, target);
 
   if (parent) parent.orientation = cross(parent.orientation);
 };
@@ -563,11 +635,7 @@ const Tree = <template>
         {{#if (isGroup child)}}
           <Tree @node={{child}} />
         {{else}}
-          <button
-            type="button"
-            class="rz-pane {{if child.isFocused 'is-focused'}}"
-            {{on "click" (fn focus child)}}
-          >
+          <button type="button" class="rz-pane" data-id="{{child.id}}">
             {{child.id}}
           </button>
         {{/if}}
@@ -578,22 +646,30 @@ const Tree = <template>
 
 <template>
   <div class="rz-dynamic-bar">
-    <button type="button" {{on "click" addPanel}}>Add panel</button>
-    <button type="button" {{on "click" (fn split "horizontal")}}>Split h</button>
-    <button type="button" {{on "click" (fn split "vertical")}}>Split v</button>
-    <button type="button" {{on "click" removePanel}}>Remove</button>
-    <button type="button" {{on "click" rotate}}>Rotate</button>
+    <button type="button" {{on "mousedown" keepFocus}} {{on "click" addPanel}}>Add panel</button>
+    <button
+      type="button"
+      {{on "mousedown" keepFocus}}
+      {{on "click" (fn split "horizontal")}}
+    >Split h</button>
+    <button
+      type="button"
+      {{on "mousedown" keepFocus}}
+      {{on "click" (fn split "vertical")}}
+    >Split v</button>
+    <button type="button" {{on "mousedown" keepFocus}} {{on "click" removePanel}}>Remove</button>
+    <button type="button" {{on "mousedown" keepFocus}} {{on "click" rotate}}>Rotate</button>
     <span>
-      {{#if focused.current}}
+      {{#if focusedId.current}}
         focused: panel
-        {{focused.current.id}}
+        {{focusedId.current}}
       {{else}}
         focused: (none)
       {{/if}}
     </span>
   </div>
 
-  <div class="rz-dynamic">
+  <div class="rz-dynamic" {{on "focusin" syncFocus}} {{on "focusout" syncFocus}}>
     <Tree @node={{root}} />
   </div>
   <style>
@@ -621,7 +697,7 @@ const Tree = <template>
       font-size: 1rem;
       cursor: pointer;
     }
-    .rz-dynamic .rz-pane.is-focused {
+    .rz-dynamic .rz-pane:focus {
       outline: 2px solid dodgerblue;
       outline-offset: -2px;
     }

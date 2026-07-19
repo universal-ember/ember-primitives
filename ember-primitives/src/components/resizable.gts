@@ -59,21 +59,19 @@ function nextPanelId(): string {
 }
 
 export const Panel: TOC<PanelSignature> = <template>
-  {{#let (nextPanelId) as |id|}}
-    <div
-      class="ember-primitives__resizable__panel"
-      data-min-size={{@minSize}}
-      data-max-size={{@maxSize}}
-      data-size={{@size}}
-      data-collapsible={{if @collapsible "true"}}
-      ...attributes
-      {{! after ...attributes: the id is component-owned (the handles'
-          aria-controls depends on it being present and unique) }}
-      id={{id}}
-    >
-      {{yield}}
-    </div>
-  {{/let}}
+  <div
+    class="ember-primitives__resizable__panel"
+    data-min-size={{@minSize}}
+    data-max-size={{@maxSize}}
+    data-size={{@size}}
+    data-collapsible={{if @collapsible "true"}}
+    ...attributes
+    {{! after ...attributes: the id is component-owned (the handles'
+        aria-controls depends on it being present and unique) }}
+    id={{(nextPanelId)}}
+  >
+    {{yield}}
+  </div>
 </template>;
 
 export interface HandleSignature {

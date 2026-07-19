@@ -897,7 +897,7 @@ Dragging uses pointer capture, so resizing keeps working when the pointer passes
 
 The handle follows the [window splitter](https://www.w3.org/WAI/ARIA/apg/patterns/windowsplitter/) pattern: it is a focusable `role="separator"` with `aria-valuenow/min/max` describing the panel before it.
 
-No ids are generated (ids are global) -- but if you give a panel an `id`, the handle after it references it via `aria-controls`.
+No ids are generated (ids are global), and `aria-controls` is not set -- assistive-technology support for it is poor, and the value/orientation semantics plus the handle's accessible name carry the useful information. If you want it anyway, set an `id` on your panel and `aria-controls` on the handle yourself.
 
 Give each handle an accessible name (e.g. `aria-label="Resize sidebar"`).
 

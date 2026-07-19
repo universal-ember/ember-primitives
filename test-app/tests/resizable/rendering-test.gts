@@ -79,26 +79,10 @@ module('Rendering | <Resizable>', function (hooks) {
       assert.dom('[data-test-handle]').hasAria('valuemin', '0');
       assert.dom('[data-test-handle]').hasAria('valuemax', '100');
 
-      // ids are global, so none are generated
+      // ids are global, so none are generated; consumers who want
+      // aria-controls can set both id and aria-controls themselves
       assert.dom('[data-test-a]').doesNotHaveAttribute('id');
       assert.dom('[data-test-handle]').doesNotHaveAttribute('aria-controls');
-    });
-
-    test('aria-controls references a consumer-provided panel id', async function (assert) {
-      await render(
-        <template>
-          {{! template-lint-disable no-inline-styles }}
-          <div style="width: 508px; height: 200px;">
-            <Resizable>
-              <Panel id="my-editor" data-test-a>a</Panel>
-              <Handle data-test-handle />
-              <Panel data-test-b>b</Panel>
-            </Resizable>
-          </div>
-        </template>
-      );
-
-      assert.dom('[data-test-handle]').hasAria('controls', 'my-editor');
     });
 
     test('dragging the handle resizes both panels', async function (assert) {
@@ -158,7 +142,7 @@ module('Rendering | <Resizable>', function (hooks) {
             <Resizable>
               <Panel data-test-a>a</Panel>
               <Handle data-test-handle />
-              <Panel id="panel-b" data-test-b>b</Panel>
+              <Panel data-test-b>b</Panel>
               <Handle data-test-handle-2 />
               <Panel data-test-c>c</Panel>
             </Resizable>
@@ -168,10 +152,8 @@ module('Rendering | <Resizable>', function (hooks) {
     });
 
     test('each handle describes the panel immediately before it', async function (assert) {
-      assert.dom('[data-test-handle-2]').hasAria('controls', 'panel-b');
-      assert
-        .dom('[data-test-handle]')
-        .doesNotHaveAttribute('aria-controls', 'no id was provided for panel a');
+      assert.dom('[data-test-handle]').hasAria('valuenow', '33');
+      assert.dom('[data-test-handle-2]').hasAria('valuenow', '33');
     });
 
     test('dragging a handle only affects its two adjacent panels', async function (assert) {

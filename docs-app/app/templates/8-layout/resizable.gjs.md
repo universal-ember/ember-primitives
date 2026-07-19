@@ -576,6 +576,160 @@ const Tree = <template>
 
 </div>
 
+## Controlled layout
+
+A layout like [limber](https://limber.glimdown.com)'s REPL: an editor and its output, with controls layered on top of the editor for minimizing, maximizing, and rotating. Maximized and minimized are just different templates -- the `<Resizable>` only renders in the default mode, and remembers its sizes (via `@onLayoutChange` / `@size`) across mode changes.
+
+<div class="featured-demo auto-height">
+
+```gjs live preview no-shadow
+import { cell } from 'ember-resources';
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
+
+const mode = cell('default'); // 'default' | 'maximized' | 'minimized'
+const orientation = cell('horizontal');
+
+// remembered across mode changes (this could also be localStorage)
+let sizes = [40, 60];
+const rememberSizes = (next) => (sizes = next);
+const sizeAt = (index) => sizes[index];
+
+const toggleMaximize = () => mode.set(mode.current === 'maximized' ? 'default' : 'maximized');
+const toggleMinimize = () => mode.set(mode.current === 'minimized' ? 'default' : 'minimized');
+const rotate = () =>
+  orientation.set(orientation.current === 'horizontal' ? 'vertical' : 'horizontal');
+
+const Controls = <template>
+  <div class="limber-controls">
+    <button type="button" {{on "click" rotate}}>
+      rotate
+    </button>
+    <button type="button" {{on "click" toggleMinimize}}>
+      {{if (eq mode.current "minimized") "restore" "min"}}
+    </button>
+    <button type="button" {{on "click" toggleMaximize}}>
+      {{if (eq mode.current "maximized") "restore" "max"}}
+    </button>
+  </div>
+</template>;
+
+const Editor = <template>
+  <div class="limber-editor">
+    <Controls />
+    <pre>&lt;template&gt;
+  Hello, &#123;&#123;@name&#125;&#125;!
+&lt;/template&gt;</pre>
+  </div>
+</template>;
+
+const Output = <template>
+  <div class="limber-output">Hello, world!</div>
+</template>;
+
+<template>
+  <div class="limber">
+    {{#if (eq mode.current "maximized")}}
+      <Editor />
+    {{else if (eq mode.current "minimized")}}
+      <div class="limber-minimized" data-orientation={{orientation.current}}>
+        <div class="limber-sliver"><Controls /></div>
+        <Output />
+      </div>
+    {{else}}
+      <Resizable @orientation={{orientation.current}} @onLayoutChange={{rememberSizes}}>
+        <Panel @size={{sizeAt 0}} @minSize={{10}}>
+          <Editor />
+        </Panel>
+        <Handle aria-label="Resize editor" />
+        <Panel @size={{sizeAt 1}} @minSize={{10}}>
+          <Output />
+        </Panel>
+      </Resizable>
+    {{/if}}
+  </div>
+  <style>
+    /* styles for the demo, not required */
+    .limber {
+      height: 240px;
+      border: 1px solid gray;
+    }
+    .limber-editor {
+      position: relative;
+      height: 100%;
+      background: #1e1e2e;
+      color: #cdd6f4;
+    }
+    .limber-editor pre {
+      margin: 0;
+      padding: 1rem;
+      font-size: 0.8125rem;
+    }
+    .limber-controls {
+      position: absolute;
+      top: 0.375rem;
+      right: 0.375rem;
+      display: flex;
+      gap: 0.25rem;
+      z-index: 1;
+    }
+    .limber-controls button {
+      font-family: monospace;
+      font-size: 0.6875rem;
+      padding: 0.125rem 0.375rem;
+      background: #313244;
+      color: #cdd6f4;
+      border: 1px solid #45475a;
+      cursor: pointer;
+    }
+    .limber-controls button:hover {
+      border-color: #89b4fa;
+    }
+    .limber-output {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      font-family: monospace;
+    }
+    .limber-minimized {
+      display: flex;
+      height: 100%;
+    }
+    .limber-minimized[data-orientation='horizontal'] {
+      flex-direction: row;
+    }
+    .limber-minimized[data-orientation='vertical'] {
+      flex-direction: column;
+    }
+    .limber-sliver {
+      position: relative;
+      flex: 0 0 auto;
+      background: #1e1e2e;
+    }
+    .limber-minimized[data-orientation='horizontal'] .limber-sliver {
+      width: 11rem;
+    }
+    .limber-minimized[data-orientation='vertical'] .limber-sliver {
+      height: 2rem;
+    }
+    .limber-minimized .limber-output {
+      flex: 1;
+    }
+    .limber .ember-primitives__resizable__handle {
+      background: gray;
+      opacity: 0.4;
+    }
+    .limber .ember-primitives__resizable__handle:hover,
+    .limber .ember-primitives__resizable__handle:focus-visible,
+    .limber .ember-primitives__resizable__handle[data-resizing] {
+      opacity: 1;
+      background: dodgerblue;
+    }
+  </style>
+</template>
+```
+
+</div>
+
 ## Persisting the layout
 
 `@onLayoutChange` is called with the panels' sizes (percentages, in document order) whenever the layout changes, and `@size` sets the initial size -- together they make persistence straightforward (localStorage, query params, etc.).

@@ -3,7 +3,7 @@ import { render, settled, triggerEvent, triggerKeyEvent } from '@ember/test-help
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
-import { Resizable } from 'ember-primitives';
+import { Resizable, ResizableHandle as Handle, ResizablePanel as Panel } from 'ember-primitives';
 
 /**
  * The #ember-testing container is scaled, so assertions are made in
@@ -53,10 +53,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -140,12 +140,12 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
-              <r.Handle data-test-handle-2 />
-              <r.Panel data-test-c>c</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel data-test-c>c</Panel>
             </Resizable>
           </div>
         </template>
@@ -182,10 +182,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -212,10 +212,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -249,10 +249,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -275,10 +275,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel @minSize={{20}} @maxSize={{60}} data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel @minSize={{20}} @maxSize={{60}} data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -301,17 +301,17 @@ module('Rendering | <Resizable>', function (hooks) {
       assert.dom('[data-test-handle]').hasAria('valuenow', '60');
     });
 
-    test('defaultSizes that do not sum to 100 are normalized', async function (assert) {
+    test('sizes that do not sum to 100 are normalized', async function (assert) {
       await render(
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel @defaultSize={{40}} data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel @defaultSize={{40}} data-test-b>b</r.Panel>
-              <r.Handle data-test-handle-2 />
-              <r.Panel @defaultSize={{40}} data-test-c>c</r.Panel>
+            <Resizable>
+              <Panel @size={{40}} data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel @size={{40}} data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel @size={{40}} data-test-c>c</Panel>
             </Resizable>
           </div>
         </template>
@@ -326,10 +326,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel @minSize={{30}} data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel @minSize={{30}} data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -340,15 +340,15 @@ module('Rendering | <Resizable>', function (hooks) {
       assert.dom('[data-test-handle]').hasAria('valuenow', '70');
     });
 
-    test('defaultSize sets the initial layout', async function (assert) {
+    test('size sets the initial layout', async function (assert) {
       await render(
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel @defaultSize={{30}} data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel @size={{30}} data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -364,10 +364,12 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel @collapsible={{true}} data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              {{! the border makes the collapsed panel measure > 0px,
+                  which must not confuse collapse-state detection }}
+              <Panel @collapsible={{true}} style="border: 2px solid" data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -377,12 +379,17 @@ module('Rendering | <Resizable>', function (hooks) {
 
       assert.dom('[data-test-handle]').hasAria('valuenow', '0');
       assert.dom('[data-test-a]').hasAttribute('data-collapsed');
-      assert.ok(widthOf('[data-test-a]') < TOLERANCE, 'panel is visually collapsed');
+      assert.ok(widthOf('[data-test-a]') < 5, 'panel is visually collapsed');
 
       await triggerKeyEvent('[data-test-handle]', 'keydown', 'Enter');
 
       assert.dom('[data-test-handle]').hasAria('valuenow', '50');
       assert.dom('[data-test-a]').doesNotHaveAttribute('data-collapsed');
+
+      // and again, to assure the toggle keeps working
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'Enter');
+
+      assert.dom('[data-test-a]').hasAttribute('data-collapsed');
     });
 
     test('dragging far past the minSize collapses; a small overshoot holds at minSize', async function (assert) {
@@ -390,10 +397,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel @collapsible={{true}} @minSize={{20}} data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel @collapsible={{true}} @minSize={{20}} data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -431,10 +438,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -452,10 +459,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 200px; height: 408px;">
-            <Resizable @orientation="vertical" as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable @orientation="vertical">
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>
@@ -482,16 +489,16 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 408px;">
-            <Resizable as |outer|>
-              <outer.Panel data-test-left>left</outer.Panel>
-              <outer.Handle data-test-outer-handle />
-              <outer.Panel data-test-right>
-                <Resizable @orientation="vertical" as |inner|>
-                  <inner.Panel data-test-top>top</inner.Panel>
-                  <inner.Handle data-test-inner-handle />
-                  <inner.Panel data-test-bottom>bottom</inner.Panel>
+            <Resizable>
+              <Panel data-test-left>left</Panel>
+              <Handle data-test-outer-handle />
+              <Panel data-test-right>
+                <Resizable @orientation="vertical">
+                  <Panel data-test-top>top</Panel>
+                  <Handle data-test-inner-handle />
+                  <Panel data-test-bottom>bottom</Panel>
                 </Resizable>
-              </outer.Panel>
+              </Panel>
             </Resizable>
           </div>
         </template>
@@ -531,13 +538,13 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
               {{#if state.showThird}}
-                <r.Handle data-test-handle-2 />
-                <r.Panel data-test-c>c</r.Panel>
+                <Handle data-test-handle-2 />
+                <Panel data-test-c>c</Panel>
               {{/if}}
             </Resizable>
           </div>
@@ -569,13 +576,13 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
               {{#if state.showThird}}
-                <r.Handle data-test-handle-2 />
-                <r.Panel data-test-c>c</r.Panel>
+                <Handle data-test-handle-2 />
+                <Panel data-test-c>c</Panel>
               {{/if}}
             </Resizable>
           </div>
@@ -609,10 +616,10 @@ module('Rendering | <Resizable>', function (hooks) {
         <template>
           {{! template-lint-disable no-inline-styles }}
           <div style="width: 508px; height: 200px;">
-            <Resizable @onLayoutChange={{onLayoutChange}} as |r|>
-              <r.Panel data-test-a>a</r.Panel>
-              <r.Handle data-test-handle />
-              <r.Panel data-test-b>b</r.Panel>
+            <Resizable @onLayoutChange={{onLayoutChange}}>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
             </Resizable>
           </div>
         </template>

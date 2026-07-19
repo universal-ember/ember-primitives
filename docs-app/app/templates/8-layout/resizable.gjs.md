@@ -7,26 +7,26 @@ Each `<Resizable>` is a flat row (or column) of panels -- but a panel may contai
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { Resizable } from 'ember-primitives';
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
 <template>
   <div class="rz-demo">
-    <Resizable as |r|>
-      <r.Panel @minSize={{15}} @defaultSize={{25}}>
+    <Resizable>
+      <Panel @minSize={{15}} @size={{25}}>
         <div class="rz-pane">sidebar</div>
-      </r.Panel>
-      <r.Handle aria-label="Resize sidebar" />
-      <r.Panel>
-        <Resizable @orientation="vertical" as |inner|>
-          <inner.Panel>
+      </Panel>
+      <Handle aria-label="Resize sidebar" />
+      <Panel>
+        <Resizable @orientation="vertical">
+          <Panel>
             <div class="rz-pane">editor</div>
-          </inner.Panel>
-          <inner.Handle aria-label="Resize terminal" />
-          <inner.Panel @minSize={{10}} @defaultSize={{30}} @collapsible={{true}}>
+          </Panel>
+          <Handle aria-label="Resize terminal" />
+          <Panel @minSize={{10}} @size={{30}} @collapsible={{true}}>
             <div class="rz-pane">terminal</div>
-          </inner.Panel>
+          </Panel>
         </Resizable>
-      </r.Panel>
+      </Panel>
     </Resizable>
   </div>
   <style>
@@ -67,7 +67,7 @@ Click a window to focus it, then split or kill it, i3wm style. Drag or <kbd>Tab<
 ```gjs live preview no-shadow
 import { tracked } from '@glimmer/tracking';
 import { trackedArray } from '@ember/reactive/collections';
-import { Resizable } from 'ember-primitives';
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
 const PROGRAMS = ['URxvt', 'firefox', 'emacs', 'htop', 'ncmpcpp', 'ranger', 'weechat', 'neomutt'];
 const PROMPTS = ['~ $ ', '~/dev $ make', '*scratch*', 'MEM 42%', '♫ paused', '~/…/photos', '#ember', 'INBOX (3)'];
@@ -171,14 +171,14 @@ const wm = new WindowManager();
 
 const Tree = <template>
   {{#if (isSplit @node)}}
-    <Resizable @orientation={{@node.orientation}} as |r|>
+    <Resizable @orientation={{@node.orientation}}>
       {{#each @node.children as |child index|}}
         {{#if (gt index 0)}}
-          <r.Handle aria-label="Resize window" />
+          <Handle aria-label="Resize window" />
         {{/if}}
-        <r.Panel @minSize={{5}}>
+        <Panel @minSize={{5}}>
           <Tree @node={{child}} />
-        </r.Panel>
+        </Panel>
       {{/each}}
     </Resizable>
   {{else}}
@@ -296,48 +296,125 @@ const Tree = <template>
 
 </div>
 
-## Install
+## Changing orientation
 
-```bash
-pnpm add ember-primitives
-```
+`@orientation` may change while rendered -- panels keep their proportions and re-flow along the new axis.
 
-```js
-import { Resizable } from 'ember-primitives';
-// or
-import { Resizable } from 'ember-primitives/components/resizable';
-```
+<div class="featured-demo auto-height">
 
-## Anatomy
+```gjs live preview no-shadow
+import { cell } from 'ember-resources';
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
-```gjs
-import { Resizable } from 'ember-primitives';
+const orientation = cell('horizontal');
+const toggle = () =>
+  orientation.set(orientation.current === 'horizontal' ? 'vertical' : 'horizontal');
 
 <template>
-  <Resizable @orientation="horizontal" as |r|>
-    <r.Panel>…</r.Panel>
-    <r.Handle aria-label="Resize" />
-    <r.Panel>
-      {{! panels may contain another <Resizable> }}
-    </r.Panel>
-  </Resizable>
+  <button type="button" {{on "click" toggle}}>
+    Rotate ({{orientation.current}})
+  </button>
+
+  <div class="rz-orientation">
+    <Resizable @orientation={{orientation.current}}>
+      <Panel><div class="rz-pane">one</div></Panel>
+      <Handle aria-label="Resize one" />
+      <Panel><div class="rz-pane">two</div></Panel>
+      <Handle aria-label="Resize two" />
+      <Panel><div class="rz-pane">three</div></Panel>
+    </Resizable>
+  </div>
+  <style>
+    /* styles for the demo, not required */
+    .rz-orientation {
+      height: 200px;
+      margin-top: 0.5rem;
+      border: 1px solid gray;
+    }
+    .rz-orientation .rz-pane {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      font-family: monospace;
+    }
+    .rz-orientation .ember-primitives__resizable__handle {
+      background: gray;
+      opacity: 0.4;
+    }
+    .rz-orientation .ember-primitives__resizable__handle:hover,
+    .rz-orientation .ember-primitives__resizable__handle:focus-visible,
+    .rz-orientation .ember-primitives__resizable__handle[data-resizing] {
+      opacity: 1;
+      background: dodgerblue;
+    }
+  </style>
 </template>
 ```
 
-A `Handle` resizes the two panels on either side of it. Sizes are percentages of the group's space, applied via `flex-grow` -- the component ships only the structural CSS (flex layout, cursors, `touch-action`); all appearance (handle color, width, hover/focus styles) is up to you.
+</div>
 
-Dragging uses pointer capture, so resizing keeps working when the pointer passes over iframes -- no overlay element needed.
+## Collapsing
+
+A `@collapsible` panel can be closed entirely: press <kbd>Enter</kbd> on its handle to collapse or restore it, or drag well past its `@minSize` to snap it closed (within `@minSize` it holds at the minimum). While collapsed, the panel has a `data-collapsed` attribute you can style.
+
+<div class="featured-demo auto-height">
+
+```gjs live preview no-shadow
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
+
+<template>
+  <div class="rz-collapse">
+    <Resizable>
+      <Panel @collapsible={{true}} @minSize={{20}} @size={{30}}>
+        <div class="rz-pane">sidebar<br /><small>(collapsible)</small></div>
+      </Panel>
+      <Handle aria-label="Resize or collapse sidebar" />
+      <Panel><div class="rz-pane">content</div></Panel>
+    </Resizable>
+  </div>
+  <p><small>Focus the handle and press <kbd>Enter</kbd>, or drag it all the way left.</small></p>
+  <style>
+    /* styles for the demo, not required */
+    .rz-collapse {
+      height: 180px;
+      border: 1px solid gray;
+    }
+    .rz-collapse .rz-pane {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      font-family: monospace;
+      text-align: center;
+    }
+    .rz-collapse [data-collapsed] {
+      border-right: 4px solid dodgerblue;
+    }
+    .rz-collapse .ember-primitives__resizable__handle {
+      background: gray;
+      opacity: 0.4;
+    }
+    .rz-collapse .ember-primitives__resizable__handle:hover,
+    .rz-collapse .ember-primitives__resizable__handle:focus-visible,
+    .rz-collapse .ember-primitives__resizable__handle[data-resizing] {
+      opacity: 1;
+      background: dodgerblue;
+    }
+  </style>
+</template>
+```
+
+</div>
 
 ## Persisting the layout
 
-`@onLayoutChange` is called with the panels' sizes (percentages, in document order) whenever the layout changes, and `@defaultSize` sets the initial size -- together they make persistence straightforward (localStorage, query params, etc.).
+`@onLayoutChange` is called with the panels' sizes (percentages, in document order) whenever the layout changes, and `@size` sets the initial size -- together they make persistence straightforward (localStorage, query params, etc.).
 
 With nested groups, each group persists its own sizes under its own key. Resize the panels below, then reload the page -- the layout is remembered.
 
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { Resizable } from 'ember-primitives';
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
 const KEY = 'docs:resizable:persisted-demo';
 
@@ -360,22 +437,22 @@ const sizeOf = (group, index) => saved[group]?.[index];
 
 <template>
   <div class="rz-persisted">
-    <Resizable @onLayoutChange={{persist "outer"}} as |r|>
-      <r.Panel @defaultSize={{sizeOf "outer" 0}} @minSize={{15}}>
+    <Resizable @onLayoutChange={{persist "outer"}}>
+      <Panel @size={{sizeOf "outer" 0}} @minSize={{15}}>
         <div class="rz-pane">files</div>
-      </r.Panel>
-      <r.Handle aria-label="Resize files" />
-      <r.Panel @defaultSize={{sizeOf "outer" 1}}>
-        <Resizable @orientation="vertical" @onLayoutChange={{persist "inner"}} as |inner|>
-          <inner.Panel @defaultSize={{sizeOf "inner" 0}}>
+      </Panel>
+      <Handle aria-label="Resize files" />
+      <Panel @size={{sizeOf "outer" 1}}>
+        <Resizable @orientation="vertical" @onLayoutChange={{persist "inner"}}>
+          <Panel @size={{sizeOf "inner" 0}}>
             <div class="rz-pane">editor</div>
-          </inner.Panel>
-          <inner.Handle aria-label="Resize output" />
-          <inner.Panel @defaultSize={{sizeOf "inner" 1}} @minSize={{10}}>
+          </Panel>
+          <Handle aria-label="Resize output" />
+          <Panel @size={{sizeOf "inner" 1}} @minSize={{10}}>
             <div class="rz-pane">output</div>
-          </inner.Panel>
+          </Panel>
         </Resizable>
-      </r.Panel>
+      </Panel>
     </Resizable>
   </div>
   <style>
@@ -405,6 +482,40 @@ const sizeOf = (group, index) => saved[group]?.[index];
 ```
 
 </div>
+
+## Install
+
+```bash
+pnpm add ember-primitives
+```
+
+```js
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
+// or, from the barrel:
+import { Resizable, ResizablePanel, ResizableHandle } from 'ember-primitives';
+```
+
+## Anatomy
+
+```gjs
+import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
+
+<template>
+  <Resizable @orientation="horizontal">
+    <Panel>…</Panel>
+    <Handle aria-label="Resize" />
+    <Panel>
+      {{! panels may contain another <Resizable> }}
+    </Panel>
+  </Resizable>
+</template>
+```
+
+`Panel` and `Handle` are their own imports and find their group through the DOM: panels declare their constraints as data attributes the group queries for, and handles locate the group's state via DOM context. There is no registration -- what's in the DOM *is* the layout.
+
+A `Handle` resizes the two panels on either side of it. Sizes are percentages of the group's space, applied via `flex-grow` -- the component ships only the structural CSS (flex layout, cursors, `touch-action`); all appearance (handle color, width, hover/focus styles) is up to you.
+
+Dragging uses pointer capture, so resizing keeps working when the pointer passes over iframes -- no overlay element needed.
 
 ## Accessibility
 

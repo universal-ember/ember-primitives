@@ -16,7 +16,6 @@ export default {
     [
       "babel-plugin-ember-template-compilation",
       {
-        compilerPath: "ember-source/ember-template-compiler/index.js",
         enableLegacyModules: [
           "ember-cli-htmlbars",
           "ember-cli-htmlbars-inline-precompile",

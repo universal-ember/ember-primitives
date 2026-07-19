@@ -36,7 +36,11 @@ export { PortalTargets } from './components/portal-targets.gts';
 export { TARGETS as PORTALS } from './components/portal-targets.gts';
 export { Progress } from './components/progress.gts';
 export { Rating } from './components/rating.gts';
-export { Resizable } from './components/resizable.gts';
+export {
+  Resizable,
+  Handle as ResizableHandle,
+  Panel as ResizablePanel,
+} from './components/resizable.gts';
 export { Scroller } from './components/scroller.gts';
 export { Separator } from './components/separator.gts';
 export { Shadowed } from './components/shadowed.gts';

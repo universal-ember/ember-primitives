@@ -41,13 +41,16 @@ export class Provide<Data extends object> extends Component<{
     data: Data | (() => Data) | Newable<Data>;
 
     /**
-     * Optionally, you may use string-based keys to reference the data in the Provide.
+     * Optionally, you may use keys to reference the data in the Provide,
+     * e.g. when `@data` is an already-created instance and consumers
+     * reference it by its class.
      *
-     * This is not recommended though, because when using a class or other object-like structure,
+     * Keys are compared by identity. String keys are not recommended,
+     * because when using a class or other object-like structure,
      * the type in the `<Consume>` component can be derived from that class or object-like structure.
      * With string keys, the `<Consume>` type will be unknown.
      */
-    key?: string;
+    key?: string | object;
 
     /**
      * Can be used to either customize the element tag ( defaults to div )

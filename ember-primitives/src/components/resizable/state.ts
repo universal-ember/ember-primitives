@@ -1,24 +1,11 @@
-import { tracked } from '@glimmer/tracking';
-import { guidFor } from '@ember/object/internals';
-import { scheduleOnce } from '@ember/runloop';
-import { htmlSafe } from '@ember/template';
-
-/**
- * `style` attribute values need to be SafeStrings to avoid Ember's
- * style-binding warning.
- */
-export type StyleString = ReturnType<typeof htmlSafe>;
-
 export type Orientation = 'horizontal' | 'vertical';
+
+const GROUP_SELECTOR = '.ember-primitives__resizable';
+const PANEL_SELECTOR = '.ember-primitives__resizable__panel';
+const HANDLE_SELECTOR = '.ember-primitives__resizable__handle';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 100;
-
-/**
- * Sizes are percentages (floats). Below this threshold a collapsible
- * panel is considered collapsed.
- */
-const COLLAPSED_EPSILON = 0.5;
 
 /**
  * How far (in %) one keyboard arrow press moves a handle.
@@ -27,80 +14,46 @@ const COLLAPSED_EPSILON = 0.5;
 const KEYBOARD_STEP = 1;
 const KEYBOARD_STEP_COARSE = 10;
 
+let panelId = 0;
+
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
-interface PanelOptions {
-  minSize: () => number | undefined;
-  maxSize: () => number | undefined;
-  defaultSize: () => number | undefined;
-  collapsible: () => boolean | undefined;
+function numberAttribute(element: Element, name: string): number | undefined {
+  const raw = element.getAttribute(name);
+
+  if (raw === null) return undefined;
+
+  const value = parseFloat(raw);
+
+  return Number.isFinite(value) ? value : undefined;
 }
 
-export class PanelState {
-  /**
-   * The panel's current size, as a percentage of the group's panel-space
-   * (the group's size minus the space occupied by the handles).
-   *
-   * `null` until the group has performed its first layout.
-   */
-  @tracked size: number | null = null;
+/**
+ * Panels declare their constraints in the DOM (via data attributes),
+ * so the group can discover everything it needs with queries --
+ * no registration required.
+ */
+function minSizeOf(panel: Element): number {
+  return numberAttribute(panel, 'data-min-size') ?? DEFAULT_MIN;
+}
 
-  /**
-   * The size (%) this panel had before it was collapsed,
-   * so that expanding restores it.
-   */
-  previousSize: number | null = null;
+function maxSizeOf(panel: Element): number {
+  return numberAttribute(panel, 'data-max-size') ?? DEFAULT_MAX;
+}
 
-  element: HTMLElement | null = null;
+function requestedSizeOf(panel: Element): number | undefined {
+  return numberAttribute(panel, 'data-size');
+}
 
-  #options: PanelOptions;
-
-  constructor(options: PanelOptions) {
-    this.#options = options;
-  }
-
-  get id(): string {
-    return guidFor(this);
-  }
-
-  get minSize(): number {
-    return this.#options.minSize() ?? DEFAULT_MIN;
-  }
-
-  get maxSize(): number {
-    return this.#options.maxSize() ?? DEFAULT_MAX;
-  }
-
-  get defaultSize(): number | undefined {
-    return this.#options.defaultSize();
-  }
-
-  get collapsible(): boolean {
-    return this.#options.collapsible() ?? false;
-  }
-
-  get isCollapsed(): boolean {
-    return this.collapsible && this.size !== null && this.size <= COLLAPSED_EPSILON;
-  }
-
-  /**
-   * Percentage-based flex-grow keeps sizing proportional without
-   * needing to measure anything during render.
-   */
-  get style(): StyleString {
-    if (this.size === null) {
-      return htmlSafe(`flex: 1 1 0px;`);
-    }
-
-    return htmlSafe(`flex: ${this.size} 1 0px;`);
-  }
+function isCollapsible(panel: Element): boolean {
+  return panel.hasAttribute('data-collapsible');
 }
 
 interface DragState {
-  prev: PanelState;
-  next: PanelState;
+  prev: HTMLElement;
+  next: HTMLElement;
   startPrevSize: number;
   startNextSize: number;
   startCoordinate: number;
@@ -119,15 +72,24 @@ interface GroupOptions {
 }
 
 export class GroupState {
-  /**
-   * Panels in document order. Only assigned during the scheduled sync,
-   * never during render (avoids backtracking re-render assertions).
-   */
-  @tracked panels: PanelState[] = [];
+  element: HTMLElement | null = null;
 
-  #registered: PanelState[] = [];
   #options: GroupOptions;
+  #observer: MutationObserver | null = null;
   #drag: DragState | null = null;
+
+  /**
+   * Current size (%) per panel element.
+   * The DOM is the source of truth for membership; this only remembers
+   * sizes across relayouts.
+   */
+  #sizes = new Map<HTMLElement, number>();
+
+  /**
+   * The size (%) a collapsible panel had before it was collapsed,
+   * so that expanding restores it.
+   */
+  #previousSizes = new WeakMap<HTMLElement, number>();
 
   constructor(options: GroupOptions) {
     this.#options = options;
@@ -141,77 +103,111 @@ export class GroupState {
     return this.orientation === 'horizontal';
   }
 
+  /**
+   * This group's panels, in document order.
+   * Panels of nested groups belong to their own group, not this one.
+   */
+  get panels(): HTMLElement[] {
+    return this.#query(PANEL_SELECTOR);
+  }
+
+  get handles(): HTMLElement[] {
+    return this.#query(HANDLE_SELECTOR);
+  }
+
+  #query(selector: string): HTMLElement[] {
+    const element = this.element;
+
+    if (!element) return [];
+
+    const all = Array.from(element.querySelectorAll<HTMLElement>(selector));
+
+    return all.filter((candidate) => candidate.closest(GROUP_SELECTOR) === element);
+  }
+
   get sizes(): number[] {
-    return this.panels.map((panel) => panel.size ?? 0);
-  }
-
-  registerPanel(panel: PanelState): void {
-    this.#registered.push(panel);
-    this.#scheduleSync();
-  }
-
-  unregisterPanel(panel: PanelState): void {
-    this.#registered = this.#registered.filter((existing) => existing !== panel);
-    this.#scheduleSync();
-  }
-
-  #scheduleSync(): void {
-    // eslint-disable-next-line ember/no-runloop
-    scheduleOnce('afterRender', this, this.#sync);
+    return this.panels.map((panel) => this.#sizes.get(panel) ?? 0);
   }
 
   /**
-   * Commits registration changes and (re)computes the layout.
-   * Runs after render so that tracked state consumed by sibling panels
-   * is never written to mid-render.
+   * Called (via modifier) when the group element is inserted.
+   * Watches for panels being added/removed (and the orientation
+   * changing) and performs the initial layout.
    */
-  #sync = (): void => {
-    const connected = this.#registered.filter((panel) => panel.element?.isConnected);
+  attach = (element: HTMLElement): (() => void) => {
+    this.element = element;
 
-    connected.sort((a, b) => {
-      if (!a.element || !b.element) return 0;
-
-      /**
-       * a.element precedes b.element => bitmask includes "preceding" from b's perspective
-       */
-      const position = b.element.compareDocumentPosition(a.element);
-
-      return position & Node.DOCUMENT_POSITION_PRECEDING ? -1 : 1;
+    this.#observer = new MutationObserver((mutations) => this.#onMutation(mutations));
+    this.#observer.observe(element, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['data-orientation'],
     });
 
-    this.panels = connected;
     this.#layout();
+
+    return () => {
+      this.#observer?.disconnect();
+      this.#observer = null;
+      this.element = null;
+    };
   };
 
+  #onMutation(mutations: MutationRecord[]): void {
+    const relevant = mutations.some((mutation) => {
+      const target = mutation.target;
+
+      if (!(target instanceof Element)) return false;
+
+      // the orientation of this group changed
+      if (mutation.type === 'attributes') return target === this.element;
+
+      // children changed somewhere that belongs to this group (not a nested one)
+      return target.closest(GROUP_SELECTOR) === this.element;
+    });
+
+    if (relevant) this.#layout();
+  }
+
   /**
-   * Panels that already have a size (or declare a defaultSize) keep it,
-   * new panels take an equal share, then everything is normalized to 100.
+   * Panels that already have a size (or request one via `data-size`)
+   * keep it; new panels take a share of the remaining space; everything
+   * is normalized to 100.
    */
   #layout(): void {
     const panels = this.panels;
 
     if (panels.length === 0) return;
 
-    const specified: PanelState[] = [];
-    const unspecified: PanelState[] = [];
+    // forget sizes of panels that left the DOM
+    for (const known of Array.from(this.#sizes.keys())) {
+      if (!panels.includes(known)) this.#sizes.delete(known);
+    }
+
+    const next = new Map<HTMLElement, number>();
+    const unspecified: HTMLElement[] = [];
     let specifiedTotal = 0;
 
     for (const panel of panels) {
-      const preferred = panel.size ?? panel.defaultSize;
+      const preferred = this.#sizes.get(panel) ?? requestedSizeOf(panel);
 
       if (preferred === undefined) {
         unspecified.push(panel);
         continue;
       }
 
-      panel.size = panel.isCollapsed ? panel.size : clamp(preferred, panel.minSize, panel.maxSize);
-      specified.push(panel);
-      specifiedTotal += panel.size ?? 0;
+      const size = this.#isCollapsed(panel)
+        ? preferred
+        : clamp(preferred, minSizeOf(panel), maxSizeOf(panel));
+
+      next.set(panel, size);
+      specifiedTotal += size;
     }
 
     if (unspecified.length > 0) {
       /**
-       * Panels without a (default)size share the remaining space.
+       * Panels without a size share the remaining space.
        * When there is none left (e.g. a panel was added to an
        * already-full group), each takes an equal 1/n share and the
        * existing panels scale down to make room -- like a new window
@@ -226,29 +222,67 @@ export class GroupState {
         if (specifiedTotal > 0) {
           const scale = Math.max(100 - share * unspecified.length, 0) / specifiedTotal;
 
-          for (const panel of specified) {
-            panel.size = (panel.size ?? 0) * scale;
+          for (const [panel, size] of next) {
+            next.set(panel, size * scale);
           }
         }
       }
 
       for (const panel of unspecified) {
-        panel.size = clamp(share, panel.minSize, panel.maxSize);
+        next.set(panel, clamp(share, minSizeOf(panel), maxSizeOf(panel)));
       }
     }
 
-    this.#normalize();
+    // normalize to 100
+    let total = 0;
+
+    for (const size of next.values()) total += size;
+
+    if (total > 0 && Math.abs(total - 100) > 0.01) {
+      for (const [panel, size] of next) {
+        next.set(panel, (size / total) * 100);
+      }
+    }
+
+    this.#sizes = next;
+    this.#apply();
     this.#notify();
   }
 
-  #normalize(): void {
-    const panels = this.panels;
-    const total = panels.reduce((sum, panel) => sum + (panel.size ?? 0), 0);
+  /**
+   * Writes the layout back to the DOM: flex sizing and the handles'
+   * ARIA attributes. (`data-collapsed` is managed at the explicit
+   * collapse/expand points, not derived from sizes -- rendered pixel
+   * sizes include borders/padding, so a collapsed panel rarely
+   * measures exactly 0.)
+   */
+  #apply(): void {
+    for (const [panel, size] of this.#sizes) {
+      panel.style.flex = `${size} 1 0px`;
+    }
 
-    if (total <= 0 || Math.abs(total - 100) < 0.01) return;
+    this.#syncHandles();
+  }
 
-    for (const panel of panels) {
-      panel.size = ((panel.size ?? 0) / total) * 100;
+  /**
+   * Per the window-splitter pattern, each handle describes the panel
+   * immediately before it. (A splitter between two side-by-side panes
+   * is oriented *vertically*, and vice-versa.)
+   */
+  #syncHandles(): void {
+    for (const handle of this.handles) {
+      const [prev] = this.#neighborsOf(handle);
+
+      handle.setAttribute('aria-orientation', this.#isHorizontal ? 'vertical' : 'horizontal');
+
+      if (!prev) continue;
+
+      if (!prev.id) prev.id = `ember-primitives__resizable__panel--${panelId++}`;
+
+      handle.setAttribute('aria-controls', prev.id);
+      handle.setAttribute('aria-valuemin', `${minSizeOf(prev)}`);
+      handle.setAttribute('aria-valuemax', `${maxSizeOf(prev)}`);
+      handle.setAttribute('aria-valuenow', `${Math.round(this.#sizes.get(prev) ?? 0)}`);
     }
   }
 
@@ -257,25 +291,40 @@ export class GroupState {
   }
 
   /**
+   * The `data-collapsed` attribute is the source of truth for collapse
+   * state (it is also the styling hook consumers use).
+   */
+  #isCollapsed(panel: HTMLElement): boolean {
+    return isCollapsible(panel) && panel.hasAttribute('data-collapsed');
+  }
+
+  #setCollapsed(panel: HTMLElement, collapsed: boolean): void {
+    if (collapsed) {
+      panel.setAttribute('data-collapsed', '');
+    } else {
+      panel.removeAttribute('data-collapsed');
+    }
+  }
+
+  /**
    * Re-derive percentage sizes from actual rendered pixels.
    * Corrects any drift (e.g. from CSS min-sizes) before an interaction.
    */
   #syncSizesFromDOM(): void {
     const panels = this.panels;
-    const px = panels.map((panel) => this.#pixelSizeOf(panel));
+    // collapsed panels are 0 even though their borders/padding measure larger
+    const px = panels.map((panel) => (this.#isCollapsed(panel) ? 0 : this.#pixelSizeOf(panel)));
     const total = px.reduce((sum, value) => sum + value, 0);
 
     if (total <= 0) return;
 
     panels.forEach((panel, index) => {
-      panel.size = ((px[index] ?? 0) / total) * 100;
+      this.#sizes.set(panel, ((px[index] ?? 0) / total) * 100);
     });
   }
 
-  #pixelSizeOf(panel: PanelState): number {
-    const box = panel.element?.getBoundingClientRect();
-
-    if (!box) return 0;
+  #pixelSizeOf(panel: HTMLElement): number {
+    const box = panel.getBoundingClientRect();
 
     return this.#isHorizontal ? box.width : box.height;
   }
@@ -284,14 +333,12 @@ export class GroupState {
    * The panels immediately before and after the given handle element,
    * in document order.
    */
-  neighborsOf(handleElement: HTMLElement): [PanelState | null, PanelState | null] {
-    let prev: PanelState | null = null;
-    let next: PanelState | null = null;
+  #neighborsOf(handleElement: HTMLElement): [HTMLElement | null, HTMLElement | null] {
+    let prev: HTMLElement | null = null;
+    let next: HTMLElement | null = null;
 
     for (const panel of this.panels) {
-      if (!panel.element) continue;
-
-      const position = handleElement.compareDocumentPosition(panel.element);
+      const position = handleElement.compareDocumentPosition(panel);
 
       if (position & Node.DOCUMENT_POSITION_PRECEDING) {
         prev = panel;
@@ -310,8 +357,8 @@ export class GroupState {
    * respecting both panels' min/max constraints.
    */
   #applyDelta(
-    prev: PanelState,
-    next: PanelState,
+    prev: HTMLElement,
+    next: HTMLElement,
     basePrevSize: number,
     baseNextSize: number,
     requestedDelta: number
@@ -320,35 +367,44 @@ export class GroupState {
 
     let target = basePrevSize + requestedDelta;
 
-    if (prev.collapsible && target < prev.minSize) {
+    if (isCollapsible(prev) && target < minSizeOf(prev)) {
       /**
        * Collapsible panels snap: below half the minimum they close
        * entirely; between half and the minimum they hold at the minimum.
        * (This also keeps a collapsed panel closed when its handle is
        * dragged further in the closing direction.)
        */
-      target = target < prev.minSize / 2 ? 0 : prev.minSize;
+      target = target < minSizeOf(prev) / 2 ? 0 : minSizeOf(prev);
     } else {
-      target = clamp(target, prev.minSize, prev.maxSize);
+      target = clamp(target, minSizeOf(prev), maxSizeOf(prev));
     }
 
     /**
      * The neighbor absorbs whatever the target panel gives or takes,
      * so its constraints bound the target too.
      */
-    const nextMin = total - next.maxSize;
-    const nextMax = total - next.minSize;
+    const nextMin = total - maxSizeOf(next);
+    const nextMax = total - minSizeOf(next);
 
     if (nextMin > nextMax) return;
 
     target = clamp(target, nextMin, nextMax);
 
     // both panels' constraints cannot be satisfied at once
-    if (!prev.collapsible && (target < prev.minSize || target > prev.maxSize)) return;
+    if (!isCollapsible(prev) && (target < minSizeOf(prev) || target > maxSizeOf(prev))) return;
 
-    prev.size = target;
-    next.size = total - target;
+    if (isCollapsible(prev)) {
+      if (target === 0 && !this.#isCollapsed(prev)) {
+        this.#previousSizes.set(prev, basePrevSize);
+      }
 
+      this.#setCollapsed(prev, target === 0);
+    }
+
+    this.#sizes.set(prev, target);
+    this.#sizes.set(next, total - target);
+
+    this.#apply();
     this.#notify();
   }
 
@@ -356,7 +412,7 @@ export class GroupState {
     if (event.button !== 0) return;
     if (this.#drag) return;
 
-    const [prev, next] = this.neighborsOf(handleElement);
+    const [prev, next] = this.#neighborsOf(handleElement);
 
     if (!prev || !next) return;
 
@@ -368,8 +424,8 @@ export class GroupState {
     this.#drag = {
       prev,
       next,
-      startPrevSize: prev.size ?? 0,
-      startNextSize: next.size ?? 0,
+      startPrevSize: this.#sizes.get(prev) ?? 0,
+      startNextSize: this.#sizes.get(next) ?? 0,
       startCoordinate: this.#isHorizontal ? event.clientX : event.clientY,
       totalPx: this.panels.reduce((sum, panel) => sum + this.#pixelSizeOf(panel), 0),
       move,
@@ -433,12 +489,12 @@ export class GroupState {
    * Keyboard support for the WAI-ARIA window-splitter pattern.
    */
   handleKeyDown(handleElement: HTMLElement, event: KeyboardEvent): void {
-    const [prev, next] = this.neighborsOf(handleElement);
+    const [prev, next] = this.#neighborsOf(handleElement);
 
     if (!prev || !next) return;
 
     if (event.key === 'Enter') {
-      this.toggleCollapse(handleElement);
+      this.#toggleCollapse(prev, next);
 
       return;
     }
@@ -467,12 +523,12 @@ export class GroupState {
         break;
       case 'Home':
         this.#syncSizesFromDOM();
-        delta = prev.minSize - (prev.size ?? 0);
+        delta = minSizeOf(prev) - (this.#sizes.get(prev) ?? 0);
 
         break;
       case 'End':
         this.#syncSizesFromDOM();
-        delta = prev.maxSize - (prev.size ?? 0);
+        delta = maxSizeOf(prev) - (this.#sizes.get(prev) ?? 0);
 
         break;
     }
@@ -482,7 +538,7 @@ export class GroupState {
     event.preventDefault();
 
     this.#syncSizesFromDOM();
-    this.#applyDelta(prev, next, prev.size ?? 0, next.size ?? 0, delta);
+    this.#applyDelta(prev, next, this.#sizes.get(prev) ?? 0, this.#sizes.get(next) ?? 0, delta);
   }
 
   /**
@@ -491,78 +547,33 @@ export class GroupState {
    *
    * Only does anything when the preceding panel is `@collapsible`.
    */
-  toggleCollapse(handleElement: HTMLElement): void {
-    const [prev, next] = this.neighborsOf(handleElement);
-
-    if (!prev || !next) return;
-    if (!prev.collapsible) return;
+  #toggleCollapse(prev: HTMLElement, next: HTMLElement): void {
+    if (!isCollapsible(prev)) return;
 
     this.#syncSizesFromDOM();
 
-    const prevSize = prev.size ?? 0;
-    const nextSize = next.size ?? 0;
+    const prevSize = this.#sizes.get(prev) ?? 0;
+    const nextSize = this.#sizes.get(next) ?? 0;
 
-    if (prev.isCollapsed) {
-      const preferred = prev.previousSize ?? prev.defaultSize ?? Math.max(prev.minSize, 10);
-      const available = nextSize - next.minSize;
+    if (this.#isCollapsed(prev)) {
+      const preferred =
+        this.#previousSizes.get(prev) ?? requestedSizeOf(prev) ?? Math.max(minSizeOf(prev), 10);
+      const available = nextSize - minSizeOf(next);
       const restored = Math.min(preferred, available);
 
       if (restored <= 0) return;
 
-      prev.size = restored;
-      next.size = nextSize - restored;
+      this.#setCollapsed(prev, false);
+      this.#sizes.set(prev, restored);
+      this.#sizes.set(next, nextSize - restored);
     } else {
-      prev.previousSize = prevSize;
-      prev.size = 0;
-      next.size = nextSize + prevSize;
+      this.#previousSizes.set(prev, prevSize);
+      this.#setCollapsed(prev, true);
+      this.#sizes.set(prev, 0);
+      this.#sizes.set(next, nextSize + prevSize);
     }
 
+    this.#apply();
     this.#notify();
-  }
-}
-
-export class HandleState {
-  @tracked element: HTMLElement | null = null;
-
-  #group: GroupState;
-
-  constructor(group: GroupState) {
-    this.#group = group;
-  }
-
-  get #neighbors(): [PanelState | null, PanelState | null] {
-    if (!this.element) return [null, null];
-
-    return this.#group.neighborsOf(this.element);
-  }
-
-  get #prevPanel(): PanelState | null {
-    return this.#neighbors[0];
-  }
-
-  /**
-   * Per the window-splitter pattern, a splitter between two side-by-side
-   * panes is oriented *vertically* (and vice-versa).
-   */
-  get ariaOrientation(): Orientation {
-    return this.#group.orientation === 'horizontal' ? 'vertical' : 'horizontal';
-  }
-
-  get valueNow(): number | undefined {
-    const size = this.#prevPanel?.size;
-
-    return size === null || size === undefined ? undefined : Math.round(size);
-  }
-
-  get valueMin(): number | undefined {
-    return this.#prevPanel?.minSize;
-  }
-
-  get valueMax(): number | undefined {
-    return this.#prevPanel?.maxSize;
-  }
-
-  get controls(): string | undefined {
-    return this.#prevPanel?.id;
   }
 }

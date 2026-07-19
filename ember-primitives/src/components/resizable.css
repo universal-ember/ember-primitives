@@ -14,6 +14,8 @@
 }
 
 .ember-primitives__resizable__panel {
+  /* until the group assigns sizes, share space equally */
+  flex: 1 1 0px;
   overflow: hidden;
   min-width: 0;
   min-height: 0;
@@ -27,12 +29,12 @@
   -webkit-user-select: none;
 }
 
-.ember-primitives__resizable[data-orientation="horizontal"] > .ember-primitives__resizable__handle {
+.ember-primitives__resizable__handle[data-orientation="horizontal"] {
   width: 0.5rem;
   cursor: col-resize;
 }
 
-.ember-primitives__resizable[data-orientation="vertical"] > .ember-primitives__resizable__handle {
+.ember-primitives__resizable__handle[data-orientation="vertical"] {
   height: 0.5rem;
   cursor: row-resize;
 }

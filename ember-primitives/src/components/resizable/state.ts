@@ -316,15 +316,38 @@ export class GroupState {
     baseNextSize: number,
     requestedDelta: number
   ): void {
-    const minDelta = Math.max(prev.minSize - basePrevSize, baseNextSize - next.maxSize);
-    const maxDelta = Math.min(prev.maxSize - basePrevSize, baseNextSize - next.minSize);
+    const total = basePrevSize + baseNextSize;
 
-    if (minDelta > maxDelta) return;
+    let target = basePrevSize + requestedDelta;
 
-    const delta = clamp(requestedDelta, minDelta, maxDelta);
+    if (prev.collapsible && target < prev.minSize) {
+      /**
+       * Collapsible panels snap: below half the minimum they close
+       * entirely; between half and the minimum they hold at the minimum.
+       * (This also keeps a collapsed panel closed when its handle is
+       * dragged further in the closing direction.)
+       */
+      target = target < prev.minSize / 2 ? 0 : prev.minSize;
+    } else {
+      target = clamp(target, prev.minSize, prev.maxSize);
+    }
 
-    prev.size = basePrevSize + delta;
-    next.size = baseNextSize - delta;
+    /**
+     * The neighbor absorbs whatever the target panel gives or takes,
+     * so its constraints bound the target too.
+     */
+    const nextMin = total - next.maxSize;
+    const nextMax = total - next.minSize;
+
+    if (nextMin > nextMax) return;
+
+    target = clamp(target, nextMin, nextMax);
+
+    // both panels' constraints cannot be satisfied at once
+    if (!prev.collapsible && (target < prev.minSize || target > prev.maxSize)) return;
+
+    prev.size = target;
+    next.size = total - target;
 
     this.#notify();
   }

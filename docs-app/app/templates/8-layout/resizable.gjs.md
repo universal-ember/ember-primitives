@@ -66,8 +66,6 @@ Click a window to focus it, then split or kill it, i3wm style. Drag or <kbd>Tab<
 
 ```gjs live preview no-shadow
 import { tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { TrackedArray } from 'tracked-built-ins';
 import { Resizable } from 'ember-primitives';
 
@@ -97,8 +95,6 @@ class Split {
 }
 
 const isSplit = (node) => node instanceof Split;
-const eq = (a, b) => a === b;
-const gt = (a, b) => a > b;
 
 function findParent(node, target) {
   if (!isSplit(node)) return null;

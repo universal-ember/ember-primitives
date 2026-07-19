@@ -57,7 +57,7 @@
       "ember-element-helper": "^0.8.8",
       "ember-primitives": "workspace:^",
       "ember-repl": "^8.0.0",
-      "ember-source": "^6.10.1",
+      "ember-source": "^7.1.0",
       "reactiveweb": "^1.9.1",
       "tracked-toolbox": "^3.0.0"
     },

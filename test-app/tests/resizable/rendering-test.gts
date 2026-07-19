@@ -134,6 +134,141 @@ module('Rendering | <Resizable>', function (hooks) {
     });
   });
 
+  module('three panels', function (hooks) {
+    hooks.beforeEach(async function () {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel data-test-b>b</r.Panel>
+              <r.Handle data-test-handle-2 />
+              <r.Panel data-test-c>c</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+    });
+
+    test('each handle describes the panel immediately before it', async function (assert) {
+      const handle2 = document.querySelector('[data-test-handle-2]');
+      const panelB = document.querySelector('[data-test-b]');
+
+      assert.strictEqual(
+        handle2?.getAttribute('aria-controls'),
+        panelB?.getAttribute('id'),
+        'the second handle controls the middle panel'
+      );
+    });
+
+    test('dragging a handle only affects its two adjacent panels', async function (assert) {
+      const aBefore = widthOf('[data-test-a]');
+      const bBefore = widthOf('[data-test-b]');
+      const cBefore = widthOf('[data-test-c]');
+
+      await drag('[data-test-handle-2]', { from: 300, to: 250 });
+
+      assert.strictEqual(widthOf('[data-test-a]'), aBefore, 'a is untouched');
+      assert.ok(closeTo(widthOf('[data-test-b]'), bBefore - 50), 'b shrank');
+      assert.ok(closeTo(widthOf('[data-test-c]'), cBefore + 50), 'c grew');
+    });
+  });
+
+  module('drag lifecycle', function () {
+    test('drag state is set while dragging and cleaned up afterwards', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel data-test-b>b</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      await triggerEvent('[data-test-handle]', 'pointerdown', {
+        button: 0,
+        pointerId: 1,
+        clientX: 250,
+        clientY: 0,
+      });
+
+      assert.dom('[data-test-handle]').hasAttribute('data-resizing');
+      assert.strictEqual(document.body.style.cursor, 'col-resize', 'body cursor is set');
+
+      await triggerEvent('[data-test-handle]', 'pointerup', { pointerId: 1 });
+
+      assert.dom('[data-test-handle]').doesNotHaveAttribute('data-resizing');
+      assert.strictEqual(document.body.style.cursor, '', 'body cursor is restored');
+    });
+
+    test('pointercancel also ends the drag', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel data-test-b>b</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      await triggerEvent('[data-test-handle]', 'pointerdown', {
+        button: 0,
+        pointerId: 1,
+        clientX: 250,
+        clientY: 0,
+      });
+      await triggerEvent('[data-test-handle]', 'pointercancel', { pointerId: 1 });
+
+      assert.dom('[data-test-handle]').doesNotHaveAttribute('data-resizing');
+      assert.strictEqual(document.body.style.cursor, '', 'body cursor is restored');
+
+      // pointermove after cancel does nothing
+      const before = widthOf('[data-test-a]');
+
+      await triggerEvent('[data-test-handle]', 'pointermove', {
+        pointerId: 1,
+        clientX: 400,
+        clientY: 0,
+      });
+
+      assert.strictEqual(widthOf('[data-test-a]'), before, 'no resize after cancel');
+    });
+
+    test('non-primary buttons do not start a drag', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel data-test-b>b</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      await triggerEvent('[data-test-handle]', 'pointerdown', {
+        button: 2,
+        pointerId: 1,
+        clientX: 250,
+        clientY: 0,
+      });
+
+      assert.dom('[data-test-handle]').doesNotHaveAttribute('data-resizing');
+    });
+  });
+
   module('constraints', function () {
     test('minSize and maxSize are respected while dragging', async function (assert) {
       await render(
@@ -164,6 +299,45 @@ module('Rendering | <Resizable>', function (hooks) {
 
       assert.ok(closeTo(a, total * 0.6), `a stopped at its maxSize (${a}px of ${total}px)`);
       assert.dom('[data-test-handle]').hasAria('valuenow', '60');
+    });
+
+    test('defaultSizes that do not sum to 100 are normalized', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel @defaultSize={{40}} data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel @defaultSize={{40}} data-test-b>b</r.Panel>
+              <r.Handle data-test-handle-2 />
+              <r.Panel @defaultSize={{40}} data-test-c>c</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '33');
+      assert.dom('[data-test-handle-2]').hasAria('valuenow', '33');
+    });
+
+    test('End respects the following panel’s minSize', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel @minSize={{30}} data-test-b>b</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'End');
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '70');
     });
 
     test('defaultSize sets the initial layout', async function (assert) {
@@ -208,6 +382,47 @@ module('Rendering | <Resizable>', function (hooks) {
       await triggerKeyEvent('[data-test-handle]', 'keydown', 'Enter');
 
       assert.dom('[data-test-handle]').hasAria('valuenow', '50');
+      assert.dom('[data-test-a]').doesNotHaveAttribute('data-collapsed');
+    });
+
+    test('dragging far past the minSize collapses; a small overshoot holds at minSize', async function (assert) {
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel @collapsible={{true}} @minSize={{20}} data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel data-test-b>b</r.Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      const total = widthOf('[data-test-a]') + widthOf('[data-test-b]');
+
+      // a small overshoot past minSize holds at minSize (20%)
+      await drag('[data-test-handle]', { from: total / 2, to: total * 0.15 });
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '20');
+      assert.dom('[data-test-a]').doesNotHaveAttribute('data-collapsed');
+
+      // dragging well past half the minSize snaps closed
+      await drag('[data-test-handle]', { from: total * 0.2, to: 0 });
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '0');
+      assert.dom('[data-test-a]').hasAttribute('data-collapsed');
+
+      // dragging further closed keeps it collapsed (no snap back open)
+      await drag('[data-test-handle]', { from: 0, to: -50 });
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '0');
+      assert.dom('[data-test-a]').hasAttribute('data-collapsed');
+
+      // dragging back open past the minSize expands again
+      await drag('[data-test-handle]', { from: 0, to: total * 0.4 });
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '40');
       assert.dom('[data-test-a]').doesNotHaveAttribute('data-collapsed');
     });
 
@@ -341,6 +556,44 @@ module('Rendering | <Resizable>', function (hooks) {
       const c = widthOf('[data-test-c]');
 
       assert.ok(closeTo(a, c), `a (${a}px) and c (${c}px) are the same size`);
+    });
+
+    test('removing a panel gives its space back proportionally', async function (assert) {
+      class State {
+        @tracked showThird = true;
+      }
+
+      const state = new State();
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable as |r|>
+              <r.Panel data-test-a>a</r.Panel>
+              <r.Handle data-test-handle />
+              <r.Panel data-test-b>b</r.Panel>
+              {{#if state.showThird}}
+                <r.Handle data-test-handle-2 />
+                <r.Panel data-test-c>c</r.Panel>
+              {{/if}}
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      assert.dom('[data-test-handle]').hasAria('valuenow', '33');
+
+      state.showThird = false;
+      await settled();
+
+      assert.dom('[data-test-c]').doesNotExist();
+      assert.dom('[data-test-handle]').hasAria('valuenow', '50');
+
+      const a = widthOf('[data-test-a]');
+      const b = widthOf('[data-test-b]');
+
+      assert.ok(closeTo(a, b), `a (${a}px) and b (${b}px) split the space again`);
     });
   });
 

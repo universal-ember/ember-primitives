@@ -51,6 +51,20 @@ function isCollapsible(panel: Element): boolean {
   return panel.hasAttribute('data-collapsible');
 }
 
+function sameMembers(a: HTMLElement[], b: HTMLElement[]): boolean {
+  return a.length === b.length && a.every((element, index) => element === b[index]);
+}
+
+/**
+ * Skips the write when the attribute already has the desired value,
+ * so unchanged elements are left untouched.
+ */
+function setAttribute(element: Element, name: string, value: string): void {
+  if (element.getAttribute(name) !== value) {
+    element.setAttribute(name, value);
+  }
+}
+
 interface DragState {
   prev: HTMLElement;
   next: HTMLElement;
@@ -90,6 +104,14 @@ export class GroupState {
    * so that expanding restores it.
    */
   #previousSizes = new WeakMap<HTMLElement, number>();
+
+  /**
+   * Membership as of the last layout, so mutation batches that don't
+   * change membership (e.g. content changes inside a panel, or churn
+   * within a nested group) can be ignored.
+   */
+  #knownPanels: HTMLElement[] = [];
+  #knownHandles: HTMLElement[] = [];
 
   constructor(options: GroupOptions) {
     this.#options = options;
@@ -154,20 +176,26 @@ export class GroupState {
     };
   };
 
+  /**
+   * Subtree observation is required (panels may sit behind wrapper
+   * elements), which means this also fires for churn inside nested
+   * groups and for content changes within panels. Rather than
+   * classifying every mutation, we answer the only question that
+   * matters -- did *this* group's membership actually change? --
+   * and no-op otherwise.
+   */
   #onMutation(mutations: MutationRecord[]): void {
-    const relevant = mutations.some((mutation) => {
-      const target = mutation.target;
+    const orientationChanged = mutations.some(
+      (mutation) => mutation.type === 'attributes' && mutation.target === this.element
+    );
 
-      if (!(target instanceof Element)) return false;
+    if (orientationChanged || this.#membershipChanged()) this.#layout();
+  }
 
-      // the orientation of this group changed
-      if (mutation.type === 'attributes') return target === this.element;
-
-      // children changed somewhere that belongs to this group (not a nested one)
-      return target.closest(GROUP_SELECTOR) === this.element;
-    });
-
-    if (relevant) this.#layout();
+  #membershipChanged(): boolean {
+    return (
+      !sameMembers(this.panels, this.#knownPanels) || !sameMembers(this.handles, this.#knownHandles)
+    );
   }
 
   /**
@@ -177,6 +205,9 @@ export class GroupState {
    */
   #layout(): void {
     const panels = this.panels;
+
+    this.#knownPanels = panels;
+    this.#knownHandles = this.handles;
 
     if (panels.length === 0) return;
 
@@ -258,7 +289,11 @@ export class GroupState {
    */
   #apply(): void {
     for (const [panel, size] of this.#sizes) {
-      panel.style.flex = `${size} 1 0px`;
+      const flex = `${size} 1 0px`;
+
+      if (panel.style.flex !== flex) {
+        panel.style.flex = flex;
+      }
     }
 
     this.#syncHandles();
@@ -273,16 +308,16 @@ export class GroupState {
     for (const handle of this.handles) {
       const [prev] = this.#neighborsOf(handle);
 
-      handle.setAttribute('aria-orientation', this.#isHorizontal ? 'vertical' : 'horizontal');
+      setAttribute(handle, 'aria-orientation', this.#isHorizontal ? 'vertical' : 'horizontal');
 
       if (!prev) continue;
 
       if (!prev.id) prev.id = `ember-primitives__resizable__panel--${panelId++}`;
 
-      handle.setAttribute('aria-controls', prev.id);
-      handle.setAttribute('aria-valuemin', `${minSizeOf(prev)}`);
-      handle.setAttribute('aria-valuemax', `${maxSizeOf(prev)}`);
-      handle.setAttribute('aria-valuenow', `${Math.round(this.#sizes.get(prev) ?? 0)}`);
+      setAttribute(handle, 'aria-controls', prev.id);
+      setAttribute(handle, 'aria-valuemin', `${minSizeOf(prev)}`);
+      setAttribute(handle, 'aria-valuemax', `${maxSizeOf(prev)}`);
+      setAttribute(handle, 'aria-valuenow', `${Math.round(this.#sizes.get(prev) ?? 0)}`);
     }
   }
 

@@ -604,6 +604,57 @@ module('Rendering | <Resizable>', function (hooks) {
     });
   });
 
+  module('mutation efficiency', function () {
+    test('content changes inside a panel do not relayout the group', async function (assert) {
+      class State {
+        @tracked split = false;
+      }
+
+      const state = new State();
+      const onOuterLayout = () => assert.step('outer-layout');
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable @onLayoutChange={{onOuterLayout}}>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel data-test-c>
+                {{#if state.split}}
+                  <Resizable @orientation="vertical">
+                    <Panel data-test-inner-a>inner a</Panel>
+                    <Handle data-test-inner-handle />
+                    <Panel data-test-inner-b>inner b</Panel>
+                  </Resizable>
+                {{else}}
+                  c
+                {{/if}}
+              </Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      assert.verifySteps(['outer-layout'], 'initial layout');
+
+      // splitting the last panel's *content* does not change the
+      // outer group's membership
+      state.split = true;
+      await settled();
+
+      assert.dom('[data-test-inner-handle]').exists('the nested group rendered');
+      assert.verifySteps([], 'no outer relayout for a nested split');
+
+      // resizing the nested group does not affect the outer group either
+      await triggerKeyEvent('[data-test-inner-handle]', 'keydown', 'ArrowDown');
+
+      assert.verifySteps([], 'no outer relayout for a nested resize');
+    });
+  });
+
   module('@onLayoutChange', function () {
     test('reports sizes when the layout changes', async function (assert) {
       let latest: number[] = [];

@@ -706,7 +706,15 @@ const Output = <template>
       background: #1e1e2e;
     }
     .limber-minimized[data-orientation='horizontal'] .limber-sliver {
-      width: 11rem;
+      width: 2rem;
+    }
+    /* in the narrow sliver, the buttons rotate 90° to fit */
+    .limber-minimized[data-orientation='horizontal'] .limber-controls {
+      position: static;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.375rem 0.25rem;
+      writing-mode: vertical-rl;
     }
     .limber-minimized[data-orientation='vertical'] .limber-sliver {
       height: 2rem;

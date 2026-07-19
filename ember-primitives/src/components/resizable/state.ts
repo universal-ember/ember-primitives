@@ -190,6 +190,8 @@ export class GroupState {
     subtree: true,
     attributes: true,
     attributeFilter: ['data-orientation'],
+    // to distinguish real changes from same-value writes (see below)
+    attributeOldValue: true,
   };
 
   static #handleMutations(mutations: MutationRecord[]): void {
@@ -207,7 +209,16 @@ export class GroupState {
       if (mutation.type === 'attributes') {
         const group = GroupState.#observed.get(target as HTMLElement);
 
-        if (group) affected.set(group, true);
+        /**
+         * setAttribute queues a record even when the value is
+         * unchanged (renderers do rewrite attributes with the same
+         * value); only actual changes warrant a relayout.
+         */
+        const changed =
+          mutation.attributeName &&
+          mutation.oldValue !== target.getAttribute(mutation.attributeName);
+
+        if (group && changed) affected.set(group, true);
         continue;
       }
 

@@ -501,6 +501,44 @@ module('Rendering | <Resizable>', function (hooks) {
 
       assert.ok(closeTo(a, aBefore + 50), `a grew by 50px (${aBefore}px -> ${a}px)`);
     });
+
+    test('orientation may change while rendered; panels keep their sizes', async function (assert) {
+      class State {
+        @tracked orientation: 'horizontal' | 'vertical' = 'horizontal';
+      }
+
+      const state = new State();
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 408px;">
+            <Resizable @orientation={{state.orientation}}>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      await triggerKeyEvent('[data-test-handle]', 'keydown', 'ArrowRight', { shiftKey: true });
+
+      assert.dom('[data-test-handle]').hasAria('orientation', 'vertical');
+      assert.dom('[data-test-handle]').hasAria('valuenow', '60');
+
+      state.orientation = 'vertical';
+      await settled();
+
+      assert.dom('.ember-primitives__resizable').hasAttribute('data-orientation', 'vertical');
+      assert.dom('[data-test-handle]').hasAria('orientation', 'horizontal');
+      assert.dom('[data-test-handle]').hasAria('valuenow', '60', 'sizes survive the flip');
+
+      const a = heightOf('[data-test-a]');
+      const b = heightOf('[data-test-b]');
+
+      assert.ok(closeTo(a / (a + b), 0.6), `a keeps its 60% share (${a}px of ${a + b}px)`);
+    });
   });
 
   module('nesting', function () {
@@ -906,6 +944,106 @@ module('Rendering | <Resizable>', function (hooks) {
       await triggerKeyEvent('[data-test-inner-handle]', 'keydown', 'ArrowDown');
 
       assert.verifySteps([], 'no outer relayout for a nested resize');
+    });
+
+    test('splitting the last panel in place: nothing outside it is touched at all', async function (assert) {
+      class State {
+        @tracked split = false;
+      }
+
+      const state = new State();
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              <Handle data-test-handle-2 />
+              <Panel data-test-c>
+                {{#if state.split}}
+                  <Resizable @orientation="vertical">
+                    <Panel data-test-inner-a>inner a</Panel>
+                    <Handle data-test-inner-handle />
+                    <Panel data-test-inner-b>inner b</Panel>
+                  </Resizable>
+                {{else}}
+                  c
+                {{/if}}
+              </Panel>
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      /**
+       * The strictest form of the guarantee: the split panel only
+       * gains children -- every element that survives the split (the
+       * other panels, ALL of their contents, both handles, and the
+       * split panel's own attributes) sees zero mutation records.
+       */
+      const survivors = recordMutations([
+        '[data-test-a]',
+        '[data-test-b]',
+        '[data-test-handle]',
+        '[data-test-handle-2]',
+      ]);
+      const splitPanel = recordMutations(['[data-test-c]'], { attributes: true });
+
+      state.split = true;
+      await settled();
+
+      assert.dom('[data-test-inner-handle]').exists('the nested group rendered');
+      assert.deepEqual(survivors.stop(), [], 'surviving panels and handles saw zero mutations');
+      assert.deepEqual(splitPanel.stop(), [], 'the split panel itself only gained children');
+    });
+
+    test('replacing the last panel with a split (new elements) leaves survivors untouched', async function (assert) {
+      class State {
+        @tracked split = false;
+      }
+
+      const state = new State();
+
+      // both branches render a trailing handle + panel, but toggling
+      // replaces those elements entirely -- the shape a tree-driven
+      // {{#each}} produces when a leaf is wrapped in a nested group
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              {{#if state.split}}
+                <Handle data-test-handle-2 />
+                <Panel data-test-c>
+                  <Resizable @orientation="vertical">
+                    <Panel data-test-inner-a>inner a</Panel>
+                    <Handle data-test-inner-handle />
+                    <Panel data-test-inner-b>inner b</Panel>
+                  </Resizable>
+                </Panel>
+              {{else}}
+                <Handle data-test-handle-2 />
+                <Panel data-test-c>c</Panel>
+              {{/if}}
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      const survivors = recordMutations(['[data-test-a]', '[data-test-b]', '[data-test-handle]']);
+
+      state.split = true;
+      await settled();
+
+      assert.dom('[data-test-inner-handle]').exists('the nested group rendered');
+      assert.dom('[data-test-handle-2]').hasAria('valuenow', '33', 'the new handle is wired up');
+      assert.deepEqual(survivors.stop(), [], 'surviving panels and handle saw zero mutations');
     });
   });
 

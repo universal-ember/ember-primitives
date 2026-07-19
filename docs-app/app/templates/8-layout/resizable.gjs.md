@@ -75,6 +75,13 @@ let launches = 0;
 
 class AppWindow {
   @tracked title;
+  /**
+   * Focus is a per-window flag (not a comparison against a shared
+   * `focused` value) so a focus change only invalidates the two
+   * windows involved -- every other window's class binding stays
+   * untouched, and observers see no writes on them.
+   */
+  @tracked isFocused = false;
   content;
 
   constructor() {
@@ -120,8 +127,17 @@ class WindowManager {
   root = new Split('horizontal', [new AppWindow()]);
   @tracked focused = firstWindow(this.root);
 
+  constructor() {
+    if (this.focused) this.focused.isFocused = true;
+  }
+
   focus = (node) => {
-    if (this.focused !== node) this.focused = node;
+    if (this.focused === node) return;
+
+    if (this.focused) this.focused.isFocused = false;
+    if (node) node.isFocused = true;
+
+    this.focused = node;
   };
 
   split = (orientation) => {
@@ -143,7 +159,7 @@ class WindowManager {
       parent.children.splice(parent.children.indexOf(focused), 1, wrapped);
     }
 
-    this.focused = win;
+    this.focus(win);
   };
 
   toggleLayout = () => {
@@ -175,7 +191,7 @@ class WindowManager {
       grandparent.children.splice(grandparent.children.indexOf(parent), 1, only);
     }
 
-    this.focused = firstWindow(parent.children.length ? parent : root);
+    this.focus(firstWindow(parent.children.length ? parent : root));
   };
 }
 
@@ -196,7 +212,7 @@ const Tree = <template>
   {{else}}
     <button
       type="button"
-      class="i3-window {{if (eq wm.focused @node) 'is-focused'}}"
+      class="i3-window {{if @node.isFocused 'is-focused'}}"
       {{on "click" (fn wm.focus @node)}}
     >
       <span class="i3-title">{{@node.title}}</span>
@@ -436,6 +452,13 @@ let nextId = 1;
 
 class PanelNode {
   id = nextId++;
+  /**
+   * A per-panel flag (rather than comparing against the shared
+   * `focused` value in the template) so a focus change only
+   * invalidates the two panels involved -- nothing is written to any
+   * other panel, not even a same-value `class`.
+   */
+  @tracked isFocused = false;
 }
 
 class GroupNode {
@@ -453,8 +476,16 @@ const cross = (orientation) => (orientation === 'horizontal' ? 'vertical' : 'hor
 
 const root = new GroupNode('horizontal', [new PanelNode(), new PanelNode()]);
 const focused = cell(root.children[0]);
+
+focused.current.isFocused = true;
+
 const focus = (panel) => {
-  if (focused.current !== panel) focused.set(panel);
+  if (focused.current === panel) return;
+
+  if (focused.current) focused.current.isFocused = false;
+  if (panel) panel.isFocused = true;
+
+  focused.set(panel);
 };
 
 function findParent(node, target) {
@@ -482,7 +513,7 @@ const addPanel = () => {
   const panel = new PanelNode();
 
   parent.children.splice(parent.children.indexOf(focused.current) + 1, 0, panel);
-  focused.set(panel);
+  focus(panel);
 };
 
 const split = (orientation) => {
@@ -495,7 +526,7 @@ const split = (orientation) => {
   const group = new GroupNode(orientation, [target, panel]);
 
   parent.children.splice(parent.children.indexOf(target), 1, group);
-  focused.set(panel);
+  focus(panel);
 };
 
 const removePanel = () => {
@@ -513,7 +544,7 @@ const removePanel = () => {
     grandparent.children.splice(grandparent.children.indexOf(parent), 1, parent.children[0]);
   }
 
-  focused.set(firstPanel(parent.children.length ? parent : root));
+  focus(firstPanel(parent.children.length ? parent : root));
 };
 
 const rotate = () => {
@@ -534,7 +565,7 @@ const Tree = <template>
         {{else}}
           <button
             type="button"
-            class="rz-pane {{if (eq focused.current child) 'is-focused'}}"
+            class="rz-pane {{if child.isFocused 'is-focused'}}"
             {{on "click" (fn focus child)}}
           >
             {{child.id}}

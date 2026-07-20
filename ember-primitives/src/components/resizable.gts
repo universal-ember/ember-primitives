@@ -169,5 +169,3 @@ export class Resizable extends Component<Signature> {
     </div>
   </template>
 }
-
-export default Resizable;

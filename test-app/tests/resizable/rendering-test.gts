@@ -1127,5 +1127,59 @@ module('Rendering | <Resizable>', function (hooks) {
 
       assert.verifySteps([], 'no re-reports while pinned at the limit');
     });
+
+    test('panels added mid-drag are included in subsequent reports', async function (assert) {
+      class State {
+        @tracked showThird = false;
+      }
+
+      const state = new State();
+
+      let latest: number[] = [];
+      const onLayoutChange = (sizes: number[]) => (latest = sizes);
+
+      await render(
+        <template>
+          {{! template-lint-disable no-inline-styles }}
+          <div style="width: 508px; height: 200px;">
+            <Resizable @onLayoutChange={{onLayoutChange}}>
+              <Panel data-test-a>a</Panel>
+              <Handle data-test-handle />
+              <Panel data-test-b>b</Panel>
+              {{#if state.showThird}}
+                <Handle data-test-handle-2 />
+                <Panel data-test-c>c</Panel>
+              {{/if}}
+            </Resizable>
+          </div>
+        </template>
+      );
+
+      await triggerEvent('[data-test-handle]', 'pointerdown', {
+        button: 0,
+        pointerId: 1,
+        clientX: 250,
+        clientY: 0,
+      });
+      await triggerEvent('[data-test-handle]', 'pointermove', {
+        pointerId: 1,
+        clientX: 240,
+        clientY: 0,
+      });
+
+      assert.strictEqual(latest.length, 2, 'two panels reported while dragging');
+
+      state.showThird = true;
+      await settled();
+
+      await triggerEvent('[data-test-handle]', 'pointermove', {
+        pointerId: 1,
+        clientX: 230,
+        clientY: 0,
+      });
+      await triggerEvent('[data-test-handle]', 'pointerup', { pointerId: 1 });
+
+      assert.strictEqual(latest.length, 3, 'the panel added mid-drag is included in reports');
+    });
   });
 });

@@ -96,7 +96,7 @@
     "ember-qunit": "^9.0.4",
     "ember-resources": "^7.0.7",
     "ember-scoped-css": "^2.0.4",
-    "ember-source": "^6.10.1",
+    "ember-source": "^7.1.0",
     "ember-template-lint": "^7.9.3",
     "ember-welcome-page": "^8.0.5",
     "eslint": "^9.39.2",

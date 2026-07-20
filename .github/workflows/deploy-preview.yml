@@ -111,6 +111,16 @@ jobs:
         with:
           repository: ${{ needs.determinePR.outputs.repo }}
           ref: ${{ needs.determinePR.outputs.branch }}
+          # Never write the base repo's GITHUB_TOKEN into .git/config,
+          # since this job runs (potentially fork-authored) build scripts.
+          persist-credentials: false
+          # checkout@v7 refuses to check out fork PR code from workflow_run
+          # workflows unless explicitly opted in. This is the deliberate,
+          # documented (see header comment) trade-off of this trusted-workflow
+          # pattern: only this Build job touches PR code, and the deploy /
+          # comment jobs below never check out code.
+          # https://gh.io/securely-using-pull_request_target
+          allow-unsafe-pr-checkout: true
       - name: TurboRepo local server
         uses: felixmosh/turborepo-gh-artifacts@v4
         with:

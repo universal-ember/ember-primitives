@@ -94,7 +94,7 @@ const isComponents = (str: string) => str === 'components';
 
 const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
-    {{#let (link @href) (getService 'router') as |l router|}}
+    {{#let (link @href) (getService "router") as |l router|}}
       <a
         href={{@href}}
         class="section-link {{if (isActivePath router.currentURL @href) 'is-active'}}"
@@ -112,7 +112,7 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
 
 const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
-    {{#let (link @href) (getService 'router') as |l router|}}
+    {{#let (link @href) (getService "router") as |l router|}}
       <a
         href={{@href}}
         class="subsection-link {{if (isActivePath router.currentURL @href) 'is-active'}}"

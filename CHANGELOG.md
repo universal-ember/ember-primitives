@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release (2026-07-20)
+
+* ember-primitives 0.61.0 (minor)
+* @universal-ember/docs-support 0.9.12 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#778](https://github.com/universal-ember/ember-primitives/pull/778) Add <Resizable> panel-group component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :house: Internal
+* [#782](https://github.com/universal-ember/ember-primitives/pull/782) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+* [#779](https://github.com/universal-ember/ember-primitives/pull/779) Fix flaky {{onResize}} tests ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 2
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+
 ## Release (2026-07-13)
 
 * ember-primitives 0.60.1 (patch)

@@ -421,7 +421,7 @@ import { Shadowed } from 'ember-primitives/components/shadowed';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/switch.gts" />
+<SetupInstructions @src="components/switch.gts" @since="0.0.1" />
 ```
 
 ## Features 

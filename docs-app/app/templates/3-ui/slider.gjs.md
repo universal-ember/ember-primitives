@@ -884,7 +884,7 @@ const onKeydown = (commitFn) => (event) => {
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/slider.gts" />
+<SetupInstructions @src="components/slider.gts" @since="0.60.0" />
 ```
 
 ## Features

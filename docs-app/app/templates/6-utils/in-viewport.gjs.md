@@ -7,9 +7,8 @@ This is useful for optimizing performance by not rendering expensive components 
 ## Install
 
 ```hbs live
-<SetupInstructions @src="viewport/in-viewport.gts" />
+<SetupInstructions @src="viewport/in-viewport.gts" @since="0.49.0" />
 ```
-
 
 ## Usage
 

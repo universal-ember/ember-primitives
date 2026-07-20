@@ -7,11 +7,8 @@ Using one `IntersectionObserver` (instead of multiple) results in dramatically b
 ## Install
 
 ```hbs live
-<SetupInstructions @src="viewport/viewport.ts" />
+<SetupInstructions @src="viewport/viewport.ts" @since="0.49.0" />
 ```
-
-
-Introduced in [0.49.0](https://github.com/universal-ember/ember-primitives/releases)
 
 ## Usage
 

@@ -25,5 +25,5 @@ import { ExternalLink } from 'ember-primitives';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/external-link.gts" />
+<SetupInstructions @src="components/external-link.gts" @since="0.0.1" />
 ```

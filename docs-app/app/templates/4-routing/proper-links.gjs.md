@@ -6,7 +6,7 @@ You no longer need to use a component to have single-page-app navigation 🎉.
 ## Install
 
 ```hbs live
-<SetupInstructions @src="proper-links.ts" />
+<SetupInstructions @src="proper-links.ts" @since="0.0.1" />
 ```
 
 ## Setup

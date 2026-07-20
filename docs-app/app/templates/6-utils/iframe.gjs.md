@@ -23,6 +23,6 @@ import { APIDocs } from 'kolay';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="iframe.ts" />
+<SetupInstructions @src="iframe.ts" @since="0.0.6" />
 ```
 

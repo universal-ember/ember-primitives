@@ -129,7 +129,7 @@ const handleSubmit = (onChange, event) => {
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/form.gts" />
+<SetupInstructions @src="components/form.gts" @since="0.5.0" />
 ```
 
 ## Features 

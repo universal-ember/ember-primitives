@@ -103,7 +103,7 @@ import { Zoetrope } from "ember-primitives";
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/zoetrope.ts" />
+<SetupInstructions @src="components/zoetrope.ts" @since="0.26.0" />
 ```
 
 ## Features

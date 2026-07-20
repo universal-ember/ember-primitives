@@ -139,10 +139,8 @@ const ChevronDown = <template>
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/breadcrumb.gts" />
+<SetupInstructions @src="components/breadcrumb.gts" @since="0.51.0" />
 ```
-
-Introduced in [0.51.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.51.0-ember-primitives)
 
 ## Features
 

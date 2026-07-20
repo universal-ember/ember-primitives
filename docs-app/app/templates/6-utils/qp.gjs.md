@@ -7,9 +7,8 @@ Utilities for accessing query-params without the need for creating a class-compo
 ## Install
 
 ```hbs live
-<SetupInstructions @src="qp.ts" />
+<SetupInstructions @src="qp.ts" @since="0.33.0" />
 ```
-
 
 ## API Reference
 

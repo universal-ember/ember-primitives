@@ -15,9 +15,8 @@ See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) 
 
 
 ```hbs live
-<SetupInstructions @src="floating-ui.ts" />
+<SetupInstructions @src="floating-ui.ts" @since="0.15.0" />
 ```
-
 
 ## `{{anchorTo}}`
 

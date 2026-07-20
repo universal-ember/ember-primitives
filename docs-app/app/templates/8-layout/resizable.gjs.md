@@ -968,14 +968,8 @@ const sizeOf = (group, index) => saved[group]?.[index];
 
 ## Install
 
-```bash
-pnpm add ember-primitives
-```
-
-```js
-import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
-// or, from the barrel:
-import { Resizable, ResizablePanel, ResizableHandle } from 'ember-primitives';
+```hbs live
+<SetupInstructions @src="components/resizable.gts" @since="0.61.0" />
 ```
 
 ## Anatomy

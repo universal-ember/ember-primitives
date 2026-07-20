@@ -338,7 +338,7 @@ The scrollable element doesn't have to be the `body` either, it could be a `<div
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/dialog.gts" />
+<SetupInstructions @src="components/dialog.gts" @since="0.0.7" />
 ```
 
 ## Anatomy

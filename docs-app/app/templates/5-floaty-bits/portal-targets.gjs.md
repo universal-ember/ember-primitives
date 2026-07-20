@@ -67,9 +67,8 @@ const isOpen = cell(false);
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/portal-targets.gts" />
+<SetupInstructions @src="components/portal-targets.gts" @since="0.0.1" />
 ```
-
 
 ## Anatomy
 

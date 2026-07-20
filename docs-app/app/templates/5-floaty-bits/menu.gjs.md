@@ -116,7 +116,7 @@ Keep in mind that for the modifier to do its work, your custom component must us
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/menu.gts" />
+<SetupInstructions @src="components/menu.gts" @since="0.15.0" />
 ```
 
 ## API Reference

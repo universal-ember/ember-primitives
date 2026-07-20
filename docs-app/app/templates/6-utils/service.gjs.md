@@ -21,6 +21,6 @@ import { service } from 'ember-primitives/helpers/service';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="helpers/service.ts" />
+<SetupInstructions @src="helpers/service.ts" @since="0.0.1" />
 ```
 

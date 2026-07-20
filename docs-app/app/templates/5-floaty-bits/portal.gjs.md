@@ -263,7 +263,7 @@ import { PortalTarget } from 'ember-primitives/components/portal-targets';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/portal.gts" />
+<SetupInstructions @src="components/portal.gts" @since="0.0.4" />
 ```
 
 ## API Reference

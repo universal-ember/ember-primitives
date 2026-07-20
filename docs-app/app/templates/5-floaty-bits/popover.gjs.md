@@ -315,7 +315,7 @@ const settings = cell(false);
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/popover.gts" />
+<SetupInstructions @src="components/popover.gts" @since="0.0.1" />
 ```
 
 ## API Reference

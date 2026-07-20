@@ -42,7 +42,7 @@ import { Key, KeyCombo } from 'ember-primitives';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/keys.gts" />
+<SetupInstructions @src="components/keys.gts" @since="0.28.0" />
 ```
 
 ## Features

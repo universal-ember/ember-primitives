@@ -10,11 +10,8 @@ Use this for non-scrollable containers, or anywhere a virtual/windowed list does
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/incremental-each.gts" />
+<SetupInstructions @src="components/incremental-each.gts" @since="0.58.0" />
 ```
-
-Introduced in [0.58.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.58.0-ember-primitives)
-
 
 ## Usage
 

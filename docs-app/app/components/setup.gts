@@ -14,10 +14,31 @@ function orDefault(name: string | undefined) {
   return name || 'ember-primitives';
 }
 
+/**
+ * ember-primitives releases were tagged `ember-primitives@<version>`
+ * up through 0.10.1, and `v<version>-<package-name>` from 0.10.2 onward.
+ */
+function isOldStyleTag(version: string) {
+  const [major = 0, minor = 0, patch = 0] = version.split('.').map(Number);
+
+  return major === 0 && (minor < 10 || (minor === 10 && patch < 2));
+}
+
+function releaseURL(name: string | undefined, version: string) {
+  const packageName = orDefault(name);
+  const tag =
+    packageName === 'ember-primitives' && isOldStyleTag(version)
+      ? `ember-primitives@${version}`
+      : `v${version}-${packageName}`;
+
+  return `https://github.com/universal-ember/ember-primitives/releases/tag/${tag}`;
+}
+
 export const SetupInstructions: TOC<{
   Args: {
     name?: string;
     src?: string;
+    since?: string;
   };
 }> = <template>
   <Tabs class="tabs not-prose" @label="Install as a library" as |Tab|>
@@ -39,6 +60,13 @@ export const SetupInstructions: TOC<{
         </Link>
       </Tab>
     </Tabs>
+  {{/if}}
+
+  {{#if @since}}
+    <p>
+      Introduced in
+      <Link href={{releaseURL @name @since}}>{{@since}}</Link>
+    </p>
   {{/if}}
 
   <style scoped>

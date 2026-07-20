@@ -73,10 +73,8 @@ import { Separator } from "ember-primitives";
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/separator.gts" />
+<SetupInstructions @src="components/separator.gts" @since="0.52.0" />
 ```
-
-Introduced in [0.52.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.52.0-ember-primitives)
 
 ## What It Does
 

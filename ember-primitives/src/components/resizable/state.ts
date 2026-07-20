@@ -361,8 +361,10 @@ export class GroupState {
   #layout(members: Members = this.#members()): void {
     const { panels, handles } = members;
 
-    if (!sameMembers(panels, this.#knownPanels)) this.#knownPanels = panels;
-    if (!sameMembers(handles, this.#knownHandles)) this.#knownHandles = handles;
+    if (this.#drag) this.#drag.members = members;
+
+    this.#knownPanels = panels;
+    this.#knownHandles = handles;
 
     if (panels.length === 0) return;
 
@@ -468,26 +470,24 @@ export class GroupState {
    * borders/padding, so a collapsed panel rarely measures exactly 0.)
    */
   #apply(candidates: HTMLElement[], members: Members): void {
-    if (candidates.length > 0) {
-      /**
-       * With no unit fixed yet, nothing has ever been written, so every
-       * panel renders at the CSS default -- an equal 1/n share.
-       */
-      const unit = this.#unit ?? 100 / members.panels.length;
+    /**
+     * With no unit fixed yet, nothing has ever been written, so every
+     * panel renders at the CSS default -- an equal 1/n share.
+     */
+    const unit = this.#unit ?? 100 / members.panels.length;
 
-      for (const panel of candidates) {
-        const size = this.#sizes.get(panel);
+    for (const panel of candidates) {
+      const size = this.#sizes.get(panel);
 
-        if (size === undefined) continue;
+      if (size === undefined) continue;
 
-        const inlineGrow = panel.style.flexGrow;
-        const impliedPercent = (inlineGrow === '' ? 1 : parseFloat(inlineGrow)) * unit;
+      const inlineGrow = panel.style.flexGrow;
+      const impliedPercent = (inlineGrow === '' ? 1 : parseFloat(inlineGrow)) * unit;
 
-        if (isSameSize(impliedPercent, size)) continue;
+      if (isSameSize(impliedPercent, size)) continue;
 
-        this.#unit ??= unit;
-        panel.style.flex = `${size / unit} 1 0px`;
-      }
+      this.#unit ??= unit;
+      panel.style.flex = `${size / unit} 1 0px`;
     }
 
     this.#syncHandles(members);
@@ -669,9 +669,9 @@ export class GroupState {
       // synthetic events (tests) may not have an active pointer
     }
 
-    handleElement.addEventListener('pointermove', this.#drag.move);
-    handleElement.addEventListener('pointerup', this.#drag.end);
-    handleElement.addEventListener('pointercancel', this.#drag.end);
+    handleElement.addEventListener('pointermove', move);
+    handleElement.addEventListener('pointerup', end);
+    handleElement.addEventListener('pointercancel', end);
     handleElement.setAttribute('data-resizing', '');
 
     document.body.style.cursor = this.#isHorizontal ? 'col-resize' : 'row-resize';
@@ -737,49 +737,44 @@ export class GroupState {
     const step = event.shiftKey ? KEYBOARD_STEP_COARSE : KEYBOARD_STEP;
     const isHorizontal = this.#isHorizontal;
 
-    let delta: number | null = null;
-
-    let jumpTo: number | null = null;
+    let toDelta: ((prevSize: number) => number) | null = null;
 
     switch (event.key) {
       case 'ArrowLeft':
-        if (isHorizontal) delta = -step;
+        if (isHorizontal) toDelta = () => -step;
 
         break;
       case 'ArrowRight':
-        if (isHorizontal) delta = step;
+        if (isHorizontal) toDelta = () => step;
 
         break;
       case 'ArrowUp':
-        if (!isHorizontal) delta = -step;
+        if (!isHorizontal) toDelta = () => -step;
 
         break;
       case 'ArrowDown':
-        if (!isHorizontal) delta = step;
+        if (!isHorizontal) toDelta = () => step;
 
         break;
       case 'Home':
-        jumpTo = minSizeOf(prev);
+        toDelta = (prevSize) => minSizeOf(prev) - prevSize;
 
         break;
       case 'End':
-        jumpTo = maxSizeOf(prev);
+        toDelta = (prevSize) => maxSizeOf(prev) - prevSize;
 
         break;
     }
 
-    if (delta === null && jumpTo === null) return;
+    if (!toDelta) return;
 
     event.preventDefault();
 
     this.#syncSizesFromDOM(members.panels);
 
     const prevSize = this.#sizes.get(prev) ?? 0;
-    const requested = jumpTo === null ? delta : jumpTo - prevSize;
 
-    if (requested === null) return;
-
-    this.#applyDelta(prev, next, prevSize, this.#sizes.get(next) ?? 0, requested, members);
+    this.#applyDelta(prev, next, prevSize, this.#sizes.get(next) ?? 0, toDelta(prevSize), members);
   }
 
   /**

@@ -32,17 +32,17 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                 </a>
             </td>
             <td align="center">
-                <a href="https://github.com/evoactivity">
-                    <img src="https://avatars.githubusercontent.com/u/83799?v=4" width="100;" alt="evoactivity"/>
-                    <br />
-                    <sub><b>Liam Potter</b></sub>
-                </a>
-            </td>
-            <td align="center">
                 <a href="https://github.com/NullVoxPopuli-ai-agent">
                     <img src="https://avatars.githubusercontent.com/u/268630448?v=4" width="100;" alt="NullVoxPopuli-ai-agent"/>
                     <br />
                     <sub><b>@NullVoxPopuli's reduced-access machine account for AI usage</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/evoactivity">
+                    <img src="https://avatars.githubusercontent.com/u/83799?v=4" width="100;" alt="evoactivity"/>
+                    <br />
+                    <sub><b>Liam Potter</b></sub>
                 </a>
             </td>
             <td align="center">

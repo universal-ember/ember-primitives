@@ -66,7 +66,7 @@ import { Avatar } from 'ember-primitives';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/avatar.gts" />
+<SetupInstructions @src="components/avatar.gts" @since="0.7.0" />
 ```
 
 ## Features

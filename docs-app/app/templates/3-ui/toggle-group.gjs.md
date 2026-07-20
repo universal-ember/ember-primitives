@@ -107,7 +107,7 @@ const AlignRight = <template>
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/toggle-group.gts" />
+<SetupInstructions @src="components/toggle-group.gts" @since="0.13.0" />
 ```
 
 ## Features

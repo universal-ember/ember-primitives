@@ -114,10 +114,8 @@ Because the  [tabs pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/exampl
 ## Installation
 
 ```hbs live
-<SetupInstructions @src="components/tabs.gts" />
+<SetupInstructions @src="components/tabs.gts" @since="0.41.0" />
 ```
-
-Introduced in [0.41.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.41.0-ember-primitives)
 
 ## Anatomy
 

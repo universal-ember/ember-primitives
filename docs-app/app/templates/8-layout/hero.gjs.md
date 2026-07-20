@@ -11,9 +11,8 @@ The hero pattern is for featuring large, eye-catching content, such as an image 
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/layout/hero.gts" />
+<SetupInstructions @src="components/layout/hero.gts" @since="0.22.0" />
 ```
-
 
 ## Anatomy
 

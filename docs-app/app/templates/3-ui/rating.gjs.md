@@ -376,7 +376,7 @@ const Star = <template>
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/rating.gts" />
+<SetupInstructions @src="components/rating.gts" @since="0.30.0" />
 ```
 
 ## Features

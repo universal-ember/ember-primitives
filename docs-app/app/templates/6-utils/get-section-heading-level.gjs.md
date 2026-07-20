@@ -12,7 +12,6 @@ This enables distributed teams to correctly produce appropriate section heading 
 <SetupInstructions @name="which-heading-do-i-need" />
 ```
 
-
 ## Usage
 
 In your app, you can use any of `<section>`, `<article>`, and `<aside>` elements to denote when the [_Section Heading_][mdn-h] element should change its level.

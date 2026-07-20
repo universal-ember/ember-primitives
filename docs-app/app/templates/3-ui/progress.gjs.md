@@ -140,7 +140,7 @@ const RandomProgress =
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/progress.gts" />
+<SetupInstructions @src="components/progress.gts" @since="0.3.0" />
 ```
 
 ## Features

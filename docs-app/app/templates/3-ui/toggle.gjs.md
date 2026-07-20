@@ -44,7 +44,7 @@ import { Toggle } from 'ember-primitives';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/toggle.gts" />
+<SetupInstructions @src="components/toggle.gts" @since="0.0.3" />
 ```
 
 ## Features 

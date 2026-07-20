@@ -24,12 +24,8 @@ This can be useful for importing services that may themselves import many things
 ## Install
 
 ```hbs live
-<SetupInstructions @src="service.ts" />
+<SetupInstructions @src="service.ts" @since="0.47.0" />
 ```
-
-
-Introduced in [0.47.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.47.0-ember-primitives)
-
 
 ## Usage
 

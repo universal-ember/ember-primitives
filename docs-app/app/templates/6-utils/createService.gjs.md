@@ -24,12 +24,8 @@ This utility will create a _private_ service using a class definition similar to
 ## Install
 
 ```hbs live
-<SetupInstructions @src="service.ts" />
+<SetupInstructions @src="service.ts" @since="0.47.0" />
 ```
-
-
-Introduced in [0.47.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.47.0-ember-primitives)
-
 
 ## Usage
 

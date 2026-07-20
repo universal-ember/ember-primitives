@@ -102,7 +102,7 @@ function syncBodyClass() {
 ## Install
 
 ```hbs live
-<SetupInstructions @src="color-scheme.gts" />
+<SetupInstructions @src="color-scheme.ts" @since="0.0.1" />
 ```
 
 ## API Reference

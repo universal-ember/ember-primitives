@@ -10,11 +10,8 @@ This utility also handles the (uncatchable) ["ResizeObserver loop limit exceeded
 ## Install
 
 ```hbs live
-<SetupInstructions @src="resize-observer.ts" />
+<SetupInstructions @src="resize-observer.ts" @since="0.42.0" />
 ```
-
-
-Introduced in [0.42.0](https://github.com/universal-ember/ember-primitives/releases/tag/v0.42.0-ember-primitives)
 
 ## Usage
 

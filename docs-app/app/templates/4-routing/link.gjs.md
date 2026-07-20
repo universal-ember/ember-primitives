@@ -40,7 +40,7 @@ import { Link } from 'ember-primitives';
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/link.gts" />
+<SetupInstructions @src="components/link.gts" @since="0.0.1" />
 ```
 
 ## Features

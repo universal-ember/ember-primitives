@@ -49,7 +49,7 @@ const update = ({ code }) => currentCode.current = code;
 ## Install
 
 ```hbs live
-<SetupInstructions @src="components/one-time-password.gts" />
+<SetupInstructions @src="components/one-time-password.gts" @since="0.6.0" />
 ```
 
 ## Features

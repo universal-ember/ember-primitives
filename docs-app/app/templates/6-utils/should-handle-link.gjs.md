@@ -10,7 +10,6 @@ Before we pass off the the ember router to determine if a `href` link is part of
 <SetupInstructions @name="should-handle-link" />
 ```
 
-
 ## Usage 
 
 ```ts

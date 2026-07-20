@@ -9,9 +9,8 @@ This is a very tiny wrapper around reactiveweb's [`getPromiseState`](https://rea
 ## Install
 
 ```hbs live
-<SetupInstructions @src="load.gts" />
+<SetupInstructions @src="load.gts" @since="0.36.0" />
 ```
-
 
 ## Usage
 

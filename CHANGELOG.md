@@ -2,6 +2,25 @@
 
 ## Release (2026-07-20)
 
+* ember-primitives 0.61.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#783](https://github.com/universal-ember/ember-primitives/pull/783) Resizable: query the DOM once per interaction, not once per layer ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :memo: Documentation
+* [#789](https://github.com/universal-ember/ember-primitives/pull/789) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+* [#784](https://github.com/universal-ember/ember-primitives/pull/784) docs: unify install instructions across all pages via SetupInstructions `@since` ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :house: Internal
+* [#785](https://github.com/universal-ember/ember-primitives/pull/785) Fix Deploy Preview: opt in to fork PR checkout under actions/checkout@v7 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 2
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+
+## Release (2026-07-20)
+
 * ember-primitives 0.61.0 (minor)
 * @universal-ember/docs-support 0.9.12 (patch)
 

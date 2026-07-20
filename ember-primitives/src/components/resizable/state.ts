@@ -54,12 +54,52 @@ function sameMembers(a: HTMLElement[], b: HTMLElement[]): boolean {
   return a.length === b.length && a.every((element, index) => element === b[index]);
 }
 
-/**
- * Whether `a` comes before `b` in document order.
- * (An ancestor also "precedes" its descendants.)
- */
 function precedes(a: Element, b: Element): boolean {
   return Boolean(b.compareDocumentPosition(a) & Node.DOCUMENT_POSITION_PRECEDING);
+}
+
+/**
+ * The `data-collapsed` attribute is the source of truth for collapse
+ * state (it is also the styling hook consumers use).
+ */
+function isCollapsed(panel: HTMLElement): boolean {
+  return isCollapsible(panel) && panel.hasAttribute('data-collapsed');
+}
+
+function setCollapsed(panel: HTMLElement, collapsed: boolean): void {
+  if (collapsed === panel.hasAttribute('data-collapsed')) return;
+
+  if (collapsed) {
+    panel.setAttribute('data-collapsed', '');
+  } else {
+    panel.removeAttribute('data-collapsed');
+  }
+}
+
+/**
+ * The panels immediately before and after the given handle element,
+ * in document order.
+ */
+function neighborsOf(
+  handleElement: HTMLElement,
+  panels: HTMLElement[]
+): [HTMLElement | null, HTMLElement | null] {
+  let prev: HTMLElement | null = null;
+  let next: HTMLElement | null = null;
+
+  for (const panel of panels) {
+    const position = handleElement.compareDocumentPosition(panel);
+
+    if (position & Node.DOCUMENT_POSITION_PRECEDING) {
+      prev = panel;
+    } else if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
+      next = panel;
+
+      break;
+    }
+  }
+
+  return [prev, next];
 }
 
 /**
@@ -89,11 +129,6 @@ function setAttribute(element: Element, name: string, value: string): void {
   }
 }
 
-/**
- * This group's panels and handles, in document order.
- * Queried together (one subtree traversal) and passed along within an
- * operation, so each interaction queries the DOM once.
- */
 interface Members {
   panels: HTMLElement[];
   handles: HTMLElement[];
@@ -110,11 +145,6 @@ interface DragState {
    * used to convert px deltas to % deltas.
    */
   totalPx: number;
-  /**
-   * Like the sizes above, membership is snapshotted at drag start --
-   * the whole drag operates on it (a membership change mid-drag
-   * triggers its own relayout via the MutationObserver).
-   */
   members: Members;
   move: (event: PointerEvent) => void;
   end: (event: PointerEvent) => void;
@@ -196,7 +226,6 @@ export class GroupState {
     if (!element) return { panels, handles };
 
     for (const member of element.querySelectorAll<HTMLElement>(MEMBER_SELECTOR)) {
-      // members of nested groups belong to their own group, not this one
       if (member.closest(GROUP_SELECTOR) !== element) continue;
 
       (member.classList.contains(PANEL_CLASS) ? panels : handles).push(member);
@@ -340,7 +369,6 @@ export class GroupState {
     let changed = false;
 
     // forget sizes of panels that left the DOM
-    // (deleting while iterating a Map is safe)
     const current = new Set(panels);
 
     for (const known of this.#sizes.keys()) {
@@ -364,7 +392,7 @@ export class GroupState {
         continue;
       }
 
-      const size = this.#isCollapsed(panel)
+      const size = isCollapsed(panel)
         ? preferred
         : clamp(preferred, minSizeOf(panel), maxSizeOf(panel));
 
@@ -474,10 +502,6 @@ export class GroupState {
     const { panels, handles } = members;
     const ariaOrientation = this.#isHorizontal ? 'vertical' : 'horizontal';
 
-    /**
-     * Both lists are in document order, so one forward walk pairs each
-     * handle with the panel immediately before it.
-     */
     let index = 0;
 
     for (const handle of handles) {
@@ -508,31 +532,13 @@ export class GroupState {
   }
 
   /**
-   * The `data-collapsed` attribute is the source of truth for collapse
-   * state (it is also the styling hook consumers use).
-   */
-  #isCollapsed(panel: HTMLElement): boolean {
-    return isCollapsible(panel) && panel.hasAttribute('data-collapsed');
-  }
-
-  #setCollapsed(panel: HTMLElement, collapsed: boolean): void {
-    if (collapsed === panel.hasAttribute('data-collapsed')) return;
-
-    if (collapsed) {
-      panel.setAttribute('data-collapsed', '');
-    } else {
-      panel.removeAttribute('data-collapsed');
-    }
-  }
-
-  /**
    * Re-derive percentage sizes from actual rendered pixels.
    * Corrects any drift (e.g. from CSS min-sizes) before an interaction.
    */
   #syncSizesFromDOM(panels: HTMLElement[], measured?: number[]): void {
     // collapsed panels are 0 even though their borders/padding measure larger
     const px = panels.map((panel, index) =>
-      this.#isCollapsed(panel) ? 0 : (measured?.[index] ?? this.#pixelSizeOf(panel))
+      isCollapsed(panel) ? 0 : (measured?.[index] ?? this.#pixelSizeOf(panel))
     );
     const total = px.reduce((sum, value) => sum + value, 0);
 
@@ -552,32 +558,6 @@ export class GroupState {
     const box = panel.getBoundingClientRect();
 
     return this.#isHorizontal ? box.width : box.height;
-  }
-
-  /**
-   * The panels immediately before and after the given handle element,
-   * in document order.
-   */
-  #neighborsOf(
-    handleElement: HTMLElement,
-    panels: HTMLElement[]
-  ): [HTMLElement | null, HTMLElement | null] {
-    let prev: HTMLElement | null = null;
-    let next: HTMLElement | null = null;
-
-    for (const panel of panels) {
-      const position = handleElement.compareDocumentPosition(panel);
-
-      if (position & Node.DOCUMENT_POSITION_PRECEDING) {
-        prev = panel;
-      } else if (position & Node.DOCUMENT_POSITION_FOLLOWING) {
-        next = panel;
-
-        break;
-      }
-    }
-
-    return [prev, next];
   }
 
   /**
@@ -637,11 +617,11 @@ export class GroupState {
     }
 
     if (prevCollapsible) {
-      if (target === 0 && !this.#isCollapsed(prev)) {
+      if (target === 0 && !isCollapsed(prev)) {
         this.#previousSizes.set(prev, basePrevSize);
       }
 
-      this.#setCollapsed(prev, target === 0);
+      setCollapsed(prev, target === 0);
     }
 
     this.#sizes.set(prev, target);
@@ -656,11 +636,10 @@ export class GroupState {
     if (this.#drag) return;
 
     const members = this.#members();
-    const [prev, next] = this.#neighborsOf(handleElement, members.panels);
+    const [prev, next] = neighborsOf(handleElement, members.panels);
 
     if (!prev || !next) return;
 
-    // one measurement pass serves both the size sync and totalPx
     const measured = members.panels.map((panel) => this.#pixelSizeOf(panel));
 
     this.#syncSizesFromDOM(members.panels, measured);
@@ -745,7 +724,7 @@ export class GroupState {
    */
   handleKeyDown(handleElement: HTMLElement, event: KeyboardEvent): void {
     const members = this.#members();
-    const [prev, next] = this.#neighborsOf(handleElement, members.panels);
+    const [prev, next] = neighborsOf(handleElement, members.panels);
 
     if (!prev || !next) return;
 
@@ -760,11 +739,6 @@ export class GroupState {
 
     let delta: number | null = null;
 
-    /**
-     * Home/End jump to the panel's min/max; the delta that represents
-     * depends on the current size, which is only known after the
-     * measurement below.
-     */
     let jumpTo: number | null = null;
 
     switch (event.key) {
@@ -822,7 +796,7 @@ export class GroupState {
     const prevSize = this.#sizes.get(prev) ?? 0;
     const nextSize = this.#sizes.get(next) ?? 0;
 
-    if (this.#isCollapsed(prev)) {
+    if (isCollapsed(prev)) {
       const preferred =
         this.#previousSizes.get(prev) ?? requestedSizeOf(prev) ?? Math.max(minSizeOf(prev), 10);
       const available = nextSize - minSizeOf(next);
@@ -830,12 +804,12 @@ export class GroupState {
 
       if (restored <= 0) return;
 
-      this.#setCollapsed(prev, false);
+      setCollapsed(prev, false);
       this.#sizes.set(prev, restored);
       this.#sizes.set(next, nextSize - restored);
     } else {
       this.#previousSizes.set(prev, prevSize);
-      this.#setCollapsed(prev, true);
+      setCollapsed(prev, true);
       this.#sizes.set(prev, 0);
       this.#sizes.set(next, nextSize + prevSize);
     }

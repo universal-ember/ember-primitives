@@ -1,34 +1,24 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.60.1",
-      "newVersion": "0.61.0",
+      "impact": "patch",
+      "oldVersion": "0.61.0",
+      "newVersion": "0.61.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "impact": "patch",
-      "oldVersion": "0.9.11",
-      "newVersion": "0.9.12",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:^` on ember-primitives"
-        }
-      ],
-      "pkgJSONPath": "./packages/docs-support/package.json"
+      "oldVersion": "0.9.12"
     },
     "which-heading-do-i-need": {
       "oldVersion": "0.4.1"
     }
   },
-  "description": "## Release (2026-07-20)\n\n* ember-primitives 0.61.0 (minor)\n* @universal-ember/docs-support 0.9.12 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#778](https://github.com/universal-ember/ember-primitives/pull/778) Add <Resizable> panel-group component ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* [#782](https://github.com/universal-ember/ember-primitives/pull/782) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* [#779](https://github.com/universal-ember/ember-primitives/pull/779) Fix flaky {{onResize}} tests ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n"
+  "description": "## Release (2026-07-20)\n\n* ember-primitives 0.61.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#783](https://github.com/universal-ember/ember-primitives/pull/783) Resizable: query the DOM once per interaction, not once per layer ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :memo: Documentation\n* [#789](https://github.com/universal-ember/ember-primitives/pull/789) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* [#784](https://github.com/universal-ember/ember-primitives/pull/784) docs: unify install instructions across all pages via SetupInstructions `@since` ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* [#785](https://github.com/universal-ember/ember-primitives/pull/785) Fix Deploy Preview: opt in to fork PR checkout under actions/checkout@v7 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n"
 }

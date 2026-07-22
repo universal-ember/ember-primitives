@@ -175,42 +175,39 @@ export const PageLayout: TOC<{
       position: sticky;
       top: 0;
       z-index: 50;
-      transition: all 0.5s;
-      box-shadow: 0 4px 6px -1px rgb(15 23 42 / 0.05);
-      background-color: rgb(255 255 255 / 0.95);
-    }
-
-    :is(html[style*="color-scheme: dark"]) .page-header {
+      min-height: var(--doc-nav-height);
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
       box-shadow: none;
-      background-color: rgb(2 2 14 / 0.95);
+      background-color: color-mix(in srgb, var(--doc-bg) 88%, transparent);
+      border-bottom: 1px solid var(--doc-divider);
+      backdrop-filter: blur(10px);
     }
 
-    :is(html[style*="color-scheme: dark"]) .page-header.is-scrolled {
-      backdrop-filter: blur(12px);
-    }
-
-    @supports (backdrop-filter: blur(0)) {
-      :is(html[style*="color-scheme: dark"]) .page-header.is-scrolled {
-        background-color: rgb(2 2 14 / 0.75);
-      }
+    .page-header.is-scrolled {
+      background-color: color-mix(in srgb, var(--doc-bg-elv) 86%, transparent);
     }
 
     .page-header__inner {
       display: flex;
       flex: none;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       align-items: center;
       justify-content: space-between;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      min-height: var(--doc-nav-height);
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      gap: 1rem;
     }
 
     .page-header__toggle {
       display: flex;
-      margin-right: 1.5rem;
+      margin-right: 0.25rem;
+      flex-shrink: 0;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: 960px) {
       .page-header__toggle {
         display: none;
       }
@@ -222,32 +219,40 @@ export const PageLayout: TOC<{
       align-items: center;
       flex-grow: 1;
       flex-basis: 0;
+      min-width: 0;
+    }
+
+    .page-header__logo a {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
     }
 
     .page-content {
       flex: 1 1 auto;
-      max-width: 42rem;
+      width: 100%;
+      max-width: var(--doc-content-max);
       min-width: 0;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
-
-    @media (min-width: 1024px) {
-      .page-content {
-        max-width: none;
-      }
+      padding: var(--doc-content-pad-y) var(--doc-content-pad-x) 5rem;
     }
 
     .edit-link-container {
       display: flex;
       justify-content: flex-end;
-      padding-top: 1.5rem;
+      padding-top: 1.25rem;
       margin-top: 3rem;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid var(--doc-divider);
     }
 
-    :is(html[style*="color-scheme: dark"]) .edit-link-container {
-      border-color: #1e293b;
+    .edit-link-container .styled-link,
+    .edit-link-container a {
+      font-size: 0.8125rem;
+      color: var(--doc-text-2);
+    }
+
+    .edit-link-container .styled-link:hover,
+    .edit-link-container a:hover {
+      color: var(--doc-brand-1);
     }
   </style>
 </template>;
@@ -268,20 +273,15 @@ export const TopRight: TOC<{ Blocks: { default: [] } }> = <template>
     .top-right {
       position: relative;
       display: flex;
+      align-items: center;
       justify-content: flex-end;
-      gap: 1.5rem;
-      flex-basis: 0;
+      gap: 0.875rem;
+      flex-shrink: 0;
     }
 
     @media (min-width: 640px) {
       .top-right {
-        gap: 2rem;
-      }
-    }
-
-    @media (min-width: 768px) {
-      .top-right {
-        flex-grow: 1;
+        gap: 1rem;
       }
     }
   </style>

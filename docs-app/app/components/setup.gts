@@ -71,48 +71,62 @@ export const SetupInstructions: TOC<{
 
   <style scoped>
     .tabs {
+      margin: 1rem 0 1.5rem;
+
       [role="tablist"] {
-        margin-top: 0.5rem;
         display: flex;
-        border: 1px solid;
+        gap: 0.25rem;
+        width: max-content;
+        max-width: 100%;
+        padding: 0.25rem;
+        border: 1px solid var(--doc-border);
+        border-radius: var(--doc-radius-sm) var(--doc-radius-sm) 0 0;
+        background: var(--doc-bg-soft);
         border-bottom: none;
-        width: min-content;
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
       }
 
       [role="tab"] {
-        color: var(--color-foreground);
+        color: var(--doc-text-2);
         width: max-content;
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        background: var(--color-page-background);
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 0.75rem;
+        background: transparent;
         outline: none;
-        font-weight: bold;
+        font-weight: 500;
+        font-size: 0.8125rem;
+        font-family: var(--font-sans);
         cursor: pointer;
-        box-shadow: inset 0 -1px 0px black;
+        border: 0;
+        border-radius: var(--doc-radius-xs);
+        box-shadow: none;
+        transition:
+          color 0.12s ease,
+          background-color 0.12s ease;
+      }
+
+      [role="tab"]:hover {
+        color: var(--doc-text-1);
+        background: color-mix(in srgb, var(--doc-text-1) 6%, transparent);
       }
 
       [role="tab"][aria-selected="true"] {
-        box-shadow: inset 0 -4px 0px orange;
-      }
-
-      [role="tab"]:first-of-type {
-        border-top-left-radius: 0.25rem;
-      }
-      [role="tab"]:last-of-type {
-        border-top-right-radius: 0.25rem;
+        color: var(--doc-brand-1);
+        background: var(--doc-bg);
+        box-shadow: inset 0 -2px 0 var(--doc-brand-1);
       }
 
       [role="tabpanel"] {
-        color: var(--color-foreground);
-        padding: 1rem;
-        border: 1px solid;
-        border-radius: 0 0.25rem 0.25rem;
-        background: var(--color-page-background);
+        color: var(--doc-text-1);
+        padding: 1rem 1.15rem;
+        border: 1px solid var(--doc-border);
+        border-radius: 0 var(--doc-radius-sm) var(--doc-radius-sm) var(--doc-radius-sm);
+        background: var(--doc-bg-alt);
         width: 100%;
         overflow: auto;
-        font-family: monospace;
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        line-height: 1.6;
       }
     }
   </style>

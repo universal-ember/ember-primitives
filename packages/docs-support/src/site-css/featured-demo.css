@@ -2,11 +2,14 @@
 .featured-demo .repl-sdk__demo {
   width: 100%;
   max-width: 100%;
-  padding: 5rem;
-  background: linear-gradient(to right, #7c3aed, #4f46e5);
-  border-radius: 0.75rem;
+  padding: 2rem;
+  background:
+    radial-gradient(ellipse 80% 70% at 70% 30%, rgba(100, 108, 255, 0.28), transparent 55%),
+    var(--doc-bg-soft);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-md);
   max-height: 20rem;
-  color: #f8fafc;
+  color: var(--doc-text-1);
 }
 
 .featured-demo.auto-height .glimdown-render,

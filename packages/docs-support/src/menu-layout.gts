@@ -13,7 +13,7 @@ const Toggle: TOC<{
   };
 }> = <template>
   <@toggle>
-    <Menu style="width: 1.5rem; height: 1.5rem; stroke: #64748b;" />
+    <Menu style="width: 1.35rem; height: 1.35rem; stroke: currentColor;" />
   </@toggle>
 </template>;
 
@@ -44,13 +44,12 @@ export const ResponsiveMenuLayout: TOC<{
   <style scoped>
     .page-main {
       position: relative;
-      display: grid;
-      justify-content: center;
+      display: block;
       flex: 1 1 auto;
       width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      max-width: 88rem;
+      min-width: 0;
+      margin: 0;
+      max-width: none;
     }
   </style>
 </template>;

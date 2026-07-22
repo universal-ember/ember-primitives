@@ -1,4 +1,5 @@
 import 'ember-mobile-menu/themes/android';
+import './site-css/tokens.css';
 import './site-css/site.css';
 import './site-css/components.css';
 import './site-css/featured-demo.css';

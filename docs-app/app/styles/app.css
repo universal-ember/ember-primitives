@@ -54,9 +54,9 @@ ul {
  */
 :root {
   --font-sans:
-    "InterVariable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol", "Noto Color Emoji";
-  --font-display: "Helvetica", "Arial", sans-serif;
+    "Inter", "InterVariable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: var(--font-sans);
   --max-width-8xl: 88rem;
 }
 
@@ -109,11 +109,11 @@ body {
  * Theme variables
  */
 .theme-light {
-  --color-page-background: white;
-  --color-foreground: black;
+  --color-page-background: var(--doc-bg, white);
+  --color-foreground: var(--doc-text-1, black);
 }
 
 .theme-dark {
-  --color-page-background: #252525;
-  --color-foreground: white;
+  --color-page-background: var(--doc-bg, #1b1b1f);
+  --color-foreground: var(--doc-text-1, #dfdfd6);
 }

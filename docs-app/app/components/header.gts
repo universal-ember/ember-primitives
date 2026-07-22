@@ -9,18 +9,25 @@ export const TestsLink = <template>
 
   <style scoped>
     .header-icon-link {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--doc-radius-sm);
+      text-decoration: none;
+    }
+    .header-icon-link:hover {
+      background: var(--doc-brand-soft);
     }
     .header-icon-link:hover .header-icon {
-      fill: #64748b;
+      fill: var(--doc-brand-1);
     }
     .header-icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      fill: #94a3b8;
-    }
-    :is(html[style*="color-scheme: dark"]) .header-icon-link:hover .header-icon {
-      fill: #cbd5e1;
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: var(--doc-text-2);
+      transition: fill 0.12s ease;
     }
   </style>
 </template>;
@@ -36,18 +43,25 @@ export const GitHubLink = <template>
 
   <style scoped>
     .header-icon-link {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      border-radius: var(--doc-radius-sm);
+      text-decoration: none;
+    }
+    .header-icon-link:hover {
+      background: var(--doc-brand-soft);
     }
     .header-icon-link:hover .header-icon {
-      fill: #64748b;
+      fill: var(--doc-brand-1);
     }
     .header-icon {
-      width: 1.5rem;
-      height: 1.5rem;
-      fill: #94a3b8;
-    }
-    :is(html[style*="color-scheme: dark"]) .header-icon-link:hover .header-icon {
-      fill: #cbd5e1;
+      width: 1.25rem;
+      height: 1.25rem;
+      fill: var(--doc-text-2);
+      transition: fill 0.12s ease;
     }
   </style>
 </template>;

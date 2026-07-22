@@ -60,12 +60,8 @@ export default class Page extends Component {
       .logo-large {
         display: none;
         width: auto;
-        height: 2.25rem;
-        fill: #334155;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .logo-large {
-        fill: #e0f2fe;
+        height: 2rem;
+        fill: var(--doc-text-1);
       }
 
       @media (min-width: 1024px) {

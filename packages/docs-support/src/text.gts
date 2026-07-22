@@ -5,10 +5,7 @@ export const Text: TOC<{ Blocks: { default: [] } }> = <template>
 
   <style scoped>
     .adaptive-text {
-      color: #0f172a;
-    }
-    :is(html[style*="color-scheme: dark"]) .adaptive-text {
-      color: white;
+      color: var(--doc-text-1);
     }
   </style>
 </template>;

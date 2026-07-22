@@ -15,32 +15,29 @@ export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
   <style scoped>
     .callout {
       display: flex;
-      padding: 1.5rem;
+      padding: 1rem 1.25rem;
       margin-top: 2rem;
       margin-bottom: 2rem;
-      border-radius: 1.5rem;
-      background-color: #f0f9ff;
-    }
-
-    :is(html[style*="color-scheme: dark"]) .callout {
-      background-color: rgb(30 41 59 / 0.6);
-      outline: 1px solid rgb(203 213 225 / 0.1);
+      border-radius: var(--doc-radius-sm);
+      background-color: var(--doc-brand-soft);
+      border: 1px solid color-mix(in srgb, var(--doc-brand-1) 35%, transparent);
     }
 
     .callout__icon {
       flex: none;
-      width: 2rem;
-      height: 2rem;
+      width: 1.75rem;
+      height: 1.75rem;
     }
 
     .callout__body {
       flex: 1 1 auto;
       min-width: 0;
-      margin-left: 1rem;
+      margin-left: 0.875rem;
     }
 
     .callout__content {
-      color: #075985;
+      color: var(--doc-text-1);
+      font-size: 0.9375rem;
     }
 
     .callout__content > *:first-child {
@@ -49,10 +46,6 @@ export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
 
     .callout__content > *:last-child {
       margin-bottom: 0;
-    }
-
-    :is(html[style*="color-scheme: dark"]) .callout__content {
-      color: #f8fafc;
     }
   </style>
 </template>;

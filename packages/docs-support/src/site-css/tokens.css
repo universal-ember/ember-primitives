@@ -1,0 +1,88 @@
+/**
+ * docs-support tokens — source: DESIGN.md
+ * Light defaults on :root; dark overrides when color-scheme is dark.
+ */
+
+:root {
+  /* Surfaces */
+  --doc-bg: #ffffff;
+  --doc-bg-alt: #f6f6f7;
+  --doc-bg-elv: #ffffff;
+  --doc-bg-soft: #f6f6f7;
+
+  /* Text */
+  --doc-text-1: #3c3c43;
+  --doc-text-2: #67676c;
+  --doc-text-3: #929295;
+
+  /* Brand indigo */
+  --doc-brand-1: #3451b2;
+  --doc-brand-2: #3a5ccc;
+  --doc-brand-3: #5672cd;
+  --doc-brand-soft: rgba(100, 108, 255, 0.14);
+
+  /* Structure */
+  --doc-divider: #e2e2e3;
+  --doc-border: rgba(60, 60, 67, 0.12);
+
+  /* Accents */
+  --doc-mark: #f5c518;
+  --doc-ember: #e04e39;
+  --doc-success: #30a46c;
+  --doc-warning: #9f6a00;
+  --doc-danger: #e0575b;
+
+  /* Shape */
+  --doc-radius-xs: 4px;
+  --doc-radius-sm: 8px;
+  --doc-radius-md: 12px;
+  --doc-radius-lg: 16px;
+  --doc-radius-xl: 20px;
+  --doc-radius-pill: 9999px;
+
+  /* Layout */
+  --doc-nav-height: 64px;
+  --doc-sidebar-width: 280px;
+  --doc-content-max: 52rem;
+  --doc-page-max: none;
+  --doc-gutter: 0px;
+  --doc-content-pad-x: 48px;
+  --doc-content-pad-y: 36px;
+  --doc-sidebar-pad-x: 12px;
+  --doc-sidebar-pad-y: 16px;
+
+  /* Typography aliases used by host apps */
+  --font-sans:
+    "Inter", "InterVariable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: var(--font-sans);
+  --font-mono:
+    ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+:is(html[style*="color-scheme: dark"]) {
+  --doc-bg: #1b1b1f;
+  --doc-bg-alt: #161618;
+  --doc-bg-elv: #202127;
+  --doc-bg-soft: #202127;
+
+  --doc-text-1: #dfdfd6;
+  --doc-text-2: #98989f;
+  --doc-text-3: #6a6a71;
+
+  --doc-brand-1: #a8b1ff;
+  --doc-brand-2: #5c73e7;
+  --doc-brand-3: #3e63dd;
+  --doc-brand-soft: rgba(100, 108, 255, 0.16);
+
+  --doc-divider: #2e2e32;
+  --doc-border: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --doc-content-pad-x: 1.25rem;
+    --doc-content-pad-y: 1.5rem;
+    --doc-gutter: 0px;
+  }
+}

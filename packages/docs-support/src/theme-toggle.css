@@ -25,10 +25,10 @@
   }
 
   label {
-    background-color: #111;
+    background-color: var(--doc-bg-soft);
     width: 50px;
     height: 26px;
-    border-radius: 50px;
+    border-radius: var(--doc-radius-pill);
     position: relative;
     padding: 5px;
     cursor: pointer;
@@ -36,11 +36,12 @@
     justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
-    box-shadow: inset 1px 0px 1px gray;
+    border: 1px solid var(--doc-border);
+    box-shadow: none;
   }
 
   label .ball {
-    background-color: #fff;
+    background-color: var(--doc-text-1);
     width: 22px;
     height: 22px;
     position: absolute;

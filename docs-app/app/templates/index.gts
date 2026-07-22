@@ -38,10 +38,7 @@ import {
       <strong>picking up where the framework left off.</strong>
     </:tagline>
     <:callToAction>
-      <InternalLink
-        href="/1-get-started/index.md"
-        style="color: white; text-shadow: 0px 2px 0px black; transform: scale(2.5);"
-      >
+      <InternalLink href="/1-get-started/index.md" class="doc-button doc-button--primary">
         Get Started ➤
       </InternalLink>
     </:callToAction>
@@ -220,17 +217,13 @@ const Socials = <template>
     .social-icon {
       width: 1.5rem;
       height: 1.5rem;
-      fill: #0f172a;
-    }
-
-    :is(html[style*="color-scheme: dark"]) .social-icon {
-      fill: white;
+      fill: var(--doc-text-1);
     }
   </style>
 </template>;
 
 const GetStarted = <template>
-  <InternalLink href="/1-get-started/index.md" style="transform: scale(2.5);">
+  <InternalLink href="/1-get-started/index.md" class="doc-button doc-button--primary">
     Get Started ➤
   </InternalLink>
 </template>;

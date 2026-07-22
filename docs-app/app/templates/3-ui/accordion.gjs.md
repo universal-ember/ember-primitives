@@ -17,73 +17,68 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#name
 
 <template>
-  <div class="demo">
-    <details>
-      <summary>the header</summary>
-
-      <span>
+  <div class="native-accordion">
+    <details name="native-demo" open>
+      <summary>What is Ember?</summary>
+      <p>
         Ember.js is a productive, battle-tested JavaScript framework for building modern web
-        applications. It includes everything you need to build rich UIs that work on any device.
-      </span>
+        applications.
+      </p>
     </details>
 
-    <details>
-      <summary>another header</summary>
-
-      <span>
-        Ember.js is a productive, battle-tested JavaScript framework for building modern web
-        applications. It includes everything you need to build rich UIs that work on any device.
-      </span>
+    <details name="native-demo">
+      <summary>When do I need Accordion?</summary>
+      <p>
+        Use the Accordion component when you need controlled state, keyboard patterns beyond
+        native details, or design-system composition.
+      </p>
     </details>
 
-    <details>
-      <summary>a third header</summary>
-
-      <span>
-        Ember.js is a productive, battle-tested JavaScript framework for building modern web
-        applications. It includes everything you need to build rich UIs that work on any device.
-      </span>
+    <details name="native-demo">
+      <summary>Can I style details?</summary>
+      <p>Yes — native details and summary can be styled with CSS just like any other element.</p>
     </details>
   </div>
 
   <style>
-    @scope {
-      details {
-        position: relative;
-        padding-bottom: 1rem;
-      }
-      summary {
-        cursor: pointer;
-        margin-bottom: -1rem;
-        transition-property: all;
-        transition-duration: 150ms;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    .native-accordion {
+      display: grid;
+      gap: 0.5rem;
+      max-width: 28rem;
+    }
 
-        background: white;
-        padding: 0.5rem;
-        color: black;
-        border: 1px solid;
-        border-radius: 0.25rem;
-        position: relative;
-        z-index: 2;
-      }
-      details[open] > summary {
-        background: #dcdcff; 
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
+    .native-accordion details {
+      border: 1px solid var(--doc-border);
+      border-radius: 0.5rem;
+      background: var(--doc-bg);
+      overflow: hidden;
+    }
 
-      details > span {
-        position: relative;
-        z-index: 1;
-      }
+    .native-accordion summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 0.7rem 0.9rem;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--doc-text-1);
+    }
 
-      .demo {
-        margin: 1rem; 
-        padding: 1rem;
-        display: grid;
-        gap: 1rem;
-      }
+    .native-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .native-accordion details[open] summary {
+      border-bottom: 1px solid var(--doc-border);
+      background: var(--doc-bg-soft);
+    }
+
+    .native-accordion p {
+      margin: 0;
+      padding: 0.8rem 0.9rem 1rem;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--doc-text-2);
     }
   </style>
 </template>
@@ -92,6 +87,88 @@ Like with the component, `<details>` and `<summary>` can be styled with CSS.
 </details>
 
 </Callout>
+
+<div class="featured-demo">
+
+```gjs live preview
+import { Accordion } from 'ember-primitives';
+
+<template>
+  <Accordion class="faq" @type="single" as |A|>
+    <A.Item class="item" @value="ember" as |I|>
+      <I.Header as |H|>
+        <H.Trigger class="trigger">What is Ember?</H.Trigger>
+      </I.Header>
+      <I.Content class="content">
+        Ember.js is a productive, battle-tested JavaScript framework for building modern web apps.
+      </I.Content>
+    </A.Item>
+
+    <A.Item class="item" @value="when" as |I|>
+      <I.Header as |H|>
+        <H.Trigger class="trigger">When should I use Accordion?</H.Trigger>
+      </I.Header>
+      <I.Content class="content">
+        When you need controlled state, richer keyboard behavior, or design-system composition beyond native details.
+      </I.Content>
+    </A.Item>
+
+    <A.Item class="item" @value="style" as |I|>
+      <I.Header as |H|>
+        <H.Trigger class="trigger">Can I style it myself?</H.Trigger>
+      </I.Header>
+      <I.Content class="content">
+        Yes. Accordion is unstyled — bring your own CSS or design tokens.
+      </I.Content>
+    </A.Item>
+  </Accordion>
+
+  <style>
+    .faq {
+      display: grid;
+      gap: 0.5rem;
+      max-width: 28rem;
+    }
+
+    .item {
+      border: 1px solid var(--doc-border);
+      border-radius: 0.5rem;
+      background: var(--doc-bg);
+      overflow: hidden;
+    }
+
+    .trigger {
+      display: flex;
+      width: 100%;
+      margin: 0;
+      padding: 0.7rem 0.9rem;
+      border: 0;
+      background: transparent;
+      color: var(--doc-text-1);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .item[data-state="open"] .trigger {
+      border-bottom: 1px solid var(--doc-border);
+      background: var(--doc-bg-soft);
+    }
+
+    .content {
+      padding: 0.8rem 0.9rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--doc-text-2);
+    }
+  </style>
+</template>
+```
+
+</div>
 
 ## Examples
 

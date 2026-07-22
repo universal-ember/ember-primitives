@@ -10,29 +10,48 @@ Provides the markup necessary to render keyboard shortcuts and hotkeys and other
 import { Key, KeyCombo } from 'ember-primitives';
 
 <template>
-  A single key:
-  <Key>a</Key>
-  <br><br>
-  A combination of keys: 
-  <KeyCombo @keys="ctrl+a" @mac="cmd+a" />
+  <div class="keys-demo">
+    <p>
+      Single key:
+      <Key>A</Key>
+    </p>
+    <p>
+      Shortcut:
+      <KeyCombo @keys="ctrl+a" @mac="cmd+a" />
+    </p>
+  </div>
 
   <style>
+    .keys-demo {
+      display: grid;
+      gap: 0.85rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--doc-text-2);
+    }
+
+    .keys-demo p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
     kbd {
-      background-color: #eee;
-      border-radius: 3px;
-      border: 1px solid #b4b4b4;
-      box-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.2),
-        0 2px 0 0 rgba(255, 255, 255, 0.7) inset;
-      color: #333;
-      display: inline-block;
-      font-size: 0.85em;
-      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.5rem;
+      padding: 0.15rem 0.45rem;
+      border: 1px solid var(--doc-border);
+      border-radius: 0.35rem;
+      background: var(--doc-bg);
+      box-shadow: 0 1px 0 var(--doc-border);
+      color: var(--doc-text-1);
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
       line-height: 1;
-      padding: 2px 4px;
-      white-space: nowrap;
-      /* CSS from https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd */
-    } 
+    }
   </style>
 </template>
 ```

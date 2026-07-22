@@ -1,6 +1,6 @@
 /**
-Styled tabs for documentation
-*/
+ * Styled tabs for documentation demos
+ */
 
 import {
   type ButtonType,
@@ -27,24 +27,41 @@ const StyledButton: TOC<{
 
   <style scoped>
     .tab {
-      color: black;
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      background: hsl(220deg 20% 94%);
-      outline: none;
-      font-weight: bold;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.45rem 0.85rem 0.7rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      color: var(--doc-text-3);
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
       cursor: pointer;
-      box-shadow: inset 0 0px 1px black;
+      box-shadow: none;
+      outline: none;
+      transition: color 0.12s ease;
     }
+
+    .tab:hover {
+      color: var(--doc-text-1);
+    }
+
     .tab[aria-selected="true"] {
-      background: white;
-      box-shadow: inset 0 -4px 0px orange;
+      color: var(--doc-brand-1);
+      font-weight: 600;
     }
-    .tab:first-of-type {
-      border-top-left-radius: 0.25rem;
-    }
-    .tab:last-of-type {
-      border-top-right-radius: 0.25rem;
+
+    .tab[aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      left: 0.55rem;
+      right: 0.55rem;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: var(--doc-brand-1);
     }
   </style>
 </template>;
@@ -60,20 +77,16 @@ const StyledContent: TOC<{
 
   <style scoped>
     .tabpanel {
-      color: black;
+      padding: 1.15rem 1.1rem;
+      color: var(--doc-text-1);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      background: transparent;
       overflow: auto;
       max-height: 20rem;
       width: 100%;
       max-width: 100%;
-      border-radius: 0.75rem;
-      background-image: linear-gradient(to right, var(--tw-gradient-stops));
-      --tw-gradient-from: #7c3aed var(--tw-gradient-from-position);
-      --tw-gradient-to: rgb(124 58 237 / 0) var(--tw-gradient-to-position);
-      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-      --tw-gradient-to: #4f46e5 var(--tw-gradient-to-position);
-      padding: 5rem;
-      --tw-text-opacity: 1;
-      color: rgb(248 250 252 / var(--tw-text-opacity, 1));
     }
   </style>
 </template>;
@@ -145,12 +158,31 @@ export const Tabs: TOC<{
 
   <style scoped>
     .docs-tabs {
-      padding: 1rem;
+      margin: 0;
+      border: 1px solid var(--doc-border);
+      border-radius: var(--doc-radius-md);
+      background: var(--doc-bg-alt);
+      overflow: hidden;
+    }
 
-      > [role="tablist"] {
-        min-width: 100%;
-        padding-left: 0.75rem;
-      }
+    .docs-tabs > .ember-primitives__tabs__label {
+      padding: 0.7rem 1rem 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--doc-text-3);
+    }
+
+    .docs-tabs > [role="tablist"] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      width: 100%;
+      min-width: 0;
+      padding: 0.55rem 0.65rem 0;
+      border-bottom: 1px solid var(--doc-border);
+      background: transparent;
     }
   </style>
 </template>;

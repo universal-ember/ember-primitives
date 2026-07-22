@@ -167,7 +167,7 @@ export class SideNav extends Component<{
 
     <style scoped>
       .side-nav {
-        background-color: white;
+        background-color: transparent;
       }
 
       .side-nav ul {
@@ -177,87 +177,83 @@ export class SideNav extends Component<{
       }
 
       .side-nav h2 {
-        font-size: 1rem;
-        font-weight: 500;
-        font-family: var(--font-display, "Helvetica", "Arial", sans-serif);
-        color: #0f172a;
-        margin: 0;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .side-nav h2 {
-        color: white;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .side-nav {
-        background-color: #02020e;
+        font-size: 0.6875rem;
+        font-weight: 600;
+        font-family: var(--font-sans);
+        color: var(--doc-text-3);
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        margin: 0 0 0.5rem;
+        padding: 0 0.75rem;
       }
 
       .section-link {
+        display: block;
         font-weight: 500;
-        font-family: var(--font-display, "Helvetica", "Arial", sans-serif);
-        color: #0f172a;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .section-link {
-        color: white;
+        font-size: 0.875rem;
+        line-height: 1.35;
+        font-family: var(--font-sans);
+        color: var(--doc-text-1);
+        text-decoration: none;
+        border-radius: var(--doc-radius-sm);
+        padding: 0.42rem 0.75rem;
+        transition:
+          color 0.12s ease,
+          background-color 0.12s ease;
       }
 
       .section-link:hover {
-        color: #475569;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .section-link:hover {
-        color: #cbd5e1;
+        color: var(--doc-brand-1);
+        background-color: var(--doc-brand-soft);
       }
 
       .section-link.is-active {
-        color: #0ea5e9;
+        color: var(--doc-brand-1);
+        background-color: var(--doc-brand-soft);
+        font-weight: 600;
       }
 
       .subsection-link {
         display: block;
         width: 100%;
         position: relative;
-        color: #64748b;
+        font-size: 0.8125rem;
+        line-height: 1.4;
+        color: var(--doc-text-2);
+        text-decoration: none;
+        padding: 0.38rem 0.65rem;
+        border-radius: 6px;
+        transition:
+          color 0.12s ease,
+          background-color 0.12s ease;
       }
 
       .subsection-link::before {
         content: "";
         pointer-events: none;
         position: absolute;
-        left: -0.25rem;
-        top: 50%;
-        height: 0.375rem;
-        width: 0.375rem;
-        transform: translateY(-50%);
-        border-radius: 9999px;
-        background-color: #cbd5e1;
-        display: none;
+        left: -0.75rem;
+        top: 0.4rem;
+        bottom: 0.4rem;
+        width: 2px;
+        border-radius: 1px;
+        background-color: transparent;
+        transition: background-color 0.12s ease;
       }
 
       .subsection-link:hover {
-        color: #475569;
-      }
-
-      .subsection-link:hover::before {
-        display: block;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .subsection-link {
-        color: #94a3b8;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .subsection-link::before {
-        background-color: #334155;
-      }
-
-      :is(html[style*="color-scheme: dark"]) .subsection-link:hover {
-        color: #cbd5e1;
+        color: var(--doc-text-1);
+        background-color: color-mix(in srgb, var(--doc-text-1) 5%, transparent);
       }
 
       .subsection-link.is-active {
         font-weight: 600;
-        color: #0ea5e9;
+        color: var(--doc-brand-1);
+        background-color: var(--doc-brand-soft);
+      }
+
+      .subsection-link.is-active::before {
+        background-color: var(--doc-brand-1);
       }
     </style>
   </template>

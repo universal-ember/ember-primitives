@@ -9,33 +9,39 @@ This type of button could be used to enable or disable a feature, activate or de
 ## Examples
 
 
-<details open><summary><h3>Bold Text Toggle</h3></summary>
+<details open><summary><h3>Bold text toggle</h3></summary>
 
-
-See [Bootstrap Toggle Button](https://getbootstrap.com/docs/5.3/forms/checks-radios/#toggle-buttons) docs.
+A pressable button that stays pressed — useful for formatting toolbars.
 
 ```gjs live preview
 import { Toggle } from 'ember-primitives';
 
 <template>
-  <Toggle aria-label="Toggle Bold Text" class="bold-toggle">
+  <Toggle aria-label="Bold" class="bold-toggle">
     B
   </Toggle>
 
   <style>
     .bold-toggle {
-      border: 1px solid;
-      padding: 5px 10px;
-      font-size: 1.25rem;
-      line-height: 1rem;
+      min-width: 2.25rem;
+      min-height: 2.25rem;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--doc-border);
+      border-radius: 0.5rem;
+      background: var(--doc-bg);
+      color: var(--doc-text-2);
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      cursor: pointer;
     }
+
     .bold-toggle[aria-pressed="true"] {
-      font-weight: bold;
-      backdrop-filter: blur(25px);
-      background: gray;
+      color: var(--doc-brand-1);
+      background: var(--doc-brand-soft);
+      border-color: color-mix(in srgb, var(--doc-brand-1) 35%, var(--doc-border));
     }
   </style>
-  
 </template>
 ```
 

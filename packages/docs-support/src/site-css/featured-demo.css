@@ -2,14 +2,30 @@
 .featured-demo .repl-sdk__demo {
   width: 100%;
   max-width: 100%;
-  padding: 5rem;
-  background: linear-gradient(to right, #7c3aed, #4f46e5);
-  border-radius: 0.75rem;
-  max-height: 20rem;
-  color: #f8fafc;
+  min-height: 7.5rem;
+  padding: 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  background: var(--doc-bg-soft);
+  border: 1px solid var(--doc-border);
+  border-radius: var(--doc-radius-md);
+  max-height: 22rem;
+  overflow: auto;
+  color: var(--doc-text-1);
 }
 
 .featured-demo.auto-height .glimdown-render,
 .featured-demo.auto-height .repl-sdk__demo {
   max-height: none;
+}
+
+/* Shared demo chrome used inside live previews */
+.featured-demo .demo,
+.prose .demo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
 }

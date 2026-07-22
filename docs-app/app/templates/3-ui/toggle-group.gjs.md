@@ -36,57 +36,60 @@ import { ToggleGroup } from 'ember-primitives';
   </div>
 
   <style>
-    button[aria-label="Bold text"] { font-weight: bold; }
+    button[aria-label="Bold text"] { font-weight: 700; }
     button[aria-label="Italicize text"] { font-style: italic; }
-    button[aria-label="Underline text"] { text-decoration: underline; } 
+    button[aria-label="Underline text"] { text-decoration: underline; }
 
-    .demo { 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      gap: 1rem; 
+    .demo {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
     }
 
     .toggle-group {
       display: inline-flex;
-      background-color: #fff;
-      border-radius: 0.25rem;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+      border: 1px solid var(--doc-border);
+      border-radius: 0.5rem;
+      background: var(--doc-bg);
+      overflow: hidden;
     }
 
     .toggle-group > button {
-      background-color: white;
-      color: #000;
-      height: 35px;
-      width: 35px;
-      display: flex;
-      font-size: 15px;
-      padding: 0.5rem;
-      line-height: 1;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-left: 1px;
+      width: 2.25rem;
+      height: 2.25rem;
+      margin: 0;
+      padding: 0;
       border: 0;
+      border-right: 1px solid var(--doc-border);
+      background: transparent;
+      color: var(--doc-text-2);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      cursor: pointer;
     }
-    .toggle-group > button:first-child {
-      margin-left: 0;
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
+
     .toggle-group > button:last-child {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
+      border-right: 0;
     }
+
     .toggle-group > button:hover {
-      background-color: #eee;
+      background: color-mix(in srgb, var(--doc-text-1) 5%, transparent);
+      color: var(--doc-text-1);
     }
-    .toggle-group > button[aria-pressed='true'] {
-      background-color: #ddf;
-      color: black;
+
+    .toggle-group > button[aria-pressed="true"] {
+      background: var(--doc-brand-soft);
+      color: var(--doc-brand-1);
     }
-    .toggle-group > button:focus {
-      position: relative;
-      box-shadow: 0 0 0 2px black;
+
+    .toggle-group > button svg {
+      width: 0.95rem;
+      height: 0.95rem;
+      fill: currentColor;
     }
   </style>
 </template>

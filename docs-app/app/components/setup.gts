@@ -4,6 +4,7 @@ import { Link } from '@universal-ember/docs-support';
 
 import type { TOC } from '@ember/component/template-only';
 
+/** Install / copy-code instructions with package-manager tabs. */
 function dropExtension(name: string | undefined) {
   if (!name) return;
 
@@ -41,79 +42,183 @@ export const SetupInstructions: TOC<{
     since?: string;
   };
 }> = <template>
-  <Tabs class="tabs not-prose" @label="Install as a library" as |Tab|>
-    <Tab @label="npm">npm add {{orDefault @name}}</Tab>
-    <Tab @label="pnpm">pnpm add {{orDefault @name}}</Tab>
-    <Tab @label="yarn">yarn add {{orDefault @name}}</Tab>
-  </Tabs>
-
-  {{#if @src}}
-    <br />
-    <Tabs class="tabs not-prose" @label="Own the code" as |Tab|>
-      <Tab @label="npx">npx ember-primitives -- emit {{dropExtension @src}}</Tab>
-      <Tab @label="pnpm dlx">pnpm dlx ember-primitives emit {{dropExtension @src}}</Tab>
-      <Tab @label="Copy from GitHub">
-        <Link
-          href="https://github.com/universal-ember/ember-primitives/blob/main/ember-primitives/src/{{@src}}"
-        >
-          Edit or Copy from the Source
-        </Link>
+  {{! template-lint-disable no-forbidden-elements }}
+  <div data-setup class="not-prose">
+    <Tabs data-setup-group @label="Install as a library" as |Tab|>
+      <Tab @label="npm">
+        <code>npm add {{orDefault @name}}</code>
+      </Tab>
+      <Tab @label="pnpm">
+        <code>pnpm add {{orDefault @name}}</code>
+      </Tab>
+      <Tab @label="yarn">
+        <code>yarn add {{orDefault @name}}</code>
       </Tab>
     </Tabs>
-  {{/if}}
 
-  {{#if @since}}
-    <p>
-      Introduced in
-      <Link href={{releaseURL @name @since}}>{{@since}}</Link>
-    </p>
-  {{/if}}
+    {{#if @src}}
+      <Tabs data-setup-group @label="Own the code" as |Tab|>
+        <Tab @label="npx">
+          <code>npx ember-primitives -- emit {{dropExtension @src}}</code>
+        </Tab>
+        <Tab @label="pnpm dlx">
+          <code>pnpm dlx ember-primitives emit {{dropExtension @src}}</code>
+        </Tab>
+        <Tab @label="GitHub">
+          <Link
+            href="https://github.com/universal-ember/ember-primitives/blob/main/ember-primitives/src/{{@src}}"
+          >
+            Edit or copy from source
+          </Link>
+        </Tab>
+      </Tabs>
+    {{/if}}
 
-  <style scoped>
-    .tabs {
-      [role="tablist"] {
-        margin-top: 0.5rem;
-        display: flex;
-        border: 1px solid;
-        border-bottom: none;
-        width: min-content;
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-      }
+    {{#if @since}}
+      <p data-setup-since>
+        Introduced in
+        <Link href={{releaseURL @name @since}}>{{@since}}</Link>
+      </p>
+    {{/if}}
+  </div>
 
-      [role="tab"] {
-        color: var(--color-foreground);
-        width: max-content;
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        background: var(--color-page-background);
-        outline: none;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: inset 0 -1px 0px black;
-      }
+  {{!
+    Attribute selectors stay stable under ember-scoped-css (unlike class names).
+    Keep these here so live ```hbs``` previews always get spacing — not only app.css.
+  }}
+  <style>
+    [data-setup] {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin: 1.25rem 0 1.75rem;
+    }
 
-      [role="tab"][aria-selected="true"] {
-        box-shadow: inset 0 -4px 0px orange;
-      }
+    [data-setup-group].ember-primitives__tabs,
+    .ember-primitives__tabs[data-setup-group] {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      border: 1px solid var(--doc-border);
+      border-radius: var(--doc-radius-md);
+      background: var(--doc-bg-alt);
+      overflow: hidden;
+    }
 
-      [role="tab"]:first-of-type {
-        border-top-left-radius: 0.25rem;
-      }
-      [role="tab"]:last-of-type {
-        border-top-right-radius: 0.25rem;
-      }
+    [data-setup-group] > .ember-primitives__tabs__label {
+      margin: 0;
+      padding: 0.85rem 1.15rem 0.35rem;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--doc-text-3);
+    }
 
-      [role="tabpanel"] {
-        color: var(--color-foreground);
-        padding: 1rem;
-        border: 1px solid;
-        border-radius: 0 0.25rem 0.25rem;
-        background: var(--color-page-background);
-        width: 100%;
-        overflow: auto;
-        font-family: monospace;
-      }
+    [data-setup-group] > [role="tablist"],
+    [data-setup-group] > .ember-primitives__tabs__tablist {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem;
+      width: 100%;
+      min-width: 0;
+      margin: 0;
+      padding: 0.15rem 0.85rem 0;
+      border: 0;
+      border-bottom: 1px solid var(--doc-border);
+      background: transparent;
+      border-radius: 0;
+    }
+
+    [data-setup-group] [role="tab"] {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0.55rem 0.9rem 0.75rem;
+      border: 0;
+      border-radius: 0;
+      background: transparent !important;
+      color: var(--doc-text-3);
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.2;
+      cursor: pointer;
+      box-shadow: none !important;
+      transition: color 0.12s ease;
+    }
+
+    [data-setup-group] [role="tab"]:hover {
+      color: var(--doc-text-1);
+      background: transparent !important;
+    }
+
+    [data-setup-group] [role="tab"][aria-selected="true"] {
+      color: var(--doc-brand-1);
+      background: transparent !important;
+      font-weight: 600;
+      box-shadow: none !important;
+    }
+
+    [data-setup-group] [role="tab"][aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      left: 0.55rem;
+      right: 0.55rem;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: var(--doc-brand-1);
+    }
+
+    [data-setup-group] > .ember-primitives__tabs__tabpanel {
+      min-width: 0;
+      padding: 0;
+    }
+
+    [data-setup-group] [role="tabpanel"] {
+      display: block;
+      margin: 0;
+      padding: 1.1rem 1.15rem !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: var(--doc-text-1);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      letter-spacing: -0.01em;
+      overflow-x: auto;
+    }
+
+    [data-setup-group] [role="tabpanel"] code {
+      font: inherit;
+      color: inherit;
+      background: transparent;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    [data-setup-group] [role="tabpanel"] a {
+      color: var(--doc-brand-1);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    [data-setup-group] [role="tabpanel"] a:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+    }
+
+    [data-setup-since] {
+      margin: 0;
+      padding: 0 0.15rem;
+      font-size: 0.875rem;
+      color: var(--doc-text-2);
     }
   </style>
 </template>;

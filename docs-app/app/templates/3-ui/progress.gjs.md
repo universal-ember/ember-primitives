@@ -13,55 +13,54 @@ Before reaching for this component, consider if the [native `<progress>`](https:
 <div class="featured-demo">
 
 ```gjs live preview
-import { Progress, Shadowed } from 'ember-primitives';
+import { Progress } from 'ember-primitives';
 import { cell, resource } from 'ember-resources';
 
-const randomValue = resource(({on}) => {
-  let value = cell(randomPercent());
-  let interval = setInterval(() => value.current = randomPercent(), 3000);
+const progress = resource(({ on }) => {
+  let value = cell(12);
+  let interval = setInterval(() => {
+    value.current = value.current >= 100 ? 8 : value.current + 14;
+  }, 900);
   on.cleanup(() => clearInterval(interval));
-
   return value;
-}); 
-
-const randomPercent = () => Math.random() * 100;
-const translate = (v) => -(100 - v);
+});
 
 <template>
-  <Shadowed>
-    <Progress @value={{(randomValue)}} aria-label="demo" as |x|>
-      <span>{{Math.round x.value}}%</span>
-      <x.Indicator style="transform: translateX({{translate x.percent}}%);" />
-    </Progress>
+  <Progress @value={{(progress)}} aria-label="Upload progress" class="bar" as |x|>
+    <span class="label">{{Math.round x.value}}%</span>
+    <x.Indicator class="fill" style="width: {{x.percent}}%" />
+  </Progress>
 
-    <style>
-      [role="progressbar"] {
-        margin: 0 auto;
-        width: 60%;
-        height: 1.5rem;
-        border-radius: 0.75rem;
-        position: relative;
-        overflow: hidden;
-        background: conic-gradient(at -20% 15%, white 0%, #aaccff 72%);
-      }
-      [role="progressbar"] > div {
-        background: linear-gradient(45deg, #5E0091FF 0%, #004976FF 100%);
-        width: 100%;
-        height: 100%;
-        border-radius: 1rem;
-        transition: transform 700ms cubic-bezier(0.65, 0, 0.35, 1);
-      }
-      [role="progressbar"] > span {
-        line-height: 1.5rem;
-        text-align: center;
-        width: 100%;
-        color: white;
-        mix-blend-mode: difference;
-        position: absolute;
-        z-index: 1;
-      }
-    </style>
-  </Shadowed>
+  <style>
+    .bar {
+      position: relative;
+      display: block;
+      width: min(100%, 22rem);
+      height: 0.65rem;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--doc-bg);
+      border: 1px solid var(--doc-border);
+    }
+
+    .fill {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--doc-brand-1);
+      transition: width 500ms ease;
+    }
+
+    .label {
+      position: absolute;
+      inset: auto 0 100% 0;
+      margin-bottom: 0.45rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--doc-text-2);
+      font-family: var(--font-sans);
+    }
+  </style>
 </template>
 ```
 
@@ -70,68 +69,74 @@ const translate = (v) => -(100 - v);
 <div class="featured-demo">
 
 ```gjs live preview
-import { Progress, Shadowed } from 'ember-primitives';
+import { Progress } from 'ember-primitives';
 import { cell, resource } from 'ember-resources';
 
-const randomValue = resource(({on}) => {
-  let value = cell(randomPercent());
-  let interval = setInterval(() => value.current = randomPercent(), 3000);
+const progress = resource(({ on }) => {
+  let value = cell(35);
+  let interval = setInterval(() => {
+    value.current = value.current >= 100 ? 10 : value.current + 12;
+  }, 1100);
   on.cleanup(() => clearInterval(interval));
-
   return value;
-}); 
+});
 
-const randomPercent = () => Math.random() * 100;
-const r = 60;
+const r = 54;
 const size = Math.PI * 2 * r;
-const toOffset = (x) => ((100 - x) / 100) * size;
-
-const RandomProgress = 
-<template>
-  <Shadowed>
-    <Progress @value={{(randomValue)}} ...attributes as |x|>
-      <x.Indicator class="progress" />
-      <svg width="200" height="200" viewPort="0 0 100 100">
-        <circle 
-          r={{r}} cx="100" cy="100" 
-          fill="transparent" 
-          stroke-dasharray={{size}} stroke-dashoffset="0"></circle>
-        <circle
-          r={{r}} cx="100" cy="100" 
-          fill="transparent" 
-          style="stroke: {{@color}}"
-          stroke-linecap="round"
-          stroke-dasharray={{size}} stroke-dashoffset="{{toOffset x.percent}}"></circle>
-      </svg>
-    </Progress>
-
-    <style>
-      [role="progressbar"] { position: relative; }
-      svg circle {
-        transition: stroke-dashoffset 0.5s linear;
-        stroke: #555;
-        stroke-width: 1rem;
-      }
-      .progress {
-        height: 200px;
-        width: 200px;
-        position: absolute;
-        text-align: center;
-      }
-      .progress:after {
-        content: attr(data-percent)"%";
-        line-height: 200px;
-        font-size: 1.5rem;
-      }
-    </style>
-  </Shadowed>
-</template>;
+const toOffset = (percent) => ((100 - percent) / 100) * size;
 
 <template>
-  <div style="display: flex; gap: 1.5rem">
-    <RandomProgress @color="#FF1E7D" aria-label="demo-pink" />
-    <RandomProgress @color="#1EFF7D" aria-label="demo-green" />
-  </div>
+  <Progress @value={{(progress)}} aria-label="Circular progress" class="circle" as |x|>
+    <svg width="140" height="140" viewBox="0 0 140 140" aria-hidden="true">
+      <circle class="track" r={{r}} cx="70" cy="70" />
+      <circle
+        class="value"
+        r={{r}}
+        cx="70"
+        cy="70"
+        stroke-dasharray={{size}}
+        stroke-dashoffset={{toOffset x.percent}}
+      />
+    </svg>
+    <span class="pct">{{Math.round x.percent}}%</span>
+  </Progress>
+
+  <style>
+    .circle {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      width: 140px;
+      height: 140px;
+    }
+
+    .circle svg {
+      transform: rotate(-90deg);
+    }
+
+    .circle circle {
+      fill: transparent;
+      stroke-width: 8;
+    }
+
+    .track {
+      stroke: var(--doc-border);
+    }
+
+    .value {
+      stroke: var(--doc-brand-1);
+      stroke-linecap: round;
+      transition: stroke-dashoffset 500ms ease;
+    }
+
+    .pct {
+      position: absolute;
+      font-family: var(--font-sans);
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--doc-text-1);
+    }
+  </style>
 </template>
 ```
 
@@ -171,7 +176,7 @@ import { Progress } from 'ember-primitives';
     </x.Indicator>
 
     text can go out here, too
-  </Switch>
+  </Progress>
 </template>
 ```
 

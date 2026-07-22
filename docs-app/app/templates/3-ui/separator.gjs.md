@@ -13,8 +13,8 @@ The `Separator` is **80% documentation and 20% boilerplate reduction**.
 import { Separator } from "ember-primitives";
 
 <template>
-  <nav aria-label="First Demo">
-    <ol class="breadcrumb-list">
+  <nav aria-label="Breadcrumb">
+    <ol class="crumbs">
       <li><a href="/">Home</a></li>
       <Separator @as="li" @decorative={{true}}>/</Separator>
       <li><a href="/docs">Docs</a></li>
@@ -24,45 +24,34 @@ import { Separator } from "ember-primitives";
   </nav>
 
   <style>
-    @scope {
-      nav {
-        user-select: none;
-        background: var(--color-page-background);
-        border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
-        padding: 0.25rem 1rem;
-        width: min-content;
+    .crumbs {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+    }
 
-        ol { list-style-type: none; }
-      }
+    .crumbs a {
+      color: var(--doc-brand-1);
+      text-decoration: none;
+    }
 
-      .breadcrumb-list {
-        list-style: none;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0;
-        margin: 0;
-      }
+    .crumbs a:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.18em;
+    }
 
-      a {
-        color: #0066cc;
-        text-decoration: none;
-      }
+    .crumbs [aria-current="page"] {
+      color: var(--doc-text-2);
+      font-weight: 600;
+    }
 
-      a:hover {
-        text-decoration: underline;
-      }
-
-      li[aria-current="page"] {
-        color: #666;
-        font-weight: 600;
-      }
-
-      li[aria-hidden] {
-        color: #999;
-        user-select: none;
-      }
+    .crumbs [aria-hidden] {
+      color: var(--doc-text-3);
     }
   </style>
 </template>

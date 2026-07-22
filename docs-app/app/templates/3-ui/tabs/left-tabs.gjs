@@ -1,81 +1,77 @@
 import { Tabs } from 'ember-primitives/components/tabs';
 
 export const LeftTabs = <template>
-  <Tabs @label="Install with your favorite package-manager" as |Tab|>
-    <Tab @label="npm">npm add ember-primitives</Tab>
-    <Tab @label="pnpm">pnpm add ember-primitives</Tab>
-    <Tab @label="yarn">yarn add ember-primitives</Tab>
+  <Tabs class="side-tabs" @label="Package manager" as |Tab|>
+    <Tab @label="npm"><code>npm add ember-primitives</code></Tab>
+    <Tab @label="pnpm"><code>pnpm add ember-primitives</code></Tab>
+    <Tab @label="yarn"><code>yarn add ember-primitives</code></Tab>
   </Tabs>
 
   <style>
-    /* https://caniuse.com/css-cascade-scope */
     @scope {
-      .ember-primitives__tabs {
+      .side-tabs {
         display: grid;
         grid-template-areas:
           "label label"
-          "tablist tabpanel"
           "tablist tabpanel";
-        grid-template-columns: min-content;
+        grid-template-columns: max-content minmax(0, 1fr);
+        border: 1px solid var(--doc-border);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background: var(--doc-bg);
       }
-      .ember-primitives__tabs.reversed {
-        grid-template-areas:
-          "label label"
-          "tabpanel tablist"
-          "tabpanel tablist";
-        grid-template-columns: max-content min-content;
-      }
+
       .ember-primitives__tabs__label {
         grid-area: label;
+        padding: 0.65rem 0.85rem 0.25rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--doc-text-3);
       }
+
       .ember-primitives__tabs__tabpanel {
         grid-area: tabpanel;
-        display: flex;
-        border: 1px solid;
       }
 
       [role="tablist"] {
         grid-area: tablist;
-        flex-direction: column;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        border-right: 1px solid var(--doc-border);
+        background: var(--doc-bg-soft);
       }
 
       [role="tab"] {
+        border: 0;
         border-radius: 0;
-        color: black;
-        padding: 0.25rem 0.5rem;
-        background: hsl(220deg 20% 94%);
-        outline: none;
-        font-weight: bold;
+        padding: 0.55rem 0.85rem;
+        background: transparent;
+        color: var(--doc-text-3);
+        font-family: var(--font-sans);
+        font-size: 0.8125rem;
+        font-weight: 500;
+        text-align: left;
         cursor: pointer;
-        box-shadow: inset -1px 0px 1px black;
-
-        &:focus-visible {
-          z-index: 1;
-        }
       }
 
       [role="tab"][aria-selected="true"] {
-        background: white;
-        box-shadow: inset -4px -0px 0px orange;
-      }
-
-      [role="tab"]:first-of-type {
-        border-top-left-radius: 0.25rem;
-      }
-      [role="tab"]:last-of-type {
-        border-bottom-left-radius: 0.25rem;
+        color: var(--doc-brand-1);
+        background: var(--doc-bg);
+        box-shadow: inset 2px 0 0 var(--doc-brand-1);
+        font-weight: 600;
       }
 
       [role="tabpanel"] {
-        flex-grow: 1;
-        color: black;
-        padding: 1rem;
-        border-radius: 0 0.25rem 0.25rem 0;
-        background: white;
-        overflow: auto;
-        font-family: ui-monospace monospace;
+        padding: 1rem 1.1rem;
+        color: var(--doc-text-1);
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+      }
+
+      code {
+        font: inherit;
       }
     }
   </style>

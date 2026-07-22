@@ -1,21 +1,25 @@
+/* Home hero — quiet canvas + soft indigo glow */
 .gradient-background {
-  background-image: linear-gradient(-45deg in oklch, #1252e3, #485de5, #7812e5, #3512c5);
-  background-size: 400% 400%;
-  animation: gradient-animation 16s ease infinite;
+  background-color: var(--doc-bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(100, 108, 255, 0.22), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(62, 99, 221, 0.12), transparent 50%);
+  background-size: auto;
+  animation: none;
 }
 
-body.dark .gradient-background {
-  background-image: linear-gradient(-45deg in oklch, #110043, #182d75, #280065, #350076);
+body.light .gradient-background,
+:is(html[style*="color-scheme: light"]) .gradient-background {
+  background-color: #f6f6f7;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(100, 108, 255, 0.18), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(54, 81, 178, 0.1), transparent 50%);
 }
 
-@keyframes gradient-animation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+body.dark .gradient-background,
+:is(html[style*="color-scheme: dark"]) .gradient-background {
+  background-color: #1b1b1f;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(100, 108, 255, 0.28), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 15% 85%, rgba(62, 99, 221, 0.16), transparent 50%);
 }

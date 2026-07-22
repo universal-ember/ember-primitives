@@ -4,6 +4,73 @@ The Switch component is a user interface element used for toggling between two s
 
 `<Switch />` can be used in any design system.
 
+<div class="featured-demo">
+
+```gjs live preview
+import { Switch } from 'ember-primitives/components/switch';
+
+<template>
+  <Switch class="switch" as |s|>
+    <s.Control />
+    <s.Label>Email notifications</s.Label>
+  </Switch>
+
+  <style>
+    .switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      color: var(--doc-text-1);
+    }
+
+    .switch [role="switch"] {
+      appearance: none;
+      width: 2.75rem;
+      height: 1.55rem;
+      margin: 0;
+      border: 1px solid var(--doc-border);
+      border-radius: 999px;
+      background: var(--doc-bg);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .switch [role="switch"]::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 1.15rem;
+      height: 1.15rem;
+      border-radius: 999px;
+      background: var(--doc-text-2);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .switch [role="switch"][aria-checked="true"],
+    .switch [role="switch"]:checked {
+      background: var(--doc-brand-1);
+      border-color: var(--doc-brand-1);
+    }
+
+    .switch [role="switch"][aria-checked="true"]::after,
+    .switch [role="switch"]:checked::after {
+      transform: translateX(1.15rem);
+      background: white;
+    }
+
+    .switch label {
+      cursor: pointer;
+    }
+  </style>
+</template>
+```
+
+</div>
+
 ## Examples
 
 <details><summary><h3>Draggable</h3></summary>

@@ -20,39 +20,38 @@ export const IndexPage: TOC<{
     </header>
 
     <div class="index-hero__body">
-      <div
-        style="width: 66%; margin: 0 auto; transform: translateY(-20%);"
-        class="index-hero__grid"
-      >
-        <h1 style="filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.4));">
+      <div class="index-hero__grid">
+        <h1 class="index-hero__logo">
           {{yield to="logo"}}
         </h1>
         <p class="index-hero__tagline">
           {{yield to="tagline"}}
         </p>
       </div>
-      {{yield to="callToAction"}}
+      <div class="index-hero__cta">
+        {{yield to="callToAction"}}
+      </div>
     </div>
   </Hero>
 
   {{yield to="content"}}
 
-  <hr />
-  <footer style="padding: 3rem; width: 66%;" class="index-footer">
+  <hr class="index-divider" />
+  <footer class="index-footer">
     {{yield to="footer"}}
   </footer>
 
   <style scoped>
     .index-hero {
-      box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.05);
+      border-bottom: 1px solid var(--doc-border);
     }
 
     .index-hero__header {
       position: absolute;
       right: 0;
-      bottom: 0;
+      top: 0;
       z-index: 50;
-      padding: 1rem;
+      padding: 1rem 1.25rem;
       display: flex;
       align-items: center;
     }
@@ -66,35 +65,64 @@ export const IndexPage: TOC<{
 
     .index-hero__body {
       height: 100%;
+      min-height: min(72vh, 640px);
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 2.5rem;
       justify-content: center;
       align-items: center;
+      padding: 4.5rem 1.5rem 5rem;
     }
 
     .index-hero__grid {
       display: grid;
-      gap: 1rem;
+      gap: 1.75rem;
+      width: min(720px, 92%);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .index-hero__logo {
+      margin: 0;
+      filter: none;
     }
 
     .index-hero__tagline {
-      font-style: italic;
-      color: white;
+      font-style: normal;
+      color: var(--doc-text-2);
       width: 100%;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
+      font-size: 1.25rem;
+      line-height: 1.7;
+      letter-spacing: -0.015em;
+      text-wrap: pretty;
     }
 
-    @media (min-width: 768px) {
-      .index-hero__tagline {
-        width: 50%;
-      }
+    .index-hero__tagline strong {
+      color: var(--doc-text-1);
+      font-weight: 600;
+    }
+
+    .index-hero__cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 0.25rem;
+    }
+
+    .index-divider {
+      border: 0;
+      border-top: 1px solid var(--doc-divider);
+      margin: 2.75rem auto 0;
+      width: min(66%, 720px);
     }
 
     .index-footer {
       margin-left: auto;
       margin-right: auto;
+      padding: 2.5rem 1.5rem 3.75rem;
+      width: min(66%, 900px);
       gap: 3rem;
       flex-wrap: wrap;
       display: flex;

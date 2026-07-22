@@ -18,35 +18,91 @@ import { OTP } from 'ember-primitives';
 import { cell } from 'ember-resources';
 
 const submittedCode = cell();
-const handleSubmit = ({ code }) => submittedCode.current = code;
+const handleSubmit = ({ code }) => (submittedCode.current = code);
 
 <template>
-  <pre>submitted: {{submittedCode}}</pre>
+  <div class="otp-demo">
+    <OTP @onSubmit={{handleSubmit}} as |x|>
+      <x.Input class="fields" />
+      <div class="actions">
+        <x.Submit>Verify</x.Submit>
+        <x.Reset>Reset</x.Reset>
+      </div>
+    </OTP>
 
-  <OTP @onSubmit={{handleSubmit}} as |x|>
-    <x.Input class="fields" />
-    <br>
-    <x.Submit>Submit</x.Submit>
-    <x.Reset>Reset</x.Reset>
-  </OTP>
+    {{#if submittedCode.current}}
+      <p class="result">Submitted: <code>{{submittedCode.current}}</code></p>
+    {{/if}}
+  </div>
 
   <style>
-    .fields { 
+    .otp-demo {
+      display: grid;
+      gap: 1rem;
+      font-family: var(--font-sans);
+    }
+
+    .fields {
       display: grid;
       grid-auto-flow: column;
       gap: 0.5rem;
       width: min-content;
-      border: none;
+      margin: 0;
       padding: 0;
+      border: 0;
+    }
 
-      input {
-        border: 1px solid;
-        font-size: 2rem;
-        width: 2.5rem;
-        height: 3rem;
-        text-align: center;
-        appearance: textfield;
-      }
+    .fields input {
+      width: 2.5rem;
+      height: 3rem;
+      border: 1px solid var(--doc-border);
+      border-radius: 0.5rem;
+      background: var(--doc-bg);
+      color: var(--doc-text-1);
+      font-size: 1.5rem;
+      font-family: var(--font-mono);
+      text-align: center;
+      appearance: textfield;
+    }
+
+    .fields input:focus {
+      outline: 2px solid var(--doc-brand-1);
+      outline-offset: 1px;
+      border-color: transparent;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .actions button {
+      padding: 0.45rem 0.85rem;
+      border: 1px solid var(--doc-border);
+      border-radius: 0.5rem;
+      background: var(--doc-bg);
+      color: var(--doc-text-1);
+      font: inherit;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    .actions button[type="submit"] {
+      background: var(--doc-brand-1);
+      border-color: var(--doc-brand-1);
+      color: white;
+      font-weight: 600;
+    }
+
+    .result {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--doc-text-2);
+    }
+
+    .result code {
+      color: var(--doc-text-1);
+      font-family: var(--font-mono);
     }
   </style>
 </template>

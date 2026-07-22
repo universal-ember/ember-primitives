@@ -42,14 +42,15 @@
 
   /* Layout */
   --doc-nav-height: 64px;
-  --doc-sidebar-width: 280px;
-  --doc-content-max: 52rem;
+  --doc-sidebar-width: 268px;
+  --doc-sidebar-bg: transparent;
+  --doc-content-max: 46rem;
   --doc-page-max: none;
   --doc-gutter: 0px;
-  --doc-content-pad-x: 48px;
-  --doc-content-pad-y: 36px;
-  --doc-sidebar-pad-x: 12px;
-  --doc-sidebar-pad-y: 16px;
+  --doc-content-pad-x: 3.25rem;
+  --doc-content-pad-y: 2.75rem;
+  --doc-sidebar-pad-x: 0.85rem;
+  --doc-sidebar-pad-y: 1.15rem;
 
   /* Typography aliases used by host apps */
   --font-sans:
@@ -65,6 +66,7 @@
   --doc-bg-alt: #161618;
   --doc-bg-elv: #202127;
   --doc-bg-soft: #202127;
+  --doc-sidebar-bg: color-mix(in srgb, var(--doc-bg-alt) 72%, transparent);
 
   --doc-text-1: #dfdfd6;
   --doc-text-2: #98989f;
@@ -81,8 +83,8 @@
 
 @media (max-width: 1023px) {
   :root {
-    --doc-content-pad-x: 1.25rem;
-    --doc-content-pad-y: 1.5rem;
+    --doc-content-pad-x: 1.15rem;
+    --doc-content-pad-y: 1.65rem;
     --doc-gutter: 0px;
   }
 }

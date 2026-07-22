@@ -16,13 +16,13 @@
     width: 100%;
     max-width: none;
     padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-right: 1.5rem;
     display: grid;
     gap: 0;
 
     @media (min-width: 1280px) {
       padding-left: 1.75rem;
-      padding-right: 2rem;
+      padding-right: 2.25rem;
     }
   }
 
@@ -33,17 +33,18 @@
       grid-template-columns: var(--doc-sidebar-width) minmax(0, 1fr);
       margin: 0;
       align-items: start;
+      column-gap: 0;
 
       aside {
         margin-top: 0;
         overflow: auto;
         max-height: calc(100dvh - var(--doc-nav-height));
-        padding: 1rem 1rem 5rem 0.25rem;
+        padding: var(--doc-sidebar-pad-y) var(--doc-sidebar-pad-x) 5rem 0.1rem;
         position: sticky;
         top: var(--doc-nav-height);
         border-right: 1px solid var(--doc-divider);
-        scrollbar-width: thin;
-        scrollbar-color: var(--doc-divider) transparent;
+        background: var(--doc-sidebar-bg);
+        scrollbar-gutter: stable;
       }
     }
 
@@ -57,7 +58,7 @@
 
   .mobile-menu__tray aside {
     height: 100dvh;
-    padding: 1.25rem;
+    padding: 1.25rem 1.35rem;
     background: var(--doc-bg);
     border-right: none;
   }

@@ -15,12 +15,12 @@ export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
   <style scoped>
     .callout {
       display: flex;
-      padding: 1rem 1.25rem;
+      padding: 1.05rem 1.2rem;
       margin-top: 2rem;
       margin-bottom: 2rem;
       border-radius: var(--doc-radius-sm);
       background-color: var(--doc-brand-soft);
-      border: 1px solid color-mix(in srgb, var(--doc-brand-1) 35%, transparent);
+      border: 1px solid color-mix(in srgb, var(--doc-brand-1) 28%, transparent);
     }
 
     .callout__icon {
@@ -38,6 +38,7 @@ export const Callout: TOC<{ Blocks: { default: [] } }> = <template>
     .callout__content {
       color: var(--doc-text-1);
       font-size: 0.9375rem;
+      line-height: 1.65;
     }
 
     .callout__content > *:first-child {

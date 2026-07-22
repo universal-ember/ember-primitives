@@ -44,38 +44,54 @@ export const PageLoader: TOC<{
   </div>
 
   <style>
-    @keyframes shimmer {
-      0% {
-        background-position: -1000px 0;
-      }
-      100% {
-        background-position: 1000px 0;
-      }
-    }
-
     .loading-page {
       position: fixed;
-      top: 0rem;
-      padding: 0.5rem 1rem;
-      background: linear-gradient(
-        90deg,
-        rgba(40, 40, 50, 0.9),
-        rgba(60, 60, 70, 0.9),
-        rgba(40, 40, 50, 0.9)
-      );
-      background-size: 1000px 100%;
-      animation: shimmer 2s infinite;
-      filter: drop-shadow(0 0.5rem 0.5rem rgba(0, 0, 0, 0.8));
-      color: white;
+      top: 0;
+      left: 0;
       right: 0;
-      width: 100%;
-      border-bottom-left-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      min-height: 2.25rem;
+      padding: 0.55rem 1rem;
+      background: color-mix(in srgb, var(--doc-bg-elv) 92%, transparent);
+      border-bottom: 1px solid var(--doc-divider);
+      backdrop-filter: blur(8px);
+      color: var(--doc-text-2);
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .loading-page::before {
+      content: "";
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 999px;
+      background: var(--doc-brand-1);
+      opacity: 0.85;
+      animation: docs-pulse 1.1s ease-in-out infinite;
+    }
+
+    @keyframes docs-pulse {
+      0%,
+      100% {
+        opacity: 0.35;
+        transform: scale(0.9);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .loading-page {
-        animation: shimmer 10s infinite;
+      .loading-page::before {
+        animation: none;
+        opacity: 0.7;
       }
     }
   </style>
@@ -233,21 +249,26 @@ export const PageLayout: TOC<{
       width: 100%;
       max-width: var(--doc-content-max);
       min-width: 0;
-      padding: var(--doc-content-pad-y) var(--doc-content-pad-x) 5rem;
+      padding: var(--doc-content-pad-y) var(--doc-content-pad-x) 6rem;
     }
 
     .edit-link-container {
       display: flex;
       justify-content: flex-end;
-      padding-top: 1.25rem;
-      margin-top: 3rem;
+      align-items: center;
+      padding-top: 1.35rem;
+      margin-top: 3.25rem;
       border-top: 1px solid var(--doc-divider);
     }
 
     .edit-link-container .styled-link,
     .edit-link-container a {
       font-size: 0.8125rem;
-      color: var(--doc-text-2);
+      font-weight: 500;
+      color: var(--doc-text-3);
+      text-decoration: none;
+      box-shadow: none;
+      transition: color 0.12s ease;
     }
 
     .edit-link-container .styled-link:hover,

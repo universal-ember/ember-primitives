@@ -177,26 +177,26 @@ export class SideNav extends Component<{
       }
 
       .side-nav h2 {
-        font-size: 0.75rem;
+        font-size: 0.6875rem;
         font-weight: 600;
         font-family: var(--font-sans);
         color: var(--doc-text-3);
-        letter-spacing: 0.04em;
+        letter-spacing: 0.07em;
         text-transform: uppercase;
-        margin: 0 0 0.35rem;
-        padding: 0 0.625rem;
+        margin: 0 0 0.5rem;
+        padding: 0 0.75rem;
       }
 
       .section-link {
         display: block;
         font-weight: 500;
         font-size: 0.875rem;
-        line-height: 1.4;
+        line-height: 1.35;
         font-family: var(--font-sans);
         color: var(--doc-text-1);
         text-decoration: none;
         border-radius: var(--doc-radius-sm);
-        padding: 0.375rem 0.625rem;
+        padding: 0.42rem 0.75rem;
         transition:
           color 0.12s ease,
           background-color 0.12s ease;
@@ -221,8 +221,8 @@ export class SideNav extends Component<{
         line-height: 1.4;
         color: var(--doc-text-2);
         text-decoration: none;
-        padding: 0.3rem 0.5rem;
-        border-radius: var(--doc-radius-sm);
+        padding: 0.38rem 0.65rem;
+        border-radius: 6px;
         transition:
           color 0.12s ease,
           background-color 0.12s ease;
@@ -235,7 +235,7 @@ export class SideNav extends Component<{
         left: -0.75rem;
         top: 0.4rem;
         bottom: 0.4rem;
-        width: 1.5px;
+        width: 2px;
         border-radius: 1px;
         background-color: transparent;
         transition: background-color 0.12s ease;
@@ -243,7 +243,7 @@ export class SideNav extends Component<{
 
       .subsection-link:hover {
         color: var(--doc-text-1);
-        background-color: color-mix(in srgb, var(--doc-text-1) 6%, transparent);
+        background-color: color-mix(in srgb, var(--doc-text-1) 5%, transparent);
       }
 
       .subsection-link.is-active {

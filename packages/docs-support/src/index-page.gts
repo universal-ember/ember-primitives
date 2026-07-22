@@ -65,17 +65,18 @@ export const IndexPage: TOC<{
 
     .index-hero__body {
       height: 100%;
+      min-height: min(72vh, 640px);
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 2.5rem;
       justify-content: center;
       align-items: center;
-      padding: 3rem 1.5rem 4rem;
+      padding: 4.5rem 1.5rem 5rem;
     }
 
     .index-hero__grid {
       display: grid;
-      gap: 1.25rem;
+      gap: 1.75rem;
       width: min(720px, 92%);
       margin: 0 auto;
       text-align: center;
@@ -91,8 +92,10 @@ export const IndexPage: TOC<{
       color: var(--doc-text-2);
       width: 100%;
       margin: 0 auto;
-      font-size: 1.125rem;
-      line-height: 1.65;
+      font-size: 1.25rem;
+      line-height: 1.7;
+      letter-spacing: -0.015em;
+      text-wrap: pretty;
     }
 
     .index-hero__tagline strong {
@@ -105,19 +108,20 @@ export const IndexPage: TOC<{
       flex-wrap: wrap;
       gap: 0.75rem;
       justify-content: center;
+      margin-top: 0.25rem;
     }
 
     .index-divider {
       border: 0;
       border-top: 1px solid var(--doc-divider);
-      margin: 3rem auto;
+      margin: 2.75rem auto 0;
       width: min(66%, 720px);
     }
 
     .index-footer {
       margin-left: auto;
       margin-right: auto;
-      padding: 2rem 1.5rem 3rem;
+      padding: 2.5rem 1.5rem 3.75rem;
       width: min(66%, 900px);
       gap: 3rem;
       flex-wrap: wrap;

@@ -14,20 +14,33 @@ import { cell } from 'ember-resources';
 const capturedValue = cell(2);
 
 <template>
-  Current Value: {{capturedValue.current}}<br>
-  <Rating 
-    @step={{0.5}} {{! enabling half ratings, omit @step for whole ratings }} 
-    @value={{capturedValue.current}} 
-    @onChange={{capturedValue.set}}
-    {{! Using CSS only for icons in this demo 
-        -- use your design system's star icons here if you need }}
-    @icon=""
-  >
-    <:label>Rate me</:label>
-  </Rating>
+  <div class="rating-demo">
+    <Rating
+      @step={{0.5}}
+      @value={{capturedValue.current}}
+      @onChange={{capturedValue.set}}
+      @icon=""
+    >
+      <:label>Rate this package</:label>
+    </Rating>
+    <p class="value">{{capturedValue.current}} / 5</p>
+  </div>
 
   <style>
     @import "/demo-support/utilities.css";
+
+    .rating-demo {
+      display: grid;
+      gap: 0.75rem;
+      justify-items: start;
+      font-family: var(--font-sans);
+    }
+
+    .rating-demo .value {
+      margin: 0;
+      font-size: 0.875rem;
+      color: var(--doc-text-2);
+    }
 
     @scope {
 

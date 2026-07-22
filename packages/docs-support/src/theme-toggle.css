@@ -26,7 +26,7 @@
 
   label {
     background-color: var(--doc-bg-soft);
-    width: 50px;
+    width: 46px;
     height: 26px;
     border-radius: var(--doc-radius-pill);
     position: relative;
@@ -38,20 +38,27 @@
     gap: 0.5rem;
     border: 1px solid var(--doc-border);
     box-shadow: none;
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  label:hover {
+    border-color: color-mix(in srgb, var(--doc-brand-1) 35%, var(--doc-border));
   }
 
   label .ball {
     background-color: var(--doc-text-1);
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     left: 2px;
     top: 2px;
     border-radius: 50%;
-    transition: transform 0.2s linear;
+    transition: transform 0.18s ease;
   }
 
   input[type="checkbox"][role="switch"]:checked + label .ball {
-    transform: translateX(24px);
+    transform: translateX(22px);
   }
 }

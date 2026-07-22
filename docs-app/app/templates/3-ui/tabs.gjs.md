@@ -21,57 +21,79 @@ A set of layered sections of content, known as tab panels, that are displayed on
 import { Tabs } from 'ember-primitives/components/tabs';
 
 <template>
-  <Tabs @label="Install with your favorite package-manager" as |Tab|>
-    <Tab @label="npm">npm add ember-primitives</Tab>
-    <Tab @label="pnpm">pnpm add ember-primitives</Tab>
-
-    <Tab as |Label Content|>
-      <Label>yarn</Label>
-      <Content>
-        yarn add ember-primitives
-      </Content>
+  <Tabs class="pm-tabs" @label="Package manager" as |Tab|>
+    <Tab @label="npm">
+      <code>npm add ember-primitives</code>
+    </Tab>
+    <Tab @label="pnpm">
+      <code>pnpm add ember-primitives</code>
+    </Tab>
+    <Tab @label="yarn">
+      <code>yarn add ember-primitives</code>
     </Tab>
   </Tabs>
 
   <style>
-    /* https://caniuse.com/css-cascade-scope */
-    @scope {
-    [role="tablist"] {
-        min-width: 100%;
-      }
+    .pm-tabs {
+      border: 1px solid var(--doc-border);
+      border-radius: 0.75rem;
+      background: var(--doc-bg);
+      overflow: hidden;
+    }
 
-      [role="tab"] {
-        color: black;
-        display: inline-block;
-        padding: 0.25rem 0.5rem; 
-        background: hsl(220deg 20% 94%);
-        outline: none;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: inset 0 -1px 1px black;
-      }
+    .pm-tabs > .ember-primitives__tabs__label {
+      padding: 0.7rem 1rem 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--doc-text-3);
+    }
 
-      [role="tab"][aria-selected="true"] {
-        background: white;
-        box-shadow: inset 0 -4px 0px orange;
-      }
+    .pm-tabs [role="tablist"] {
+      display: flex;
+      gap: 0;
+      width: 100%;
+      padding: 0.45rem 0.55rem 0;
+      border-bottom: 1px solid var(--doc-border);
+    }
 
-      [role="tab"]:first-of-type {
-        border-top-left-radius: 0.25rem;
-      }
-      [role="tab"]:last-of-type {
-        border-top-right-radius: 0.25rem;
-      }
+    .pm-tabs [role="tab"] {
+      position: relative;
+      padding: 0.45rem 0.85rem 0.7rem;
+      border: 0;
+      background: transparent;
+      color: var(--doc-text-3);
+      font-family: var(--font-sans);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
 
-      [role="tabpanel"] {
-        color: black;
-        padding: 1rem;
-        border-radius: 0 0.25rem 0.25rem;
-        background: white; 
-        width: 100%;
-        overflow: auto;
-        font-family: ui-monospace monospace;
-      }
+    .pm-tabs [role="tab"][aria-selected="true"] {
+      color: var(--doc-brand-1);
+      font-weight: 600;
+    }
+
+    .pm-tabs [role="tab"][aria-selected="true"]::after {
+      content: "";
+      position: absolute;
+      left: 0.55rem;
+      right: 0.55rem;
+      bottom: -1px;
+      height: 2px;
+      background: var(--doc-brand-1);
+    }
+
+    .pm-tabs [role="tabpanel"] {
+      padding: 1rem 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--doc-text-1);
+    }
+
+    .pm-tabs code {
+      font: inherit;
     }
   </style>
 </template>

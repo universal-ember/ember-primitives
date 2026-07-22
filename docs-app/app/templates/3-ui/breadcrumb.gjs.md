@@ -40,16 +40,15 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
   <PortalTargets />
   <style>
-    @scope { 
+    @scope {
       nav {
         user-select: none;
-        background: var(--color-page-background);
-        border-radius: 0.25rem;
-        filter: drop-shadow(0 0 0.75rem rgba(0,0,0,0.2));
-        padding: 0.25rem 1rem;
-        width: min-content;
+        padding: 0;
+        width: max-content;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
       }
-      
+
       nav ol {
         list-style: none;
         display: flex;
@@ -59,36 +58,45 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
         margin: 0;
       }
 
-      nav a {
-        color: #0066cc;
+      nav a,
+      nav .menu-trigger {
+        color: var(--doc-brand-1);
         text-decoration: none;
+        background: transparent;
+        border: 0;
+        font: inherit;
+        cursor: pointer;
       }
 
-      nav a:hover {
+      nav a:hover,
+      nav .menu-trigger:hover {
         text-decoration: underline;
+        text-underline-offset: 0.18em;
       }
 
       nav li[aria-current="page"] {
-        color: #666;
+        color: var(--doc-text-2);
         font-weight: 600;
       }
 
       nav span[aria-hidden] {
-        color: #999;
+        color: var(--doc-text-3);
         user-select: none;
       }
 
       .menu-trigger {
         all: unset;
-        color: #0066cc;
+        color: var(--doc-brand-1);
         cursor: pointer;
         display: inline-flex;
         align-items: center;
         gap: 0.25rem;
+        font: inherit;
       }
 
       .menu-trigger:hover {
         text-decoration: underline;
+        text-underline-offset: 0.18em;
       }
 
       .menu-trigger svg {
@@ -98,15 +106,13 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
 
       .menu-content {
         min-width: 180px;
-        background: #fff;
-        color: #111827;
-        padding: 8px 0;
-        border-radius: 6px;
-        border: none;
-        font-size: 14px;
+        background: var(--doc-bg-elv);
+        color: var(--doc-text-1);
+        padding: 0.35rem 0;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
         z-index: 10;
-        border: 1px solid gray;
-        box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        border: 1px solid var(--doc-border);
         display: flex;
         flex-direction: column;
       }
@@ -114,14 +120,14 @@ import { Breadcrumb, Menu, PortalTargets } from 'ember-primitives';
       .menu-content [role="menuitem"] {
         all: unset;
         display: block;
-        padding: 4px 12px;
+        padding: 0.4rem 0.75rem;
         cursor: pointer;
-        color: #111827;
+        color: var(--doc-text-1);
       }
 
       .menu-content [role="menuitem"]:focus,
       .menu-content [role="menuitem"]:hover {
-        background-color: #f9fafb;
+        background: color-mix(in srgb, var(--doc-text-1) 6%, transparent);
       }
     }
   </style>

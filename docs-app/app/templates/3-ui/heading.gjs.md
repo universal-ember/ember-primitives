@@ -49,9 +49,11 @@ import { InViewport } from 'ember-primitives/viewport';
 
   <style>
     @scope {
-      h1, h2, h3, h4, h5, h6 { 
-        margin-top: 0; margin-bottom: 0;
-        color: white;
+      h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+        color: var(--doc-text-1);
+        font-family: var(--font-sans);
       }
 
       h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
@@ -59,7 +61,8 @@ import { InViewport } from 'ember-primitives/viewport';
         margin-left: -1.2em;
         font-size: 0.7em;
         text-align: right;
-        opacity: 0.8;
+        opacity: 0.55;
+        color: var(--doc-text-3);
       }
 
       h1 { font-size: 2.5rem; }
@@ -68,7 +71,7 @@ import { InViewport } from 'ember-primitives/viewport';
       h4 { font-size: 1.5rem; }
       h5 { font-size: 1.25rem; }
       h6 { font-size: 1rem; }
-      a { color: white; }
+      a { color: var(--doc-brand-1); }
 
       h1::before { content: 'h1'; }
       h2::before { content: 'h2'; }

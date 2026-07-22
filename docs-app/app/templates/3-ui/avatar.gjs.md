@@ -10,52 +10,48 @@ import { Avatar } from 'ember-primitives';
 
 <template>
   <div class="demo">
-    <Avatar class="container" @src="https://avatars.githubusercontent.com/u/199018?v=4" as |a|>
-      <a.Image alt="GitHub profile picture of NullVoxPopuli" />
-      <a.Fallback>NVP</a.Fallback>
+    <Avatar class="avatar" @src="https://avatars.githubusercontent.com/u/199018?v=4" as |a|>
+      <a.Image alt="NullVoxPopuli" />
+      <a.Fallback>NV</a.Fallback>
     </Avatar>
 
-    <Avatar class="container" @src="broken URL" as |a|>
-      <a.Image alt="GitHub profile picture of NullVoxPopuli" />
-      <a.Fallback @delayMs={{600}}>NVP</a.Fallback>
+    <Avatar class="avatar" @src="broken-url" as |a|>
+      <a.Image alt="Broken image" />
+      <a.Fallback @delayMs={{400}}>FB</a.Fallback>
     </Avatar>
 
-    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/2/21/CarbotZerglingLevel_SC2_Portrait1.jpg" as |a|>
-      <a.Image alt="Zergling" />
-      <a.Fallback>Z</a.Fallback>
-    </Avatar>
-
-    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/b/bc/Vorazun_SC2_Portrait1.jpg" as |a|>
-      <a.Image alt="Vorazun's profile picture" />
-      <a.Fallback>V</a.Fallback>
-    </Avatar>
-
-    <Avatar class="container" @src="https://static.wikia.nocookie.net/starcraft/images/3/34/GhostKerrigan_SC2_Portrait1.jpg" as |a|>
-      <a.Image alt="Sarah Kerrigan's profile picture" />
-      <a.Fallback>SK</a.Fallback>
+    <Avatar class="avatar" @src="https://avatars.githubusercontent.com/u/810438?v=4" as |a|>
+      <a.Image alt="Example user" />
+      <a.Fallback>EX</a.Fallback>
     </Avatar>
   </div>
 
   <style>
     .demo {
       display: flex;
-      gap: 1rem;
-    }
-    .container {
-      display: flex;
-      height: 4rem;
-      width: 4rem;
-      border-radius: 1rem;
-      overflow: hidden;
+      gap: 0.85rem;
       align-items: center;
-      place-content: center;
-      border: 2px solid #A300DE;
+    }
 
-      > img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 3rem;
+      height: 3rem;
+      overflow: hidden;
+      border-radius: 999px;
+      border: 1px solid var(--doc-border);
+      background: var(--doc-bg);
+      color: var(--doc-text-2);
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   </style>
 </template>

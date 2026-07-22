@@ -187,3 +187,4 @@ export default class Application extends Route {
     ]);
   }
 }
+

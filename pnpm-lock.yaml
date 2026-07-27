@@ -17,6 +17,7 @@ overrides:
   ember-primitives: workspace:^
   ember-repl: ^8.0.0
   ember-source: ^7.1.0
+  kolay: github:universal-ember/kolay#dist
   reactiveweb: ^1.9.1
   tracked-toolbox: ^3.0.0
 
@@ -105,8 +106,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.2(highlight.js@11.11.1)
       kolay:
-        specifier: ^5.1.2
-        version: 5.2.0(a417d88aa35fbfb0591a793939686c8f)
+        specifier: github:universal-ember/kolay#dist
+        version: https://codeload.github.com/universal-ember/kolay/tar.gz/f4a21ade2abe9a0bcdeffa921940664f05774765(a417d88aa35fbfb0591a793939686c8f)
       limber-ui:
         specifier: ^4.1.1
         version: 4.2.1(c8332dc3f90c0e60eb130a3a85f980b9)
@@ -476,8 +477,8 @@ importers:
         specifier: ^4.0.2
         version: 4.1.1
       kolay:
-        specifier: ^5.1.2
-        version: 5.2.0(a417d88aa35fbfb0591a793939686c8f)
+        specifier: github:universal-ember/kolay#dist
+        version: https://codeload.github.com/universal-ember/kolay/tar.gz/f4a21ade2abe9a0bcdeffa921940664f05774765(a417d88aa35fbfb0591a793939686c8f)
       package-up:
         specifier: ^5.0.0
         version: 5.0.0
@@ -5287,8 +5288,9 @@ packages:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
 
-  kolay@5.2.0:
-    resolution: {integrity: sha512-0ExGdvBmlmitKeL8nAit4GCKZO5T+Ya1FqIOI1c/Qnv64wDLoz0LBFye9iXDH8fTM/BhbT+uw2qadhjsiuxtWQ==}
+  kolay@https://codeload.github.com/universal-ember/kolay/tar.gz/f4a21ade2abe9a0bcdeffa921940664f05774765:
+    resolution: {gitHosted: true, integrity: sha512-hxBAMq65JGlqmcswJrl6T4RnZ0fn4QGpryyaoLTMmwexb0Y6U4Gx16B0htLbyhJvNnChCYJs0uE8DJ8MPzdj8w==, tarball: https://codeload.github.com/universal-ember/kolay/tar.gz/f4a21ade2abe9a0bcdeffa921940664f05774765}
+    version: 5.4.0
     engines: {node: '>= 18'}
 
   ky@1.14.3:
@@ -10128,7 +10130,7 @@ snapshots:
       ember-primitives: file:ember-primitives(5c0eaebf1b4b32661be1beb69576d86a)
       ember-resources: 7.0.7(2935cfb77147881c8250be8c1bb7d0d1)
       inter-ui: 4.1.1
-      kolay: 5.2.0(a417d88aa35fbfb0591a793939686c8f)
+      kolay: https://codeload.github.com/universal-ember/kolay/tar.gz/f4a21ade2abe9a0bcdeffa921940664f05774765(a417d88aa35fbfb0591a793939686c8f)
       package-up: 5.0.0
       read-package-up: 12.0.0
       should-handle-link: 1.3.0
@@ -13196,7 +13198,7 @@ snapshots:
 
   kind-of@6.0.3: {}
 
-  kolay@5.2.0(a417d88aa35fbfb0591a793939686c8f):
+  kolay@https://codeload.github.com/universal-ember/kolay/tar.gz/f4a21ade2abe9a0bcdeffa921940664f05774765(a417d88aa35fbfb0591a793939686c8f):
     dependencies:
       '@ember/test-waiters': 4.1.1(c8332dc3f90c0e60eb130a3a85f980b9)
       '@embroider/addon-shim': 1.10.2
@@ -13204,7 +13206,7 @@ snapshots:
       '@glint/template': 1.7.7
       change-case: 5.4.4
       common-tags: 1.8.2
-      content-tag: 4.1.1
+      content-tag: 4.2.0
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
       ember-modifier: 4.3.0(@babel/core@7.29.0)
       ember-primitives: file:ember-primitives(5c0eaebf1b4b32661be1beb69576d86a)

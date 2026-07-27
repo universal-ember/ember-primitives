@@ -1,7 +1,7 @@
 import { ember, extensions } from "@embroider/vite";
 
 import { babel } from "@rollup/plugin-babel";
-import { kolay } from "kolay/vite";
+import { apiDocs, docs } from "kolay/vite";
 import { defineConfig } from "vite";
 import { scopedCSS } from "ember-scoped-css/vite";
 import rehypeShiki from "@shikijs/rehype";
@@ -11,8 +11,8 @@ export default defineConfig(async (/* { mode } */) => {
     plugins: [
       scopedCSS(),
       ember(),
-      kolay({
-        packages: ["ember-primitives", "which-heading-do-i-need"],
+      // no group: the docs are the co-located pages in app/templates
+      docs({
         rehypePlugins: [
           [
             rehypeShiki,
@@ -38,6 +38,7 @@ export default defineConfig(async (/* { mode } */) => {
           import { Callout } from '@universal-ember/docs-support';
         `,
       }),
+      apiDocs(["ember-primitives", "which-heading-do-i-need"]),
       babel({
         babelHelpers: "runtime",
         extensions,

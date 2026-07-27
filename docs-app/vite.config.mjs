@@ -11,7 +11,6 @@ export default defineConfig(async (/* { mode } */) => {
     plugins: [
       scopedCSS(),
       ember(),
-      // no group: the docs are the co-located pages in app/templates
       docs({
         rehypePlugins: [
           [

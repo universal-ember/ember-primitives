@@ -43,6 +43,18 @@ export default defineConfig(async (/* { mode } */) => {
         extensions,
       }),
     ],
+    build: {
+      /**
+       * Vite's default cssTarget predates light-dark(), so lightningcss
+       * rewrites it into var(--lightningcss-light/dark) space toggles whose
+       * :root definitions don't survive chunking — the declarations then
+       * fail at computed-value time (kolay's typedoc colors, for example).
+       * The rewrite would also key theming off prefers-color-scheme,
+       * ignoring our color-scheme toggle. These targets support
+       * light-dark() natively.
+       */
+      cssTarget: ["chrome123", "firefox120", "safari17.5"],
+    },
     optimizeDeps: {
       exclude: [
         // a wasm-providing dependency

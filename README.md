@@ -113,6 +113,13 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/patricklx">
+                    <img src="https://avatars.githubusercontent.com/u/1332320?v=4" width="100;" alt="patricklx"/>
+                    <br />
+                    <sub><b>Patrick Pircher</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/ember-tomster">
                     <img src="https://avatars.githubusercontent.com/u/17934356?v=4" width="100;" alt="ember-tomster"/>
                     <br />

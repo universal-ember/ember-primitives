@@ -5,6 +5,7 @@ import { Page } from 'kolay/components';
 import { Article } from './article.gts';
 import { Link } from './links.gts';
 import { ResponsiveMenuLayout } from './menu-layout.gts';
+import { OnThisPage } from './on-this-page.gts';
 import { ThemeToggle } from './theme-toggle.gts';
 
 import type { TOC } from '@ember/component/template-only';
@@ -166,6 +167,9 @@ export const PageLayout: TOC<{
           </div>
         {{/if}}
       </section>
+      <aside>
+        <OnThisPage />
+      </aside>
     </:content>
 
   </ResponsiveMenuLayout>

@@ -52,7 +52,7 @@
       "persistent": true
     },
     "start": {
-      "dependsOn": ["_syncPnpm", "^build"],
+      "dependsOn": ["^build"],
       "outputs": [],
       "cache": false,
       "persistent": true
@@ -68,7 +68,7 @@
     // development
     "build:dev": {
       "outputs": ["dist/**", "dist-types/**", "declarations/**"],
-      "dependsOn": ["_syncPnpm"]
+      "dependsOn": ["^build"]
     },
     "pack": {
       "outputs": ["*.tgz"],
@@ -77,27 +77,19 @@
     // production
     "build": {
       "outputs": ["dist/**", "dist-types/**", "declarations/**", "docs.json"],
-      "dependsOn": ["_syncPnpm", "//#sync"]
+      "dependsOn": ["^build", "//#sync"]
     },
     "//#sync": {},
-    "_syncPnpm": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
     "test": {
       "outputs": [],
-      "dependsOn": ["_syncPnpm", "^build"]
+      "dependsOn": ["^build"]
     },
     // Apps will have test:ember and test:browserstack
     // They are separate so that they can cache independently
     // and provide more variability than just "test"
     "test:ember": {
-      "env": [
-        "CI_BROWSER",
-        "EMBER_TRY_CURRENT_SCENARIO",
-        "EMBROIDER_TEST_SETUP_OPTIONS"
-      ],
-      "dependsOn": ["_syncPnpm", "^build"]
+      "env": ["CI_BROWSER", "EMBER_TRY_CURRENT_SCENARIO", "EMBROIDER_TEST_SETUP_OPTIONS"],
+      "dependsOn": ["^build"]
     },
     // All scenarios
     "test:scenarios": {

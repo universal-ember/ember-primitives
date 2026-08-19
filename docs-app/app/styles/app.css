@@ -87,7 +87,12 @@ body {
   padding-bottom: 0;
 }
 
-.prose .featured-demo input {
+/*
+ * Demo inputs sit on the frame's gradient, so they are dark by default. A
+ * combobox belongs to a palette that paints its own surface and follows the
+ * colour scheme, so it keeps its own colour.
+ */
+.prose .featured-demo input:not([role="combobox"]) {
   color: black;
 }
 

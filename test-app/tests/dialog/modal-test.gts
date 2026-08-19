@@ -8,7 +8,7 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { Modal } from 'ember-primitives';
 
-module('Rendering | dialog', function (hooks) {
+module('Rendering | <Modal>', function (hooks) {
   setupRenderingTest(hooks);
 
   async function close() {

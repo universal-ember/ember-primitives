@@ -16,7 +16,7 @@ overrides:
   ember-element-helper: ^0.8.8
   ember-primitives: workspace:^
   ember-repl: ^8.0.0
-  ember-source: ^7.1.0
+  ember-source: ~7.3.0-beta.1
   kolay: github:universal-ember/kolay#dist
   reactiveweb: ^1.9.1
   tracked-toolbox: ^3.0.0
@@ -62,7 +62,7 @@ importers:
         version: 3.23.0
       '@universal-ember/docs-support':
         specifier: workspace:*
-        version: file:packages/docs-support(44d57c380a15df4809fb9a178bbf4658)
+        version: file:packages/docs-support(643be662b7daabf7b7b7f845ec7a656c)
       assert:
         specifier: ^2.0.0
         version: 2.1.0
@@ -80,7 +80,7 @@ importers:
         version: 2.0.0(@babel/core@7.29.0)
       ember-mobile-menu:
         specifier: ^6.0.0
-        version: 6.1.0(f99eb3e0deb9fd5eb4258289317e9973)
+        version: 6.1.0(ef7bc343ef0b81bce83cc9352f58adc3)
       ember-modifier:
         specifier: ^4.3.0
         version: 4.3.0(@babel/core@7.29.0)
@@ -239,8 +239,8 @@ importers:
         specifier: ^2.0.4
         version: 2.2.2(ember-template-lint@7.9.3)
       ember-source:
-        specifier: ^7.1.0
-        version: 7.1.0(@glimmer/component@2.1.1)
+        specifier: ~7.3.0-beta.1
+        version: 7.3.0-beta.1(@glimmer/component@2.1.1)
       ember-template-lint:
         specifier: ^7.9.3
         version: 7.9.3
@@ -411,8 +411,8 @@ importers:
         specifier: ^7.0.7
         version: 7.0.7(2935cfb77147881c8250be8c1bb7d0d1)
       ember-source:
-        specifier: ^7.1.0
-        version: 7.1.0(@glimmer/component@2.1.1)
+        specifier: ~7.3.0-beta.1
+        version: 7.3.0-beta.1(@glimmer/component@2.1.1)
       ember-template-lint:
         specifier: ^7.9.3
         version: 7.9.3
@@ -463,7 +463,7 @@ importers:
         version: 2.3.2(@babel/core@7.29.0)
       ember-mobile-menu:
         specifier: ^6.0.0
-        version: 6.1.0(f99eb3e0deb9fd5eb4258289317e9973)
+        version: 6.1.0(ef7bc343ef0b81bce83cc9352f58adc3)
       ember-modifier:
         specifier: ^4.3.0
         version: 4.3.0(@babel/core@7.29.0)
@@ -532,8 +532,8 @@ importers:
         specifier: ^2.0.4
         version: 2.2.2(ember-template-lint@7.9.3)
       ember-source:
-        specifier: ^7.1.0
-        version: 7.1.0(@glimmer/component@2.1.1)
+        specifier: ~7.3.0-beta.1
+        version: 7.3.0-beta.1(@glimmer/component@2.1.1)
       ember-template-lint:
         specifier: ^7.9.3
         version: 7.9.3
@@ -705,7 +705,7 @@ importers:
         version: 1.1.3
       ember-load-initializers:
         specifier: ^3.0.1
-        version: 3.0.1(b44793b7d4517f1faf6dca9cfb99f5ed)
+        version: 3.0.1(c9955039c36bad04f9664949a3024519)
       ember-modifier:
         specifier: ^4.3.0
         version: 4.3.0(@babel/core@7.29.0)
@@ -719,8 +719,8 @@ importers:
         specifier: ^13.1.1
         version: 13.2.0
       ember-source:
-        specifier: ^7.1.0
-        version: 7.1.0(@glimmer/component@2.1.1)
+        specifier: ~7.3.0-beta.1
+        version: 7.3.0-beta.1(@glimmer/component@2.1.1)
       ember-source-channel-url:
         specifier: ^3.0.0
         version: 3.0.0(encoding@0.1.13)
@@ -3904,7 +3904,7 @@ packages:
     resolution: {integrity: sha512-LY92LRkO+wDiqeIjni3IXn1xV8lIUJzIm7Ywh7+sGeKpxy2qBtSlnyyFIAxBjCfD1RrM3wGSh3WKA41y+LS5lw==}
     peerDependencies:
       '@ember/test-helpers': '>=3.0.0'
-      ember-source: ^7.1.0
+      ember-source: ~7.3.0-beta.1
     peerDependenciesMeta:
       '@ember/test-helpers':
         optional: true
@@ -3913,7 +3913,7 @@ packages:
     resolution: {integrity: sha512-qV3vxJKw5+7TVDdtdLPy8PhVsh58MlK8jwzqh5xeOwJPNP7o0+BlhvwoIlLYTPzGaHdfjEIFCgVSyMRGd74E1g==}
     engines: {node: '>= 18.*'}
     peerDependencies:
-      ember-source: ^7.1.0
+      ember-source: ~7.3.0-beta.1
 
   ember-mobile-menu@6.1.0:
     resolution: {integrity: sha512-GbQYyZ7ABVLzBJZunuINJFfyNr+ow9aSMaOJJkjIy3DnlE6+KfC6w3sovykaZEaOSAmTYuzRj6ST24RJgqXAeA==}
@@ -3994,8 +3994,8 @@ packages:
     engines: {node: 10.* || 12.* || >= 14}
     hasBin: true
 
-  ember-source@7.1.0:
-    resolution: {integrity: sha512-qOHhTiVMeYcNp2UQKuAqsf33LKgNtzqvw46dQX5AqutTfXXPn4KYR0+aiGQdJaCuzs81nFvvTDJuHzELOZ5UBg==}
+  ember-source@7.3.0-beta.1:
+    resolution: {integrity: sha512-EMAhw0C5bEIuaz8SzEu9v9mIR2tTflE0y/zFavbX1a5ZuCsI/d8aZCEK9lrq4buz8TZk/vA9scinUakoyaLlSQ==}
     engines: {node: '>= 20.19'}
     peerDependencies:
       '@glimmer/component': ^2.0.0
@@ -10119,13 +10119,13 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@universal-ember/docs-support@file:packages/docs-support(44d57c380a15df4809fb9a178bbf4658)':
+  '@universal-ember/docs-support@file:packages/docs-support(643be662b7daabf7b7b7f845ec7a656c)':
     dependencies:
       '@embroider/addon-shim': 1.10.3
       '@fontsource/lexend': 5.2.11
       change-case: 5.4.4
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
-      ember-mobile-menu: 6.1.0(f99eb3e0deb9fd5eb4258289317e9973)
+      ember-mobile-menu: 6.1.0(ef7bc343ef0b81bce83cc9352f58adc3)
       ember-modifier: 4.3.0(@babel/core@7.29.0)
       ember-primitives: file:ember-primitives(5c0eaebf1b4b32661be1beb69576d86a)
       ember-resources: 7.0.7(2935cfb77147881c8250be8c1bb7d0d1)
@@ -11427,30 +11427,30 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-gesture-modifiers@6.1.0(b3308737fb0c0c38e0c6422436071d39):
+  ember-gesture-modifiers@6.1.0(1af90b599e0cc51c2284ccd9490a685a):
     dependencies:
       '@embroider/addon-shim': 1.10.2
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
       ember-modifier: 4.3.0(@babel/core@7.29.0)
-      ember-source: 7.1.0(@glimmer/component@2.1.1)
+      ember-source: 7.3.0-beta.1(@glimmer/component@2.1.1)
     optionalDependencies:
       '@ember/test-helpers': 5.4.2(c8332dc3f90c0e60eb130a3a85f980b9)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
 
-  ember-load-initializers@3.0.1(b44793b7d4517f1faf6dca9cfb99f5ed):
+  ember-load-initializers@3.0.1(c9955039c36bad04f9664949a3024519):
     dependencies:
-      ember-source: 7.1.0(@glimmer/component@2.1.1)
+      ember-source: 7.3.0-beta.1(@glimmer/component@2.1.1)
 
-  ember-mobile-menu@6.1.0(f99eb3e0deb9fd5eb4258289317e9973):
+  ember-mobile-menu@6.1.0(ef7bc343ef0b81bce83cc9352f58adc3):
     dependencies:
       '@ember/test-waiters': 4.1.1(c8332dc3f90c0e60eb130a3a85f980b9)
       '@embroider/addon-shim': 1.10.2
       '@glimmer/component': 2.1.1
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
       ember-concurrency: 5.2.0(c8332dc3f90c0e60eb130a3a85f980b9)
-      ember-gesture-modifiers: 6.1.0(b3308737fb0c0c38e0c6422436071d39)
+      ember-gesture-modifiers: 6.1.0(1af90b599e0cc51c2284ccd9490a685a)
       ember-modifier: 4.3.0(@babel/core@7.29.0)
       ember-primitives: file:ember-primitives(5c0eaebf1b4b32661be1beb69576d86a)
       tracked-built-ins: 4.1.2(@babel/core@7.29.0)
@@ -11593,7 +11593,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  ember-source@7.1.0(@glimmer/component@2.1.1):
+  ember-source@7.3.0-beta.1(@glimmer/component@2.1.1):
     dependencies:
       '@babel/core': 7.29.0
       '@embroider/addon-shim': 1.10.3
@@ -11602,7 +11602,6 @@ snapshots:
       backburner.js: 2.8.0
       broccoli-file-creator: 2.1.1
       chalk: 4.1.2
-      ember-cli-babel: 8.3.1(@babel/core@7.29.0)
       ember-cli-get-component-path-option: 1.0.0
       ember-cli-normalize-entity-name: 1.0.0
       ember-cli-path-utils: 1.0.0

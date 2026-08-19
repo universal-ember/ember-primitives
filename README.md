@@ -13,7 +13,7 @@ See the [Contributing](CONTRIBUTING.md) guide for details.
 
 ## Contributors
 
-<!-- readme: contributors/-NullVoxPopuli-ai-agent -start -->
+<!-- readme: contributors,NullVoxPopuli-ai-agent/- -start -->
 <table>
 	<tbody>
 		<tr>

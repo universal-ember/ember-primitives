@@ -20,7 +20,8 @@ export type {
 } from './components/accordion/public.ts';
 export { Avatar } from './components/avatar.gts';
 export { Breadcrumb } from './components/breadcrumb.gts';
-export { Dialog, Dialog as Modal } from './components/dialog.gts';
+export { CommandPalette } from './components/command-palette.gts';
+export { Dialog, Modal } from './components/dialog.gts';
 export { Drawer } from './components/drawer.gts';
 export { ExternalLink } from './components/external-link.gts';
 export { Form } from './components/form.gts';

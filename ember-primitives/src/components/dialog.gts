@@ -228,7 +228,77 @@ class ModalDialog extends Component<Signature> {
   };
 }
 
+export interface SimpleSignature {
+  Element: HTMLDialogElement;
+  Blocks: {
+    default: [
+      {
+        /**
+         * Opens the dialog, modally.
+         */
+        open: () => void;
+        /**
+         * Closes the dialog.
+         */
+        close: () => void;
+      },
+    ];
+  };
+}
+
+/**
+ * A modal `<dialog>` around whatever you put in it, and the two things needed
+ * to drive it.
+ *
+ * ```gjs
+ * <Dialog as |d|>
+ *   <CommandPalette @onSelect={{d.close}} @onOpen={{d.open}} @hotkey="mod+k" />
+ * </Dialog>
+ * ```
+ *
+ * The element is here, so a trigger cannot be: whatever opens this either
+ * lives inside it, or is a key combination. For a dialog opened by a button
+ * beside it, use `<Modal>`, which hands you the element to place.
+ *
+ * <kbd>Escape</kbd> closes it and focus returns to whatever opened it, which
+ * is the `<dialog>` element's own behaviour. Set `closedby` to change which
+ * actions dismiss it.
+ */
+export class Dialog extends Component<SimpleSignature> {
+  /**
+   * A plain field rather than tracked state: it is read when somebody calls
+   * `open` or `close`, never while rendering, so nothing has to settle in a
+   * second pass.
+   */
+  #element: HTMLDialogElement | undefined;
+
+  register = eModifier((element: HTMLDialogElement) => {
+    this.#element = element;
+
+    return () => {
+      this.#element = undefined;
+    };
+  });
+
+  /**
+   * `showModal` on an open dialog, and `close` on a closed one, are both
+   * no-ops per spec, so neither needs guarding here.
+   */
+  open = () => {
+    this.#element?.showModal();
+  };
+
+  close = () => {
+    this.#element?.close();
+  };
+
+  <template>
+    <dialog {{this.register}} ...attributes>
+      {{yield (hash open=this.open close=this.close)}}
+    </dialog>
+  </template>
+}
+
 export const Modal = ModalDialog;
-export const Dialog = ModalDialog;
 
 export default ModalDialog;

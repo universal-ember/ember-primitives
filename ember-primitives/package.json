@@ -18,6 +18,7 @@
   "bin": "./bin/index.mjs",
   "scripts": {
     "build": "rollup --config ./rollup.config.mjs",
+    "sync": "echo 'pnpm is syncing this package into the workspaces that inject it. (this is configured in .npmrc)'",
     "lint": "concurrently 'pnpm:lint:*(!fix)' --names 'lint:'",
     "lint:fix": "concurrently 'pnpm:lint:*:fix' --names 'fix:' && pnpm format",
     "lint:js": "eslint . --cache",

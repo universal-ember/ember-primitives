@@ -47,12 +47,12 @@
     /////////////////////////////////////////////////
     /////////////////////////////////////////////////
     "dev": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^sync"],
       "cache": false,
       "persistent": true
     },
     "start": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "^sync"],
       "outputs": [],
       "cache": false,
       "persistent": true
@@ -68,7 +68,7 @@
     // development
     "build:dev": {
       "outputs": ["dist/**", "dist-types/**", "declarations/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "^sync"]
     },
     "pack": {
       "outputs": ["*.tgz"],
@@ -77,23 +77,34 @@
     // production
     "build": {
       "outputs": ["dist/**", "dist-types/**", "declarations/**", "docs.json"],
-      "dependsOn": ["^build", "//#sync"]
+      "dependsOn": ["^build", "^sync"]
     },
-    "//#sync": {},
+    // Injected workspace deps (see dependenciesMeta) are hardlinked copies,
+    // so a dependent's node_modules does not see its dependency's `dist/`
+    // until pnpm re-syncs. `.npmrc`'s sync-injected-deps-after-scripts makes
+    // pnpm do that after the `build` *and* `sync` scripts -- but on a turbo
+    // cache hit the `build` script never runs, so nothing syncs and the
+    // dependent resolves a package with no `dist/`. Hence this task: it is
+    // uncached, so it always runs, and it depends on the (possibly restored)
+    // `build`, so it always has something to copy.
+    "sync": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "test": {
       "outputs": [],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "^sync"]
     },
     // Apps will have test:ember and test:browserstack
     // They are separate so that they can cache independently
     // and provide more variability than just "test"
     "test:ember": {
       "env": ["CI_BROWSER", "EMBER_TRY_CURRENT_SCENARIO", "EMBROIDER_TEST_SETUP_OPTIONS"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "^sync"]
     },
     // All scenarios
     "test:scenarios": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build", "^sync"]
     },
 
     /////////////////////////////////////////////////
@@ -114,10 +125,10 @@
         "lint:published-types"
       ]
     },
-    "lint:js": { "outputs": [], "dependsOn": ["^build"] },
+    "lint:js": { "outputs": [], "dependsOn": ["^build", "^sync"] },
     "lint:hbs": { "outputs": [] },
     "lint:prettier": { "outputs": [] },
-    "lint:types": { "outputs": [], "dependsOn": ["^build"] },
+    "lint:types": { "outputs": [], "dependsOn": ["^build", "^sync"] },
     "lint:package": { "outputs": [], "dependsOn": ["build"] },
     "lint:published-types": { "outputs": [], "dependsOn": ["pack"] },
 

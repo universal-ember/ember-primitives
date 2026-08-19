@@ -2,6 +2,16 @@
 
 ## Release (2026-08-19)
 
+
+
+#### :house: Internal
+* [#803](https://github.com/universal-ember/ember-primitives/pull/803) Fix contributor section comment in README ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2026-08-19)
+
 * ember-primitives 0.62.0 (minor)
 * @universal-ember/docs-support 0.9.13 (patch)
 

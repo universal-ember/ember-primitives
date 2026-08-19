@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 
 import { sentenceCase } from 'change-case';
-import { link } from 'ember-primitives/helpers';
+import { link, service as getService } from 'ember-primitives/helpers';
 import { PageNav } from 'kolay/components';
 import { getAnchor } from 'should-handle-link';
 
@@ -56,14 +56,34 @@ const asComponent = (str: string) => {
   return `<${str.split('.')[0]?.replaceAll(' ', '')} />`;
 };
 
+/**
+ * Docs pages are reachable both with and without their file extension
+ * (prose cross-links produce `/2-usage/data.md`, while the nav's own
+ * hrefs are extension-less), and collection index pages are reachable
+ * at both `/2-usage` and `/2-usage/index`. Normalize both sides before
+ * comparing, so the nav highlight survives however the reader got to
+ * the page.
+ */
+function isActivePath(currentURL: string | null | undefined, href: string) {
+  if (!currentURL) return false;
+
+  const normalize = (path: string) =>
+    (path.split('?')[0] ?? '')
+      .replace(/\.gjs\.md$|\.gjs$|\.md$/, '')
+      .replace(/\/index$/, '')
+      .replace(/\/$/, '');
+
+  return normalize(currentURL) === normalize(href);
+}
+
 const isComponents = (str: string) => str === 'components';
 
 const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
-    {{#let (link @href) as |l|}}
+    {{#let (link @href) (getService "router") as |l router|}}
       <a
         href={{@href}}
-        class="section-link {{if l.isActive 'is-active'}}"
+        class="section-link {{if (isActivePath router.currentURL @href) 'is-active'}}"
         {{on "click" l.handleClick}}
         ...attributes
       >
@@ -78,10 +98,10 @@ const SectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name:
 
 const SubSectionLink: TOC<{ Element: HTMLAnchorElement; Args: { href: string; name: string } }> =
   <template>
-    {{#let (link @href) as |l|}}
+    {{#let (link @href) (getService "router") as |l router|}}
       <a
         href={{@href}}
-        class="subsection-link {{if l.isActive 'is-active'}}"
+        class="subsection-link {{if (isActivePath router.currentURL @href) 'is-active'}}"
         {{on "click" l.handleClick}}
         ...attributes
       >

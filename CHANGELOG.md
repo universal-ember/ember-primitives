@@ -1,5 +1,34 @@
 # Changelog 
 
+## Release (2026-08-19)
+
+* ember-primitives 0.62.0 (minor)
+* @universal-ember/docs-support 0.9.13 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#799](https://github.com/universal-ember/ember-primitives/pull/799) Add `<CommandPalette>`, Add `<Dialog>` -- [Breaking]: `<Modal>` was previously aliased to `<Dialog>` and is now _just_ `<Modal>` ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### :bug: Bug Fix
+* `@universal-ember/docs-support`
+  * [#790](https://github.com/universal-ember/ember-primitives/pull/790) docs-support: side-nav highlight for extension-suffixed URLs ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#797](https://github.com/universal-ember/ember-primitives/pull/797) fix(docs-support): stop double-prefixing SideNav links with rootURL ([@patricklx](https://github.com/patricklx))
+
+#### :house: Internal
+* `ember-primitives`
+  * [#802](https://github.com/universal-ember/ember-primitives/pull/802) Fix ci ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* Other
+  * [#800](https://github.com/universal-ember/ember-primitives/pull/800) Fix CI: stop running `pnpm install` next to builds ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+  * [#798](https://github.com/universal-ember/ember-primitives/pull/798) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))
+* `@universal-ember/docs-support`
+  * [#794](https://github.com/universal-ember/ember-primitives/pull/794) docs-app: preview the unreleased kolay (docs() + apiDocs() plugin split) ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+
+#### Committers: 4
+- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))
+- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))
+- Patrick Pircher ([@patricklx](https://github.com/patricklx))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-07-20)
 
 * ember-primitives 0.61.1 (patch)

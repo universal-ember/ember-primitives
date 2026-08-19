@@ -1,24 +1,46 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.61.0",
-      "newVersion": "0.61.1",
+      "impact": "minor",
+      "oldVersion": "0.61.1",
+      "newVersion": "0.62.0",
       "tagName": "latest",
       "constraints": [
         {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "oldVersion": "0.9.12"
+      "impact": "patch",
+      "oldVersion": "0.9.12",
+      "newVersion": "0.9.13",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:^` on ember-primitives"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./packages/docs-support/package.json"
     },
     "which-heading-do-i-need": {
       "oldVersion": "0.4.1"
     }
   },
-  "description": "## Release (2026-07-20)\n\n* ember-primitives 0.61.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#783](https://github.com/universal-ember/ember-primitives/pull/783) Resizable: query the DOM once per interaction, not once per layer ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :memo: Documentation\n* [#789](https://github.com/universal-ember/ember-primitives/pull/789) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* [#784](https://github.com/universal-ember/ember-primitives/pull/784) docs: unify install instructions across all pages via SetupInstructions `@since` ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :house: Internal\n* [#785](https://github.com/universal-ember/ember-primitives/pull/785) Fix Deploy Preview: opt in to fork PR checkout under actions/checkout@v7 ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 2\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n"
+  "description": "## Release (2026-08-19)\n\n* ember-primitives 0.62.0 (minor)\n* @universal-ember/docs-support 0.9.13 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#799](https://github.com/universal-ember/ember-primitives/pull/799) Add `<CommandPalette>`, Add `<Dialog>` -- [Breaking]: `<Modal>` was previously aliased to `<Dialog>` and is now _just_ `<Modal>` ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :bug: Bug Fix\n* `@universal-ember/docs-support`\n  * [#790](https://github.com/universal-ember/ember-primitives/pull/790) docs-support: side-nav highlight for extension-suffixed URLs ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n  * [#797](https://github.com/universal-ember/ember-primitives/pull/797) fix(docs-support): stop double-prefixing SideNav links with rootURL ([@patricklx](https://github.com/patricklx))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#802](https://github.com/universal-ember/ember-primitives/pull/802) Fix ci ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* Other\n  * [#800](https://github.com/universal-ember/ember-primitives/pull/800) Fix CI: stop running `pnpm install` next to builds ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n  * [#798](https://github.com/universal-ember/ember-primitives/pull/798) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* `@universal-ember/docs-support`\n  * [#794](https://github.com/universal-ember/ember-primitives/pull/794) docs-app: preview the unreleased kolay (docs() + apiDocs() plugin split) ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 4\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- Patrick Pircher ([@patricklx](https://github.com/patricklx))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

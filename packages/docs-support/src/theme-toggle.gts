@@ -28,7 +28,7 @@ export const ThemeToggle = <template>
         🎵 It's raining, it's pouring, ... 🎵
         https://www.youtube.com/watch?v=ll5ykbAumD4
       }}
-      <Moon style="fill: #38bdf8;" />
+      <Moon style="fill: #94a3b8;" />
       <Sun style="fill: #facc15;" />
       <span class="ball"></span>
     </s.Label>

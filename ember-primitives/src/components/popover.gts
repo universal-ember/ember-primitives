@@ -10,7 +10,7 @@ import { FloatingUI } from "../floating-ui.ts";
 import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.gts";
 import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
 import type { TOC } from "@ember/component/template-only";
-import type { ElementContext, Middleware } from "@floating-ui/dom";
+import type { Middleware } from "@floating-ui/dom";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
 
 export interface Signature {
@@ -220,20 +220,13 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
   return result;
 }
 
-function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
-  return {
-    elementContext: "reference" as ElementContext,
-    ...options,
-  };
-}
-
 export const Popover: TOC<Signature> = <template>
   {{#let (ArrowElement) as |arrowElement|}}
     <FloatingUI
       @placement={{@placement}}
       @strategy={{@strategy}}
       @middleware={{maybeAddArrow @middleware arrowElement.current}}
-      @flipOptions={{flipOptions @flipOptions}}
+      @flipOptions={{@flipOptions}}
       @shiftOptions={{@shiftOptions}}
       @offsetOptions={{@offsetOptions}}
       as |reference floating extra|

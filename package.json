@@ -52,7 +52,7 @@
       "@glimmer/component": "^2.0.0",
       "@glint/template": "^1.7.7",
       "babel-plugin-ember-template-compilation": "^4.0.0",
-      "decorator-transforms": "2.3.2",
+      "decorator-transforms": "2.4.0",
       "ember-cli-babel": "^8.3.1",
       "ember-element-helper": "^0.8.8",
       "ember-primitives": "workspace:^",

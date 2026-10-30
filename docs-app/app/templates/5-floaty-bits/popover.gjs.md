@@ -76,6 +76,26 @@ import { loremIpsum } from "lorem-ipsum";
 
 </div>
 
+## Flipping
+
+The popover moves to the opposite side when one of these conditions is true:
+
+- The popover overflows the viewport.
+- A scroll container clips the reference element.
+
+To use one condition only, set `elementContext` in `@flipOptions`:
+
+- `'floating'` flips only when the popover overflows the viewport.
+- `'reference'` flips only when the reference element is clipped.
+
+A sticky site header does not clip anything, so it does not cause a flip. To include the header, add `padding` to `@flipOptions`.
+
+```hbs
+<Popover @flipOptions={{hash padding=(hash top=64)}} as |p|>
+  ...
+</Popover>
+```
+
 ## Disabled button with tooltip
 
 A common pattern is a button that explains _why_ it's disabled. The tooltip appears on hover and focus, and is itself focusable so screen reader users can read the reason.

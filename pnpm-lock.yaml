@@ -299,7 +299,7 @@ importers:
         specifier: ^1.10.2
         version: 1.10.2
       '@floating-ui/dom':
-        specifier: ^1.7.5
+        specifier: ^1.7.6
         version: 1.7.6
       decorator-transforms:
         specifier: 2.3.2

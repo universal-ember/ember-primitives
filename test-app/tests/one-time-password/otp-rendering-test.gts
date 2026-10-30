@@ -175,9 +175,12 @@ module('Rendering | <OTP>', function (hooks) {
     const clipboardData = new DataTransfer();
 
     clipboardData.setData('text/plain', '123456');
-    find('input')?.dispatchEvent(
-      new ClipboardEvent('paste', { clipboardData, bubbles: true, cancelable: true })
-    );
+
+    const event = new ClipboardEvent('paste', { bubbles: true, cancelable: true });
+
+    /** Firefox ignores `clipboardData` in the `ClipboardEvent` constructor. */
+    Object.defineProperty(event, 'clipboardData', { value: clipboardData });
+    find('input')?.dispatchEvent(event);
     await settled();
 
     assert.verifySteps(['123456']);

@@ -11,7 +11,11 @@ import type { TOC } from "@ember/component/template-only";
 import type { WithBoundArgs } from "@glint/template";
 
 export interface Signature {
-  Element: HTMLInputElement;
+  /**
+   * The wrapping element.
+   * An accessible name belongs on `Control`, or comes from `Label`.
+   */
+  Element: HTMLDivElement;
   Args: {
     /**
      * The initial checked value of the Switch.
@@ -103,7 +107,6 @@ class Checkbox extends Component<ControlSignature> {
       type="checkbox"
       role="switch"
       checked={{@checked.current}}
-      aria-checked={{@checked.current}}
       data-state={{if @checked.current "on" "off"}}
       {{on "click" this.handleClick}}
       ...attributes

@@ -159,6 +159,7 @@ export const Link: TOC<Signature> = <template>
     {{else}}
       <a
         data-active={{l.isActive}}
+        aria-current={{if l.isActive (if @activeOnSubPaths "true" "page")}}
         href={{if @href @href "##missing##"}}
         {{on "click" l.handleClick}}
         ...attributes

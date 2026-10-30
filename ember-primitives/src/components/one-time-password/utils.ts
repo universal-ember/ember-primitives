@@ -44,13 +44,21 @@ export function handlePaste(event: Event) {
   // multiple text fields
   event.preventDefault();
 
-  const value = clipboardData.getData('Text');
-  const digits = value;
+  fillFrom(target, clipboardData.getData('Text'));
+
+  // Selected again, so that another paste gives the same result.
+  target.select();
+
+  // A cancelled paste fires no input event, and @onChange listens for that event.
+  target.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertFromPaste' }));
+}
+
+function fillFrom(target: HTMLInputElement, code: string) {
   let i = 0;
   let currElement: HTMLInputElement | null = target;
 
   while (currElement) {
-    currElement.value = digits[i++] || '';
+    currElement.value = code[i++] || '';
 
     const next = nextInput(currElement);
 
@@ -60,11 +68,6 @@ export function handlePaste(event: Event) {
       break;
     }
   }
-
-  // We want to select the first field again
-  // so that if someone holds paste, or
-  // pastes again, they get the same result.
-  target.select();
 }
 
 export function handleNavigation(event: KeyboardEvent) {
@@ -143,17 +146,27 @@ export const autoAdvance = (event: Event) => {
     event.target instanceof HTMLInputElement
   );
 
+  if ('inputType' in event && event.inputType === 'insertFromPaste') return;
+
   const value = event.target.value;
 
   if (value.length === 0) return;
 
-  if (value.length > 0) {
-    if ('data' in event && event.data && typeof event.data === 'string') {
-      event.target.value = event.data;
-    }
+  const data = 'data' in event && typeof event.data === 'string' ? event.data : '';
 
-    return focusRight(event);
+  // Browser autofill puts the whole code in to the first field.
+  if (data.length > 1 || (!data && value.length > 1)) {
+    fillFrom(event.target, data || value);
+    event.target.select();
+
+    return;
   }
+
+  if (data) {
+    event.target.value = data;
+  }
+
+  return focusRight(event);
 };
 
 export function getCollectiveValue(elementTarget: EventTarget | null, length: number) {

@@ -1,5 +1,5 @@
 /* global out */
-import { click, find, render } from '@ember/test-helpers';
+import { click, find, render, settled } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -159,5 +159,27 @@ module('Rendering | <OTP>', function (hooks) {
     assert.strictEqual(readValue(), '');
 
     assert.verifySteps([], 'no submit occurred');
+  });
+
+  test('@autoSubmit works with a pasted code', async function (assert) {
+    const step = ({ code }: { code: string }) => assert.step(code);
+
+    await render(
+      <template>
+        <OTP @autoSubmit={{true}} @onSubmit={{step}} as |x|>
+          <x.Input />
+        </OTP>
+      </template>
+    );
+
+    const clipboardData = new DataTransfer();
+
+    clipboardData.setData('text/plain', '123456');
+    find('input')?.dispatchEvent(
+      new ClipboardEvent('paste', { clipboardData, bubbles: true, cancelable: true })
+    );
+    await settled();
+
+    assert.verifySteps(['123456']);
   });
 });

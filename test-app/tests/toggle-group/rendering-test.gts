@@ -1,8 +1,10 @@
-import { click, render } from '@ember/test-helpers';
+import { click, focus, render, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { ToggleGroup } from 'ember-primitives';
+
+import { setupTabster } from 'ember-primitives/test-support';
 
 module('Rendering | <ToggleGroup>', function (hooks) {
   setupRenderingTest(hooks);
@@ -94,6 +96,32 @@ module('Rendering | <ToggleGroup>', function (hooks) {
 
       await click('button:nth-child(2)');
       assert.verifySteps(['size:2:c,b']);
+    });
+  });
+
+  module('keyboard', function (hooks) {
+    setupTabster(hooks);
+
+    test('arrow keys move between items, and wrap', async function (assert) {
+      await render(
+        <template>
+          <ToggleGroup as |x|>
+            <x.Item @value="a" id="a">a</x.Item>
+            <x.Item @value="b" id="b">b</x.Item>
+          </ToggleGroup>
+        </template>
+      );
+
+      await focus('#a');
+
+      await triggerKeyEvent('#a', 'keydown', 'ArrowRight');
+      assert.dom('#b').isFocused();
+
+      await triggerKeyEvent('#b', 'keydown', 'ArrowRight');
+      assert.dom('#a').isFocused();
+
+      await triggerKeyEvent('#a', 'keydown', 'ArrowLeft');
+      assert.dom('#b').isFocused();
     });
   });
 });

@@ -110,6 +110,13 @@ export class RatingState extends Component<{
 
     if (!isValid) return;
 
+    if (this.args.readonly) {
+      /** `readonly` has no effect on a radio, cancelling is what restores the checked one. */
+      event.preventDefault();
+
+      return;
+    }
+
     const selected = event.target?.value;
 
     this.setFromString(selected);

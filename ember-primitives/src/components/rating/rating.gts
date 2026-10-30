@@ -159,6 +159,8 @@ export class Rating extends Component<Signature> {
     >
       <fieldset
         class="ember-primitives__rating"
+        role="radiogroup"
+        aria-readonly={{if this.isReadonly "true"}}
         data-total={{r.total}}
         data-value={{r.value}}
         data-readonly={{this.isReadonly}}

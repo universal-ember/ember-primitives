@@ -402,4 +402,19 @@ module('<Rating>', function (hooks) {
       assert.strictEqual(rating.value, 3.5, 'value does not change when readonly');
     });
   });
+
+  test('@readonly={{true}} keeps the checked radio', async function (assert) {
+    await render(<template><Rating @value={{2}} @readonly={{true}} /></template>);
+
+    await click('input[value="4"]');
+
+    assert.dom('input:checked').hasValue('2');
+    assert.dom('fieldset').hasAria('readonly', 'true');
+  });
+
+  test('the rating is not readonly by default', async function (assert) {
+    await render(<template><Rating @value={{2}} /></template>);
+
+    assert.dom('[role="radiogroup"]').doesNotHaveAria('readonly');
+  });
 });

@@ -37,24 +37,54 @@ jobs:
       pull-requests: write
     if: needs.should-run-release-plan-prepare.outputs.should-prepare == 'true'    
     steps:
-      - uses: release-plan/actions/prepare@v1
-        name: Run release-plan prepare
+      # release-plan/actions/prepare always installs the unscoped
+      # release-plan package, so these steps run the
+      # @nullvoxpopuli/release-plan copy that pnpm installs.
+      - uses: actions/checkout@v7
         with:
+          # release-plan reads git history since the last release of each package
+          fetch-depth: 0
           ref: 'main'
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: pnpm install --frozen-lockfile
+      - name: Run release-plan prepare
+        id: explanation
         env:
           GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
-        id: explanation
+        shell: bash
+        run: |
+          set +e
+          pnpm release-plan prepare 2> >(tee -a release-plan-stderr.txt >&2)
+
+          if [ $? -ne 0 ]; then
+            release_plan_output=$(cat release-plan-stderr.txt)
+            echo "::error::Failed to run release-plan prepare $release_plan_output"
+          else
+            release_plan_output=$(jq .description .release-plan.json -r)
+            if [ $(jq '.solution | length' .release-plan.json) -eq 1 ]; then
+              echo "new_version=v$(jq -r '.solution[].newVersion' .release-plan.json)" >> $GITHUB_OUTPUT
+            fi
+          fi
+          rm -f release-plan-stderr.txt
+
+          echo 'text<<EOF' >> $GITHUB_OUTPUT
+          echo "$release_plan_output" >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
 
       - uses: peter-evans/create-pull-request@v8
         name: Create Prepare Release PR
         with:
-          commit-message: "Prepare Release ${{ steps.explanation.outputs.new-version}} using 'release-plan'"
+          commit-message: "Prepare Release ${{ steps.explanation.outputs.new_version }} using 'release-plan'"
           labels: "internal"
           sign-commits: true
           branch: release-preview
-          title: Prepare Release ${{ steps.explanation.outputs.new-version }}
+          title: Prepare Release ${{ steps.explanation.outputs.new_version }}
           body: |
-            This PR is a preview of the release that [release-plan](https://github.com/embroider-build/release-plan) has prepared. To release you should just merge this PR 👍
+            This PR is a preview of the release that [release-plan](https://github.com/NullVoxPopuli/release-plan) has prepared. To release you should just merge this PR 👍
 
             -----------------------------------------
 

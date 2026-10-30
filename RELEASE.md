@@ -1,6 +1,6 @@
 # Release Process
 
-Releases in this repo are mostly automated using [release-plan](https://github.com/embroider-build/release-plan/). Once you label all your PRs correctly (see below) you will have an automatically generated PR that updates your CHANGELOG.md file and a `.release-plan.json` that is used to prepare the release once the PR is merged.
+Releases in this repo are mostly automated using [release-plan](https://github.com/NullVoxPopuli/release-plan). Once you label all your PRs correctly (see below) you will have an automatically generated PR that updates your CHANGELOG.md file and a `.release-plan.json` that is used to prepare the release once the PR is merged.
 
 ## Preparation
 
@@ -20,7 +20,7 @@ When reviewing merged PR's the labels to be used are:
 - documentation - Used when the PR adds or updates documentation.
 - internal - Internal changes or things that don't fit in any other category.
 
-**Note:** `release-plan` requires that **all** PRs are labeled. If a PR doesn't fit in a category it's fine to label it as `internal`
+**Note:** `release-plan` requires that **all** PRs that change a published package are labeled. If a PR doesn't fit in a category it's fine to label it as `internal`
 
 ## Release
 

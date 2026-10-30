@@ -61,4 +61,18 @@ module('Switch', function (hooks) {
     assert.true(calls[0]?.[0], 'first arg is new checked state (true)');
     assert.ok(calls[0]?.[1] instanceof Event, 'second arg is an Event');
   });
+
+  test('the native checked state is the only state', async function (assert) {
+    await render(
+      <template>
+        <Switch @checked={{true}} as |s|>
+          <s.Control aria-label="Wifi" />
+        </Switch>
+      </template>
+    );
+
+    assert.dom('[role="switch"]').isChecked();
+    assert.dom('[role="switch"]').hasAria('label', 'Wifi');
+    assert.dom('[role="switch"]').doesNotHaveAria('checked');
+  });
 });

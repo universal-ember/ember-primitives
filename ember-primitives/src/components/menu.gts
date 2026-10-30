@@ -183,6 +183,8 @@ const installContent = eModifier<{
   // listen for the escape key
   function onDocumentKeydown(e: KeyboardEvent) {
     if (isOpen.current && e.key === "Escape") {
+      /** Otherwise the same key press also closes a `<dialog>` around the menu. */
+      e.preventDefault();
       isOpen.current = false;
     }
   }

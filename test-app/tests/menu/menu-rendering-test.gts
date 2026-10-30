@@ -696,4 +696,28 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.content').exists({ count: 1 });
     assert.notOk(wasDefaultPrevented);
   });
+
+  test('Escape belongs to the open menu', async function (assert) {
+    const listener = (event: Event) => assert.step(`cancelled: ${event.defaultPrevented}`);
+
+    await render(
+      <template>
+        <Menu as |m|>
+          <m.Trigger class="trigger">Actions</m.Trigger>
+          <m.Content class="content" as |c|>
+            <c.Item>Item</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+
+    window.addEventListener('keydown', listener);
+    await triggerKeyEvent('.content', 'keydown', 'Escape');
+    window.removeEventListener('keydown', listener);
+
+    assert.verifySteps(['cancelled: true']);
+    assert.dom('.content').doesNotExist();
+  });
 });

@@ -1,5 +1,38 @@
 # Changelog 
 
+## Release (2026-10-30)
+
+* ember-primitives 0.63.0 (minor)
+* @universal-ember/docs-support 0.9.14 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#818](https://github.com/universal-ember/ember-primitives/pull/818) OTP: support paste and browser autofill ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#823](https://github.com/universal-ember/ember-primitives/pull/823) CommandPalette: announce the number of results ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#819](https://github.com/universal-ember/ember-primitives/pull/819) Tabs: expose selection on link tabs and make panels reachable ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#820](https://github.com/universal-ember/ember-primitives/pull/820) Switch: remove aria-checked and fix the element type ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#821](https://github.com/universal-ember/ember-primitives/pull/821) Menu: name the menu with its trigger ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#825](https://github.com/universal-ember/ember-primitives/pull/825) Rating: give Range the scale of the rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#814](https://github.com/universal-ember/ember-primitives/pull/814) Rating: keep the value of a readonly rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#813](https://github.com/universal-ember/ember-primitives/pull/813) Zoetrope: do not trap Tab on a slide ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#815](https://github.com/universal-ember/ember-primitives/pull/815) Modal and Drawer: open modally with @open ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#817](https://github.com/universal-ember/ember-primitives/pull/817) Slider: announce the tick value, not its index ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#822](https://github.com/universal-ember/ember-primitives/pull/822) Link: set aria-current on the active link ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#826](https://github.com/universal-ember/ember-primitives/pull/826) Zoetrope: respect prefers-reduced-motion ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#827](https://github.com/universal-ember/ember-primitives/pull/827) Menu: Escape closes only the menu inside a dialog ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#828](https://github.com/universal-ember/ember-primitives/pull/828) Tabs: Tab enters the tablist on the selected tab ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#812](https://github.com/universal-ember/ember-primitives/pull/812) Accordion: report the expanded state to screen readers ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `ember-primitives`
+  * [#829](https://github.com/universal-ember/ember-primitives/pull/829) Docs: say where accessible names go ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-08-19)
 
 * ember-primitives 0.62.0 (minor)

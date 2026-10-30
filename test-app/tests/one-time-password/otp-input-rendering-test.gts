@@ -45,9 +45,12 @@ function paste(target: HTMLInputElement, text: string) {
   const clipboardData = new DataTransfer();
 
   clipboardData.setData('text/plain', text);
-  target.dispatchEvent(
-    new ClipboardEvent('paste', { clipboardData, bubbles: true, cancelable: true })
-  );
+
+  const event = new ClipboardEvent('paste', { bubbles: true, cancelable: true });
+
+  /** Firefox ignores `clipboardData` in the `ClipboardEvent` constructor. */
+  Object.defineProperty(event, 'clipboardData', { value: clipboardData });
+  target.dispatchEvent(event);
 }
 
 async function arrowLeft() {

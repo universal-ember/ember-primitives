@@ -29,6 +29,7 @@ import { getTabster } from "tabster";
 import { localCopy } from "tracked-toolbox";
 
 import { Link, type Signature as LinkSignature } from "./link.gts";
+import { VisuallyHidden } from "./visually-hidden.gts";
 
 import type { TOC } from "@ember/component/template-only";
 import type Owner from "@ember/owner";
@@ -297,6 +298,12 @@ export interface ItemsSignature {
      * Defaults to "Search".
      */
     placeholder?: string;
+    /**
+     * What a screen reader announces when the number of results changes.
+     *
+     * Defaults to "1 result" and "3 results".
+     */
+    resultsText?: (count: number) => string;
   };
   /**
    * No blocks: this form renders the rows. Passing one is an error.
@@ -348,6 +355,10 @@ export interface BlockSignature {
      * Not for this form: set it on `Input` yourself.
      */
     placeholder?: never;
+    /**
+     * Not for this form: the rows are yours, and so is announcing them.
+     */
+    resultsText?: never;
     /**
      * Called every time a row is chosen. Hand it `close` to make a modal
      * palette close itself.
@@ -432,6 +443,13 @@ export class CommandPalette extends Component<Signature> {
 
   get placeholder() {
     return this.args.placeholder ?? "Search";
+  }
+
+  get resultsText() {
+    const count = this.args.items?.length ?? 0;
+    const custom = this.args.resultsText?.(count);
+
+    return custom ?? (count === 1 ? "1 result" : `${count} results`);
   }
 
   /**
@@ -711,6 +729,8 @@ export class CommandPalette extends Component<Signature> {
             </l.Item>
           {{/each}}
         </PaletteList>
+
+        <VisuallyHidden role="status">{{this.resultsText}}</VisuallyHidden>
       {{else}}
         {{yield (hash query=this.query setQuery=this.setQuery Input=PaletteInput List=PaletteList)}}
       {{/if}}

@@ -92,7 +92,7 @@ module('Rendering | load', function (hooks) {
   test('it works with a promise', async function (assert) {
     const Hi = <template>hi</template>;
     const Loader = load(async () => {
-      await new Promise((resolve) => setTimeout(() => resolve(0), 100));
+      await Promise.resolve();
 
       return Hi;
     });

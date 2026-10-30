@@ -57,10 +57,28 @@ const TabLink: TOC<{
      * for linking of aria
      */
     panelId: string;
+
+    /**
+     * @internal
+     * for managing state
+     */
+    value: string | undefined;
+
+    /**
+     * @internal
+     */
+    state: TabState;
   };
   Blocks: { default: [] };
 }> = <template>
-  <a href="##missing##" ...attributes role="tab" aria-controls={{@panelId}} id={{@id}}>
+  <a
+    href="##missing##"
+    ...attributes
+    role="tab"
+    aria-controls={{@panelId}}
+    aria-selected={{String (@state.isActive @id @value)}}
+    id={{@id}}
+  >
     {{yield}}
   </a>
 </template>;
@@ -160,7 +178,7 @@ const TabContent: TOC<{
 }> = <template>
   <Portal @to="#{{@state.tabpanelId}}" @append={{true}}>
     {{#if (@state.isActive @tabId)}}
-      <div ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
+      <div tabindex="0" ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
         {{yield}}
       </div>
     {{/if}}
@@ -231,7 +249,12 @@ class TabContainer extends Component<{
   };
   Blocks: {
     default: [
-      Label: WithBoundArgs<typeof TabButton, "state" | "id" | "panelId" | "handleClick" | "value">,
+      Label: WithBoundArgs<
+        typeof TabButton,
+        "state" | "id" | "panelId" | "handleClick" | "value"
+      > & {
+        Link: WithBoundArgs<typeof TabLink, "state" | "value" | "id" | "panelId">;
+      },
       Content: WithBoundArgs<typeof TabContent, "state" | "id" | "tabId">,
     ];
   };
@@ -288,7 +311,7 @@ class TabContainer extends Component<{
             panelId=this.panelId
             handleClick=(fn @state.handleChange this.tabId @value)
           )
-          (component TabLink state=@state id=this.tabId panelId=this.panelId)
+          (component TabLink state=@state value=@value id=this.tabId panelId=this.panelId)
         )
         (component TabContent state=@state id=this.panelId tabId=this.tabId)
       }}

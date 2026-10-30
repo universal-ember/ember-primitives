@@ -447,4 +447,38 @@ module('Rendering | <Tabs>', function (hooks) {
     assert.dom('[role="tab"][data-tabster*="isDefault"]').exists({ count: 1 });
     assert.dom('[role="tab"][data-tabster*="isDefault"]').hasText('A');
   });
+
+  module('accessibility', function () {
+    test('link tabs report which one is selected', async (assert) => {
+      await render(
+        <template>
+          <Tabs @label="Pages" @activeTab="b" as |Tab|>
+            <Tab @value="a" as |T C|>
+              <T.Link href="#a" id="a">A</T.Link>
+              <C>panel a</C>
+            </Tab>
+            <Tab @value="b" as |T C|>
+              <T.Link href="#b" id="b">B</T.Link>
+              <C>panel b</C>
+            </Tab>
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[role="tab"][aria-selected="true"]').hasText('B');
+      assert.dom('[role="tab"][aria-selected="false"]').hasText('A');
+    });
+
+    test('a panel with no focusable content can still be reached', async (assert) => {
+      await render(
+        <template>
+          <Tabs as |Tab|>
+            <Tab @label="A" @content="text only" />
+          </Tabs>
+        </template>
+      );
+
+      assert.dom('[role="tabpanel"]').hasAttribute('tabindex', '0');
+    });
+  });
 });

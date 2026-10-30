@@ -29,7 +29,10 @@ export interface AccordionHeaderExternalSignature {
         /**
          * The AccordionTrigger component.
          */
-        Trigger: WithBoundArgs<typeof Trigger, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>;
+        Trigger: WithBoundArgs<
+          typeof Trigger,
+          'triggerId' | 'contentId' | 'isExpanded' | 'disabled' | 'toggleItem'
+        >;
       },
     ];
   };
@@ -47,11 +50,17 @@ export interface AccordionItemExternalSignature {
         /**
          * The AccordionHeader component.
          */
-        Header: WithBoundArgs<typeof Header, 'value' | 'isExpanded' | 'disabled' | 'toggleItem'>;
+        Header: WithBoundArgs<
+          typeof Header,
+          'triggerId' | 'contentId' | 'isExpanded' | 'disabled' | 'toggleItem'
+        >;
         /**
          * The AccordionContent component.
          */
-        Content: WithBoundArgs<typeof Content, 'value' | 'isExpanded' | 'disabled'>;
+        Content: WithBoundArgs<
+          typeof Content,
+          'triggerId' | 'contentId' | 'isExpanded' | 'disabled'
+        >;
       },
     ];
   };

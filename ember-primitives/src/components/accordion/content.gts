@@ -7,7 +7,8 @@ import type { AccordionContentExternalSignature } from "./public.ts";
 interface Signature extends AccordionContentExternalSignature {
   Args: {
     isExpanded: boolean;
-    value: string;
+    triggerId: string;
+    contentId: string;
     disabled?: boolean;
   };
 }
@@ -16,7 +17,8 @@ export class AccordionContent extends Component<Signature> {
   <template>
     <div
       role="region"
-      id={{@value}}
+      id={{@contentId}}
+      aria-labelledby={{@triggerId}}
       data-state={{getDataState @isExpanded}}
       hidden={{this.isHidden}}
       data-disabled={{@disabled}}

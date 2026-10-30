@@ -1,6 +1,7 @@
 import Component from "@glimmer/component";
 import { hash } from "@ember/helper";
 
+import { uniqueId } from "../../utils.ts";
 import Content from "./content.gts";
 import Header from "./header.gts";
 
@@ -19,6 +20,14 @@ interface Signature extends AccordionItemExternalSignature {
 }
 
 export class AccordionItem extends Component<Signature> {
+  /**
+   * `@value` only has to be unique within one accordion.
+   * Element ids have to be unique across the document.
+   */
+  id = `ember-primitives__accordion-${uniqueId()}`;
+  triggerId = `${this.id}__trigger`;
+  contentId = `${this.id}__content`;
+
   <template>
     <div data-state={{getDataState this.isExpanded}} data-disabled={{@disabled}} ...attributes>
       {{yield
@@ -26,12 +35,19 @@ export class AccordionItem extends Component<Signature> {
           isExpanded=this.isExpanded
           Header=(component
             Header
-            value=@value
+            triggerId=this.triggerId
+            contentId=this.contentId
             isExpanded=this.isExpanded
             disabled=@disabled
             toggleItem=this.toggleItem
           )
-          Content=(component Content value=@value isExpanded=this.isExpanded disabled=@disabled)
+          Content=(component
+            Content
+            triggerId=this.triggerId
+            contentId=this.contentId
+            isExpanded=this.isExpanded
+            disabled=@disabled
+          )
         )
       }}
     </div>

@@ -1,5 +1,5 @@
 import { renderSettled } from '@ember/renderer';
-import { render } from '@ember/test-helpers';
+import { getRootElement, render, waitUntil } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -49,7 +49,7 @@ module('<Avatar />', function (hooks) {
     await renderSettled();
     assert.dom('img').doesNotExist();
     assert.dom().doesNotContainText('NVP');
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await waitUntil(() => getRootElement().textContent?.includes('NVP'));
     assert.dom().containsText('NVP');
   });
 });

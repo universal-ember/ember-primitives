@@ -12,8 +12,10 @@ export interface Signature {
      * This may be less than 0 or more than `max`,
      * but the resolved value (managed internally, and yielded out)
      * does not exceed the range [0, max]
+     *
+     * Leave this out, or pass `null`, when the progress is not known.
      */
-    value: number;
+    value?: number | null;
     /**
      * The max value, defaults to 100
      */
@@ -26,7 +28,7 @@ export interface Signature {
          * The indicator element with some state applied.
          * This can be used to style the progress of bar.
          */
-        Indicator: WithBoundArgs<typeof Indicator, "value" | "max" | "percent">;
+        Indicator: WithBoundArgs<typeof Indicator, "value" | "max" | "percent" | "state">;
         /**
          * The value as a percent of how far along the indicator should be
          * positioned, between 0 and 100.
@@ -89,14 +91,14 @@ function getValueLabel(value: number, max: number) {
 
 const Indicator: TOC<{
   Element: HTMLDivElement;
-  Args: { max: number; value: number; percent: number };
+  Args: { max: number; value: number; percent: number; state: ProgressState };
   Blocks: { default: [] };
 }> = <template>
   <div
     ...attributes
     data-max={{@max}}
     data-value={{@value}}
-    data-state={{progressState @value @max}}
+    data-state={{@state}}
     data-percent={{@percent}}
   >
     {{yield}}
@@ -110,6 +112,14 @@ export class Progress extends Component<Signature> {
 
   get value() {
     return getValue(this.args.value, this.max);
+  }
+
+  get isIndeterminate() {
+    return this.args.value === undefined || this.args.value === null;
+  }
+
+  get state() {
+    return progressState(this.isIndeterminate ? null : this.value, this.max);
   }
 
   get valueLabel() {
@@ -129,11 +139,11 @@ export class Progress extends Component<Signature> {
       ...attributes
       aria-valuemax={{this.max}}
       aria-valuemin="0"
-      aria-valuenow={{this.value}}
-      aria-valuetext={{this.valueLabel}}
+      aria-valuenow={{unless this.isIndeterminate this.value}}
+      aria-valuetext={{unless this.isIndeterminate this.valueLabel}}
       role="progressbar"
       data-value={{this.value}}
-      data-state={{progressState this.value this.max}}
+      data-state={{this.state}}
       data-max={{this.max}}
       data-min="0"
       data-percent={{this.percent}}
@@ -141,7 +151,9 @@ export class Progress extends Component<Signature> {
 
       {{yield
         (hash
-          Indicator=(component Indicator value=this.value max=this.max percent=this.percent)
+          Indicator=(component
+            Indicator value=this.value max=this.max percent=this.percent state=this.state
+          )
           value=this.value
           percent=this.percent
           decimal=this.decimal

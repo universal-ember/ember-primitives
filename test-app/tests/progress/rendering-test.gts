@@ -176,6 +176,34 @@ module('<Progress />', function (hooks) {
     assert.dom('#percent').hasText('66.67');
   });
 
+  for (const value of [undefined, null]) {
+    test(`a value of ${value} means the progress is not known`, async function (assert) {
+      await render(
+        <template>
+          <Progress @value={{value}} aria-label="Upload" as |x|>
+            <x.Indicator />
+          </Progress>
+        </template>
+      );
+
+      const progressBar = '[role="progressbar"]';
+
+      assert.dom(progressBar).doesNotHaveAria('valuenow');
+      assert.dom(progressBar).doesNotHaveAria('valuetext');
+      assert.dom(progressBar).hasAttribute('data-state', 'indeterminate');
+      assert.dom(`${progressBar} > [data-state]`).hasAttribute('data-state', 'indeterminate');
+    });
+  }
+
+  test('a value of 0 is a known value', async function (assert) {
+    await render(<template><Progress @value={{0}} /></template>);
+
+    const progressBar = '[role="progressbar"]';
+
+    assert.dom(progressBar).hasAria('valuenow', '0');
+    assert.dom(progressBar).hasAttribute('data-state', 'loading');
+  });
+
   for (const value of [
     undefined,
     null,
@@ -190,32 +218,34 @@ module('<Progress />', function (hooks) {
     {},
     Math.sqrt(-1),
   ] as number[] /* lies for TS */) {
-    test(`invalid value of ${value} is passed`, async function (assert) {
-      await render(
-        <template>
-          <Progress @value={{value}} as |x|>
-            <div id="value">{{x.value}}</div>
-            <div id="percent">{{x.percent}}</div>
-            <x.Indicator />
-          </Progress>
-        </template>
-      );
+    if (value !== undefined && value !== null) {
+      test(`invalid value of ${value} is passed`, async function (assert) {
+        await render(
+          <template>
+            <Progress @value={{value}} as |x|>
+              <div id="value">{{x.value}}</div>
+              <div id="percent">{{x.percent}}</div>
+              <x.Indicator />
+            </Progress>
+          </template>
+        );
 
-      const progressBar = '[role="progressbar"]';
-      const indicator = `${progressBar} > [data-state]`;
+        const progressBar = '[role="progressbar"]';
+        const indicator = `${progressBar} > [data-state]`;
 
-      assert.dom(progressBar).exists();
-      assert.dom(indicator).exists();
-      assert.dom(progressBar).hasAria('valuemin', '0');
-      assert.dom(progressBar).hasAria('valuemax', '100');
-      assert.dom(progressBar).hasAria('valuenow', '0');
-      assert.dom(progressBar).hasAria('valuetext', '0%');
-      assert.dom(indicator).hasAttribute('data-max', '100');
-      assert.dom(indicator).hasAttribute('data-value', '0');
-      assert.dom(indicator).hasAttribute('data-state', 'loading');
-      assert.dom('#value').hasText('0');
-      assert.dom('#percent').hasText('0');
-    });
+        assert.dom(progressBar).exists();
+        assert.dom(indicator).exists();
+        assert.dom(progressBar).hasAria('valuemin', '0');
+        assert.dom(progressBar).hasAria('valuemax', '100');
+        assert.dom(progressBar).hasAria('valuenow', '0');
+        assert.dom(progressBar).hasAria('valuetext', '0%');
+        assert.dom(indicator).hasAttribute('data-max', '100');
+        assert.dom(indicator).hasAttribute('data-value', '0');
+        assert.dom(indicator).hasAttribute('data-state', 'loading');
+        assert.dom('#value').hasText('0');
+        assert.dom('#percent').hasText('0');
+      });
+    }
 
     test(`invalid max of ${value} is passed`, async function (assert) {
       await render(

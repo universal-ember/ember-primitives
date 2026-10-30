@@ -1,4 +1,5 @@
 import { tracked } from '@glimmer/tracking';
+import { array } from '@ember/helper';
 import { fillIn, render, rerender } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -333,5 +334,36 @@ module('<Slider />', function (hooks) {
 
     // Value should be rounded to nearest step (50)
     assert.dom(thumbInput).hasValue('50');
+  });
+
+  module('aria-valuetext', function () {
+    test('reads the tick value, not the index', async function (assert) {
+      await render(<template><Slider @step={{array 0 10 50 100}} @value={{50}} /></template>);
+
+      assert.dom(thumbInput).hasValue('2');
+      assert.dom(thumbInput).hasAria('valuetext', '50');
+    });
+
+    test('is left out without tick values', async function (assert) {
+      await render(<template><Slider @value={{50}} /></template>);
+
+      assert.dom(thumbInput).doesNotHaveAria('valuetext');
+    });
+
+    test('can be replaced', async function (assert) {
+      await render(
+        <template>
+          <Slider @step={{array 0 50}} @value={{50}} as |s|>
+            <s.Track>
+              {{#each s.thumbs as |thumb|}}
+                <s.Thumb @thumb={{thumb}} aria-label="Volume" aria-valuetext="half" />
+              {{/each}}
+            </s.Track>
+          </Slider>
+        </template>
+      );
+
+      assert.dom(thumbInput).hasAria('valuetext', 'half');
+    });
   });
 });

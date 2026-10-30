@@ -160,6 +160,13 @@ class ThumbComponent extends Component<{
     return this.args.thumb?.inputValue ?? this.args.value ?? this.args.store.internalMin;
   }
 
+  /** With tick values the input holds an index, which means nothing when read aloud. */
+  get valueText(): string | undefined {
+    const tick = this.args.store.tickValues?.[this.value];
+
+    return tick === undefined ? undefined : String(tick);
+  }
+
   get isActive(): boolean {
     return this.args.store.activeThumbIndex === this.index;
   }
@@ -205,6 +212,7 @@ class ThumbComponent extends Component<{
 
   <template>
     <input
+      aria-valuetext={{this.valueText}}
       ...attributes
       class="ember-primitives__slider__thumb-input"
       type="range"

@@ -720,4 +720,38 @@ module('Rendering | menu', function (hooks) {
     assert.verifySteps(['cancelled: true']);
     assert.dom('.content').doesNotExist();
   });
+
+  test('the menu is named by its trigger', async function (assert) {
+    await render(
+      <template>
+        <Menu as |m|>
+          <m.Trigger class="trigger">Actions</m.Trigger>
+          <m.Content class="content" as |c|>
+            <c.Item>Item</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').hasAria('labelledby', find('.trigger')?.id ?? 'no id');
+  });
+
+  test('the trigger keeps an id it was given', async function (assert) {
+    await render(
+      <template>
+        <Menu as |m|>
+          <m.Trigger id="mine" class="trigger">Actions</m.Trigger>
+          <m.Content class="content" as |c|>
+            <c.Item>Item</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+
+    assert.dom('.content').hasAria('labelledby', 'mine');
+  });
 });

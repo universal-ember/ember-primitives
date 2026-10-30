@@ -228,6 +228,7 @@ const Content: TOC<PrivateContentSignature> = <template>
     <@PopoverContent
       id={{@contentId}}
       role="menu"
+      aria-labelledby={{@triggerElement.current.id}}
       data-tabster={{TABSTER_CONFIG_CONTENT}}
       tabindex="0"
       {{installContent isOpen=@isOpen triggerElement=@triggerElement}}
@@ -293,6 +294,10 @@ const trigger = eModifier<PrivateTriggerModifierSignature>(
     };
 
     element.addEventListener("click", onTriggerClick);
+
+    if (!element.id) {
+      element.id = `${contentId}__trigger`;
+    }
 
     triggerElement.current = element;
 

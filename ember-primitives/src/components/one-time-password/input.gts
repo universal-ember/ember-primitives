@@ -45,7 +45,7 @@ const Fields: TOC<{
         name="code{{i}}"
         type="text"
         inputmode="numeric"
-        autocomplete="off"
+        autocomplete="one-time-code"
         ...attributes
         {{on "click" selectAll}}
         {{on "paste" handlePaste}}

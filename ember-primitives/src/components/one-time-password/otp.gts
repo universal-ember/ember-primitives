@@ -93,7 +93,7 @@ export const OTP: TOC<{
 
     /**
      * Whether or not to auto-submit after the code has been pasted
-     * in to the collective "field".  Default is true
+     * in to the collective "field".  Default is false
      */
     autoSubmit?: boolean;
   };

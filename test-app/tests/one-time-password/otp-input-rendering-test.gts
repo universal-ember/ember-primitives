@@ -8,10 +8,9 @@ import {
   focus,
   render,
   settled,
-  triggerEvent,
   triggerKeyEvent,
 } from '@ember/test-helpers';
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { OTPInput } from 'ember-primitives';
@@ -40,6 +39,15 @@ function isSelected(input: HTMLInputElement) {
   const selectionLength = input.selectionEnd - input.selectionStart;
 
   return input.value.length === selectionLength;
+}
+
+function paste(target: HTMLInputElement, text: string) {
+  const clipboardData = new DataTransfer();
+
+  clipboardData.setData('text/plain', text);
+  target.dispatchEvent(
+    new ClipboardEvent('paste', { clipboardData, bubbles: true, cancelable: true })
+  );
 }
 
 async function arrowLeft() {
@@ -256,9 +264,7 @@ module('Rendering | <OTPInput>', function (hooks) {
     );
   });
 
-  // Apparently we can't test paste :(
-  // https://stackoverflow.com/questions/51395393/how-to-trigger-paste-event-manually-in-javascript
-  skip('pasting into a field fills subsequent fields', async function (assert) {
+  test('pasting into a field fills subsequent fields', async function (assert) {
     const step = ({ code, complete }: { code: string; complete: boolean }) =>
       assert.step(`${code}:${complete}`);
 
@@ -266,14 +272,40 @@ module('Rendering | <OTPInput>', function (hooks) {
 
     assert.strictEqual(readValue(), '');
 
-    const inputs = getInputs() as [HTMLInputElement];
+    const [first] = getInputs() as [HTMLInputElement];
 
-    await triggerEvent(inputs[0], 'paste', {
-      clipboardData: { getData: () => '123456' },
-      data: '123456',
-    });
+    await focus(first);
+    paste(first, '123456');
+    await settled();
 
+    assert.strictEqual(readValue(), '123456');
     assert.verifySteps(['123456:true']);
+    assert.dom(first).isFocused();
+    assert.ok(isSelected(first), 'pasting again replaces the code');
+  });
+
+  test('browser autofill of the first field fills subsequent fields', async function (assert) {
+    const step = ({ code, complete }: { code: string; complete: boolean }) =>
+      assert.step(`${code}:${complete}`);
+
+    await render(<template><OTPInput @onChange={{step}} /></template>);
+
+    const [first] = getInputs() as [HTMLInputElement];
+
+    first.value = '123456';
+    first.dispatchEvent(
+      new InputEvent('input', { bubbles: true, inputType: 'insertReplacementText' })
+    );
+    await settled();
+
+    assert.dom(getInputs()[5]).hasValue('6');
+    assert.verifySteps(['123456:true']);
+  });
+
+  test('offers the code to browser autofill', async function (assert) {
+    await render(<template><OTPInput /></template>);
+
+    assert.dom('input').hasAttribute('autocomplete', 'one-time-code');
   });
 
   test('clicking into a filled field selects the whole character, because it needs to be replaced', async function (assert) {
@@ -311,35 +343,25 @@ module('Rendering | <OTPInput>', function (hooks) {
     assert.ok(isSelected(inputs[2]), 'The second input is now highlighted / selected');
   });
 
-  // Backspace can only work when isTrusted:true
-  // how do we test the backspace behavior?
-  //
-  // NOTE: this test is incomplete and probably wrong as is.
-  //       there are some debugging artifacts in here
-  skip('backspace behavior after a full code is entered', async function (assert) {
+  test('backspace clears the field, and then moves to the previous one', async function (assert) {
     await render(<template><OTPInput /></template>);
 
     await fillOTP('123456');
 
-    assert.strictEqual(readValue(), '123456');
-
     const inputs = getInputs();
 
-    debugAssert('Missing Input', inputs[0]);
-    debugAssert('Missing Input', inputs[1]);
-    debugAssert('Missing Input', inputs[2]);
-    debugAssert('Missing Input', inputs[3]);
     debugAssert('Missing Input', inputs[4]);
     debugAssert('Missing Input', inputs[5]);
 
-    debugAssert(`Missing i:5`, inputs[5]);
     await focus(inputs[5]);
-    // assert.strictEqual(inputs[5].selectionStart, 1, 'cursor is at the beginning of the text field');
     assert.dom(inputs[5]).hasValue('6');
-    inputs[5].select();
-    await triggerEvent(inputs[5], 'input', { keyCode: 8, key: 'Backspace', code: 'Backspace' });
-    // await this.pauseTest();
+
+    await triggerKeyEvent(inputs[5], 'keydown', 'Backspace');
     assert.dom(inputs[5]).hasValue('');
-    assert.strictEqual(document.activeElement, inputs[5]);
+    assert.dom(inputs[5]).isFocused();
+
+    await triggerKeyEvent(inputs[5], 'keydown', 'Backspace');
+    assert.dom(inputs[4]).isFocused();
+    assert.strictEqual(readValue(), '12345');
   });
 });

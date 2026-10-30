@@ -22,6 +22,7 @@ export class RatingState extends Component<{
         stars: number[];
         step: number;
         value: number;
+        max: number;
         total: number;
         handleClick: (event: Event) => void;
         handleChange: (event: Event) => void;
@@ -138,6 +139,7 @@ export class RatingState extends Component<{
     {{yield
       (hash
         stars=this.stars
+        max=this.max
         total=this.stars.length
         handleClick=this.handleClick
         handleChange=this.handleChange

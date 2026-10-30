@@ -370,6 +370,8 @@ export interface BlockSignature {
         setQuery: (query: string) => void;
         /**
          * The `<input>`, wired as a combobox over `List`.
+         *
+         * It needs a name: pass `aria-label`, or an `id` and a `<label>`.
          */
         Input: WithBoundArgs<
           typeof Input,

@@ -99,6 +99,8 @@ import { OTPInput } from 'ember-primitives';
 
 ## Accessibility
 
+The fields sit in a `<fieldset>`, which needs a name. Pass `aria-label`, or add a `<legend>` in the block.
+
 Every field making up the collective input already has a screen-reader friendly label.
 Developers are encouraged to provide a visible label via `<legend>` or other means.
 

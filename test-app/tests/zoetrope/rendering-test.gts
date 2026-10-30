@@ -1,5 +1,5 @@
 import { on } from '@ember/modifier';
-import { click, render } from '@ember/test-helpers';
+import { click, focus, render, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -285,5 +285,49 @@ module('<Zoetrope />', function (hooks) {
     await click('.my-controls button:first-child');
 
     assert.dom('.ember-primitives__zoetrope__scroller').hasProperty('scrollLeft', 0);
+  });
+
+  module('Tab', function () {
+    const Demo = <template>
+      <Zoetrope>
+        <:content>
+          <a href="#" id="first">Card</a>
+          <div>Not focusable</div>
+          <a href="#" id="second">Card</a>
+          <a href="#" id="third">Card</a>
+        </:content>
+      </Zoetrope>
+    </template>;
+
+    function trackCancelled(assert: Assert) {
+      const listener = (event: Event) => assert.step(`cancelled: ${event.defaultPrevented}`);
+
+      document.addEventListener('keydown', listener);
+
+      return () => document.removeEventListener('keydown', listener);
+    }
+
+    test('stays with the browser when the next sibling cannot take focus', async function (assert) {
+      const untrack = trackCancelled(assert);
+
+      await render(<template><Demo /></template>);
+      await focus('#first');
+      await triggerKeyEvent('#first', 'keydown', 'Tab');
+      untrack();
+
+      assert.verifySteps(['cancelled: false']);
+    });
+
+    test('moves to a next sibling that can take focus', async function (assert) {
+      const untrack = trackCancelled(assert);
+
+      await render(<template><Demo /></template>);
+      await focus('#second');
+      await triggerKeyEvent('#second', 'keydown', 'Tab');
+      untrack();
+
+      assert.verifySteps(['cancelled: true']);
+      assert.dom('#third').isFocused();
+    });
   });
 });

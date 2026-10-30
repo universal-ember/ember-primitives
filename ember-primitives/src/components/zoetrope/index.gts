@@ -78,8 +78,6 @@ export class Zoetrope extends Component<Signature> {
       return;
     }
 
-    event.preventDefault();
-
     let newTarget: HTMLElement | null = null;
 
     if (shiftKey) {
@@ -92,7 +90,14 @@ export class Zoetrope extends Component<Signature> {
       return;
     }
 
-    newTarget?.focus({ preventScroll: true });
+    newTarget.focus({ preventScroll: true });
+
+    /** Cancelling Tab when the sibling cannot take focus traps the keyboard. */
+    if ((target.getRootNode() as Document | ShadowRoot).activeElement !== newTarget) {
+      return;
+    }
+
+    event.preventDefault();
 
     const rect = getRelativeBoundingClientRect(newTarget, this.scrollerElement);
 

@@ -392,6 +392,8 @@ Keyboard users can always change the star rating as every variant of the compone
 
 Screen reader users will have a summary of the state of the component read to them as "Rated $Current of $Total"
 
+An interactive rating needs a name. Use the `<:label>` block, or pass `aria-label`. The block form of `<Rating>` has no default label, so add a `<legend>` in the block. A `<rating.Range>` needs its own `aria-label`.
+
 ### Keyboard
 
 Using this component works the same as a radio group. 

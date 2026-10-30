@@ -287,6 +287,12 @@ import { Zoetrope } from "ember-primitives";
 </template>
 ```
 
+## Accessibility
+
+The `<section>` needs a name before screen readers treat it as a region. Pass `aria-label`.
+
+The default buttons say "Left" and "Right". Use the `<:controls>` block to give them names that say what they scroll.
+
 ## API Reference
 
 ```gjs live no-shadow

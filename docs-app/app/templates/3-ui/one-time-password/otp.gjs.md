@@ -118,6 +118,8 @@ import { OTP } from 'ember-primitives';
 
 ## Accessibility
 
+The fields sit in a `<fieldset>`, which needs a name. Pass `aria-label`, or add a `<legend>` in the block.
+
 This component complies with all `<form>` and `<input>` accessibility guidelines.
 It is rendered within a fieldset to convey that all of the character inputs are related.
 

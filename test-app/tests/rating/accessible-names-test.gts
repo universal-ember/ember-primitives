@@ -25,7 +25,7 @@ module('<Rating> accessible names', function (hooks) {
       </template>
     );
 
-    assert.dom(screen.getByRole('group', { name: 'Rate me' })).exists();
+    assert.dom(screen.getByRole('radiogroup', { name: 'Rate me' })).exists();
   });
 
   test('a rating that is not interactive summarizes itself', async function (assert) {

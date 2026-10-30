@@ -8,7 +8,8 @@ import type { TOC } from "@ember/component/template-only";
 
 interface Signature extends AccordionHeaderExternalSignature {
   Args: {
-    value: string;
+    triggerId: string;
+    contentId: string;
     isExpanded: boolean;
     disabled?: boolean;
     toggleItem: () => void;
@@ -26,7 +27,12 @@ export const AccordionHeader: TOC<Signature> = <template>
     {{yield
       (hash
         Trigger=(component
-          Trigger value=@value isExpanded=@isExpanded disabled=@disabled toggleItem=@toggleItem
+          Trigger
+          triggerId=@triggerId
+          contentId=@contentId
+          isExpanded=@isExpanded
+          disabled=@disabled
+          toggleItem=@toggleItem
         )
       )
     }}

@@ -1,9 +1,11 @@
 import { array } from '@ember/helper';
-import { click, render } from '@ember/test-helpers';
+import { click, find, findAll, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { Accordion } from 'ember-primitives';
+
+import type { TOC } from '@ember/component/template-only';
 
 module('Rendering | <Accordion>', function (hooks) {
   setupRenderingTest(hooks);
@@ -287,6 +289,50 @@ module('Rendering | <Accordion>', function (hooks) {
           assert.dom('[data-test-content-2]').isVisible();
         });
       });
+    });
+  });
+
+  module('accessibility', function () {
+    const Demo: TOC<{ Element: HTMLButtonElement }> = <template>
+      <Accordion @type="single" @collapsible={{true}} as |A|>
+        <A.Item @value="same" as |I|>
+          <I.Header as |H|>
+            <H.Trigger ...attributes>Trigger</H.Trigger>
+          </I.Header>
+          <I.Content>Content</I.Content>
+        </A.Item>
+      </Accordion>
+    </template>;
+
+    test('the trigger reports its expanded state', async function (assert) {
+      await render(<template><Demo data-test-trigger /></template>);
+
+      assert.dom('[data-test-trigger]').hasAria('expanded', 'false');
+
+      await click('[data-test-trigger]');
+      assert.dom('[data-test-trigger]').hasAria('expanded', 'true');
+
+      await click('[data-test-trigger]');
+      assert.dom('[data-test-trigger]').hasAria('expanded', 'false');
+    });
+
+    test('the trigger and the panel point at each other', async function (assert) {
+      await render(<template><Demo data-test-trigger /></template>);
+      await click('[data-test-trigger]');
+
+      const trigger = find('[data-test-trigger]');
+      const panel = find('[role="region"]');
+
+      assert.strictEqual(trigger?.getAttribute('aria-controls'), panel?.id);
+      assert.strictEqual(panel?.getAttribute('aria-labelledby'), trigger?.id);
+    });
+
+    test('two accordions can use the same @value', async function (assert) {
+      await render(<template><Demo /><Demo /></template>);
+
+      const [first, second] = findAll('[role="region"]');
+
+      assert.notEqual(first?.id, second?.id);
     });
   });
 });

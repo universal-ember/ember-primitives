@@ -8,7 +8,8 @@ import type { TOC } from "@ember/component/template-only";
 interface Signature extends AccordionTriggerExternalSignature {
   Args: {
     isExpanded: boolean;
-    value: string;
+    triggerId: string;
+    contentId: string;
     disabled?: boolean;
     toggleItem: () => void;
   };
@@ -17,8 +18,9 @@ interface Signature extends AccordionTriggerExternalSignature {
 export const AccordionTrigger: TOC<Signature> = <template>
   <button
     type="button"
-    aria-controls={{@value}}
-    aria-expanded={{@isExpanded}}
+    id={{@triggerId}}
+    aria-controls={{@contentId}}
+    aria-expanded={{if @isExpanded "true" "false"}}
     data-state={{getDataState @isExpanded}}
     data-disabled={{@disabled}}
     aria-disabled={{if @disabled "true" "false"}}

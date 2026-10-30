@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "minor",
-      "oldVersion": "0.61.1",
-      "newVersion": "0.62.0",
+      "oldVersion": "0.62.0",
+      "newVersion": "0.63.0",
       "tagName": "latest",
       "constraints": [
         {
@@ -12,28 +12,24 @@
         },
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Appears in changelog section :bug: Bug Fix"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.12",
-      "newVersion": "0.9.13",
+      "oldVersion": "0.9.13",
+      "newVersion": "0.9.14",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
           "reason": "Has dependency `workspace:^` on ember-primitives"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./packages/docs-support/package.json"
@@ -42,5 +38,5 @@
       "oldVersion": "0.4.1"
     }
   },
-  "description": "## Release (2026-08-19)\n\n* ember-primitives 0.62.0 (minor)\n* @universal-ember/docs-support 0.9.13 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#799](https://github.com/universal-ember/ember-primitives/pull/799) Add `<CommandPalette>`, Add `<Dialog>` -- [Breaking]: `<Modal>` was previously aliased to `<Dialog>` and is now _just_ `<Modal>` ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### :bug: Bug Fix\n* `@universal-ember/docs-support`\n  * [#790](https://github.com/universal-ember/ember-primitives/pull/790) docs-support: side-nav highlight for extension-suffixed URLs ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n  * [#797](https://github.com/universal-ember/ember-primitives/pull/797) fix(docs-support): stop double-prefixing SideNav links with rootURL ([@patricklx](https://github.com/patricklx))\n\n#### :house: Internal\n* `ember-primitives`\n  * [#802](https://github.com/universal-ember/ember-primitives/pull/802) Fix ci ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* Other\n  * [#800](https://github.com/universal-ember/ember-primitives/pull/800) Fix CI: stop running `pnpm install` next to builds ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n  * [#798](https://github.com/universal-ember/ember-primitives/pull/798) docs(contributor): contributors readme action update ([@github-actions[bot]](https://github.com/apps/github-actions))\n* `@universal-ember/docs-support`\n  * [#794](https://github.com/universal-ember/ember-primitives/pull/794) docs-app: preview the unreleased kolay (docs() + apiDocs() plugin split) ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n\n#### Committers: 4\n- @NullVoxPopuli's reduced-access machine account for AI usage ([@NullVoxPopuli-ai-agent](https://github.com/NullVoxPopuli-ai-agent))\n- GitHub Actions [Bot] ([@github-actions](https://github.com/apps/github-actions))\n- Patrick Pircher ([@patricklx](https://github.com/patricklx))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-10-30)\n\n* ember-primitives 0.63.0 (minor)\n* @universal-ember/docs-support 0.9.14 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#818](https://github.com/universal-ember/ember-primitives/pull/818) OTP: support paste and browser autofill ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#823](https://github.com/universal-ember/ember-primitives/pull/823) CommandPalette: announce the number of results ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#819](https://github.com/universal-ember/ember-primitives/pull/819) Tabs: expose selection on link tabs and make panels reachable ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#820](https://github.com/universal-ember/ember-primitives/pull/820) Switch: remove aria-checked and fix the element type ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#821](https://github.com/universal-ember/ember-primitives/pull/821) Menu: name the menu with its trigger ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#825](https://github.com/universal-ember/ember-primitives/pull/825) Rating: give Range the scale of the rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#814](https://github.com/universal-ember/ember-primitives/pull/814) Rating: keep the value of a readonly rating ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#813](https://github.com/universal-ember/ember-primitives/pull/813) Zoetrope: do not trap Tab on a slide ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#815](https://github.com/universal-ember/ember-primitives/pull/815) Modal and Drawer: open modally with @open ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#817](https://github.com/universal-ember/ember-primitives/pull/817) Slider: announce the tick value, not its index ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#822](https://github.com/universal-ember/ember-primitives/pull/822) Link: set aria-current on the active link ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#826](https://github.com/universal-ember/ember-primitives/pull/826) Zoetrope: respect prefers-reduced-motion ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#827](https://github.com/universal-ember/ember-primitives/pull/827) Menu: Escape closes only the menu inside a dialog ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#828](https://github.com/universal-ember/ember-primitives/pull/828) Tabs: Tab enters the tablist on the selected tab ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#812](https://github.com/universal-ember/ember-primitives/pull/812) Accordion: report the expanded state to screen readers ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `ember-primitives`\n  * [#829](https://github.com/universal-ember/ember-primitives/pull/829) Docs: say where accessible names go ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

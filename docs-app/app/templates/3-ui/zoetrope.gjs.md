@@ -220,7 +220,7 @@ import { on } from "@ember/modifier";
 
 ## Scroll Behavior
 
-The component takes a `@scrollBehavior` argument that can be used to control the scroll behavior. The default value is `smooth`.
+The component takes a `@scrollBehavior` argument that can be used to control the scroll behavior. The default value is `smooth`. When the system asks for reduced motion, the scroll is always `instant`.
 
 <div class="featured-demo auto-height">
 

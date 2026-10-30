@@ -26,7 +26,6 @@
   gap: var(--zoetrope-gap, 8px);
   overflow: scroll visible;
   padding: 8px var(--zoetrope-offset, 0);
-  scroll-behavior: smooth;
   scroll-padding-left: var(--zoetrope-offset, 0);
   scroll-snap-type: x mandatory;
   scrollbar-color: transparent transparent;
@@ -36,5 +35,11 @@
   & > * {
     flex-shrink: 0;
     scroll-snap-align: start;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ember-primitives__zoetrope__scroller {
+    scroll-behavior: smooth;
   }
 }

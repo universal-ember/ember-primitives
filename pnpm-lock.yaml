@@ -691,6 +691,9 @@ importers:
       '@types/rsvp':
         specifier: ^4.0.9
         version: 4.0.9
+      axe-core:
+        specifier: ^4.11.1
+        version: 4.11.4
       babel-plugin-ember-template-compilation:
         specifier: ^4.0.0
         version: 4.0.0
@@ -700,6 +703,9 @@ importers:
       concurrently:
         specifier: ^9.2.1
         version: 9.2.1
+      ember-a11y-testing:
+        specifier: ^8.0.0
+        version: 8.0.1(f3a1caebf97993b47b945729319b3c77)
       ember-disable-prototype-extensions:
         specifier: ^1.1.3
         version: 1.1.3
@@ -11096,7 +11102,7 @@ snapshots:
     dependencies:
       '@ember/test-helpers': 5.4.2(c8332dc3f90c0e60eb130a3a85f980b9)
       '@ember/test-waiters': 4.1.1(c8332dc3f90c0e60eb130a3a85f980b9)
-      '@embroider/addon-shim': 1.10.2
+      '@embroider/addon-shim': 1.10.3
       axe-core: 4.11.4
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
     optionalDependencies:
@@ -11172,7 +11178,7 @@ snapshots:
       '@babel/helper-module-imports': 7.28.6
       '@babel/helper-plugin-utils': 7.28.6
       '@babel/types': 7.29.0
-      '@embroider/addon-shim': 1.10.2
+      '@embroider/addon-shim': 1.10.3
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
     optionalDependencies:
       '@glint/template': 1.7.7
@@ -11233,7 +11239,7 @@ snapshots:
 
   ember-gesture-modifiers@6.1.0(1af90b599e0cc51c2284ccd9490a685a):
     dependencies:
-      '@embroider/addon-shim': 1.10.2
+      '@embroider/addon-shim': 1.10.3
       decorator-transforms: 2.3.2(@babel/core@7.29.0)
       ember-modifier: 4.3.0(@babel/core@7.29.0)
       ember-source: 7.3.0-beta.1(@glimmer/component@2.1.1)

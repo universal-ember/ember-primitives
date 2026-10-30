@@ -1,5 +1,6 @@
 packages:
   - "ember-primitives"
   - "test-app"
+  - "test-playwright"
   - "docs-app"
   - "packages/*"

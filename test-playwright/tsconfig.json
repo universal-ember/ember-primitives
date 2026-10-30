@@ -1,0 +1,13 @@
+{
+  "extends": "@ember/app-tsconfig",
+  "include": ["app", "tests", "playwright.config.ts"],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "types": [
+      "ember-source/types",
+      "@embroider/core/virtual",
+      "@glint/ember-tsc/types",
+      "vite/client"
+    ]
+  }
+}

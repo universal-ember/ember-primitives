@@ -131,6 +131,10 @@ export class Zoetrope extends Component<Signature> {
       return "instant";
     }
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return "instant";
+    }
+
     return this.args.scrollBehavior || "smooth";
   }
 

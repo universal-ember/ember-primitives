@@ -50,7 +50,6 @@ export const Stars: TOC<{
             type="radio"
             name={{@name}}
             value={{star}}
-            readonly={{@isReadonly}}
             checked={{Object.is star @currentValue}}
           />
         </span>

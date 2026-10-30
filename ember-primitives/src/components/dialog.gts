@@ -14,6 +14,11 @@ import { localCopy } from "tracked-toolbox";
 import type { TOC } from "@ember/component/template-only";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
 
+interface RegisterSignature {
+  Element: HTMLDialogElement;
+  Args: { Named: { open: boolean | undefined } };
+}
+
 const DialogElement: TOC<{
   Element: HTMLDialogElement;
   Args: {
@@ -29,11 +34,11 @@ const DialogElement: TOC<{
     /**
      * @internal
      */
-    register: ModifierLike<{ Element: HTMLDialogElement }>;
+    register: ModifierLike<RegisterSignature>;
   };
   Blocks: { default: [] };
 }> = <template>
-  <dialog ...attributes open={{@open}} {{on "close" @onClose}} {{@register}}>
+  <dialog ...attributes {{on "close" @onClose}} {{@register open=@open}}>
     {{yield}}
   </dialog>
 </template>;
@@ -144,7 +149,14 @@ class ModalDialog extends Component<Signature> {
 
   @tracked declare dialogElement: HTMLDialogElement | undefined;
 
-  register = eModifier((element: HTMLDialogElement) => {
+  register = eModifier<RegisterSignature>((element, _, { open }) => {
+    /** The `open` attribute shows a non-modal dialog, only `showModal` is modal. */
+    if (open && !element.open) {
+      element.showModal();
+    } else if (open === false && element.open) {
+      element.close();
+    }
+
     /**
      * This is very sad.
      *

@@ -224,4 +224,17 @@ module('Rendering | <Modal>', function (hooks) {
       assert.dom('out').hasText('false');
     });
   });
+
+  test('@open={{true}} opens modally', async function (assert) {
+    await render(
+      <template>
+        <Modal @open={{true}} as |m|>
+          <m.Dialog><button type="button">inside</button></m.Dialog>
+        </Modal>
+      </template>
+    );
+
+    assert.true(find('dialog')?.matches(':modal'));
+    assert.dom('dialog button').isFocused();
+  });
 });

@@ -1,4 +1,5 @@
 import Component from "@glimmer/component";
+import { assert } from "@ember/debug";
 import { hash } from "@ember/helper";
 import { on } from "@ember/modifier";
 import { guidFor } from "@ember/object/internals";
@@ -152,6 +153,14 @@ const installContent = eModifier<{
     };
   };
 }>((element, _: [], { isOpen, triggerElement }) => {
+  assert(
+    "<Menu> needs tabster for focus management and arrow keys, which the application sets up. " +
+      "Call `setupTabster` from 'ember-primitives/tabster' in your application route, " +
+      "and from 'ember-primitives/test-support' in your tests. " +
+      "See https://tabster.io/docs/core",
+    getTabster(window),
+  );
+
   // Focus first focusable element when the popover opens.
   // The toggle event fires natively after showPopover() completes.
   // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event

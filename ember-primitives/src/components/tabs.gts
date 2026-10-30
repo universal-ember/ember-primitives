@@ -30,12 +30,19 @@ const TABSTER_CONFIG = getTabsterAttribute(
     mover: {
       direction: MoverDirections.Both,
       cyclic: true,
+      hasDefault: true,
       memorizeCurrent: true,
     },
     deloser: {},
   },
   true,
 );
+
+const TABSTER_SELECTED_TAB = getTabsterAttribute({ focusable: { isDefault: true } }, true);
+
+function tabsterFor(isSelected: boolean) {
+  return isSelected ? TABSTER_SELECTED_TAB : undefined;
+}
 
 const TabLink: TOC<{
   Element: HTMLAnchorElement;
@@ -107,6 +114,7 @@ const TabButton: TOC<{
     type="button"
     aria-controls={{@panelId}}
     aria-selected={{String (@state.isActive @id @value)}}
+    data-tabster={{tabsterFor (@state.isActive @id @value)}}
     id={{@id}}
     {{on "click" @handleClick}}
     {{! The Types for modifier are wrong }}

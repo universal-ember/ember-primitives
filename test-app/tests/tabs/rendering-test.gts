@@ -428,4 +428,23 @@ module('Rendering | <Tabs>', function (hooks) {
       assert.dom('[role="tabpanel"]').doesNotContainText('something about oranges');
     });
   });
+
+  test('only the selected tab is the default for keyboard entry', async (assert) => {
+    await render(
+      <template>
+        <Tabs @activeTab="b" as |Tab|>
+          <Tab @value="a" @label="A" />
+          <Tab @value="b" @label="B" />
+        </Tabs>
+      </template>
+    );
+
+    assert.dom('[role="tab"][data-tabster*="isDefault"]').exists({ count: 1 });
+    assert.dom('[role="tab"][data-tabster*="isDefault"]').hasText('B');
+
+    await click('[aria-selected="false"]');
+
+    assert.dom('[role="tab"][data-tabster*="isDefault"]').exists({ count: 1 });
+    assert.dom('[role="tab"][data-tabster*="isDefault"]').hasText('A');
+  });
 });

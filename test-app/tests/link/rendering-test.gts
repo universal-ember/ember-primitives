@@ -314,4 +314,27 @@ module('<Link />', function (hooks) {
     assert.dom('[data-active]').exists({ count: 1 });
     assert.dom('[data-active]').hasText('One');
   });
+
+  test('aria-current names the active link', async function (assert) {
+    setupRouting(this.owner, function () {
+      this.route('foo', function () {
+        this.route('bar');
+      });
+    });
+
+    this.owner.register(
+      'template:application',
+      <template>
+        <Link @href="/foo/bar" id="exact">Exact</Link>
+        <Link @href="/foo" @activeOnSubPaths={{true}} id="parent">Parent</Link>
+        <Link @href="/" id="other">Other</Link>
+      </template>
+    );
+
+    await visit('/foo/bar');
+
+    assert.dom('#exact').hasAria('current', 'page');
+    assert.dom('#parent').hasAria('current', 'true');
+    assert.dom('#other').doesNotHaveAria('current');
+  });
 });

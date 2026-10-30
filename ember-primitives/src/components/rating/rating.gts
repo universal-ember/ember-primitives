@@ -103,7 +103,10 @@ export interface Signature {
         /**
          * Input range for adjusting the rating via fractional means
          */
-        Range: WithBoundArgs<typeof RatingRange, "max" | "value" | "name" | "handleChange">;
+        Range: WithBoundArgs<
+          typeof RatingRange,
+          "step" | "max" | "value" | "name" | "handleChange"
+        >;
       },
     ];
     label: [
@@ -193,7 +196,7 @@ export class Rating extends Component<Signature> {
                 Range=(component
                   RatingRange
                   step=r.step
-                  max=r.total
+                  max=r.max
                   value=r.value
                   name=this.name
                   handleChange=r.handleChange

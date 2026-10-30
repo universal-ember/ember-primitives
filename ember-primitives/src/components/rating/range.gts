@@ -6,12 +6,15 @@ export const RatingRange: TOC<{
   Element: HTMLInputElement;
   Args: {
     name: string;
+    step: number;
     max: number;
     value: number;
     handleChange: (event: Event) => void;
   };
 }> = <template>
   <input
+    min="0"
+    step={{@step}}
     ...attributes
     name={{@name}}
     type="range"

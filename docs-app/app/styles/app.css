@@ -11,6 +11,14 @@
   margin: 0;
 }
 
+/*
+ * Browsers center a modal `<dialog>` with `margin: auto`, which the reset
+ * removes. `:where` keeps this easy to override in a demo.
+ */
+:where(dialog:modal) {
+  margin: auto;
+}
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

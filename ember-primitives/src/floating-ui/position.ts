@@ -11,10 +11,6 @@ export interface FlipOptions {
    * Use this for space that a sticky header takes up.
    */
   padding?: Padding;
-  /**
-   * Placements to try, in order, instead of the default placements.
-   */
-  fallbackPlacements?: Placement[];
 }
 
 export interface ShiftOptions {
@@ -31,16 +27,22 @@ interface Layout {
 }
 
 /**
- * Custom properties on the floating element, which the arrow reads.
+ * Custom properties on the floating element.
+ * The position rules and the arrow read these.
  */
 const REFERENCE_ANCHOR = '--ember-primitives-reference-anchor';
 const FLOATING_ANCHOR = '--ember-primitives-floating-anchor';
+const GAP = '--ember-primitives-gap';
+const SKID = '--ember-primitives-skid';
+const FLIP_PADDING = '--ember-primitives-flip-padding-';
+const SHIFT_PADDING = '--ember-primitives-shift-padding-';
 const ARROW_PREFIX = '--ember-primitives-arrow-';
-
 const ARROW_HALF_WIDTH = '--ember-primitives-arrow-half-width';
 const ARROW_HALF_HEIGHT = '--ember-primitives-arrow-half-height';
 
 const ANCHORED = 'data-ember-primitives-anchored';
+
+const SIDES: Side[] = ['top', 'right', 'bottom', 'left'];
 
 const OPPOSITE: Record<Side, Side> = {
   top: 'bottom',
@@ -51,10 +53,6 @@ const OPPOSITE: Record<Side, Side> = {
 
 export function sideOf(placement: Placement) {
   return placement.split('-')[0] as Side;
-}
-
-export function oppositeOf(side: Side) {
-  return OPPOSITE[side];
 }
 
 function alignmentOf(placement: Placement) {
@@ -69,7 +67,7 @@ function paddingOf(padding: Padding | undefined, side: Side) {
   return typeof padding === 'number' ? padding : padding?.[side];
 }
 
-function placementsOn(side: Side, alignment: Alignment | undefined): Placement[] {
+function placementsOn(side: Side, alignment?: Alignment): Placement[] {
   if (alignment === 'start') return [`${side}-start`, `${side}-end`];
   if (alignment === 'end') return [`${side}-end`, `${side}-start`];
 
@@ -82,20 +80,13 @@ function placementsOn(side: Side, alignment: Alignment | undefined): Placement[]
  * Native shift does not follow a scroll, and fallbacks do.
  * So the other alignments on the same side come before the opposite side.
  */
-export function placementsFor(
-  placement: Placement,
-  fallbackPlacements: Placement[] | undefined,
-  isReferenceClipped: boolean
-): Placement[] {
+export function placementsFor(placement: Placement, isReferenceClipped: boolean): Placement[] {
   const side = sideOf(placement);
   const alignment = alignmentOf(placement);
+  const near = placementsOn(side, alignment);
+  const far = placementsOn(OPPOSITE[side], alignment);
 
-  const near = fallbackPlacements
-    ? [placement].concat(fallbackPlacements)
-    : placementsOn(side, alignment);
-  const far = fallbackPlacements ? [] : placementsOn(OPPOSITE[side], alignment);
-
-  return isReferenceClipped && !fallbackPlacements ? far.concat(near) : near.concat(far);
+  return isReferenceClipped ? far.concat(near) : near.concat(far);
 }
 
 /**
@@ -104,14 +95,10 @@ export function placementsFor(
  * - `margin` makes the gap, because Chrome does not flip
  *   on scroll when an inset in the scroll direction is not `auto`.
  */
-export function declarationsFor(placement: Placement, layout: Layout) {
-  const { offsetOptions, flipOptions, shiftOptions } = layout;
+function declarationsFor(placement: Placement) {
   const side = sideOf(placement);
   const alignment = alignmentOf(placement);
   const vertical = isVertical(side);
-
-  const mainAxis = typeof offsetOptions === 'number' ? offsetOptions : offsetOptions?.mainAxis;
-  const crossAxis = typeof offsetOptions === 'number' ? 0 : (offsetOptions?.crossAxis ?? 0);
 
   const crossStart: Side = vertical ? 'left' : 'top';
   const crossEnd: Side = vertical ? 'right' : 'bottom';
@@ -119,18 +106,18 @@ export function declarationsFor(placement: Placement, layout: Layout) {
     ? { start: 'span-right', end: 'span-left' }
     : { start: 'span-bottom', end: 'span-top' };
 
-  const margin: Record<Side, number> = { top: 0, right: 0, bottom: 0, left: 0 };
+  const margin: Record<Side, string> = { top: '0', right: '0', bottom: '0', left: '0' };
 
-  margin[OPPOSITE[side]] = mainAxis ?? 0;
-  margin[side] = paddingOf(flipOptions?.padding, side) ?? 0;
+  margin[OPPOSITE[side]] = `var(${GAP})`;
+  margin[side] = `var(${FLIP_PADDING}${side})`;
 
   /**
    * anchor-center centers the margin box, which moves the element by half of the margin.
    */
   if (alignment === 'end') {
-    margin[crossEnd] = -crossAxis;
+    margin[crossEnd] = `calc(var(${SKID}) * -1)`;
   } else {
-    margin[crossStart] = alignment ? crossAxis : crossAxis * 2;
+    margin[crossStart] = alignment ? `var(${SKID})` : `calc(var(${SKID}) * 2)`;
   }
 
   const crossArea = alignment ? span[alignment] : 'span-all';
@@ -149,16 +136,14 @@ export function declarationsFor(placement: Placement, layout: Layout) {
   const inset = (name: Side) => {
     if (name === side || name === OPPOSITE[side]) return 'auto';
 
-    const padding = paddingOf(shiftOptions?.padding, name);
-
-    return padding === undefined ? 'auto' : `${padding}px`;
+    return `var(${SHIFT_PADDING}${name}, auto)`;
   };
 
   return {
     'position-area': vertical ? `${side} ${crossArea}` : `${crossArea} ${side}`,
     'align-self': vertical ? mainSelf[side] : crossValue,
     'justify-self': vertical ? crossValue : mainSelf[side],
-    margin: `${margin.top}px ${margin.right}px ${margin.bottom}px ${margin.left}px`,
+    margin: `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`,
     top: inset('top'),
     right: inset('right'),
     bottom: inset('bottom'),
@@ -177,8 +162,8 @@ export function declarationsFor(placement: Placement, layout: Layout) {
  * because Firefox resolves any other anchor at its unscrolled position.
  * `anchor-size()` of the floating element is safe, because a scroll does not change size.
  */
-function arrowDeclarationsFor(placement: Placement, layout: Layout) {
-  const declarations = declarationsFor(placement, layout);
+function arrowDeclarationsFor(placement: Placement) {
+  const declarations = declarationsFor(placement);
   const side = sideOf(placement);
   const alignment = alignmentOf(placement);
   const vertical = isVertical(side);
@@ -189,14 +174,11 @@ function arrowDeclarationsFor(placement: Placement, layout: Layout) {
   const mainHalf = `var(${vertical ? ARROW_HALF_HEIGHT : ARROW_HALF_WIDTH}, 0px)`;
   const crossHalf = `var(${vertical ? ARROW_HALF_WIDTH : ARROW_HALF_HEIGHT}, 0px)`;
 
-  const { offsetOptions, flipOptions } = layout;
-  const gap = typeof offsetOptions === 'number' ? offsetOptions : (offsetOptions?.mainAxis ?? 0);
-  const padding = paddingOf(flipOptions?.padding, side) ?? 0;
-
   const margin: Record<Side, string> = { top: '0', right: '0', bottom: '0', left: '0' };
 
-  margin[OPPOSITE[side]] = `calc(${gap}px - ${mainHalf})`;
-  margin[side] = `calc(anchor-size(${floating} ${mainSize}) - ${mainHalf} + ${padding}px)`;
+  margin[OPPOSITE[side]] = `calc(var(${GAP}) - ${mainHalf})`;
+  margin[side] =
+    `calc(anchor-size(${floating} ${mainSize}) - ${mainHalf} + var(${FLIP_PADDING}${side}))`;
 
   if (alignment) {
     const crossNear: Side =
@@ -216,55 +198,44 @@ function arrowDeclarationsFor(placement: Placement, layout: Layout) {
   };
 }
 
-let sheet: CSSStyleSheet | undefined;
-let nextName = 0;
-
-const ruleNames = new Map<string, string>();
-const anchorNames = new WeakMap<Element, string>();
-
-function sheetFor(element: Element) {
-  /**
-   * Created here and not at the module level, because SSR has no CSSStyleSheet.
-   */
-  sheet ??= new CSSStyleSheet();
-
-  if (sheet.cssRules.length === 0) {
-    /**
-     * :where(), so that any width from the app has precedence.
-     */
-    sheet.insertRule(`:where([${ANCHORED}]) { width: max-content; max-width: 100vw; }`);
-  }
-
-  const root = element.getRootNode() as Document | ShadowRoot;
-
-  if (!root.adoptedStyleSheets.includes(sheet)) {
-    root.adoptedStyleSheets.push(sheet);
-  }
-
-  return sheet;
+function ruleNameFor(placement: Placement) {
+  return `--ember-primitives-${placement}`;
 }
 
-/**
- * Rules are shared, because few combinations of placement and spacing exist in one app.
- */
-function positionTryFor(element: Element, declarations: Record<string, string>) {
-  const target = sheetFor(element);
+function arrowRuleNameFor(placement: Placement) {
+  return `--ember-primitives-arrow-rule-${placement}`;
+}
+
+function rule(name: string, declarations: Record<string, string>) {
   const body = Object.entries(declarations)
     .map(([property, value]) => `${property}: ${value};`)
     .join(' ');
 
-  let name = ruleNames.get(body);
-
-  if (!name) {
-    name = `--ember-primitives-try-${nextName++}`;
-    target.insertRule(`@position-try ${name} { ${body} }`, target.cssRules.length);
-    ruleNames.set(body, name);
-  }
-
-  return name;
+  return `@position-try ${name} { ${body} }`;
 }
 
-export function anchorNameFor(element: Element & ElementCSSInlineStyle) {
+const PLACEMENTS = SIDES.flatMap((side) => placementsOn(side));
+
+/**
+ * One rule for each placement, and custom properties hold the spacing.
+ * So the sheet never changes, and elements have nothing to clean up.
+ *
+ * :where(), so that any width from the app has precedence.
+ */
+const sheet = new CSSStyleSheet();
+
+sheet.replaceSync(
+  [`:where([${ANCHORED}]) { width: max-content; max-width: 100vw; }`]
+    .concat(PLACEMENTS.map((p) => rule(ruleNameFor(p), declarationsFor(p))))
+    .concat(PLACEMENTS.map((p) => rule(arrowRuleNameFor(p), arrowDeclarationsFor(p))))
+    .join('\n')
+);
+
+let nextName = 0;
+
+const anchorNames = new WeakMap<Element, string>();
+
+function anchorNameFor(element: HTMLElement | SVGElement) {
   let name = anchorNames.get(element);
 
   if (!name) {
@@ -279,44 +250,62 @@ export function anchorNameFor(element: Element & ElementCSSInlineStyle) {
   return name;
 }
 
-export function applyPlacements(floating: HTMLElement, placements: Placement[], layout: Layout) {
-  const [first] = placements;
-
-  if (!first || !floating.isConnected) return;
-
-  sheetFor(floating);
-  floating.setAttribute(ANCHORED, '');
-
-  for (const [property, value] of Object.entries(declarationsFor(first, layout))) {
-    floating.style.setProperty(property, value);
-  }
-
-  const fallbacks = placements
-    .slice(1)
-    .map((placement) => positionTryFor(floating, declarationsFor(placement, layout)));
-
-  floating.style.setProperty('position-try-fallbacks', fallbacks.join(', ') || 'none');
-
-  for (const [property, value] of Object.entries(arrowDeclarationsFor(first, layout))) {
-    floating.style.setProperty(`${ARROW_PREFIX}${property}`, value);
-  }
-
-  const arrowFallbacks = placements
-    .slice(1)
-    .map((placement) => positionTryFor(floating, arrowDeclarationsFor(placement, layout)));
-
-  floating.style.setProperty(
-    `${ARROW_PREFIX}position-try-fallbacks`,
-    arrowFallbacks.join(', ') || 'none'
-  );
-}
-
-export function linkAnchors(floating: HTMLElement, reference: HTMLElement | SVGElement) {
+export function setupFloating(
+  floating: HTMLElement,
+  reference: HTMLElement | SVGElement,
+  layout: Layout
+) {
+  const { offsetOptions, flipOptions, shiftOptions } = layout;
+  const { style } = floating;
+  const root = floating.getRootNode() as Document | ShadowRoot;
   const referenceName = anchorNameFor(reference);
 
-  floating.style.setProperty('position-anchor', referenceName);
-  floating.style.setProperty(REFERENCE_ANCHOR, referenceName);
-  floating.style.setProperty(FLOATING_ANCHOR, anchorNameFor(floating));
+  if (!root.adoptedStyleSheets.includes(sheet)) {
+    root.adoptedStyleSheets.push(sheet);
+  }
+
+  floating.setAttribute(ANCHORED, '');
+
+  style.setProperty('position-anchor', referenceName);
+  style.setProperty(REFERENCE_ANCHOR, referenceName);
+  style.setProperty(FLOATING_ANCHOR, anchorNameFor(floating));
+
+  const mainAxis = typeof offsetOptions === 'number' ? offsetOptions : offsetOptions?.mainAxis;
+  const crossAxis = typeof offsetOptions === 'number' ? 0 : offsetOptions?.crossAxis;
+
+  style.setProperty(GAP, `${mainAxis ?? 0}px`);
+  style.setProperty(SKID, `${crossAxis ?? 0}px`);
+
+  for (const side of SIDES) {
+    const shift = paddingOf(shiftOptions?.padding, side);
+
+    style.setProperty(`${FLIP_PADDING}${side}`, `${paddingOf(flipOptions?.padding, side) ?? 0}px`);
+    style.setProperty(`${SHIFT_PADDING}${side}`, shift === undefined ? 'auto' : `${shift}px`);
+  }
+}
+
+export function applyPlacements(floating: HTMLElement, placements: Placement[]) {
+  const [first] = placements;
+
+  if (!first) return;
+
+  const { style } = floating;
+
+  for (const [property, value] of Object.entries(declarationsFor(first))) {
+    style.setProperty(property, value);
+  }
+
+  for (const [property, value] of Object.entries(arrowDeclarationsFor(first))) {
+    style.setProperty(`${ARROW_PREFIX}${property}`, value);
+  }
+
+  const fallbacks = placements.slice(1);
+
+  style.setProperty('position-try-fallbacks', fallbacks.map(ruleNameFor).join(', '));
+  style.setProperty(
+    `${ARROW_PREFIX}position-try-fallbacks`,
+    fallbacks.map(arrowRuleNameFor).join(', ')
+  );
 }
 
 /**

@@ -2,7 +2,7 @@ import { assert } from '@ember/debug';
 
 import { modifier as eModifier } from 'ember-modifier';
 
-import { applyPlacements, linkAnchors, placementsFor, sideOf } from './position.ts';
+import { applyPlacements, placementsFor, setupFloating, sideOf } from './position.ts';
 
 import type { FlipOptions, OffsetOptions, Placement, ShiftOptions, Side } from './position.ts';
 
@@ -54,7 +54,7 @@ export interface Signature {
        */
       placement?: Placement;
       /**
-       * Controls where the floating element flips.
+       * Controls the distance that a flip keeps from the viewport edges.
        */
       flipOptions?: FlipOptions;
       /**
@@ -128,26 +128,13 @@ export const anchorTo = eModifier<Signature>(
       !(referenceElement instanceof SVGElement) || referenceElement instanceof SVGSVGElement
     );
 
-    const layout = { offsetOptions, flipOptions, shiftOptions };
     const side = sideOf(placement);
-
-    const place = (isReferenceClipped: boolean) => {
-      const placements = placementsFor(
-        placement,
-        flipOptions?.fallbackPlacements,
-        isReferenceClipped
-      );
-
-      applyPlacements(floatingElement, placements, layout);
-    };
-
     const style = floatingElement.style;
 
     style.setProperty('position', strategy);
-    linkAnchors(floatingElement, referenceElement);
     floatingElement.setAttribute('data-placement', placement);
-
-    place(false);
+    setupFloating(floatingElement, referenceElement, { offsetOptions, flipOptions, shiftOptions });
+    applyPlacements(floatingElement, placementsFor(placement, false));
 
     let isClipped = false;
 
@@ -168,7 +155,7 @@ export const anchorTo = eModifier<Signature>(
         if (next === isClipped) return;
 
         isClipped = next;
-        place(isClipped);
+        applyPlacements(floatingElement, placementsFor(placement, isClipped));
       },
       { threshold: THRESHOLDS }
     );

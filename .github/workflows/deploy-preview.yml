@@ -50,7 +50,7 @@ on:
       - requested
 
 concurrency:
-  group: deploy-preview-${{ github.event.workflow_run.pull_requests[0].number || github.event.inputs.prNum || github.ref }}
+  group: deploy-preview-${{ github.event.inputs.prNum || format('{0}-{1}', github.event.workflow_run.head_repository.full_name, github.event.workflow_run.head_branch) }}
   cancel-in-progress: true
 
 env:

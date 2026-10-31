@@ -27,6 +27,7 @@
   "scripts": {
     "dev": "rollup --config --watch --no-watch.clearScreen",
     "build": "rollup --config",
+    "sync": "echo 'pnpm is syncing this package into the workspaces that inject it. (this is configured in .npmrc)'",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
     "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm run format",

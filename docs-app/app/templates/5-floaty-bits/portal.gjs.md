@@ -70,7 +70,7 @@ import { Portal } from 'ember-primitives/components/portal';
 
 <Callout>
 
-When using a popover pattern, you'll want to use the native [`popover`](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using#nested_popovers) capabilities of browsers. When coupled with [Floating UI](/5-floaty-bits/floating-ui.md), you also can correctly position a popover to a target element.
+When using a popover pattern, you'll want to use the native [`popover`](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API/Using#nested_popovers) capabilities of browsers. When coupled with [anchor positioning](/5-floaty-bits/floating-ui.md), you also can correctly position a popover to a target element.
 
 </Callout>
 

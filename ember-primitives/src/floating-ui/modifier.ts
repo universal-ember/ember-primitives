@@ -1,19 +1,12 @@
 import { assert } from '@ember/debug';
 
-import { autoUpdate, computePosition, flip, hide, offset, shift } from '@floating-ui/dom';
 import { modifier as eModifier } from 'ember-modifier';
 
-import { exposeMetadata } from './middleware.ts';
+import { applyPlacements, placementsFor, setupFloating, sideOf } from './position.ts';
 
-import type {
-  FlipOptions,
-  HideOptions,
-  Middleware,
-  OffsetOptions,
-  Placement,
-  ShiftOptions,
-  Strategy,
-} from '@floating-ui/dom';
+import type { FlipOptions, OffsetOptions, Placement, ShiftOptions, Side } from './position.ts';
+
+type Strategy = 'fixed' | 'absolute';
 
 export interface Signature {
   /**
@@ -25,6 +18,9 @@ export interface Signature {
       /**
        * What do use as the reference element.
        * Can be a selector or element instance.
+       *
+       * The element must generate a CSS box.
+       * An `<svg>` does, but shapes inside of an `<svg>` do not.
        *
        * Example:
        * ```gjs
@@ -43,45 +39,48 @@ export interface Signature {
        * This is the type of CSS position property to use.
        * By default this is 'fixed', but can also be 'absolute'.
        *
-       * See: [The strategy docs](https://floating-ui.com/docs/computePosition#strategy)
+       * With 'absolute', the floating element flips at the edges of the page,
+       * and not at the edges of the viewport.
        */
       strategy?: Strategy;
       /**
-       * Options to pass to the [offset middleware](https://floating-ui.com/docs/offset)
+       * The distance between the floating element and the reference element.
+       * An object can also move the floating element along the reference element.
        */
       offsetOptions?: OffsetOptions;
       /**
        * Where to place the floating element relative to its reference element.
        * The default is 'bottom'.
-       *
-       * See: [The placement docs](https://floating-ui.com/docs/computePosition#placement)
        */
       placement?: Placement;
       /**
-       * Options to pass to the [flip middleware](https://floating-ui.com/docs/flip)
+       * Controls the distance that a flip keeps from the viewport edges.
        */
       flipOptions?: FlipOptions;
       /**
-       * Options to pass to the [shift middleware](https://floating-ui.com/docs/shift)
+       * Controls the distance that the floating element keeps
+       * from the viewport edges when it moves along the reference element.
        */
       shiftOptions?: ShiftOptions;
-      /**
-       * Options to pass to the [hide middleware](https://floating-ui.com/docs/hide)
-       */
-      hideOptions?: HideOptions;
-      /**
-       * Additional middleware to pass to FloatingUI.
-       *
-       * See: [The middleware docs](https://floating-ui.com/docs/middleware)
-       */
-      middleware?: Middleware[];
-      /**
-       * A callback for when data changes about the position / placement / etc
-       * of the floating element.
-       */
-      setData?: Middleware['fn'];
     };
   };
+}
+
+/**
+ * The rects of an entry can differ by a fraction of a pixel with nothing clipped.
+ */
+const TOLERANCE = 1;
+
+/**
+ * A reference can already be clipped on one side when a clip starts on another side.
+ * Only the visible ratio changes then, so a threshold at 1 alone does not report it.
+ */
+const THRESHOLDS = Array.from({ length: 21 }, (_, index) => index / 20);
+
+function isClippedOn(entry: IntersectionObserverEntry, side: Side) {
+  const { boundingClientRect: full, intersectionRect: visible } = entry;
+
+  return Math.abs(full[side] - visible[side]) > TOLERANCE;
 }
 
 /**
@@ -102,15 +101,7 @@ export const anchorTo = eModifier<Signature>(
   (
     floatingElement,
     [_referenceElement],
-    {
-      strategy = 'fixed',
-      offsetOptions = 0,
-      placement = 'bottom',
-      flipOptions,
-      shiftOptions,
-      middleware = [],
-      setData,
-    }
+    { strategy = 'fixed', offsetOptions = 0, placement = 'bottom', flipOptions, shiftOptions }
   ) => {
     const referenceElement: null | HTMLElement | SVGElement =
       typeof _referenceElement === 'string'
@@ -132,52 +123,50 @@ export const anchorTo = eModifier<Signature>(
       floatingElement !== _referenceElement
     );
 
-    assert('@middleware must be an array of one or more objects', Array.isArray(middleware));
+    assert(
+      'SVG reference elements must be an <svg>, because shapes inside of an <svg> cannot be anchors',
+      !(referenceElement instanceof SVGElement) || referenceElement instanceof SVGSVGElement
+    );
 
-    Object.assign(floatingElement.style, {
-      position: strategy,
-      top: '0',
-      left: '0',
-    });
+    const side = sideOf(placement);
+    const style = floatingElement.style;
 
-    const update = async () => {
-      const { middlewareData, x, y } = await computePosition(referenceElement, floatingElement, {
-        middleware: [
-          offset(offsetOptions),
-          flip(flipOptions),
-          shift(shiftOptions),
-          ...middleware,
-          hide({ strategy: 'referenceHidden' }),
-          hide({ strategy: 'escaped' }),
-          exposeMetadata(),
-        ],
-        placement,
-        strategy,
-      });
+    style.setProperty('position', strategy);
+    floatingElement.setAttribute('data-placement', placement);
+    setupFloating(floatingElement, referenceElement, { offsetOptions, flipOptions, shiftOptions });
+    applyPlacements(floatingElement, placementsFor(placement, false));
 
-      const referenceHidden = middlewareData.hide?.referenceHidden;
+    let isClipped = false;
 
-      Object.assign(floatingElement.style, {
-        top: `${y}px`,
-        left: `${x}px`,
-        margin: 0,
-        visibility: referenceHidden ? 'hidden' : 'visible',
-      });
+    /**
+     * CSS has no way to flip for a clipped reference, because a floating element
+     * only knows about its containing block. An observer knows about every clip.
+     */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[entries.length - 1];
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      void setData?.(middlewareData['metadata']);
-    };
+        if (!entry) return;
 
-    void update();
+        style.setProperty('visibility', entry.isIntersecting ? '' : 'hidden');
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    const cleanup = autoUpdate(referenceElement, floatingElement, update);
+        const next = isClippedOn(entry, side);
+
+        if (next === isClipped) return;
+
+        isClipped = next;
+        applyPlacements(floatingElement, placementsFor(placement, isClipped));
+      },
+      { threshold: THRESHOLDS }
+    );
+
+    observer.observe(referenceElement);
 
     /**
      * in the function-modifier manager, teardown of the previous modifier
      * occurs before setup of the next
      * https://github.com/ember-modifier/ember-modifier/blob/main/ember-modifier/src/-private/function-based/modifier-manager.ts#L58
      */
-    return cleanup;
+    return () => observer.disconnect();
   }
 );

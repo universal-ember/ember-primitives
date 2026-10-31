@@ -28,7 +28,7 @@ export interface Signature {
      */
     strategy?: ModifierArgs["strategy"];
     /**
-     * Controls where the floating element flips.
+     * Controls the distance that a flip keeps from the viewport edges.
      */
     flipOptions?: ModifierArgs["flipOptions"];
     /**

@@ -14,7 +14,7 @@ import type { ModifierLike, WithBoundArgs } from "@glint/template";
 export interface Signature {
   Args: {
     /**
-     * Controls where the popover flips.
+     * Controls the distance that a flip keeps from the viewport edges.
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */

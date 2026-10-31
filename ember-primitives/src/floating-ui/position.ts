@@ -250,6 +250,50 @@ function anchorNameFor(element: HTMLElement | SVGElement) {
   return name;
 }
 
+function rootsOf(element: Element) {
+  let root = element.getRootNode() as Document | ShadowRoot;
+
+  const roots = [root];
+
+  while (root instanceof ShadowRoot) {
+    root = root.host.getRootNode() as Document | ShadowRoot;
+    roots.push(root);
+  }
+
+  return roots;
+}
+
+/**
+ * Browsers only track a scroll for a reference in a plain scroller.
+ *
+ * Until the next layout, Firefox moves away from a sticky reference,
+ * and does not follow a reference inside of another floating element.
+ *
+ * A change to the gap that is too small to see causes that layout.
+ *
+ * A scroll event does not leave a shadow root, so each root needs a listener.
+ */
+function layoutOnScroll(floating: HTMLElement, reference: Element, gap: number) {
+  const roots = rootsOf(reference);
+
+  let isNudged = false;
+
+  const onScroll = () => {
+    isNudged = !isNudged;
+    floating.style.setProperty(GAP, isNudged ? `calc(${gap}px + 0.001px)` : `${gap}px`);
+  };
+
+  for (const root of roots) {
+    root.addEventListener('scroll', onScroll, { capture: true, passive: true });
+  }
+
+  return () => {
+    for (const root of roots) {
+      root.removeEventListener('scroll', onScroll, { capture: true });
+    }
+  };
+}
+
 export function setupFloating(
   floating: HTMLElement,
   reference: HTMLElement | SVGElement,
@@ -282,6 +326,8 @@ export function setupFloating(
     style.setProperty(`${FLIP_PADDING}${side}`, `${paddingOf(flipOptions?.padding, side) ?? 0}px`);
     style.setProperty(`${SHIFT_PADDING}${side}`, shift === undefined ? 'auto' : `${shift}px`);
   }
+
+  return layoutOnScroll(floating, reference, mainAxis ?? 0);
 }
 
 export function applyPlacements(floating: HTMLElement, placements: Placement[]) {

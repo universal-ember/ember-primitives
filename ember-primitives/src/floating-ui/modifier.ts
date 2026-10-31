@@ -133,7 +133,13 @@ export const anchorTo = eModifier<Signature>(
 
     style.setProperty('position', strategy);
     floatingElement.setAttribute('data-placement', placement);
-    setupFloating(floatingElement, referenceElement, { offsetOptions, flipOptions, shiftOptions });
+
+    const stopLayoutOnScroll = setupFloating(floatingElement, referenceElement, {
+      offsetOptions,
+      flipOptions,
+      shiftOptions,
+    });
+
     applyPlacements(floatingElement, placementsFor(placement, false));
 
     let isClipped = false;
@@ -167,6 +173,9 @@ export const anchorTo = eModifier<Signature>(
      * occurs before setup of the next
      * https://github.com/ember-modifier/ember-modifier/blob/main/ember-modifier/src/-private/function-based/modifier-manager.ts#L58
      */
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      stopLayoutOnScroll();
+    };
   }
 );

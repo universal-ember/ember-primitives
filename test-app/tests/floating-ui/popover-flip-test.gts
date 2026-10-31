@@ -37,6 +37,19 @@ async function scrollTo(selector: string, top: number) {
   await positioned();
 }
 
+/**
+ * Waits for one frame only, so that a late correction fails the test.
+ */
+async function scrollFrame(selector: string, top: number) {
+  const element = body.querySelector(selector);
+
+  debugAssert(`Could not find element with '${selector}'`, element);
+
+  element.scrollTop = top;
+  await new Promise(requestAnimationFrame);
+  await new Promise(requestAnimationFrame);
+}
+
 function rectOf(selector: string) {
   const element = body.querySelector(selector);
 
@@ -165,44 +178,33 @@ module('<Popover> flipping', function (hooks) {
     assert.strictEqual(side(), 'below');
   });
 
-  /**
-   * Firefox only checks a centered element at layout,
-   * and a scroll in a nested scroller does not cause a layout.
-   */
-  test.if(
-    'stays on the same side when a scroll moves it past the edge',
-    !navigator.userAgent.includes('Firefox'),
-    async function (assert) {
-      await render(
-        <template>
-          {{#in-element body insertBefore=null}}
-            <div
-              id="scroller"
-              style="position: fixed; inset: 0; overflow: auto; background: white;"
-            >
-              <div style="height: 300px;"></div>
-              <Popover @placement="right" as |p|>
-                <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
-                <p.Content
-                  id="content"
-                  style="margin: 0; padding: 0; border: none; width: 80px; height: 200px;"
-                >content</p.Content>
-              </Popover>
-              <div style="height: 3000px;"></div>
-            </div>
-          {{/in-element}}
-        </template>
-      );
-      await positioned();
-      await scrollTo('#scroller', 290);
+  test('stays on the same side when a scroll moves it past the edge', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
+            <div style="height: 300px;"></div>
+            <Popover @placement="right" as |p|>
+              <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+              <p.Content
+                id="content"
+                style="margin: 0; padding: 0; border: none; width: 80px; height: 200px;"
+              >content</p.Content>
+            </Popover>
+            <div style="height: 3000px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+    await scrollTo('#scroller', 290);
 
-      const content = rectOf('#content');
-      const anchor = rectOf('#anchor');
+    const content = rectOf('#content');
+    const anchor = rectOf('#anchor');
 
-      assert.strictEqual(content.left, anchor.right, 'the popover is on the right');
-      assert.ok(content.top >= 0, 'the popover is inside of the viewport');
-    }
-  );
+    assert.strictEqual(content.left, anchor.right, 'the popover is on the right');
+    assert.ok(content.top >= 0, 'the popover is inside of the viewport');
+  });
 
   test('leaves a flipped side when that side has no room', async function (assert) {
     const viewport = window.innerHeight;
@@ -265,6 +267,82 @@ module('<Popover> flipping', function (hooks) {
     await scrollTo('#scroller', 110);
 
     assert.strictEqual(side(), 'below', 'the anchor is clipped at the top');
+  });
+
+  test('stays on a sticky reference during a scroll', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div
+            id="scroller"
+            style="position: absolute; top: 100px; left: 100px; width: 400px; height: 300px; overflow: auto; background: white;"
+          >
+            <Popover @offsetOptions={{8}} as |p|>
+              <header style="position: sticky; top: 0; height: 40px;">
+                <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+              </header>
+              <p.Content
+                id="content"
+                style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+              >content</p.Content>
+            </Popover>
+            <div style="height: 3000px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    const gap = () => rectOf('#content').top - rectOf('#anchor').bottom;
+
+    assert.strictEqual(gap(), 8);
+
+    for (const top of [12, 24, 36, 48]) {
+      await scrollFrame('#scroller', top);
+
+      assert.strictEqual(gap(), 8, `at ${top}`);
+    }
+  });
+
+  test('a nested popover stays on its reference during a scroll', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div
+            id="scroller"
+            style="position: absolute; inset: 0; overflow: auto; background: white;"
+          >
+            <div style="height: 100px;"></div>
+            <Popover as |p|>
+              <div id="outer-anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+              <p.Content
+                id="outer"
+                style="margin: 0; padding: 0; border: none; width: 200px; height: 100px;"
+              >
+                <Popover @placement="right" as |pp|>
+                  <div id="anchor" style="width: 40px; height: 20px;" {{pp.reference}}></div>
+                  <pp.Content
+                    id="content"
+                    style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+                  >content</pp.Content>
+                </Popover>
+              </p.Content>
+            </Popover>
+            <div style="height: 3000px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    const offset = () => rectOf('#content').top - rectOf('#anchor').top;
+    const start = offset();
+
+    for (const top of [12, 24, 36, 48]) {
+      await scrollFrame('#scroller', top);
+
+      assert.strictEqual(offset(), start, `at ${top}`);
+    }
   });
 
   test('moves along the reference to stay in the viewport', async function (assert) {

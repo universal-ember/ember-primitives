@@ -104,7 +104,6 @@ Do not use `filter`, `backdrop-filter`, `transform`, or `contain` on the popover
 - A reference element must generate a CSS box. An `<svg>` does, but a shape inside of an `<svg>` does not.
 - Firefox ignores a `transform` on an ancestor of the reference element.
 - Firefox does not detect a clip from a `position: fixed` scroll container.
-- Firefox does not keep a centered popover inside of the viewport during a scroll in a nested scroll container.
 
 ## Disabled button with tooltip
 

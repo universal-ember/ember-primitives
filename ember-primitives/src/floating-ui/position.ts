@@ -2,18 +2,10 @@ export type Side = 'top' | 'right' | 'bottom' | 'left';
 export type Alignment = 'start' | 'end';
 export type Placement = Side | `${Side}-${Alignment}`;
 export type Padding = number | Partial<Record<Side, number>>;
-export type ElementContext = 'floating' | 'reference' | 'both';
 
 export type OffsetOptions = number | { mainAxis?: number; crossAxis?: number };
 
 export interface FlipOptions {
-  /**
-   * What causes a flip:
-   * - `'floating'`: the floating element overflows the viewport
-   * - `'reference'`: something clips the reference element
-   * - `'both'`: either of the above
-   */
-  elementContext?: ElementContext;
   /**
    * Distance to keep from the viewport edges, on the side of the reference.
    * Use this for space that a sticky header takes up.
@@ -92,7 +84,6 @@ function placementsOn(side: Side, alignment: Alignment | undefined): Placement[]
  */
 export function placementsFor(
   placement: Placement,
-  elementContext: ElementContext,
   fallbackPlacements: Placement[] | undefined,
   isReferenceClipped: boolean
 ): Placement[] {
@@ -104,11 +95,7 @@ export function placementsFor(
     : placementsOn(side, alignment);
   const far = fallbackPlacements ? [] : placementsOn(OPPOSITE[side], alignment);
 
-  if (isReferenceClipped && !fallbackPlacements) {
-    return elementContext === 'reference' ? far : far.concat(near);
-  }
-
-  return elementContext === 'reference' ? near.slice(0, 1) : near.concat(far);
+  return isReferenceClipped && !fallbackPlacements ? far.concat(near) : near.concat(far);
 }
 
 /**

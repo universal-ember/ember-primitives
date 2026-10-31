@@ -5,6 +5,7 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { Popover } from 'ember-primitives';
+import { anchorTo } from 'ember-primitives/floating-ui';
 
 import { resetTestingContainerDimensions } from './test-helpers';
 
@@ -137,64 +138,13 @@ module('<Popover> flipping', function (hooks) {
     assert.strictEqual(side(), 'below', 'the anchor is clipped at the top');
   });
 
-  test('elementContext can opt out of the anchor check', async function (assert) {
-    await render(
-      <template>
-        {{#in-element body insertBefore=null}}
-          <div
-            id="scroller"
-            style="position: absolute; top: 200px; left: 200px; width: 200px; height: 100px; overflow: auto;"
-          >
-            <div style="height: 100px;"></div>
-            <Popover @placement="top" @flipOptions={{hash elementContext="floating"}} as |p|>
-              <div id="anchor" style="width: 100px; height: 40px;" {{p.reference}}></div>
-              <p.Content
-                id="content"
-                style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
-              >content</p.Content>
-            </Popover>
-            <div style="height: 200px;"></div>
-          </div>
-        {{/in-element}}
-      </template>
-    );
-    await positioned();
-
-    await scrollTo('#scroller', 110);
-
-    assert.strictEqual(side(), 'above');
-  });
-
-  test('elementContext can opt out of the popover check', async function (assert) {
-    await render(
-      <template>
-        {{#in-element body insertBefore=null}}
-          <Popover @placement="top" @flipOptions={{hash elementContext="reference"}} as |p|>
-            <div
-              id="anchor"
-              style="position: fixed; top: 4px; left: 200px; width: 100px; height: 20px;"
-              {{p.reference}}
-            ></div>
-            <p.Content
-              id="content"
-              style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
-            >content</p.Content>
-          </Popover>
-        {{/in-element}}
-      </template>
-    );
-    await positioned();
-
-    assert.notStrictEqual(side(), 'below');
-  });
-
   test('flips when a page scroll pushes the popover out of the viewport', async function (assert) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
           <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
             <div style="height: 200px;"></div>
-            <Popover @placement="top" @flipOptions={{hash elementContext="floating"}} as |p|>
+            <Popover @placement="top" as |p|>
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
@@ -262,7 +212,7 @@ module('<Popover> flipping', function (hooks) {
         {{#in-element body insertBefore=null}}
           <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
             <div style="height: 300px;"></div>
-            <Popover @placement="top" @flipOptions={{hash elementContext="floating"}} as |p|>
+            <Popover @placement="top" as |p|>
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
@@ -286,6 +236,35 @@ module('<Popover> flipping', function (hooks) {
     await scrollTo('#scroller', 1);
 
     assert.strictEqual(side(), 'above', 'flips back at the bottom of the viewport');
+  });
+
+  test('anchorTo also flips when a scroll container clips the reference', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div
+            id="scroller"
+            style="position: absolute; top: 200px; left: 200px; width: 200px; height: 100px; overflow: auto;"
+          >
+            <div style="height: 100px;"></div>
+            <div id="anchor" style="width: 100px; height: 40px;"></div>
+            <div
+              id="content"
+              style="width: 80px; height: 30px;"
+              {{anchorTo "#anchor" placement="top"}}
+            ></div>
+            <div style="height: 200px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    assert.strictEqual(side(), 'above', 'the anchor is not clipped yet');
+
+    await scrollTo('#scroller', 110);
+
+    assert.strictEqual(side(), 'below', 'the anchor is clipped at the top');
   });
 
   test('moves along the reference to stay in the viewport', async function (assert) {
@@ -339,7 +318,7 @@ module('<Popover> flipping', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover @placement="top-start" @flipOptions={{hash elementContext="floating"}} as |p|>
+          <Popover @placement="top-start" as |p|>
             <div
               id="anchor"
               style="position: fixed; top: 200px; right: 20px; width: 40px; height: 20px;"
@@ -362,12 +341,7 @@ module('<Popover> flipping', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover
-            @placement="top"
-            @offsetOptions={{8}}
-            @flipOptions={{hash elementContext="floating"}}
-            as |p|
-          >
+          <Popover @placement="top" @offsetOptions={{8}} as |p|>
             <div
               id="anchor"
               style="position: fixed; top: 4px; left: 200px; width: 100px; height: 20px;"
@@ -390,11 +364,7 @@ module('<Popover> flipping', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover
-            @placement="top"
-            @flipOptions={{hash elementContext="floating" padding=(hash top=64)}}
-            as |p|
-          >
+          <Popover @placement="top" @flipOptions={{hash padding=(hash top=64)}} as |p|>
             <div
               id="anchor"
               style="position: fixed; top: 80px; left: 200px; width: 100px; height: 20px;"
@@ -501,12 +471,7 @@ module('<Popover> arrow', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover
-            @placement="top"
-            @offsetOptions={{8}}
-            @flipOptions={{hash elementContext="floating"}}
-            as |p|
-          >
+          <Popover @placement="top" @offsetOptions={{8}} as |p|>
             <div
               id="anchor"
               style="position: fixed; top: 4px; left: 200px; width: 100px; height: 20px;"
@@ -571,12 +536,7 @@ module('<Popover> arrow', function (hooks) {
         {{#in-element body insertBefore=null}}
           <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
             <div style="height: 300px;"></div>
-            <Popover
-              @placement="top"
-              @offsetOptions={{8}}
-              @flipOptions={{hash elementContext="floating"}}
-              as |p|
-            >
+            <Popover @placement="top" @offsetOptions={{8}} as |p|>
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
@@ -611,12 +571,7 @@ module('<Popover> arrow', function (hooks) {
             style="position: absolute; inset: 0; overflow: auto; background: white;"
           >
             <div style="height: 300px;"></div>
-            <Popover
-              @placement="top"
-              @offsetOptions={{8}}
-              @flipOptions={{hash elementContext="floating"}}
-              as |p|
-            >
+            <Popover @placement="top" @offsetOptions={{8}} as |p|>
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"

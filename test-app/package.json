@@ -52,7 +52,6 @@
     "@embroider/core": "^4.4.3",
     "@embroider/macros": "^1.19.7",
     "@embroider/vite": "^1.5.2",
-    "@floating-ui/dom": "^1.7.5",
     "@glimmer/component": "^2.0.0",
     "@glint/ember-tsc": "^1.1.1",
     "@glint/template": "1.7.7",

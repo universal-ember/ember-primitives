@@ -1,11 +1,10 @@
 # Popover
 
-Popovers are built with [Floating UI][docs-floating-ui], a set of utilities for making floating elements relate to each other with minimal configuration. The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues, no portals needed.
+Popovers use [CSS Anchor Positioning][docs-anchor-positioning] to relate a floating element to its reference element. The `<Popover>` component uses the [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) for layering, which totally solves z-index and overflow clipping issues, no portals needed.
 
 One thing to note is that the position of the popover can _escape_ the boundary of a [ShadowDom][docs-shadow-dom] -- all demos on this docs site for `ember-primitives` use a `ShadowDom` to allow for isolated CSS usage within the demos.
 
-[docs-floating-ui]: /5-floaty-bits/floating-ui.md
-[docs-floating]: https://floating-ui.com/
+[docs-anchor-positioning]: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning
 [docs-popper]: https://popper.js.org/
 [docs-shadow-dom]: https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM
 
@@ -47,11 +46,10 @@ import { loremIpsum } from "lorem-ipsum";
         border-radius: 4px;
         border: none;
         font-size: 90%;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
+        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.4);
         z-index: 10;
       }
       .arrow {
-        position: absolute;
         background: #222;
         width: 8px;
         height: 8px;
@@ -75,6 +73,44 @@ import { loremIpsum } from "lorem-ipsum";
 ```
 
 </div>
+
+## Flipping
+
+The popover moves to the opposite side when one of these conditions is true:
+
+- The popover overflows the viewport.
+- Something clips the reference element, for example a scroll container.
+
+To use one condition only, set `elementContext` in `@flipOptions`:
+
+- `'floating'` flips only when the popover overflows the viewport.
+- `'reference'` flips only when the reference element is clipped.
+
+A sticky site header does not clip anything, so it does not cause a flip. To include the header, add `padding` to `@flipOptions`.
+
+```hbs
+<Popover @flipOptions={{hash padding=(hash top=64)}} as |p|>
+  ...
+</Popover>
+```
+
+After a flip, the popover stays on the new side until that side has no room.
+
+## Arrows
+
+Add `{{p.arrow}}` to an element inside of `<p.Content>`. The element is centered on the edge of the popover that faces the reference element, and CSS moves it after a flip. So a square with `transform: rotate(45deg)` needs no other styles.
+
+Do not use `filter`, `backdrop-filter`, `transform`, or `contain` on the popover content. Each of these makes the content the containing block of the arrow, and then the arrow cannot find the reference element. Use `box-shadow` for a shadow.
+
+## Limits
+
+- JavaScript cannot read the final side of a popover, because CSS selects it and the browser does not report it.
+- `@strategy="absolute"` flips at the edges of the page, and not at the edges of the viewport.
+- A reference element must generate a CSS box. An `<svg>` does, but a shape inside of an `<svg>` does not.
+- Firefox ignores a `transform` on an ancestor of the reference element.
+- Firefox does not detect a clip from a `position: fixed` scroll container.
+- Firefox does not keep a centered popover inside of the viewport during a scroll in a nested scroll container.
+- Firefox puts the arrow in the wrong position when a scroll causes a flip.
 
 ## Disabled button with tooltip
 
@@ -134,7 +170,7 @@ import { Popover } from "ember-primitives";
         border-radius: 4px;
         border: none;
         font-size: 90%;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
+        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.4);
         z-index: 10;
 
         &:hover,
@@ -145,7 +181,6 @@ import { Popover } from "ember-primitives";
         }
       }
       .arrow {
-        position: absolute;
         background: #222;
         width: 8px;
         height: 8px;
@@ -230,7 +265,7 @@ const settings = cell(false);
         padding: 1rem;
         border-radius: 4px;
         font-size: 90%;
-        filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.4));
+        box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.4);
         z-index: 10;
         border: 1px solid rgba(0, 255, 255, 0.6);
       }
@@ -240,7 +275,7 @@ const settings = cell(false);
       }
       .floatybit .floatybit .arrow {
         background: light-dark(#eee, #1e293b);
-        transform: translateY(-1rem) rotate(45deg);
+        transform: rotate(45deg);
 
         &::before {
           background: light-dark(#eee, #1e293b);
@@ -254,7 +289,6 @@ const settings = cell(false);
         margin: 0;
       }
       .arrow {
-        position: absolute;
         background: #222;
         width: 8px;
         height: 8px;
@@ -378,7 +412,7 @@ The `@inline` argument has been removed. All popover content now renders inline 
 
 ### CSS considerations
 
-The `popover` HTML attribute has a browser UA stylesheet that adds default `border`, `padding`, and `overflow` styles to elements with `[popover]`. The component resets `overflow: visible` automatically so arrows aren't clipped, but you may need to set `border: none` on your floating content if you don't want the browser's default `[popover]` border:
+The `popover` HTML attribute has a browser UA stylesheet that adds default `border`, `padding`, and `overflow` styles to elements with `[popover]`. The component resets `overflow: visible` automatically, but you may need to set `border: none` on your floating content if you don't want the browser's default `[popover]` border:
 
 ```css
 .my-popover-content {

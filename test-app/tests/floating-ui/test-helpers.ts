@@ -1,24 +1,6 @@
 import { assert } from '@ember/debug';
 import { find } from '@ember/test-helpers';
 
-import type { Middleware } from '@floating-ui/dom';
-
-// Floating UI middleware
-// provides data-* attributes for values in test assertions
-export function addDataAttributes(): Middleware {
-  return {
-    name: 'dataAttributes',
-    fn: ({ elements, placement, strategy }) => {
-      elements.floating.setAttribute('data-placement', placement);
-      elements.floating.setAttribute('data-strategy', strategy);
-
-      // https://floating-ui.com/docs/middleware#always-return-an-object
-      return {};
-    },
-  };
-}
-
-// testing containers transforms give Floating UI's logic some challenges
 export function resetTestingContainerDimensions() {
   const element = document.querySelector('#ember-testing');
 

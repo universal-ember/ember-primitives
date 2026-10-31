@@ -254,6 +254,40 @@ module('<Popover> flipping', function (hooks) {
     }
   );
 
+  test('leaves a flipped side when that side has no room', async function (assert) {
+    const viewport = window.innerHeight;
+
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
+            <div style="height: 300px;"></div>
+            <Popover @placement="top" as |p|>
+              <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+              <p.Content
+                id="content"
+                style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+              >content</p.Content>
+            </Popover>
+            <div style="height: 3000px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+    await scrollTo('#scroller', 295);
+
+    assert.strictEqual(side(), 'below', 'flips at the top of the viewport');
+
+    const spacer = body.querySelector('#scroller > div') as HTMLElement;
+
+    spacer.style.height = `${viewport - 25}px`;
+    await positioned();
+    await scrollTo('#scroller', 1);
+
+    assert.strictEqual(side(), 'above', 'flips back at the bottom of the viewport');
+  });
+
   test('moves along the reference to stay in the viewport', async function (assert) {
     await render(
       <template>
@@ -505,47 +539,126 @@ module('<Popover> arrow', function (hooks) {
     assert.strictEqual(arrowCenter().y, rectOf('#content').bottom);
   });
 
-  /**
-   * Firefox resolves an anchor that is not the default anchor at its unscrolled position.
-   */
-  test.if(
-    'moves to the other edge after a flip from a scroll',
-    !navigator.userAgent.includes('Firefox'),
-    async function (assert) {
-      await render(
-        <template>
-          {{#in-element body insertBefore=null}}
-            <div
-              id="scroller"
-              style="position: fixed; inset: 0; overflow: auto; background: white;"
-            >
-              <div style="height: 300px;"></div>
-              <Popover @placement="top" @offsetOptions={{8}} as |p|>
-                <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
-                <p.Content
-                  id="content"
-                  style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
-                >
-                  <div
-                    id="arrow"
-                    style="width: 8px; height: 8px; background: red;"
-                    {{p.arrow}}
-                  ></div>
-                </p.Content>
-              </Popover>
-              <div style="height: 3000px;"></div>
-            </div>
-          {{/in-element}}
-        </template>
-      );
-      await positioned();
-      await scrollTo('#scroller', 295);
+  test('moves to the other edge after a flip from a scroll', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
+            <div style="height: 300px;"></div>
+            <Popover @placement="top" @offsetOptions={{8}} as |p|>
+              <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+              <p.Content
+                id="content"
+                style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+              >
+                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              </p.Content>
+            </Popover>
+            <div style="height: 3000px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+    await scrollTo('#scroller', 295);
 
-      assert.strictEqual(side(), 'below');
-      assert.strictEqual(arrowCenter().x, anchorCenter().x);
-      assert.strictEqual(arrowCenter().y, rectOf('#content').top);
-    }
-  );
+    assert.strictEqual(side(), 'below');
+    assert.strictEqual(arrowCenter().x, anchorCenter().x);
+    assert.strictEqual(arrowCenter().y, rectOf('#content').top);
+  });
+
+  test('stays on the popover after a flip and a scroll back', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div
+            id="scroller"
+            style="position: absolute; inset: 0; overflow: auto; background: white;"
+          >
+            <div style="height: 300px;"></div>
+            <Popover @placement="top" @offsetOptions={{8}} as |p|>
+              <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+              <p.Content
+                id="content"
+                style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+              >
+                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              </p.Content>
+            </Popover>
+            <div style="height: 3000px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+    await scrollTo('#scroller', 150);
+    await scrollTo('#scroller', 295);
+    await scrollTo('#scroller', 100);
+
+    const content = rectOf('#content');
+
+    assert.strictEqual(side(), 'below');
+    assert.strictEqual(arrowCenter().y, content.top);
+    assert.strictEqual(arrowCenter().x, anchorCenter().x);
+  });
+
+  test('stays on the popover when the reference is wider', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <Popover @placement="top-start" as |p|>
+            <div
+              id="anchor"
+              style="position: fixed; top: 200px; left: 200px; width: 300px; height: 20px;"
+              {{p.reference}}
+            ></div>
+            <p.Content
+              id="content"
+              style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+            >
+              <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+            </p.Content>
+          </Popover>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    const content = rectOf('#content');
+
+    assert.strictEqual(arrowCenter().x, content.left + content.width / 2);
+    assert.strictEqual(arrowCenter().y, content.bottom);
+  });
+
+  test('flips with the popover for a clipped reference', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div
+            id="scroller"
+            style="position: absolute; top: 200px; left: 200px; width: 200px; height: 100px; overflow: auto;"
+          >
+            <div style="height: 100px;"></div>
+            <Popover @placement="top" @offsetOptions={{8}} as |p|>
+              <div id="anchor" style="width: 100px; height: 40px;" {{p.reference}}></div>
+              <p.Content
+                id="content"
+                style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+              >
+                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              </p.Content>
+            </Popover>
+            <div style="height: 200px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+    await scrollTo('#scroller', 110);
+
+    assert.strictEqual(side(), 'below');
+    assert.strictEqual(arrowCenter().y, rectOf('#content').top);
+  });
 
   test('follows the reference when the popover shifts', async function (assert) {
     await render(

@@ -4,7 +4,7 @@ import { element } from "ember-element-helper";
 import { modifier as eModifier } from "ember-modifier";
 
 import { FloatingUI } from "../floating-ui.ts";
-import { FLOATING_ANCHOR, REFERENCE_ANCHOR } from "../floating-ui/position.ts";
+import { applyArrow } from "../floating-ui/position.ts";
 
 import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.gts";
 import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
@@ -139,35 +139,7 @@ const Content: TOC<{
   {{/let}}
 </template>;
 
-function arrowInset(start: string, center: string, end: string) {
-  const floating = `var(${FLOATING_ANCHOR})`;
-  const reference = `var(${REFERENCE_ANCHOR})`;
-
-  return `clamp(anchor(${floating} ${start}), anchor(${reference} ${center}), anchor(${floating} ${end}))`;
-}
-
-/**
- * The reference is outside of the popover on the side that faces it.
- * So the center of the reference, clamped to the edges of the popover,
- * is the point on the edge that faces the reference, for every placement.
- *
- * This is `fixed`, because `absolute` makes the popover the containing block,
- * and an element can only anchor to what is inside of its containing block.
- *
- * Browsers only track scrolling for the `position-anchor` of an element.
- */
-const arrow = eModifier<{ Element: HTMLElement }>((element) => {
-  element.style.setProperty("position-anchor", `var(${REFERENCE_ANCHOR})`);
-
-  Object.assign(element.style, {
-    position: "fixed",
-    translate: "-50% -50%",
-    right: "auto",
-    bottom: "auto",
-    left: arrowInset("left", "center", "right"),
-    top: arrowInset("top", "center", "bottom"),
-  });
-});
+const arrow = eModifier<{ Element: HTMLElement }>((element) => applyArrow(element));
 
 function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
   return {

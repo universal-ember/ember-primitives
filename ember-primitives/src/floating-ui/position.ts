@@ -264,12 +264,10 @@ function rootsOf(element: Element) {
 }
 
 /**
- * Browsers only track a scroll for a reference in a plain scroller.
+ * Firefox does not follow a reference inside of another floating element
+ * until the next layout, and a change to the gap too small to see causes one.
  *
- * Until the next layout, Firefox moves away from a sticky reference,
- * and does not follow a reference inside of another floating element.
- *
- * A change to the gap that is too small to see causes that layout.
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=2002789
  *
  * A scroll event does not leave a shadow root, so each root needs a listener.
  */
@@ -327,7 +325,22 @@ export function setupFloating(
     style.setProperty(`${SHIFT_PADDING}${side}`, shift === undefined ? 'auto' : `${shift}px`);
   }
 
-  return layoutOnScroll(floating, reference, mainAxis ?? 0);
+  let stop: undefined | (() => void);
+  let isActive = true;
+
+  /**
+   * Child modifiers run first, so an outer floating element has no attribute yet.
+   */
+  void Promise.resolve().then(() => {
+    if (isActive && reference.closest(`[${ANCHORED}]`)) {
+      stop = layoutOnScroll(floating, reference, mainAxis ?? 0);
+    }
+  });
+
+  return () => {
+    isActive = false;
+    stop?.();
+  };
 }
 
 export function applyPlacements(floating: HTMLElement, placements: Placement[]) {

@@ -134,7 +134,7 @@ export const anchorTo = eModifier<Signature>(
     style.setProperty('position', strategy);
     floatingElement.setAttribute('data-placement', placement);
 
-    const stopLayoutOnScroll = setupFloating(floatingElement, referenceElement, {
+    const stopChainWorkaround = setupFloating(floatingElement, referenceElement, {
       offsetOptions,
       flipOptions,
       shiftOptions,
@@ -175,7 +175,7 @@ export const anchorTo = eModifier<Signature>(
      */
     return () => {
       observer.disconnect();
-      stopLayoutOnScroll();
+      stopChainWorkaround();
     };
   }
 );

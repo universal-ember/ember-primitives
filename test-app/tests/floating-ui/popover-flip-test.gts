@@ -178,33 +178,44 @@ module('<Popover> flipping', function (hooks) {
     assert.strictEqual(side(), 'below');
   });
 
-  test('stays on the same side when a scroll moves it past the edge', async function (assert) {
-    await render(
-      <template>
-        {{#in-element body insertBefore=null}}
-          <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
-            <div style="height: 300px;"></div>
-            <Popover @placement="right" as |p|>
-              <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
-              <p.Content
-                id="content"
-                style="margin: 0; padding: 0; border: none; width: 80px; height: 200px;"
-              >content</p.Content>
-            </Popover>
-            <div style="height: 3000px;"></div>
-          </div>
-        {{/in-element}}
-      </template>
-    );
-    await positioned();
-    await scrollTo('#scroller', 290);
+  /**
+   * Firefox does not select a fallback for a centered element
+   * during a scroll in a nested scroller.
+   */
+  test.if(
+    'stays on the same side when a scroll moves it past the edge',
+    !navigator.userAgent.includes('Firefox'),
+    async function (assert) {
+      await render(
+        <template>
+          {{#in-element body insertBefore=null}}
+            <div
+              id="scroller"
+              style="position: fixed; inset: 0; overflow: auto; background: white;"
+            >
+              <div style="height: 300px;"></div>
+              <Popover @placement="right" as |p|>
+                <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
+                <p.Content
+                  id="content"
+                  style="margin: 0; padding: 0; border: none; width: 80px; height: 200px;"
+                >content</p.Content>
+              </Popover>
+              <div style="height: 3000px;"></div>
+            </div>
+          {{/in-element}}
+        </template>
+      );
+      await positioned();
+      await scrollTo('#scroller', 290);
 
-    const content = rectOf('#content');
-    const anchor = rectOf('#anchor');
+      const content = rectOf('#content');
+      const anchor = rectOf('#anchor');
 
-    assert.strictEqual(content.left, anchor.right, 'the popover is on the right');
-    assert.ok(content.top >= 0, 'the popover is inside of the viewport');
-  });
+      assert.strictEqual(content.left, anchor.right, 'the popover is on the right');
+      assert.ok(content.top >= 0, 'the popover is inside of the viewport');
+    }
+  );
 
   test('leaves a flipped side when that side has no room', async function (assert) {
     const viewport = window.innerHeight;

@@ -102,8 +102,9 @@ Do not use `filter`, `backdrop-filter`, `transform`, or `contain` on the popover
 - JavaScript cannot read the final side of a popover, because CSS selects it and the browser does not report it.
 - `@strategy="absolute"` flips at the edges of the page, and not at the edges of the viewport.
 - A reference element must generate a CSS box. An `<svg>` does, but a shape inside of an `<svg>` does not.
-- Firefox ignores a `transform` on an ancestor of the reference element.
+- Firefox 159 ignores a `transform` on an ancestor of the reference element. Firefox Nightly 161 does not have this problem.
 - Firefox does not detect a clip from a `position: fixed` scroll container.
+- Firefox does not keep a centered popover inside of the viewport during a scroll in a nested scroll container.
 
 ## Disabled button with tooltip
 

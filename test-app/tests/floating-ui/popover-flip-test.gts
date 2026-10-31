@@ -15,7 +15,7 @@ import { resetTestingContainerDimensions } from './test-helpers';
 const body = document.body;
 
 /**
- * IntersectionObserver callbacks are async, and test waiters do not track them.
+ * Positioning is async, and test waiters do not track it.
  */
 async function positioned() {
   await new Promise(requestAnimationFrame);
@@ -194,7 +194,7 @@ module('<Popover> flipping', function (hooks) {
         {{#in-element body insertBefore=null}}
           <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
             <div style="height: 200px;"></div>
-            <Popover @placement="top" as |p|>
+            <Popover @placement="top" @flipOptions={{hash elementContext="floating"}} as |p|>
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
@@ -262,7 +262,7 @@ module('<Popover> flipping', function (hooks) {
         {{#in-element body insertBefore=null}}
           <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
             <div style="height: 300px;"></div>
-            <Popover @placement="top" as |p|>
+            <Popover @placement="top" @flipOptions={{hash elementContext="floating"}} as |p|>
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
@@ -339,7 +339,7 @@ module('<Popover> flipping', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover @placement="top-start" as |p|>
+          <Popover @placement="top-start" @flipOptions={{hash elementContext="floating"}} as |p|>
             <div
               id="anchor"
               style="position: fixed; top: 200px; right: 20px; width: 40px; height: 20px;"
@@ -362,7 +362,12 @@ module('<Popover> flipping', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover @placement="top" @offsetOptions={{8}} as |p|>
+          <Popover
+            @placement="top"
+            @offsetOptions={{8}}
+            @flipOptions={{hash elementContext="floating"}}
+            as |p|
+          >
             <div
               id="anchor"
               style="position: fixed; top: 4px; left: 200px; width: 100px; height: 20px;"
@@ -385,7 +390,11 @@ module('<Popover> flipping', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover @placement="top" @flipOptions={{hash padding=(hash top=64)}} as |p|>
+          <Popover
+            @placement="top"
+            @flipOptions={{hash elementContext="floating" padding=(hash top=64)}}
+            as |p|
+          >
             <div
               id="anchor"
               style="position: fixed; top: 80px; left: 200px; width: 100px; height: 20px;"
@@ -472,7 +481,11 @@ module('<Popover> arrow', function (hooks) {
               id="content"
               style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
             >
-              <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              <div
+                id="arrow"
+                style="position: absolute; width: 8px; height: 8px; background: red;"
+                {{p.arrow}}
+              ></div>
             </p.Content>
           </Popover>
         {{/in-element}}
@@ -488,7 +501,12 @@ module('<Popover> arrow', function (hooks) {
     await render(
       <template>
         {{#in-element body insertBefore=null}}
-          <Popover @placement="top" @offsetOptions={{8}} as |p|>
+          <Popover
+            @placement="top"
+            @offsetOptions={{8}}
+            @flipOptions={{hash elementContext="floating"}}
+            as |p|
+          >
             <div
               id="anchor"
               style="position: fixed; top: 4px; left: 200px; width: 100px; height: 20px;"
@@ -498,7 +516,11 @@ module('<Popover> arrow', function (hooks) {
               id="content"
               style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
             >
-              <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              <div
+                id="arrow"
+                style="position: absolute; width: 8px; height: 8px; background: red;"
+                {{p.arrow}}
+              ></div>
             </p.Content>
           </Popover>
         {{/in-element}}
@@ -523,7 +545,11 @@ module('<Popover> arrow', function (hooks) {
                 id="content"
                 style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
               >
-                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+                <div
+                  id="arrow"
+                  style="position: absolute; width: 8px; height: 8px; background: red;"
+                  {{p.arrow}}
+                ></div>
               </p.Content>
             </Popover>
             <div style="height: 3000px;"></div>
@@ -545,13 +571,22 @@ module('<Popover> arrow', function (hooks) {
         {{#in-element body insertBefore=null}}
           <div id="scroller" style="position: fixed; inset: 0; overflow: auto; background: white;">
             <div style="height: 300px;"></div>
-            <Popover @placement="top" @offsetOptions={{8}} as |p|>
+            <Popover
+              @placement="top"
+              @offsetOptions={{8}}
+              @flipOptions={{hash elementContext="floating"}}
+              as |p|
+            >
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
                 style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
               >
-                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+                <div
+                  id="arrow"
+                  style="position: absolute; width: 8px; height: 8px; background: red;"
+                  {{p.arrow}}
+                ></div>
               </p.Content>
             </Popover>
             <div style="height: 3000px;"></div>
@@ -576,13 +611,22 @@ module('<Popover> arrow', function (hooks) {
             style="position: absolute; inset: 0; overflow: auto; background: white;"
           >
             <div style="height: 300px;"></div>
-            <Popover @placement="top" @offsetOptions={{8}} as |p|>
+            <Popover
+              @placement="top"
+              @offsetOptions={{8}}
+              @flipOptions={{hash elementContext="floating"}}
+              as |p|
+            >
               <div id="anchor" style="width: 100px; height: 20px;" {{p.reference}}></div>
               <p.Content
                 id="content"
                 style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
               >
-                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+                <div
+                  id="arrow"
+                  style="position: absolute; width: 8px; height: 8px; background: red;"
+                  {{p.arrow}}
+                ></div>
               </p.Content>
             </Popover>
             <div style="height: 3000px;"></div>
@@ -616,7 +660,11 @@ module('<Popover> arrow', function (hooks) {
               id="content"
               style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
             >
-              <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              <div
+                id="arrow"
+                style="position: absolute; width: 8px; height: 8px; background: red;"
+                {{p.arrow}}
+              ></div>
             </p.Content>
           </Popover>
         {{/in-element}}
@@ -645,7 +693,11 @@ module('<Popover> arrow', function (hooks) {
                 id="content"
                 style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
               >
-                <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+                <div
+                  id="arrow"
+                  style="position: absolute; width: 8px; height: 8px; background: red;"
+                  {{p.arrow}}
+                ></div>
               </p.Content>
             </Popover>
             <div style="height: 200px;"></div>
@@ -674,7 +726,11 @@ module('<Popover> arrow', function (hooks) {
               id="content"
               style="margin: 0; padding: 0; border: none; width: 200px; height: 30px;"
             >
-              <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              <div
+                id="arrow"
+                style="position: absolute; width: 8px; height: 8px; background: red;"
+                {{p.arrow}}
+              ></div>
             </p.Content>
           </Popover>
         {{/in-element}}
@@ -700,7 +756,11 @@ module('<Popover> arrow', function (hooks) {
               id="content"
               style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
             >
-              <div id="arrow" style="width: 8px; height: 8px; background: red;" {{p.arrow}}></div>
+              <div
+                id="arrow"
+                style="position: absolute; width: 8px; height: 8px; background: red;"
+                {{p.arrow}}
+              ></div>
             </p.Content>
           </Popover>
         {{/in-element}}

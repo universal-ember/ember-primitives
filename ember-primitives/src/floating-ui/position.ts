@@ -39,11 +39,14 @@ interface Layout {
 }
 
 /**
- * Custom properties on the floating element.
- * The arrow reads the names of both anchors from these.
+ * Custom properties on the floating element, which the arrow reads.
  */
-export const REFERENCE_ANCHOR = '--ember-primitives-reference-anchor';
-export const FLOATING_ANCHOR = '--ember-primitives-floating-anchor';
+const REFERENCE_ANCHOR = '--ember-primitives-reference-anchor';
+const FLOATING_ANCHOR = '--ember-primitives-floating-anchor';
+const ARROW_PREFIX = '--ember-primitives-arrow-';
+
+const ARROW_HALF_WIDTH = '--ember-primitives-arrow-half-width';
+const ARROW_HALF_HEIGHT = '--ember-primitives-arrow-half-height';
 
 const ANCHORED = 'data-ember-primitives-anchored';
 
@@ -176,6 +179,56 @@ export function declarationsFor(placement: Placement, layout: Layout) {
   };
 }
 
+/**
+ * The arrow has the same margin box as the floating element.
+ *
+ * So the browser flips both at the same time, for any cause.
+ * Inherited styles do not work here, because Firefox does not
+ * update descendants when a scroll selects a fallback.
+ *
+ * The arrow only uses the reference for its position,
+ * because Firefox resolves any other anchor at its unscrolled position.
+ * `anchor-size()` of the floating element is safe, because a scroll does not change size.
+ */
+function arrowDeclarationsFor(placement: Placement, layout: Layout) {
+  const declarations = declarationsFor(placement, layout);
+  const side = sideOf(placement);
+  const alignment = alignmentOf(placement);
+  const vertical = isVertical(side);
+  const floating = `var(${FLOATING_ANCHOR})`;
+
+  const mainSize = vertical ? 'height' : 'width';
+  const crossSize = vertical ? 'width' : 'height';
+  const mainHalf = `var(${vertical ? ARROW_HALF_HEIGHT : ARROW_HALF_WIDTH}, 0px)`;
+  const crossHalf = `var(${vertical ? ARROW_HALF_WIDTH : ARROW_HALF_HEIGHT}, 0px)`;
+
+  const { offsetOptions, flipOptions } = layout;
+  const gap = typeof offsetOptions === 'number' ? offsetOptions : (offsetOptions?.mainAxis ?? 0);
+  const padding = paddingOf(flipOptions?.padding, side) ?? 0;
+
+  const margin: Record<Side, string> = { top: '0', right: '0', bottom: '0', left: '0' };
+
+  margin[OPPOSITE[side]] = `calc(${gap}px - ${mainHalf})`;
+  margin[side] = `calc(anchor-size(${floating} ${mainSize}) - ${mainHalf} + ${padding}px)`;
+
+  if (alignment) {
+    const crossNear: Side =
+      alignment === 'start' ? (vertical ? 'left' : 'top') : vertical ? 'right' : 'bottom';
+    const crossFar = OPPOSITE[crossNear];
+    const center = `min(anchor-size(${crossSize}), anchor-size(${floating} ${crossSize})) / 2`;
+
+    margin[crossNear] = `calc(${center} - ${crossHalf})`;
+    margin[crossFar] = `calc(anchor-size(${floating} ${crossSize}) - ${center} - ${crossHalf})`;
+  }
+
+  return {
+    'position-area': declarations['position-area'],
+    'align-self': declarations['align-self'],
+    'justify-self': declarations['justify-self'],
+    margin: `${margin.top} ${margin.right} ${margin.bottom} ${margin.left}`,
+  };
+}
+
 let sheet: CSSStyleSheet | undefined;
 let nextName = 0;
 
@@ -256,4 +309,64 @@ export function applyPlacements(floating: HTMLElement, placements: Placement[], 
     .map((placement) => positionTryFor(floating, declarationsFor(placement, layout)));
 
   floating.style.setProperty('position-try-fallbacks', fallbacks.join(', ') || 'none');
+
+  for (const [property, value] of Object.entries(arrowDeclarationsFor(first, layout))) {
+    floating.style.setProperty(`${ARROW_PREFIX}${property}`, value);
+  }
+
+  const arrowFallbacks = placements
+    .slice(1)
+    .map((placement) => positionTryFor(floating, arrowDeclarationsFor(placement, layout)));
+
+  floating.style.setProperty(
+    `${ARROW_PREFIX}position-try-fallbacks`,
+    arrowFallbacks.join(', ') || 'none'
+  );
+}
+
+export function linkAnchors(floating: HTMLElement, reference: HTMLElement | SVGElement) {
+  const referenceName = anchorNameFor(reference);
+
+  floating.style.setProperty('position-anchor', referenceName);
+  floating.style.setProperty(REFERENCE_ANCHOR, referenceName);
+  floating.style.setProperty(FLOATING_ANCHOR, anchorNameFor(floating));
+}
+
+/**
+ * This is `fixed`, because `absolute` makes the popover the containing block,
+ * and an element can only anchor to what is inside of its containing block.
+ */
+export function applyArrow(arrow: HTMLElement) {
+  const { style } = arrow;
+
+  style.setProperty('position', 'fixed');
+  style.setProperty('inset', 'auto');
+  style.setProperty('position-anchor', `var(${REFERENCE_ANCHOR})`);
+
+  for (const property of [
+    'position-area',
+    'align-self',
+    'justify-self',
+    'margin',
+    'position-try-fallbacks',
+  ]) {
+    style.setProperty(property, `var(${ARROW_PREFIX}${property})`);
+  }
+
+  /**
+   * Child modifiers run first, so the popover is not open yet and the arrow has no size.
+   *
+   * These go on the floating element, because that is where
+   * the custom properties that use them resolve.
+   */
+  const observer = new ResizeObserver(() => {
+    const floating = arrow.closest<HTMLElement>(`[${ANCHORED}]`);
+
+    floating?.style.setProperty(ARROW_HALF_WIDTH, `${arrow.offsetWidth / 2}px`);
+    floating?.style.setProperty(ARROW_HALF_HEIGHT, `${arrow.offsetHeight / 2}px`);
+  });
+
+  observer.observe(arrow);
+
+  return () => observer.disconnect();
 }

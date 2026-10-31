@@ -98,7 +98,7 @@ After a flip, the popover stays on the new side until that side has no room.
 
 ## Arrows
 
-Add `{{p.arrow}}` to an element inside of `<p.Content>`. The element is centered on the edge of the popover that faces the reference element, and CSS moves it after a flip. So a square with `transform: rotate(45deg)` needs no other styles.
+Add `{{p.arrow}}` to an element inside of `<p.Content>`. The element is centered on the edge of the popover that faces the reference element, and it flips with the popover. So a square with `transform: rotate(45deg)` needs no other styles.
 
 Do not use `filter`, `backdrop-filter`, `transform`, or `contain` on the popover content. Each of these makes the content the containing block of the arrow, and then the arrow cannot find the reference element. Use `box-shadow` for a shadow.
 
@@ -110,7 +110,6 @@ Do not use `filter`, `backdrop-filter`, `transform`, or `contain` on the popover
 - Firefox ignores a `transform` on an ancestor of the reference element.
 - Firefox does not detect a clip from a `position: fixed` scroll container.
 - Firefox does not keep a centered popover inside of the viewport during a scroll in a nested scroll container.
-- Firefox puts the arrow in the wrong position when a scroll causes a flip.
 
 ## Disabled button with tooltip
 

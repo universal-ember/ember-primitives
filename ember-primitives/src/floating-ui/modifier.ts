@@ -2,14 +2,7 @@ import { assert } from '@ember/debug';
 
 import { modifier as eModifier } from 'ember-modifier';
 
-import {
-  anchorNameFor,
-  applyPlacements,
-  FLOATING_ANCHOR,
-  placementsFor,
-  REFERENCE_ANCHOR,
-  sideOf,
-} from './position.ts';
+import { applyPlacements, linkAnchors, placementsFor, sideOf } from './position.ts';
 
 import type { FlipOptions, OffsetOptions, Placement, ShiftOptions, Side } from './position.ts';
 
@@ -153,9 +146,7 @@ export const anchorTo = eModifier<Signature>(
     const style = floatingElement.style;
 
     style.setProperty('position', strategy);
-    style.setProperty('position-anchor', anchorNameFor(referenceElement));
-    style.setProperty(REFERENCE_ANCHOR, anchorNameFor(referenceElement));
-    style.setProperty(FLOATING_ANCHOR, anchorNameFor(floatingElement));
+    linkAnchors(floatingElement, referenceElement);
     floatingElement.setAttribute('data-placement', placement);
 
     place(false);

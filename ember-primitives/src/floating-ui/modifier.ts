@@ -54,7 +54,7 @@ export interface Signature {
        */
       placement?: Placement;
       /**
-       * Controls when and where the floating element flips.
+       * Controls where the floating element flips.
        */
       flipOptions?: FlipOptions;
       /**
@@ -129,13 +129,11 @@ export const anchorTo = eModifier<Signature>(
     );
 
     const layout = { offsetOptions, flipOptions, shiftOptions };
-    const elementContext = flipOptions?.elementContext ?? 'floating';
     const side = sideOf(placement);
 
     const place = (isReferenceClipped: boolean) => {
       const placements = placementsFor(
         placement,
-        elementContext,
         flipOptions?.fallbackPlacements,
         isReferenceClipped
       );
@@ -164,8 +162,6 @@ export const anchorTo = eModifier<Signature>(
         if (!entry) return;
 
         style.setProperty('visibility', entry.isIntersecting ? '' : 'hidden');
-
-        if (elementContext === 'floating') return;
 
         const next = isClippedOn(entry, side);
 

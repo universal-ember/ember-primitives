@@ -14,10 +14,7 @@ import type { ModifierLike, WithBoundArgs } from "@glint/template";
 export interface Signature {
   Args: {
     /**
-     * Controls when and where the popover flips.
-     *
-     * `elementContext` defaults to `'both'`, so the popover flips when it overflows
-     * the viewport, and when a scroll container clips its reference element.
+     * Controls where the popover flips.
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
@@ -141,18 +138,11 @@ const Content: TOC<{
 
 const arrow = eModifier<{ Element: HTMLElement }>((element) => applyArrow(element));
 
-function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
-  return {
-    elementContext: "both" as const,
-    ...options,
-  };
-}
-
 export const Popover: TOC<Signature> = <template>
   <FloatingUI
     @placement={{@placement}}
     @strategy={{@strategy}}
-    @flipOptions={{flipOptions @flipOptions}}
+    @flipOptions={{@flipOptions}}
     @shiftOptions={{@shiftOptions}}
     @offsetOptions={{@offsetOptions}}
     as |reference floating extra|

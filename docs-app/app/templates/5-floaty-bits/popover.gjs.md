@@ -81,11 +81,6 @@ The popover moves to the opposite side when one of these conditions is true:
 - The popover overflows the viewport.
 - Something clips the reference element, for example a scroll container.
 
-To use one condition only, set `elementContext` in `@flipOptions`:
-
-- `'floating'` flips only when the popover overflows the viewport.
-- `'reference'` flips only when the reference element is clipped.
-
 A sticky site header does not clip anything, so it does not cause a flip. To include the header, add `padding` to `@flipOptions`.
 
 ```hbs

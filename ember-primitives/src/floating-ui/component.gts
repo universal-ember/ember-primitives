@@ -28,7 +28,7 @@ export interface Signature {
      */
     strategy?: ModifierArgs["strategy"];
     /**
-     * Controls when and where the floating element flips.
+     * Controls where the floating element flips.
      */
     flipOptions?: ModifierArgs["flipOptions"];
     /**

@@ -153,7 +153,9 @@ jobs:
       docsUrl: ${{ steps.deploy.outputs.deployment-url }}
     steps:
       - uses: actions/download-artifact@v8
-        name: deploy-prep-dist
+        with:
+          name: deploy-prep-dist
+          path: deploy-prep-dist
       - id: deploy
         uses: cloudflare/wrangler-action@v4
         with:

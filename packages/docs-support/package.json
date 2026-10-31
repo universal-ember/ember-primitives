@@ -34,6 +34,7 @@
   ],
   "scripts": {
     "build": "rollup --config",
+    "sync": "echo 'pnpm is syncing this package into the workspaces that inject it. (this is configured in .npmrc)'",
     "lint": "concurrently 'pnpm:lint:*(!fix)' --names 'lint:'",
     "lint:fix": "concurrently 'pnpm:lint:*:fix' --names 'fix:' && pnpm format",
     "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",

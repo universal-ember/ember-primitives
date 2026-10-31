@@ -87,6 +87,8 @@
     // dependent resolves a package with no `dist/`. Hence this task: it is
     // uncached, so it always runs, and it depends on the (possibly restored)
     // `build`, so it always has something to copy.
+    // Turbo skips this task in a package without a `sync` script, so each
+    // package with an injected copy needs that script.
     "sync": {
       "dependsOn": ["build"],
       "cache": false

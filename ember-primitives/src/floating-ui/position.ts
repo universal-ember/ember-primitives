@@ -41,6 +41,7 @@ const ARROW_HALF_WIDTH = '--ember-primitives-arrow-half-width';
 const ARROW_HALF_HEIGHT = '--ember-primitives-arrow-half-height';
 
 const ANCHORED = 'data-ember-primitives-anchored';
+const ARROW = 'data-ember-primitives-arrow';
 
 const SIDES: Side[] = ['top', 'right', 'bottom', 'left'];
 
@@ -264,10 +265,13 @@ function rootsOf(element: Element) {
 }
 
 /**
- * Firefox does not follow a reference inside of another floating element
- * until the next layout, and a change to the gap too small to see causes one.
+ * Until the next layout, a browser can leave an element behind during a scroll:
  *
- * https://bugzilla.mozilla.org/show_bug.cgi?id=2002789
+ * - Firefox does not follow a reference inside of another floating element.
+ *   https://bugzilla.mozilla.org/show_bug.cgi?id=2002789
+ * - WebKit does not move an arrow, which is `fixed` inside of the floating element.
+ *
+ * A change to the gap that is too small to see causes that layout.
  *
  * A scroll event does not leave a shadow root, so each root needs a listener.
  */
@@ -332,7 +336,7 @@ export function setupFloating(
    * Child modifiers run first, so an outer floating element has no attribute yet.
    */
   void Promise.resolve().then(() => {
-    if (isActive && reference.closest(`[${ANCHORED}]`)) {
+    if (isActive && (reference.closest(`[${ANCHORED}]`) || floating.querySelector(`[${ARROW}]`))) {
       stop = layoutOnScroll(floating, reference, mainAxis ?? 0);
     }
   });
@@ -374,6 +378,7 @@ export function applyPlacements(floating: HTMLElement, placements: Placement[]) 
 export function applyArrow(arrow: HTMLElement) {
   const { style } = arrow;
 
+  arrow.setAttribute(ARROW, '');
   style.setProperty('position', 'fixed');
   style.setProperty('inset', 'auto');
   style.setProperty('position-anchor', `var(${REFERENCE_ANCHOR})`);

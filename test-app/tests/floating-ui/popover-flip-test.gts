@@ -356,6 +356,76 @@ module('<Popover> flipping', function (hooks) {
     }
   });
 
+  test('a nested popover flips at a viewport edge', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <Popover as |p|>
+            <div
+              id="outer-anchor"
+              style="position: fixed; top: 100px; left: 10px; width: 100px; height: 20px;"
+              {{p.reference}}
+            ></div>
+            <p.Content
+              id="outer"
+              style="margin: 0; padding: 0; border: none; width: 120px; height: 100px;"
+            >
+              <Popover @placement="left" as |pp|>
+                <div id="anchor" style="width: 40px; height: 20px;" {{pp.reference}}></div>
+                <pp.Content
+                  id="content"
+                  style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+                >content</pp.Content>
+              </Popover>
+            </p.Content>
+          </Popover>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    assert.strictEqual(rectOf('#content').left, rectOf('#anchor').right);
+  });
+
+  test('a nested popover hides with the outer popover', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <div
+            id="scroller"
+            style="position: absolute; top: 200px; left: 200px; width: 200px; height: 100px; overflow: auto;"
+          >
+            <div style="height: 10px;"></div>
+            <Popover as |p|>
+              <div id="outer-anchor" style="width: 100px; height: 40px;" {{p.reference}}></div>
+              <p.Content
+                id="outer"
+                style="margin: 0; padding: 0; border: none; width: 200px; height: 100px;"
+              >
+                <Popover @placement="right" as |pp|>
+                  <div id="anchor" style="width: 40px; height: 20px;" {{pp.reference}}></div>
+                  <pp.Content
+                    id="content"
+                    style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+                  >content</pp.Content>
+                </Popover>
+              </p.Content>
+            </Popover>
+            <div style="height: 300px;"></div>
+          </div>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    assert.dom('#content', body).hasStyle({ visibility: 'visible' });
+
+    await scrollTo('#scroller', 100);
+
+    assert.dom('#outer', body).hasStyle({ visibility: 'hidden' });
+    assert.dom('#content', body).hasStyle({ visibility: 'hidden' });
+  });
+
   test('moves along the reference to stay in the viewport', async function (assert) {
     await render(
       <template>

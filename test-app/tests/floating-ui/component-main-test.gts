@@ -17,27 +17,23 @@ module('floating-ui | component (main)', function (hooks) {
   test('it renders', async function (assert) {
     await render(
       <template>
-        <FloatingUI as |reference floating util|>
-          <div id="hook" {{reference}} style="width: 200px; height: 40px">
-            {{util.data.rects.reference.width}}
-            {{util.data.rects.reference.height}}
-          </div>
-          <div id="loop" {{floating}} style="width: 200px; height: 400px">
-            {{util.data.rects.floating.width}}
-            {{util.data.rects.floating.height}}
-          </div>
+        <FloatingUI as |reference floating|>
+          <div id="hook" {{reference}} style="width: 200px; height: 40px"></div>
+          <div id="loop" {{floating}} style="width: 200px; height: 20px"></div>
         </FloatingUI>
       </template>
     );
 
-    assert.dom('#hook').hasText('200 40', 'reference element has expected dimensions');
-    assert.dom('#loop').hasText('200 400', 'floating element has expected dimensions');
-    assert.dom('#loop').hasAttribute('style');
-    assert.dom('#loop').hasStyle({
-      position: 'fixed',
-      top: '40px',
-      left: '0px',
-    });
+    const hook = findElement('#hook').getBoundingClientRect();
+    const loop = findElement('#loop').getBoundingClientRect();
+
+    assert.dom('#loop').hasStyle({ position: 'fixed' });
+    assert.strictEqual(loop.top, hook.bottom, 'the floating element is below its reference');
+    assert.strictEqual(
+      loop.left + loop.width / 2,
+      hook.left + hook.width / 2,
+      'the floating element is centered on its reference'
+    );
   });
 
   test('it renders with setReference', async function (assert) {
@@ -53,94 +49,53 @@ module('floating-ui | component (main)', function (hooks) {
     await render(
       <template>
         <FloatingUI as |reference floating util|>
-          <div id="hook" {{hookModifier util.setReference}} style="width: 200px; height: 40px">
-            {{util.data.rects.reference.width}}
-            {{util.data.rects.reference.height}}
-          </div>
-          <div id="loop" {{floating}} style="width: 200px; height: 400px">
-            {{util.data.rects.floating.width}}
-            {{util.data.rects.floating.height}}
-          </div>
+          <div
+            id="hook"
+            {{hookModifier util.setReference}}
+            style="width: 200px; height: 40px"
+          ></div>
+          <div id="loop" {{floating}} style="width: 200px; height: 20px"></div>
         </FloatingUI>
       </template>
     );
 
-    assert.dom('#hook').hasText('200 40', 'reference element has expected dimensions');
-    assert.dom('#loop').hasText('200 400', 'floating element has expected dimensions');
-    assert.dom('#loop').hasAttribute('style');
-    assert.dom('#loop').hasStyle({
-      position: 'fixed',
-      top: '40px',
-      left: '0px',
-    });
-  });
+    const hook = findElement('#hook').getBoundingClientRect();
+    const loop = findElement('#loop').getBoundingClientRect();
 
-  module('@middleware', function () {
-    test('it yields the MiddlewareState', async function (assert) {
-      await render(
-        <template>
-          <FloatingUI as |reference floating util|>
-            <div id="hook" {{reference}}>
-              {{#each-in util.data as |key|}}
-                {{key}}
-              {{/each-in}}
-            </div>
-            <div id="loop" {{floating}}>VelcroElement</div>
-          </FloatingUI>
-        </template>
-      );
-
-      assert
-        .dom('#hook')
-        .hasText(
-          'x y initialPlacement placement strategy middlewareData rects platform elements',
-          'has expected metadata'
-        );
-    });
-
-    test('it has expected included middleware defined', async function (assert) {
-      await render(
-        <template>
-          <FloatingUI as |reference floating util|>
-            <div id="hook" {{reference}}>
-              {{#each-in util.data.middlewareData as |key|}}
-                {{key}}
-              {{/each-in}}
-            </div>
-            <div id="loop" {{floating}}>VelcroElement</div>
-          </FloatingUI>
-        </template>
-      );
-
-      assert.dom('#hook').hasText('offset flip shift hide metadata', 'has expected middleware');
-    });
+    assert.dom('#loop').hasStyle({ position: 'fixed' });
+    assert.strictEqual(loop.top, hook.bottom, 'the floating element is below its reference');
+    assert.strictEqual(
+      loop.left + loop.width / 2,
+      hook.left + hook.width / 2,
+      'the floating element is centered on its reference'
+    );
   });
 
   module('@placement', function () {
     test('has default value', async function (assert) {
       await render(
         <template>
-          <FloatingUI as |reference floating util|>
+          <FloatingUI as |reference floating|>
             <div {{reference}}>velcroReference</div>
-            <div id="loop" {{floating}}>{{util.data.placement}}</div>
+            <div id="loop" {{floating}}></div>
           </FloatingUI>
         </template>
       );
 
-      assert.dom('#loop').hasText('bottom');
+      assert.dom('#loop').hasAttribute('data-placement', 'bottom');
     });
 
     test('has argument value', async function (assert) {
       await render(
         <template>
-          <FloatingUI @placement="bottom-start" as |reference floating util|>
+          <FloatingUI @placement="bottom-start" as |reference floating|>
             <div {{reference}}>velcroReference</div>
-            <div id="loop" {{floating}}>{{util.data.placement}}</div>
+            <div id="loop" {{floating}}></div>
           </FloatingUI>
         </template>
       );
 
-      assert.dom('#loop').hasText('bottom-start');
+      assert.dom('#loop').hasAttribute('data-placement', 'bottom-start');
     });
   });
 
@@ -148,28 +103,26 @@ module('floating-ui | component (main)', function (hooks) {
     test('has default value', async function (assert) {
       await render(
         <template>
-          <FloatingUI as |reference floating util|>
+          <FloatingUI as |reference floating|>
             <div {{reference}}>velcroReference</div>
-            <div id="loop" {{floating}}>{{util.data.strategy}}</div>
+            <div id="loop" {{floating}}></div>
           </FloatingUI>
         </template>
       );
 
-      assert.dom('#loop').hasText('fixed');
       assert.dom('#loop').hasStyle({ position: 'fixed' });
     });
 
     test('has argument value', async function (assert) {
       await render(
         <template>
-          <FloatingUI @strategy="absolute" as |reference floating util|>
+          <FloatingUI @strategy="absolute" as |reference floating|>
             <div {{reference}}>velcroReference</div>
-            <div id="loop" {{floating}}>{{util.data.strategy}}</div>
+            <div id="loop" {{floating}}></div>
           </FloatingUI>
         </template>
       );
 
-      assert.dom('#loop').hasText('absolute');
       assert.dom('#loop').hasStyle({ position: 'absolute' });
     });
   });

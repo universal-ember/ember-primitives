@@ -72,13 +72,6 @@ import {
                 platform.
               </li>
               <li>
-                <Link href="https://floating-ui.com/">@floating-ui/dom</Link><br />
-                Used for positioning floating elements. Will be replaced by
-                <Link href="https://w3c.github.io/csswg-drafts/css-anchor-position/">CSS Anchor
-                  Position</Link>
-                when that lands.
-              </li>
-              <li>
                 <Link href="https://tabster.io/">tabster</Link><br />
                 Used for managing roving focus in menus or menu-like patterns.
               </li>

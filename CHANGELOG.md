@@ -1,5 +1,22 @@
 # Changelog 
 
+## Release (2026-11-02)
+
+* ember-primitives 0.63.1 (patch)
+* @universal-ember/docs-support 0.9.15 (patch)
+* which-heading-do-i-need 0.4.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#847](https://github.com/universal-ember/ember-primitives/pull/847) CommandPalette: lowercase private args, so Ember 5 and 6 can build it ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `@universal-ember/docs-support`, `which-heading-do-i-need`
+  * [#845](https://github.com/universal-ember/ember-primitives/pull/845) Fix Deploy Preview failures on Turbo cache hits ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-10-30)
 
 * ember-primitives 0.63.0 (minor)

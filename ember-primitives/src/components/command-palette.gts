@@ -156,8 +156,8 @@ interface PrivateListSignature {
     register: ModifierLike<{ Element: HTMLElement }>;
     onPointerMove: (event: PointerEvent) => void;
     onClick: (event: MouseEvent) => void;
-    Item: ListSignature["Blocks"]["default"][0]["Item"];
-    LinkItem: ListSignature["Blocks"]["default"][0]["LinkItem"];
+    item: ListSignature["Blocks"]["default"][0]["Item"];
+    linkItem: ListSignature["Blocks"]["default"][0]["LinkItem"];
   };
   Blocks: ListSignature["Blocks"];
 }
@@ -183,7 +183,7 @@ const List: TOC<PrivateListSignature> = <template>
     {{on "pointermove" @onPointerMove}}
     ...attributes
   >
-    {{yield (hash Item=@Item LinkItem=@LinkItem)}}
+    {{yield (hash Item=@item LinkItem=@linkItem)}}
   </div>
 </template>;
 
@@ -393,7 +393,7 @@ export interface BlockSignature {
          */
         List: WithBoundArgs<
           typeof List,
-          "id" | "register" | "onPointerMove" | "onClick" | "Item" | "LinkItem"
+          "id" | "register" | "onPointerMove" | "onClick" | "item" | "linkItem"
         >;
       },
     ];
@@ -700,8 +700,8 @@ export class CommandPalette extends Component<Signature> {
         register=this.registerList
         onPointerMove=this.handlePointerMove
         onClick=this.handleClick
-        Item=(component Item activeId=this.activeId)
-        LinkItem=(component LinkItem activeId=this.activeId)
+        item=(component Item activeId=this.activeId)
+        linkItem=(component LinkItem activeId=this.activeId)
       )
       as |PaletteInput PaletteList|
     }}

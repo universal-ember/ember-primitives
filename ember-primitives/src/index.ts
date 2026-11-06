@@ -24,6 +24,7 @@ export { CommandPalette } from './components/command-palette.gts';
 export { Dialog, Modal } from './components/dialog.gts';
 export { Drawer } from './components/drawer.gts';
 export { ExternalLink } from './components/external-link.gts';
+export { DocumentFileDrop, FileDrop } from './components/file-drop.gts';
 export { Form } from './components/form.gts';
 export { IncrementalEach } from './components/incremental-each.gts';
 export { Key, KeyCombo } from './components/keys.gts';

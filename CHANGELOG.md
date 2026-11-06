@@ -2,6 +2,17 @@
 
 ## Release (2026-11-06)
 
+* ember-primitives 0.64.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#851](https://github.com/universal-ember/ember-primitives/pull/851) Slider: put the pointer target under the visual thumb ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
+## Release (2026-11-06)
+
 * ember-primitives 0.64.0 (minor)
 * @universal-ember/docs-support 0.9.16 (patch)
 

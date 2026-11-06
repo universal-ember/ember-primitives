@@ -1,34 +1,24 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "minor",
-      "oldVersion": "0.63.1",
-      "newVersion": "0.64.0",
+      "impact": "patch",
+      "oldVersion": "0.64.0",
+      "newVersion": "0.64.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
+          "impact": "patch",
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
-      "impact": "patch",
-      "oldVersion": "0.9.15",
-      "newVersion": "0.9.16",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:^` on ember-primitives"
-        }
-      ],
-      "pkgJSONPath": "./packages/docs-support/package.json"
+      "oldVersion": "0.9.16"
     },
     "which-heading-do-i-need": {
       "oldVersion": "0.4.2"
     }
   },
-  "description": "## Release (2026-11-06)\n\n* ember-primitives 0.64.0 (minor)\n* @universal-ember/docs-support 0.9.16 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#849](https://github.com/universal-ember/ember-primitives/pull/849) Add FileDrop and DocumentFileDrop ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-11-06)\n\n* ember-primitives 0.64.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#851](https://github.com/universal-ember/ember-primitives/pull/851) Slider: put the pointer target under the visual thumb ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

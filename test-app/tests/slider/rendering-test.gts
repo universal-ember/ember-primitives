@@ -366,4 +366,69 @@ module('<Slider />', function (hooks) {
       assert.dom(thumbInput).hasAria('valuetext', 'half');
     });
   });
+  module('pointer target', function () {
+    /**
+     * What a pointer hits at the center of each visual thumb.
+     * In a range slider only the native thumbs take pointer events,
+     * so the hit is a thumb input only where its native thumb is.
+     */
+    function hitsAtThumbCenters(): string[] {
+      const hits: string[] = [];
+
+      for (const input of document.querySelectorAll<HTMLInputElement>(thumbInput)) {
+        const visual = input.nextElementSibling?.getBoundingClientRect();
+
+        if (!visual) throw new Error('No visual thumb follows the input');
+
+        const x = visual.left + visual.width / 2;
+        const y = visual.top + visual.height / 2;
+
+        hits.push(`${input.value} ${document.elementFromPoint(x, y) === input ? 'hit' : 'miss'}`);
+      }
+
+      return hits;
+    }
+
+    test('the native thumb is under the visual thumb, horizontal', async function (assert) {
+      const values = [0, 50, 100];
+
+      await render(
+        <template>
+          <div style="width: 400px; padding: 24px;">
+            <Slider @value={{values}} as |s|>
+              <s.Track>
+                <s.Range />
+                {{#each s.thumbs as |t|}}
+                  <s.Thumb @thumb={{t}} aria-label="Value" />
+                {{/each}}
+              </s.Track>
+            </Slider>
+          </div>
+        </template>
+      );
+
+      assert.deepEqual(hitsAtThumbCenters(), ['0 hit', '50 hit', '100 hit']);
+    });
+
+    test('the native thumb is under the visual thumb, vertical', async function (assert) {
+      const values = [0, 50, 100];
+
+      await render(
+        <template>
+          <div style="padding: 24px;">
+            <Slider @value={{values}} @orientation="vertical" as |s|>
+              <s.Track>
+                <s.Range />
+                {{#each s.thumbs as |t|}}
+                  <s.Thumb @thumb={{t}} aria-label="Value" />
+                {{/each}}
+              </s.Track>
+            </Slider>
+          </div>
+        </template>
+      );
+
+      assert.deepEqual(hitsAtThumbCenters(), ['0 hit', '50 hit', '100 hit']);
+    });
+  });
 });

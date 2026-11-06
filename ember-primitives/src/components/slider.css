@@ -68,13 +68,19 @@
   /*
     The native input is stretched across the whole track, invisible, and only
     used for interaction. The visual thumb (a sibling) is what users see.
+
+    A native thumb stays inside its input,
+    so its center stops half a thumb short of each end.
+    The input sticks out by half the hit area on each side.
+    Then the native thumb goes from end to end of the track,
+    the same as the visual thumb from `0%` to `100%`.
   */
   .ember-primitives__slider__thumb-input {
     position: absolute;
-    left: 0;
+    left: calc(var(--ember-primitives__slider__hit-area, 24px) / -2);
     top: 50%;
     translate: 0 -50%;
-    width: 100%;
+    width: calc(100% + var(--ember-primitives__slider__hit-area, 24px));
     height: var(--ember-primitives__slider__hit-area, 24px);
     margin: 0;
     opacity: 0;
@@ -137,11 +143,11 @@
   .ember-primitives__slider[data-orientation="vertical"] .ember-primitives__slider__thumb-input {
     writing-mode: vertical-lr;
     direction: rtl;
-    top: 0;
+    top: calc(var(--ember-primitives__slider__hit-area, 24px) / -2);
     left: 50%;
     translate: -50% 0;
     width: var(--ember-primitives__slider__hit-area, 24px);
-    height: 100%;
+    height: calc(100% + var(--ember-primitives__slider__hit-area, 24px));
   }
 
   /*

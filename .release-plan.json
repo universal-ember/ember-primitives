@@ -1,48 +1,34 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.63.0",
-      "newVersion": "0.63.1",
+      "impact": "minor",
+      "oldVersion": "0.63.1",
+      "newVersion": "0.64.0",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Has dependency `workspace:*` on which-heading-do-i-need"
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.14",
-      "newVersion": "0.9.15",
+      "oldVersion": "0.9.15",
+      "newVersion": "0.9.16",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Has dependency `workspace:^` on ember-primitives"
         }
       ],
       "pkgJSONPath": "./packages/docs-support/package.json"
     },
     "which-heading-do-i-need": {
-      "impact": "patch",
-      "oldVersion": "0.4.1",
-      "newVersion": "0.4.2",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        }
-      ],
-      "pkgJSONPath": "./packages/which-heading-do-i-need/package.json"
+      "oldVersion": "0.4.2"
     }
   },
-  "description": "## Release (2026-11-02)\n\n* ember-primitives 0.63.1 (patch)\n* @universal-ember/docs-support 0.9.15 (patch)\n* which-heading-do-i-need 0.4.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#847](https://github.com/universal-ember/ember-primitives/pull/847) CommandPalette: lowercase private args, so Ember 5 and 6 can build it ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `@universal-ember/docs-support`, `which-heading-do-i-need`\n  * [#845](https://github.com/universal-ember/ember-primitives/pull/845) Fix Deploy Preview failures on Turbo cache hits ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-11-06)\n\n* ember-primitives 0.64.0 (minor)\n* @universal-ember/docs-support 0.9.16 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#849](https://github.com/universal-ember/ember-primitives/pull/849) Add FileDrop and DocumentFileDrop ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

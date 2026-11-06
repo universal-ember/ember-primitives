@@ -7,7 +7,6 @@ import { modifier as eModifier } from "ember-modifier";
 import { anchorTo } from "./modifier.ts";
 
 import type { Signature as ModifierSignature } from "./modifier.ts";
-import type { MiddlewareState } from "@floating-ui/dom";
 import type { ModifierLike } from "@glint/template";
 
 type ModifierArgs = ModifierSignature["Args"]["Named"];
@@ -19,39 +18,25 @@ interface ReferenceSignature {
 export interface Signature {
   Args: {
     /**
-     * Additional middleware to pass to FloatingUI.
-     *
-     * See: [The middleware docs](https://floating-ui.com/docs/middleware)
-     */
-    middleware?: ModifierArgs["middleware"];
-    /**
      * Where to place the floating element relative to its reference element.
      * The default is 'bottom'.
-     *
-     * See: [The placement docs](https://floating-ui.com/docs/computePosition#placement)
      */
     placement?: ModifierArgs["placement"];
     /**
      * This is the type of CSS position property to use.
      * By default this is 'fixed', but can also be 'absolute'.
-     *
-     * See: [The strategy docs](https://floating-ui.com/docs/computePosition#strategy)
      */
     strategy?: ModifierArgs["strategy"];
     /**
-     * Options to pass to the [flip middleware](https://floating-ui.com/docs/flip)
+     * Controls the distance that a flip keeps from the viewport edges.
      */
     flipOptions?: ModifierArgs["flipOptions"];
     /**
-     * Options to pass to the [hide middleware](https://floating-ui.com/docs/hide)
-     */
-    hideOptions?: ModifierArgs["hideOptions"];
-    /**
-     * Options to pass to the [shift middleware](https://floating-ui.com/docs/shift)
+     * Controls the distance to keep from the viewport edges.
      */
     shiftOptions?: ModifierArgs["shiftOptions"];
     /**
-     * Options to pass to the [offset middleware](https://floating-ui.com/docs/offset)
+     * The distance between the floating element and the reference element.
      */
     offsetOptions?: ModifierArgs["offsetOptions"];
   };
@@ -109,11 +94,6 @@ export interface Signature {
          * on that element.
          */
         setReference: (element: HTMLElement | SVGElement) => void;
-        /**
-         * Metadata exposed from floating-ui.
-         * Gives you x, y position, among other things.
-         */
-        data?: MiddlewareState;
       },
     ];
   };
@@ -133,8 +113,7 @@ const ref = eModifier<{
 /**
  * A component that provides no DOM and yields two modifiers for creating
  * creating floating uis, such as menus, popovers, tooltips, etc.
- * This component currently uses [Floating UI](https://floating-ui.com/)
- * but will be switching to [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) when that lands.
+ * This component uses [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning).
  *
  * Example usage:
  * ```gjs
@@ -150,9 +129,6 @@ const ref = eModifier<{
  */
 export class FloatingUI extends Component<Signature> {
   @tracked reference?: HTMLElement | SVGElement = undefined;
-  @tracked data?: MiddlewareState = undefined;
-
-  setData: ModifierArgs["setData"] = (data) => (this.data = data);
 
   setReference = (element: HTMLElement | SVGElement) => {
     this.reference = element;
@@ -163,23 +139,16 @@ export class FloatingUI extends Component<Signature> {
       (modifier
         anchorTo
         flipOptions=@flipOptions
-        hideOptions=@hideOptions
-        middleware=@middleware
         offsetOptions=@offsetOptions
         placement=@placement
         shiftOptions=@shiftOptions
         strategy=@strategy
-        setData=this.setData
       )
       as |prewiredAnchorTo|
     }}
       {{#let (if this.reference (modifier prewiredAnchorTo this.reference)) as |floating|}}
         {{! @glint-nocheck -- Excessively deep, possibly infinite }}
-        {{yield
-          (modifier ref this.setReference)
-          floating
-          (hash setReference=this.setReference data=this.data)
-        }}
+        {{yield (modifier ref this.setReference) floating (hash setReference=this.setReference)}}
       {{/let}}
     {{/let}}
   </template>

@@ -4,7 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 
 import { anchorTo } from 'ember-primitives/floating-ui';
 
-import { addDataAttributes, findElement, resetTestingContainerDimensions } from './test-helpers';
+import { findElement, resetTestingContainerDimensions } from './test-helpers';
 
 module('floating-ui | anchorTo', function (hooks) {
   setupRenderingTest(hooks);
@@ -25,13 +25,11 @@ module('floating-ui | anchorTo', function (hooks) {
   });
 
   module('@placement', function () {
-    const middleware = [addDataAttributes()];
-
     test('has default value', async function (assert) {
       await render(
         <template>
           <div id="velcro-reference">Velcro reference</div>
-          <div id="velcro" {{anchorTo "#velcro-reference" middleware=middleware}}>Velcro</div>
+          <div id="velcro" {{anchorTo "#velcro-reference"}}>Velcro</div>
         </template>
       );
 
@@ -42,10 +40,7 @@ module('floating-ui | anchorTo', function (hooks) {
       await render(
         <template>
           <div id="velcro-reference">Velcro reference</div>
-          <div
-            id="velcro"
-            {{anchorTo "#velcro-reference" placement="bottom-start" middleware=middleware}}
-          >Velcro</div>
+          <div id="velcro" {{anchorTo "#velcro-reference" placement="bottom-start"}}>Velcro</div>
         </template>
       );
 
@@ -54,31 +49,26 @@ module('floating-ui | anchorTo', function (hooks) {
   });
 
   module('@strategy', function () {
-    const middleware = [addDataAttributes()];
-
     test('has default value', async function (assert) {
       await render(
         <template>
           <div id="velcro-reference">Velcro reference</div>
-          <div id="velcro" {{anchorTo "#velcro-reference" middleware=middleware}}>Velcro</div>
+          <div id="velcro" {{anchorTo "#velcro-reference"}}>Velcro</div>
         </template>
       );
 
-      assert.dom('#velcro ').hasAttribute('data-strategy', 'fixed');
+      assert.dom('#velcro').hasStyle({ position: 'fixed' });
     });
 
     test('has named argument value', async function (assert) {
       await render(
         <template>
           <div id="velcro-reference">Velcro reference</div>
-          <div
-            id="velcro"
-            {{anchorTo "#velcro-reference" strategy="absolute" middleware=middleware}}
-          >Velcro</div>
+          <div id="velcro" {{anchorTo "#velcro-reference" strategy="absolute"}}>Velcro</div>
         </template>
       );
 
-      assert.dom('#velcro ').hasAttribute('data-strategy', 'absolute');
+      assert.dom('#velcro').hasStyle({ position: 'absolute' });
     });
   });
 

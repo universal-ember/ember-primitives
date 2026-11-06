@@ -71,7 +71,6 @@ export default defineConfig(async (/* { mode } */) => {
         "ember-primitives > tabster",
         "ember-primitives > tracked-built-ins",
         "ember-primitives > tracked-toolbox",
-        "ember-primitives > @floating-ui/dom",
         "kolay/components",
         "lorem-ipsum",
         "ember-modifier",

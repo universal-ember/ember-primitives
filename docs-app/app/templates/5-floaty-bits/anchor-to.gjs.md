@@ -1,15 +1,8 @@
 # anchorTo 
 
-The `anchorTo` modifier provides a wrapper for using [Floating UI](https://floating-ui.com/), for associating a floating element to an anchor element (such as for menus, popovers, etc). 
+The `anchorTo` modifier uses [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) to associate a floating element to an anchor element (such as for menus, popovers, etc).
 
-<Callout>
-
-The usage of a 3rd-party library will be removed when [CSS Anchor Positioning](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning) lands and is widely supported (This component and modifier will still exist for the purpose of wiring up the ids between anchor and target). 
-
-</Callout>
-
-Several of Floating UI's functions and [middleware](https://floating-ui.com/docs/middleware) are used to create an experience out of the box that is useful and expected.
-See Floating UI's [documentation](https://floating-ui.com/docs/getting-started) for more information on any of the following included functionality.
+The floating element flips, moves along its anchor to stay in the viewport, and hides when its anchor is not visible. See the [Popover](/5-floaty-bits/popover.md) page for the limits.
 
 ## Install
 

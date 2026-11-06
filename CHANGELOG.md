@@ -1,5 +1,17 @@
 # Changelog 
 
+## Release (2026-11-06)
+
+* ember-primitives 0.64.0 (minor)
+* @universal-ember/docs-support 0.9.16 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#849](https://github.com/universal-ember/ember-primitives/pull/849) Add FileDrop and DocumentFileDrop ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-11-02)
 
 * ember-primitives 0.63.1 (patch)

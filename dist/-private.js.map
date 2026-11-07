@@ -1,0 +1,1 @@
+{"version":3,"file":"-private.js","sources":["../src/-private.ts"],"sourcesContent":["/**\n * @internal\n */\nexport const PRIMITIVES = Symbol.for('ember-primitives-globals');\n"],"names":["PRIMITIVES","Symbol","for"],"mappings":"AAAA;AACA;AACA;AACO,MAAMA,UAAU,GAAGC,MAAM,CAACC,GAAG,CAAC,0BAA0B;;;;"}

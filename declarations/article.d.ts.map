@@ -1,0 +1,1 @@
+{"version":3,"file":"article.d.ts","sourceRoot":"","sources":["../src/article.gts"],"names":[],"mappings":"AAOA,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,gCAAgC,CAAC;AAE1D,eAAO,MAAM,OAAO,EAAE,GAAG,CAAC;IAAE,OAAO,EAAE,WAAW,CAAC;IAAC,MAAM,EAAE;QAAE,OAAO,EAAE,EAAE,CAAA;KAAE,CAAA;CAAE,CAYzE,CAAC"}

@@ -1,0 +1,27 @@
+/**
+* Technique discovered here:
+*   https://github.com/shikijs/shiki/discussions/669
+*
+* Documentation here: https://shiki.matsu.io/guide/dual-themes#class-based-dark-mode
+*
+* Themes setup variables after a color,
+*   example: color:#fff;--shiki-dark:#000;--shikiwhite:#fff;
+* and setting defaultColor to `false` means there are _only_ variables,
+* which is how the following code works.
+*/
+
+html[style*="color-scheme: dark"] {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+html[style*="color-scheme: light"] {
+  .shiki,
+  .shiki span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+  }
+}

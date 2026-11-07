@@ -1,12 +1,12 @@
 import { assert } from '@ember/debug';
 
-import { autoUpdate, computePosition, flip, hide, offset, shift } from '@floating-ui/dom';
+import { autoUpdate, computePosition, hide, offset, shift } from '@floating-ui/dom';
 import { modifier as eModifier } from 'ember-modifier';
 
-import { exposeMetadata } from './middleware.ts';
+import { exposeMetadata, flipTo } from './middleware.ts';
 
+import type { AnchorFlipOptions } from './middleware.ts';
 import type {
-  FlipOptions,
   HideOptions,
   Middleware,
   OffsetOptions,
@@ -59,8 +59,11 @@ export interface Signature {
       placement?: Placement;
       /**
        * Options to pass to the [flip middleware](https://floating-ui.com/docs/flip)
+       *
+       * `elementContext` also accepts `'both'`, to flip when either
+       * the floating element or the reference element overflows.
        */
-      flipOptions?: FlipOptions;
+      flipOptions?: AnchorFlipOptions;
       /**
        * Options to pass to the [shift middleware](https://floating-ui.com/docs/shift)
        */
@@ -144,7 +147,7 @@ export const anchorTo = eModifier<Signature>(
       const { middlewareData, x, y } = await computePosition(referenceElement, floatingElement, {
         middleware: [
           offset(offsetOptions),
-          flip(flipOptions),
+          flipTo(flipOptions),
           shift(shiftOptions),
           ...middleware,
           hide({ strategy: 'referenceHidden' }),

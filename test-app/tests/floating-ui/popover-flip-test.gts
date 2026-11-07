@@ -84,6 +84,29 @@ module('<Popover> flipping', function (hooks) {
     assert.strictEqual(side(), 'above');
   });
 
+  test('flips when the popover overflows the viewport', async function (assert) {
+    await render(
+      <template>
+        {{#in-element body insertBefore=null}}
+          <Popover @placement="top" as |p|>
+            <div
+              id="anchor"
+              style="position: fixed; top: 4px; left: 200px; width: 100px; height: 20px;"
+              {{p.reference}}
+            ></div>
+            <p.Content
+              id="content"
+              style="margin: 0; padding: 0; border: none; width: 80px; height: 30px;"
+            >content</p.Content>
+          </Popover>
+        {{/in-element}}
+      </template>
+    );
+    await positioned();
+
+    assert.strictEqual(side(), 'below');
+  });
+
   test('flips when a scroll container clips the anchor', async function (assert) {
     await render(
       <template>

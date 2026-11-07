@@ -10,13 +10,16 @@ import { FloatingUI } from "../floating-ui.ts";
 import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.gts";
 import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
 import type { TOC } from "@ember/component/template-only";
-import type { ElementContext, Middleware } from "@floating-ui/dom";
+import type { Middleware } from "@floating-ui/dom";
 import type { ModifierLike, WithBoundArgs } from "@glint/template";
 
 export interface Signature {
   Args: {
     /**
      * See the Floating UI's [flip docs](https://floating-ui.com/docs/flip) for possible values.
+     *
+     * `elementContext` defaults to `'both'`, so the popover flips when it overflows
+     * the viewport, and when a scroll container clips its reference element.
      *
      * This argument is forwarded to the `<FloatingUI>` component.
      */
@@ -222,7 +225,7 @@ function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | 
 
 function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
   return {
-    elementContext: "reference" as ElementContext,
+    elementContext: "both" as const,
     ...options,
   };
 }

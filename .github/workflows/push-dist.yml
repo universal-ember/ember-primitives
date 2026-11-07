@@ -1,0 +1,42 @@
+name: Push dist
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push-dist:
+    name: "Push dist: ${{ matrix.branch }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    concurrency:
+      group: push-dist-${{ matrix.branch }}
+      cancel-in-progress: true
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - branch: dist
+            directory: ember-primitives
+          - branch: dist-which-heading-do-i-need
+            directory: packages/which-heading-do-i-need
+          - branch: dist-docs-support
+            directory: packages/docs-support
+
+    steps:
+      - uses: wyvox/action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm i -f # ensure all bin symlinks are created
+      # Packages import each other, so build them all before one is packed.
+      - run: pnpm build
+      - uses: kategengler/put-built-npm-package-contents-on-branch@v2.1.0
+        with:
+          branch: ${{ matrix.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: ${{ matrix.directory }}
+          # npm pack keeps workspace:* ranges, which cannot install from git.
+          pack-command: pnpm pack

@@ -35,7 +35,7 @@
     "patches",
     ".github/workflows/ci.yml",
     ".github/workflows/release.yml",
-    ".github/workflows/push-dish.yml",
+    ".github/workflows/push-dist.yml",
     ".github/workflows/deploy-preview.yml"
   ],
   "tasks": {

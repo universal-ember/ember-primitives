@@ -1,5 +1,16 @@
 # Changelog 
 
+## Release (2026-11-07)
+
+* ember-primitives 0.64.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#835](https://github.com/universal-ember/ember-primitives/pull/835) Flip Popover when the popover or its anchor overflows ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-11-06)
 
 * ember-primitives 0.64.1 (patch)

@@ -1,0 +1,53 @@
+{
+  "name": "which-heading-do-i-need",
+  "version": "0.4.2",
+  "description": "The default blueprint for Embroider v2 addons.",
+  "type": "module",
+  "keywords": [
+    "html",
+    "section",
+    "heading",
+    "section-heading",
+    "a11y",
+    "headless"
+  ],
+  "repository": "https://github.com/universal-ember/ember-primitives",
+  "license": "MIT",
+  "author": "NullVoxPopuli",
+  "exports": {
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "declarations",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "rollup --config --watch --no-watch.clearScreen",
+    "build": "rollup --config",
+    "sync": "echo 'pnpm is syncing this package into the workspaces that inject it. (this is configured in .npmrc)'",
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm run format",
+    "lint:format": "prettier . --check",
+    "lint:js": "eslint .",
+    "lint:js:fix": "eslint . --fix",
+    "lint:types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/plugin-transform-typescript": "^7.28.6",
+    "@babel/runtime": "^7.28.6",
+    "@ember/library-tsconfig": "^2.0.0",
+    "@embroider/addon-dev": "^8.3.0",
+    "@nullvoxpopuli/eslint-configs": "^5.5.0",
+    "@rollup/plugin-babel": "^7.0.0",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.2",
+    "prettier": "^3.8.1",
+    "rollup": "^4.57.1",
+    "typescript": "^6.0.2"
+  }
+}

@@ -2,8 +2,8 @@
   "solution": {
     "ember-primitives": {
       "impact": "patch",
-      "oldVersion": "0.64.0",
-      "newVersion": "0.64.1",
+      "oldVersion": "0.64.1",
+      "newVersion": "0.64.2",
       "tagName": "latest",
       "constraints": [
         {
@@ -20,5 +20,5 @@
       "oldVersion": "0.4.2"
     }
   },
-  "description": "## Release (2026-11-06)\n\n* ember-primitives 0.64.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#851](https://github.com/universal-ember/ember-primitives/pull/851) Slider: put the pointer target under the visual thumb ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-11-07)\n\n* ember-primitives 0.64.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#835](https://github.com/universal-ember/ember-primitives/pull/835) Flip Popover when the popover or its anchor overflows ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

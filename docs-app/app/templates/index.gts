@@ -311,8 +311,10 @@ const WORTH_LOOKING_AT = [
       --home-link-size: 0.9375rem;
       box-sizing: border-box;
       width: min(100%, var(--home-max, 72rem));
+      max-width: 100%;
       margin-inline: auto;
-      padding-block: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 3vw, 2.25rem);
+      overflow-x: clip;
+      padding-block: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 3vw, 2.25rem);
       padding-inline: max(var(--home-gutter, 1.25rem), env(safe-area-inset-left, 0px))
         max(var(--home-gutter, 1.25rem), env(safe-area-inset-right, 0px));
     }
@@ -359,8 +361,8 @@ const WORTH_LOOKING_AT = [
 
     .home-features {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.65rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.55rem;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -368,7 +370,7 @@ const WORTH_LOOKING_AT = [
 
     @media (min-width: 520px) {
       .home-features {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
       }
     }
 
@@ -377,17 +379,25 @@ const WORTH_LOOKING_AT = [
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 4.5rem;
-      padding: 1rem 1.1rem;
+      min-height: 3.75rem;
+      min-width: 0;
+      padding: 0.85rem 0.7rem;
       text-align: center;
-      font-size: 0.9375rem;
+      font-size: clamp(0.8125rem, 0.75rem + 0.35vw, 0.9375rem);
       font-weight: 600;
-      line-height: 1.35;
+      line-height: 1.3;
       letter-spacing: -0.01em;
       color: var(--home-text-1, #f3f4f6);
       background: var(--home-soft, #202126);
       border: 1px solid var(--home-border, rgba(255, 255, 255, 0.06));
       border-radius: 0.65rem;
+    }
+
+    @media (min-width: 520px) {
+      .home-feature {
+        min-height: 4.5rem;
+        padding: 1rem 1.1rem;
+      }
     }
 
     .home-stack {
@@ -565,6 +575,9 @@ const WORTH_LOOKING_AT = [
       --marquee-gap: 0.75rem;
       --marquee-duration: 42s;
       position: relative;
+      box-sizing: border-box;
+      max-width: 100%;
+      overflow: hidden;
       margin-inline: calc(-1 * max(var(--home-gutter, 1.25rem), env(safe-area-inset-left, 0px)));
       width: calc(
         100% + max(var(--home-gutter, 1.25rem), env(safe-area-inset-left, 0px)) +
@@ -576,6 +589,7 @@ const WORTH_LOOKING_AT = [
     .home-marquee__viewport {
       display: flex;
       width: max-content;
+      max-width: none;
       animation: home-marquee-scroll var(--marquee-duration) linear infinite;
     }
 
@@ -661,7 +675,8 @@ const WORTH_LOOKING_AT = [
 
     @media (max-width: 420px) {
       .home-chip {
-        --chip-width: min(17.5rem, calc(100vw - 2.5rem));
+        --chip-width: min(15.5rem, calc(100vw - 3rem));
+        --chip-height: 6.75rem;
       }
     }
 

@@ -59,12 +59,16 @@
 html:has(.index-page),
 html:has(.index-page) body {
   background: var(--home-bg) !important;
+  overflow-x: clip;
 }
 
 .index-page {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
   background: var(--home-bg);
   color: var(--home-text-1);
   min-height: 100vh;
@@ -73,6 +77,8 @@ html:has(.index-page) body {
 
 .gradient-background {
   --sky-width: min(100%, var(--home-max, 72rem));
+  --sky-blur: 36px;
+  --sky-ray-opacity: 1;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -90,19 +96,24 @@ html:has(.index-page) body {
   left: 50%;
   z-index: 0;
   width: var(--sky-width);
-  height: 70%;
+  height: min(70%, 28rem);
   pointer-events: none;
   transform: translateX(-50%);
   background:
     radial-gradient(
-      ellipse 45% 60% at 50% 0%,
-      rgba(35, 50, 140, 0.45) 0%,
-      rgba(25, 35, 100, 0.18) 50%,
+      ellipse 55% 70% at 50% -5%,
+      rgba(40, 60, 170, 0.55) 0%,
+      rgba(25, 40, 120, 0.22) 48%,
       transparent 100%
     ),
     radial-gradient(
-      ellipse 30% 45% at 18% 0%,
-      rgba(25, 45, 130, 0.3) 0%,
+      ellipse 40% 55% at 20% 0%,
+      rgba(30, 55, 150, 0.35) 0%,
+      transparent 100%
+    ),
+    radial-gradient(
+      ellipse 40% 55% at 80% 0%,
+      rgba(35, 55, 155, 0.28) 0%,
       transparent 100%
     );
   animation: sky-breathe 20s ease-in-out infinite;
@@ -115,10 +126,11 @@ html:has(.index-page) body {
   left: 50%;
   z-index: 0;
   width: var(--sky-width);
-  height: 88%;
+  height: min(88%, 34rem);
   pointer-events: none;
   transform: translateX(-50%);
   transform-origin: 50% 0%;
+  opacity: var(--sky-ray-opacity);
   background:
     linear-gradient(to bottom, rgba(75, 85, 210, 0.85), rgba(125, 70, 150, 0.6) 30%, rgba(150, 60, 90, 0.45) 60%, transparent 100%)
       43% 0 / 9% 100% no-repeat,
@@ -136,10 +148,41 @@ html:has(.index-page) body {
       24% 0 / 8% 100% no-repeat,
     linear-gradient(to bottom, rgba(70, 45, 70, 0.3), rgba(60, 40, 60, 0.18) 40%, transparent 70%)
       87% 0 / 10% 100% no-repeat;
-  mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 60%, transparent 100%);
-  filter: blur(36px);
+  mask-image:
+    linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  filter: blur(var(--sky-blur));
   animation: sky-rays-drift 36s ease-in-out infinite alternate;
+}
+
+@media (max-width: 767px) {
+  .gradient-background {
+    --sky-blur: 14px;
+    --sky-ray-opacity: 0.9;
+  }
+
+  .gradient-background::before {
+    height: min(58%, 22rem);
+  }
+
+  .gradient-background::after {
+    height: min(72%, 26rem);
+    background:
+      linear-gradient(to bottom, rgba(55, 75, 200, 0.95), rgba(100, 65, 150, 0.55) 35%, transparent 100%)
+        48% 0 / 18% 100% no-repeat,
+      linear-gradient(to bottom, rgba(15, 55, 185, 0.9), rgba(20, 50, 160, 0.4) 40%, transparent 100%)
+        62% 0 / 16% 100% no-repeat,
+      linear-gradient(to bottom, rgba(40, 60, 170, 0.75), rgba(35, 50, 140, 0.3) 35%, transparent 100%)
+        32% 0 / 16% 100% no-repeat,
+      linear-gradient(to bottom, rgba(90, 50, 90, 0.4), transparent 70%)
+        18% 0 / 14% 100% no-repeat;
+    animation: none;
+  }
 }
 
 .gradient-background > * {
@@ -230,17 +273,17 @@ html:has(.index-page) body {
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: clamp(1.25rem, 3vw, 2rem);
   align-items: center;
   justify-content: center;
-  padding-block: clamp(4.5rem, 7vw, 6.5rem) clamp(4rem, 7vw, 6.75rem);
+  padding-block: clamp(3.75rem, 8vw, 6.5rem) clamp(2.75rem, 6vw, 6.75rem);
   padding-inline: max(var(--home-gutter), env(safe-area-inset-left, 0px))
     max(var(--home-gutter), env(safe-area-inset-right, 0px));
 }
 
 .index-hero__grid {
   display: grid;
-  gap: 1.25rem;
+  gap: clamp(0.85rem, 2.5vw, 1.25rem);
   width: min(100%, 42rem);
   margin: 0 auto;
   text-align: center;
@@ -249,9 +292,15 @@ html:has(.index-page) body {
 
 .index-hero__logo {
   margin: 0;
-  width: min(100%, 22rem);
+  width: min(100%, 18.5rem);
   line-height: 0;
   filter: drop-shadow(0 8px 24px rgb(0 0 0 / 0.35));
+}
+
+@media (min-width: 480px) {
+  .index-hero__logo {
+    width: min(100%, 22rem);
+  }
 }
 
 @media (min-width: 768px) {
@@ -287,7 +336,7 @@ html:has(.index-page) body {
   margin: 0;
   max-width: 22ch;
   color: #fff;
-  font-size: clamp(1.85rem, 1.5rem + 1.1vw, 2.85rem);
+  font-size: clamp(1.55rem, 1.15rem + 2.2vw, 2.85rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -296,12 +345,12 @@ html:has(.index-page) body {
 
 .index-hero__lead {
   display: block;
-  margin: 1rem 0 0;
+  margin: 0.85rem 0 0;
   max-width: 34rem;
   color: rgb(255 255 255 / 0.88);
-  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  font-size: clamp(0.9375rem, 0.9rem + 0.25vw, 1.125rem);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.55;
   letter-spacing: -0.01em;
   text-wrap: pretty;
 }
@@ -309,9 +358,16 @@ html:has(.index-page) body {
 .index-hero__cta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.65rem;
   justify-content: center;
   width: min(100%, var(--home-measure));
+}
+
+@media (max-width: 379px) {
+  .index-hero__cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .index-footer {

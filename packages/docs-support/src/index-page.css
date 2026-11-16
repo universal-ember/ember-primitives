@@ -134,6 +134,9 @@ html:has(.index-page) body {
 }
 
 .index-hero__body {
+  /* Keeps the hero content above whatever the background block renders. */
+  position: relative;
+  z-index: 1;
   box-sizing: border-box;
   width: min(100%, var(--home-max, 72rem));
   margin-inline: auto;

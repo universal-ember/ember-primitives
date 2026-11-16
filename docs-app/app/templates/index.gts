@@ -1,5 +1,6 @@
 import { GitHubLink, TestsLink } from 'docs-app/components/header';
 import { Logo } from 'docs-app/components/icons';
+import { LightRays } from 'docs-app/components/light-rays';
 import { ExternalLink } from 'ember-primitives/components/external-link';
 
 import { IndexPage, InternalLink, Link, TopRight } from '@universal-ember/docs-support';
@@ -87,6 +88,9 @@ const WORTH_LOOKING_AT: WorthLookingAt[] = [
 
 <template>
   <IndexPage>
+    <:background>
+      <LightRays />
+    </:background>
     <:logo>
       <Logo />
     </:logo>

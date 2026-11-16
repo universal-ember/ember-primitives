@@ -2,12 +2,7 @@ import { GitHubLink, TestsLink } from 'docs-app/components/header';
 import { Logo } from 'docs-app/components/icons';
 import { ExternalLink } from 'ember-primitives/components/external-link';
 
-import {
-  IndexPage,
-  InternalLink,
-  Link,
-  TopRight,
-} from '@universal-ember/docs-support';
+import { IndexPage, InternalLink, Link, TopRight } from '@universal-ember/docs-support';
 import {
   BlueSky,
   Discord,
@@ -17,23 +12,39 @@ import {
   XTwitter,
 } from '@universal-ember/docs-support/icons';
 
-const FEATURES = [
+type FeaturePart = {
+  href?: string;
+  label?: string;
+  text?: string;
+};
+
+type Feature = {
+  text?: string;
+  parts?: FeaturePart[];
+};
+
+const FEATURES: Feature[] = [
   { text: 'Accessibility as a first class concern' },
   { text: 'Composes with your design system' },
   {
-    parts: [
-      { href: 'https://tabster.io/', label: 'Tabster' },
-      { text: ' integration' },
-    ],
+    parts: [{ href: 'https://tabster.io/', label: 'Tabster' }, { text: ' integration' }],
   },
   { text: 'Fully Documented' },
   { text: 'Built by experienced Ember contributors' },
   { text: 'Built on top of platform primitives' },
   { text: 'Headless, bring your own styles' },
   { text: 'Own the code, install into your codebase' },
-] as const;
+];
 
-const WORTH_LOOKING_AT = [
+type WorthLookingAt = {
+  href: string;
+  name: string;
+  desc: string;
+  tone: string;
+  by?: string;
+};
+
+const WORTH_LOOKING_AT: WorthLookingAt[] = [
   {
     href: 'https://github.com/nullVoxPopuli/form-data-utils',
     name: 'form-data-utils',
@@ -72,7 +83,7 @@ const WORTH_LOOKING_AT = [
     desc: 'Respond to an element’s size - still no native JS API for this.',
     tone: 'cyan',
   },
-] as const;
+];
 
 <template>
   <IndexPage>
@@ -216,7 +227,9 @@ const WORTH_LOOKING_AT = [
                     Aria</Link>
                 </li>
                 <li>
-                  <Link href="https://ui.shadcn.com/docs/components/accordion" class="home-link"
+                  <Link
+                    href="https://ui.shadcn.com/docs/components/accordion"
+                    class="home-link"
                   >ShadCN</Link>
                 </li>
               </ul>
@@ -232,8 +245,8 @@ const WORTH_LOOKING_AT = [
                   <Link href="https://majors.nullvoxpopuli.com/" class="home-link">Package Majors</Link>
                 </li>
                 <li>
-                  <Link href="https://game-of-life.nullvoxpopuli.com/" class="home-link">Conway's Game
-                    of Life</Link>
+                  <Link href="https://game-of-life.nullvoxpopuli.com/" class="home-link">Conway's
+                    Game of Life</Link>
                 </li>
                 <li>
                   <Link href="https://tutorial.glimdown.com" class="home-link">Tutorial</Link>
@@ -278,7 +291,11 @@ const WORTH_LOOKING_AT = [
               <ul class="home-marquee__track" aria-hidden="true">
                 {{#each WORTH_LOOKING_AT as |item|}}
                   <li>
-                    <Link href={{item.href}} class="home-chip home-chip--{{item.tone}}" tabindex="-1">
+                    <Link
+                      href={{item.href}}
+                      class="home-chip home-chip--{{item.tone}}"
+                      tabindex="-1"
+                    >
                       <span class="home-chip__name">{{item.name}}</span>
                       {{#if item.by}}
                         <span class="home-chip__by">{{item.by}}</span>
@@ -643,7 +660,7 @@ const WORTH_LOOKING_AT = [
         padding: 0;
       }
 
-      .home-marquee__track[aria-hidden='true'] {
+      .home-marquee__track[aria-hidden="true"] {
         display: none;
       }
     }

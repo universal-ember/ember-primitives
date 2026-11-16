@@ -90,7 +90,7 @@ html:has(.index-page) body {
 }
 
 .gradient-background::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -106,21 +106,13 @@ html:has(.index-page) body {
       rgba(25, 40, 120, 0.22) 48%,
       transparent 100%
     ),
-    radial-gradient(
-      ellipse 40% 55% at 20% 0%,
-      rgba(30, 55, 150, 0.35) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      ellipse 40% 55% at 80% 0%,
-      rgba(35, 55, 155, 0.28) 0%,
-      transparent 100%
-    );
+    radial-gradient(ellipse 40% 55% at 20% 0%, rgba(30, 55, 150, 0.35) 0%, transparent 100%),
+    radial-gradient(ellipse 40% 55% at 80% 0%, rgba(35, 55, 155, 0.28) 0%, transparent 100%);
   animation: sky-breathe 20s ease-in-out infinite;
 }
 
 .gradient-background::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -132,18 +124,28 @@ html:has(.index-page) body {
   transform-origin: 50% 0%;
   opacity: var(--sky-ray-opacity);
   background:
-    linear-gradient(to bottom, rgba(75, 85, 210, 0.85), rgba(125, 70, 150, 0.6) 30%, rgba(150, 60, 90, 0.45) 60%, transparent 100%)
+    linear-gradient(
+        to bottom,
+        rgba(75, 85, 210, 0.85),
+        rgba(125, 70, 150, 0.6) 30%,
+        rgba(150, 60, 90, 0.45) 60%,
+        transparent 100%
+      )
       43% 0 / 9% 100% no-repeat,
     linear-gradient(to bottom, rgba(10, 55, 190, 0.9), rgba(10, 45, 160, 0.5) 30%, transparent 60%)
       53% 0 / 8% 100% no-repeat,
-    linear-gradient(to bottom, rgba(30, 65, 190, 0.85), rgba(30, 60, 175, 0.45) 30%, transparent 65%)
+    linear-gradient(
+        to bottom,
+        rgba(30, 65, 190, 0.85),
+        rgba(30, 60, 175, 0.45) 30%,
+        transparent 65%
+      )
       64% 0 / 7% 100% no-repeat,
     linear-gradient(to bottom, rgba(45, 60, 175, 0.7), rgba(35, 45, 135, 0.3) 30%, transparent 55%)
       33% 0 / 7% 100% no-repeat,
     linear-gradient(to bottom, rgba(30, 60, 165, 0.7), rgba(25, 45, 125, 0.25) 25%, transparent 45%)
       15% 0 / 8% 100% no-repeat,
-    linear-gradient(to bottom, rgba(35, 45, 115, 0.5), transparent 40%)
-      75% 0 / 8% 100% no-repeat,
+    linear-gradient(to bottom, rgba(35, 45, 115, 0.5), transparent 40%) 75% 0 / 8% 100% no-repeat,
     linear-gradient(to bottom, rgba(95, 45, 70, 0.35), rgba(90, 40, 60, 0.28) 35%, transparent 65%)
       24% 0 / 8% 100% no-repeat,
     linear-gradient(to bottom, rgba(70, 45, 70, 0.3), rgba(60, 40, 60, 0.18) 40%, transparent 70%)
@@ -173,14 +175,28 @@ html:has(.index-page) body {
   .gradient-background::after {
     height: min(72%, 26rem);
     background:
-      linear-gradient(to bottom, rgba(55, 75, 200, 0.95), rgba(100, 65, 150, 0.55) 35%, transparent 100%)
+      linear-gradient(
+          to bottom,
+          rgba(55, 75, 200, 0.95),
+          rgba(100, 65, 150, 0.55) 35%,
+          transparent 100%
+        )
         48% 0 / 18% 100% no-repeat,
-      linear-gradient(to bottom, rgba(15, 55, 185, 0.9), rgba(20, 50, 160, 0.4) 40%, transparent 100%)
+      linear-gradient(
+          to bottom,
+          rgba(15, 55, 185, 0.9),
+          rgba(20, 50, 160, 0.4) 40%,
+          transparent 100%
+        )
         62% 0 / 16% 100% no-repeat,
-      linear-gradient(to bottom, rgba(40, 60, 170, 0.75), rgba(35, 50, 140, 0.3) 35%, transparent 100%)
+      linear-gradient(
+          to bottom,
+          rgba(40, 60, 170, 0.75),
+          rgba(35, 50, 140, 0.3) 35%,
+          transparent 100%
+        )
         32% 0 / 16% 100% no-repeat,
-      linear-gradient(to bottom, rgba(90, 50, 90, 0.4), transparent 70%)
-        18% 0 / 14% 100% no-repeat;
+      linear-gradient(to bottom, rgba(90, 50, 90, 0.4), transparent 70%) 18% 0 / 14% 100% no-repeat;
     animation: none;
   }
 }

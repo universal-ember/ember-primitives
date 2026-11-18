@@ -20,10 +20,10 @@ Try filling out some data in the form below, and click submit.
 <div class="featured-demo">
 
 ```gjs live preview no-shadow 
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { dataFromEvent } from 'ember-primitives/components/form';
 
-const dataPreview = cell({});
+const dataPreview = tracked(null);
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -59,7 +59,7 @@ function handleSubmit(event) {
       <button type="submit">Submit</button>
     </form>
 
-    <pre>{{JSON.stringify dataPreview.current null 3}}</pre>
+    <pre>{{JSON.stringify dataPreview.value null 3}}</pre>
   </div>
 
   <style>

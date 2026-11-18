@@ -374,20 +374,20 @@ const Tree = <template>
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
-const orientation = cell('horizontal');
+const orientation = tracked('horizontal');
 const toggle = () =>
-  orientation.set(orientation.current === 'horizontal' ? 'vertical' : 'horizontal');
+  orientation.set(orientation.value === 'horizontal' ? 'vertical' : 'horizontal');
 
 <template>
   <button type="button" {{on "click" toggle}}>
-    Rotate ({{orientation.current}})
+    Rotate ({{orientation.value}})
   </button>
 
   <div class="rz-orientation">
-    <Resizable @orientation={{orientation.current}}>
+    <Resizable @orientation={{orientation.value}}>
       <Panel><div class="rz-pane">one</div></Panel>
       <Handle aria-label="Resize one" />
       <Panel><div class="rz-pane">two</div></Panel>
@@ -486,7 +486,6 @@ Click a panel to focus it (highlighted). **Add panel** inserts a sibling after t
 
 ```gjs live preview no-shadow
 import { tracked } from '@glimmer/tracking';
-import { cell } from 'ember-resources';
 import { trackedArray } from '@ember/reactive/collections';
 import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
@@ -514,11 +513,11 @@ const root = new GroupNode('horizontal', [new PanelNode(), new PanelNode()]);
 /**
  * Focus lives in the DOM: the panels are buttons, so clicking one
  * focuses it, the highlight is plain CSS `:focus`, and the toolbar
- * reads document.activeElement to find its target. The cell only
+ * reads document.activeElement to find its target. The value only
  * mirrors the focused panel's id for the status text (activeElement
  * itself is not reactive).
  */
-const focusedId = cell(null);
+const focusedId = tracked(null);
 
 const syncFocus = (event) => {
   const element = event.type === 'focusout' ? event.relatedTarget : event.target;
@@ -660,9 +659,9 @@ const Tree = <template>
     <button type="button" {{on "mousedown" keepFocus}} {{on "click" removePanel}}>Remove</button>
     <button type="button" {{on "mousedown" keepFocus}} {{on "click" rotate}}>Rotate</button>
     <span>
-      {{#if focusedId.current}}
+      {{#if focusedId.value}}
         focused: panel
-        {{focusedId.current}}
+        {{focusedId.value}}
       {{else}}
         focused: (none)
       {{/if}}
@@ -724,21 +723,21 @@ A layout like [limber](https://limber.glimdown.com)'s REPL: an editor and its ou
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
-const mode = cell('default'); // 'default' | 'maximized' | 'minimized'
-const orientation = cell('horizontal');
+const mode = tracked('default'); // 'default' | 'maximized' | 'minimized'
+const orientation = tracked('horizontal');
 
 // remembered across mode changes (this could also be localStorage)
 let sizes = [40, 60];
 const rememberSizes = (next) => (sizes = next);
 const sizeAt = (index) => sizes[index];
 
-const toggleMaximize = () => mode.set(mode.current === 'maximized' ? 'default' : 'maximized');
-const toggleMinimize = () => mode.set(mode.current === 'minimized' ? 'default' : 'minimized');
+const toggleMaximize = () => mode.set(mode.value === 'maximized' ? 'default' : 'maximized');
+const toggleMinimize = () => mode.set(mode.value === 'minimized' ? 'default' : 'minimized');
 const rotate = () =>
-  orientation.set(orientation.current === 'horizontal' ? 'vertical' : 'horizontal');
+  orientation.set(orientation.value === 'horizontal' ? 'vertical' : 'horizontal');
 
 const Controls = <template>
   <div class="limber-controls">
@@ -746,10 +745,10 @@ const Controls = <template>
       rotate
     </button>
     <button type="button" {{on "click" toggleMinimize}}>
-      {{if (eq mode.current "minimized") "restore" "min"}}
+      {{if (eq mode.value "minimized") "restore" "min"}}
     </button>
     <button type="button" {{on "click" toggleMaximize}}>
-      {{if (eq mode.current "maximized") "restore" "max"}}
+      {{if (eq mode.value "maximized") "restore" "max"}}
     </button>
   </div>
 </template>;
@@ -769,15 +768,15 @@ const Output = <template>
 
 <template>
   <div class="limber">
-    {{#if (eq mode.current "maximized")}}
+    {{#if (eq mode.value "maximized")}}
       <Editor />
-    {{else if (eq mode.current "minimized")}}
-      <div class="limber-minimized" data-orientation={{orientation.current}}>
+    {{else if (eq mode.value "minimized")}}
+      <div class="limber-minimized" data-orientation={{orientation.value}}>
         <div class="limber-sliver"><Controls /></div>
         <Output />
       </div>
     {{else}}
-      <Resizable @orientation={{orientation.current}} @onLayoutChange={{rememberSizes}}>
+      <Resizable @orientation={{orientation.value}} @onLayoutChange={{rememberSizes}}>
         <Panel @size={{sizeAt 0}} @minSize={{10}}>
           <Editor />
         </Panel>
@@ -887,11 +886,12 @@ With nested groups, each group persists its own sizes under its own key. Resize 
 <div class="featured-demo auto-height">
 
 ```gjs live preview no-shadow
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { Resizable, Panel, Handle } from 'ember-primitives/components/resizable';
 
 const KEY = 'docs:resizable:persisted-demo';
-const isShown = cell(true);
+const isShown = tracked(true);
+const toggleShown = () => isShown.update((shown) => !shown);
 
 function load() {
   try {
@@ -911,12 +911,12 @@ const persist = (group) => (sizes) => {
 const sizeOf = (group, index) => saved[group]?.[index];
 
 <template>
-  <button type="button" {{on "click" isShown.toggle}}>
-    {{if isShown.current "Unmount" "Remount"}} the layout
+  <button type="button" {{on "click" toggleShown}}>
+    {{if isShown.value "Unmount" "Remount"}} the layout
   </button>
 
   <div class="rz-persisted">
-    {{#if isShown.current}}
+    {{#if isShown.value}}
       <Resizable @onLayoutChange={{persist "outer"}}>
       <Panel @size={{sizeOf "outer" 0}} @minSize={{15}}>
         <div class="rz-pane">files</div>

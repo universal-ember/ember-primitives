@@ -18,18 +18,18 @@ This utility also handles the (uncachable) ["ResizeObserver loop limit exceeded"
 
 ```gjs live preview
 import { onResize } from 'ember-primitives/on-resize';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const inner = cell();
+const inner = tracked(undefined);
 
 function handleResize(entry) {
   const { width, height } = entry.contentRect;
 
-  inner.current = `${width} x ${height}`;
+  inner.value = `${width} x ${height}`;
 }
 
 <template>
-  Inner Dimensions: {{inner.current}}<br>
+  Inner Dimensions: {{inner.value}}<br>
 
   <div class="resizable" {{onResize handleResize}}>
     Resize me

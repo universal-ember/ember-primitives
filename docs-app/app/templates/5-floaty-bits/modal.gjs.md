@@ -13,10 +13,10 @@ Modals create a focused and isolated interaction, often with a darker background
 import { Modal } from 'ember-primitives';
 
 import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { loremIpsum } from 'lorem-ipsum';
 
-const returnValue = cell('');
+const returnValue = tracked('');
 
 <template>
   <Modal @onClose={{returnValue.set}} as |m|>
@@ -24,7 +24,7 @@ const returnValue = cell('');
 
     <br><br>
     isOpen: {{m.isOpen}}<br>
-    return: {{returnValue.current}}
+    return: {{returnValue.value}}
 
     <m.Dialog>
       <div>

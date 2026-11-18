@@ -1,14 +1,15 @@
+import { tracked } from '@glimmer/tracking';
+
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
 
-const range = cell([30, 70]);
+const range = tracked([30, 70]);
 
 export const VerticalRangeDemo = <template>
   <div class="slider-demo">
     <div class="v-row">
-      <Slider @value={{range.current}} @onValueChange={{range.set}} @orientation="vertical" as |s|>
+      <Slider @value={{range.value}} @onValueChange={{range.set}} @orientation="vertical" as |s|>
         <s.Track>
           <s.Range />
 
@@ -21,7 +22,7 @@ export const VerticalRangeDemo = <template>
       </Slider>
     </div>
 
-    <div class="meta">Range: {{range.current}}</div>
+    <div class="meta">Range: {{range.value}}</div>
 
     <SliderDemoStyles />
 

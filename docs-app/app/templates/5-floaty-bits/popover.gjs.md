@@ -190,11 +190,12 @@ It's often common to provide popover-using UIs in site headers, such as a settin
 import { Popover } from "ember-primitives";
 import { hash } from "@ember/helper";
 import { loremIpsum } from "lorem-ipsum";
-import { cell } from "ember-resources";
+import { tracked } from "@glimmer/tracking";
 import { on } from "@ember/modifier";
 import { focusTrap } from "ember-focus-trap";
 
-const settings = cell(false);
+const settings = tracked(false);
+const toggleSettings = () => settings.update((open) => !open);
 
 <template>
   <div class="site not-prose">
@@ -203,11 +204,11 @@ const settings = cell(false);
       <span>My App: click settings -&gt;</span>
 
       <Popover @offsetOptions={{8}} as |p|>
-        <button class="hook" {{p.reference}} {{on "click" settings.toggle}}>
+        <button class="hook" {{p.reference}} {{on "click" toggleSettings}}>
           Settings
         </button>
 
-        {{#if settings.current}}
+        {{#if settings.value}}
           <p.Content @as="dialog" class="floatybit">
 
             <ul>

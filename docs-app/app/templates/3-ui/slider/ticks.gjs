@@ -1,18 +1,18 @@
+import { tracked } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
 
 const tickValues = [0, 10, 20, 30, 40, 50];
-const value = cell(20);
+const value = tracked(20);
 const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 export const TicksDemo = <template>
   <div class="slider-demo">
-    <Slider @value={{value.current}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
+    <Slider @value={{value.value}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
 
@@ -28,7 +28,7 @@ export const TicksDemo = <template>
       {{/each}}
     </div>
 
-    <div class="meta">Value: {{value.current}}</div>
+    <div class="meta">Value: {{value.value}}</div>
 
     <SliderDemoStyles />
 

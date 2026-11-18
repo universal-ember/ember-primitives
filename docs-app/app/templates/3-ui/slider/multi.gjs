@@ -1,13 +1,14 @@
+import { tracked } from '@glimmer/tracking';
+
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
 
-const values = cell([25, 50, 75]);
+const values = tracked([25, 50, 75]);
 
 export const MultiThumbDemo = <template>
   <div class="slider-demo">
-    <Slider @value={{values.current}} @onValueChange={{values.set}} as |s|>
+    <Slider @value={{values.value}} @onValueChange={{values.set}} as |s|>
       <s.Track>
         <s.Range />
 
@@ -19,7 +20,7 @@ export const MultiThumbDemo = <template>
       </s.Track>
     </Slider>
 
-    <div class="meta">Values: {{values.current}}</div>
+    <div class="meta">Values: {{values.value}}</div>
 
     <SliderDemoStyles />
   </div>

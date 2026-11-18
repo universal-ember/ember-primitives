@@ -15,11 +15,11 @@ Before reaching for this component, consider if the [`WebOTP` API](https://devel
 
 ```gjs live preview
 import { OTPInput } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { uniqueId } from '@ember/helper';
 
-const currentCode = cell();
-const update = ({ code }) => currentCode.current = code;
+const currentCode = tracked(undefined);
+const update = ({ code }) => currentCode.value = code;
 
 <template>
   <pre>code: {{currentCode}}</pre>

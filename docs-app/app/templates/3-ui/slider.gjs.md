@@ -33,15 +33,15 @@ Pass an array to `@value` to get one thumb per value.
 
 ```gjs live preview
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const value = cell([25, 75]);
-const first = () => value.current[0];
-const second = () => value.current[1];
+const value = tracked([25, 75]);
+const first = () => value.value[0];
+const second = () => value.value[1];
 
 <template>
   <div class="demo">
-    <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
+    <Slider @value={{value.value}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.thumbs as |thumb|}}
@@ -84,15 +84,15 @@ Pass an array to `@step`.
 
 ```gjs live preview
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
 const tickValues = [0, 10, 20, 30, 40, 50];
-const value = cell(20);
+const value = tracked(20);
 const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 <template>
   <div class="demo">
-    <Slider @value={{value.current}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
+    <Slider @value={{value.value}} @step={{tickValues}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.thumbs as |thumb|}}
@@ -109,7 +109,7 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
       {{/each}}
     </div>
 
-    <p>Value: {{value.current}}</p>
+    <p>Value: {{value.value}}</p>
 
     <style>
       @scope {
@@ -153,13 +153,13 @@ const percentAt = (index) => (index / (tickValues.length - 1)) * 100;
 
 ```gjs live preview
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const value = cell([25, 75]);
+const value = tracked([25, 75]);
 
 <template>
   <div class="demo">
-    <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
+    <Slider @value={{value.value}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
 
@@ -171,7 +171,7 @@ const value = cell([25, 75]);
       </s.Track>
     </Slider>
 
-    <p>Range: {{value.current}}</p>
+    <p>Range: {{value.value}}</p>
 
     <style>
       @scope {
@@ -217,9 +217,9 @@ const value = cell([25, 75]);
 
 ```gjs live preview
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const value = cell(50);
+const value = tracked(50);
 
 <template>
   <div class="demo">
@@ -228,9 +228,9 @@ const value = cell(50);
       <span>High</span>
     </div>
 
-    <Slider @value={{value.current}} @onValueChange={{value.set}} @step={{10}} />
+    <Slider @value={{value.value}} @onValueChange={{value.set}} @step={{10}} />
 
-    <p>Value: {{value.current}}</p>
+    <p>Value: {{value.value}}</p>
 
     <style>
       @scope {
@@ -268,13 +268,13 @@ This pattern keeps an `<input>` in sync with the slider, while letting users typ
 ```gjs live preview
 import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
 const min = 0;
 const max = 100;
 
-const value = cell(40);
-const inputText = cell('40');
+const value = tracked(40);
+const inputText = tracked('40');
 
 const clamp = (n) => Math.min(max, Math.max(min, n));
 
@@ -286,9 +286,9 @@ const onSliderChange = (next) => {
 const onInput = (event) => inputText.set(event.target.value);
 
 const commit = () => {
-  let parsed = Number(inputText.current);
+  let parsed = Number(inputText.value);
 
-  if (Number.isNaN(parsed)) parsed = value.current;
+  if (Number.isNaN(parsed)) parsed = value.value;
 
   parsed = clamp(parsed);
   value.set(parsed);
@@ -305,7 +305,7 @@ const onKeydown = (event) => {
 <template>
   <div class="demo">
     <div class="row">
-      <Slider @value={{value.current}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} />
+      <Slider @value={{value.value}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} />
 
       <label class="input">
         <span class="sr-only">Value</span>
@@ -313,7 +313,7 @@ const onKeydown = (event) => {
           type="number"
           min={{min}}
           max={{max}}
-          value={{inputText.current}}
+          value={{inputText.value}}
           {{on "input" onInput}}
           {{on "blur" commit}}
           {{on "keydown" onKeydown}}
@@ -363,14 +363,14 @@ const onKeydown = (event) => {
 ```gjs live preview
 import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
 const min = 0;
 const max = 100;
 
-const range = cell([25, 75]);
-const minText = cell('25');
-const maxText = cell('75');
+const range = tracked([25, 75]);
+const minText = tracked('25');
+const maxText = tracked('75');
 
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 
@@ -384,20 +384,20 @@ const onMinInput = (event) => minText.set(event.target.value);
 const onMaxInput = (event) => maxText.set(event.target.value);
 
 const commitMin = () => {
-  let parsed = Number(minText.current);
-  if (Number.isNaN(parsed)) parsed = range.current[0];
+  let parsed = Number(minText.value);
+  if (Number.isNaN(parsed)) parsed = range.value[0];
 
-  parsed = clamp(parsed, min, range.current[1]);
-  range.set([parsed, range.current[1]]);
+  parsed = clamp(parsed, min, range.value[1]);
+  range.set([parsed, range.value[1]]);
   minText.set(String(parsed));
 };
 
 const commitMax = () => {
-  let parsed = Number(maxText.current);
-  if (Number.isNaN(parsed)) parsed = range.current[1];
+  let parsed = Number(maxText.value);
+  if (Number.isNaN(parsed)) parsed = range.value[1];
 
-  parsed = clamp(parsed, range.current[0], max);
-  range.set([range.current[0], parsed]);
+  parsed = clamp(parsed, range.value[0], max);
+  range.set([range.value[0], parsed]);
   maxText.set(String(parsed));
 };
 
@@ -417,14 +417,14 @@ const onKeydown = (commitFn) => (event) => {
           type="number"
           min={{min}}
           max={{max}}
-          value={{minText.current}}
+          value={{minText.value}}
           {{on "input" onMinInput}}
           {{on "blur" commitMin}}
           {{on "keydown" (onKeydown commitMin)}}
         />
       </label>
 
-      <Slider @value={{range.current}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} as |s|>
+      <Slider @value={{range.value}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} as |s|>
         <s.Track>
           <s.Range />
           {{#each s.thumbs as |thumb|}}
@@ -439,7 +439,7 @@ const onKeydown = (commitFn) => (event) => {
           type="number"
           min={{min}}
           max={{max}}
-          value={{maxText.current}}
+          value={{maxText.value}}
           {{on "input" onMaxInput}}
           {{on "blur" commitMax}}
           {{on "keydown" (onKeydown commitMax)}}
@@ -447,7 +447,7 @@ const onKeydown = (commitFn) => (event) => {
       </label>
     </div>
 
-    <p>Range: {{range.current}}</p>
+    <p>Range: {{range.value}}</p>
 
     <style>
       @scope {
@@ -503,13 +503,13 @@ Any number of values is supported -- each gets a thumb, and thumbs cannot cross 
 
 ```gjs live preview
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const value = cell([25, 50, 75]);
+const value = tracked([25, 50, 75]);
 
 <template>
   <div class="demo">
-    <Slider @value={{value.current}} @onValueChange={{value.set}} as |s|>
+    <Slider @value={{value.value}} @onValueChange={{value.set}} as |s|>
       <s.Track>
         <s.Range />
         {{#each s.thumbs as |thumb|}}
@@ -520,7 +520,7 @@ const value = cell([25, 50, 75]);
       </s.Track>
     </Slider>
 
-    <p>Values: {{value.current}}</p>
+    <p>Values: {{value.value}}</p>
 
     <style>
       @scope {
@@ -569,13 +569,13 @@ Vertical orientation is handled by the component (via `writing-mode` on the nati
 
 ```gjs live preview
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const hz60 = cell(2);
-const hz250 = cell(1);
-const hz1k = cell(-1);
-const hz4k = cell(-3);
-const hz16k = cell(2);
+const hz60 = tracked(2);
+const hz250 = tracked(1);
+const hz1k = tracked(-1);
+const hz4k = tracked(-3);
+const hz16k = tracked(2);
 
 const bands = [
   { label: '60', value: hz60 },
@@ -591,7 +591,7 @@ const bands = [
       {{#each bands as |band|}}
         <div class="band">
           <Slider
-            @value={{band.value.current}}
+            @value={{band.value.value}}
             @onValueChange={{band.value.set}}
             @min={{-5}}
             @max={{5}}
@@ -676,7 +676,7 @@ This demonstrates composing a “price slider” UI (histogram + dual-range sele
 ```gjs live preview
 import { Slider } from 'ember-primitives';
 import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
 const min = 0;
 const max = 1000;
@@ -706,15 +706,15 @@ const bins = [
   { value: 1000, height: 12 },
 ];
 
-const range = cell([250, 750]);
-const minText = cell('250');
-const maxText = cell('750');
+const range = tracked([250, 750]);
+const minText = tracked('250');
+const maxText = tracked('750');
 
 const clamp = (n, lo, hi) => Math.min(hi, Math.max(lo, n));
 
 const isInRange = (bin) => {
-  const lo = range.current[0];
-  const hi = range.current[1];
+  const lo = range.value[0];
+  const hi = range.value[1];
 
   return bin.value >= lo && bin.value <= hi;
 };
@@ -729,20 +729,20 @@ const onMinInput = (event) => minText.set(event.target.value);
 const onMaxInput = (event) => maxText.set(event.target.value);
 
 const commitMin = () => {
-  let parsed = Number(minText.current);
-  if (Number.isNaN(parsed)) parsed = range.current[0];
+  let parsed = Number(minText.value);
+  if (Number.isNaN(parsed)) parsed = range.value[0];
 
-  parsed = clamp(parsed, min, range.current[1]);
-  range.set([parsed, range.current[1]]);
+  parsed = clamp(parsed, min, range.value[1]);
+  range.set([parsed, range.value[1]]);
   minText.set(String(parsed));
 };
 
 const commitMax = () => {
-  let parsed = Number(maxText.current);
-  if (Number.isNaN(parsed)) parsed = range.current[1];
+  let parsed = Number(maxText.value);
+  if (Number.isNaN(parsed)) parsed = range.value[1];
 
-  parsed = clamp(parsed, range.current[0], max);
-  range.set([range.current[0], parsed]);
+  parsed = clamp(parsed, range.value[0], max);
+  range.set([range.value[0], parsed]);
   maxText.set(String(parsed));
 };
 
@@ -768,7 +768,7 @@ const onKeydown = (commitFn) => (event) => {
         {{/each}}
       </div>
 
-      <Slider @value={{range.current}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} @step={{10}} as |s|>
+      <Slider @value={{range.value}} @onValueChange={{onSliderChange}} @min={{min}} @max={{max}} @step={{10}} as |s|>
         <s.Track>
           <s.Range />
           {{#each s.thumbs as |thumb|}}
@@ -784,7 +784,7 @@ const onKeydown = (commitFn) => (event) => {
             type="number"
             min={{min}}
             max={{max}}
-            value={{minText.current}}
+            value={{minText.value}}
             {{on "input" onMinInput}}
             {{on "blur" commitMin}}
             {{on "keydown" (onKeydown commitMin)}}
@@ -797,7 +797,7 @@ const onKeydown = (commitFn) => (event) => {
             type="number"
             min={{min}}
             max={{max}}
-            value={{maxText.current}}
+            value={{maxText.value}}
             {{on "input" onMaxInput}}
             {{on "blur" commitMax}}
             {{on "keydown" (onKeydown commitMax)}}
@@ -805,7 +805,7 @@ const onKeydown = (commitFn) => (event) => {
         </label>
       </div>
 
-      <p>Selected: {{range.current}}</p>
+      <p>Selected: {{range.value}}</p>
     </div>
 
     <style>

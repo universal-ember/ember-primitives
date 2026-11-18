@@ -32,11 +32,11 @@ import { FloatingUI } from 'ember-primitives/floating-ui';
 <template>
   <FloatingUI as |reference floating|>
     <button {{reference}} popovertarget="floating2">Click the reference element</button>
-    <menu {{floating}} popover id="floating2">Here is <br> floating element</menu>
+    <div {{floating}} popover id="floating2">Here is <br> floating element</div>
   </FloatingUI>
 
   <style>
-    menu#floating2 {
+    div#floating2 {
       width: max-content;
       position: absolute;
       top: 0;

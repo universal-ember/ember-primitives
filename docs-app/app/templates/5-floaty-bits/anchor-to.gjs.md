@@ -34,11 +34,11 @@ import { InViewport } from 'ember-primitives/viewport';
 <template>
   <InViewport>
     <button id="reference" popovertarget="floating">Click the reference element</button>
-    <menu popover id="floating" {{anchorTo "#reference"}}>Here is <br> floating element</menu>
+    <div popover id="floating" {{anchorTo "#reference"}}>Here is <br> floating element</div>
   </InViewport>
 
   <style>
-    menu#floating {
+    div#floating {
       width: max-content;
       position: absolute;
       top: 0;

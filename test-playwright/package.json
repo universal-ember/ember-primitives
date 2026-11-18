@@ -39,7 +39,7 @@
     "@rollup/plugin-babel": "^7.0.0",
     "babel-plugin-ember-template-compilation": "^4.0.0",
     "decorator-transforms": "2.3.1",
-    "ember-source": "^7.1.0",
+    "ember-source": "^7.4.1",
     "eslint": "^9.39.2",
     "prettier": "^3.8.1",
     "prettier-plugin-ember-template-tag": "^2.1.3",

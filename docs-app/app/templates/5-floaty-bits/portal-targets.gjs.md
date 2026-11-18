@@ -30,23 +30,24 @@ The following example proposes a potential series of features that would benefit
 
 ```gjs 
 import { on } from '@ember/modifier';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 import { PortalTargets, /* Portal, PORTALS */ } from 'ember-primitives';
 
-const isOpen = cell(false);
+const isOpen = tracked(false);
+const toggle = () => isOpen.update((open) => !open);
 
 <template>
   {{! Application-level targets }}
   <PortalTargets />
 
-  <button {{on 'click' isOpen.toggle}}>
+  <button {{on 'click' toggle}}>
     Toggle
     <Tooltip> {{! uses <Portal @to={{PORTALS.tooltip}}> }}
       Toggles the modal state
     </Tooltip>
   </button>
 
-  {{#if isOpen.current}}
+  {{#if isOpen.value}}
     <Modal> {{! uses <Portal @to={{PORTALS.modal}}> }}
       <:body>
         <PortalTargets />

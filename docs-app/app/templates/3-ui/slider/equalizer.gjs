@@ -1,15 +1,15 @@
+import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
 
-const eq60 = cell(2);
-const eq250 = cell(1);
-const eq1k = cell(-1);
-const eq4k = cell(-3);
-const eq16k = cell(2);
+const eq60 = tracked(2);
+const eq250 = tracked(1);
+const eq1k = tracked(-1);
+const eq4k = tracked(-3);
+const eq16k = tracked(2);
 
 const bands = [
   { label: '60', value: eq60 },
@@ -19,11 +19,11 @@ const bands = [
   { label: '16k', value: eq16k },
 ];
 
-const draggingLabel = cell(null);
+const draggingLabel = tracked(null);
 
 const startDrag = (label) => () => draggingLabel.set(label);
 const endDrag = () => draggingLabel.set(null);
-const isDragging = (label) => draggingLabel.current === label;
+const isDragging = (label) => draggingLabel.value === label;
 
 export const EqualizerDemo = <template>
   <div class="slider-demo">
@@ -32,7 +32,7 @@ export const EqualizerDemo = <template>
         <div class="eq-band">
           <Slider
             style="--ember-primitives__slider__vertical-size: 120px;"
-            @value={{band.value.current}}
+            @value={{band.value.value}}
             @onValueChange={{band.value.set}}
             @min={{-5}}
             @max={{5}}

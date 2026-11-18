@@ -10,17 +10,17 @@ A zone to drop files on, or to click to pick files, and a way to take files drop
 
 ```gjs live preview
 import { FileDrop } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const picked = cell('nothing yet');
-const show = (files) => (picked.current = files.map((file) => file.name).join(', '));
+const picked = tracked('nothing yet');
+const show = (files) => (picked.value = files.map((file) => file.name).join(', '));
 
 <template>
   <FileDrop class="drop-zone" @accept="image/*" @multiple={{true}} @onFiles={{show}} as |zone|>
     {{if zone.isDragging "Let go to add the images" "Drop images here, or click to choose"}}
   </FileDrop>
 
-  <p>Picked: {{picked.current}}</p>
+  <p>Picked: {{picked.value}}</p>
 
   <style>
     .drop-zone {
@@ -51,16 +51,16 @@ Drag a file over any part of this page, then drop it anywhere.
 
 ```gjs live preview
 import { DocumentFileDrop } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const dropped = cell('nothing yet');
-const show = (files) => (dropped.current = files[0].name);
+const dropped = tracked('nothing yet');
+const show = (files) => (dropped.value = files[0].name);
 
 <template>
   <DocumentFileDrop @onFiles={{show}} as |page|>
     <p class="page-drop" data-dragging={{page.isDragging}}>
       {{if page.isDragging "Drop the file anywhere on the page" "Dropped: "}}
-      {{unless page.isDragging dropped.current}}
+      {{unless page.isDragging dropped.value}}
     </p>
   </DocumentFileDrop>
 

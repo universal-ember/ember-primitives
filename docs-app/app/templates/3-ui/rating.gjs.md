@@ -9,15 +9,15 @@ When interactive, the underlying implementation is a radio button for maximum ac
 
 ```gjs live preview
 import { Rating } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const capturedValue = cell(2);
+const capturedValue = tracked(2);
 
 <template>
-  Current Value: {{capturedValue.current}}<br>
+  Current Value: {{capturedValue.value}}<br>
   <Rating 
     @step={{0.5}} {{! enabling half ratings, omit @step for whole ratings }} 
-    @value={{capturedValue.current}} 
+    @value={{capturedValue.value}} 
     @onChange={{capturedValue.set}}
     {{! Using CSS only for icons in this demo 
         -- use your design system's star icons here if you need }}
@@ -121,14 +121,14 @@ const capturedValue = cell(2);
 
 ```gjs live preview
 import { Rating, Shadowed } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const capturedValue = cell(2);
+const capturedValue = tracked(2);
 
 <template>
   <Shadowed>
-    Current Value: {{capturedValue.current}}<br><hr>
-    <Rating @value={{capturedValue.current}} @onChange={{capturedValue.set}}>
+    Current Value: {{capturedValue.value}}<br><hr>
+    <Rating @value={{capturedValue.value}} @onChange={{capturedValue.set}}>
       <:label>Rate me</:label>
     </Rating>
 

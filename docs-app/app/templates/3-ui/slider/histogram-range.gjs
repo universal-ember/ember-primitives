@@ -1,8 +1,8 @@
+import { tracked } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
 import { Slider } from 'ember-primitives';
-import { cell } from 'ember-resources';
 
 import { SliderDemoStyles } from './demo-styles.gjs';
 
@@ -33,11 +33,11 @@ const bins = [
   { value: 1000, height: 12 },
 ];
 
-const range = cell([250, 750]);
+const range = tracked([250, 750]);
 
 const isInRange = (bin) => {
-  const lo = range.current[0];
-  const hi = range.current[1];
+  const lo = range.value[0];
+  const hi = range.value[1];
 
   return bin.value >= lo && bin.value <= hi;
 };
@@ -58,7 +58,7 @@ export const HistogramRangeDemo = <template>
       </div>
 
       <Slider
-        @value={{range.current}}
+        @value={{range.value}}
         @onValueChange={{range.set}}
         @min={{min}}
         @max={{max}}
@@ -74,7 +74,7 @@ export const HistogramRangeDemo = <template>
         </s.Track>
       </Slider>
 
-      <div class="meta">Selected: {{range.current}}</div>
+      <div class="meta">Selected: {{range.value}}</div>
     </div>
 
     <SliderDemoStyles />

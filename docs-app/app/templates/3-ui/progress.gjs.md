@@ -14,14 +14,15 @@ Before reaching for this component, consider if the [native `<progress>`](https:
 
 ```gjs live preview
 import { Progress, Shadowed } from 'ember-primitives';
-import { cell, resource } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
+import { resource } from 'ember-resources';
 
 const randomValue = resource(({on}) => {
-  let value = cell(randomPercent());
-  let interval = setInterval(() => value.current = randomPercent(), 3000);
+  let percent = tracked(randomPercent());
+  let interval = setInterval(() => percent.set(randomPercent()), 3000);
   on.cleanup(() => clearInterval(interval));
 
-  return value;
+  return () => percent.value;
 }); 
 
 const randomPercent = () => Math.random() * 100;
@@ -71,14 +72,15 @@ const translate = (v) => -(100 - v);
 
 ```gjs live preview
 import { Progress, Shadowed } from 'ember-primitives';
-import { cell, resource } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
+import { resource } from 'ember-resources';
 
 const randomValue = resource(({on}) => {
-  let value = cell(randomPercent());
-  let interval = setInterval(() => value.current = randomPercent(), 3000);
+  let percent = tracked(randomPercent());
+  let interval = setInterval(() => percent.set(randomPercent()), 3000);
   on.cleanup(() => clearInterval(interval));
 
-  return value;
+  return () => percent.value;
 }); 
 
 const randomPercent = () => Math.random() * 100;

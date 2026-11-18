@@ -15,10 +15,10 @@ Before reaching for this component, consider if the [`WebOTP` API](https://devel
 
 ```gjs live preview
 import { OTP } from 'ember-primitives';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
-const submittedCode = cell();
-const handleSubmit = ({ code }) => submittedCode.current = code;
+const submittedCode = tracked(undefined);
+const handleSubmit = ({ code }) => submittedCode.value = code;
 
 <template>
   <pre>submitted: {{submittedCode}}</pre>

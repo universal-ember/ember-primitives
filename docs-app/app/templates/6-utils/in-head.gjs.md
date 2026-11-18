@@ -8,21 +8,22 @@ The component will appropriate clean up the `<head>` when unrendered.
 
 ```gjs live preview no-shadow
 import { InHead } from 'ember-primitives/head';
-import { cell } from 'ember-resources';
+import { tracked } from '@glimmer/tracking';
 
 // This changes the styles of the whole site
-const useBootstrap = cell(false);
+const useBootstrap = tracked(false);
+const toggleBootstrap = () => useBootstrap.update((use) => !use);
 
 <template>
   <button 
-    onclick={{useBootstrap.toggle}}
+    onclick={{toggleBootstrap}}
     type="button" class="btn btn-primary">Toggle Bootstrap</button>
   &nbsp;
   <button 
-    onclick={{useBootstrap.toggle}}
+    onclick={{toggleBootstrap}}
     type="button" class="btn btn-success">Toogle Bootstrap</button>
 
-  {{#if useBootstrap.current}}
+  {{#if useBootstrap.value}}
     <InHead>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">

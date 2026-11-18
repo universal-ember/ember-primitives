@@ -1,5 +1,6 @@
+import { tracked } from '@glimmer/tracking';
+
 import { modifier } from 'ember-modifier';
-import { cell } from 'ember-resources';
 import { Page } from 'kolay/components';
 
 import { Article } from './article.gts';
@@ -19,11 +20,11 @@ function resetScroll(..._args: unknown[]) {
   document.querySelector('html')?.scrollTo(0, 0);
 }
 
-const isScrolled = cell(false);
+const isScrolled = tracked(false);
 
 const onWindowScroll = modifier(() => {
   function onScroll() {
-    isScrolled.current = window.scrollY > 0;
+    isScrolled.value = window.scrollY > 0;
   }
 
   onScroll();
@@ -118,7 +119,7 @@ export const PageLayout: TOC<{
 }> = <template>
   <ResponsiveMenuLayout>
     <:header as |Toggle|>
-      <header class="page-header {{if isScrolled.current 'is-scrolled'}}" {{onWindowScroll}}>
+      <header class="page-header {{if isScrolled.value 'is-scrolled'}}" {{onWindowScroll}}>
         <div class="outer-content page-header__inner">
           <div class="page-header__toggle">
             <Toggle />

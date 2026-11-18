@@ -17,7 +17,7 @@ import { array, hash } from "@ember/helper";
 import { loremIpsum } from "lorem-ipsum";
 
 <template>
-  <div class="scroll-content" tabindex="0">
+  <div class="scroll-content" tabindex="0" role="region" aria-label="Scrollable content">
     {{loremIpsum (hash count=1 units="sentence")}}
 
     <Popover @placement="top" @offsetOptions={{8}} as |p|>

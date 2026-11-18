@@ -20,8 +20,8 @@ You'll need to inspect-element to see that the component is not rendered when sc
 import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 160px; overflow: auto; border: 1px solid gray; padding: 1rem;">
-    <div style="height: 800px;" tabindex="0">
+  <div style="height: 160px; overflow: auto; border: 1px solid gray; padding: 1rem;" tabindex="0" role="region" aria-label="Usage demo">
+    <div style="height: 800px;">
       <div style="display:grid; gap:4rem;">
         <span>Scroll down</span>
         <span>Scroll down</span>
@@ -54,7 +54,7 @@ In `contain` mode, the placeholder element wraps the yielded content once render
 import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;" tabindex="0">
+  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;" tabindex="0" role="region" aria-label="Contain mode demo">
     <div style="height: 600px;">
       <div style="display:grid; gap:4rem;">
         <span>Scroll down</span>
@@ -84,8 +84,8 @@ In `replace` mode, the placeholder element is replaced entirely by the yielded c
 import { InViewport } from 'ember-primitives/viewport';
 
 <template>
-  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;">
-    <div style="height: 600px;" tabindex="0">
+  <div style="height: 170px; overflow: auto; border: 1px solid gray; padding: 1rem;" tabindex="0" role="region" aria-label="Replace mode demo">
+    <div style="height: 600px;">
       <div style="display:grid; gap:4rem;">
         <span>Scroll down</span>
         <span>Scroll down</span>

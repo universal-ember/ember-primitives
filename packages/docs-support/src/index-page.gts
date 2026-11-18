@@ -6,6 +6,8 @@ import type { TOC } from '@ember/component/template-only';
 
 export const IndexPage: TOC<{
   Blocks: {
+    /** Rendered behind the hero content, for example a canvas. */
+    background: [];
     logo: [];
     header: [];
     tagline: [];
@@ -16,6 +18,7 @@ export const IndexPage: TOC<{
 }> = <template>
   <div class="index-page">
     <Hero class="index-hero gradient-background">
+      {{yield to="background"}}
       <header class="index-hero__header">
         <div class="index-hero__header-inner">
           {{yield to="header"}}

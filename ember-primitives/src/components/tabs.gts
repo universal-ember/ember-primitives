@@ -286,9 +286,41 @@ class TabContainer extends Component<{
   }
 
   <template>
-    {{! Tabs renders each tab twice: once in the tablist, once in the tabpanel. }}
+    {{!
+      <Tabs> renders its block two times, and each <Tab> renders one time in each pass:
+
+        1. the tablist pass (@inPanel is false), which renders only the tab button
+        2. the tabpanel pass (@inPanel is true), which renders only the panel
+
+      A user can invoke <Tab> in three ways:
+
+        <Tab @label="npm" @content="npm add ember-primitives" />
+
+        <Tab @label="npm">npm add ember-primitives</Tab>
+
+        <Tab as |Label Content|>
+          <Label>npm</Label>
+          <Content>npm add ember-primitives</Content>
+        </Tab>
+
+      The first two ways pass @label, and the third way does not.
+      So each pass has one branch for @label and one branch for the yielded block.
+
+      Why two passes:
+      before, the panel rendered through a Portal into the tabpanel element.
+      The Portal finds its target in a modifier, so the panel appeared only in a second render.
+      When the client rehydrated server-rendered HTML, the first client render had no panel.
+      Rehydration then deleted the server panel, and the second render built it again.
+      The user saw the panel flash.
+    }}
     {{#if @inPanel}}
-      {{! The tabpanel pass of <Tab @label="..." @content="..." /> and <Tab @label="...">content</Tab>. }}
+      {{!
+        Tabpanel pass of:
+          <Tab @label="npm" @content="npm add ember-primitives" />
+          <Tab @label="npm">npm add ember-primitives</Tab>
+
+        The @label renders in the tablist pass, so this branch ignores it.
+      }}
       {{#if @label}}
         <TabContent @state={{@state}} @id={{this.panelId}} @tabId={{this.tabId}}>
           {{#if @content}}
@@ -303,9 +335,17 @@ class TabContainer extends Component<{
         </TabContent>
       {{else}}
         {{!
-          The tabpanel pass of <Tab as |Label Content|>.
-          The block still calls <Label> and <Label.Link> in this pass.
-          They render nothing here, because the tablist pass renders them.
+          Tabpanel pass of:
+            <Tab as |Label Content|>
+              <Label>npm</Label>
+              <Content>npm add ember-primitives</Content>
+            </Tab>
+
+          The block runs again in this pass, so it calls <Label> (or <Label.Link>) again.
+          (makeTab Nothing Nothing) makes <Label> and <Label.Link> render nothing here.
+
+          Without Nothing, each tab button renders a second time, inside the tabpanel element.
+          The page then has two elements with the same id, and a role="tab" outside of the tablist.
         }}
         {{yield
           (makeTab Nothing Nothing)
@@ -313,7 +353,13 @@ class TabContainer extends Component<{
         }}
       {{/if}}
     {{else if @label}}
-      {{! The tablist pass of <Tab @label="..." @content="..." /> and <Tab @label="...">content</Tab>. }}
+      {{!
+        Tablist pass of:
+          <Tab @label="npm" @content="npm add ember-primitives" />
+          <Tab @label="npm">npm add ember-primitives</Tab>
+
+        This branch does not yield, so the content renders only in the tabpanel pass.
+      }}
       <TabButton
         @state={{@state}}
         @id={{this.tabId}}
@@ -328,7 +374,17 @@ class TabContainer extends Component<{
         {{/if}}
       </TabButton>
     {{else}}
-      {{! The tablist pass of <Tab as |Label Content|>. The block calls <Content>, which renders nothing here. }}
+      {{!
+        Tablist pass of:
+          <Tab as |Label Content|>
+            <Label>npm</Label>
+            <Content>npm add ember-primitives</Content>
+          </Tab>
+
+        The block calls <Content> in this pass too, so Content is Nothing here.
+        Without Nothing, the panel renders inside the tablist element,
+        where only role="tab" elements are valid, and it renders a second time in the tabpanel pass.
+      }}
       {{yield
         (makeTab
           (component
@@ -591,7 +647,9 @@ export class Tabs extends Component<Signature> {
         The block renders again here for the panels,
         so that the panels are in the first render, without a second pass.
         That keeps the DOM of a server render when the client rehydrates it.
-        Nothing replaces the tabs Label here, because the tablist pass renders it.
+        In this pass, the <Tabs> Label (the label of the whole tablist) is Nothing,
+        because the first pass already rendered it.
+        Without Nothing, a block that calls <Label> renders the label two times.
       }}
       <div class="ember-primitives__tabs__tabpanel" id={{this.state.tabpanelId}}>
         {{yield

@@ -1,3 +1,4 @@
+import { renderComponent } from '@ember/renderer';
 import { click, find, focus, render, triggerKeyEvent } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -29,6 +30,32 @@ module('Rendering | <Tabs>', function (hooks) {
     assert.dom().containsText('something about bananas');
     assert.dom().doesNotContainText('something about apples');
     assert.dom().doesNotContainText('something about oranges');
+  });
+
+  test('the panel is in the first render', function (assert) {
+    /**
+     * renderComponent renders synchronously, so a panel from a later render is not here yet.
+     * A server render has only the first render, and rehydration deletes what that render does not have.
+     */
+    const into = document.createElement('div');
+    const result = renderComponent(
+      <template>
+        <Tabs as |Tab|>
+          <Tab @label="Banana" @content="something about bananas" />
+          <Tab @label="Apple" @content="something about apples" />
+        </Tabs>
+      </template>,
+      { into, owner: this.owner }
+    );
+
+    const tab = into.querySelector('[role="tab"][aria-selected="true"]');
+    const panel = into.querySelector('[role="tabpanel"]');
+
+    assert.dom(panel).hasText('something about bananas');
+    assert.dom(panel).hasAttribute('aria-labelledby', tab?.id ?? '');
+    assert.dom(tab).hasAttribute('aria-controls', panel?.id ?? '');
+
+    result.destroy();
   });
 
   module('@activationMode: automatic', function () {

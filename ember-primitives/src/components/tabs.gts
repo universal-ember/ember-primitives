@@ -176,14 +176,20 @@ const TabContent: TOC<{
     default: [];
   };
 }> = <template>
-  <Portal @to="#{{@state.tabpanelId}}" @append={{true}}>
-    {{#if (@state.isActive @tabId)}}
-      <div tabindex="0" ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
-        {{yield}}
-      </div>
-    {{/if}}
-  </Portal>
+  {{#if (@state.isActive @tabId)}}
+    <div tabindex="0" ...attributes role="tabpanel" aria-labelledby={{@tabId}} id={{@id}}>
+      {{yield}}
+    </div>
+  {{/if}}
 </template>;
+
+/**
+ * Stands in for a part of a tab that the current pass does not render.
+ */
+const Nothing: TOC<{
+  Element: HTMLButtonElement & HTMLAnchorElement & HTMLDivElement;
+  Blocks: { default: [] };
+}> = <template></template>;
 
 function isString(x: unknown): x is string {
   return typeof x === "string";
@@ -229,6 +235,12 @@ class TabContainer extends Component<{
     state: TabState;
 
     /**
+     * @internal
+     * true when this instance renders the panel, false when it renders the tab
+     */
+    inPanel?: boolean;
+
+    /**
      * When opting for a "controlled component",
      * the value will be needed to make sense of the selected tab.
      *
@@ -259,7 +271,7 @@ class TabContainer extends Component<{
     ];
   };
 }> {
-  id = `ember-primitives__tab-${uniqueId()}`;
+  id = this.args.state.nextTabId(this.args.inPanel ?? false);
 
   get tabId() {
     return `${this.id}__tab`;
@@ -274,7 +286,26 @@ class TabContainer extends Component<{
   }
 
   <template>
-    {{#if @label}}
+    {{#if @inPanel}}
+      {{#if @label}}
+        <TabContent @state={{@state}} @id={{this.panelId}} @tabId={{this.tabId}}>
+          {{#if @content}}
+            {{#if (isString @content)}}
+              {{@content}}
+            {{else}}
+              <@content />
+            {{/if}}
+          {{else}}
+            {{yield}}
+          {{/if}}
+        </TabContent>
+      {{else}}
+        {{yield
+          (makeTab Nothing Nothing)
+          (component TabContent state=@state id=this.panelId tabId=this.tabId)
+        }}
+      {{/if}}
+    {{else if @label}}
       <TabButton
         @state={{@state}}
         @id={{this.tabId}}
@@ -288,18 +319,6 @@ class TabContainer extends Component<{
           <@label />
         {{/if}}
       </TabButton>
-
-      <TabContent @state={{@state}} @id={{this.panelId}} @tabId={{this.tabId}}>
-        {{#if @content}}
-          {{#if (isString @content)}}
-            {{@content}}
-          {{else}}
-            <@content />
-          {{/if}}
-        {{else}}
-          {{yield}}
-        {{/if}}
-      </TabContent>
     {{else}}
       {{yield
         (makeTab
@@ -313,7 +332,7 @@ class TabContainer extends Component<{
           )
           (component TabLink state=@state value=@value id=this.tabId panelId=this.panelId)
         )
-        (component TabContent state=@state id=this.panelId tabId=this.tabId)
+        Nothing
       }}
     {{/if}}
   </template>
@@ -415,12 +434,29 @@ class TabState {
   tabpanelId: string;
   #token: unknown;
 
+  #tabCount = 0;
+  #panelCount = 0;
+
   constructor(args: { activeTab?: string; onChange?: () => void }) {
     this.args = args;
 
     this.id = `ember-primitives-${uniqueId()}`;
     this.labelId = `${this.id}__label`;
     this.tabpanelId = `${this.id}__tabpanel`;
+  }
+
+  /**
+   * The block of <Tabs> renders two times:
+   * one time in the tablist for the tabs,
+   * and one time after the tablist for the panels.
+   *
+   * The n-th tab and the n-th panel get the same id,
+   * so that the aria attributes link them.
+   */
+  nextTabId(inPanel: boolean) {
+    const index = inPanel ? this.#panelCount++ : this.#tabCount++;
+
+    return `${this.id}__tab-${index}`;
   }
 
   get activationMode() {
@@ -543,9 +579,15 @@ export class Tabs extends Component<Signature> {
         }}
       </div>
       {{!
-        Tab's contents are portaled in to this element
+        The block renders again here for the panels,
+        so that the panels are in the first render, without a second pass.
+        That keeps the DOM of a server render when the client rehydrates it.
       }}
-      <div class="ember-primitives__tabs__tabpanel" id={{this.state.tabpanelId}}></div>
+      <div class="ember-primitives__tabs__tabpanel" id={{this.state.tabpanelId}}>
+        {{yield
+          (makeAPI (component TabContainer state=this.state inPanel=true) (component Nothing))
+        }}
+      </div>
     </div>
   </template>
 }

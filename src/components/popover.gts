@@ -1,0 +1,259 @@
+import { hash } from "@ember/helper";
+
+import { arrow } from "@floating-ui/dom";
+import { element } from "ember-element-helper";
+import { modifier as eModifier } from "ember-modifier";
+import { cell } from "ember-resources";
+
+import { FloatingUI } from "../floating-ui.ts";
+
+import type { Signature as FloatingUiComponentSignature } from "../floating-ui/component.gts";
+import type { Signature as HookSignature } from "../floating-ui/modifier.ts";
+import type { TOC } from "@ember/component/template-only";
+import type { Middleware } from "@floating-ui/dom";
+import type { ModifierLike, WithBoundArgs } from "@glint/template";
+
+export interface Signature {
+  Args: {
+    /**
+     * See the Floating UI's [flip docs](https://floating-ui.com/docs/flip) for possible values.
+     *
+     * `elementContext` defaults to `'both'`, so the popover flips when it overflows
+     * the viewport, and when a scroll container clips its reference element.
+     *
+     * This argument is forwarded to the `<FloatingUI>` component.
+     */
+    flipOptions?: HookSignature["Args"]["Named"]["flipOptions"];
+    /**
+     * Array of one or more objects to add to Floating UI's list of [middleware](https://floating-ui.com/docs/middleware)
+     *
+     * This argument is forwarded to the `<FloatingUI>` component.
+     */
+    middleware?: HookSignature["Args"]["Named"]["middleware"];
+    /**
+     * See the Floating UI's [offset docs](https://floating-ui.com/docs/offset) for possible values.
+     *
+     * This argument is forwarded to the `<FloatingUI>` component.
+     */
+    offsetOptions?: HookSignature["Args"]["Named"]["offsetOptions"];
+    /**
+     * One of the possible [`placements`](https://floating-ui.com/docs/computeposition#placement). The default is 'bottom'.
+     *
+     * Possible values are
+     * - top
+     * - bottom
+     * - right
+     * - left
+     *
+     * And may optionally have `-start` or `-end` added to adjust position along the side.
+     *
+     * This argument is forwarded to the `<FloatingUI>` component.
+     */
+    placement?: `${"top" | "bottom" | "left" | "right"}${"" | "-start" | "-end"}`;
+    /**
+     * See the Floating UI's [shift docs](https://floating-ui.com/docs/shift) for possible values.
+     *
+     * This argument is forwarded to the `<FloatingUI>` component.
+     */
+    shiftOptions?: HookSignature["Args"]["Named"]["shiftOptions"];
+    /**
+     * CSS position property, either `fixed` or `absolute`.
+     *
+     * Pros and cons of each strategy are explained on [Floating UI's Docs](https://floating-ui.com/docs/computePosition#strategy)
+     *
+     * This argument is forwarded to the `<FloatingUI>` component.
+     */
+    strategy?: HookSignature["Args"]["Named"]["strategy"];
+  };
+  Blocks: {
+    default: [
+      {
+        reference: FloatingUiComponentSignature["Blocks"]["default"][0];
+        setReference: FloatingUiComponentSignature["Blocks"]["default"][2]["setReference"];
+        Content: WithBoundArgs<typeof Content, "floating">;
+        data: FloatingUiComponentSignature["Blocks"]["default"][2]["data"];
+        arrow: ModifierLike<{ Element: HTMLElement }>;
+      },
+    ];
+  };
+}
+
+const showPopover = eModifier<{ Element: Element }>((element) => {
+  const el = element as HTMLElement;
+
+  // Reset [popover] UA overflow default that clips arrows positioned outside
+  el.style.setProperty("overflow", "visible");
+
+  // Don't promote to top layer if already inside a popover — the parent
+  // popover already handles layering. Adding both to the top layer causes
+  // stacking issues where the parent renders on top of the child.
+  if (el.parentElement?.closest("[popover]")) {
+    el.removeAttribute("popover");
+
+    // <dialog> elements are hidden by default — ensure they're visible
+    // when opting out of the top layer.
+    if (el instanceof HTMLDialogElement) {
+      el.setAttribute("open", "");
+    }
+  } else {
+    el.showPopover();
+  }
+
+  return () => {
+    try {
+      el.hidePopover();
+    } catch {
+      /* already hidden */
+    }
+  };
+});
+
+function getElementTag(tagName: undefined | string) {
+  return tagName || "div";
+}
+
+/**
+ * Content uses `popover="manual"` + `showPopover()` to promote
+ * the element to the browser's top layer. This escapes all ancestor
+ * overflow clipping and stacking contexts — the same guarantee that
+ * portalling provided, but using the browser's native mechanism.
+ */
+const Content: TOC<{
+  Element: HTMLDivElement;
+  Args: {
+    floating: ModifierLike<{ Element: HTMLElement }>;
+    /**
+     * By default the popover content is wrapped in a div.
+     * You may change this by supplying the name of an element here.
+     *
+     * For example:
+     * ```gjs
+     * <Popover as |p|>
+     *  <p.Content @as="dialog">
+     *    this is now focus trapped
+     *  </p.Content>
+     * </Popover>
+     * ```
+     */
+    as?: string;
+  };
+  Blocks: { default: [] };
+}> = <template>
+  {{#let (element (getElementTag @as)) as |El|}}
+    {{! @glint-ignore
+          https://github.com/tildeio/ember-element-helper/issues/91
+          https://github.com/typed-ember/glint/issues/610
+    }}
+    <El popover="manual" {{showPopover}} {{@floating}} ...attributes>
+      {{yield}}
+    </El>
+  {{/let}}
+</template>;
+
+interface AttachArrowSignature {
+  Element: HTMLElement;
+  Args: {
+    Named: {
+      arrowElement: ReturnType<typeof ArrowElement>;
+      data:
+        | undefined
+        | {
+            placement: string;
+            middlewareData?: {
+              arrow?: { x?: number; y?: number };
+            };
+          };
+    };
+  };
+}
+
+const arrowSides = {
+  top: "bottom",
+  right: "left",
+  bottom: "top",
+  left: "right",
+};
+
+type Direction = "top" | "bottom" | "left" | "right";
+type Placement = `${Direction}${"" | "-start" | "-end"}`;
+
+const attachArrow: ModifierLike<AttachArrowSignature> = eModifier<AttachArrowSignature>(
+  (element, _: [], named) => {
+    if (element === named.arrowElement.current) {
+      if (!named.data) return;
+      if (!named.data.middlewareData) return;
+
+      const { arrow } = named.data.middlewareData;
+      const { placement } = named.data;
+
+      if (!arrow) return;
+      if (!placement) return;
+
+      const { x: arrowX, y: arrowY } = arrow;
+      const otherSide = (placement as Placement).split("-")[0] as Direction;
+      const staticSide = arrowSides[otherSide];
+
+      Object.assign(named.arrowElement.current.style, {
+        left: arrowX != null ? `${arrowX}px` : "",
+        top: arrowY != null ? `${arrowY}px` : "",
+        right: "",
+        bottom: "",
+        [staticSide]: "-4px",
+      });
+
+      return;
+    }
+
+    void (async () => {
+      await Promise.resolve();
+      named.arrowElement.set(element);
+    })();
+  },
+);
+
+const ArrowElement: () => ReturnType<typeof cell<HTMLElement>> = () => cell<HTMLElement>();
+
+function maybeAddArrow(middleware: Middleware[] | undefined, element: Element | undefined) {
+  const result = [...(middleware || [])];
+
+  if (element) {
+    result.push(arrow({ element }));
+  }
+
+  return result;
+}
+
+function flipOptions(options: HookSignature["Args"]["Named"]["flipOptions"]) {
+  return {
+    elementContext: "both" as const,
+    ...options,
+  };
+}
+
+export const Popover: TOC<Signature> = <template>
+  {{#let (ArrowElement) as |arrowElement|}}
+    <FloatingUI
+      @placement={{@placement}}
+      @strategy={{@strategy}}
+      @middleware={{maybeAddArrow @middleware arrowElement.current}}
+      @flipOptions={{flipOptions @flipOptions}}
+      @shiftOptions={{@shiftOptions}}
+      @offsetOptions={{@offsetOptions}}
+      as |reference floating extra|
+    >
+      {{#let (modifier attachArrow arrowElement=arrowElement data=extra.data) as |arrow|}}
+        {{yield
+          (hash
+            reference=reference
+            setReference=extra.setReference
+            Content=(component Content floating=floating)
+            data=extra.data
+            arrow=arrow
+          )
+        }}
+      {{/let}}
+    </FloatingUI>
+  {{/let}}
+</template>;
+
+export default Popover;

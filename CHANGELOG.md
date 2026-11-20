@@ -1,5 +1,27 @@
 # Changelog 
 
+## Release (2026-11-20)
+
+* ember-primitives 0.64.3 (patch)
+* @universal-ember/docs-support 0.9.17 (patch)
+
+#### :bug: Bug Fix
+* `ember-primitives`
+  * [#860](https://github.com/universal-ember/ember-primitives/pull/860) Render tab panels in the first render ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `@universal-ember/docs-support`
+  * [#859](https://github.com/universal-ember/ember-primitives/pull/859) docs: use tracked() instead of cell() ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+* `ember-primitives`, `@universal-ember/docs-support`
+  * [#855](https://github.com/universal-ember/ember-primitives/pull/855) Use ember-source 7.4 by default in docs and tests ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-primitives`, `@universal-ember/docs-support`
+  * [#855](https://github.com/universal-ember/ember-primitives/pull/855) Use ember-source 7.4 by default in docs and tests ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-11-07)
 
 * ember-primitives 0.64.2 (patch)

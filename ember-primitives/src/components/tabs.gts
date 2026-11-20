@@ -286,7 +286,9 @@ class TabContainer extends Component<{
   }
 
   <template>
+    {{! Tabs renders each tab twice: once in the tablist, once in the tabpanel. }}
     {{#if @inPanel}}
+      {{! The tabpanel pass of <Tab @label="..." @content="..." /> and <Tab @label="...">content</Tab>. }}
       {{#if @label}}
         <TabContent @state={{@state}} @id={{this.panelId}} @tabId={{this.tabId}}>
           {{#if @content}}
@@ -300,12 +302,18 @@ class TabContainer extends Component<{
           {{/if}}
         </TabContent>
       {{else}}
+        {{!
+          The tabpanel pass of <Tab as |Label Content|>.
+          The block still calls <Label> and <Label.Link> in this pass.
+          They render nothing here, because the tablist pass renders them.
+        }}
         {{yield
           (makeTab Nothing Nothing)
           (component TabContent state=@state id=this.panelId tabId=this.tabId)
         }}
       {{/if}}
     {{else if @label}}
+      {{! The tablist pass of <Tab @label="..." @content="..." /> and <Tab @label="...">content</Tab>. }}
       <TabButton
         @state={{@state}}
         @id={{this.tabId}}
@@ -320,6 +328,7 @@ class TabContainer extends Component<{
         {{/if}}
       </TabButton>
     {{else}}
+      {{! The tablist pass of <Tab as |Label Content|>. The block calls <Content>, which renders nothing here. }}
       {{yield
         (makeTab
           (component
@@ -582,6 +591,7 @@ export class Tabs extends Component<Signature> {
         The block renders again here for the panels,
         so that the panels are in the first render, without a second pass.
         That keeps the DOM of a server render when the client rehydrates it.
+        Nothing replaces the tabs Label here, because the tablist pass renders it.
       }}
       <div class="ember-primitives__tabs__tabpanel" id={{this.state.tabpanelId}}>
         {{yield

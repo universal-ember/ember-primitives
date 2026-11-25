@@ -11,7 +11,7 @@ import { Link, type Signature as LinkSignature } from "./link.gts";
 import { Popover, type Signature as PopoverSignature } from "./popover.gts";
 
 import type { TOC } from "@ember/component/template-only";
-import type { WithBoundArgs } from "@glint/template";
+import type { ComponentLike, WithBoundArgs } from "@glint/template";
 
 type Cell<V> = ReturnType<typeof cell<V>>;
 type LinkArgs = LinkSignature["Args"];
@@ -84,37 +84,91 @@ function focusOnHover(e: PointerEvent) {
   }
 }
 
+export interface ItemArgs {
+  /**
+   * Called when the item is clicked, or activated with the keyboard.
+   * The menu closes after this runs.
+   */
+  onSelect?: (event: Event) => void;
+  /**
+   * Use `DisabledItemArgs` to disable an item.
+   */
+  disabled?: never;
+}
+
+export interface DisabledItemArgs {
+  /**
+   * When `true`, the item stays focusable and in the arrow-key order,
+   * but a click does not call `@onSelect` and does not close the menu.
+   *
+   * Sets `aria-disabled="true"` on the item.
+   */
+  disabled: boolean;
+  /**
+   * Called when the item is clicked while `@disabled` is `false`.
+   */
+  onSelect?: (event: Event) => void;
+}
+
 interface PrivateItemSignature {
   Element: HTMLButtonElement;
-  Args: { onSelect?: (event: Event) => void; toggle: () => void };
+  Args: {
+    onSelect?: (event: Event) => void;
+    disabled?: boolean;
+    toggle: () => void;
+  };
   Blocks: { default: [] };
 }
 
 export interface ItemSignature {
   Element: PrivateItemSignature["Element"];
-  Args: Omit<PrivateItemSignature["Args"], "toggle">;
+  Args: ItemArgs;
   Blocks: PrivateItemSignature["Blocks"];
 }
 
+export interface DisabledItemSignature {
+  Element: PrivateItemSignature["Element"];
+  Args: DisabledItemArgs;
+  Blocks: PrivateItemSignature["Blocks"];
+}
+
+/**
+ * A disabled item gets no click listener at all, so the click neither
+ * selects the item nor closes the menu.
+ */
+const clickUnlessDisabled = eModifier<{
+  Element: HTMLElement;
+  Args: {
+    Positional: [handler: ((event: Event) => void) | undefined, disabled: boolean | undefined];
+  };
+}>((element, [handler, disabled]) => {
+  if (disabled || !handler) return;
+
+  element.addEventListener("click", handler);
+
+  return () => element.removeEventListener("click", handler);
+});
+
 const Item: TOC<PrivateItemSignature> = <template>
-  {{! @glint-expect-error }}
-  {{#let (if @onSelect (modifier on "click" @onSelect)) as |maybeClick|}}
-    <button
-      type="button"
-      role="menuitem"
-      {{! @glint-expect-error }}
-      {{maybeClick}}
-      {{on "click" @toggle}}
-      {{on "pointermove" focusOnHover}}
-      ...attributes
-    >
-      {{yield}}
-    </button>
-  {{/let}}
+  <button
+    type="button"
+    role="menuitem"
+    aria-disabled={{if @disabled "true"}}
+    {{clickUnlessDisabled @onSelect @disabled}}
+    {{clickUnlessDisabled @toggle @disabled}}
+    {{on "pointermove" focusOnHover}}
+    ...attributes
+  >
+    {{yield}}
+  </button>
 </template>;
 
 interface LinkItemArgs extends LinkArgs {
   toggle: () => void;
+  /**
+   * Link items cannot be disabled. Use `Item` with `@disabled` instead.
+   */
+  disabled?: never;
 }
 
 interface PrivateLinkItemSignature {
@@ -125,7 +179,7 @@ interface PrivateLinkItemSignature {
 
 export interface LinkItemSignature {
   Element: PrivateLinkItemSignature["Element"];
-  Args: LinkArgs;
+  Args: Omit<LinkItemArgs, "toggle">;
   Blocks: PrivateLinkItemSignature["Blocks"];
 }
 
@@ -210,7 +264,11 @@ interface PrivateContentSignature {
   Blocks: {
     default: [
       {
-        Item: WithBoundArgs<typeof Item, "toggle">;
+        Item: ComponentLike<{
+          Element: ItemSignature["Element"];
+          Args: ItemArgs | DisabledItemArgs;
+          Blocks: ItemSignature["Blocks"];
+        }>;
         LinkItem: WithBoundArgs<typeof LinkItem, "toggle">;
         Separator: typeof Separator;
       },

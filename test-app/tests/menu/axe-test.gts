@@ -21,6 +21,7 @@ module('<Menu> | axe', function (hooks) {
             <c.Item>One</c.Item>
             <c.Separator />
             <c.Item>Two</c.Item>
+            <c.Item @disabled={{true}}>Three</c.Item>
           </m.Content>
         </Menu>
       </template>

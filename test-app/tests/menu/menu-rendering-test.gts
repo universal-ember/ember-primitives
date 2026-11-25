@@ -1,3 +1,4 @@
+import { tracked } from '@glimmer/tracking';
 import { assert as debugAssert } from '@ember/debug';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -7,6 +8,7 @@ import {
   findAll,
   focus,
   render,
+  settled,
   triggerEvent,
   triggerKeyEvent,
   waitUntil,
@@ -321,6 +323,111 @@ module('Rendering | menu', function (hooks) {
     await waitForFocus('.trigger');
 
     assert.dom('.trigger').isFocused();
+  });
+
+  test('a disabled item does not select or close the menu', async function (assert) {
+    function select(value: string) {
+      assert.step(value);
+    }
+
+    await render(
+      <template>
+        <Menu as |m|>
+          <m.Trigger class="trigger">Trigger</m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.Item @onSelect={{fn select "1"}}>Item 1</c.Item>
+            <c.Item @disabled={{true}} @onSelect={{fn select "2"}}>Item 2</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+
+    const items = findAll('[role="menuitem"]');
+
+    assert.dom(items[0]).doesNotHaveAria('disabled');
+    assert.dom(items[1]).hasAria('disabled', 'true');
+    assert.dom(items[1]).doesNotHaveAttribute('disabled');
+
+    await click(items[1] as HTMLElement);
+
+    assert.verifySteps([]);
+    assert.dom('.content').exists();
+    assert.dom('.trigger').hasAria('expanded', 'true');
+  });
+
+  test('a disabled item stays in the arrow key order', async function (assert) {
+    await render(
+      <template>
+        <Menu as |m|>
+          <m.Trigger class="trigger">Trigger</m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.Item>Item 1</c.Item>
+            <c.Item @disabled={{true}}>Item 2</c.Item>
+            <c.Item>Item 3</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+
+    const items = findAll('[role="menuitem"]');
+
+    assert.dom(items[0]).isFocused();
+
+    debugAssert(`Cannot use triggerKeyEvent with no activeElement`, document.activeElement);
+    await triggerKeyEvent(document.activeElement, 'keydown', 'ArrowDown');
+
+    assert.dom(items[1]).isFocused();
+
+    await triggerEvent(items[2] as HTMLElement, 'pointermove');
+    await triggerEvent(items[1] as HTMLElement, 'pointermove');
+
+    assert.dom(items[1]).isFocused();
+  });
+
+  test('an item that becomes enabled can be selected', async function (assert) {
+    class State {
+      @tracked disabled = true;
+    }
+
+    const state = new State();
+
+    function select(value: string) {
+      assert.step(value);
+    }
+
+    await render(
+      <template>
+        <Menu as |m|>
+          <m.Trigger class="trigger">Trigger</m.Trigger>
+
+          <m.Content class="content" as |c|>
+            <c.Item @disabled={{state.disabled}} @onSelect={{fn select "1"}}>Item 1</c.Item>
+          </m.Content>
+        </Menu>
+      </template>
+    );
+
+    await click('.trigger');
+    await click('[role="menuitem"]');
+
+    assert.verifySteps([]);
+    assert.dom('.content').exists();
+
+    state.disabled = false;
+    await settled();
+
+    assert.dom('[role="menuitem"]').doesNotHaveAria('disabled');
+
+    await click('[role="menuitem"]');
+
+    assert.verifySteps(['1']);
+    assert.dom('.content').doesNotExist();
   });
 
   test('clicking outside closes the content', async function (assert) {

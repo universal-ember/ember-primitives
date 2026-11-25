@@ -115,13 +115,13 @@ Keep in mind that for the modifier to do its work, your custom component must us
 
 ## Disabled items
 
-Pass `@disabled={{true}}` to an `Item` to disable it.
+Use `DisabledItem` for an item that is unavailable. To switch between the two, use `{{#if}}`.
 
-A disabled item:
+A `DisabledItem`:
 
 - stays focusable, and arrow keys still move to it
 - has `aria-disabled="true"`, not the `disabled` attribute
-- does not call `@onSelect` when you click it or press <kbd>Enter</kbd>
+- does nothing when you click it or press <kbd>Enter</kbd>
 - does not close the menu
 
 Screen reader users can find a disabled item and hear that it is unavailable. See [Focusability of disabled controls](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#focusabilityofdisabledcontrols).
@@ -135,7 +135,7 @@ import { Menu } from "ember-primitives";
 
     <m.Content class="content" as |c|>
       <c.Item>Edit</c.Item>
-      <c.Item @disabled={{true}}>Delete</c.Item>
+      <c.DisabledItem>Delete</c.DisabledItem>
     </m.Content>
   </Menu>
 
@@ -184,41 +184,36 @@ import { Menu } from "ember-primitives";
 
 ## Custom items
 
-You can wrap `Item` in your own component. Pass the yielded `Item` to your component as an argument, and forward `...attributes` to it.
+You can wrap `Item` or `DisabledItem` in your own component. Pass the yielded component to your component as an argument, and forward `...attributes` to it.
 
 The yielded `Item` is the only way to close the menu from inside it. `Item` also gives you:
 
 - `role="menuitem"` on a `<button type="button">`
 - `@onSelect`, and a menu that closes after a click or <kbd>Enter</kbd>
-- `@disabled`, with no select and no close
 - focus that follows the pointer, as in native menus
 
 You can use your own element instead of `Item`. Give it `role="menuitem"` and make it focusable, and arrow keys will move to it. The menu does not close when you click it, so do this only for items that keep the menu open.
 
-This example takes the reason as `@disabled`. The reason shows under the item label. `aria-describedby` makes screen readers read the reason after the label.
+This example shows why an item is disabled. The reason shows under the item label. `aria-describedby` makes screen readers read the reason after the label.
 
 ```gjs live preview no-shadow
 import { uniqueId } from "@ember/helper";
 import { Menu } from "ember-primitives";
 
+const actions = [
+  { label: "Edit" },
+  { label: "Delete", disabledReason: "Only admins can delete this project." },
+];
+
 /**
- * `@disabled` is the reason the item is disabled.
- * An item with no reason is enabled.
+ * `aria-labelledby` keeps the reason out of the item name.
  */
-const ItemWithReason = <template>
+const DisabledWithReason = <template>
   {{#let (uniqueId) (uniqueId) as |labelId reasonId|}}
-    <@Item
-      @disabled={{Boolean @disabled}}
-      @onSelect={{@onSelect}}
-      aria-labelledby={{labelId}}
-      aria-describedby={{if @disabled reasonId}}
-      ...attributes
-    >
+    <@DisabledItem aria-labelledby={{labelId}} aria-describedby={{reasonId}} ...attributes>
       <span id={{labelId}}>{{yield}}</span>
-      {{#if @disabled}}
-        <span id={{reasonId}} class="reason">{{@disabled}}</span>
-      {{/if}}
-    </@Item>
+      <span id={{reasonId}} class="reason">{{@reason}}</span>
+    </@DisabledItem>
   {{/let}}
 </template>;
 
@@ -227,10 +222,15 @@ const ItemWithReason = <template>
     <m.Trigger class="trigger">Actions</m.Trigger>
 
     <m.Content class="content" as |c|>
-      <ItemWithReason @Item={{c.Item}}>Edit</ItemWithReason>
-      <ItemWithReason @Item={{c.Item}} @disabled="Only admins can delete this project.">
-        Delete
-      </ItemWithReason>
+      {{#each actions as |action|}}
+        {{#if action.disabledReason}}
+          <DisabledWithReason @DisabledItem={{c.DisabledItem}} @reason={{action.disabledReason}}>
+            {{action.label}}
+          </DisabledWithReason>
+        {{else}}
+          <c.Item>{{action.label}}</c.Item>
+        {{/if}}
+      {{/each}}
     </m.Content>
   </Menu>
 

@@ -325,7 +325,7 @@ module('Rendering | menu', function (hooks) {
     assert.dom('.trigger').isFocused();
   });
 
-  test('a disabled item does not select or close the menu', async function (assert) {
+  test('a disabled item does not close the menu', async function (assert) {
     function select(value: string) {
       assert.step(value);
     }
@@ -337,7 +337,7 @@ module('Rendering | menu', function (hooks) {
 
           <m.Content class="content" as |c|>
             <c.Item @onSelect={{fn select "1"}}>Item 1</c.Item>
-            <c.Item @disabled={{true}} @onSelect={{fn select "2"}}>Item 2</c.Item>
+            <c.DisabledItem>Item 2</c.DisabledItem>
           </m.Content>
         </Menu>
       </template>
@@ -366,7 +366,7 @@ module('Rendering | menu', function (hooks) {
 
           <m.Content class="content" as |c|>
             <c.Item>Item 1</c.Item>
-            <c.Item @disabled={{true}}>Item 2</c.Item>
+            <c.DisabledItem>Item 2</c.DisabledItem>
             <c.Item>Item 3</c.Item>
           </m.Content>
         </Menu>
@@ -390,7 +390,7 @@ module('Rendering | menu', function (hooks) {
     assert.dom(items[1]).isFocused();
   });
 
-  test('an item that becomes enabled can be selected', async function (assert) {
+  test('swapping a disabled item for an item makes it selectable', async function (assert) {
     class State {
       @tracked disabled = true;
     }
@@ -407,7 +407,11 @@ module('Rendering | menu', function (hooks) {
           <m.Trigger class="trigger">Trigger</m.Trigger>
 
           <m.Content class="content" as |c|>
-            <c.Item @disabled={{state.disabled}} @onSelect={{fn select "1"}}>Item 1</c.Item>
+            {{#if state.disabled}}
+              <c.DisabledItem>Item 1</c.DisabledItem>
+            {{else}}
+              <c.Item @onSelect={{fn select "1"}}>Item 1</c.Item>
+            {{/if}}
           </m.Content>
         </Menu>
       </template>

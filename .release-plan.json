@@ -1,39 +1,27 @@
 {
   "solution": {
     "ember-primitives": {
-      "impact": "patch",
-      "oldVersion": "0.64.2",
-      "newVersion": "0.64.3",
+      "impact": "minor",
+      "oldVersion": "0.64.3",
+      "newVersion": "0.65.0",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
         }
       ],
       "pkgJSONPath": "./ember-primitives/package.json"
     },
     "@universal-ember/docs-support": {
       "impact": "patch",
-      "oldVersion": "0.9.16",
-      "newVersion": "0.9.17",
+      "oldVersion": "0.9.17",
+      "newVersion": "0.9.18",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Has dependency `workspace:^` on ember-primitives"
         }
       ],
       "pkgJSONPath": "./packages/docs-support/package.json"
@@ -42,5 +30,5 @@
       "oldVersion": "0.4.2"
     }
   },
-  "description": "## Release (2026-11-20)\n\n* ember-primitives 0.64.3 (patch)\n* @universal-ember/docs-support 0.9.17 (patch)\n\n#### :bug: Bug Fix\n* `ember-primitives`\n  * [#860](https://github.com/universal-ember/ember-primitives/pull/860) Render tab panels in the first render ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `@universal-ember/docs-support`\n  * [#859](https://github.com/universal-ember/ember-primitives/pull/859) docs: use tracked() instead of cell() ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n* `ember-primitives`, `@universal-ember/docs-support`\n  * [#855](https://github.com/universal-ember/ember-primitives/pull/855) Use ember-source 7.4 by default in docs and tests ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `ember-primitives`, `@universal-ember/docs-support`\n  * [#855](https://github.com/universal-ember/ember-primitives/pull/855) Use ember-source 7.4 by default in docs and tests ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-11-25)\n\n* ember-primitives 0.65.0 (minor)\n* @universal-ember/docs-support 0.9.18 (patch)\n\n#### :rocket: Enhancement\n* `ember-primitives`\n  * [#862](https://github.com/universal-ember/ember-primitives/pull/862) Support @disabled on Menu Item and LinkItem ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#861](https://github.com/universal-ember/ember-primitives/pull/861) Add DisabledItem to Menu ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

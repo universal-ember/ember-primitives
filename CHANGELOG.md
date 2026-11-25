@@ -1,5 +1,18 @@
 # Changelog 
 
+## Release (2026-11-25)
+
+* ember-primitives 0.65.0 (minor)
+* @universal-ember/docs-support 0.9.18 (patch)
+
+#### :rocket: Enhancement
+* `ember-primitives`
+  * [#862](https://github.com/universal-ember/ember-primitives/pull/862) Support @disabled on Menu Item and LinkItem ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#861](https://github.com/universal-ember/ember-primitives/pull/861) Add DisabledItem to Menu ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-11-20)
 
 * ember-primitives 0.64.3 (patch)

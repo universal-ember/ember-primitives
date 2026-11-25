@@ -84,6 +84,42 @@ function focusOnHover(e: PointerEvent) {
   }
 }
 
+interface PrivateItemSignature {
+  Element: HTMLButtonElement;
+  Args: {
+    onSelect?: (event: Event) => void;
+    toggle: () => void;
+    /**
+     * Items cannot be disabled. Use `DisabledItem` instead.
+     */
+    disabled?: never;
+  };
+  Blocks: { default: [] };
+}
+
+export interface ItemSignature {
+  Element: PrivateItemSignature["Element"];
+  Args: Omit<PrivateItemSignature["Args"], "toggle">;
+  Blocks: PrivateItemSignature["Blocks"];
+}
+
+const Item: TOC<PrivateItemSignature> = <template>
+  {{! @glint-expect-error }}
+  {{#let (if @onSelect (modifier on "click" @onSelect)) as |maybeClick|}}
+    <button
+      type="button"
+      role="menuitem"
+      {{! @glint-expect-error }}
+      {{maybeClick}}
+      {{on "click" @toggle}}
+      {{on "pointermove" focusOnHover}}
+      ...attributes
+    >
+      {{yield}}
+    </button>
+  {{/let}}
+</template>;
+
 export interface DisabledItemSignature {
   Element: HTMLButtonElement;
   Blocks: { default: [] };
@@ -106,60 +142,16 @@ const DisabledItem: TOC<DisabledItemSignature> = <template>
   </button>
 </template>;
 
-interface PrivateItemSignature {
-  Element: HTMLButtonElement;
-  Args: {
-    onSelect?: (event: Event) => void;
-    toggle: () => void;
-    /**
-     * Renders a `DisabledItem` instead.
-     * `@onSelect` is not called, and a click does not close the menu.
-     */
-    disabled?: boolean;
-  };
-  Blocks: { default: [] };
-}
-
-export interface ItemSignature {
-  Element: PrivateItemSignature["Element"];
-  Args: Omit<PrivateItemSignature["Args"], "toggle">;
-  Blocks: PrivateItemSignature["Blocks"];
-}
-
-const Item: TOC<PrivateItemSignature> = <template>
-  {{#if @disabled}}
-    <DisabledItem ...attributes>{{yield}}</DisabledItem>
-  {{else}}
-    {{! @glint-expect-error }}
-    {{#let (if @onSelect (modifier on "click" @onSelect)) as |maybeClick|}}
-      <button
-        type="button"
-        role="menuitem"
-        {{! @glint-expect-error }}
-        {{maybeClick}}
-        {{on "click" @toggle}}
-        {{on "pointermove" focusOnHover}}
-        ...attributes
-      >
-        {{yield}}
-      </button>
-    {{/let}}
-  {{/if}}
-</template>;
-
 interface LinkItemArgs extends LinkArgs {
   toggle: () => void;
   /**
-   * Renders a `DisabledItem` instead, with no link.
+   * Link items cannot be disabled. Use `DisabledItem` instead.
    */
-  disabled?: boolean;
+  disabled?: never;
 }
 
 interface PrivateLinkItemSignature {
-  /**
-   * A `<button>` when `@disabled` is `true`.
-   */
-  Element: HTMLAnchorElement | HTMLButtonElement;
+  Element: HTMLAnchorElement;
   Args: LinkItemArgs;
   Blocks: { default: [] };
 }
@@ -171,21 +163,17 @@ export interface LinkItemSignature {
 }
 
 const LinkItem: TOC<PrivateLinkItemSignature> = <template>
-  {{#if @disabled}}
-    <DisabledItem ...attributes>{{yield}}</DisabledItem>
-  {{else}}
-    <Link
-      role="menuitem"
-      @href={{@href}}
-      @includeActiveQueryParams={{@includeActiveQueryParams}}
-      @activeOnSubPaths={{@activeOnSubPaths}}
-      {{on "click" @toggle}}
-      {{on "pointermove" focusOnHover}}
-      ...attributes
-    >
-      {{yield}}
-    </Link>
-  {{/if}}
+  <Link
+    role="menuitem"
+    @href={{@href}}
+    @includeActiveQueryParams={{@includeActiveQueryParams}}
+    @activeOnSubPaths={{@activeOnSubPaths}}
+    {{on "click" @toggle}}
+    {{on "pointermove" focusOnHover}}
+    ...attributes
+  >
+    {{yield}}
+  </Link>
 </template>;
 
 const installContent = eModifier<{

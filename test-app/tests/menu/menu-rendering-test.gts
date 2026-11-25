@@ -390,7 +390,7 @@ module('Rendering | menu', function (hooks) {
     assert.dom(items[1]).isFocused();
   });
 
-  test('Item with @disabled does not select until it is enabled', async function (assert) {
+  test('swapping a disabled item for an item makes it selectable', async function (assert) {
     class State {
       @tracked disabled = true;
     }
@@ -407,16 +407,17 @@ module('Rendering | menu', function (hooks) {
           <m.Trigger class="trigger">Trigger</m.Trigger>
 
           <m.Content class="content" as |c|>
-            <c.Item @disabled={{state.disabled}} @onSelect={{fn select "1"}}>Item 1</c.Item>
+            {{#if state.disabled}}
+              <c.DisabledItem>Item 1</c.DisabledItem>
+            {{else}}
+              <c.Item @onSelect={{fn select "1"}}>Item 1</c.Item>
+            {{/if}}
           </m.Content>
         </Menu>
       </template>
     );
 
     await click('.trigger');
-
-    assert.dom('[role="menuitem"]').hasAria('disabled', 'true');
-
     await click('[role="menuitem"]');
 
     assert.verifySteps([]);
@@ -431,31 +432,6 @@ module('Rendering | menu', function (hooks) {
 
     assert.verifySteps(['1']);
     assert.dom('.content').doesNotExist();
-  });
-
-  test('LinkItem with @disabled renders no link and does not close the menu', async function (assert) {
-    await render(
-      <template>
-        <Menu as |m|>
-          <m.Trigger class="trigger">Trigger</m.Trigger>
-
-          <m.Content class="content" as |c|>
-            <c.LinkItem @href="/" @disabled={{true}} class="link">Item 1</c.LinkItem>
-          </m.Content>
-        </Menu>
-      </template>
-    );
-
-    await click('.trigger');
-
-    assert.dom('.link').hasTagName('button');
-    assert.dom('.link').hasAria('disabled', 'true');
-    assert.dom('.link').hasAttribute('role', 'menuitem');
-    assert.dom('.link').doesNotHaveAttribute('href');
-
-    await click('.link');
-
-    assert.dom('.content').exists();
   });
 
   test('clicking outside closes the content', async function (assert) {

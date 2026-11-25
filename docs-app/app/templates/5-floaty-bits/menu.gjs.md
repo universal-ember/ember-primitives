@@ -115,11 +115,9 @@ Keep in mind that for the modifier to do its work, your custom component must us
 
 ## Disabled items
 
-Pass `@disabled` to an `Item` or a `LinkItem` to disable it. A disabled item renders a `DisabledItem` in its place. You can also use `DisabledItem` directly.
+Use `DisabledItem` for an item that is unavailable. To switch between the two, use `{{#if}}`.
 
-A disabled `LinkItem` renders a `<button>` with no `href`.
-
-A disabled item:
+A `DisabledItem`:
 
 - stays focusable, and arrow keys still move to it
 - has `aria-disabled="true"`, not the `disabled` attribute
@@ -137,9 +135,7 @@ import { Menu } from "ember-primitives";
 
     <m.Content class="content" as |c|>
       <c.Item>Edit</c.Item>
-      <c.Item @disabled={{true}}>Delete</c.Item>
-      <c.LinkItem @href="/" @disabled={{true}}>Settings</c.LinkItem>
-      <c.DisabledItem>Archive</c.DisabledItem>
+      <c.DisabledItem>Delete</c.DisabledItem>
     </m.Content>
   </Menu>
 

@@ -1,0 +1,3 @@
+import './theme-toggle.css';
+export declare const ThemeToggle: import("@ember/component/template-only").TemplateOnlyComponent<never> & (abstract new () => import("@glint/template/-private/integration").InvokableInstance<() => import("@glint/template/-private/integration").ComponentReturn<{}>> & import("@glint/template/-private/integration").HasContext<import("@glint/template/-private/integration").TemplateContext<void, {}, {}, void>>);
+//# sourceMappingURL=theme-toggle.d.ts.map

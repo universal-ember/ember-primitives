@@ -86,7 +86,14 @@ function focusOnHover(e: PointerEvent) {
 
 interface PrivateItemSignature {
   Element: HTMLButtonElement;
-  Args: { onSelect?: (event: Event) => void; toggle: () => void };
+  Args: {
+    onSelect?: (event: Event) => void;
+    toggle: () => void;
+    /**
+     * Items cannot be disabled. Use `DisabledItem` instead.
+     */
+    disabled?: never;
+  };
   Blocks: { default: [] };
 }
 
@@ -113,8 +120,34 @@ const Item: TOC<PrivateItemSignature> = <template>
   {{/let}}
 </template>;
 
+export interface DisabledItemSignature {
+  Element: HTMLButtonElement;
+  Blocks: { default: [] };
+}
+
+/**
+ * Stays focusable and in the arrow-key order, so that screen reader users
+ * can find the item and hear that it is unavailable.
+ * The `disabled` attribute would remove it from both.
+ */
+const DisabledItem: TOC<DisabledItemSignature> = <template>
+  <button
+    type="button"
+    role="menuitem"
+    aria-disabled="true"
+    {{on "pointermove" focusOnHover}}
+    ...attributes
+  >
+    {{yield}}
+  </button>
+</template>;
+
 interface LinkItemArgs extends LinkArgs {
   toggle: () => void;
+  /**
+   * Link items cannot be disabled. Use `DisabledItem` instead.
+   */
+  disabled?: never;
 }
 
 interface PrivateLinkItemSignature {
@@ -125,7 +158,7 @@ interface PrivateLinkItemSignature {
 
 export interface LinkItemSignature {
   Element: PrivateLinkItemSignature["Element"];
-  Args: LinkArgs;
+  Args: Omit<LinkItemArgs, "toggle">;
   Blocks: PrivateLinkItemSignature["Blocks"];
 }
 
@@ -211,6 +244,7 @@ interface PrivateContentSignature {
     default: [
       {
         Item: WithBoundArgs<typeof Item, "toggle">;
+        DisabledItem: typeof DisabledItem;
         LinkItem: WithBoundArgs<typeof LinkItem, "toggle">;
         Separator: typeof Separator;
       },
@@ -237,6 +271,7 @@ const Content: TOC<PrivateContentSignature> = <template>
       {{yield
         (hash
           Item=(component Item toggle=@isOpen.toggle)
+          DisabledItem=DisabledItem
           LinkItem=(component LinkItem toggle=@isOpen.toggle)
           Separator=Separator
         )

@@ -113,6 +113,175 @@ Sometimes, you need to use an existing component as the trigger. `<Menu>` also y
 
 Keep in mind that for the modifier to do its work, your custom component must use [`...attributes`](https://guides.emberjs.com/v5.7.0/components/component-arguments-and-html-attributes/#toc_html-attributes) in some HTML element.
 
+## Disabled items
+
+Use `DisabledItem` for an item that is unavailable. To switch between the two, use `{{#if}}`.
+
+A `DisabledItem`:
+
+- stays focusable, and arrow keys still move to it
+- has `aria-disabled="true"`, not the `disabled` attribute
+- does nothing when you click it or press <kbd>Enter</kbd>
+- does not close the menu
+
+Screen reader users can find a disabled item and hear that it is unavailable. See [Focusability of disabled controls](https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#focusabilityofdisabledcontrols).
+
+```gjs live preview no-shadow
+import { Menu } from "ember-primitives";
+
+<template>
+  <Menu @offsetOptions={{8}} as |m|>
+    <m.Trigger class="trigger">Actions</m.Trigger>
+
+    <m.Content class="content" as |c|>
+      <c.Item>Edit</c.Item>
+      <c.DisabledItem>Delete</c.DisabledItem>
+    </m.Content>
+  </Menu>
+
+  <style>
+    .content {
+      all: unset;
+      min-width: 180px;
+      background: #fff;
+      color: #111827;
+      padding: 8px 0;
+      border-radius: 6px;
+      font-size: 14px;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content [role="menuitem"] {
+      all: unset;
+      display: block;
+      padding: 4px 12px;
+      cursor: pointer;
+    }
+
+    .content [role="menuitem"]:focus {
+      background-color: #f9fafb;
+    }
+
+    .content [role="menuitem"][aria-disabled="true"] {
+      color: #6b7280;
+      cursor: not-allowed;
+    }
+
+    .trigger {
+      border: 0;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #111827;
+      padding: 6px 12px;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+      cursor: pointer;
+    }
+  </style>
+</template>
+```
+
+## Custom items
+
+You can wrap `Item` or `DisabledItem` in your own component. Pass the yielded component to your component as an argument, and forward `...attributes` to it.
+
+The yielded `Item` is the only way to close the menu from inside it. `Item` also gives you:
+
+- `role="menuitem"` on a `<button type="button">`
+- `@onSelect`, and a menu that closes after a click or <kbd>Enter</kbd>
+- focus that follows the pointer, as in native menus
+
+You can use your own element instead of `Item`. Give it `role="menuitem"` and make it focusable, and arrow keys will move to it. The menu does not close when you click it, so do this only for items that keep the menu open.
+
+This example shows why an item is disabled. The reason shows under the item label. `aria-describedby` makes screen readers read the reason after the label.
+
+```gjs live preview no-shadow
+import { uniqueId } from "@ember/helper";
+import { Menu } from "ember-primitives";
+
+const actions = [
+  { label: "Edit" },
+  { label: "Delete", disabledReason: "Only admins can delete this project." },
+];
+
+/**
+ * `aria-labelledby` keeps the reason out of the item name.
+ */
+const DisabledWithReason = <template>
+  {{#let (uniqueId) (uniqueId) as |labelId reasonId|}}
+    <@DisabledItem aria-labelledby={{labelId}} aria-describedby={{reasonId}} ...attributes>
+      <span id={{labelId}}>{{yield}}</span>
+      <span id={{reasonId}} class="reason">{{@reason}}</span>
+    </@DisabledItem>
+  {{/let}}
+</template>;
+
+<template>
+  <Menu @offsetOptions={{8}} as |m|>
+    <m.Trigger class="trigger">Actions</m.Trigger>
+
+    <m.Content class="content" as |c|>
+      {{#each actions as |action|}}
+        {{#if action.disabledReason}}
+          <DisabledWithReason @DisabledItem={{c.DisabledItem}} @reason={{action.disabledReason}}>
+            {{action.label}}
+          </DisabledWithReason>
+        {{else}}
+          <c.Item>{{action.label}}</c.Item>
+        {{/if}}
+      {{/each}}
+    </m.Content>
+  </Menu>
+
+  <style>
+    .content {
+      all: unset;
+      min-width: 180px;
+      background: #fff;
+      color: #111827;
+      padding: 8px 0;
+      border-radius: 6px;
+      font-size: 14px;
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content [role="menuitem"] {
+      all: unset;
+      display: flex;
+      flex-direction: column;
+      padding: 4px 12px;
+      cursor: pointer;
+    }
+
+    .content [role="menuitem"]:focus {
+      background-color: #f9fafb;
+    }
+
+    .content [role="menuitem"][aria-disabled="true"] {
+      color: #6b7280;
+      cursor: not-allowed;
+    }
+
+    .content .reason {
+      font-size: 12px;
+    }
+
+    .trigger {
+      border: 0;
+      border-radius: 4px;
+      background-color: #fff;
+      color: #111827;
+      padding: 6px 12px;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+      cursor: pointer;
+    }
+  </style>
+</template>
+```
+
 ## Install
 
 ```hbs live
@@ -136,6 +305,8 @@ import { ComponentSignature } from "kolay";
 ## Accessibility
 
 Adheres to the [Menu Button WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/).
+
+Disabled items stay in the keyboard order. <kbd>Space</kbd> and <kbd>Enter</kbd> on a disabled item do nothing.
 
 ### Keyboard Interactions
 

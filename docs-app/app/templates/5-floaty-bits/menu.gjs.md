@@ -186,6 +186,15 @@ import { Menu } from "ember-primitives";
 
 You can wrap `Item` in your own component. Pass the yielded `Item` to your component as an argument, and forward `...attributes` to it.
 
+The yielded `Item` is the only way to close the menu from inside it. `Item` also gives you:
+
+- `role="menuitem"` on a `<button type="button">`
+- `@onSelect`, and a menu that closes after a click or <kbd>Enter</kbd>
+- `@disabled`, with no select and no close
+- focus that follows the pointer, as in native menus
+
+You can use your own element instead of `Item`. Give it `role="menuitem"` and make it focusable, and arrow keys will move to it. The menu does not close when you click it, so do this only for items that keep the menu open.
+
 This example takes the reason as `@disabled`. The reason shows under the item label. `aria-describedby` makes screen readers read the reason after the label.
 
 ```gjs live preview no-shadow
